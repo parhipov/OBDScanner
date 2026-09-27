@@ -1,0 +1,49 @@
+# Release on a version tag: git tag -a v1.02 -m "notes…" && git push origin v1.02
+# Builds the release APK (signed with the project key from keystore/, same as local builds, so it
+# installs over them), runs the unit tests and publishes a GitHub release with the APK attached.
+# The release text is the tag's annotation message.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # checkout turns an annotated tag into a lightweight one — fetch it again for its message.
+      - name: Release notes from the tag
+        run: |
+          git fetch --force origin "refs/tags/${GITHUB_REF_NAME}:refs/tags/${GITHUB_REF_NAME}"
+          git tag -l --format='%(contents)' "${GITHUB_REF_NAME}" > notes.md
+          cat notes.md
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Test and build
+        run: |
+          chmod +x gradlew
+          ./gradlew testDebugUnitTest assembleRelease --console=plain
+
+      - name: Check the tag matches versionName
+        run: |
+          apk=$(ls app/build/outputs/apk/release/*.apk)
+          echo "APK: $apk"
+          case "$apk" in *"_${GITHUB_REF_NAME#v}.apk") ;; *) echo "Tag ${GITHUB_REF_NAME} ≠ versionName in app/build.gradle.kts"; exit 1 ;; esac
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: OBD Scanner ${{ github.ref_name }}
+          body_path: notes.md
+          files: app/build/outputs/apk/release/*.apk
