@@ -807,6 +807,7 @@ class ObdManager(private val context: Context) {
     private fun addressing() = when (_vehicle.value.make) {
         Make.GM -> Addressing("GM", GmModules.candidates, listOf("1A90", "22F190", "3E00"), GmModules::name)
         Make.VAG -> Addressing("VAG", VagModules.candidates, VagModules.PROBES, VagModules::name)
+        Make.OTHER -> Addressing("Блоки", ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
         else -> Addressing(_vehicle.value.make.title, ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
     }
 
@@ -990,11 +991,17 @@ class ObdManager(private val context: Context) {
         opJob?.cancel()
     }
 
+    /** Watches every hit that carries data (at most [MAX_WATCHED], so polling keeps its pace); empty list clears. */
+    fun watchAll(hits: List<ScanHit>) {
+        _scan.update { s -> s.copy(watched = hits.filter { it.data.isNotEmpty() && !it.looksLikeText }.take(MAX_WATCHED).map { it.key }.toSet()) }
+    }
+
     fun toggleWatch(hit: ScanHit) {
         _scan.update { s -> s.copy(watched = if (hit.key in s.watched) s.watched - hit.key else s.watched + hit.key) }
     }
 
     companion object {
+        private const val MAX_WATCHED = 24
         private val PROTOCOLS = mapOf(6 to "CAN 11/500", 7 to "CAN 29/500", 8 to "CAN 11/250", 9 to "CAN 29/250",
             4 to "KWP2000 5-baud", 5 to "KWP2000 fast", 3 to "ISO 9141-2")
         /**

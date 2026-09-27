@@ -85,6 +85,7 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
         items(s.modules, key = { it.id }) { mod ->
             ModuleCard(mod, enabled = connected && busy == null,
                 onScan1A = { m.scanModule(mod, "1A", 0x00..0xFF) },
+                onScan21 = { m.scanModule(mod, "21", 0x00..0xFF) },
                 onScan22 = { m.scanModule(mod, "22", GmModules.ranges22[rangeIdx].second) })
         }
         item {
@@ -93,6 +94,11 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
                 Checkbox(checked = onlyWatched, onCheckedChange = { onlyWatched = it })
                 Text("только отмеченные")
             }
+            if (s.hits.isNotEmpty()) Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                OutlinedButton(onClick = { m.watchAll(s.hits) }) { Text("Отметить все с данными") }
+                OutlinedButton(onClick = { m.watchAll(emptyList()) }, modifier = Modifier.padding(start = 8.dp)) { Text("Снять") }
+            }
+            if (s.hits.isNotEmpty()) Muted("Отмеченные опрашиваются и пишутся в data.csv: на этой вкладке каждый цикл, на других раз в 3 с. Так их потом можно расшифровать по записи (utils/scan_decode.py).")
         }
         items(hits, key = { it.key }) { h ->
             val live = r[h.key]
@@ -113,15 +119,19 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
 }
 
 @Composable
-private fun ModuleCard(mod: GmModule, enabled: Boolean, onScan1A: () -> Unit, onScan22: () -> Unit) {
+private fun ModuleCard(mod: GmModule, enabled: Boolean, onScan1A: () -> Unit, onScan21: () -> Unit, onScan22: () -> Unit) {
     Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
         Column(Modifier.padding(10.dp)) {
             Text("${mod.name}  ·  %03X → %03X".format(mod.req, mod.resp), style = MaterialTheme.typography.titleSmall)
             Text(mod.answeredTo, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
-            Row {
-                OutlinedButton(onClick = onScan1A, enabled = enabled) { Text("Скан \$1A (256)") }
-                OutlinedButton(onClick = onScan22, enabled = enabled, modifier = Modifier.padding(start = 8.dp)) { Text("Скан \$22") }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Скан:", style = MaterialTheme.typography.labelLarge)
+                OutlinedButton(onClick = onScan1A, enabled = enabled, modifier = Modifier.padding(start = 8.dp)) { Text("\$1A") }
+                OutlinedButton(onClick = onScan21, enabled = enabled, modifier = Modifier.padding(start = 6.dp)) { Text("\$21") }
+                OutlinedButton(onClick = onScan22, enabled = enabled, modifier = Modifier.padding(start = 6.dp)) { Text("\$22") }
             }
+            Text("\$1A и \$21 — по 256 номеров, ~20–40 с; \$21 — данные блока у Toyota (KWP). \$22 — выбранный диапазон.",
+                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
         }
     }
 }

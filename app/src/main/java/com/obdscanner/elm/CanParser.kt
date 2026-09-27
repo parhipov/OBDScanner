@@ -45,6 +45,8 @@ object CanParser {
             }
             val header: Int
             val body: String
+            // BUFFER FULL cuts the last line anywhere, down to a lone "7": not even a header.
+            if (headerChars == 3 && compact.length % 2 == 1 && compact.length < 5) { errors += line; continue }
             if (headerChars == 3 && compact.length % 2 == 1) {
                 header = compact.substring(0, 3).toInt(16)
                 body = compact.substring(3)
@@ -84,7 +86,7 @@ object CanParser {
                 1 -> {
                     if (bytes.size < 8) { errors += line; continue }
                     val len = ((bytes[0] and 0x0F) shl 8) or bytes[1]
-                    asm[header] = Assembly(len).also { it.add(bytes, 2) }
+                    asm[header] = Assembly(len, padded = paddedEcus[header] == true).also { it.add(bytes, 2) }
                     corrupted -= header
                     if (header !in order) order += header
                 }
@@ -104,7 +106,19 @@ object CanParser {
                             asm.remove(header)
                             corrupted += header
                         }
-                        else -> a.add(bytes, 1)
+                        // An ECU that pads its frames to 8 bytes (Toyota, GM) sends the last one full too.
+                        // Shorter means the clone dropped bytes from the middle and the tail would be read
+                        // from the padding (Toyota: commanded λ = 0).
+                        bytes.size < 8 && a.padded -> {
+                            errors += CORRUPT + " от %03X (кадр %X без заполнения)".format(header, bytes[0] and 0x0F)
+                            asm.remove(header)
+                            corrupted += header
+                        }
+                        else -> {
+                            // The last frame of a message tells whether this ECU pads: a lone short one doesn't.
+                            if (a.size + bytes.size - 1 >= a.expected) paddedEcus[header] = bytes.size == 8
+                            a.add(bytes, 1)
+                        }
                     }
                 }
                 3 -> { /* flow control from someone else — ignore */ }
@@ -169,7 +183,13 @@ object CanParser {
 
     const val CORRUPT = "ISO-TP: пропущен кадр"
 
-    private class Assembly(val expected: Int) {
+    /**
+     * Header → whether that ECU padded the last frame of its previous multi-frame reply to 8 bytes.
+     * Learned across replies; the first reply from an ECU is taken as is.
+     */
+    private val paddedEcus = java.util.concurrent.ConcurrentHashMap<Int, Boolean>()
+
+    private class Assembly(val expected: Int, val padded: Boolean = false) {
         private val buf = ArrayList<Int>(expected)
         var expectedSeq = 1
             private set

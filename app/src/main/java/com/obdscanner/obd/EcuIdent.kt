@@ -38,15 +38,26 @@ object EcuIdent {
     )
 }
 
-/** Any make without its own address list: only the standard OBD ids (7E0–7E7 → +8). */
+/**
+ * Any make without its own address list: the standard OBD ids (7E0–7E7) plus the 11-bit ids where
+ * Toyota and Hyundai/Kia are said to keep ABS, airbags, dash and climate (all answer on +8).
+ * Unconfirmed guesses — the probe is only a tester present / VIN read, so a wrong one costs ~1 s.
+ */
 object ObdModules {
-    val candidates: List<Pair<Int, Int>> = (0x7E0..0x7E7).map { it to it + 8 }
+    val candidates: List<Pair<Int, Int>> =
+        ((0x7E0..0x7E7) + listOf(0x7A0, 0x7A1, 0x7B0, 0x7C0, 0x7C4, 0x7C6, 0x7D0, 0x7D1, 0x7D2)).map { it to it + 8 }
 
     /** Tester present (UDS and KWP on CAN), then the UDS VIN, then the KWP VIN. */
     val PROBES = listOf("3E00", "22F190", "1A90")
 
     fun name(req: Int): String = when (req) {
         0x7E0 -> "Двигатель (7E0)"
+        0x7E1 -> "КПП (7E1)"
+        0x7B0 -> "ЭБУ 7B0 (ABS/VSC у Toyota?)"
+        0x7C0 -> "ЭБУ 7C0 (приборка у Toyota?)"
+        0x7C4 -> "ЭБУ 7C4 (климат у Toyota?)"
+        0x7D1 -> "ЭБУ 7D1 (ABS у Hyundai/Kia?)"
+        0x7D2 -> "ЭБУ 7D2 (подушки у Hyundai/Kia?)"
         else -> "ЭБУ %03X".format(req)
     }
 }

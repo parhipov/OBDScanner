@@ -30,6 +30,31 @@ class MockPipelineTest {
     }
 
     @Test
+    fun bufferFullTailDoesNotCrash() {
+        // CTS 2026-09-27 09:40: the clone cut the last line of a 0904 reply down to "7".
+        val raw = listOf("7EA 10 43 49 04 04 32 34 32", "7EA 2", "7", "BUFFER FULL").joinToString("\r")
+        val r = CanParser.parse(ElmReply("0904", raw, false), 3)
+        assertTrue(r.garbled)
+    }
+
+    @Test
+    fun paddedEcuShortLastFrameIsCorrupt() {
+        // RAV4 2026-09-27 12:39:27: the last frame lost "7F 20" and the padding, λ read as 0.
+        val good = listOf(
+            "7E8 10 16 41 11 2A 15 00 FF", "7E8 21 24 81 23 6C 37 34 81",
+            "7E8 22 23 80 0C 43 00 2D 44", "7E8 23 7F 20 00 00 00 00 00",
+        ).joinToString("\r")
+        assertEquals(22, CanParser.parse(ElmReply("01111524344344", good, false), 3).messages.single().data.size)
+        val bad = listOf(
+            "7E8 10 16 41 11 2A 15 00 FF", "7E8 21 24 7F 75 69 E9 34 7F",
+            "7E8 22 75 80 01 43 00 2C 44", "7E8 23 00 00 00 00",
+        ).joinToString("\r")
+        val r = CanParser.parse(ElmReply("01111524344344", bad, false), 3)
+        assertTrue(r.garbled)
+        assertTrue(r.messages.none { it.header == 0x7E8 && it.data.size == 22 })
+    }
+
+    @Test
     fun parsesMultiFrameWithHeaders() {
         val raw = listOf(
             "7E8 10 14 49 02 01 31 47 36",

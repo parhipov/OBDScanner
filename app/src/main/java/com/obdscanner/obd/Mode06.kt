@@ -122,9 +122,9 @@ object Mode06 {
             0x08 -> "Макс. напряжение"
             0x09 -> "Время между переходами"
             0x0A -> "Период"
-            else -> "TID %02X (GM)".format(tid)
+            else -> "TID %02X (произв.)".format(tid)
         }
-        return if (tid >= 0x80) "TID %02X (GM)".format(tid) else "TID %02X".format(tid)
+        return if (tid >= 0x80) "TID %02X (произв.)".format(tid) else "TID %02X".format(tid)
     }
 
     /** Reply to "06 MID": [46, (MID TID UAS vH vL minH minL maxH maxL)*]. */

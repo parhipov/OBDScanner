@@ -8,7 +8,7 @@ data class GmModule(val req: Int, val resp: Int, val name: String, val answeredT
 /** A DID that answered positively during a scan. */
 data class ScanHit(val req: Int, val resp: Int, val service: String, val did: Int, val data: IntArray) {
     val key get() = "%03X:%s.%04X".format(req, service, did)
-    val didHex get() = if (service == "1A") "%02X".format(did) else "%04X".format(did)
+    val didHex get() = if (GmScanner.oneByteId(service)) "%02X".format(did) else "%04X".format(did)
     val hex get() = data.joinToString(" ") { "%02X".format(it) }
     val ascii get() = data.map { if (it in 0x20..0x7E) it.toChar() else '·' }.joinToString("")
     val looksLikeText get() = data.size >= 4 && data.count { it in 0x20..0x7E } >= data.size * 0.8

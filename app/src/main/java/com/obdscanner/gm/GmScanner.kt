@@ -8,8 +8,9 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 
 /**
- * Read-only exploration of GM modules on HS-CAN: $1A ReadDataByIdentifier (GMLAN) and
- * $22 ReadDataByParameterIdentifier. Nothing here writes, resets or changes sessions.
+ * Read-only exploration of modules on HS-CAN: $1A ReadDataByIdentifier (GMLAN, KWP),
+ * $22 ReadDataByParameterIdentifier and $21 ReadDataByLocalIdentifier (KWP on CAN — Toyota's
+ * data lists). Nothing here writes, resets or changes sessions.
  */
 class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
 
@@ -70,7 +71,7 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
     }
 
     /**
-     * Scans [range] with service [service] ("1A" or "22"). Stops the module early if the
+     * Scans [range] with service [service] ("1A", "21" or "22"). Stops the module early if the
      * service itself is rejected (NRC 11) many times in a row.
      */
     suspend fun scan(
@@ -136,7 +137,7 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         }
         msg ?: return null
         if (msg.isNegative) return null to msg.nrc
-        val echo = if (service == "1A") 2 else 3
+        val echo = if (oneByteId(service)) 2 else 3
         if (msg.service != service.toInt(16) + 0x40 || msg.data.size < echo) return null to -1
         return msg.data.copyOfRange(echo, msg.data.size) to 0
     }
@@ -149,9 +150,12 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         return read(GmModule(req, resp, "", ""), service, did)?.first
     }
 
-    private fun fmtDid(service: String, did: Int) = if (service == "1A") "%02X".format(did) else "%04X".format(did)
+    private fun fmtDid(service: String, did: Int) = if (oneByteId(service)) "%02X".format(did) else "%04X".format(did)
 
     companion object {
+        /** \$1A and \$21 take a one-byte identifier, \$22 a two-byte one. */
+        fun oneByteId(service: String) = service == "1A" || service == "21"
+
         val IDENTITY = listOf(0x97, 0x99, 0xB4, 0xC0) + (0xC1..0xC6) + listOf(0xCB, 0xCC)
     }
 }
