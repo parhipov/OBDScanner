@@ -3,6 +3,7 @@ package com.obdscanner.transport
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
+import com.obdscanner.tr
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -60,7 +61,7 @@ class BluetoothTransport(
                 runCatching { s?.close() }
             }
         }
-        throw IOException("Не удалось подключиться к $name: ${last?.message}", last)
+        throw IOException(tr("Не удалось подключиться к $name: ${last?.message}", "Could not connect to $name: ${last?.message}"), last)
     }
 
     /**

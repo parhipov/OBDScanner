@@ -1,5 +1,7 @@
 package com.obdscanner.obd
 
+import com.obdscanner.tr
+
 /** One on-board monitor test result (Mode 06, CAN format). */
 data class TestResult(
     val ecu: Int,
@@ -17,7 +19,7 @@ data class TestResult(
     val unit get() = scale.unit
     /** All zeros = the ECU hasn't run this test since the last clear (common for catalyst/EVAP). */
     val notRun get() = rawValue == 0 && rawMin == 0 && rawMax == 0
-    val status get() = when { notRun -> "не выполнялся"; passed -> "OK"; else -> "НЕ ПРОЙДЕН" }
+    val status get() = when { notRun -> tr("не выполнялся", "not run"); passed -> "OK"; else -> tr("НЕ ПРОЙДЕН", "FAILED") }
     val passed get() = if (scale.signed) sgn(rawValue) in sgn(rawMin)..sgn(rawMax) else rawValue in rawMin..rawMax
     val midName get() = Mode06.midName(mid)
     val tidName get() = Mode06.tidName(mid, tid)
@@ -38,94 +40,95 @@ object Mode06 {
     private val UAS = mapOf(
         0x01 to Scaling(1.0, ""), 0x02 to Scaling(0.1, ""), 0x03 to Scaling(0.01, ""), 0x04 to Scaling(0.001, ""),
         0x05 to Scaling(0.0000305, ""), 0x06 to Scaling(0.000305, ""),
-        0x07 to Scaling(0.25, "об/мин"), 0x08 to Scaling(0.01, "км/ч"), 0x09 to Scaling(1.0, "км/ч"),
-        0x0A to Scaling(0.000122, "В"), 0x0B to Scaling(0.001, "В"), 0x0C to Scaling(0.01, "В"),
-        0x0D to Scaling(0.00390625, "мА"), 0x0E to Scaling(0.001, "А"), 0x0F to Scaling(0.01, "А"),
-        0x10 to Scaling(1.0, "мс"), 0x11 to Scaling(100.0, "мс"), 0x12 to Scaling(1.0, "с"),
-        0x13 to Scaling(1.0, "мОм"), 0x14 to Scaling(1.0, "Ом"), 0x15 to Scaling(1.0, "кОм"),
-        0x16 to Scaling(0.1, "°C", -40.0), 0x17 to Scaling(0.01, "кПа"), 0x18 to Scaling(0.0117, "кПа"),
-        0x19 to Scaling(0.079, "кПа"), 0x1A to Scaling(1.0, "кПа"), 0x1B to Scaling(10.0, "кПа"),
+        0x07 to Scaling(0.25, tr("об/мин", "rpm")), 0x08 to Scaling(0.01, tr("км/ч", "km/h")), 0x09 to Scaling(1.0, tr("км/ч", "km/h")),
+        0x0A to Scaling(0.000122, tr("В", "V")), 0x0B to Scaling(0.001, tr("В", "V")), 0x0C to Scaling(0.01, tr("В", "V")),
+        0x0D to Scaling(0.00390625, tr("мА", "mA")), 0x0E to Scaling(0.001, tr("А", "A")), 0x0F to Scaling(0.01, tr("А", "A")),
+        0x10 to Scaling(1.0, tr("мс", "ms")), 0x11 to Scaling(100.0, tr("мс", "ms")), 0x12 to Scaling(1.0, tr("с", "s")),
+        0x13 to Scaling(1.0, tr("мОм", "mΩ")), 0x14 to Scaling(1.0, tr("Ом", "Ω")), 0x15 to Scaling(1.0, tr("кОм", "kΩ")),
+        0x16 to Scaling(0.1, "°C", -40.0), 0x17 to Scaling(0.01, tr("кПа", "kPa")), 0x18 to Scaling(0.0117, tr("кПа", "kPa")),
+        0x19 to Scaling(0.079, tr("кПа", "kPa")), 0x1A to Scaling(1.0, tr("кПа", "kPa")), 0x1B to Scaling(10.0, tr("кПа", "kPa")),
         0x1C to Scaling(0.01, "°"), 0x1D to Scaling(0.5, "°"), 0x1E to Scaling(0.0000305, "λ"),
-        0x1F to Scaling(0.05, "AFR"), 0x20 to Scaling(0.0039062, ""), 0x21 to Scaling(0.001, "Гц"),
-        0x22 to Scaling(1.0, "Гц"), 0x23 to Scaling(1000.0, "Гц"), 0x24 to Scaling(1.0, "шт"),
-        0x25 to Scaling(1.0, "км"), 0x26 to Scaling(0.1, "мВ/мс"), 0x27 to Scaling(0.01, "г/с"),
-        0x28 to Scaling(1.0, "г/с"), 0x29 to Scaling(0.25, "Па/с"), 0x2A to Scaling(0.001, "кг/ч"),
-        0x2B to Scaling(1.0, "перекл."), 0x2C to Scaling(0.01, "г/цил"), 0x2D to Scaling(0.01, "мг/такт"),
-        0x2E to Scaling(1.0, "да/нет"), 0x2F to Scaling(0.01, "%"), 0x30 to Scaling(0.001526, "%"),
-        0x31 to Scaling(0.001, "л"), 0x32 to Scaling(0.0007747, "мм"), 0x33 to Scaling(0.00024414, "λ"),
-        0x34 to Scaling(1.0, "мин"), 0x35 to Scaling(10.0, "мс"), 0x36 to Scaling(0.01, "г"),
-        0x37 to Scaling(0.1, "г"), 0x38 to Scaling(1.0, "г"), 0x39 to Scaling(0.01, "%", -327.68),
-        0x3A to Scaling(0.001, "г"), 0x3B to Scaling(0.0001, "г"), 0x3C to Scaling(0.1, "мкс"),
-        0x3D to Scaling(0.01, "мА"), 0x3E to Scaling(0.00006103516, "мм²"), 0x3F to Scaling(0.01, "л"),
-        0x40 to Scaling(1.0, "ppm"), 0x41 to Scaling(0.01, "мкА"),
+        0x1F to Scaling(0.05, "AFR"), 0x20 to Scaling(0.0039062, ""), 0x21 to Scaling(0.001, tr("Гц", "Hz")),
+        0x22 to Scaling(1.0, tr("Гц", "Hz")), 0x23 to Scaling(1000.0, tr("Гц", "Hz")), 0x24 to Scaling(1.0, tr("шт", "count")),
+        0x25 to Scaling(1.0, tr("км", "km")), 0x26 to Scaling(0.1, tr("мВ/мс", "mV/ms")), 0x27 to Scaling(0.01, tr("г/с", "g/s")),
+        0x28 to Scaling(1.0, tr("г/с", "g/s")), 0x29 to Scaling(0.25, tr("Па/с", "Pa/s")), 0x2A to Scaling(0.001, tr("кг/ч", "kg/h")),
+        0x2B to Scaling(1.0, tr("перекл.", "switches")), 0x2C to Scaling(0.01, tr("г/цил", "g/cyl")), 0x2D to Scaling(0.01, tr("мг/такт", "mg/stroke")),
+        0x2E to Scaling(1.0, tr("да/нет", "yes/no")), 0x2F to Scaling(0.01, "%"), 0x30 to Scaling(0.001526, "%"),
+        0x31 to Scaling(0.001, tr("л", "L")), 0x32 to Scaling(0.0007747, tr("мм", "mm")), 0x33 to Scaling(0.00024414, "λ"),
+        0x34 to Scaling(1.0, tr("мин", "min")), 0x35 to Scaling(10.0, tr("мс", "ms")), 0x36 to Scaling(0.01, tr("г", "g")),
+        0x37 to Scaling(0.1, tr("г", "g")), 0x38 to Scaling(1.0, tr("г", "g")), 0x39 to Scaling(0.01, "%", -327.68),
+        0x3A to Scaling(0.001, tr("г", "g")), 0x3B to Scaling(0.0001, tr("г", "g")), 0x3C to Scaling(0.1, tr("мкс", "µs")),
+        0x3D to Scaling(0.01, tr("мА", "mA")), 0x3E to Scaling(0.00006103516, tr("мм²", "mm²")), 0x3F to Scaling(0.01, tr("л", "L")),
+        0x40 to Scaling(1.0, "ppm"), 0x41 to Scaling(0.01, tr("мкА", "µA")),
         0x81 to Scaling(1.0, "", signed = true), 0x82 to Scaling(0.1, "", signed = true),
         0x83 to Scaling(0.01, "", signed = true), 0x84 to Scaling(0.001, "", signed = true),
         0x85 to Scaling(0.0000305, "", signed = true), 0x86 to Scaling(0.000305, "", signed = true),
-        0x8A to Scaling(0.000122, "В", signed = true), 0x8B to Scaling(0.001, "В", signed = true),
-        0x8C to Scaling(0.01, "В", signed = true), 0x8D to Scaling(0.00390625, "мА", signed = true),
-        0x8E to Scaling(0.001, "А", signed = true), 0x90 to Scaling(1.0, "мс", signed = true),
+        0x8A to Scaling(0.000122, tr("В", "V"), signed = true), 0x8B to Scaling(0.001, tr("В", "V"), signed = true),
+        0x8C to Scaling(0.01, tr("В", "V"), signed = true), 0x8D to Scaling(0.00390625, tr("мА", "mA"), signed = true),
+        0x8E to Scaling(0.001, tr("А", "A"), signed = true), 0x90 to Scaling(1.0, tr("мс", "ms"), signed = true),
         0x96 to Scaling(0.1, "°C", signed = true), 0x9C to Scaling(0.01, "°", signed = true),
-        0x9D to Scaling(0.5, "°", signed = true), 0xA8 to Scaling(1.0, "г/с", signed = true),
-        0xA9 to Scaling(0.25, "Па/с", signed = true), 0xAF to Scaling(0.01, "%", signed = true),
-        0xB0 to Scaling(0.003052, "%", signed = true), 0xB1 to Scaling(2.0, "мВ/с", signed = true),
-        0xFD to Scaling(0.001, "кПа", signed = true), 0xFE to Scaling(0.25, "Па", signed = true),
+        0x9D to Scaling(0.5, "°", signed = true), 0xA8 to Scaling(1.0, tr("г/с", "g/s"), signed = true),
+        0xA9 to Scaling(0.25, tr("Па/с", "Pa/s"), signed = true), 0xAF to Scaling(0.01, "%", signed = true),
+        0xB0 to Scaling(0.003052, "%", signed = true), 0xB1 to Scaling(2.0, tr("мВ/с", "mV/s"), signed = true),
+        0xFD to Scaling(0.001, tr("кПа", "kPa"), signed = true), 0xFE to Scaling(0.25, tr("Па", "Pa"), signed = true),
     )
 
     fun scaling(uasid: Int) = UAS[uasid] ?: Scaling(1.0, "raw")
 
     fun midName(mid: Int): String = when (mid) {
-        in 0x01..0x10 -> "Датчик O2 " + listOf("Б1Д1", "Б1Д2", "Б1Д3", "Б1Д4", "Б2Д1", "Б2Д2", "Б2Д3", "Б2Д4",
-            "Б3Д1", "Б3Д2", "Б3Д3", "Б3Д4", "Б4Д1", "Б4Д2", "Б4Д3", "Б4Д4")[mid - 1]
-        0x21 -> "Катализатор Б1"
-        0x22 -> "Катализатор Б2"
-        0x23 -> "Катализатор Б3"
-        0x24 -> "Катализатор Б4"
-        0x31 -> "EGR Б1"
-        0x32 -> "EGR Б2"
-        0x35 -> "VVT Б1"
-        0x36 -> "VVT Б2"
-        0x39 -> "EVAP (утечка 0.150\")"
-        0x3A -> "EVAP (утечка 0.090\")"
-        0x3B -> "EVAP (утечка 0.040\")"
-        0x3C -> "EVAP (утечка 0.020\")"
-        0x3D -> "Поток продувки EVAP"
-        in 0x41..0x50 -> "Подогрев O2 " + listOf("Б1Д1", "Б1Д2", "Б1Д3", "Б1Д4", "Б2Д1", "Б2Д2", "Б2Д3", "Б2Д4",
-            "Б3Д1", "Б3Д2", "Б3Д3", "Б3Д4", "Б4Д1", "Б4Д2", "Б4Д3", "Б4Д4")[mid - 0x41]
-        0x61 -> "Подогрев катализатора Б1"
-        0x62 -> "Подогрев катализатора Б2"
-        0x71 -> "Вторичный воздух 1"
-        0x72 -> "Вторичный воздух 2"
-        0x81 -> "Топливная система Б1"
-        0x82 -> "Топливная система Б2"
-        0x83 -> "Топливная система Б3"
-        0x84 -> "Топливная система Б4"
-        0xA1 -> "Пропуски зажигания (общее)"
-        in 0xA2..0xAD -> "Пропуски, цилиндр ${mid - 0xA1}"
-        0xB0, 0xB1 -> "Сажевый фильтр"
+        in 0x01..0x10 -> tr("Датчик O2 ", "O2 sensor ") + sensor(mid - 1)
+        0x21 -> tr("Катализатор Б1", "Catalyst B1")
+        0x22 -> tr("Катализатор Б2", "Catalyst B2")
+        0x23 -> tr("Катализатор Б3", "Catalyst B3")
+        0x24 -> tr("Катализатор Б4", "Catalyst B4")
+        0x31 -> tr("EGR Б1", "EGR B1")
+        0x32 -> tr("EGR Б2", "EGR B2")
+        0x35 -> tr("VVT Б1", "VVT B1")
+        0x36 -> tr("VVT Б2", "VVT B2")
+        0x39 -> tr("EVAP (утечка 0.150\")", "EVAP (0.150\" leak)")
+        0x3A -> tr("EVAP (утечка 0.090\")", "EVAP (0.090\" leak)")
+        0x3B -> tr("EVAP (утечка 0.040\")", "EVAP (0.040\" leak)")
+        0x3C -> tr("EVAP (утечка 0.020\")", "EVAP (0.020\" leak)")
+        0x3D -> tr("Поток продувки EVAP", "EVAP purge flow")
+        in 0x41..0x50 -> tr("Подогрев O2 ", "O2 heater ") + sensor(mid - 0x41)
+        0x61 -> tr("Подогрев катализатора Б1", "Catalyst heater B1")
+        0x62 -> tr("Подогрев катализатора Б2", "Catalyst heater B2")
+        0x71 -> tr("Вторичный воздух 1", "Secondary air 1")
+        0x72 -> tr("Вторичный воздух 2", "Secondary air 2")
+        0x81 -> tr("Топливная система Б1", "Fuel system B1")
+        0x82 -> tr("Топливная система Б2", "Fuel system B2")
+        0x83 -> tr("Топливная система Б3", "Fuel system B3")
+        0x84 -> tr("Топливная система Б4", "Fuel system B4")
+        0xA1 -> tr("Пропуски зажигания (общее)", "Misfire (general)")
+        in 0xA2..0xAD -> tr("Пропуски, цилиндр ${mid - 0xA1}", "Misfire, cylinder ${mid - 0xA1}")
+        0xB0, 0xB1 -> tr("Сажевый фильтр", "Particulate filter")
         else -> "MID %02X".format(mid)
     }
 
     fun tidName(mid: Int, tid: Int): String {
         if (mid in 0xA1..0xAD) return when (tid) {
-            0x0B -> "Пропуски: среднее за 10 циклов"
-            0x0C -> "Пропуски: последний/текущий цикл"
+            0x0B -> tr("Пропуски: среднее за 10 циклов", "Misfire: 10-cycle average")
+            0x0C -> tr("Пропуски: последний/текущий цикл", "Misfire: last/current cycle")
             else -> "TID %02X".format(tid)
         }
         if (mid in 0x01..0x10) return when (tid) {
-            0x01 -> "Порог богато→бедно"
-            0x02 -> "Порог бедно→богато"
-            0x03 -> "Низкое напряжение (для времени)"
-            0x04 -> "Высокое напряжение (для времени)"
-            0x05 -> "Время богато→бедно"
-            0x06 -> "Время бедно→богато"
-            0x07 -> "Мин. напряжение"
-            0x08 -> "Макс. напряжение"
-            0x09 -> "Время между переходами"
-            0x0A -> "Период"
-            else -> "TID %02X (произв.)".format(tid)
+            0x01 -> tr("Порог богато→бедно", "Threshold rich→lean")
+            0x02 -> tr("Порог бедно→богато", "Threshold lean→rich")
+            0x03 -> tr("Низкое напряжение (для времени)", "Low voltage (for switch time)")
+            0x04 -> tr("Высокое напряжение (для времени)", "High voltage (for switch time)")
+            0x05 -> tr("Время богато→бедно", "Switch time rich→lean")
+            0x06 -> tr("Время бедно→богато", "Switch time lean→rich")
+            0x07 -> tr("Мин. напряжение", "Min. voltage")
+            0x08 -> tr("Макс. напряжение", "Max. voltage")
+            0x09 -> tr("Время между переходами", "Time between transitions")
+            0x0A -> tr("Период", "Period")
+            else -> tr("TID %02X (произв.)", "TID %02X (mfr)").format(tid)
         }
-        return if (tid >= 0x80) "TID %02X (произв.)".format(tid) else "TID %02X".format(tid)
+        return if (tid >= 0x80) tr("TID %02X (произв.)", "TID %02X (mfr)").format(tid) else "TID %02X".format(tid)
     }
+
+    /** O2 sensor position by index 0..15: bank 1 sensor 1 … bank 4 sensor 4. */
+    private fun sensor(i: Int) = tr("Б%dД%d", "B%dS%d").format(i / 4 + 1, i % 4 + 1)
 
     /** Reply to "06 MID": [46, (MID TID UAS vH vL minH minL maxH maxL)*]. */
     fun parse(data: IntArray, ecu: Int): List<TestResult> {

@@ -1,5 +1,7 @@
 package com.obdscanner.elm
 
+import com.obdscanner.tr
+
 /** OBD/CAN request layer on top of the raw ELM327 driver. */
 class Obd(val elm: Elm327) {
     /** 3 for 11-bit CAN, 8 for 29-bit. */
@@ -31,7 +33,7 @@ class Obd(val elm: Elm327) {
     /** Physical addressing to one module. Tolerates clones that don't know ATCRA. */
     suspend fun target(req: Int, resp: Int) {
         // ATSH with a CAN id would replace the K-line header (68 6A F1) and break every later request.
-        check(!kline) { "адресация блоков есть только на CAN" }
+        check(!kline) { tr("адресация блоков есть только на CAN", "module addressing is CAN only") }
         if (req in 0x7E0..0x7E7 && resp == req + 8) {
             // Standard OBD ids: the default receive filter and automatic flow control already fit.
             if (customRouting) resetRouting()

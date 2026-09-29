@@ -1,5 +1,7 @@
 package com.obdscanner.elm
 
+import com.obdscanner.tr
+
 /** One reassembled ISO-TP message from one ECU. [data] starts with the service byte (e.g. 0x41). */
 class EcuMessage(val header: Int, val data: IntArray) {
     val service get() = data.getOrElse(0) { -1 }
@@ -69,7 +71,7 @@ object CanParser {
             if (body.length % 2 != 0 || body.isEmpty()) { errors += line; continue }
             if (!wellSpaced(line, headerChars)) {
                 // Clone dropped characters mid-line ("7E8 22 3335 20 31 00"): bytes are shifted.
-                errors += CORRUPT + " от %03X (искажённая строка «%s»)".format(header, line)
+                errors += CORRUPT + tr(" от %03X (искажённая строка «%s»)", " from %03X (garbled line \"%s\")").format(header, line)
                 asm.remove(header)
                 corrupted += header
                 continue
@@ -96,13 +98,13 @@ object CanParser {
                         a == null -> errors += line
                         !a.nextSeq(bytes[0] and 0x0F) -> {
                             // Old clones drop frames on long replies; shifted data is worse than none.
-                            errors += CORRUPT + " от %03X (кадр %X, ждали %X)".format(header, bytes[0] and 0x0F, a.expectedSeq)
+                            errors += CORRUPT + tr(" от %03X (кадр %X, ждали %X)", " from %03X (frame %X, expected %X)").format(header, bytes[0] and 0x0F, a.expectedSeq)
                             asm.remove(header)
                             corrupted += header
                         }
                         // Only the last consecutive frame may be short; a short one mid-message lost bytes.
                         bytes.size < 8 && a.size + bytes.size - 1 < a.expected -> {
-                            errors += CORRUPT + " от %03X (кадр %X короткий)".format(header, bytes[0] and 0x0F)
+                            errors += CORRUPT + tr(" от %03X (кадр %X короткий)", " from %03X (frame %X short)").format(header, bytes[0] and 0x0F)
                             asm.remove(header)
                             corrupted += header
                         }
@@ -110,7 +112,7 @@ object CanParser {
                         // Shorter means the clone dropped bytes from the middle and the tail would be read
                         // from the padding (Toyota: commanded λ = 0).
                         bytes.size < 8 && a.padded -> {
-                            errors += CORRUPT + " от %03X (кадр %X без заполнения)".format(header, bytes[0] and 0x0F)
+                            errors += CORRUPT + tr(" от %03X (кадр %X без заполнения)", " from %03X (frame %X not padded)").format(header, bytes[0] and 0x0F)
                             asm.remove(header)
                             corrupted += header
                         }
@@ -132,7 +134,7 @@ object CanParser {
             }
         }
         for ((h, a) in asm) {
-            errors += "ISO-TP: неполное сообщение от %03X (%d из %d байт)".format(h, a.size, a.expected)
+            errors += tr("ISO-TP: неполное сообщение от %03X (%d из %d байт)", "ISO-TP: incomplete message from %03X (%d of %d bytes)").format(h, a.size, a.expected)
             if (a.size > 0) done += EcuMessage(h, a.result())
         }
         val sorted = mergeKlineInfo(done).sortedBy { order.indexOf(it.header).let { i -> if (i < 0) Int.MAX_VALUE else i } }
@@ -181,7 +183,7 @@ object CanParser {
 
     private fun Char.isHexDigitChar() = this in '0'..'9' || this in 'A'..'F' || this in 'a'..'f'
 
-    const val CORRUPT = "ISO-TP: пропущен кадр"
+    val CORRUPT = tr("ISO-TP: пропущен кадр", "ISO-TP: missed frame")
 
     /**
      * Header → whether that ECU padded the last frame of its previous multi-frame reply to 8 bytes.

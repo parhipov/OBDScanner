@@ -6,6 +6,7 @@ import com.obdscanner.gm.DtcScheme
 import com.obdscanner.gm.GmDtc
 import com.obdscanner.gm.GmDtcResult
 import com.obdscanner.gm.GmModule
+import com.obdscanner.tr
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 
@@ -23,15 +24,15 @@ class UdsDtcReader(private val obd: Obd, private val vagNumbers: Boolean = false
         val result = uds.first?.let { parseUds(module, it) } ?: run {
             val kwp = request(module, "1802FF00")
             kwp.first?.let { parseKwp(module, it) } ?: GmDtcResult(module, emptyList(), when {
-                uds.second == null && kwp.second == null -> "нет ответа"
-                else -> "не отдаёт ошибки (UDS: %s, KWP: %s)".format(nrcText(uds.second), nrcText(kwp.second))
+                uds.second == null && kwp.second == null -> tr("нет ответа", "no answer")
+                else -> tr("не отдаёт ошибки (UDS: %s, KWP: %s)", "does not report DTCs (UDS: %s, KWP: %s)").format(nrcText(uds.second), nrcText(kwp.second))
             }, false)
         }
         note("DTC %s: %s %s".format(module.id, result.result, result.codes.joinToString(" ") { it.full }))
         return result
     }
 
-    private fun nrcText(nrc: Int?) = if (nrc == null) "нет ответа" else "отказ %02X".format(nrc)
+    private fun nrcText(nrc: Int?) = if (nrc == null) tr("нет ответа", "no answer") else tr("отказ %02X", "NRC %02X").format(nrc)
 
     /** [59 02 availMask (DTC_hi DTC_mid FTB status)*] */
     internal fun parseUds(module: GmModule, d: IntArray): GmDtcResult {
@@ -43,8 +44,8 @@ class UdsDtcReader(private val obd: Obd, private val vagNumbers: Boolean = false
             i += 4
         }
         val tail = (d.size - 3) % 4
-        return GmDtcResult(module, codes, (if (codes.isEmpty()) "нет кодов" else "кодов: ${codes.size}") + " (UDS)" +
-            if (tail != 0) ", лишних байт в конце: $tail" else "", tail == 0)
+        return GmDtcResult(module, codes, (if (codes.isEmpty()) tr("нет кодов", "no codes") else tr("кодов: ${codes.size}", "codes: ${codes.size}")) + " (UDS)" +
+            if (tail != 0) tr(", лишних байт в конце: $tail", ", extra bytes at end: $tail") else "", tail == 0)
     }
 
     /** [58 count (DTC_hi DTC_lo status)*]. VAG numbers the codes by the two bytes as a 5-digit decimal; others use SAE. */
@@ -62,8 +63,8 @@ class UdsDtcReader(private val obd: Obd, private val vagNumbers: Boolean = false
             i += 3
         }
         val count = d.getOrElse(1) { -1 }
-        return GmDtcResult(module, codes, (if (codes.isEmpty()) "нет кодов" else "кодов: ${codes.size}") + " (KWP)" +
-            if (count != codes.size) ", блок сообщил $count" else "", count == codes.size)
+        return GmDtcResult(module, codes, (if (codes.isEmpty()) tr("нет кодов", "no codes") else tr("кодов: ${codes.size}", "codes: ${codes.size}")) + " (KWP)" +
+            if (count != codes.size) tr(", блок сообщил $count", ", module reported $count") else "", count == codes.size)
     }
 
     /** Returns (reply data, NRC); both null = silence. "7F xx 78" (wait) → ask again with a long timeout. */

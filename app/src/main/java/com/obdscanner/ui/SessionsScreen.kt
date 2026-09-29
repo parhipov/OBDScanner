@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.obdscanner.ObdManager
+import com.obdscanner.tr
 
 @Composable
 fun SessionsScreen(m: ObdManager) {
@@ -34,24 +35,25 @@ fun SessionsScreen(m: ObdManager) {
     val list = remember(refresh) { m.sessions.list() }
     val current = m.session?.takeIf { !it.closed }?.dir
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
-        item { Muted("Каждое подключение — отдельная сессия: raw.log (обмен с адаптером), data.csv (все значения), report.txt (сводка), scan.csv (GM-скан).") }
+        item { Muted(tr("Каждое подключение — отдельная сессия: raw.log (обмен с адаптером), data.csv (все значения), report.txt (сводка), scan.csv (GM-скан).",
+            "Each connection is a separate session: raw.log (adapter traffic), data.csv (all values), report.txt (summary), scan.csv (GM scan).")) }
         items(list, key = { it.name }) { dir ->
             Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
                 Row(Modifier.padding(start = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
-                        Text(dir.name + if (dir == current) "  · запись" else "", style = MaterialTheme.typography.titleSmall)
-                        Text("%.1f КБ".format(m.sessions.size(dir) / 1024.0), style = MaterialTheme.typography.bodySmall)
+                        Text(dir.name + if (dir == current) tr("  · запись", "  · recording") else "", style = MaterialTheme.typography.titleSmall)
+                        Text(tr("%.1f КБ", "%.1f KB").format(m.sessions.size(dir) / 1024.0), style = MaterialTheme.typography.bodySmall)
                     }
                     IconButton(onClick = {
                         if (dir == current) m.session?.flush()
                         shareFile(ctx, m.sessions.zip(dir))
-                    }) { Icon(Icons.Default.Share, "Отправить") }
+                    }) { Icon(Icons.Default.Share, tr("Отправить", "Send")) }
                     IconButton(onClick = {
-                        if (dir == current) toast(ctx, "Сессия ещё пишется") else { m.sessions.delete(dir); refresh++ }
-                    }) { Icon(Icons.Default.Delete, "Удалить") }
+                        if (dir == current) toast(ctx, tr("Сессия ещё пишется", "Session is still recording")) else { m.sessions.delete(dir); refresh++ }
+                    }) { Icon(Icons.Default.Delete, tr("Удалить", "Delete")) }
                 }
             }
         }
-        if (list.isEmpty()) item { Muted("Сессий пока нет.") }
+        if (list.isEmpty()) item { Muted(tr("Сессий пока нет.", "No sessions yet.")) }
     }
 }

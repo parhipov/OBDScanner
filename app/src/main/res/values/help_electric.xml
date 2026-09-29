@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Card help, section "Электрика и среда". Each array: [what it is, normal values, what a deviation means].
+  Card help, section "Electrical & ambient". Each array: [what it is, normal values, what a deviation means].
   Rule: only facts we checked (standard, sources, this car's logs). Unknown → say so plainly.
   GM RVC: motor.com/magazine-summary/trouble-shooter-september2015 and GM RVC training material.
 -->
 <resources>
     <string-array name="help_ecu_voltage">
-        <item>Напряжение бортсети, как его измеряет ЭБУ двигателя на своём питании.</item>
-        <item>У CTS зарядкой управляет система GM RVC (Regulated Voltage Control): напряжение генератора меняется по заряду и температуре аккумулятора. Поэтому «плавающее» напряжение на ходу — нормально. В экономичном режиме (АКБ заряжен, ток маленький) генератор держит не выше 12.9 В — это тоже нормально, а не «не заряжает».</item>
-        <item>Из-за RVC одно низкое значение ничего не значит. Тревожно, если напряжение долго низкое и при этом на приборке есть предупреждение о зарядке или в блоках есть ошибки по питанию (например, P0562 — низкое напряжение).</item>
+        <item>System voltage as measured by the engine ECU at its own power supply.</item>
+        <item>On the CTS, charging is controlled by GM RVC (Regulated Voltage Control): alternator voltage changes with battery charge and temperature. So a \"floating\" voltage while driving is normal. In fuel economy mode (battery charged, low current) the alternator holds no more than 12.9 V — also normal, not \"not charging\".</item>
+        <item>Because of RVC, a single low reading means nothing. It\'s a concern if the voltage stays low for a long time and there is also a charging warning on the cluster or power-related codes in the modules (e.g. P0562 — system voltage low).</item>
     </string-array>
     <string-array name="help_adapter_voltage">
-        <item>Напряжение на 16-м контакте разъёма OBD, которое измеряет сам адаптер.</item>
-        <item>Должно быть близко к «Бортсеть (ЭБУ)»: немного ниже из-за проводов до разъёма.</item>
-        <item>Сильно отличается от значения ЭБУ — разъём OBD, масса или предохранитель цепи диагностики. У дешёвых клонов ELM327 сам замер бывает неточным — ориентируйся на значение ЭБУ.</item>
+        <item>Voltage at pin 16 of the OBD port, measured by the adapter itself.</item>
+        <item>Should be close to \"Voltage (ECU)\": slightly lower because of the wiring to the port.</item>
+        <item>Very different from the ECU value — the OBD port, ground or the diagnostic circuit fuse. On cheap ELM327 clones the measurement itself can be inaccurate — go by the ECU value.</item>
     </string-array>
     <string-array name="help_ambient">
-        <item>Температура воздуха снаружи по датчику машины, передаёт ЭБУ двигателя.</item>
-        <item>В движении близка к реальной. Стоя или после поездки может быть завышена: датчик греется от мотора и дороги.</item>
-        <item>Показывает −40 °C — обычно обрыв цепи датчика: это минимум шкалы.</item>
+        <item>Outside air temperature from the car\'s sensor, reported by the engine ECU.</item>
+        <item>Close to actual while driving. When stopped or after a drive it may read high: the sensor is heated by the engine and the road.</item>
+        <item>Shows −40 °C — usually an open sensor circuit: that\'s the bottom of the scale.</item>
     </string-array>
     <string-array name="help_baro">
-        <item>Атмосферное давление по данным ЭБУ.</item>
-        <item>На уровне моря — около 101 кПа, падает с высотой примерно на 1.2 кПа на каждые 100 м. Погода тоже немного его меняет.</item>
-        <item>Сильно отличается от ожидаемого для твоей высоты — стоит заподозрить датчик. От этого значения зависит расчёт смеси.</item>
+        <item>Atmospheric pressure as reported by the ECU.</item>
+        <item>About 101 kPa at sea level, dropping by roughly 1.2 kPa per 100 m of altitude. Weather changes it slightly too.</item>
+        <item>Very different from what you\'d expect at your altitude — suspect the sensor. The mixture calculation depends on this value.</item>
     </string-array>
 </resources>

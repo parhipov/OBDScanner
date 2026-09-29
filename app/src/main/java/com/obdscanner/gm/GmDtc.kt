@@ -3,6 +3,7 @@ package com.obdscanner.gm
 import com.obdscanner.bus.BusSniffer
 import com.obdscanner.elm.Obd
 import com.obdscanner.obd.Dtc
+import com.obdscanner.tr
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 
@@ -31,28 +32,28 @@ data class GmDtc(val code: String, val failureType: Int, val status: Int, val sc
         when (scheme) {
             // GMW3110: 7 MIL, 6 current since power-up, 4 history, 3 failed since clear, 1 current.
             DtcScheme.GM -> {
-                if (current) add("активна")
-                if (status and 0x40 != 0 && !current) add("была в этом зажигании")
-                if (status and 0x10 != 0) add("в истории")
-                if (status and 0x08 != 0 && status and 0x12 == 0) add("была после сброса")
+                if (current) add(tr("активна", "active"))
+                if (status and 0x40 != 0 && !current) add(tr("была в этом зажигании", "seen this ignition"))
+                if (status and 0x10 != 0) add(tr("в истории", "history"))
+                if (status and 0x08 != 0 && status and 0x12 == 0) add(tr("была после сброса", "failed since clear"))
             }
             // ISO 14229: 0 testFailed, 1 this cycle, 2 pending, 3 confirmed, 5 failed since clear.
             DtcScheme.UDS -> {
-                if (current) add("активна")
-                if (status and 0x02 != 0 && !current) add("была в этом цикле")
-                if (status and 0x04 != 0) add("ожидает подтверждения")
-                if (status and 0x08 != 0) add("подтверждена")
-                if (status and 0x20 != 0 && status and 0x0F == 0) add("была после сброса")
+                if (current) add(tr("активна", "active"))
+                if (status and 0x02 != 0 && !current) add(tr("была в этом цикле", "failed this cycle"))
+                if (status and 0x04 != 0) add(tr("ожидает подтверждения", "pending"))
+                if (status and 0x08 != 0) add(tr("подтверждена", "confirmed"))
+                if (status and 0x20 != 0 && status and 0x0F == 0) add(tr("была после сброса", "failed since clear"))
             }
             // ISO 14230: bits 6-5 — 11 present now, 10 intermittent, 01 stored, not present.
             DtcScheme.KWP -> when ((status shr 5) and 3) {
-                3 -> add("активна")
-                2 -> add("спорадическая")
-                1 -> add("в памяти, сейчас нет")
+                3 -> add(tr("активна", "active"))
+                2 -> add(tr("спорадическая", "intermittent"))
+                1 -> add(tr("в памяти, сейчас нет", "stored, not present now"))
             }
         }
         if (mil) add("Check")
-    }.joinToString(", ").ifEmpty { "статус %02X".format(status) }
+    }.joinToString(", ").ifEmpty { tr("статус %02X", "status %02X").format(status) }
 }
 
 /** What one module answered. [complete] — the end-of-list marker arrived. */
@@ -86,15 +87,17 @@ class GmDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
             if (a.complete && a.clean) { complete = true; break }
             // Refusal or silence — asking again won't help.
             if (a.clean && a.codes.isEmpty() && !a.bufferFull) break
-            note("GM DTC %s: попытка %d — %s, повтор".format(module.id, attempt, if (a.clean) "нет конца списка" else "кадры искажены"))
+            val why = if (a.clean) tr("нет конца списка", "no end-of-list marker") else tr("кадры искажены", "garbled frames")
+            note(tr("GM DTC %s: попытка %d — %s, повтор", "GM DTC %s: attempt %d — %s, retry").format(module.id, attempt, why))
         }
         val result = when {
-            codes.isNotEmpty() -> "кодов: ${codes.size}" + if (complete) "" else " (часть кадров потеряна — может быть не всё)"
-            complete -> "нет кодов"
-            nrc == 0x11 || nrc == 0x12 -> "не поддерживает \$A9 (отказ %02X)".format(nrc)
-            nrc != null -> "отказ %02X".format(nrc)
-            bufferFull -> "адаптер переполнен (BUFFER FULL)"
-            else -> "нет ответа"
+            codes.isNotEmpty() -> tr("кодов: ${codes.size}", "codes: ${codes.size}") + if (complete) "" else
+                tr(" (часть кадров потеряна — может быть не всё)", " (some frames lost — list may be incomplete)")
+            complete -> tr("нет кодов", "no codes")
+            nrc == 0x11 || nrc == 0x12 -> tr("не поддерживает \$A9 (отказ %02X)", "\$A9 not supported (NRC %02X)").format(nrc)
+            nrc != null -> tr("отказ %02X", "refused, NRC %02X").format(nrc)
+            bufferFull -> tr("адаптер переполнен (BUFFER FULL)", "adapter overflow (BUFFER FULL)")
+            else -> tr("нет ответа", "no answer")
         }
         note("GM DTC %s: %s %s".format(module.id, result, codes.joinToString(" ") { it.full }))
         return GmDtcResult(module, codes, result, complete)

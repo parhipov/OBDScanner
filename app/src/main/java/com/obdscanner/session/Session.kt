@@ -2,6 +2,7 @@ package com.obdscanner.session
 
 import android.util.Log
 import com.obdscanner.obd.Reading
+import com.obdscanner.tr
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileOutputStream
@@ -33,7 +34,7 @@ class Session(val dir: File) {
     init {
         csv.write("t_ms,time,ecu,key,name,value,text,unit\n")
         scan.write("time,module_req,module_resp,service,id,len,hex,ascii\n")
-        report.write("OBD Scanner — сессия ${dir.name}\n")
+        report.write(tr("OBD Scanner — сессия ${dir.name}\n", "OBD Scanner — session ${dir.name}\n"))
     }
 
     private fun writer(name: String) = BufferedWriter(OutputStreamWriter(FileOutputStream(File(dir, name), true), Charsets.UTF_8))

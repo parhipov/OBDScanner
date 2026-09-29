@@ -1,6 +1,8 @@
 package com.obdscanner
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Process
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -51,6 +53,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val m = ObdApp.manager(this)
+        // The language was switched while the process lived (the activity is recreated for it): tr() texts
+        // are fixed per process, so start over instead of showing two languages. Not while connected —
+        // the session being recorded matters more; the next start picks the new language up.
+        if (L10n.ru != L10n.isRu(resources.configuration.locales[0]) && m.conn.value !is ConnState.Connected && m.conn.value !is ConnState.Connecting) {
+            startActivity(Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+            Process.killProcess(Process.myPid())
+            return
+        }
         setContent { AppTheme { AppRoot(m) } }
     }
 }
@@ -80,7 +90,7 @@ private fun AppRoot(m: ObdManager) {
                             is ConnState.Connected -> "● ${c.device}${busy?.let { " · $it" } ?: ""}" to Good
                             is ConnState.Connecting -> "○ ${c.step}" to Warn
                             is ConnState.Failed -> "✕ ${c.message}" to MaterialTheme.colorScheme.error
-                            ConnState.Idle -> "не подключено" to MaterialTheme.colorScheme.outline
+                            ConnState.Idle -> tr("не подключено", "not connected") to MaterialTheme.colorScheme.outline
                         }
                         Text(status, style = MaterialTheme.typography.labelSmall, color = color, maxLines = 1)
                     }
@@ -88,10 +98,10 @@ private fun AppRoot(m: ObdManager) {
                 actions = {
                     IconButton(onClick = {
                         val dir = m.session?.also { it.flush() }?.dir ?: m.sessions.list().firstOrNull()
-                        if (dir == null) toast(ctx, "Сессий пока нет") else shareFile(ctx, m.sessions.zip(dir))
-                    }) { Icon(Icons.Default.Share, "Отправить сессию") }
+                        if (dir == null) toast(ctx, tr("Сессий пока нет", "No sessions yet")) else shareFile(ctx, m.sessions.zip(dir))
+                    }) { Icon(Icons.Default.Share, tr("Отправить сессию", "Share session")) }
                     if (conn is ConnState.Connected || conn is ConnState.Connecting) {
-                        IconButton(onClick = { m.disconnect() }) { Icon(Icons.Default.Close, "Отключиться") }
+                        IconButton(onClick = { m.disconnect() }) { Icon(Icons.Default.Close, tr("Отключиться", "Disconnect")) }
                     }
                 },
             )

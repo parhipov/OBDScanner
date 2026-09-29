@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Card help, section "Масло". Each array: [what it is, normal values, what a deviation means].
+  Card help, section "Oil". Each array: [what it is, normal values, what a deviation means].
   Rule: only facts we checked (standard, sources, this car's logs). Unknown → say so plainly.
 -->
 <resources>
     <string-array name="help_oil_temp">
-        <item>Температура моторного масла. Масло прогревается заметно медленнее антифриза.</item>
-        <item>Рабочих пределов GM для этого мотора мы не знаем. Пока масло холодное, мотор лучше не крутить высоко — это общее правило для любого двигателя.</item>
-        <item>Смотри на тенденцию: если на привычном маршруте масло стало заметно горячее, чем раньше, — повод проверить уровень масла и охлаждение.</item>
+        <item>Engine oil temperature. Oil warms up much more slowly than coolant.</item>
+        <item>We don\'t know GM\'s operating limits for this engine. While the oil is cold, better not to rev the engine high — a general rule for any engine.</item>
+        <item>Watch the trend: if on your usual route the oil runs noticeably hotter than before, check the oil level and the cooling.</item>
     </string-array>
     <string-array name="help_oil_pressure">
-        <item>Давление масла, GM-параметр. Формула из одного источника, на машине не проверена.</item>
-        <item>Норм давления для этого мотора мы не знаем. Давление растёт с оборотами и падает на горячем масле — это общая физика.</item>
-        <item>Пока формула не проверена, по этому числу выводов не делаем. Лампа давления масла в приборке — главный сигнал: если загорелась, сразу глуши мотор.</item>
+        <item>Oil pressure, a GM parameter. Formula from a single source, not verified on a car.</item>
+        <item>We don\'t know the pressure norms for this engine. Pressure rises with RPM and drops with hot oil — general physics.</item>
+        <item>Until the formula is verified, we draw no conclusions from this number. The oil pressure light on the cluster is the main signal: if it comes on, shut the engine off at once.</item>
     </string-array>
     <string-array name="help_oil_life">
-        <item>Остаток ресурса масла по системе GM Oil Life. Это не датчик: ресурс вычисляется по работе двигателя — оборотам и температуре.</item>
-        <item>После замены масла ресурс сбрасывают на 100%, дальше он уменьшается. Формула этого параметра под вопросом — сравни с тем, что показывает приборка.</item>
-        <item>Если после замены не сбросили, счётчик ничего не значит — ориентируйся на пробег.</item>
+        <item>Remaining oil life from the GM Oil Life system. It\'s not a sensor: oil life is calculated from how the engine runs — RPM and temperature.</item>
+        <item>After an oil change it is reset to 100%, then it decreases. This parameter\'s formula is unverified — compare with what the cluster shows.</item>
+        <item>If it wasn\'t reset after an oil change, the counter means nothing — go by mileage.</item>
     </string-array>
 </resources>

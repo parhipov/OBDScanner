@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Texts of the card help window. Translation: copy this file and help_*.xml to values-en/ and translate. -->
+<!--
+  Texts of the card help window. English: the default for every system language except Russian.
+  Russian lives in values-ru/. New language: copy this file and help_*.xml to values-xx/ and translate.
+-->
 <resources>
-    <string name="help_what">Что это</string>
-    <string name="help_norm">Норма</string>
-    <string name="help_hint">Если не так</string>
-    <string name="help_close">Закрыть</string>
-    <string name="help_range">мин %1$s · макс %2$s за сессию</string>
-    <string name="help_sample">Пример: типичное значение прогретой машины на холостых. Нет связи с адаптером.</string>
-    <string name="help_none">Описания для этого параметра пока нет.</string>
-    <string name="help_unverified">Формула из одного источника и на машине не проверена. Сверяйте с чем-то известным, прежде чем доверять.</string>
-    <string name="help_src_pid">Стандартный OBD: Mode 01, PID %1$s · %2$s</string>
+    <string name="help_what">What it is</string>
+    <string name="help_norm">Normal</string>
+    <string name="help_hint">If it\'s off</string>
+    <string name="help_close">Close</string>
+    <string name="help_range">min %1$s · max %2$s this session</string>
+    <string name="help_sample">Sample: a typical value for a warm car at idle. No adapter connection.</string>
+    <string name="help_none">No description for this parameter yet.</string>
+    <string name="help_unverified">Formula from a single source, not verified on a car. Check it against something known before trusting it.</string>
+    <string name="help_src_pid">Standard OBD: Mode 01, PID %1$s · %2$s</string>
     <string name="help_src_gm">GM Mode $22, DID %1$s · %2$s</string>
-    <string name="help_src_calc">Расчёт приложения из других параметров</string>
-    <string name="help_src_adapter">Измеряет сам адаптер (ATRV)</string>
+    <string name="help_src_calc">Calculated by the app from other parameters</string>
+    <string name="help_src_adapter">Measured by the adapter itself (ATRV)</string>
 </resources>

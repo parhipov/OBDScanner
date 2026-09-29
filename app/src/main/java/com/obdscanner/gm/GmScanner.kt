@@ -2,6 +2,7 @@ package com.obdscanner.gm
 
 import com.obdscanner.elm.CanReply
 import com.obdscanner.elm.Obd
+import com.obdscanner.tr
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -24,13 +25,13 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         for ((i, pair) in all.withIndex()) {
             currentCoroutineContext().ensureActive()
             val (req, resp) = pair
-            onProgress(i.toFloat() / all.size, "Опрос %03X…".format(req))
+            onProgress(i.toFloat() / all.size, tr("Опрос %03X…", "Probing %03X…").format(req))
             obd.target(req, resp)
             for (p in probes) {
                 val r = obd.request(p, timeoutMs = 400, expectOne = true)
                 val msg = r.from(resp).firstOrNull()
                 if (msg != null) {
-                    val what = if (msg.isNegative) "$p → отказ %02X".format(msg.nrc) else "$p → OK"
+                    val what = if (msg.isNegative) tr("$p → отказ %02X", "$p → NRC %02X").format(msg.nrc) else "$p → OK"
                     found += GmModule(req, resp, name(req), what)
                     note("GM: module %03X answered: %s".format(req, what))
                     break
@@ -87,7 +88,7 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         var silent = 0
         for ((n, did) in range.withIndex()) {
             currentCoroutineContext().ensureActive()
-            if (n % 8 == 0) onProgress(n.toFloat() / total, "%s %s %s: %d из %d".format(module.id, service, fmtDid(service, did), n, total))
+            if (n % 8 == 0) onProgress(n.toFloat() / total, tr("%s %s %s: %d из %d", "%s %s %s: %d of %d").format(module.id, service, fmtDid(service, did), n, total))
             val r = read(module, service, did) ?: run {
                 if (++silent >= 40) {
                     note("GM: %s service %s — 40 silent requests in a row, giving up".format(module.id, service))
@@ -107,7 +108,7 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
                 r.first != null -> onHit(ScanHit(module.req, module.resp, service, did, r.first!!))
             }
         }
-        onProgress(1f, "Готово")
+        onProgress(1f, tr("Готово", "Done"))
     }
 
     /** Returns (data after the DID echo, NRC) or null when nobody answered. */

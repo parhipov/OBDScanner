@@ -1,110 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Tab "Как тестировать". Each array is one section: first item = title, the rest = paragraphs.
-  guide_steps is the short instruction (same for every car); everything below "Подробности" is
+  Tab "How to test". Each array is one section: first item = title, the rest = paragraphs.
+  guide_steps is the short instruction (same for every car); everything below "Details" is
   detail: common sections plus the car's own section (guide_gm, guide_vag, guide_toyota...).
-  Translation: copy this file to values-en/ and translate the items (keep the array names).
+  English: the default for every system language except Russian (Russian lives in values-ru/).
+  New language: copy this file to values-xx/ and translate the items (keep the array names and item order).
 -->
 <resources>
-    <string name="guide_for">Машина</string>
+    <string name="guide_for">Car</string>
     <string name="guide_make_gm">GM (CTS)</string>
     <string name="guide_make_vag">VW (Polo)</string>
     <string name="guide_make_toyota">Toyota (RAV4)</string>
     <string name="guide_make_lada">Lada (Vesta)</string>
     <string name="guide_make_hyundai">Hyundai (Solaris)</string>
-    <string name="guide_detected">По VIN: %1$s</string>
-    <string name="guide_details">Подробности</string>
+    <string name="guide_detected">From VIN: %1$s</string>
+    <string name="guide_details">Details</string>
 
     <!-- OBD socket picture (res/drawable-nodpi/obd_*.png, no text inside): caption per car. -->
-    <string name="guide_obd_title">Где разъём OBD</string>
-    <string name="guide_obd_gm">Под панелью слева от рулевой колонки, над площадкой для левой ноги. Открыт, крышки нет.</string>
-    <string name="guide_obd_vag">Под панелью, ниже и левее руля.</string>
-    <string name="guide_obd_toyota">Под панелью слева, у двери: справа от ручки открытия капота, под блоком предохранителей.</string>
-    <string name="guide_obd_lada">Под рулевой колонкой слева, рядом с ручкой открытия капота, под монтажным блоком.</string>
-    <string name="guide_obd_hyundai">Под рулём слева, над площадкой для левой ноги, за крышкой блока предохранителей — крышку снять.</string>
-    <string name="guide_obd_note">Это рисунок, а не фото. Положение разъёма — по описаниям (klavkarr.com, форумы владельцев); у Polo проверено на машине.</string>
+    <string name="guide_obd_title">Where the OBD port is</string>
+    <string name="guide_obd_gm">Under the dash, left of the steering column, above the footrest. Open, no cover.</string>
+    <string name="guide_obd_vag">Under the dash, below and left of the steering wheel.</string>
+    <string name="guide_obd_toyota">Under the dash on the left, by the door: right of the hood release, below the fuse box.</string>
+    <string name="guide_obd_lada">Under the steering column on the left, next to the hood release, below the fuse/relay box.</string>
+    <string name="guide_obd_hyundai">Under the steering wheel on the left, above the footrest, behind the fuse box cover — remove the cover.</string>
+    <string name="guide_obd_note">This is a drawing, not a photo. Port locations come from descriptions (klavkarr.com, owner forums); the Polo one was checked on the car.</string>
 
     <string-array name="guide_steps">
-        <item>Как тестировать</item>
-        <item>1. Зажигание включено, двигатель не заведён. «Связь» → адаптер.</item>
-        <item>2. Подождать, пока на «Главной» пропадёт «Опрос автомобиля…». Первый раз — несколько минут.</item>
-        <item>3. Завести, 5–10 минут на холостых.</item>
-        <item>4. Поездка 20–40 минут: город, ровно 60 и 90 км/ч, разгоны, один раз в пол.</item>
-        <item>5. На холостых: «Ошибки» → «Прочитать», «Инфо» → «Mode 06».</item>
-        <item>6. Заглушить, ✕ вверху, ⇪ — отправить сессию.</item>
-        <item>За рулём телефон не трогать. Ошибки не сбрасывать.</item>
+        <item>How to test</item>
+        <item>1. Ignition on, engine off. \"Connect\" → adapter.</item>
+        <item>2. Wait until \"Scanning the car…\" disappears on \"Main\". The first time takes a few minutes.</item>
+        <item>3. Start the engine, idle for 5–10 minutes.</item>
+        <item>4. Drive 20–40 minutes: city, steady 60 and 90 km/h, accelerations, one full-throttle run.</item>
+        <item>5. At idle: \"Codes\" → \"Read\", \"Info\" → \"Mode 06\".</item>
+        <item>6. Stop the engine, tap ✕ at the top, ⇪ to send the session.</item>
+        <item>Don\'t touch the phone while driving. Don\'t clear codes.</item>
     </string-array>
 
     <string-array name="guide_more_steps">
-        <item>По шагам</item>
-        <item>Подключение: приложение само читает всё, что может: PID, VIN, ошибки, стоп-кадр, готовность мониторов, бортовые тесты (Mode 06), блоки и их ошибки. На «Инфо» видно протокол (CAN — ISO 15765-4, K-line — ISO 9141-2 или ISO 14230), VIN и марку.</item>
-        <item>Первое подключение к машине дольше: ищутся блоки. Дальше они запоминаются по VIN, и подключение занимает меньше минуты.</item>
-        <item>Холодный пуск полезнее тёплого: видно, как растёт температура ОЖ и масла и как опускаются обороты ХХ.</item>
-        <item>Вкладка влияет на то, что читается чаще. «Топливо» — коррекции, O2 и пропуски по цилиндрам. «Главная» — основное. «Все данные» опрашивает всё по кругу, поэтому каждый параметр обновляется реже, для поездки она хуже.</item>
-        <item>Заметили что-то странное (рывок, провал, пропуск) — запомните время: в логах всё с метками времени.</item>
-        <item>После поездки могут появиться неподтверждённые (pending) коды и результаты бортовых тестов, которых не было стоя. «Опросить заново» на «Инфо» обновляет готовность мониторов, «Прочитать все блоки» на «Ошибках» — память ошибок всех блоков.</item>
-        <item>Экран можно выключить: запись идёт в фоне, в шторке висит уведомление.</item>
+        <item>Step by step</item>
+        <item>Connecting: the app reads everything it can on its own: PIDs, VIN, trouble codes, freeze frame, readiness monitors, on-board tests (Mode 06), modules and their codes. \"Info\" shows the protocol (CAN — ISO 15765-4, K-line — ISO 9141-2 or ISO 14230), VIN and make.</item>
+        <item>The first connection to a car takes longer: the app searches for modules. After that they are remembered by VIN, and connecting takes under a minute.</item>
+        <item>A cold start is more useful than a warm one: you can see coolant and oil temperatures rise and idle RPM come down.</item>
+        <item>The open tab decides what is read more often. \"Fuel\": fuel trims, O2 and per-cylinder misfires. \"Main\": the essentials. \"All data\" polls everything in turn, so each parameter updates less often; it\'s worse for a drive.</item>
+        <item>Noticed something odd (a jerk, a stumble, a misfire)? Note the time: everything in the logs is timestamped.</item>
+        <item>After a drive, pending codes and on-board test results that weren\'t there when parked may appear. \"Rescan\" on \"Info\" refreshes the readiness monitors, \"Read all modules\" on \"Codes\" reads the code memory of all modules.</item>
+        <item>You can turn the screen off: recording continues in the background, with a notification in the notification shade.</item>
     </string-array>
 
     <string-array name="guide_gm">
         <item>GM</item>
-        <item>Первое подключение: поиск модулей на HS-CAN (~1 мин), их идентификация и полная память ошибок ($A9). На время чтения ошибок адаптер переключается в режим сырых кадров и потом возвращается; если он не ответил — переинициализируется сам.</item>
-        <item>Опрашиваются ~45 параметров GM ($22): масло двигателя и АКПП, проскальзывание гидротрансформатора, обороты валов АКПП, детонация, пропуски по цилиндрам. Параметры с «(?)» проверены только по одному источнику.</item>
-        <item>Подушки, приборка, радио, климат, TPMS — на однопроводной шине GMLAN (пин 1), обычный ELM327 их не видит.</item>
-        <item>Если прошивка двигателя изменена (open loop, отключены O2 или катализаторы), коррекции стоят на 0 и датчики O2 не меняются — это не сбой приложения.</item>
+        <item>First connection: module search on HS-CAN (~1 min), module identification and full code memory ($A9). While reading codes, the adapter switches to raw frame mode and then back; if it doesn\'t respond, it re-initializes itself.</item>
+        <item>About 45 GM parameters ($22) are polled: engine and transmission oil, torque converter slip, transmission shaft speeds, knock, per-cylinder misfires. Parameters marked \"(?)\" are verified against only one source.</item>
+        <item>Airbags, instrument cluster, radio, climate and TPMS are on single-wire GMLAN (pin 1); a regular ELM327 can\'t see them.</item>
+        <item>If the engine firmware is modified (open loop, O2 sensors or catalysts disabled), fuel trims stay at 0 and the O2 sensors don\'t change — this is not an app fault.</item>
     </string-array>
 
     <string-array name="guide_vag">
         <item>Volkswagen</item>
-        <item>Polo 9N (примерно до 2009 года) с бензиновым мотором обычно на K-line. Тогда читается только стандартный OBD — без поиска блоков, их номеров и ошибок (см. Toyota).</item>
-        <item>Первое подключение: поиск блоков VW (~2 мин, адреса 7E0–7E7 и 700–775), их идентификация (номер детали, версия ПО, железо, кодирование) и полная память ошибок (UDS $19 или KWP $18).</item>
-        <item>Если блоки работают по старому протоколу VW (TP 2.0), найдутся только двигатель и КПП — остальные ELM327 не видит. Это нормально.</item>
-        <item>Параметры GM на VW не опрашиваются: у VW свои номера, чужие формулы дали бы неверные значения. Живые данные — стандартный OBD, секция «АКПП» на «Главной» будет пустой.</item>
-        <item>Номер детали и версия ПО двигателя (report.txt, «идентификация модулей») — главное, по чему потом ищутся мотор, прошивка и известные проблемы.</item>
-        <item>Больше данных: «GM-скан» → «Найти модули», у блока двигателя — скан $22 «F100–F1FF» или «1000–1FFF». Только чтение, но долго; делать стоя.</item>
+        <item>A Polo 9N (up to about 2009) with a petrol engine is usually on K-line. Then only standard OBD is read — no module search, part numbers or module codes (see Toyota).</item>
+        <item>First connection: VW module search (~2 min, addresses 7E0–7E7 and 700–775), module identification (part number, software version, hardware, coding) and full code memory (UDS $19 or KWP $18).</item>
+        <item>If the modules use the old VW protocol (TP 2.0), only the engine and transmission are found — ELM327 can\'t see the rest. This is normal.</item>
+        <item>GM parameters aren\'t polled on a VW: VW uses its own numbers, and GM formulas would give wrong values. Live data is standard OBD; the \"Transmission\" section on \"Main\" will be empty.</item>
+        <item>The engine part number and software version (report.txt, \"module identification\") are the main clue for later looking up the engine, firmware and known issues.</item>
+        <item>More data: \"GM scan\" → \"Find modules\", then on the engine module a $22 scan \"F100–F1FF\" or \"1000–1FFF\". Read-only, but slow; do it parked.</item>
     </string-array>
 
     <string-array name="guide_toyota">
         <item>Toyota</item>
-        <item>RAV4 2005 (XA20, 1AZ-FE) оказался на CAN 11/500 (ISO 15765-4): стандартный OBD работает полностью. VIN блок не отдаёт, поэтому марка «не определена» — это нормально.</item>
-        <item>Первое подключение: поиск блоков (~20 с: 7E0–7E7 и адреса, где у Toyota бывают ABS/VSC, приборка и климат), их идентификация и ошибки. На RAV4 2005 отвечает только двигатель, и расширенные запросы UDS он отклоняет — у Toyota этого поколения свой протокол.</item>
-        <item>Главное новое: данные блока двигателя Toyota (сервис $21 — то, что показывает Techstream: детонация, VVT-i, впрыск, пропуски по цилиндрам). Их номера и формулы нигде не опубликованы, поэтому сначала собираем сырые данные:</item>
-        <item>1) Заведите мотор, «GM-скан» → «Найти модули». 2) У «Двигатель (7E0)» нажмите «$21» — 256 номеров, ~20–40 с, только чтение. 3) «Отметить все с данными». 4) Перейдите на «Главную» и поездите 15–20 минут: прогрев, ХХ, разгоны, торможение двигателем. Отмеченные блоки пишутся в data.csv, по ним потом расшифруем, где какой параметр.</item>
-        <item>Там же «Слушать шину» (1–2 минуты на заведённом моторе, ничего не отправляет в блоки): если в гнездо выведена рабочая шина, будут видны кадры с оборотами, скоростями колёс и т.п.</item>
-        <item>Если машина на K-line (у других Toyota того времени бывает ISO 9141-2 или KWP2000): подключение дольше (BUS INIT, до полуминуты), параметры обновляются реже, читается только стандартный OBD — поиск блоков и сканы недоступны.</item>
+        <item>The RAV4 2005 (XA20, 1AZ-FE) turned out to be on CAN 11/500 (ISO 15765-4): standard OBD works fully. The module doesn\'t report a VIN, so the make shows as \"unknown\" — this is normal.</item>
+        <item>First connection: module search (~20 s: 7E0–7E7 and addresses where Toyota often has ABS/VSC, the cluster and climate), module identification and codes. On the RAV4 2005 only the engine responds, and it rejects extended UDS requests — Toyota of this generation has its own protocol.</item>
+        <item>The big new thing: Toyota engine module data (service $21 — what Techstream shows: knock, VVT-i, injection, per-cylinder misfires). Their numbers and formulas aren\'t published anywhere, so first we collect raw data:</item>
+        <item>1) Start the engine, \"GM scan\" → \"Find modules\". 2) On \"Engine (7E0)\" tap \"$21\" — 256 numbers, ~20–40 s, read-only. 3) \"Tick all with data\". 4) Go to \"Main\" and drive for 15–20 minutes: warm-up, idle, accelerations, engine braking. The watched blocks are written to data.csv; from them we\'ll later work out which parameter is where.</item>
+        <item>Also there: \"Sniff bus\" (1–2 minutes with the engine running, sends nothing to the modules). If a live bus is wired to the port, you\'ll see frames with RPM, wheel speeds, etc.</item>
+        <item>If the car is on K-line (other Toyotas of that era may use ISO 9141-2 or KWP2000): connecting takes longer (BUS INIT, up to half a minute), parameters update less often, and only standard OBD is read — module search and scans are unavailable.</item>
     </string-array>
 
     <string-array name="guide_lada">
         <item>Lada</item>
-        <item>Vesta на CAN (ISO 15765-4): стандартный OBD работает полностью.</item>
-        <item>Первое подключение: поиск блоков на стандартных адресах OBD и нескольких частых адресах ABS/подушек/приборки (~20 с), их идентификация (номер и версия ПО) и память ошибок (UDS $19 или KWP $18). Только чтение.</item>
-        <item>Своих параметров АвтоВАЗа (как $22 у GM) приложение не знает: надёжного открытого описания для Vesta у нас нет. Живые данные — только стандартный OBD, секция «АКПП» будет пустой.</item>
-        <item>ABS, подушки, кузовной блок сидят на своих адресах, которых мы не знаем, поэтому не ищутся.</item>
-        <item>Версия ПО блока двигателя (report.txt, «идентификация модулей») — главное для анализа: по ней видно, какой блок и какая прошивка стоят.</item>
+        <item>The Vesta is on CAN (ISO 15765-4): standard OBD works fully.</item>
+        <item>First connection: module search at the standard OBD addresses and a few common ABS/airbag/cluster addresses (~20 s), module identification (part number and software version) and code memory (UDS $19 or KWP $18). Read-only.</item>
+        <item>The app doesn\'t know AvtoVAZ\'s own parameters (like $22 on GM): we have no reliable public description for the Vesta. Live data is standard OBD only; the \"Transmission\" section will be empty.</item>
+        <item>ABS, airbags and the body module sit at their own addresses, which we don\'t know, so they aren\'t searched for.</item>
+        <item>The engine module software version (report.txt, \"module identification\") is the key to the analysis: it shows which module and firmware are installed.</item>
     </string-array>
 
     <string-array name="guide_hyundai">
         <item>Hyundai</item>
-        <item>Solaris выпускается с 2011 года и обычно на CAN (ISO 15765-4). Если у машины 2010 год или раньше, это, скорее всего, другая модель (Accent, Verna) — протокол смотрите на «Инфо». K-line приложение тоже понимает, но только стандартный OBD.</item>
-        <item>Первое подключение: поиск блоков на стандартных адресах OBD и нескольких частых адресах ABS/подушек/приборки (~20 с), их идентификация (номер и версия ПО) и память ошибок (UDS $19 или KWP $18). Только чтение.</item>
-        <item>Своих параметров Hyundai приложение не знает — живые данные только стандартный OBD, секция «АКПП» будет пустой.</item>
-        <item>ABS, подушки и кузовные блоки на своих адресах не ищутся.</item>
-        <item>Версия ПО блока двигателя (report.txt, «идентификация модулей») — главное для анализа.</item>
+        <item>The Solaris has been made since 2011 and is usually on CAN (ISO 15765-4). If the car is a 2010 or older, it\'s most likely a different model (Accent, Verna) — check the protocol on \"Info\". The app also handles K-line, but only standard OBD.</item>
+        <item>First connection: module search at the standard OBD addresses and a few common ABS/airbag/cluster addresses (~20 s), module identification (part number and software version) and code memory (UDS $19 or KWP $18). Read-only.</item>
+        <item>The app doesn\'t know Hyundai\'s own parameters — live data is standard OBD only; the \"Transmission\" section will be empty.</item>
+        <item>ABS, airbag and body modules at their own addresses aren\'t searched for.</item>
+        <item>The engine module software version (report.txt, \"module identification\") is the key to the analysis.</item>
     </string-array>
 
     <string-array name="guide_safety">
-        <item>Безопасность</item>
-        <item>Всё, что приложение делает само, — только чтение. Меняет что-то в машине только кнопка «Сбросить» на «Ошибках», и она спрашивает подтверждение.</item>
-        <item>Сброс стирает не только коды, но и готовность мониторов и стоп-кадр — машине потом нужно заново проехать циклы. Перед сбросом всё уже записано в сессию.</item>
-        <item>Сканы на «GM-скан» и прослушку шины — только стоя: они на минуты занимают адаптер, живые данные в это время не читаются.</item>
-        <item>Приложением в дороге лучше занимается пассажир.</item>
+        <item>Safety</item>
+        <item>Everything the app does on its own is read-only. Only the \"Clear\" button on \"Codes\" changes anything in the car, and it asks for confirmation.</item>
+        <item>Clearing erases not only the codes but also the readiness monitors and freeze frame — the car then has to complete its drive cycles again. Everything is saved to the session before clearing.</item>
+        <item>Scans in \"GM scan\" and bus listening: parked only. They tie up the adapter for minutes, and live data isn\'t read meanwhile.</item>
+        <item>On the road, it\'s better to let a passenger handle the app.</item>
     </string-array>
 
     <string-array name="guide_files">
-        <item>Что в сессии</item>
-        <item>raw.log — весь обмен с адаптером с временем: что спросили и что ответила машина.</item>
-        <item>data.csv — все значения по времени; из него строятся графики поездки.</item>
-        <item>report.txt — сводка: адаптер, протокол, VIN, блоки, их номера, ошибки, Mode 06.</item>
-        <item>scan.csv — находки поиска и сканов блоков; bus.csv — прослушка шины.</item>
+        <item>What\'s in a session</item>
+        <item>raw.log — the full exchange with the adapter, timestamped: what was asked and what the car answered.</item>
+        <item>data.csv — all values over time; trip charts are built from it.</item>
+        <item>report.txt — summary: adapter, protocol, VIN, modules, their part numbers, codes, Mode 06.</item>
+        <item>scan.csv — module search and scan findings; bus.csv — bus listening.</item>
     </string-array>
 </resources>

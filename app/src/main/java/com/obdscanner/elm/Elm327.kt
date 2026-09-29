@@ -1,5 +1,6 @@
 package com.obdscanner.elm
 
+import com.obdscanner.tr
 import com.obdscanner.transport.Transport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -71,7 +72,7 @@ class Elm327(
 
     private suspend fun sendOnce(cmd: String, timeoutMs: Long): ElmReply = mutex.withLock {
         withContext(Dispatchers.IO) {
-            if (!alive) throw IOException("Адаптер отключён")
+            if (!alive) throw IOException(tr("Адаптер отключён", "Adapter disconnected"))
             drain()
             log('>', cmd)
             transport.output.write((cmd + "\r").toByteArray(Charsets.US_ASCII))
@@ -79,7 +80,7 @@ class Elm327(
             val sb = StringBuilder()
             val done = withTimeoutOrNull(timeoutMs) {
                 while (true) {
-                    val b = rx.receiveCatching().getOrNull() ?: throw IOException("Связь с адаптером потеряна")
+                    val b = rx.receiveCatching().getOrNull() ?: throw IOException(tr("Связь с адаптером потеряна", "Lost connection to adapter"))
                     val c = (b.toInt() and 0xFF).toChar()
                     if (c == '>') break
                     if (c != '\u0000') sb.append(c)
@@ -100,7 +101,7 @@ class Elm327(
      */
     suspend fun monitor(cmd: String, durationMs: Long): ElmReply = mutex.withLock {
         withContext(Dispatchers.IO) {
-            if (!alive) throw IOException("Адаптер отключён")
+            if (!alive) throw IOException(tr("Адаптер отключён", "Adapter disconnected"))
             drain()
             log('>', cmd)
             transport.output.write((cmd + "\r").toByteArray(Charsets.US_ASCII))
@@ -110,7 +111,7 @@ class Elm327(
             try {
                 withTimeoutOrNull(durationMs) {
                     while (true) {
-                        val b = rx.receiveCatching().getOrNull() ?: throw IOException("Связь с адаптером потеряна")
+                        val b = rx.receiveCatching().getOrNull() ?: throw IOException(tr("Связь с адаптером потеряна", "Lost connection to adapter"))
                         val c = (b.toInt() and 0xFF).toChar()
                         if (c == '>') break
                         if (c != '\u0000') sb.append(c)
@@ -121,7 +122,8 @@ class Elm327(
                 if (!ended) withContext(NonCancellable) { recoverPrompt() }
             }
             val lines = sb.count { it == '\r' }
-            log('<', "[monitor: $lines строк, ${sb.length} символов${if (ended) ", адаптер остановился сам: " + sb.lines().lastOrNull { it.isNotBlank() }?.trim() else ""}]")
+            val stop = if (ended) tr(", адаптер остановился сам: ", ", adapter stopped by itself: ") + sb.lines().lastOrNull { it.isNotBlank() }?.trim() else ""
+            log('<', tr("[monitor: $lines строк, ${sb.length} символов$stop]", "[monitor: $lines lines, ${sb.length} chars$stop]"))
             ElmReply(cmd, sb.toString(), !ended)
         }
     }

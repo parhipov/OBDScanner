@@ -1,5 +1,7 @@
 package com.obdscanner.obd
 
+import com.obdscanner.tr
+
 /**
  * Make by the VIN's manufacturer code (WMI, first 3 characters). GM and VAG have their own
  * module steps; the rest get the standard OBD addresses with UDS/KWP identification and DTCs.
@@ -10,7 +12,7 @@ enum class Make(val title: String) {
     TOYOTA("Toyota"),
     LADA("Lada"),
     HYUNDAI("Hyundai / Kia"),
-    OTHER("не определена");
+    OTHER(tr("не определена", "unknown"));
 
     companion object {
         private val WMI = listOf(

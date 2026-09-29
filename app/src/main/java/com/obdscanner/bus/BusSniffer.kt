@@ -1,6 +1,7 @@
 package com.obdscanner.bus
 
 import com.obdscanner.elm.Obd
+import com.obdscanner.tr
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -55,12 +56,12 @@ class BusSniffer(
             while (System.currentTimeMillis() - t0 < overviewMs) {
                 currentCoroutineContext().ensureActive()
                 val left = overviewMs - (System.currentTimeMillis() - t0)
-                onProgress((System.currentTimeMillis() - t0).toFloat() / overviewMs * 0.2f, "Обзор шины… найдено ID: ${stats.size}")
+                onProgress((System.currentTimeMillis() - t0).toFloat() / overviewMs * 0.2f, tr("Обзор шины… найдено ID: ${stats.size}", "Bus overview… IDs found: ${stats.size}"))
                 val started = System.currentTimeMillis()
                 val r = obd.elm.monitor("ATMA", left.coerceAtLeast(500))
                 if (r.lines.any { it == "?" }) {
                     note("BUS: adapter does not support ATMA")
-                    onProgress(1f, "Адаптер не поддерживает прослушку (ATMA)")
+                    onProgress(1f, tr("Адаптер не поддерживает прослушку (ATMA)", "Adapter does not support monitoring (ATMA)"))
                     return
                 }
                 val frames = parse(r.lines)
@@ -75,7 +76,7 @@ class BusSniffer(
             val ids = stats.keys.sorted().take(maxIds)
             for ((i, id) in ids.withIndex()) {
                 currentCoroutineContext().ensureActive()
-                onProgress(0.2f + 0.8f * i / ids.size, "Слушаю %03X (%d из %d)".format(id, i + 1, ids.size))
+                onProgress(0.2f + 0.8f * i / ids.size, tr("Слушаю %03X (%d из %d)", "Listening to %03X (%d of %d)").format(id, i + 1, ids.size))
                 obd.at("ATCRA%03X".format(id))
                 val started = System.currentTimeMillis()
                 val r = obd.elm.monitor("ATMA", perIdMs)
@@ -89,7 +90,7 @@ class BusSniffer(
                 }
                 onSummary(summary(stats))
             }
-            onProgress(1f, "Готово: ${stats.size} ID")
+            onProgress(1f, tr("Готово: ${stats.size} ID", "Done: ${stats.size} IDs"))
         } finally {
             // Without CAF1 normal OBD requests stop working — insist until the adapter confirms.
             withContext(NonCancellable) {

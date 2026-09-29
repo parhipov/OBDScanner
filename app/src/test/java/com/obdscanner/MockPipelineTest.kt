@@ -223,7 +223,7 @@ class MockPipelineTest {
 
         val abs = reader.read(GmModule(0x243, 0x643, "ABS", ""))
         assertTrue(abs.codes.isEmpty())
-        assertTrue(abs.result.contains("не поддерживает"))
+        assertTrue(abs.result.contains(tr("не поддерживает", "not supported")))
 
         o.broadcast()
         assertEquals(2, o.request("0100").messages.size)

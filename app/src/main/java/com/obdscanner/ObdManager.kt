@@ -65,8 +65,15 @@ sealed interface ConnState {
 }
 
 enum class Tab(val title: String) {
-    Connect("Связь"), Guide("Как тестировать"), Main("Главная"), Fuel("Топливо"), All("Все данные"),
-    Dtc("Ошибки"), Info("Инфо"), Gm("GM-скан"), Sessions("Сессии")
+    Connect(tr("Связь", "Connect")),
+    Guide(tr("Как тестировать", "How to test")),
+    Main(tr("Главная", "Main")),
+    Fuel(tr("Топливо", "Fuel")),
+    All(tr("Все данные", "All data")),
+    Dtc(tr("Ошибки", "Codes")),
+    Info(tr("Инфо", "Info")),
+    Gm(tr("GM-скан", "GM scan")),
+    Sessions(tr("Сессии", "Sessions"))
 }
 
 data class EcuInfo(
@@ -185,7 +192,7 @@ class ObdManager(private val context: Context) {
                 while (true) {
                     val transport = make(s)
                     name = transport.name
-                    _conn.value = ConnState.Connecting(name, if (skip.isEmpty()) "Подключение к адаптеру…" else REBOOTING)
+                    _conn.value = ConnState.Connecting(name, if (skip.isEmpty()) tr("Подключение к адаптеру…", "Connecting to adapter…") else REBOOTING)
                     s.note("connect: $name")
                     val e = Elm327(transport) { d, t -> s.raw(d, t) }
                     elm = e
@@ -233,7 +240,7 @@ class ObdManager(private val context: Context) {
                 opJob?.cancel()
                 obd = null
                 elm?.close()
-                s.report("Конец сессии", failure ?: "отключено пользователем")
+                s.report(tr("Конец сессии", "End of session"), failure ?: tr("отключено пользователем", "disconnected by user"))
                 s.close()
                 ObdService.stop(context)
                 _scan.update { it.copy(running = false) }
@@ -270,7 +277,7 @@ class ObdManager(private val context: Context) {
      * after the fast-init and ISO 9141 attempts once and answered with the same order another time.
      */
     private suspend fun initAdapter(o: Obd, name: String, skip: Set<Int> = emptySet()) {
-        step("Сброс адаптера (ATZ)…")
+        step(tr("Сброс адаптера (ATZ)…", "Resetting adapter (ATZ)…"))
         o.at("ATZ", 5000)
         delay(300)
         baseSetup(o)
@@ -290,16 +297,19 @@ class ObdManager(private val context: Context) {
             }
             lastKline = kline
             probingProtocol = p
-            step("Протокол ${PROTOCOLS[p]} (${i + 1} из ${order.size})…")
+            step(tr("Протокол ${PROTOCOLS[p]} (${i + 1} из ${order.size})…", "Protocol ${PROTOCOLS[p]} (${i + 1} of ${order.size})…"))
             o.at("ATSP$p")
             val r = o.request("0100", when (p) { in 6..9 -> 4000L; in 3..5 -> 10000L; else -> 3000L })
             if (!r.noData) { first = r; break }
             errors = r.errors
-            session?.note("protocol $p: no answer (${r.errors.joinToString().ifEmpty { "пусто" }})")
+            session?.note("protocol $p: no answer (${r.errors.joinToString().ifEmpty { tr("пусто", "empty") }})")
         }
         probingProtocol = null
         if (first == null) {
-            throw IOException("ЭБУ не отвечает (${errors.joinToString().ifEmpty { "нет ответа" }}). Зажигание включено?")
+            throw IOException(
+                tr("ЭБУ не отвечает (${errors.joinToString().ifEmpty { "нет ответа" }}). Зажигание включено?",
+                    "ECU not responding (${errors.joinToString().ifEmpty { "no answer" }}). Is the ignition on?"),
+            )
         }
         val dpn = o.at("ATDPN").lines.firstOrNull().orEmpty()
         val proto = dpn.trimStart('A', 'a').toIntOrNull(16) ?: 0
@@ -314,23 +324,27 @@ class ObdManager(private val context: Context) {
         val aggressive = o.at("ATAT2").isOk
         if (aggressive) o.adaptiveTiming = "ATAT2"
         o.broadcast()
-        step("Проверка мульти-PID запросов…")
+        step(tr("Проверка мульти-PID запросов…", "Checking multi-PID requests…"))
         val multi = o.request("010C0D").messages.any { m ->
             m.data.size >= 6 && m.data[0] == 0x41 && m.data[1] == 0x0C && m.data[4] == 0x0D
         }
         val rv = o.at("ATRV").lines.firstOrNull().orEmpty()
         _vehicle.update { it.copy(adapter = ver, adapterDesc = desc, protocol = "$dp ($dpn)", multiPid = multi, kline = o.kline) }
+        val yes = tr("да", "yes")
+        val no = tr("нет", "no")
         session?.report(
-            "Адаптер",
-            "Приложение: ${BuildConfig.VERSION_NAME}\nУстройство: $name\nВерсия: $ver\nОписание: $desc\nПротокол: $dp ($dpn)\n" +
-                "Мульти-PID: ${if (multi) "да" else "нет"}\nATAT2: ${if (aggressive) "да" else "нет"}\nНапряжение (ATRV): $rv",
+            tr("Адаптер", "Adapter"),
+            tr("Приложение: ${BuildConfig.VERSION_NAME}\nУстройство: $name\nВерсия: $ver\nОписание: $desc\nПротокол: $dp ($dpn)\n",
+                "App: ${BuildConfig.VERSION_NAME}\nDevice: $name\nVersion: $ver\nDescription: $desc\nProtocol: $dp ($dpn)\n") +
+                tr("Мульти-PID: ${if (multi) yes else no}\nATAT2: ${if (aggressive) yes else no}\nНапряжение (ATRV): $rv",
+                    "Multi-PID: ${if (multi) yes else no}\nATAT2: ${if (aggressive) yes else no}\nVoltage (ATRV): $rv"),
         )
     }
 
     // ---------------------------------------------------------------- discovery
 
     private suspend fun discover(o: Obd) {
-        step("Поддерживаемые PID Mode 01…")
+        step(tr("Поддерживаемые PID Mode 01…", "Supported PIDs (Mode 01)…"))
         val pids = mutableMapOf<Int, MutableSet<Int>>()
         var base = 0
         while (base <= 0xE0) {
@@ -346,12 +360,12 @@ class ObdManager(private val context: Context) {
             base += 0x20
         }
         _vehicle.update { v -> v.copy(ecus = pids.mapValues { (h, p) -> EcuInfo(h, p) }) }
-        session?.report("Поддерживаемые PID (Mode 01)", pids.entries.joinToString("\n\n") { (h, p) ->
-            "${ecuName(h)} [%03X] — ${p.count { !Pids.isBitmask(it) }} шт.\n".format(h) +
+        session?.report(tr("Поддерживаемые PID (Mode 01)", "Supported PIDs (Mode 01)"), pids.entries.joinToString("\n\n") { (h, p) ->
+            tr("${ecuName(h)} [%03X] — ${p.count { !Pids.isBitmask(it) }} шт.\n", "${ecuName(h)} [%03X] — ${p.count { !Pids.isBitmask(it) }} PIDs\n").format(h) +
                 p.filter { !Pids.isBitmask(it) }.sorted().joinToString("\n") { "  01 %02X  %s".format(it, Pids.name(it)) }
         })
 
-        step("Статичные параметры и готовность…")
+        step(tr("Статичные параметры и готовность…", "Static data and readiness…"))
         val statics = (pids.values.flatten().toSet()).filter { Pids.byPid[it]?.static == true || it == 0x01 }
         for (pid in statics.sorted()) {
             val r = o.request("01%02X".format(pid), 2000)
@@ -368,16 +382,16 @@ class ObdManager(private val context: Context) {
             publish(out)
         }
 
-        step("Информация об автомобиле (Mode 09)…")
+        step(tr("Информация об автомобиле (Mode 09)…", "Vehicle info (Mode 09)…"))
         readMode09(o)
-        step("Коды ошибок…")
+        step(tr("Коды ошибок…", "Trouble codes…"))
         readDtcs(o)
-        step("Стоп-кадр…")
+        step(tr("Стоп-кадр…", "Freeze frame…"))
         readFreezeFrame(o)
-        step("Бортовые тесты (Mode 06)…")
+        step(tr("Бортовые тесты (Mode 06)…", "On-board tests (Mode 06)…"))
         readMode06(o, onlyMisfire = false)
         if (_vehicle.value.make == Make.GM && !o.kline) {
-            step("GM-параметры…")
+            step(tr("GM-параметры…", "GM parameters…"))
             probeGmKnown(o)
         } else {
             session?.note("GM parameters skipped: make ${_vehicle.value.make}")
@@ -423,10 +437,10 @@ class ObdManager(private val context: Context) {
             for ((h, i) in info) ecus[h] = (ecus[h] ?: EcuInfo(h)).copy(info09 = i)
             v.copy(vin = vin, make = make, ecus = ecus)
         }
-        session?.report("Марка (по VIN)", make.title + if (make == Make.GM) "" else " — GM-параметры не опрашиваются")
+        session?.report(tr("Марка (по VIN)", "Make (by VIN)"), make.title + if (make == Make.GM) "" else tr(" — GM-параметры не опрашиваются", " — GM parameters not polled"))
         session?.report("Mode 09", info.entries.joinToString("\n\n") { (h, i) ->
             "${ecuName(h)} [%03X]\n".format(h) + i.entries.joinToString("\n") { (t, s) -> "  ${Mode09.name(t)}: ${s.replace("\n", "\n    ")}" }
-        }.ifEmpty { "нет ответа" })
+        }.ifEmpty { tr("нет ответа", "no answer") })
     }
 
     private suspend fun readDtcs(o: Obd) {
@@ -437,8 +451,8 @@ class ObdManager(private val context: Context) {
             for (m in r.messages) if (m.service == resp) all += Dtc.parse(m.data, m.header, kind)
         }
         _vehicle.update { it.copy(dtcs = all, dtcTime = System.currentTimeMillis()) }
-        session?.report("Коды ошибок", all.joinToString("\n") { "${it.kind.title}: ${it.code} [%03X] ${it.description}".format(it.ecu) }
-            .ifEmpty { "нет" })
+        session?.report(tr("Коды ошибок", "Trouble codes"), all.joinToString("\n") { "${it.kind.title}: ${it.code} [%03X] ${it.description}".format(it.ecu) }
+            .ifEmpty { tr("нет", "none") })
     }
 
     private suspend fun readFreezeFrame(o: Obd) {
@@ -446,7 +460,7 @@ class ObdManager(private val context: Context) {
         val m = r.messages.firstOrNull { it.data.size >= 5 && it.data[0] == 0x42 && it.data[1] == 0x02 }
         if (m == null || (m.data[3] == 0 && m.data[4] == 0)) {
             _vehicle.update { it.copy(freezeDtc = null, freeze = emptyList()) }
-            session?.report("Стоп-кадр", "нет")
+            session?.report(tr("Стоп-кадр", "Freeze frame"), tr("нет", "none"))
             return
         }
         val dtc = Dtc.decode(m.data[3], m.data[4])
@@ -460,7 +474,7 @@ class ObdManager(private val context: Context) {
             out += Pids.decode(m.header, "02", pid, mm.data.copyOfRange(3, mm.data.size))
         }
         _vehicle.update { it.copy(freezeDtc = dtc, freeze = out) }
-        session?.report("Стоп-кадр ($dtc)", out.joinToString("\n") { "  ${it.name}: ${it.display()} ${it.unit}" })
+        session?.report(tr("Стоп-кадр ($dtc)", "Freeze frame ($dtc)"), out.joinToString("\n") { "  ${it.name}: ${it.display()} ${it.unit}" })
     }
 
     private suspend fun readMode06(o: Obd, onlyMisfire: Boolean) {
@@ -510,7 +524,7 @@ class ObdManager(private val context: Context) {
                 t.value, null, t.unit, 0)
         })
         if (!onlyMisfire) session?.report("Mode 06", results.joinToString("\n") {
-            "[%03X] %-28s %-36s %s %s (мин %s, макс %s) %s".format(
+            tr("[%03X] %-28s %-36s %s %s (мин %s, макс %s) %s", "[%03X] %-28s %-36s %s %s (min %s, max %s) %s").format(
                 it.ecu, it.midName, it.tidName, Reading.fmt(it.value, 3), it.unit,
                 Reading.fmt(it.min, 3), Reading.fmt(it.max, 3), it.status)
         })
@@ -530,7 +544,7 @@ class ObdManager(private val context: Context) {
             val rr = o.request("06%02X".format(tid), 2000)
             for (mm in rr.messages) if (mm.service == 0x46) out += "[%03X] TID %02X: %s".format(mm.header, tid, mm.hex())
         }
-        session?.report("Mode 06 (K-line, без расшифровки)", out.joinToString("\n").ifEmpty { "нет ответа" })
+        session?.report(tr("Mode 06 (K-line, без расшифровки)", "Mode 06 (K-line, raw)"), out.joinToString("\n").ifEmpty { tr("нет ответа", "no answer") })
         _vehicle.update { it.copy(mode06Time = System.currentTimeMillis()) }
     }
 
@@ -546,8 +560,8 @@ class ObdManager(private val context: Context) {
         }
         o.broadcast()
         _vehicle.update { it.copy(gmActive = active) }
-        session?.report("GM-параметры (известные)", GmKnown.all.joinToString("\n") { d ->
-            "  %03X %s %04X %s — %s".format(d.req, d.service, d.did, d.name, if (d in active) "есть" else "нет ответа")
+        session?.report(tr("GM-параметры (известные)", "GM parameters (known)"), GmKnown.all.joinToString("\n") { d ->
+            "  %03X %s %04X %s — %s".format(d.req, d.service, d.did, d.name, if (d in active) tr("есть", "answered") else tr("нет ответа", "no answer"))
         })
     }
 
@@ -631,7 +645,7 @@ class ObdManager(private val context: Context) {
                     lastRv = now
                     val t = o.at("ATRV").lines.firstOrNull().orEmpty()
                     t.trimEnd('V', 'v').toDoubleOrNull()?.let {
-                        publish(listOf(Reading(Reading.key(0, "ATRV"), 0, "Напряжение (адаптер)", it, null, "В", 1)))
+                        publish(listOf(Reading(Reading.key(0, "ATRV"), 0, tr("Напряжение (адаптер)", "Voltage (adapter)"), it, null, tr("В", "V"), 1)))
                     }
                 }
                 if (tab == Tab.Fuel && !o.kline && now - lastMisfire > 15000) {
@@ -730,20 +744,20 @@ class ObdManager(private val context: Context) {
         val lt1 = r.pick("01.07")?.value
         val st2 = r.pick("01.08")?.value
         val lt2 = r.pick("01.09")?.value
-        if (st1 != null && lt1 != null) add("calc.trim1", "Суммарная коррекция Б1", st1 + lt1, "%")
-        if (st2 != null && lt2 != null) add("calc.trim2", "Суммарная коррекция Б2", st2 + lt2, "%")
-        if (st1 != null && lt1 != null && st2 != null && lt2 != null) add("calc.trimDiff", "Разница банков (Б1−Б2)", st1 + lt1 - st2 - lt2, "%")
+        if (st1 != null && lt1 != null) add("calc.trim1", tr("Суммарная коррекция Б1", "Total fuel trim B1"), st1 + lt1, "%")
+        if (st2 != null && lt2 != null) add("calc.trim2", tr("Суммарная коррекция Б2", "Total fuel trim B2"), st2 + lt2, "%")
+        if (st1 != null && lt1 != null && st2 != null && lt2 != null) add("calc.trimDiff", tr("Разница банков (Б1−Б2)", "Bank difference (B1−B2)"), st1 + lt1 - st2 - lt2, "%")
         val maf = r.pick("01.10")?.value
         val speed = r.pick("01.0D")?.value
         val lambda = r.pick("01.44")?.value?.takeIf { it in 0.5..2.0 } ?: 1.0
         val ecuRate = r.pick("01.5E")?.value
         val lph = ecuRate ?: maf?.let { it / (14.7 * lambda) * 3600.0 / 745.0 }
-        add("calc.lph", "Расход топлива${if (ecuRate == null) " (по MAF)" else ""}", lph, "л/ч", 2)
-        if (lph != null && speed != null && speed >= 10) add("calc.l100", "Мгновенный расход", lph / speed * 100, "л/100км", 1)
+        add("calc.lph", tr("Расход топлива", "Fuel consumption") + (if (ecuRate == null) tr(" (по MAF)", " (from MAF)") else ""), lph, tr("л/ч", "L/h"), 2)
+        if (lph != null && speed != null && speed >= 10) add("calc.l100", tr("Мгновенный расход", "Instant fuel economy"), lph / speed * 100, tr("л/100км", "L/100km"), 1)
         // 6L50: 4.06 / 2.37 / 1.55 / 1.16 / 0.85 / 0.67 — a ratio drifting in a steady gear means slip.
         val input = r.pick("22.1941")?.value
         val output = r.pick("22.1942")?.value
-        if (input != null && output != null && output >= 200) add("calc.gearRatio", "Передаточное отношение АКПП (вход/выход)", input / output, "", 2)
+        if (input != null && output != null && output >= 200) add("calc.gearRatio", tr("Передаточное отношение АКПП (вход/выход)", "Transmission gear ratio (in/out)"), input / output, "", 2)
         if (out.isNotEmpty()) publish(out)
     }
 
@@ -783,9 +797,9 @@ class ObdManager(private val context: Context) {
         }
     }
 
-    fun refreshDtc() = launchOp("Чтение ошибок") { readDtcs(it); readFreezeFrame(it) }
+    fun refreshDtc() = launchOp(tr("Чтение ошибок", "Reading codes")) { readDtcs(it); readFreezeFrame(it) }
 
-    fun clearDtc() = launchOp("Сброс ошибок") {
+    fun clearDtc() = launchOp(tr("Сброс ошибок", "Clearing codes")) {
         session?.note("USER: clear DTC (mode 04)")
         it.request("04", 5000)
         delay(500)
@@ -795,10 +809,10 @@ class ObdManager(private val context: Context) {
 
     fun refreshMode06() = launchOp("Mode 06") { readMode06(it, onlyMisfire = false) }
 
-    fun rediscover() = launchOp("Повторный опрос") { discover(it) }
+    fun rediscover() = launchOp(tr("Повторный опрос", "Rescan")) { discover(it) }
 
-    fun probeModules() = launchOp("Поиск модулей") { o ->
-        if (o.kline) _scan.update { it.copy(status = "На K-line поиск модулей недоступен") } else findModules(o)
+    fun probeModules() = launchOp(tr("Поиск модулей", "Module search")) { o ->
+        if (o.kline) _scan.update { it.copy(status = tr("На K-line поиск модулей недоступен", "Module search is not available on K-line")) } else findModules(o)
     }
 
     /** Where a make keeps its diagnostic modules and how to ask them (all probes are read only). */
@@ -807,7 +821,7 @@ class ObdManager(private val context: Context) {
     private fun addressing() = when (_vehicle.value.make) {
         Make.GM -> Addressing("GM", GmModules.candidates, listOf("1A90", "22F190", "3E00"), GmModules::name)
         Make.VAG -> Addressing("VAG", VagModules.candidates, VagModules.PROBES, VagModules::name)
-        Make.OTHER -> Addressing("Блоки", ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
+        Make.OTHER -> Addressing(tr("Блоки", "Modules"), ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
         else -> Addressing(_vehicle.value.make.title, ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
     }
 
@@ -816,25 +830,25 @@ class ObdManager(private val context: Context) {
      * GM \$1A, everyone else UDS \$22 F1xx / KWP \$1A.
      */
     private suspend fun findModules(o: Obd, progress: (String) -> Unit = {}): List<GmModule> {
-        _scan.update { it.copy(running = true, progress = 0f, status = "Поиск модулей…") }
+        _scan.update { it.copy(running = true, progress = 0f, status = tr("Поиск модулей…", "Searching for modules…")) }
         val sc = GmScanner(o) { session?.note(it) }
         val onProbe = { p: Float, s: String -> _scan.update { it.copy(progress = p * 0.8f, status = s) }; progress(s) }
         val a = addressing()
         val gm = _vehicle.value.make == Make.GM
         val found = sc.probeModules(a.candidates, a.probes, a.name, onProbe)
-        _scan.update { it.copy(modules = found, status = "Найдено модулей: ${found.size}") }
+        _scan.update { it.copy(modules = found, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
         if (found.isNotEmpty()) prefs.edit().putString(modulesPrefKey(), found.joinToString(",") { "%03X:%03X".format(it.req, it.resp) }).apply()
-        session?.report("${a.tag}: найденные модули", found.joinToString("\n") { "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
-            .ifEmpty { "нет" })
+        session?.report(tr("${a.tag}: найденные модули", "${a.tag}: modules found"), found.joinToString("\n") { "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
+            .ifEmpty { tr("нет", "none") })
         val ids = mutableListOf<ScanHit>()
         val generic = mutableListOf<String>()
         for ((i, mod) in found.withIndex()) {
-            val s = "Идентификация ${mod.name} (${i + 1} из ${found.size})…"
+            val s = tr("Идентификация ${mod.name} (${i + 1} из ${found.size})…", "Identifying ${mod.name} (${i + 1} of ${found.size})…")
             _scan.update { it.copy(progress = 0.8f + 0.2f * i / found.size, status = s) }
             progress(s)
             if (!gm) {
                 generic += "${mod.name} [${mod.id}→%03X]".format(mod.resp)
-                generic += identifyGeneric(o, sc, mod).ifEmpty { listOf("  нет ответа") }
+                generic += identifyGeneric(o, sc, mod).ifEmpty { listOf(tr("  нет ответа", "  no answer")) }
                 continue
             }
             sc.identify(mod) { h ->
@@ -844,13 +858,13 @@ class ObdManager(private val context: Context) {
             }
         }
         o.broadcast()
-        _scan.update { it.copy(running = false, status = "Найдено модулей: ${found.size}") }
-        if (!gm) session?.report("${a.tag}: идентификация модулей (UDS \$22 F1xx / KWP \$1A)", generic.joinToString("\n").ifEmpty { "нет модулей" })
-        else session?.report("GM: идентификация модулей (\$1A)", found.joinToString("\n\n") { mod ->
+        _scan.update { it.copy(running = false, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
+        if (!gm) session?.report(tr("${a.tag}: идентификация модулей (UDS \$22 F1xx / KWP \$1A)", "${a.tag}: module identification (UDS \$22 F1xx / KWP \$1A)"), generic.joinToString("\n").ifEmpty { tr("нет модулей", "no modules") })
+        else session?.report(tr("GM: идентификация модулей (\$1A)", "GM: module identification (\$1A)"), found.joinToString("\n\n") { mod ->
             "${mod.name} [${mod.id}]\n" + ids.filter { it.req == mod.req }.joinToString("\n") { h ->
                 "  1A %s %-26s %s".format(h.didHex, h.label.orEmpty(), h.partNumber?.toString() ?: if (h.looksLikeText) "«${h.ascii}»" else h.hex)
-            }.ifEmpty { "  нет ответа" }
-        }.ifEmpty { "нет модулей" })
+            }.ifEmpty { tr("  нет ответа", "  no answer") }
+        }.ifEmpty { tr("нет модулей", "no modules") })
         return found
     }
 
@@ -858,9 +872,9 @@ class ObdManager(private val context: Context) {
      * Full DTC memory of every module: GM \$A9, everyone else UDS \$19 / KWP \$18. Finds the modules
      * first if that wasn't done yet. Read only — nothing is cleared.
      */
-    fun readAllModulesDtc() = launchOp("Ошибки всех блоков") { o ->
+    fun readAllModulesDtc() = launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { o ->
         if (o.kline) {
-            _vehicle.update { it.copy(gmDtcStatus = "На K-line доступны только стандартные ошибки OBD (вверху)") }
+            _vehicle.update { it.copy(gmDtcStatus = tr("На K-line доступны только стандартные ошибки OBD (вверху)", "On K-line only standard OBD codes are available (above)")) }
             return@launchOp
         }
         readModuleDtcs(o) { s -> _vehicle.update { it.copy(gmDtcStatus = s) } }
@@ -878,7 +892,7 @@ class ObdManager(private val context: Context) {
             throw e
         } catch (e: Exception) {
             session?.note("module DTC (auto) failed: ${e.stackTraceToString()}")
-            _vehicle.update { it.copy(gmDtcStatus = "Не удалось прочитать: ${e.message}") }
+            _vehicle.update { it.copy(gmDtcStatus = tr("Не удалось прочитать: ${e.message}", "Could not read: ${e.message}")) }
         } finally {
             step("")
         }
@@ -897,7 +911,7 @@ class ObdManager(private val context: Context) {
         o.at(protocolCmd)
         o.resetState()
         o.broadcast()
-        if (o.request("0100", 5000).noData) throw IOException("Адаптер не восстановился после чтения ошибок блоков — переподключитесь")
+        if (o.request("0100", 5000).noData) throw IOException(tr("Адаптер не восстановился после чтения ошибок блоков — переподключитесь", "Adapter did not recover after reading module codes — reconnect"))
         session?.note("adapter re-init OK")
     }
 
@@ -907,7 +921,7 @@ class ObdManager(private val context: Context) {
     private fun savedModules(): List<GmModule> = prefs.getString(modulesPrefKey(), null).orEmpty()
         .split(',').mapNotNull { p ->
             val (req, resp) = p.split(':').takeIf { it.size == 2 }?.map { it.toIntOrNull(16) } ?: return@mapNotNull null
-            if (req == null || resp == null) null else GmModule(req, resp, addressing().name(req), "из прошлой сессии")
+            if (req == null || resp == null) null else GmModule(req, resp, addressing().name(req), tr("из прошлой сессии", "from an earlier session"))
         }
 
     private suspend fun readModuleDtcs(o: Obd, status: (String) -> Unit) {
@@ -921,7 +935,7 @@ class ObdManager(private val context: Context) {
         }
         if (modules.isEmpty()) modules = findModules(o, status)
         if (modules.isEmpty()) {
-            status("Модули не найдены")
+            status(tr("Модули не найдены", "No modules found"))
             return
         }
         val gm = _vehicle.value.make == Make.GM
@@ -929,25 +943,25 @@ class ObdManager(private val context: Context) {
         val udsReader = UdsDtcReader(o, vagNumbers = _vehicle.value.make == Make.VAG) { session?.note(it) }
         val out = mutableListOf<GmDtcResult>()
         for ((i, mod) in modules.withIndex()) {
-            status("Ошибки ${mod.name} (${i + 1} из ${modules.size})…")
+            status(tr("Ошибки ${mod.name} (${i + 1} из ${modules.size})…", "Codes: ${mod.name} (${i + 1} of ${modules.size})…"))
             out += if (gm) gmReader.read(mod) else udsReader.read(mod)
             _vehicle.update { it.copy(gmDtcs = out.toList()) }
         }
         o.broadcast()
         val total = out.sumOf { it.codes.size }
-        _vehicle.update { it.copy(gmDtcs = out, gmDtcTime = System.currentTimeMillis(), gmDtcStatus = "Блоков: ${out.size}, кодов: $total") }
-        val title = if (gm) "GM: ошибки всех блоков (\$A9 81 %02X)".format(GmDtcReader.MASK)
-            else "${addressing().tag}: ошибки всех блоков (UDS \$19 02 / KWP \$18 02)"
+        _vehicle.update { it.copy(gmDtcs = out, gmDtcTime = System.currentTimeMillis(), gmDtcStatus = tr("Блоков: ${out.size}, кодов: $total", "Modules: ${out.size}, codes: $total")) }
+        val title = if (gm) tr("GM: ошибки всех блоков (\$A9 81 %02X)", "GM: DTCs of all modules (\$A9 81 %02X)").format(GmDtcReader.MASK)
+            else tr("${addressing().tag}: ошибки всех блоков (UDS \$19 02 / KWP \$18 02)", "${addressing().tag}: DTCs of all modules (UDS \$19 02 / KWP \$18 02)")
         session?.report(title, out.joinToString("\n\n") { r ->
             "${r.module.name} [${r.module.id}] — ${r.result}" + r.codes.joinToString("") { c ->
-                "\n  %s  статус %02X (%s)  %s".format(c.full, c.status, c.flags, c.description)
+                tr("\n  %s  статус %02X (%s)  %s", "\n  %s  status %02X (%s)  %s").format(c.full, c.status, c.flags, c.description)
             }
         })
     }
 
-    fun scanModule(module: GmModule, service: String, range: IntRange) = launchOp("Скан ${module.id} $service") { o ->
+    fun scanModule(module: GmModule, service: String, range: IntRange) = launchOp(tr("Скан ${module.id} $service", "Scan ${module.id} $service")) { o ->
         if (o.kline) return@launchOp
-        _scan.update { it.copy(running = true, progress = 0f, status = "Подготовка…") }
+        _scan.update { it.copy(running = true, progress = 0f, status = tr("Подготовка…", "Preparing…")) }
         val sc = GmScanner(o) { session?.note(it) }
         sc.detectCountDigit(module)
         session?.note("GM scan ${module.id} service $service range %04X-%04X".format(range.first, range.last))
@@ -960,16 +974,16 @@ class ObdManager(private val context: Context) {
             },
             onProgress = { p, s -> _scan.update { it.copy(progress = p, status = s) } },
         )
-        _scan.update { it.copy(status = "Готово: ${module.id} $service — найдено $count") }
+        _scan.update { it.copy(status = tr("Готово: ${module.id} $service — найдено $count", "Done: ${module.id} $service — found $count")) }
     }
 
     /** Passive listening of the regular module traffic — nothing is sent to the modules. */
-    fun sniffBus() = launchOp("Прослушка шины") { o ->
+    fun sniffBus() = launchOp(tr("Прослушка шины", "Bus listening")) { o ->
         if (o.kline) {
-            _bus.update { it.copy(status = "Прослушка — только на CAN") }
+            _bus.update { it.copy(status = tr("Прослушка — только на CAN", "Bus listening is CAN only")) }
             return@launchOp
         }
-        _bus.update { it.copy(running = true, progress = 0f, status = "Подготовка…") }
+        _bus.update { it.copy(running = true, progress = 0f, status = tr("Подготовка…", "Preparing…")) }
         try {
             session?.note("BUS: listening started")
             BusSniffer(o, { session?.note(it) }) { window, frames, ms ->
@@ -980,9 +994,9 @@ class ObdManager(private val context: Context) {
             )
         } finally {
             val ids = _bus.value.ids
-            session?.report("Шина: услышанные ID (${ids.size})", ids.joinToString("\n") {
-                "  %s  %6.1f Гц  %-8s  %s".format(it.idHex, it.hz, it.changing, it.lastHex)
-            }.ifEmpty { "ничего" })
+            session?.report(tr("Шина: услышанные ID (${ids.size})", "Bus: IDs heard (${ids.size})"), ids.joinToString("\n") {
+                tr("  %s  %6.1f Гц  %-8s  %s", "  %s  %6.1f Hz  %-8s  %s").format(it.idHex, it.hz, it.changing, it.lastHex)
+            }.ifEmpty { tr("ничего", "nothing") })
             _bus.update { it.copy(running = false) }
         }
     }
@@ -1012,8 +1026,14 @@ class ObdManager(private val context: Context) {
         /** Second round for K-line only. */
         private val KLINE_RETRY = listOf(4, 3, 5)
         private const val KLINE_GAP = 3000L
-        private const val REBOOTING = "Адаптер перезагрузился, переподключаюсь… Если долго — выньте его из разъёма на 5 секунд и вставьте снова."
-        private const val REPLUG = "Адаптер отключился и не отвечает по Bluetooth. Выньте его из разъёма на 5 секунд, вставьте и подключитесь снова."
+        private val REBOOTING = tr(
+            "Адаптер перезагрузился, переподключаюсь… Если долго — выньте его из разъёма на 5 секунд и вставьте снова.",
+            "Adapter rebooted, reconnecting… If it takes long, unplug it for 5 seconds and plug it back in.",
+        )
+        private val REPLUG = tr(
+            "Адаптер отключился и не отвечает по Bluetooth. Выньте его из разъёма на 5 секунд, вставьте и подключитесь снова.",
+            "Adapter disconnected and does not answer over Bluetooth. Unplug it for 5 seconds, plug it back in and connect again.",
+        )
         private const val POLL_TIMEOUT = 1000L
         private const val GM_PER_CYCLE = 5
         /** Shown on the Main / Fuel screen: read at least every [PollRate.MEDIUM] while it's open. */

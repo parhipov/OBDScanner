@@ -17,14 +17,15 @@ class ObdService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val nm = getSystemService(NotificationManager::class.java)
-        nm.createNotificationChannel(NotificationChannel(CHANNEL, "Подключение OBD", NotificationManager.IMPORTANCE_LOW))
+        nm.createNotificationChannel(NotificationChannel(CHANNEL, tr("Подключение OBD", "OBD connection"), NotificationManager.IMPORTANCE_LOW))
         val open = PendingIntent.getActivity(
             this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE,
         )
+        val device = intent?.getStringExtra("device") ?: ""
         val n = Notification.Builder(this, CHANNEL)
             .setSmallIcon(android.R.drawable.stat_sys_data_bluetooth)
             .setContentTitle("OBD Scanner")
-            .setContentText("Подключено: ${intent?.getStringExtra("device") ?: ""} — идёт запись сессии")
+            .setContentText(tr("Подключено: $device — идёт запись сессии", "Connected: $device — recording session"))
             .setContentIntent(open)
             .setOngoing(true)
             .build()

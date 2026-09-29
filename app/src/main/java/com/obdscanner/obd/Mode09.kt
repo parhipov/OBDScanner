@@ -1,22 +1,30 @@
 package com.obdscanner.obd
 
+import com.obdscanner.L10n
+import com.obdscanner.tr
+
 /** Mode 09 vehicle information. */
 object Mode09 {
     fun name(infoType: Int) = when (infoType) {
         0x02 -> "VIN"
-        0x04 -> "Калибровка (CALID)"
-        0x06 -> "Контрольная сумма калибровки (CVN)"
-        0x08 -> "Счётчики мониторов (бензин)"
-        0x0A -> "Имя ЭБУ"
-        0x0B -> "Счётчики мониторов (дизель)"
+        0x04 -> tr("Калибровка (CALID)", "Calibration ID (CALID)")
+        0x06 -> tr("Контрольная сумма калибровки (CVN)", "Calibration verification no. (CVN)")
+        0x08 -> tr("Счётчики мониторов (бензин)", "Monitor counters (spark)")
+        0x0A -> tr("Имя ЭБУ", "ECU name")
+        0x0B -> tr("Счётчики мониторов (дизель)", "Monitor counters (diesel)")
         0x0D -> "ESN"
         else -> "Info %02X".format(infoType)
     }
 
-    private val IPT_SPARK = listOf("Условий OBD", "Запусков двигателя", "Катализатор Б1 выполн.", "Катализатор Б1 условий",
+    /** In-use performance counters (IUMPR), J1979 order: OBDCOND, IGNCNTR, then COMP/COND pairs. */
+    private val IPT_SPARK = if (L10n.ru) listOf("Условий OBD", "Запусков двигателя", "Катализатор Б1 выполн.", "Катализатор Б1 условий",
         "Катализатор Б2 выполн.", "Катализатор Б2 условий", "O2 Б1 выполн.", "O2 Б1 условий", "O2 Б2 выполн.",
         "O2 Б2 условий", "EGR/VVT выполн.", "EGR/VVT условий", "Втор. воздух выполн.", "Втор. воздух условий",
         "EVAP выполн.", "EVAP условий", "2-й O2 Б1 выполн.", "2-й O2 Б1 условий", "2-й O2 Б2 выполн.", "2-й O2 Б2 условий")
+    else listOf("OBD conditions", "Ignition cycles", "Catalyst B1 compl.", "Catalyst B1 cond.",
+        "Catalyst B2 compl.", "Catalyst B2 cond.", "O2 B1 compl.", "O2 B1 cond.", "O2 B2 compl.",
+        "O2 B2 cond.", "EGR/VVT compl.", "EGR/VVT cond.", "Sec. air compl.", "Sec. air cond.",
+        "EVAP compl.", "EVAP cond.", "Rear O2 B1 compl.", "Rear O2 B1 cond.", "Rear O2 B2 compl.", "Rear O2 B2 cond.")
 
     /** [49, type, count, payload...] → human text. */
     fun decode(data: IntArray): String {

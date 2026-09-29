@@ -1,5 +1,6 @@
 package com.obdscanner.transport
 
+import com.obdscanner.tr
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.concurrent.LinkedBlockingQueue
@@ -9,7 +10,7 @@ import kotlin.random.Random
 
 /** Fake ELM327 v1.5 plugged into a simulated Cadillac CTS 2.8 — for developing without the car. */
 class MockTransport : Transport {
-    override val name = "Демо: CTS 2.8 (симуляция)"
+    override val name = tr("Демо: CTS 2.8 (симуляция)", "Demo: CTS 2.8 (simulated)")
     private val queue = LinkedBlockingQueue<Int>()
     private val car = MockCar()
     private val cmd = StringBuilder()

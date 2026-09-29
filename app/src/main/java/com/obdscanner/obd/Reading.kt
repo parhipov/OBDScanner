@@ -1,5 +1,7 @@
 package com.obdscanner.obd
 
+import com.obdscanner.tr
+
 /**
  * One live value. [key] = "7E8:01.0C" (ECU header : source), multi-output PIDs add a suffix ("7E8:01.14.V").
  * Computed values use ECU 0 ("000:calc.lph").
@@ -39,15 +41,15 @@ data class Reading(
 }
 
 fun ecuName(header: Int): String = when (header) {
-    0 -> "Расчёт"
+    0 -> tr("Расчёт", "Calculated")
     // K-line: the header is the ECU's source address (ISO 9141-2 / 14230).
-    0x10 -> "ECM (двигатель)"
-    in 0x01..0xFF -> "ЭБУ %02X".format(header)
-    0x7E8 -> "ECM (двигатель)"
-    0x7E9 -> "ЭБУ 7E9"
-    0x7EA -> "TCM (АКПП)"
-    0x7EB -> "ЭБУ 7EB"
-    else -> "ЭБУ %03X".format(header)
+    0x10 -> tr("ECM (двигатель)", "ECM (engine)")
+    in 0x01..0xFF -> tr("ЭБУ %02X", "ECU %02X").format(header)
+    0x7E8 -> tr("ECM (двигатель)", "ECM (engine)")
+    0x7E9 -> tr("ЭБУ 7E9", "ECU 7E9")
+    0x7EA -> tr("TCM (АКПП)", "TCM (transmission)")
+    0x7EB -> tr("ЭБУ 7EB", "ECU 7EB")
+    else -> tr("ЭБУ %03X", "ECU %03X").format(header)
 }
 
 /** Finds a value by source regardless of ECU, preferring the engine ECU. */

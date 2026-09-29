@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import com.obdscanner.obd.Reading
+import com.obdscanner.tr
 import java.io.File
 import kotlin.math.abs
 
@@ -80,7 +81,7 @@ fun ValueTile(label: String, r: Reading?, modifier: Modifier = Modifier, color: 
             }
             // Always reserve the min/max line so tiles in a grid row keep the same height.
             val range = note ?: if (r?.value != null && r.min != null && r.max != null && r.min != r.max)
-                "мин ${Reading.fmt(r.min, r.decimals)} · макс ${Reading.fmt(r.max, r.decimals)}" else " "
+                tr("мин ${Reading.fmt(r.min, r.decimals)} · макс ${Reading.fmt(r.max, r.decimals)}", "min ${Reading.fmt(r.min, r.decimals)} · max ${Reading.fmt(r.max, r.decimals)}") else " "
             Text(range, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline, maxLines = 1)
         }
     }
@@ -183,7 +184,7 @@ fun shareFile(context: Context, file: File) {
         putExtra(Intent.EXTRA_SUBJECT, "OBD Scanner: ${file.nameWithoutExtension}")
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    context.startActivity(Intent.createChooser(send, "Отправить сессию").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    context.startActivity(Intent.createChooser(send, tr("Отправить сессию", "Send session")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 }
 
 fun toast(context: Context, text: String) = Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
