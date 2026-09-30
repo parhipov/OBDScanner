@@ -19,6 +19,7 @@ import com.obdscanner.gm.GmModules
 import com.obdscanner.gm.GmScanner
 import com.obdscanner.gm.ScanHit
 import com.obdscanner.obd.DtcCode
+import com.obdscanner.obd.DtcDb
 import com.obdscanner.obd.DtcKind
 import com.obdscanner.obd.EcuIdent
 import com.obdscanner.obd.ObdModules
@@ -119,6 +120,8 @@ data class VehicleInfo(
     val kline: Boolean = false,
 ) {
     val supported01: Set<Int> get() = ecus.values.flatMap { it.pids01 }.toSet()
+    /** Car database family for manufacturer trouble codes (DtcDb). */
+    val dtcFamily: String? get() = car?.family ?: make.id.ifEmpty { null }
 }
 
 data class BusState(
@@ -162,6 +165,8 @@ class ObdManager(private val context: Context) {
     val picked: StateFlow<CarChoice?> = _picked.asStateFlow()
 
     init {
+        // Manufacturer trouble codes are read in this make's words (DtcDb), for the report as well as the screen.
+        scope.launch { _vehicle.collect { v -> DtcDb.family = v.dtcFamily ?: _picked.value?.family } }
         // The database loads in the background (CarDb.init): take the saved pick once it's there.
         scope.launch {
             CarDb.loaded.first { it }
@@ -272,7 +277,7 @@ class ObdManager(private val context: Context) {
                 }
                 _conn.value = ConnState.Connected(name)
                 opMutex.withLock { discover(o) }
-                if (o.kline) s.note("K-line: standard OBD only, module search and DTCs of all modules skipped")
+                if (!o.canTarget) s.note("ISO 9141-2: standard OBD only, module search and DTCs of all modules skipped")
                 else opMutex.withLock { autoModules(o) }
                 pollLoop(o)
             } catch (e: CancellationException) {
@@ -363,6 +368,7 @@ class ObdManager(private val context: Context) {
         val proto = dpn.trimStart('A', 'a').toIntOrNull(16) ?: 0
         o.headerChars = if (proto == 7 || proto == 9) 8 else 3
         o.kline = proto in 3..5
+        o.protocol = proto
         if (proto != 0) {
             protocolCmd = "ATSP%X".format(proto)
             prefs.edit().putInt("last_protocol_$name", proto).apply()
@@ -957,7 +963,7 @@ class ObdManager(private val context: Context) {
     fun rediscover() = launchOp(tr("Повторный опрос", "Rescan")) { discover(it, full = true) }
 
     fun probeModules() = launchOp(tr("Поиск модулей", "Module search")) { o ->
-        if (o.kline) _scan.update { it.copy(status = tr("На K-line поиск модулей недоступен", "Module search is not available on K-line")) } else findModules(o)
+        if (!o.canTarget) _scan.update { it.copy(status = tr("На ISO 9141-2 поиск модулей недоступен", "Module search is not available on ISO 9141-2")) } else findModules(o)
     }
 
     /** Where a make keeps its diagnostic modules and how to ask them (all probes are read only). */
@@ -984,8 +990,9 @@ class ObdManager(private val context: Context) {
         val sc = GmScanner(o) { session?.note(it) }
         val onProbe = { p: Float, s: String -> _scan.update { it.copy(progress = p * 0.8f, status = s) }; progress(s) }
         val a = addressing()
-        val gm = _vehicle.value.make == Make.GM
-        val found = sc.probeModules(a.candidates, a.probes, a.name, onProbe)
+        // On K-line GM's \$1A / \$A9 steps don't apply even with GM picked by hand: KWP identification and \$18.
+        val gm = _vehicle.value.make == Make.GM && !o.kline
+        val found = if (o.kline) klineModules() else sc.probeModules(a.candidates, a.probes, a.name, onProbe)
         _scan.update { it.copy(modules = found, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
         if (found.isNotEmpty()) prefs.edit().putString(modulesPrefKey(), found.joinToString(",") { "%03X:%03X".format(it.req, it.resp) }).apply()
         session?.report(tr("${a.tag}: найденные модули", "${a.tag}: modules found"), found.joinToString("\n") { "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
@@ -1023,8 +1030,8 @@ class ObdManager(private val context: Context) {
      * first if that wasn't done yet. Read only — nothing is cleared.
      */
     fun readAllModulesDtc() = launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { o ->
-        if (o.kline) {
-            _vehicle.update { it.copy(gmDtcStatus = tr("На K-line доступны только стандартные ошибки OBD (вверху)", "On K-line only standard OBD codes are available (above)")) }
+        if (!o.canTarget) {
+            _vehicle.update { it.copy(gmDtcStatus = tr("На ISO 9141-2 доступны только стандартные ошибки OBD (вверху)", "On ISO 9141-2 only standard OBD codes are available (above)")) }
             return@launchOp
         }
         readModuleDtcs(o) { s -> _vehicle.update { it.copy(gmDtcStatus = s) } }
@@ -1067,6 +1074,14 @@ class ObdManager(private val context: Context) {
 
     private fun modulesPrefKey() = "gm_modules_" + (_vehicle.value.vin ?: "")
 
+    /**
+     * K-line modules: whoever answered the functional OBD requests (their source addresses, e.g. 11 engine,
+     * 18 transmission). No probing — nothing is sent to addresses that didn't speak up themselves.
+     */
+    private fun klineModules(): List<GmModule> = _vehicle.value.ecus.keys.filter { it in 0x01..0xEF }.sorted().map {
+        GmModule(it, it, ObdModules.klineName(it), tr("ответил на OBD", "answered OBD"))
+    }
+
     /** Modules found in an earlier session of this car — saves a minute of probing on every connect. */
     private fun savedModules(): List<GmModule> = prefs.getString(modulesPrefKey(), null).orEmpty()
         .split(',').mapNotNull { p ->
@@ -1076,7 +1091,8 @@ class ObdManager(private val context: Context) {
 
     private suspend fun readModuleDtcs(o: Obd, status: (String) -> Unit) {
         var modules = _scan.value.modules
-        if (modules.isEmpty()) {
+        // K-line: the modules are known from the OBD answers, identification is a few seconds — always fresh.
+        if (modules.isEmpty() && !o.kline) {
             modules = savedModules()
             if (modules.isNotEmpty()) {
                 session?.note("modules from an earlier session: ${modules.joinToString { it.id }}")
@@ -1088,7 +1104,7 @@ class ObdManager(private val context: Context) {
             status(tr("Модули не найдены", "No modules found"))
             return
         }
-        val gm = _vehicle.value.make == Make.GM
+        val gm = _vehicle.value.make == Make.GM && !o.kline
         val gmReader = GmDtcReader(o) { session?.note(it) }
         val udsReader = UdsDtcReader(o, vagNumbers = _vehicle.value.make == Make.VAG) { session?.note(it) }
         val out = mutableListOf<GmDtcResult>()
@@ -1101,7 +1117,7 @@ class ObdManager(private val context: Context) {
         val total = out.sumOf { it.codes.size }
         _vehicle.update { it.copy(gmDtcs = out, gmDtcTime = System.currentTimeMillis(), gmDtcStatus = tr("Блоков: ${out.size}, кодов: $total", "Modules: ${out.size}, codes: $total")) }
         val title = if (gm) tr("GM: ошибки всех блоков (\$A9 81 %02X)", "GM: DTCs of all modules (\$A9 81 %02X)").format(GmDtcReader.MASK)
-            else tr("${addressing().tag}: ошибки всех блоков (UDS \$19 02 / KWP \$18 02)", "${addressing().tag}: DTCs of all modules (UDS \$19 02 / KWP \$18 02)")
+            else tr("${if (o.kline) "K-line" else addressing().tag}: ошибки всех блоков (UDS \$19 02 / KWP \$18 02)", "${addressing().tag}: DTCs of all modules (UDS \$19 02 / KWP \$18 02)")
         session?.report(title, out.joinToString("\n\n") { r ->
             "${r.module.name} [${r.module.id}] — ${r.result}" + r.codes.joinToString("") { c ->
                 tr("\n  %s  статус %02X (%s)  %s", "\n  %s  status %02X (%s)  %s").format(c.full, c.status, c.flags, c.description)
@@ -1110,10 +1126,11 @@ class ObdManager(private val context: Context) {
     }
 
     fun scanModule(module: GmModule, service: String, range: IntRange) = launchOp(tr("Скан ${module.id} $service", "Scan ${module.id} $service")) { o ->
-        if (o.kline) return@launchOp
+        if (!o.canTarget) return@launchOp
         _scan.update { it.copy(running = true, progress = 0f, status = tr("Подготовка…", "Preparing…")) }
         val sc = GmScanner(o) { session?.note(it) }
-        sc.detectCountDigit(module)
+        // The count digit is a CAN speed-up; on K-line every request waits for its answer anyway.
+        if (o.kline) o.countDigit = false else sc.detectCountDigit(module)
         session?.note("GM scan ${module.id} service $service range %04X-%04X".format(range.first, range.last))
         var count = 0
         sc.scan(module, service, range,

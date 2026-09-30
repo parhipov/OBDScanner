@@ -1,0 +1,19 @@
+{"set": "suzuki", "source": "Wal33D dtc-database (MIT, © Wal33D) github.com/Wal33D/dtc-database", "codes": {
+  "P1250": {"en":"EFE Heater Circuit Fault","ru":"Подогреватель EFE — неисправность цепи"},
+  "P1408": {"en":"Maniforld Differential Pressure Sensor Circuit Fault","ru":"Датчик дифференциального давления коллектора — неисправность цепи"},
+  "P1410": {"en":"Fuel Tank Pressure Control Solenoid Circuit Fault","ru":"Соленоид управления давлением в топливном баке, цепь — неисправность"},
+  "P1450": {"en":"Barometric Pressure Sensor Too Low Or Too High","ru":"Датчик барометрического давления — слишком низкий или слишком высокий сигнал"},
+  "P1451": {"en":"Barometric Pressure Sensor Performance","ru":"Датчик барометрического давления — характеристика"},
+  "P1460": {"en":"Radiator Fan Control System Fault","ru":"Система управления вентилятором радиатора — неисправность"},
+  "P1500": {"en":"Engine Starter Signal Circuit Fault","ru":"Сигнал стартера, цепь — неисправность"},
+  "P1510": {"en":"PCM Backup Power Supply Circuit Fault","ru":"Резервное питание PCM — неисправность цепи"},
+  "P1530": {"en":"Ignition Timing Adjustment Switch Circuit Fault","ru":"Переключатель регулировки УОЗ — неисправность цепи"},
+  "P1600": {"en":"PCM TCM Serial Communication Circuit Fault","ru":"PCM/TCM — сбой последовательной связи"},
+  "P1700": {"en":"TCM Throttle Position Sensor Circuit Fault","ru":"Датчик положения дросселя (TCM) — неисправность цепи"},
+  "P1705": {"en":"TCM ECT Sensor Circuit Fault","ru":"Датчик температуры ОЖ (TCM) — неисправность цепи"},
+  "P1710": {"en":"Back-Up Signal For Speed Sensor Circuit Malfunction","ru":"Резервный сигнал датчика скорости — неисправность цепи"},
+  "P1715": {"en":"PNP Switch Circuit Fault","ru":"Выключатель PNP — сбой цепи"},
+  "P1717": {"en":"AT Drive Range Signal Circuit Fault","ru":"Сигнал диапазона D АКПП — неисправность цепи"},
+  "P1875": {"en":"4WD Low Switch Circuit Malfunction","ru":"Выключатель понижающей 4WD — неисправность цепи"},
+  "P1895": {"en":"TCM To ECM Torque Reduction Circuit Malfunction","ru":"Цепь снижения момента от TCM к ECM — неисправность"}
+}}

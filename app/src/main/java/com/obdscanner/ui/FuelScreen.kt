@@ -1,5 +1,7 @@
 package com.obdscanner.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +14,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.obdscanner.ObdManager
 import com.obdscanner.VehicleInfo
 import com.obdscanner.obd.Reading
+import com.obdscanner.obd.ecuName
 import com.obdscanner.obd.pick
 import com.obdscanner.tr
 import kotlin.math.abs
@@ -27,22 +34,31 @@ fun FuelScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo) {
     fun p(k: String) = r.pick(k)
     val t1 = p("calc.trim1")?.value
     val t2 = p("calc.trim2")?.value
+    // Bank 2 exists only on V and boxer engines: an inline ECU doesn't support PIDs 08/09 (Polo, RAV4).
+    val twoBanks = p("01.08") != null || p("01.09") != null || v.supported01.any { it == 0x08 || it == 0x09 }
     val misfire = v.mode06.filter { it.misfireCylinder != null && it.tid == 0x0C }.sortedBy { it.misfireCylinder }
     val misfireAvg = v.mode06.filter { it.misfireCylinder != null && it.tid == 0x0B }.associateBy { it.misfireCylinder }
     val fuelDtcs = v.dtcs.filter { it.fuelRelated }
+    var shown by remember { mutableStateOf<DtcShown?>(null) }
+    shown?.let { DtcHelpDialog(it, v.dtcFamily) { shown = null } }
 
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
         item {
-            for (h in hints(t1, t2, p("01.03")?.text, misfire.map { it.misfireCylinder!! to it.value }, fuelDtcs.map { it.code })) {
+            for (h in hints(t1, if (twoBanks) t2 else null, p("01.03")?.text, misfire.map { it.misfireCylinder!! to it.value }, fuelDtcs.map { it.code })) {
                 Hint(h.first, h.second)
             }
         }
 
         item {
             SectionTitle(tr("Топливные коррекции", "Fuel trims"))
-            BankCard(tr("Банк 1 (цил. 1-3-5)", "Bank 1 (cyl 1-3-5)"), p("01.06"), p("01.07"), p("calc.trim1"))
-            BankCard(tr("Банк 2 (цил. 2-4-6)", "Bank 2 (cyl 2-4-6)"), p("01.08"), p("01.09"), p("calc.trim2"))
-            p("calc.trimDiff")?.let { ReadingRow(it, trimColor(it.value)) }
+            if (twoBanks) {
+                // Bank 1 is the row with cylinder 1 (SAE); which others are in it depends on the maker.
+                BankCard(tr("Банк 1 (ряд с цилиндром 1)", "Bank 1 (row with cylinder 1)"), p("01.06"), p("01.07"), p("calc.trim1"))
+                BankCard(tr("Банк 2 (второй ряд)", "Bank 2 (other row)"), p("01.08"), p("01.09"), p("calc.trim2"))
+                p("calc.trimDiff")?.let { ReadingRow(it, trimColor(it.value)) }
+            } else {
+                BankCard(tr("Все цилиндры (рядный мотор, один банк)", "All cylinders (inline engine, one bank)"), p("01.06"), p("01.07"), p("calc.trim1"))
+            }
             listOf("01.55.A", "01.56.A", "01.57.A", "01.58.A").mapNotNull { p(it) }.forEach { ReadingRow(it) }
         }
 
@@ -87,15 +103,17 @@ fun FuelScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo) {
         }
 
         val gmCyl = GM_CYL.map { row -> row to row.dids.map { r.pick(it) } }.filter { (_, v) -> v.any { it != null } }
+        // As many columns as the engine has cylinders with data: a four-cylinder isn't asked for 5–6.
+        val cols = gmCyl.maxOfOrNull { (_, v) -> v.indexOfLast { it != null } + 1 } ?: 0
         if (gmCyl.isNotEmpty()) item {
             SectionTitle(tr("По цилиндрам (GM)", "Per cylinder (GM)"))
             Muted(tr("Параметры GM с форумов; «(?)» — формула из одного источника.", "GM parameters from forums; \"(?)\" = formula from a single source."))
             Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
                 Column(Modifier.padding(8.dp)) {
-                    Row { Text("", Modifier.weight(1.6f)); for (c in 1..6) Text(tr("Ц$c", "C$c"), Modifier.weight(1f), style = MaterialTheme.typography.labelMedium) }
+                    Row { Text("", Modifier.weight(1.6f)); for (c in 1..cols) Text(tr("Ц$c", "C$c"), Modifier.weight(1f), style = MaterialTheme.typography.labelMedium) }
                     for ((row, vals) in gmCyl) Row {
                         Text(row.label, Modifier.weight(1.6f), style = MaterialTheme.typography.bodySmall)
-                        for (v in vals) Text(v?.display() ?: "—", Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium,
+                        for (v in vals.take(cols)) Text(v?.display() ?: "—", Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium,
                             color = if (row.misfire && (v?.value ?: 0.0) > 0) Warn else MaterialTheme.colorScheme.onSurface)
                     }
                 }
@@ -119,7 +137,9 @@ fun FuelScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo) {
 
         if (fuelDtcs.isNotEmpty()) item {
             SectionTitle(tr("Ошибки, связанные с топливом", "Fuel-related codes"))
-            for (d in fuelDtcs) ValueRow(d.code, d.kind.title, "", d.description, Bad)
+            for (d in fuelDtcs) Box(Modifier.clickable { shown = DtcShown(d.code, ecuName(d.ecu), kind = d.kind) }) {
+                ValueRow(d.code, d.kind.title, "", d.description, Bad)
+            }
         }
         item { Gap() }
     }
@@ -164,6 +184,14 @@ private fun hints(
     if (fuelStatus != null && fuelStatus.contains(tr("разомкнутый", "open loop"))) {
         out += tr("Топливная система в разомкнутом режиме ($fuelStatus) — коррекции сейчас не показательны.",
             "Fuel system in open loop ($fuelStatus) — trims do not mean much right now.") to Warn
+    }
+    // One bank (inline engine): the same checks without the bank comparison.
+    if (t1 != null && t2 == null) when {
+        t1 > 10 -> out += tr("Смесь обеднена (+${Reading.fmt(t1, 0)}%): подсос воздуха, слабый бензонасос/фильтр, грязный MAF, форсунки.",
+            "Mixture lean (+${Reading.fmt(t1, 0)}%): vacuum leak, weak fuel pump/filter, dirty MAF, injectors.") to Bad
+        t1 < -10 -> out += tr("Смесь обогащена (${Reading.fmt(t1, 0)}%): давление топлива, подтекающие форсунки, MAF завышает, адсорбер, датчик O2.",
+            "Mixture rich (${Reading.fmt(t1, 0)}%): fuel pressure, leaking injectors, MAF reading high, EVAP canister, O2 sensor.") to Bad
+        abs(t1) < 5 -> out += tr("Коррекция в норме — смесь в порядке.", "Fuel trim normal — mixture is fine.") to Good
     }
     if (t1 != null && t2 != null) {
         val lean1 = t1 > 10; val lean2 = t2 > 10

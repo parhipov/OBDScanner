@@ -42,7 +42,9 @@ object Dtc {
             n in 0x2187..0x2189
     }
 
-    fun describe(code: String): String = DESCRIPTIONS[code] ?: when {
+    /** Title: the make's database text, the hand-written one below, the SAE database, then just the system. */
+    fun describe(code: String, family: String? = DtcDb.family): String = DtcDb.ofMake(code, family)?.title?.text
+        ?: DESCRIPTIONS[code] ?: DtcDb.find(code, family)?.title?.text ?: when {
         code.startsWith("P030") -> tr("Пропуски зажигания в цилиндре ${code.last()}", "Cylinder ${code.last()} misfire detected")
         code.startsWith("P0") -> tr("Общий код двигателя/трансмиссии", "Generic powertrain code")
         code.startsWith("P1") || code.startsWith("P3") -> tr("Код производителя", "Manufacturer-specific code")

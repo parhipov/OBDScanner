@@ -47,6 +47,8 @@ known_issues/
 
 # OBDb import cache (tools/cars/obdb_import.py)
 tools/cars/cache/
+# Trouble code sources and translation batches (tools/dtc/dtc_import.py)
+tools/dtc/cache/
 
 # Research notes, third-party data (not in git)
 research/

@@ -115,7 +115,8 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
     /** Returns (data after the DID echo, NRC) or null when nobody answered. */
     suspend fun read(module: GmModule, service: String, did: Int): Pair<IntArray?, Int>? {
         val req = service + fmtDid(service, did)
-        var reply: CanReply = obd.request(req, timeoutMs = 600, expectOne = true)
+        // K-line: 10.4 kbit/s and P2 up to 50 ms per message — a long answer takes a few hundred ms.
+        var reply: CanReply = obd.request(req, timeoutMs = if (obd.kline) 1500 else 600, expectOne = true)
         var msg = answer(reply, module.resp)
         // Truncated multi-frame with the count digit → retry without it.
         if (obd.countDigit && reply.errors.any { it.startsWith("ISO-TP") }) {

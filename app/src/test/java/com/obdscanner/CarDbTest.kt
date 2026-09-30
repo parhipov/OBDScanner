@@ -92,6 +92,10 @@ class CarDbTest {
         assertEquals(Make.OTHER, Make.fromVin(null))
         assertEquals(Make.OTHER, Make.fromVin(""))
         assertEquals("Cadillac", CarDb.brandOf("1G6DM577980123456")?.name)
+        // Hyundai Coupe 2003: the ECU keeps its VIN with 'x' placeholders.
+        val coupe = CarDb.detect("KMHHxxxDx3Uxxxxxx")
+        assertEquals("Coupe / Tiburon", coupe?.model)
+        assertEquals(2003..2003, coupe?.years)
     }
 
     @Test

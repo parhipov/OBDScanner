@@ -95,7 +95,18 @@ object ObdModules {
         else -> name(req)
     } else name(req)
 
+    /**
+     * K-line module by its ISO 14230 / SAE J2178 physical address: 10–17 engine, 18–1F transmission
+     * (Hyundai Coupe 2003: engine 11, automatic 18). Others — just the address.
+     */
+    fun klineName(addr: Int): String = when (addr) {
+        in 0x10..0x17 -> tr("Двигатель (%02X)", "Engine (%02X)").format(addr)
+        in 0x18..0x1F -> tr("КПП (%02X)", "Transmission (%02X)").format(addr)
+        else -> tr("ЭБУ %02X", "ECU %02X").format(addr)
+    }
+
     fun name(req: Int): String = when (req) {
+        in 0x01..0xEF -> klineName(req)
         0x7E0 -> tr("Двигатель (7E0)", "Engine (7E0)")
         0x7E1 -> tr("КПП (7E1)", "Transmission (7E1)")
         0x7B0 -> tr("ЭБУ 7B0 (ABS/VSC у Toyota?)", "ECU 7B0 (Toyota ABS/VSC?)")

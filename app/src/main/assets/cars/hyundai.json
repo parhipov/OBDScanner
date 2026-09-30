@@ -972,6 +972,80 @@
         "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp"
       ],
       "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Coupe / Tiburon",
+      "gen": "GK",
+      "years": [
+        2003,
+        2003
+      ],
+      "vin": [
+        "^KMHH"
+      ],
+      "engines": [
+        {
+          "code": "G4GC",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "protocol": 5,
+      "buses": {
+        "ru": "Проверено на Hyundai Coupe 2003 2.0 АКПП: K-line ISO 14230 KWP fast (протокол 5). Отвечают двигатель (адрес 11, 16 PID, датчик MAP, без MAF) и АКПП (адрес 18, только 01 01, Mode 03 и Mode 09 CALID). VIN в ЭБУ хранится с «x» вместо части знаков (KMHH…D…3U…).",
+        "en": "Checked on a Hyundai Coupe 2003 2.0 automatic: K-line ISO 14230 KWP fast (protocol 5). The engine ECU (address 11, 16 PIDs, MAP sensor, no MAF) and the TCU (address 18: only 01 01, Mode 03 and Mode 09 CALID) answer. The ECU stores its VIN with 'x' in place of some characters (KMHH…D…3U…)."
+      },
+      "note": {
+        "ru": "Мотор 2.0 Beta II — по 8-му знаку VIN («D») и калибровке АКПП TGK0D20NF5. Tiburon в США, Tuscani в Корее, Coupe в Европе и России. Автомат — 4-ступенчатый F4A42 (INVECS II). Протокол у поздних лет не проверен: приложение перебирает все само.",
+        "en": "2.0 Beta II engine — by the 8th VIN character ('D') and the TCU calibration TGK0D20NF5. Tiburon in the US, Tuscani in Korea, Coupe in Europe and Russia. Automatic: 4-speed F4A42 (INVECS II). Protocol of later years not checked: the app tries all of them."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Tiburon"
+      ],
+      "verified": true
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Coupe / Tiburon",
+      "gen": "GK",
+      "years": [
+        2001,
+        2008
+      ],
+      "vin": [
+        "^KMHH"
+      ],
+      "engines": [
+        {
+          "code": "G4ED",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4GC",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G6BA",
+          "liters": 2.7,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Tiburon в США, Tuscani в Корее, Coupe в Европе и России. Автомат — 4-ступенчатый F4A42 (INVECS II). Протокол у поздних лет не проверен: приложение перебирает все само.",
+        "en": "Tiburon in the US, Tuscani in Korea, Coupe in Europe and Russia. Automatic: 4-speed F4A42 (INVECS II). Protocol of later years not checked: the app tries all of them."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Tiburon"
+      ],
+      "verified": false
     }
   ],
   "commands": [

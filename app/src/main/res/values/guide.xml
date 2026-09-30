@@ -78,7 +78,8 @@
 
     <string-array name="guide_hyundai">
         <item>Hyundai</item>
-        <item>The Solaris has been made since 2011 and is usually on CAN (ISO 15765-4). If the car is a 2010 or older, it\'s most likely a different model (Accent, Verna) — check the protocol on \"Info\". The app also handles K-line, but only standard OBD.</item>
+        <item>The Solaris has been made since 2011 and is usually on CAN (ISO 15765-4). If the car is a 2010 or older, it\'s most likely a different model (Accent, Verna) — check the protocol on \"Info\".</item>
+        <item>Coupe (Tiburon GK) 2003 is on K-line (KWP fast): the engine (11) and the automatic (18) answer. Besides standard OBD the app reads their numbers (KWP $1A) and full code memory (KWP $18), and on \"GM scan\" each module can be scanned with $21 and \"Tick all with data\" — so the module\'s data can be decoded later from a drive log. K-line is slow: a $21 scan takes a minute or two. Read-only.</item>
         <item>First connection: module search at the standard OBD addresses and a few common ABS/airbag/cluster addresses (~20 s), module identification (part number and software version) and code memory (UDS $19 or KWP $18). Read-only.</item>
         <item>Hyundai/Kia\'s own parameters come from the car database: automatic transmission fluid temperature, engine oil temperature, odometer, and the battery (BMS) on EVs. On connecting the app checks which ones answer.</item>
         <item>ABS, airbag and body modules at their own addresses aren\'t searched for.</item>

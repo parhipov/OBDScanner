@@ -6,8 +6,16 @@ import com.obdscanner.tr
 class Obd(val elm: Elm327) {
     /** 3 for 11-bit CAN, 8 for 29-bit. */
     var headerChars = 3
-    /** ISO 9141-2 / ISO 14230: standard OBD only — no CAN headers, filters or physical addressing. */
+    /** ISO 9141-2 / ISO 14230: no CAN headers or filters; physical addressing only on KWP (see [canTarget]). */
     var kline = false
+    /** ELM protocol number (ATDPN) once known: 3 ISO 9141-2, 4/5 ISO 14230 (KWP2000), 6–9 CAN. */
+    var protocol = 0
+    /**
+     * Whether single modules can be addressed. On KWP2000 (ISO 14230) a module answers its physical address
+     * too (ELM327 datasheet, "SH xx yy zz"): header 81 <address> F1, the ELM inserts the length. ISO 9141-2
+     * has no physical addressing in OBD.
+     */
+    val canTarget get() = !kline || protocol == 4 || protocol == 5
     var currentHeader: Int? = null
         private set
     var responseFilter: Int? = null
@@ -48,7 +56,7 @@ class Obd(val elm: Elm327) {
             val target = lastTarget
             hook()
             resetState()
-            if (target != null && !kline) target(target.first, target.second) else broadcast()
+            if (target != null && canTarget) target(target.first, target.second) else broadcast()
         } finally {
             recovering = false
         }
@@ -59,8 +67,7 @@ class Obd(val elm: Elm327) {
 
     /** Physical addressing to one module. Tolerates clones that don't know ATCRA. */
     suspend fun target(req: Int, resp: Int) {
-        // ATSH with a CAN id would replace the K-line header (68 6A F1) and break every later request.
-        check(!kline) { tr("адресация блоков есть только на CAN", "module addressing is CAN only") }
+        if (kline) return targetKline(req, resp)
         lastTarget = req to resp
         if (req in 0x7E0..0x7E7 && resp == req + 8) {
             // Standard OBD ids: the default receive filter and automatic flow control already fit.
@@ -89,6 +96,22 @@ class Obd(val elm: Elm327) {
         }
     }
 
+    /**
+     * KWP2000 on K-line: header 81 <module> F1 (physical, length in the format byte — the ELM fills it in).
+     * The module is its own source address in the reply, so [req] == [resp]. The wakeup messages keep the
+     * functional header they got when the protocol started (datasheet), only requests go to the module.
+     */
+    private suspend fun targetKline(req: Int, resp: Int) {
+        check(canTarget) { tr("на ISO 9141-2 адресации блоков нет", "ISO 9141-2 has no module addressing") }
+        // Only a real module address: never the functional OBD one (33), the tester (F1) or a CAN id.
+        check(req == resp && req in 0x01..0xEF && req != KWP_FUNCTIONAL) { "bad K-line address %X".format(req) }
+        lastTarget = req to resp
+        if (currentHeader != req) {
+            at("ATSH81%02XF1".format(req))
+            currentHeader = req
+        }
+    }
+
     /** After ATZ the adapter is back to defaults (header 7DF, no filters). */
     fun resetState() {
         currentHeader = null
@@ -105,7 +128,14 @@ class Obd(val elm: Elm327) {
     /** Back to functional OBD broadcast (7DF, all ECUs answer). */
     suspend fun broadcast() {
         lastTarget = null
-        if (kline) return
+        if (kline) {
+            // Untouched since the protocol started (null) — the ELM's own default header is still in place.
+            if (currentHeader != null && currentHeader != KWP_FUNCTIONAL) {
+                at("ATSHC133F1")
+                currentHeader = KWP_FUNCTIONAL
+            }
+            return
+        }
         if (customRouting) resetRouting()
         if (currentHeader == 0x7DF) return
         at("ATSH7DF")
@@ -117,5 +147,10 @@ class Obd(val elm: Elm327) {
         at("ATAR")
         responseFilter = null
         customRouting = false
+    }
+
+    companion object {
+        /** ISO 14230-4 functional OBD request address: header C1 33 F1 (the ELM327 default for KWP). */
+        const val KWP_FUNCTIONAL = 0x33
     }
 }

@@ -21,8 +21,8 @@
         <item>If the name says \"from MAF\", consumption is calculated from air flow; with a dirty MAF it will be off too.</item>
     </string-array>
     <string-array name="help_trim">
-        <item>Total fuel trim for the bank — short term plus long term. Shows how much the ECU has to correct the base fuel delivery based on the front O2 sensors. Bank 1 is cylinders 1-3-5, bank 2 is cylinders 2-4-6.</item>
-        <item>The common rule of thumb for any engine: within ±5% is good, up to ±10% is acceptable. Both banks should be close to each other. We don\'t know the thresholds at which this car\'s ECU sets a code.</item>
+        <item>Total fuel trim for the bank — short term plus long term. Shows how much the ECU has to correct the base fuel delivery based on the front O2 sensors. An inline engine has one bank (B1). A V or boxer engine has two: bank 1 is the row with cylinder 1, bank 2 the other row. Which other cylinders are in each row depends on the maker: 1-3-5 and 2-4-6 on a GM V6, 1-2-3-4 and 5-6-7-8 on a Ford V8.</item>
+        <item>The common rule of thumb for any engine: within ±5% is good, up to ±10% is acceptable. On a V engine both banks should be close to each other. We don\'t know the thresholds at which this car\'s ECU sets a code.</item>
         <item>Positive — lean mixture, the ECU adds fuel: air leak, dirty MAF, weak fuel delivery. Negative — rich mixture: leaking injector, EVAP purge. Codes: P0171/P0174 — lean, P0172/P0175 — rich. Banks differ — a problem on one bank (intake, injector, that bank\'s O2 sensor). Both moved together — a common cause (MAF, fuel pressure).</item>
     </string-array>
 </resources>

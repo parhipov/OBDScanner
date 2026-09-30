@@ -1,5 +1,7 @@
 package com.obdscanner.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.obdscanner.ObdManager
 import com.obdscanner.VehicleInfo
+import com.obdscanner.gm.DtcScheme
 import com.obdscanner.obd.DtcKind
 import com.obdscanner.obd.Make
 import com.obdscanner.obd.Mode09
@@ -52,6 +55,9 @@ fun AllScreen(r: Map<String, Reading>, v: VehicleInfo) {
 @Composable
 fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
     var confirm by remember { mutableStateOf(false) }
+    // Tapped code: its description dialog.
+    var shown by remember { mutableStateOf<DtcShown?>(null) }
+    shown?.let { DtcHelpDialog(it, v.dtcFamily) { shown = null } }
     val fmt = remember { SimpleDateFormat("HH:mm:ss", Locale.getDefault()) }
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
         item {
@@ -67,7 +73,9 @@ fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
             item(key = kind.name) {
                 SectionTitle("${kind.title} (${list.size})")
                 if (list.isEmpty()) Muted(tr("нет", "none"))
-                for (d in list) ValueRow(d.code, ecuName(d.ecu), "", d.description, if (kind == DtcKind.PENDING) Warn else Bad)
+                for (d in list) Box(Modifier.clickable { shown = DtcShown(d.code, ecuName(d.ecu), kind = kind) }) {
+                    ValueRow(d.code, ecuName(d.ecu), "", d.description, if (kind == DtcKind.PENDING) Warn else Bad)
+                }
             }
         }
         item {
@@ -109,8 +117,12 @@ fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
             item(key = "gm${r.module.id}") {
                 SectionTitle("${r.module.name} · ${r.module.id}")
                 Muted(r.result)
-                for (c in r.codes) ValueRow(c.full, if (c.current) tr("активна", "active") else tr("история", "history"), "", "${c.description} · ${c.flags}",
-                    if (c.current || c.mil) Bad else Warn)
+                for (c in r.codes) Box(Modifier.clickable {
+                    shown = DtcShown(c.code, "${r.module.name} · ${r.module.id}", c.failureType.takeIf { it >= 0 }, c.scheme == DtcScheme.GM, c.flags, label = c.full)
+                }) {
+                    ValueRow(c.full, if (c.current) tr("активна", "active") else tr("история", "history"), "", "${c.description} · ${c.flags}",
+                        if (c.current || c.mil) Bad else Warn)
+                }
             }
         }
     }

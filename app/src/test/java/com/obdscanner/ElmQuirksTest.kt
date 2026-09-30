@@ -27,7 +27,12 @@ class ElmQuirksTest {
             override fun read(b: ByteArray, off: Int, len: Int): Int {
                 b[off] = rx.take().toByte()
                 var n = 1
-                while (n < len) b[off + n++] = (rx.poll() ?: break).toByte()
+                // Not "b[off + n++] = (rx.poll() ?: break)": the index (and n++) goes first, so a break
+                // there returned one stale byte — a '>' from an earlier reply shifted every answer (CI, v1.16).
+                while (n < len) {
+                    val x = rx.poll() ?: break
+                    b[off + n++] = x.toByte()
+                }
                 return n
             }
         }
@@ -92,6 +97,40 @@ class ElmQuirksTest {
         // Protocol set again before the retry, and the module target restored (ATSH7E0 twice: before and after).
         val after = t.sent.dropWhile { it != "ATSP6" }
         assertTrue(t.sent.toString(), "ATSH7E0" in after && after.last() == "010C")
+        elm.close()
+    }
+
+    /** KWP2000 on K-line (Hyundai Coupe 2003): a module by its physical address, then back to functional. */
+    @Test
+    fun klineKwpPhysicalAddressing() = runBlocking {
+        val t = ScriptTransport { cmd ->
+            when {
+                cmd == "1A90" -> "83 F1 11 7F 1A 12 30"
+                cmd.startsWith("AT") -> "OK"
+                else -> "NO DATA"
+            }
+        }
+        val elm = Elm327(t) { _, _ -> }
+        elm.open()
+        val o = Obd(elm)
+        o.kline = true
+        o.protocol = 5
+        assertTrue(o.canTarget)
+        o.broadcast()
+        assertTrue("untouched header needs no ATSH: ${t.sent}", t.sent.none { it.startsWith("ATSH") })
+        o.target(0x11, 0x11)
+        val r = o.request("1A90")
+        assertEquals(0x11, r.messages.single().header)
+        assertEquals(0x12, r.messages.single().nrc)
+        o.broadcast()
+        assertEquals(listOf("ATSH8111F1", "ATSHC133F1"), t.sent.filter { it.startsWith("ATSH") })
+        // Never the functional address, the tester or a CAN id on K-line.
+        for (bad in listOf(0x33 to 0x33, 0xF1 to 0xF1, 0x7E0 to 0x7E8, 0x11 to 0x18)) {
+            assertTrue(bad.toString(), runCatching { o.target(bad.first, bad.second) }.isFailure)
+        }
+        o.protocol = 3
+        assertFalse(o.canTarget)
+        assertTrue(runCatching { o.target(0x11, 0x11) }.isFailure)
         elm.close()
     }
 }
