@@ -415,7 +415,6 @@ data class ExtSignal(
     /** Engines with this many cylinders have it ("cylinder 7" = 7..16, "V8" = 8..8); null — any. */
     val cyl: IntRange? = null,
 ) {
-    val displayName get() = if (confidence == "OK") name else "$name (?)"
 }
 
 /** One manufacturer request (\$21 / \$22) and the values in its answer. */
@@ -434,7 +433,7 @@ data class ExtCommand(
     val code: ((IntArray) -> Double?)? = null,
     /** Only on these fuels ("diesel"): the same DID means something else on the other ECUs. Empty = any. */
     val fuel: Set<String> = emptySet(),
-    /** Known on these engines (code substrings, "EA888"); on another engine the values are marked "(?)". */
+    /** Known on these engines (code substrings, "EA888"); on another engine the values are marked unconfirmed ("(?)" in report.txt). */
     val engines: List<String> = emptyList(),
 ) {
     /** The same request with every value marked unverified — known on another model or engine, not on this car. */

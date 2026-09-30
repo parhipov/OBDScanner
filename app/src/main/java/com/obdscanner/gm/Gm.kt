@@ -17,7 +17,7 @@ data class ScanHit(val req: Int, val resp: Int, val service: String, val did: In
     /** GM part/software numbers are 4-byte big-endian decimals (as printed on labels). */
     val partNumber: Long? get() = if (service == "1A" && did in 0xC0..0xCC && data.size == 4)
         data.fold(0L) { acc, b -> acc * 256 + b } else null
-    val label: String? get() = if (service == "1A") Gm1A.name(did) else GmKnown.all.firstOrNull { it.did == did && it.req == req }?.displayName
+    val label: String? get() = if (service == "1A") Gm1A.name(did) else GmKnown.all.firstOrNull { it.did == did && it.req == req }?.name
     override fun equals(other: Any?) = other is ScanHit && other.key == key
     override fun hashCode() = key.hashCode()
 }
@@ -41,7 +41,6 @@ class GmDid(
     val f: (IntArray) -> Double?,
 ) {
     val key get() = "%03X:%s.%04X".format(req, service, did)
-    val displayName get() = if (confidence == "OK") name else "$name (?)"
 }
 
 /** GMLAN \$1A identifiers (GMW3110). */

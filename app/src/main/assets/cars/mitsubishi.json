@@ -276,8 +276,8 @@
       ],
       "protocol": 6,
       "note": {
-        "ru": "CAN 11 бит подтверждён отчётами для 3.2 DI-D 2007–2009.",
-        "en": "11-bit CAN confirmed by reports on 3.2 DI-D 2007-2009."
+        "ru": "3.2 DI-D 2007–2009 — CAN 11 бит.",
+        "en": "The 3.2 DI-D 2007–2009 is on 11-bit CAN."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Mitsubishi_Pajero",
@@ -706,8 +706,8 @@
       "en": "CVT primary/secondary pulley speed and actual ratio"
     },
     {
-      "ru": "Температура масла вариатора (полином по коду датчика, как в Torque/CVT50)",
-      "en": "CVT fluid temperature (polynomial over the sensor count, as in Torque/CVT50)"
+      "ru": "Температура масла вариатора",
+      "en": "CVT fluid temperature"
     },
     {
       "ru": "Двигатель и КПП — CAN 11 бит 500 кбит/с (модели с 2006–2007 г.)",

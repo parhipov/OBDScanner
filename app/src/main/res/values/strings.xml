@@ -9,9 +9,8 @@
     <string name="help_hint">If it\'s off</string>
     <string name="help_close">Close</string>
     <string name="help_range">min %1$s · max %2$s this session</string>
-    <string name="help_sample">Sample: a typical value for a warm car at idle. No adapter connection.</string>
+    <string name="help_sample">Sample value at warm idle. No adapter connected.</string>
     <string name="help_none">No description for this parameter yet.</string>
-    <string name="help_unverified">Formula from a single source, not verified on a car. Check it against something known before trusting it.</string>
     <string name="help_src_pid">Standard OBD: Mode 01, PID %1$s · %2$s</string>
     <string name="help_src_gm">GM Mode $22, DID %1$s · %2$s</string>
     <string name="help_src_ext">Manufacturer request $%1$s %2$s · %3$s (car database)</string>

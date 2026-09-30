@@ -46,8 +46,8 @@
       "protocol": 6,
       "obd": "left_door",
       "buses": {
-        "ru": "Проверено на RAV4 2005 1AZ-FE: ЭБУ двигателя отвечает по CAN 11/500 на 7E0/7E8, адреса 7E1–7E7 молчат (АКПП U241E ведёт ЭБУ двигателя). VIN в блоке не записан (FF).",
-        "en": "Checked on a RAV4 2005 1AZ-FE: the engine ECU answers on CAN 11/500 at 7E0/7E8, 7E1–7E7 are silent (the U241E automatic is run by the engine ECU). No VIN stored in the ECU (FF)."
+        "ru": "CAN 11/500. Отвечает только блок двигателя, он же управляет АКПП U241E. VIN в блоке не записан.",
+        "en": "CAN 11/500. Only the engine ECU answers; it also runs the U241E automatic. No VIN stored in the ECU."
       },
       "note": {
         "ru": "Гнездо под панелью слева у двери, правее ручки открывания капота, под блоком предохранителей.",
@@ -89,8 +89,8 @@
       ],
       "obd": "left_door",
       "note": {
-        "ru": "Протокол ранних лет не проверен: до рестайлинга мог быть K-line (ISO 9141/14230). Приложение само перебирает протоколы.",
-        "en": "Protocol of the early years not checked: before the facelift it may be K-line (ISO 9141/14230). The app tries all protocols itself."
+        "ru": "До рестайлинга может быть K-line. Протокол приложение подберёт само.",
+        "en": "Before the facelift it may be K-line. The app finds the protocol by itself."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA20)",
@@ -140,8 +140,8 @@
       ],
       "obd": "left_door",
       "buses": {
-        "ru": "АКПП на большинстве Toyota ведёт ЭБУ двигателя: температура ATF, передача и блокировка ГДТ читаются запросом $21 на 7E0. Отдельный блок коробки (7E1) бывает не всегда.",
-        "en": "On most Toyotas the engine ECU also runs the automatic: ATF temperature, gear and lock-up are read with $21 on 7E0. A separate gearbox module (7E1) is not always there."
+        "ru": "На большинстве Toyota коробкой управляет блок двигателя, от него же читаются температура ATF, передача и блокировка ГДТ.",
+        "en": "On most Toyotas the engine ECU also runs the automatic; ATF temperature, gear and lock-up are read from it."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA30)",
@@ -186,8 +186,8 @@
       "protocol": 6,
       "obd": "left_door",
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA40)",
@@ -226,8 +226,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA50)",
@@ -264,8 +264,8 @@
         }
       ],
       "buses": {
-        "ru": "АКПП на большинстве Toyota ведёт ЭБУ двигателя: температура ATF, передача и блокировка ГДТ читаются запросом $21 на 7E0. Отдельный блок коробки (7E1) бывает не всегда.",
-        "en": "On most Toyotas the engine ECU also runs the automatic: ATF temperature, gear and lock-up are read with $21 on 7E0. A separate gearbox module (7E1) is not always there."
+        "ru": "На большинстве Toyota коробкой управляет блок двигателя, от него же читаются температура ATF, передача и блокировка ГДТ.",
+        "en": "On most Toyotas the engine ECU also runs the automatic; ATF temperature, gear and lock-up are read from it."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_Camry_(XV40)"
@@ -314,8 +314,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "note": {
         "ru": "XV55 — рестайлинг 2014 года для России.",
@@ -369,8 +369,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_Camry_(XV70)",
@@ -450,8 +450,8 @@
       "protocol": 6,
       "obd": "left_door",
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_Corolla_(E170)",
@@ -496,8 +496,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "note": {
         "ru": "1.6 с вариатором: температуру масла CVT читают в Torque той же формулой, что ATF у других Toyota (drive2).",
@@ -625,8 +625,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_Land_Cruiser_(J200)",
@@ -664,8 +664,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_Highlander",
@@ -709,8 +709,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "note": {
         "ru": "Запрос детонации 7E0 21B2 на Highlander/Kluger 2017 не отвечает (hptuners).",
@@ -746,8 +746,8 @@
         "en": "CAN 11/500. Hybrid system: 7E2 (HV ECU), battery: 7E3 (battery ECU) — SOC, current, 14 block voltages, temperatures."
       },
       "note": {
-        "ru": "Частый праворульный «японец» на Дальнем Востоке. Место гнезда указано для левого руля, на правом не проверено.",
-        "en": "A common right-hand-drive import in the Russian Far East. Socket location is for left-hand drive, not checked on RHD."
+        "ru": "Частый праворульный «японец» на Дальнем Востоке. Место разъёма указано для левого руля.",
+        "en": "A common right-hand-drive import in the Russian Far East. The socket location is for left-hand drive."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Toyota_Prius_(XW20)",
@@ -787,8 +787,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "note": {
         "ru": "RX270 (2.7), RX350 (3.5), RX450h (гибрид).",
@@ -830,8 +830,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "note": {
         "ru": "RX200t/RX300 (2.0 турбо), RX350, RX450h.",
@@ -873,8 +873,8 @@
       ],
       "protocol": 6,
       "buses": {
-        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
-        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+        "ru": "CAN 11/500: с 2008 модельного года OBD идёт по CAN.",
+        "en": "CAN 11/500: OBD is on CAN from MY2008."
       },
       "note": {
         "ru": "NX200 (2.0), NX200t/NX300 (2.0 турбо), NX300h (гибрид).",
@@ -1914,16 +1914,16 @@
   ],
   "features": [
     {
-      "ru": "Температура масла АКПП (поддон и выход ГДТ) — как в Torque, запрос $21 82 к ЭБУ двигателя",
-      "en": "Automatic fluid temperature (pan and converter outlet) — the Torque PIDs, $21 82 to the engine ECU"
+      "ru": "Температура масла АКПП (в поддоне и на выходе ГДТ)",
+      "en": "Automatic fluid temperature (pan and converter outlet)"
     },
     {
       "ru": "Текущая передача и блокировка гидротрансформатора",
       "en": "Current gear and torque-converter lock-up"
     },
     {
-      "ru": "Остаток топлива в литрах из щитка приборов (7C0)",
-      "en": "Fuel left in litres from the instrument cluster (7C0)"
+      "ru": "Остаток топлива в литрах с приборки",
+      "en": "Fuel left in litres from the instrument cluster"
     },
     {
       "ru": "Дизель 1GD (Prado 150): заполнение сажевого фильтра и коррекции форсунок",

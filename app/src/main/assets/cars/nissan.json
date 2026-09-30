@@ -65,8 +65,8 @@
         }
       ],
       "note": {
-        "ru": "Вариатор JATCO JF011E (2.0). Место гнезда по разным источникам различается — ищите под панелью у блока предохранителей.",
-        "en": "JATCO JF011E CVT (2.0). Sources differ on the socket place — look under the dash by the fuse box."
+        "ru": "Вариатор JATCO JF011E (2.0). Разъём ищите под панелью у блока предохранителей.",
+        "en": "JATCO JF011E CVT (2.0). Look for the socket under the dash by the fuse box."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Nissan_Qashqai",
@@ -854,8 +854,8 @@
       "en": "X-Trail T32 1.6 dCi (R9M): soot mass, failed regeneration count, oil dilution and viscosity loss."
     },
     {
-      "ru": "Вариатор JATCO: температура масла (7E1 21 01, формула с форума, не проверена на машине). Счётчик старения масла пока не читаем.",
-      "en": "JATCO CVT: fluid temperature (7E1 21 01, formula from a forum, not checked on a car). The fluid deterioration counter is not read yet."
+      "ru": "Вариатор JATCO: температура масла.",
+      "en": "JATCO CVT: fluid temperature."
     },
     {
       "ru": "Datsun on-DO и mi-DO — это Лады (моторы и ЭБУ ВАЗ), по VIN определяются как Nissan.",

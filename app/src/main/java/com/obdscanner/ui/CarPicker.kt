@@ -151,11 +151,9 @@ fun CarCard(m: ObdManager, v: VehicleInfo, picked: CarChoice?, details: Boolean 
 private fun CarDetails(car: CarModel) {
     val lines = buildList {
         if (car.engines.isNotEmpty()) add(tr("Двигатель", "Engine") to car.engines.joinToString("\n") { it.title })
-        protocolName(car.protocol)?.let { add(tr("Протокол", "Protocol") to it + if (car.protocol in 1..2) tr(" — ELM327-клоны его часто не умеют", " — ELM327 clones often can't do it") else "") }
+        protocolName(car.protocol)?.let { add(tr("Протокол", "Protocol") to it + if (car.protocol in 1..2) tr(", многие клоны ELM327 его не поддерживают", ", many ELM327 clones don't support it") else "") }
         car.buses?.let { add(tr("Шины", "Buses") to it) }
         car.note?.let { add(tr("Заметка", "Note") to it) }
-        add(tr("Данные", "Data") to (if (car.verified) tr("проверено на этой машине", "checked on this car") else tr("по открытым источникам, на машине не проверено", "from public sources, not checked on a car")) +
-            if (car.src.isNotEmpty()) tr(" · источников: ${car.src.size}", " · sources: ${car.src.size}") else "")
     }
     for ((k, v) in lines) {
         Text(k, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
@@ -183,7 +181,7 @@ private fun MakeReads(family: CarFamily, brand: String?, car: CarModel?) {
     val roles = cmds.flatMap { c -> c.signals.mapNotNull { it.role } }.mapNotNull(::roleName).distinct()
     Text(tr("Что читается сверх OBD", "Read beyond standard OBD"), style = MaterialTheme.typography.labelMedium,
         color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
-    Text(roles.joinToString(", ").ifEmpty { tr("в базе ничего — только стандартный OBD", "nothing in the database — standard OBD only") },
+    Text(roles.joinToString(", ").ifEmpty { tr("ничего, только стандартный OBD", "nothing, standard OBD only") },
         style = MaterialTheme.typography.bodyMedium)
 }
 
@@ -191,7 +189,6 @@ private fun MakeReads(family: CarFamily, brand: String?, car: CarModel?) {
 private fun MakeDetails(family: CarFamily, brand: String?, car: CarModel?) {
     val cmds = knownOn(family, brand, car)
     val signals = cmds.sumOf { it.signals.size }
-    val sure = cmds.sumOf { c -> c.signals.count { it.confidence == "OK" } }
     val lines = buildList {
         if (brand != null) {
             val models = family.models.count { it.brand == brand }
@@ -200,9 +197,8 @@ private fun MakeDetails(family: CarFamily, brand: String?, car: CarModel?) {
                 obdPlace(loc)?.let { add(tr("Разъём обычно", "Socket usually") to it.trimEnd('.') + tr(" (у $n из $all моделей)", " ($n of $all models)")) }
             }
         }
-        if (signals > 0) add(tr("Параметры производителя", "Manufacturer parameters") to
-            tr("$signals в базе ($sure подтверждены); при подключении проверяется, какие отвечают", "$signals in the database ($sure confirmed); checked on connect which ones answer"))
-        else add(tr("Параметры производителя", "Manufacturer parameters") to tr("в базе нет — только стандартный OBD", "none in the database — standard OBD only"))
+        add(tr("Параметры производителя", "Manufacturer parameters") to
+            if (signals > 0) "$signals" else tr("нет, только стандартный OBD", "none, standard OBD only"))
     }
     for ((k, v) in lines) {
         Text(k, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
@@ -255,7 +251,7 @@ fun CarPickerDialog(current: CarChoice?, compare: MutableList<String>, onPick: (
                         if (b != null && q.isEmpty()) item {
                             val fam = CarDb.familyOfBrand(b)
                             PickRow(tr("Только марка: $b", "Make only: $b"),
-                                tr("модель определится по VIN; проверяются все параметры марки", "the VIN finds the model; all of the make's parameters are checked"),
+                                tr("модель определится по VIN", "the model comes from the VIN"),
                                 current != null && current.model == null && current.brand == b, BRAND + b in compare, tick(BRAND + b)) { if (fam != null) onPick(CarChoice(b, fam)) }
                         }
                         // Search also finds the family: "GM" → Cadillac, Chevrolet, Opel…
@@ -266,7 +262,7 @@ fun CarPickerDialog(current: CarChoice?, compare: MutableList<String>, onPick: (
                             .sortedWith(compareBy({ it.brand }, { it.model }, { it.years?.first ?: 0 }))
                         items(list, key = { it.id }) { c ->
                             PickRow(if (brand == null) "${c.brand} ${c.shortTitle}" else c.shortTitle,
-                                c.engines.mapNotNull { it.code }.distinct().joinToString(", ") + if (c.verified) tr(" · проверено", " · checked") else "",
+                                c.engines.mapNotNull { it.code }.distinct().joinToString(", "),
                                 c == current?.model, c.id in compare, tick(c.id)) { onPick(CarChoice(c.brand, c.family, c)) }
                         }
                         if (list.isEmpty() && makes.isEmpty()) item { Muted(tr("Ничего не нашлось", "Nothing found")) }

@@ -43,15 +43,14 @@ private fun diagnostics(c: CarChoice): Map<String, String> {
     out[tr("Шины", "Buses")] = (car?.buses ?: models.mapNotNull { it.buses }.distinct().singleOrNull()) ?: no
     out[tr("Разъём", "Socket")] = (car?.obd ?: family?.commonObd(c.brand)?.first)?.let { obdPlace(it)?.trimEnd('.') } ?: no
     out[tr("Блоки и их ошибки", "Modules and their codes")] = when (Make.of(c.family)) {
-        Make.GM -> tr("поиск модулей HS-CAN, \$A9 — ошибки всех блоков", "HS-CAN module search, \$A9 — codes of all modules")
-        Make.VAG -> tr("поиск блоков VAG (7E0–7E7, 700–775), UDS \$19 / KWP \$18", "VAG module search (7E0–7E7, 700–775), UDS \$19 / KWP \$18")
-        else -> tr("7E0–7E7 и частые адреса, UDS \$19 / KWP \$18", "7E0–7E7 and common addresses, UDS \$19 / KWP \$18")
+        Make.GM -> tr("ищутся все блоки, читаются их ошибки", "all modules are found, their codes read")
+        Make.VAG -> tr("ищутся блоки VW, читаются их ошибки", "VW modules are found, their codes read")
+        else -> tr("двигатель, КПП и несколько частых блоков", "engine, transmission and a few common modules")
     }
     out[tr("Сервисы производителя", "Manufacturer services")] = cmds.map { "\$" + it.service }.distinct().sorted().joinToString(" ").ifEmpty { no }
     out[tr("Адреса запросов", "Request ids")] = cmds.map { "%03X".format(it.req) }.distinct().sorted().joinToString(" ").ifEmpty { no }
     val signals = cmds.sumOf { it.signals.size }
-    val sure = cmds.sumOf { x -> x.signals.count { it.confidence == "OK" } }
-    out[tr("Параметров производителя", "Manufacturer parameters")] = if (signals == 0) no else tr("$signals (подтверждено $sure)", "$signals ($sure confirmed)")
+    out[tr("Параметров производителя", "Manufacturer parameters")] = if (signals == 0) no else "$signals"
     // One row per thing read beyond OBD: which of the compared ones have it.
     val roles = cmds.flatMap { x -> x.signals.mapNotNull { it.role } }.mapNotNull(::roleName).toSet()
     for (r in ALL_ROLES.mapNotNull(::roleName).distinct()) out[r.replaceFirstChar { it.uppercase() }] = if (r in roles) "✓" else no

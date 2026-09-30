@@ -103,7 +103,7 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
                 OutlinedButton(onClick = { m.watchAll(s.hits) }) { Text(tr("Отметить все с данными", "Tick all with data")) }
                 OutlinedButton(onClick = { m.watchAll(emptyList()) }, modifier = Modifier.padding(start = 8.dp)) { Text(tr("Снять", "Untick")) }
             }
-            if (s.hits.isNotEmpty()) Muted(tr("Отмеченные опрашиваются и пишутся в data.csv: на этой вкладке каждый цикл, на других раз в 3 с. Так их потом можно расшифровать по записи (utils/scan_decode.py).",
+            if (s.hits.isNotEmpty()) Muted(tr("Отмеченные опрашиваются и пишутся в data.csv: на этой вкладке каждый цикл, на других раз в 3 с.",
                 "Ticked DIDs are polled and written to data.csv: every cycle on this tab, every 3 s on the others. So they can be decoded later from the recording (utils/scan_decode.py)."))
         }
         items(hits, key = { it.key }) { h ->

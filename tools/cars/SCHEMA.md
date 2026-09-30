@@ -102,9 +102,9 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
   or all engines of the picked model). Use it whenever the same DID means something else on other ECUs
   (VAG 114F: soot on EDC17, misfires on a petrol ECU).
 - `engines` — optional engine code substrings (`["EA888"]`) the command is known on: on a car with other
-  or unknown engines it is still probed, but its values are shown as unverified "(?)".
+  or unknown engines it is still probed, but marked unconfirmed ("(?)" in report.txt only, not in the UI).
 - A command known only on other models of the family is probed too (after this model's ones); its values
-  are always shown as "(?)".
+  are always marked unconfirmed.
 - `fmt` — the value: take `len` bits starting at bit `bix` of the answer **data after the echo**
   (after `62 DID DID` / `61 ID`), big-endian, bit 0 = MSB of the first data byte;
   raw → signed if `signed` → `raw * mul / div + add`. `le: true` — little-endian (whole bytes only).

@@ -1420,8 +1420,8 @@
   ],
   "features": [
     {
-      "ru": "Температура масла АКПП SkyActiv-Drive (блок TCM 7E1)",
-      "en": "SkyActiv-Drive transmission fluid temperature (TCM 7E1)"
+      "ru": "Температура масла АКПП SkyActiv-Drive",
+      "en": "SkyActiv-Drive transmission fluid temperature"
     },
     {
       "ru": "Передача, блокировка гидротрансформатора, работа муфты полного привода",

@@ -114,7 +114,7 @@
       "obd": "left_door",
       "note": {
         "ru": "1.6 VVT 2011 — CAN 11 бит; дизели — KWP2000. Разъём слева под рулём, у ручки капота.",
-        "en": "1.6 VVT 2011 reported on 11-bit CAN; diesels on KWP2000. Socket left under the wheel, by the hood release."
+        "en": "1.6 VVT 2011 is on 11-bit CAN; diesels on KWP2000. Socket left under the wheel, by the hood release."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Suzuki_SX4",
@@ -243,8 +243,8 @@
       ],
       "obd": "under_column",
       "note": {
-        "ru": "Ранние — KWP2000 (ISO 14230), с 2012 г. встречается CAN 11 бит — определяется автоматически.",
-        "en": "Early cars KWP2000 (ISO 14230), 11-bit CAN reported from 2012 - use auto-detect."
+        "ru": "Ранние — KWP2000 (ISO 14230), с 2012 г. встречается CAN 11 бит. Протокол определяется сам.",
+        "en": "Early cars are KWP2000 (ISO 14230), 11-bit CAN from 2012. The protocol is found automatically."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Suzuki_Jimny",
@@ -284,8 +284,8 @@
   "commands": [],
   "features": [
     {
-      "ru": "Только стандартный OBD-II: заводские запросы Suzuki публично не описаны",
-      "en": "Standard OBD-II only: Suzuki factory requests are not publicly documented"
+      "ru": "Только стандартный OBD-II",
+      "en": "Standard OBD-II only"
     },
     {
       "ru": "SX4 II, Vitara, Jimny с 2018 г. — CAN 11 бит 500 кбит/с",

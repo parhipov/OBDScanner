@@ -153,8 +153,8 @@
         }
       ],
       "note": {
-        "ru": "Протокол зависит от года и рынка: klavkarr сообщает KWP fast на 3.2 LA3 2003 г. — используйте автоподбор (ATSP0). LS6 — CTS-V 2004–05, LS2 — CTS-V 2006–07. VIN: 4-й знак D — линия CTS/STS, 6-й: 5 седан (1 купе, 8 универсал), у STS — 6 (по примерам VIN).",
-        "en": "Protocol depends on year and market: klavkarr reports KWP fast on a 2003 3.2 LA3 — use auto (ATSP0). LS6 is the 2004–05 CTS-V, LS2 the 2006–07 CTS-V. VIN: 4th char D — CTS/STS line, 6th: 5 sedan (1 coupe, 8 wagon), STS has 6 (from sample VINs)."
+        "ru": "Протокол зависит от года и рынка, у 3.2 LA3 2003 года бывает K-line. LS6 — CTS-V 2004–05, LS2 — CTS-V 2006–07.",
+        "en": "The protocol depends on year and market; a 2003 3.2 LA3 can be on K-line. LS6 is the 2004–05 CTS-V, LS2 the 2006–07 CTS-V."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_CTS",
@@ -224,8 +224,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "Проверено приложением на CTS 2009 2.8 LP1 (АКПП 6L50): ECM 7E0, TCM 7E2 отвечают на $22. LSA — компрессорный CTS-V 2009–14. VIN: 4-й знак D — линия CTS/STS, 6-й: 5 седан (1 купе, 8 универсал), у STS — 6 (по примерам VIN).",
-        "en": "Checked with the app on a 2009 CTS 2.8 LP1 (6L50 automatic): ECM 7E0 and TCM 7E2 answer $22. LSA is the supercharged 2009–14 CTS-V. VIN: 4th char D — CTS/STS line, 6th: 5 sedan (1 coupe, 8 wagon), STS has 6 (from sample VINs)."
+        "ru": "АКПП 6L50. Блоки двигателя и коробки отдают расширенные параметры GM. LSA — компрессорный CTS-V 2009–14.",
+        "en": "6L50 automatic. The engine and transmission modules give GM extended parameters. LSA is the supercharged 2009–14 CTS-V."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_CTS",
@@ -332,8 +332,8 @@
         }
       ],
       "note": {
-        "ru": "LH2 — Northstar V8, LC3 — компрессорный STS-V. Протокол ранних лет не подтверждён источником; с 2008 модельного года в США обязателен CAN.",
-        "en": "LH2 is the Northstar V8, LC3 the supercharged STS-V. Early-year protocol not confirmed by a source; CAN is mandatory in the US from MY2008."
+        "ru": "LH2 — Northstar V8, LC3 — компрессорный STS-V. С 2008 модельного года — CAN.",
+        "en": "LH2 is the Northstar V8, LC3 the supercharged STS-V. CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_STS"
@@ -369,8 +369,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "CAN 11/500 по отчётам владельцев 2005–2006 г. (klavkarr).",
-        "en": "CAN 11/500 per owner reports for 2005–2006 (klavkarr)."
+        "ru": "CAN 11/500 на машинах 2005–2006 годов.",
+        "en": "CAN 11/500 on 2005–2006 cars."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_SRX",
@@ -454,8 +454,8 @@
         "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
       },
       "note": {
-        "ru": "Разъём под панелью слева от рулевой колонки, ближе к двери (схема EPA, позиция 2).",
-        "en": "Socket under the dash between the door and the steering column (EPA chart, location 2)."
+        "ru": "Разъём под панелью слева от рулевой колонки, ближе к двери.",
+        "en": "Socket under the dash between the door and the steering column."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_Escalade",
@@ -665,8 +665,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "LGW — 3.0 битурбо V6, LTA — 4.2 битурбо V8 Blackwing (2019–20). Гибридная версия CT6 PHEV не описана.",
-        "en": "LGW is the 3.0 twin-turbo V6, LTA the 4.2 twin-turbo Blackwing V8 (2019–20). The CT6 PHEV is not covered."
+        "ru": "LGW — 3.0 битурбо V6, LTA — 4.2 битурбо V8 Blackwing (2019–20).",
+        "en": "LGW is the 3.0 twin-turbo V6, LTA the 4.2 twin-turbo Blackwing V8 (2019–20)."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_CT6",
@@ -697,8 +697,8 @@
         }
       ],
       "note": {
-        "ru": "Northstar V8. Протокол по годам источником не подтверждён; с 2008 модельного года в США обязателен CAN.",
-        "en": "Northstar V8. Protocol by year not confirmed by a source; CAN is mandatory in the US from MY2008."
+        "ru": "Northstar V8. С 2008 модельного года — CAN.",
+        "en": "Northstar V8. CAN from MY2008."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_DTS"
@@ -734,8 +734,8 @@
         "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
       },
       "note": {
-        "ru": "Northstar V8. Разъём под панелью между дверью и рулевой колонкой (схема EPA, позиция 2).",
-        "en": "Northstar V8. Socket under the dash between the door and the steering column (EPA chart, location 2)."
+        "ru": "Northstar V8. Разъём под панелью между дверью и рулевой колонкой.",
+        "en": "Northstar V8. Socket under the dash between the door and the steering column."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_DeVille",
@@ -773,8 +773,8 @@
         "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
       },
       "note": {
-        "ru": "Northstar V8. Разъём под панелью между дверью и рулевой колонкой (схема EPA, позиция 2).",
-        "en": "Northstar V8. Socket under the dash between the door and the steering column (EPA chart, location 2)."
+        "ru": "Northstar V8. Разъём под панелью между дверью и рулевой колонкой.",
+        "en": "Northstar V8. Socket under the dash between the door and the steering column."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_Seville",
@@ -830,8 +830,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "Разъём над педалями слева (klavkarr).",
-        "en": "Socket above the pedals on the left (klavkarr)."
+        "ru": "Разъём над педалями слева.",
+        "en": "Socket above the pedals on the left."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Chevrolet_Cruze",
@@ -874,8 +874,8 @@
         "en": "K-line (pin 7, KWP2000 fast init): engine; ABS and airbag also on K-line. No CAN — the GM $22/$A9 functions don't apply, standard OBD works."
       },
       "note": {
-        "ru": "Daewoo Lacetti / Nubira / Optra, в Узбекистане — Gentra. KWP fast по отчётам владельцев 1.6 (klavkarr).",
-        "en": "Also Daewoo Lacetti / Nubira / Optra, Gentra in Uzbekistan. KWP fast per owner reports on the 1.6 (klavkarr)."
+        "ru": "Он же Daewoo Lacetti / Nubira / Optra, в Узбекистане — Gentra. У 1.6 K-line (KWP fast).",
+        "en": "Also Daewoo Lacetti / Nubira / Optra, Gentra in Uzbekistan. The 1.6 is on K-line (KWP fast)."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Chevrolet_Lacetti",
@@ -930,8 +930,8 @@
         "en": "K-line (pin 7, KWP2000 fast init): engine; ABS and airbag also on K-line. No CAN — the GM $22/$A9 functions don't apply, standard OBD works."
       },
       "note": {
-        "ru": "KWP fast на 1.2/1.4/1.6 2005–2010 (klavkarr); один отчёт о CAN на 1.6 2011 г. (рынок США). Разъём под рулём справа, над педалями.",
-        "en": "KWP fast on the 1.2/1.4/1.6 2005–2010 (klavkarr); one report of CAN on a 2011 1.6 (US market). Socket under the steering wheel on the right, above the pedals."
+        "ru": "1.2/1.4/1.6 2005–2010 на K-line (KWP fast), американский 1.6 2011 года на CAN. Разъём под рулём справа, над педалями.",
+        "en": "1.2/1.4/1.6 2005–2010 are on K-line (KWP fast), a US-market 2011 1.6 on CAN. Socket under the steering wheel on the right, above the pedals."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Chevrolet_Aveo_(T200)",
@@ -986,8 +986,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "В США — Chevrolet Sonic. CAN 11/500 по отчётам (1.3 VCDi); один отчёт о KWP на 1.4 — при неудаче используйте ATSP0.",
-        "en": "Sold as Chevrolet Sonic in the US. CAN 11/500 per reports (1.3 VCDi); one KWP report on a 1.4 — fall back to ATSP0 if needed."
+        "ru": "В США — Chevrolet Sonic. Обычно CAN 11/500, у 1.4 бывает K-line.",
+        "en": "Sold as Chevrolet Sonic in the US. Usually CAN 11/500; the 1.4 can be on K-line."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Chevrolet_Sonic",
@@ -1030,8 +1030,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "Близнец Opel Antara. Разъём у рычага открывания капота (klavkarr).",
-        "en": "Twin of the Opel Antara. Socket near the hood release (klavkarr)."
+        "ru": "Близнец Opel Antara. Разъём у рычага открывания капота.",
+        "en": "Twin of the Opel Antara. Socket near the hood release."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Chevrolet_Captiva",
@@ -1103,8 +1103,8 @@
         "en": "K-line (pin 7, KWP2000 fast init). The ECU is from the Lada family (Bosch / Yanvar), not GM: the GM $22/$A9 functions don't apply, standard OBD works."
       },
       "note": {
-        "ru": "Выпускалась СП GM-АвтоВАЗ (WMI X9L), позже как Lada Niva. KWP fast на 1.7 (klavkarr).",
-        "en": "Built by the GM-AvtoVAZ joint venture (WMI X9L), later sold as Lada Niva. KWP fast on the 1.7 (klavkarr)."
+        "ru": "Выпускалась СП GM-АвтоВАЗ, позже как Lada Niva. K-line (KWP fast).",
+        "en": "Built by the GM-AvtoVAZ joint venture, later sold as Lada Niva. K-line (KWP fast)."
       },
       "src": [
         "https://ru.wikipedia.org/wiki/Chevrolet_Niva",
@@ -1150,8 +1150,8 @@
         "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
       },
       "note": {
-        "ru": "Разъём под панелью между дверью и рулевой колонкой (схема EPA, позиция 2).",
-        "en": "Socket under the dash between the door and the steering column (EPA chart, location 2)."
+        "ru": "Разъём под панелью между дверью и рулевой колонкой.",
+        "en": "Socket under the dash between the door and the steering column."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Chevrolet_Tahoe",
@@ -1311,8 +1311,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
       },
       "note": {
-        "ru": "Разъём в центральной консоли у рычага стояночного тормоза, под крышкой (Haynes).",
-        "en": "Socket in the centre console by the handbrake lever, under a cover (Haynes)."
+        "ru": "Разъём в центральной консоли у рычага стояночного тормоза, под крышкой.",
+        "en": "Socket in the centre console by the handbrake lever, under a cover."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Opel_Astra",
@@ -1380,8 +1380,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
       },
       "note": {
-        "ru": "Разъём под рулём слева, над педалями (klavkarr). Собиралась и в Санкт-Петербурге (WMI XUF).",
-        "en": "Socket under the steering wheel on the left, above the pedals (klavkarr). Also built in St Petersburg (WMI XUF)."
+        "ru": "Разъём под рулём слева, над педалями. Собиралась и в Санкт-Петербурге.",
+        "en": "Socket under the steering wheel on the left, above the pedals. Also built in St Petersburg."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Opel_Astra",
@@ -1437,8 +1437,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
       },
       "note": {
-        "ru": "Разъём над педалями (klavkarr). В Австралии — Holden Insignia, в США — Buick Regal.",
-        "en": "Socket above the pedals (klavkarr). Sold as Holden Insignia in Australia and Buick Regal in the US."
+        "ru": "Разъём над педалями. В Австралии — Holden Insignia, в США — Buick Regal.",
+        "en": "Socket above the pedals. Sold as Holden Insignia in Australia and Buick Regal in the US."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Opel_Insignia",
@@ -1494,8 +1494,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
       },
       "note": {
-        "ru": "Разъём внизу центральной консоли, рядом с прикуривателем (klavkarr).",
-        "en": "Socket at the bottom of the centre console near the cigarette lighter (klavkarr)."
+        "ru": "Разъём внизу центральной консоли, рядом с прикуривателем.",
+        "en": "Socket at the bottom of the centre console near the cigarette lighter."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Opel_Corsa",
@@ -1569,8 +1569,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "Платформа Zeta, АКПП 6L50/6L80. Расширенные $22 проверены на VE/VF (ECM 7E0, TCM 7E2).",
-        "en": "Zeta platform, 6L50/6L80 automatics. Extended $22 checked on VE/VF (ECM 7E0, TCM 7E2)."
+        "ru": "Платформа Zeta, АКПП 6L50/6L80. Блоки двигателя и коробки отдают расширенные параметры GM.",
+        "en": "Zeta platform, 6L50/6L80 automatics. The engine and transmission modules give GM extended parameters."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Holden_Commodore_(VE)",
@@ -1652,8 +1652,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
       "note": {
-        "ru": "Проверено сторонним проектом на Enclave 2022: ECM 7E0/7E8, BCM 241/641; оставшийся ресурс масла читается не через $22 119F (отказ 7F 22 31), а через $1A 6D.",
-        "en": "Checked by a third-party project on a 2022 Enclave: ECM 7E0/7E8, BCM 241/641; oil life is not in $22 119F there (7F 22 31 reject) but in $1A 6D."
+        "ru": "Ресурс масла здесь читается другим запросом, чем на остальных GM.",
+        "en": "Oil life is read with a different request here than on other GMs."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Buick_Enclave",
@@ -1930,24 +1930,24 @@
   ],
   "features": [
     {
-      "ru": "Расширенные параметры GM ($22): температура масла АКПП и двигателя, давление масла, ресурс масла, пропуски и баланс по цилиндрам, откат по детонации",
-      "en": "GM enhanced parameters ($22): transmission and engine oil temperature, oil pressure, oil life, per-cylinder misfires and balance, knock retard"
+      "ru": "Температура масла АКПП и двигателя, давление и ресурс масла, пропуски и баланс по цилиндрам, откат по детонации",
+      "en": "Transmission and engine oil temperature, oil pressure and life, per-cylinder misfires and balance, knock retard"
     },
     {
-      "ru": "Коды неисправностей всех блоков на HS-CAN (GM $A9), не только двигателя",
-      "en": "Trouble codes from every module on HS-CAN (GM $A9), not just the engine"
+      "ru": "Ошибки всех блоков, не только двигателя",
+      "en": "Codes from every module, not just the engine"
     },
     {
-      "ru": "Поиск блоков на шине и их идентификация (номера деталей, калибровки)",
-      "en": "Module search on the bus with identification (part and calibration numbers)"
+      "ru": "Номера деталей и калибровок блоков",
+      "en": "Part and calibration numbers of the modules"
     },
     {
-      "ru": "Прослушивание шины CAN: живые сообщения блоков без запросов",
-      "en": "CAN bus listening: live module broadcasts without requests"
+      "ru": "Прослушка шины: что блоки передают друг другу",
+      "en": "Bus sniffing: what the modules send each other"
     },
     {
-      "ru": "Блоки на GMLAN SW-CAN (контакт 1: кузов, щиток, климат) — только с адаптером, поддерживающим SW-CAN",
-      "en": "Modules on GMLAN SW-CAN (pin 1: body, cluster, HVAC) need an adapter with SW-CAN support"
+      "ru": "Кузов, приборка и климат сидят на отдельной шине (пин 1), для них нужен адаптер с SW-CAN",
+      "en": "Body, cluster and climate are on a separate bus (pin 1) and need an adapter with SW-CAN"
     },
     {
       "ru": "Машины до ~2007 г. на Class 2 (J1850 VPW) и Daewoo на K-line — только стандартный OBD",

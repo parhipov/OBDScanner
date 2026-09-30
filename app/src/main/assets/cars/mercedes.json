@@ -861,20 +861,20 @@
   ],
   "features": [
     {
-      "ru": "Температура масла АКПП 7G-Tronic (722.9) — прямо из блока коробки (7E1), как в Torque-PID 2130.",
-      "en": "7G-Tronic (722.9) transmission oil temperature straight from the gearbox unit (7E1), same as Torque PID 2130."
+      "ru": "Температура масла АКПП 7G-Tronic (722.9).",
+      "en": "7G-Tronic (722.9) transmission oil temperature."
     },
     {
-      "ru": "Уровень масла в 722.9 проверяют при 45 °C — удобно смотреть эту температуру при замене масла.",
-      "en": "722.9 fluid level is set at 45 °C — handy to watch this value during a fluid change."
+      "ru": "Уровень масла в 722.9 выставляют при 45 °C, при замене удобно смотреть на эту температуру.",
+      "en": "722.9 fluid level is set at 45 °C; handy to watch during a fluid change."
     },
     {
-      "ru": "На 9G-Tronic (с 2015 г.), AMG DCT и R-Class этот запрос не подтверждён или не отвечает.",
-      "en": "Not confirmed / no answer on 9G-Tronic (2015+), AMG DCT and R-Class."
+      "ru": "На 9G-Tronic (с 2015 г.), AMG DCT и R-Class температура коробки не читается.",
+      "en": "Not read on 9G-Tronic (2015+), AMG DCT and R-Class."
     },
     {
-      "ru": "Двигатель и прочее — стандартный OBD-II; остальные блоки (ESP, SAM, щиток) требуют Xentry и сессий, ELM327 их не читает.",
-      "en": "Engine and the rest — standard OBD-II; other units (ESP, SAM, cluster) need Xentry sessions, an ELM327 can't read them."
+      "ru": "Остальные блоки (ESP, SAM, щиток) читаются только через Xentry, ELM327 их не видит.",
+      "en": "Other units (ESP, SAM, cluster) need Xentry; an ELM327 can't see them."
     },
     {
       "ru": "Машины до ~2007 (W203, W211, ранний Sprinter) могут быть на K-линии.",

@@ -107,7 +107,6 @@ fun FuelScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo) {
         val cols = gmCyl.maxOfOrNull { (_, v) -> v.indexOfLast { it != null } + 1 } ?: 0
         if (gmCyl.isNotEmpty()) item {
             SectionTitle(tr("По цилиндрам (GM)", "Per cylinder (GM)"))
-            Muted(tr("Параметры GM с форумов; «(?)» — формула из одного источника.", "GM parameters from forums; \"(?)\" = formula from a single source."))
             Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
                 Column(Modifier.padding(8.dp)) {
                     Row { Text("", Modifier.weight(1.6f)); for (c in 1..cols) Text(tr("Ц$c", "C$c"), Modifier.weight(1f), style = MaterialTheme.typography.labelMedium) }
@@ -182,8 +181,8 @@ private fun hints(
 ): List<Pair<String, androidx.compose.ui.graphics.Color>> {
     val out = mutableListOf<Pair<String, androidx.compose.ui.graphics.Color>>()
     if (fuelStatus != null && fuelStatus.contains(tr("разомкнутый", "open loop"))) {
-        out += tr("Топливная система в разомкнутом режиме ($fuelStatus) — коррекции сейчас не показательны.",
-            "Fuel system in open loop ($fuelStatus) — trims do not mean much right now.") to Warn
+        out += tr("Разомкнутый режим ($fuelStatus): по коррекциям сейчас ничего не понять.",
+            "Open loop ($fuelStatus): the trims tell nothing right now.") to Warn
     }
     // One bank (inline engine): the same checks without the bank comparison.
     if (t1 != null && t2 == null) when {
@@ -191,7 +190,7 @@ private fun hints(
             "Mixture lean (+${Reading.fmt(t1, 0)}%): vacuum leak, weak fuel pump/filter, dirty MAF, injectors.") to Bad
         t1 < -10 -> out += tr("Смесь обогащена (${Reading.fmt(t1, 0)}%): давление топлива, подтекающие форсунки, MAF завышает, адсорбер, датчик O2.",
             "Mixture rich (${Reading.fmt(t1, 0)}%): fuel pressure, leaking injectors, MAF reading high, EVAP canister, O2 sensor.") to Bad
-        abs(t1) < 5 -> out += tr("Коррекция в норме — смесь в порядке.", "Fuel trim normal — mixture is fine.") to Good
+        abs(t1) < 5 -> out += tr("Смесь в норме.", "Fuel trim normal — mixture is fine.") to Good
     }
     if (t1 != null && t2 != null) {
         val lean1 = t1 > 10; val lean2 = t2 > 10
@@ -207,7 +206,7 @@ private fun hints(
                 "Only bank ${if (rich1) 1 else 2} rich: leaking injector, that bank's O2 sensor.") to Warn
             abs(t1 - t2) > 8 -> out += tr("Банки расходятся на ${Reading.fmt(abs(t1 - t2), 0)}% — стоит проверить впуск и форсунки.",
                 "Banks differ by ${Reading.fmt(abs(t1 - t2), 0)}% — check the intake and injectors.") to Warn
-            abs(t1) < 5 && abs(t2) < 5 -> out += tr("Коррекции в норме — смесь в порядке.", "Fuel trims normal — mixture is fine.") to Good
+            abs(t1) < 5 && abs(t2) < 5 -> out += tr("Смесь в норме.", "Fuel trims normal — mixture is fine.") to Good
         }
     }
     val bad = misfires.filter { it.second > 0 }

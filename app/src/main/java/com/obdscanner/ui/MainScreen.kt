@@ -215,7 +215,7 @@ private fun placeholder(key: String, label: String): Reading {
         else -> Reading.key(0x7E8, key)
     }
     val sample = SAMPLES[key]
-    return Reading(full, full.substringBefore(':').toInt(16), gm?.displayName ?: label, sample?.first, null,
+    return Reading(full, full.substringBefore(':').toInt(16), gm?.name ?: label, sample?.first, null,
         sample?.second ?: "", sample?.third ?: 1)
 }
 

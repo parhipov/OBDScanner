@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Card help, section "Oil". Each array: [what it is, normal values, what a deviation means].
-  Rule: only facts we checked (standard, sources, this car's logs). Unknown → say so plainly.
+  Rules: any car, not one model. Say what is normal and what to do; common rules of thumb are fine.
+  No "we don't know", no "unverified": if there is nothing useful to say, leave the item out.
 -->
 <resources>
     <string-array name="help_oil_temp">
         <item>Engine oil temperature. Oil warms up much more slowly than coolant.</item>
-        <item>We don\'t know GM\'s operating limits for this engine. While the oil is cold, better not to rev the engine high — a general rule for any engine.</item>
-        <item>Watch the trend: if on your usual route the oil runs noticeably hotter than before, check the oil level and the cooling.</item>
+        <item>Usually 90–110 °C on a warm engine, higher in hot weather and under load. While the oil is cold, keep the revs down.</item>
+        <item>If on your usual route the oil runs noticeably hotter than it used to, check the oil level and the cooling.</item>
     </string-array>
     <string-array name="help_oil_pressure">
-        <item>Oil pressure, a GM parameter. Formula from a single source, not verified on a car.</item>
-        <item>We don\'t know the pressure norms for this engine. Pressure rises with RPM and drops with hot oil — general physics.</item>
-        <item>Until the formula is verified, we draw no conclusions from this number. The oil pressure light on the cluster is the main signal: if it comes on, shut the engine off at once.</item>
+        <item>Engine oil pressure.</item>
+        <item>Rises with rpm, lower with hot oil. The old rule of thumb is about 70 kPa for every 1000 rpm.</item>
+        <item>If the oil pressure light comes on, shut the engine off right away.</item>
     </string-array>
     <string-array name="help_oil_life">
-        <item>Remaining oil life from the GM Oil Life system. It\'s not a sensor: oil life is calculated from how the engine runs — RPM and temperature.</item>
-        <item>After an oil change it is reset to 100%, then it decreases. This parameter\'s formula is unverified — compare with what the cluster shows.</item>
-        <item>If it wasn\'t reset after an oil change, the counter means nothing — go by mileage.</item>
+        <item>Remaining oil life. It\'s not a sensor: the ECU works it out from how the engine has been run, rpm and temperature.</item>
+        <item>Reset to 100 % at an oil change, then counts down. Should match what the cluster shows.</item>
+        <item>If nobody reset it at the last change, the number means nothing; go by mileage.</item>
     </string-array>
 </resources>

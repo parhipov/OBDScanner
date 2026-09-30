@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Card help, section "Transmission" (6L50). Each array: [what it is, normal values, what a deviation means].
-  Rule: only facts we checked (standard, sources, this car's logs). Unknown → say so plainly.
+  Card help, section "Transmission". Each array: [what it is, normal values, what a deviation means].
+  Rules: any car, not one model. Say what is normal and what to do; common rules of thumb are fine.
+  No "we don't know", no "unverified": if there is nothing useful to say, leave the item out.
   6L50 ratios: en.wikipedia.org/wiki/GM_6L_transmission.
 -->
 <resources>
     <string-array name="help_atf_temp">
-        <item>Transmission fluid temperature in the 6L50, from the sensor in the transmission.</item>
-        <item>We don\'t know GM\'s operating limits for this transmission. It rises in traffic, in hot weather and with spirited driving.</item>
-        <item>Watch the trend: if on your usual route the transmission fluid runs noticeably hotter than before, check the fluid level and condition.</item>
+        <item>Transmission fluid temperature.</item>
+        <item>Usually 70–95 °C. Higher in traffic, in hot weather and with spirited driving.</item>
+        <item>Staying above 120 °C means the transmission is overheating. If on your usual route it runs hotter than it used to, check the fluid level and condition.</item>
     </string-array>
     <string-array name="help_gear">
-        <item>Current gear as reported by the transmission module. Formula unverified.</item>
-        <item>We expect 1–6 in forward gears. We don\'t know how the module encodes P, R and N.</item>
-        <item>If the screen shows a different gear from the actual one, the formula is wrong — send the session. The actual gear can be worked out from the gear ratio.</item>
+        <item>The gear the transmission module has engaged.</item>
+        <item>1–6 (or however many gears the box has) going forward.</item>
+        <item>If the screen shows a different gear from the real one, look at the gear ratio: it tells the gear for sure.</item>
     </string-array>
     <string-array name="help_gear_ratio">
-        <item>Gear ratio: transmission input shaft speed divided by output shaft speed. Calculated by the app, shown only while moving.</item>
-        <item>6L50 ratios: 1st 4.065, 2nd 2.371, 3rd 1.551, 4th 1.157, 5th 0.853, 6th 0.674, reverse 3.200. At a steady pace the value should sit on one of these numbers. Intermediate values during a shift are normal.</item>
-        <item>Wanders in the same gear or rises when you press the gas — looks like clutch slip: read the TCM codes and check the transmission fluid. If it matches the table in no gear at all, the output shaft speed formula is wrong (it\'s unverified) — then send the session.</item>
+        <item>Gear ratio: transmission input shaft speed divided by output shaft speed. Worked out from those two, shown only while moving.</item>
+        <item>At a steady pace it sits on one number, different for each gear. On a GM 6L50, for example: 4.065, 2.371, 1.551, 1.157, 0.853, 0.674, reverse 3.200. In-between values during a shift.</item>
+        <item>Wanders in one gear or rises when you press the gas: looks like clutch slip. Read the transmission module codes and check the fluid.</item>
     </string-array>
     <string-array name="help_tcc_slip">
-        <item>Torque converter slip — the difference between engine speed and transmission input shaft speed.</item>
-        <item>With the TC clutch unlocked (accelerating, city), the difference is noticeable. Stopped in D on the brake, it\'s almost equal to engine RPM: the transmission shaft isn\'t turning. With the clutch locked at a steady pace, it\'s close to zero. We don\'t know GM\'s exact tolerances. On this car: 30 rpm at idle in P.</item>
-        <item>Never drops close to zero at a steady pace — the clutch doesn\'t lock. Jumps with the clutch locked — possible TC clutch wear. In both cases, read the TCM codes (e.g. P0741 — TC clutch stuck off).</item>
+        <item>Torque converter slip: how much faster the engine turns than the transmission input shaft.</item>
+        <item>Noticeable when accelerating and in town, while the converter clutch is unlocked. Stopped in D on the brake, almost equal to engine rpm. Close to zero at a steady pace with the clutch locked.</item>
+        <item>Never gets near zero at a steady pace: the clutch doesn\'t lock. Jumps with the clutch locked: a worn clutch. Read the transmission module codes (P0741, for example).</item>
     </string-array>
     <string-array name="help_input_shaft">
-        <item>Transmission input shaft speed (TC turbine). Formula verified on this car.</item>
-        <item>In P and N, slightly below engine RPM: on this car 580 at 615 engine rpm. Stopped in D on the brake: 0.</item>
-        <item>Very different from engine RPM in P/N, or drops out while driving — the input shaft speed sensor (codes P0716, P0717).</item>
+        <item>Transmission input shaft speed, which is the torque converter turbine.</item>
+        <item>A little below engine rpm in P and N. 0 when stopped in D on the brake.</item>
+        <item>Far from engine rpm in P/N, or drops out while driving: the input shaft speed sensor (codes P0716, P0717).</item>
     </string-array>
     <string-array name="help_output_shaft">
-        <item>Transmission output shaft speed. Proportional to vehicle speed. Formula unverified.</item>
-        <item>0 when stopped, rises with speed. Its ratio to vehicle speed should be the same in any gear.</item>
-        <item>Checking the formula is easy: at a steady pace the gear ratio should match the 6L50 table. Drops out while driving — the output shaft speed sensor (P0722).</item>
+        <item>Transmission output shaft speed, rises with vehicle speed.</item>
+        <item>0 when stopped. Its ratio to vehicle speed is the same in every gear.</item>
+        <item>Drops out while driving: the output shaft speed sensor (code P0722).</item>
     </string-array>
 </resources>

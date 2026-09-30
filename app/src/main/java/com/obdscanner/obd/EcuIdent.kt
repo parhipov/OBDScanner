@@ -109,11 +109,11 @@ object ObdModules {
         in 0x01..0xEF -> klineName(req)
         0x7E0 -> tr("Двигатель (7E0)", "Engine (7E0)")
         0x7E1 -> tr("КПП (7E1)", "Transmission (7E1)")
-        0x7B0 -> tr("ЭБУ 7B0 (ABS/VSC у Toyota?)", "ECU 7B0 (Toyota ABS/VSC?)")
-        0x7C0 -> tr("ЭБУ 7C0 (приборка у Toyota?)", "ECU 7C0 (Toyota cluster?)")
-        0x7C4 -> tr("ЭБУ 7C4 (климат у Toyota?)", "ECU 7C4 (Toyota A/C?)")
-        0x7D1 -> tr("ЭБУ 7D1 (ABS у Hyundai/Kia?)", "ECU 7D1 (Hyundai/Kia ABS?)")
-        0x7D2 -> tr("ЭБУ 7D2 (подушки у Hyundai/Kia?)", "ECU 7D2 (Hyundai/Kia airbag?)")
+        0x7B0 -> tr("ЭБУ 7B0 (у Toyota ABS/VSC)", "ECU 7B0 (ABS/VSC on a Toyota)")
+        0x7C0 -> tr("ЭБУ 7C0 (у Toyota приборка)", "ECU 7C0 (cluster on a Toyota)")
+        0x7C4 -> tr("ЭБУ 7C4 (у Toyota климат)", "ECU 7C4 (A/C on a Toyota)")
+        0x7D1 -> tr("ЭБУ 7D1 (у Hyundai/Kia ABS)", "ECU 7D1 (ABS on a Hyundai/Kia)")
+        0x7D2 -> tr("ЭБУ 7D2 (у Hyundai/Kia подушки)", "ECU 7D2 (airbags on a Hyundai/Kia)")
         else -> tr("ЭБУ %03X", "ECU %03X").format(req)
     }
 }

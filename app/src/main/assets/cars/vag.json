@@ -82,8 +82,8 @@
         "en": "Engine on K-line; the app reads standard OBD only."
       },
       "note": {
-        "ru": "Гнездо по разным источникам: в центральной консоли под пепельницей или над педалями слева. Протокол K-line (ISO 9141/14230) не уточнён.",
-        "en": "Sources differ on the socket: in the centre console under the ashtray, or above the pedals on the left. Exact K-line protocol (ISO 9141/14230) not confirmed."
+        "ru": "Разъём в центральной консоли под пепельницей или над педалями слева. K-line.",
+        "en": "Socket in the centre console under the ashtray, or above the pedals on the left. K-line."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk4",
@@ -124,8 +124,8 @@
         "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
       },
       "note": {
-        "ru": "Проверено приложением: ЭБУ Magneti Marelli (CALID 03C906014B) на K-line ISO 14230 с 5-бод инициализацией, адрес 010, только датчик давления (без ДМРВ), VIN в Mode 09 нет. АКПП Aisin 09G.",
-        "en": "Checked with the app: Magneti Marelli ECU (CALID 03C906014B) on K-line ISO 14230 with 5-baud init, address 010, MAP only (no MAF), no VIN in Mode 09. Aisin 09G automatic."
+        "ru": "Блок Magneti Marelli на K-line (ISO 14230, медленная инициализация), датчик MAP без ДМРВ, VIN не отдаёт. АКПП Aisin 09G.",
+        "en": "Magneti Marelli ECU on K-line (ISO 14230, slow init), MAP sensor, no MAF, doesn't report its VIN. Aisin 09G automatic."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk5",
@@ -172,8 +172,8 @@
         "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
       },
       "note": {
-        "ru": "Двигатели EA211 (Bosch), OBD по CAN. 1.6 — МКПП или АКПП Aisin 09G, 1.4 TSI — DSG DQ200. На машине не проверено.",
-        "en": "EA211 engines (Bosch ECU), OBD over CAN. 1.6 with manual or Aisin 09G automatic, 1.4 TSI with DQ200 DSG. Not checked on a car."
+        "ru": "Двигатели EA211 (Bosch), OBD по CAN. 1.6 — МКПП или АКПП Aisin 09G, 1.4 TSI — DSG DQ200.",
+        "en": "EA211 engines (Bosch ECU), OBD over CAN. 1.6 with manual or Aisin 09G automatic, 1.4 TSI with DQ200 DSG."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk5",
@@ -804,8 +804,8 @@
         "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
       },
       "note": {
-        "ru": "Собиралась в Нижнем Новгороде. Протокол ЭБУ с CFNA (K-line или CAN) не проверен, у EA211 — CAN 11/500. АКПП 1.6 — Aisin.",
-        "en": "Assembled in Nizhny Novgorod. Engine ECU protocol with CFNA (K-line or CAN) not checked; EA211 is CAN 11/500. 1.6 automatic is Aisin."
+        "ru": "Собиралась в Нижнем Новгороде. С мотором CFNA бывает K-line или CAN, с EA211 — CAN 11/500. АКПП 1.6 — Aisin.",
+        "en": "Assembled in Nizhny Novgorod. With the CFNA engine it can be K-line or CAN, with EA211 CAN 11/500. The 1.6 automatic is Aisin."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Volkswagen_Jetta_(A6)",
@@ -1128,8 +1128,8 @@
         "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
       },
       "note": {
-        "ru": "Гнездо под рулём за откидной крышкой — потянуть крышку на себя. Протокол ЭБУ (K-line или CAN) зависит от мотора и не проверен.",
-        "en": "Socket under the steering wheel behind a flap — pull the cover towards you. Engine ECU protocol (K-line or CAN) depends on the engine and is not checked."
+        "ru": "Разъём под рулём за откидной крышкой, потяните её на себя. Протокол (K-line или CAN) зависит от мотора.",
+        "en": "Socket under the steering wheel behind a flap; pull it towards you. The protocol (K-line or CAN) depends on the engine."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Škoda_Fabia",
@@ -2457,12 +2457,12 @@
   ],
   "features": [
     {
-      "ru": "Поиск блоков VAG: 7E0–7E7 и UDS-блоки 700–775 (ответ на +0x6A); на машинах с TP2.0 (до ~2012) находятся только двигатель и КПП",
-      "en": "VAG module search: 7E0–7E7 and UDS modules 700–775 (answer at +0x6A); on TP2.0 cars (before ~2012) only engine and gearbox are found"
+      "ru": "Поиск блоков VW. На машинах примерно до 2012 года находятся только двигатель и КПП",
+      "en": "VW module search. On cars up to about 2012 only the engine and gearbox are found"
     },
     {
-      "ru": "Номер детали VW, версия ПО и VIN каждого блока (UDS $22 F1xx / KWP $1A), ошибки всех найденных блоков (UDS $19 / KWP $18)",
-      "en": "VW part number, software version and VIN of each module (UDS $22 F1xx / KWP $1A), DTCs of all found modules (UDS $19 / KWP $18)"
+      "ru": "Номер детали, версия ПО и ошибки каждого найденного блока",
+      "en": "Part number, software version and codes of every module found"
     },
     {
       "ru": "1.8/2.0 TSI с Simos 18 (MQB): температура масла, наддув факт/задание, откат УОЗ по цилиндрам, пропуски, момент, давление топлива",

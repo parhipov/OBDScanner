@@ -772,12 +772,12 @@
       "en": "Standard OBD-II engine data over CAN."
     },
     {
-      "ru": "Поиск блоков и чтение ошибок по UDS там, где машина отвечает; на новых моделях через ELM327 часто видны только двигатель и коробка — остальное за шлюзом.",
-      "en": "Module search and DTCs over UDS where the car answers; on newer models an ELM327 often reaches only engine and gearbox — the rest is behind the gateway."
+      "ru": "Поиск блоков и их ошибки. На новых моделях обычно видны только двигатель и коробка, остальное закрыто шлюзом.",
+      "en": "Module search and their codes. On newer models usually only the engine and gearbox are visible; the rest is behind the gateway."
     },
     {
-      "ru": "Haval Jolion: расширенные параметры двигателя и робота (температура масла, сцеплений) из базы OBDb.",
-      "en": "Haval Jolion: extra engine and DCT data (oil and clutch temps) from the OBDb database."
+      "ru": "Haval Jolion: параметры двигателя и робота, температура масла и сцеплений.",
+      "en": "Haval Jolion: engine and DCT data, oil and clutch temperatures."
     }
   ]
 }

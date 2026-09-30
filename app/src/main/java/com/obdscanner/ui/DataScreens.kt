@@ -89,22 +89,22 @@ fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
                 Muted(tr("Машина на K-line: доступны только стандартные ошибки OBD (выше). Память ошибок отдельных блоков ELM327 на K-line не читает.",
                     "The car is on K-line: only the standard OBD codes (above) are available. ELM327 cannot read the code memory of individual modules on K-line."))
             } else if (v.make == Make.VAG) {
-                SectionTitle(tr("Все блоки VW (UDS \$19 / KWP \$18)", "All VW modules (UDS \$19 / KWP \$18)"))
+                SectionTitle(tr("Все блоки VW", "All VW modules"))
                 Muted(tr("Полная память ошибок каждого блока, который отвечает на OBD-разъёме: двигатель, КПП, на новых машинах — ABS, подушки, приборка и др. " +
                     "Только чтение. Сначала ищутся блоки (~2 мин), дальше несколько секунд на блок. Зажигание включено, машина стоит.",
                     "The full code memory of every module that answers on the OBD port: engine, transmission, on newer cars also ABS, airbags, cluster etc. " +
                     "Read only. The modules are found first (~2 min), then a few seconds per module. Ignition on, car parked."))
             } else if (v.make != Make.GM) {
-                SectionTitle(tr("Все блоки (UDS \$19 / KWP \$18)", "All modules (UDS \$19 / KWP \$18)"))
+                SectionTitle(tr("Все блоки", "All modules"))
                 Muted(tr("Полная память ошибок блоков на стандартных адресах OBD (7E0–7E7): обычно двигатель и КПП, включая коды без Check. " +
                     "Только чтение, несколько секунд на блок. Зажигание включено, машина стоит.",
                     "The full code memory of the modules on the standard OBD addresses (7E0–7E7): usually engine and transmission, including codes without Check Engine. " +
                     "Read only, a few seconds per module. Ignition on, car parked."))
             } else {
-                SectionTitle(tr("Все блоки GM (\$A9)", "All GM modules (\$A9)"))
-                Muted(tr("Полная память ошибок каждого блока на HS-CAN: ECM, TCM, ABS, BCM и др., включая коды без Check и тип отказа (как в GDS2). " +
+                SectionTitle(tr("Все блоки GM", "All GM modules"))
+                Muted(tr("Полная память ошибок каждого блока на HS-CAN: ECM, TCM, ABS, BCM и др., включая коды без Check и тип отказа. " +
                     "Только чтение. Сначала ищутся модули (~1 мин), дальше несколько секунд на блок. Зажигание включено, машина стоит.",
-                    "The full code memory of every module on HS-CAN: ECM, TCM, ABS, BCM etc., including codes without Check Engine, and the failure type (as in GDS2). " +
+                    "The full code memory of every module on HS-CAN: ECM, TCM, ABS, BCM etc., including codes without Check Engine, and the failure type. " +
                     "Read only. The modules are found first (~1 min), then a few seconds per module. Ignition on, car parked."))
             }
             Row(Modifier.padding(8.dp)) {
@@ -151,7 +151,7 @@ fun InfoScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
             v.car?.let { ValueRow(tr("Модель", "Model"), it.title, sub = it.engines.joinToString("; ") { e -> e.title }.ifEmpty { null }) }
             if (v.adapter.isNotEmpty()) ValueRow(tr("Параметры производителя", "Manufacturer parameters"),
                 tr("ответили ${v.extActive.size}", "${v.extActive.size} answered"),
-                sub = tr("запросы \$21/\$22 из базы машин (только чтение), список — в report.txt", "\$21/\$22 requests from the car database (read only), the list is in report.txt"))
+                sub = tr("список — в report.txt", "the list is in report.txt"))
             Row(Modifier.padding(8.dp)) {
                 OutlinedButton(onClick = { m.rediscover() }, enabled = busy == null) { Text(tr("Опросить заново", "Rescan")) }
                 OutlinedButton(onClick = { m.refreshMode06() }, enabled = busy == null, modifier = Modifier.padding(start = 8.dp)) { Text("Mode 06") }

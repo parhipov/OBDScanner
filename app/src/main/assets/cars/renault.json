@@ -1116,16 +1116,16 @@
       "en": "K9K: regeneration counters, distance since the last regeneration, injector fuel corrections."
     },
     {
-      "ru": "Пробег, записанный в ЭБУ двигателя (22 2006) — полезно сверить с одометром.",
-      "en": "The distance stored in the engine ECU (22 2006) — worth comparing with the odometer."
+      "ru": "Пробег, записанный в блоке двигателя, — полезно сверить с одометром.",
+      "en": "The distance stored in the engine ECU, worth comparing with the odometer."
     },
     {
-      "ru": "Megane 3 с роботом EDC: температура масла коробки и обоих сцеплений (не проверено на машине).",
-      "en": "Megane 3 with the EDC gearbox: gearbox oil and both clutch temperatures (not checked on a car)."
+      "ru": "Megane 3 с роботом EDC: температура масла коробки и обоих сцеплений.",
+      "en": "Megane 3 with the EDC gearbox: gearbox oil and both clutch temperatures."
     },
     {
-      "ru": "Для АКПП DP0/DP2/DP8 и AL4 формулы в открытом доступе не найдены — не читаем.",
-      "en": "No public formulas found for the DP0/DP2/DP8 and AL4 automatics — not read."
+      "ru": "АКПП DP0/DP2/DP8 и AL4 не читаются.",
+      "en": "DP0/DP2/DP8 and AL4 automatics aren't read."
     }
   ]
 }

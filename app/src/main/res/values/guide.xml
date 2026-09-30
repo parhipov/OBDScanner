@@ -3,6 +3,7 @@
   Tab "How to test". Each array is one section: first item = title, the rest = paragraphs.
   guide_steps is the short instruction (same for every car); everything below "Details" is
   detail: common sections plus the car's own section (guide_gm, guide_vag, guide_toyota...).
+  Written for the person holding the phone: what to press and what to expect, no protocol codes.
   English: the default for every system language except Russian (Russian lives in values-ru/).
   New language: copy this file to values-xx/ and translate the items (keep the array names and item order).
 -->
@@ -10,11 +11,11 @@
     <string name="guide_details">Details</string>
 
     <!-- OBD socket picture: shared per location (res/drawable-nodpi/obd_loc_*.webp, no text inside), captions in CarPicker.kt. -->
-    <string name="guide_obd_pick">Pick the car above — the picture shows where its socket is.</string>
-    <string name="guide_obd_unknown">The socket location of this car is not in the database yet. Usually it is under the dash on the driver\'s side, within reach of the steering column.</string>
-    <string name="guide_obd_note">A drawing of the typical spot, not a photo of this car. Locations come from descriptions (klavkarr.com, owner forums) and may differ by year and trim.</string>
+    <string name="guide_obd_pick">Pick the car above and the picture will show its socket.</string>
+    <string name="guide_obd_unknown">The socket is usually under the dash on the driver\'s side, next to the steering column.</string>
+    <string name="guide_obd_note">The drawing shows the typical spot, not this exact car. It can differ by year and trim.</string>
     <string name="guide_features">What is read on %1$s</string>
-    <string name="guide_obd_common">%1$s models most often have it here (%2$d of %3$d in the database); pick the model to be sure.</string>
+    <string name="guide_obd_common">On %1$s it\'s most often here (%2$d of %3$d models). Pick the model to be sure.</string>
     <string name="guide_obd_title">Where the OBD port is</string>
 
     <string-array name="guide_steps">
@@ -30,75 +31,61 @@
 
     <string-array name="guide_more_steps">
         <item>Step by step</item>
-        <item>Connecting: the app reads everything it can on its own: PIDs, VIN, trouble codes, freeze frame, readiness monitors, on-board tests (Mode 06), modules and their codes. \"Info\" shows the protocol (CAN — ISO 15765-4, K-line — ISO 9141-2 or ISO 14230), VIN and make.</item>
-        <item>The first connection to a car takes longer: the app searches for modules. After that they are remembered by VIN, and connecting takes under a minute.</item>
-        <item>A cold start is more useful than a warm one: you can see coolant and oil temperatures rise and idle RPM come down.</item>
-        <item>The open tab decides what is read more often. \"Fuel\": fuel trims, O2 and per-cylinder misfires. \"Main\": the essentials. \"All data\" polls everything in turn, so each parameter updates less often; it\'s worse for a drive.</item>
-        <item>Noticed something odd (a jerk, a stumble, a misfire)? Note the time: everything in the logs is timestamped.</item>
-        <item>After a drive, pending codes and on-board test results that weren\'t there when parked may appear. \"Rescan\" on \"Info\" refreshes the readiness monitors, \"Read all modules\" on \"Codes\" reads the code memory of all modules.</item>
-        <item>You can turn the screen off: recording continues in the background, with a notification in the notification shade.</item>
+        <item>The first connection is slow: the app is looking for the car\'s modules. It remembers them, and after that connecting takes under a minute.</item>
+        <item>Starting from a cold engine is better: you see it warm up and the idle come down.</item>
+        <item>The open tab is polled more often. While driving, keep \"Main\" or \"Fuel\" open. \"All data\" cycles through everything, so each value updates slowly there.</item>
+        <item>If something odd happens on the road (a jerk, a stumble), note the time.</item>
+        <item>After the drive, tap \"Rescan\" on \"Info\" and \"Read all modules\" on \"Codes\": new codes and test results may show up.</item>
+        <item>You can turn the screen off; recording goes on in the background.</item>
     </string-array>
 
     <string-array name="guide_gm">
         <item>GM</item>
-        <item>First connection: module search on HS-CAN (~1 min), module identification and full code memory ($A9). While reading codes, the adapter switches to raw frame mode and then back; if it doesn\'t respond, it re-initializes itself.</item>
-        <item>About 45 GM parameters ($22) are polled: engine and transmission oil, torque converter slip, transmission shaft speeds, knock, per-cylinder misfires. Parameters marked \"(?)\" are verified against only one source.</item>
-        <item>Airbags, instrument cluster, radio, climate and TPMS are on single-wire GMLAN (pin 1); a regular ELM327 can\'t see them.</item>
-        <item>If the engine firmware is modified (open loop, O2 sensors or catalysts disabled), fuel trims stay at 0 and the O2 sensors don\'t change — this is not an app fault.</item>
+        <item>The first connection takes about a minute: the app looks for the modules and reads their codes.</item>
+        <item>Airbags, cluster, radio, climate and TPMS are on a separate bus (pin 1); a plain ELM327 can\'t see them.</item>
+        <item>If the engine is tuned to run open loop or without O2 sensors, the fuel trims sit at zero and the O2 readings don\'t move.</item>
     </string-array>
 
     <string-array name="guide_vag">
         <item>Volkswagen</item>
-        <item>A Polo 9N (up to about 2009) with a petrol engine is usually on K-line. Then only standard OBD is read — no module search, part numbers or module codes (see Toyota).</item>
-        <item>First connection: VW module search (~2 min, addresses 7E0–7E7 and 700–775), module identification (part number, software version, hardware, coding) and full code memory (UDS $19 or KWP $18).</item>
-        <item>If the modules use the old VW protocol (TP 2.0), only the engine and transmission are found — ELM327 can\'t see the rest. This is normal.</item>
-        <item>VW\'s own parameters ($22) come from the car database: DSG oil temperature, engine oil, boost, knock, DPF soot (diesel only). On connecting the app checks which ones answer; \"(?)\" means a single source or known on another model. GM parameters are never sent to a VW.</item>
-        <item>The engine part number and software version (report.txt, \"module identification\") are the main clue for later looking up the engine, firmware and known issues.</item>
-        <item>More data: \"GM scan\" → \"Find modules\", then on the engine module a $22 scan \"F100–F1FF\" or \"1000–1FFF\". Read-only, but slow; do it parked.</item>
+        <item>A Polo 9N (up to about 2009) with a petrol engine is usually on K-line. Then only standard OBD is read.</item>
+        <item>The first connection takes about two minutes: the app looks for the modules and reads their part numbers and codes. On cars up to about 2012 it only finds the engine and the gearbox.</item>
+        <item>If you have time, with the car parked: \"GM scan\" → \"Find modules\", then on the engine module scan \"F100–F1FF\" or \"1000–1FFF\". It takes a while.</item>
     </string-array>
 
     <string-array name="guide_toyota">
         <item>Toyota</item>
-        <item>The RAV4 2005 (XA20, 1AZ-FE) turned out to be on CAN 11/500 (ISO 15765-4): standard OBD works fully. The module doesn\'t report a VIN, so pick the car by hand at the top — then its protocol, socket and parameters are known.</item>
-        <item>First connection: module search (~20 s: 7E0–7E7 and addresses where Toyota often has ABS/VSC, the cluster and climate), module identification and codes. On the RAV4 2005 only the engine responds, and it rejects extended UDS requests — Toyota of this generation has its own protocol.</item>
-        <item>Toyota engine module data (service $21, as in Techstream): part of it is in the car database — ATF temperature (2182), gear and lock-up (2185), fuel in litres from the cluster — and is polled by itself. For the rest (knock, VVT-i, injection, per-cylinder misfires) there are no public formulas, so we collect raw data:</item>
-        <item>1) Start the engine, \"GM scan\" → \"Find modules\". 2) On \"Engine (7E0)\" tap \"$21\" — 256 numbers, ~20–40 s, read-only. 3) \"Tick all with data\". 4) Go to \"Main\" and drive for 15–20 minutes: warm-up, idle, accelerations, engine braking. The watched blocks are written to data.csv; from them we\'ll later work out which parameter is where.</item>
-        <item>Also there: \"Sniff bus\" (1–2 minutes with the engine running, sends nothing to the modules). If a live bus is wired to the port, you\'ll see frames with RPM, wheel speeds, etc.</item>
-        <item>If the car is on K-line (other Toyotas of that era may use ISO 9141-2 or KWP2000): connecting takes longer (BUS INIT, up to half a minute), parameters update less often, and only standard OBD is read — module search and scans are unavailable.</item>
+        <item>The RAV4 2005 doesn\'t report its VIN, so pick the car above by hand.</item>
+        <item>What\'s needed is a recording of the engine module data. Start the engine, \"GM scan\" → \"Find modules\". On \"Engine (7E0)\" tap \"$21\" (20–40 seconds), then \"Tick all with data\". Go to \"Main\" and drive for 15–20 minutes: warm-up, idle, accelerations, engine braking.</item>
+        <item>The same screen has \"Sniff bus\": 1–2 minutes with the engine running.</item>
+        <item>If the car is on K-line, connecting takes longer (up to half a minute) and only standard OBD is read.</item>
     </string-array>
 
     <string-array name="guide_lada">
         <item>Lada</item>
-        <item>The Vesta is on CAN (ISO 15765-4): standard OBD works fully.</item>
-        <item>First connection: module search at the standard OBD addresses and a few common ABS/airbag/cluster addresses (~20 s), module identification (part number and software version) and code memory (UDS $19 or KWP $18). Read-only.</item>
-        <item>For the Vesta there is no reliable public description of AvtoVAZ\'s own parameters: live data is standard OBD. For the Granta/Kalina with the Itelma M74CAN the car database has a few (fuel rate, injection time), marked \"(?)\".</item>
-        <item>ABS, airbags and the body module sit at their own addresses, which we don\'t know, so they aren\'t searched for.</item>
-        <item>The engine module software version (report.txt, \"module identification\") is the key to the analysis: it shows which module and firmware are installed.</item>
+        <item>The Vesta is on CAN; standard OBD is read in full.</item>
+        <item>The first connection takes about 20 seconds: the app looks for the modules and reads their part numbers and codes. It doesn\'t find ABS, airbags or the body module.</item>
     </string-array>
 
     <string-array name="guide_hyundai">
         <item>Hyundai</item>
-        <item>The Solaris has been made since 2011 and is usually on CAN (ISO 15765-4). If the car is a 2010 or older, it\'s most likely a different model (Accent, Verna) — check the protocol on \"Info\".</item>
-        <item>Coupe (Tiburon GK) 2003 is on K-line (KWP fast): the engine (11) and the automatic (18) answer. Besides standard OBD the app reads their numbers (KWP $1A) and full code memory (KWP $18), and on \"GM scan\" each module can be scanned with $21 and \"Tick all with data\" — so the module\'s data can be decoded later from a drive log. K-line is slow: a $21 scan takes a minute or two. Read-only.</item>
-        <item>First connection: module search at the standard OBD addresses and a few common ABS/airbag/cluster addresses (~20 s), module identification (part number and software version) and code memory (UDS $19 or KWP $18). Read-only.</item>
-        <item>Hyundai/Kia\'s own parameters come from the car database: automatic transmission fluid temperature, engine oil temperature, odometer, and the battery (BMS) on EVs. On connecting the app checks which ones answer.</item>
-        <item>ABS, airbag and body modules at their own addresses aren\'t searched for.</item>
-        <item>The engine module software version (report.txt, \"module identification\") is the key to the analysis.</item>
+        <item>The Solaris is usually on CAN. If the car is from 2010 or earlier, it\'s most likely an Accent or Verna. The protocol is shown on \"Info\".</item>
+        <item>The Coupe 2003 is on K-line; the engine and the automatic transmission answer. In \"GM scan\", tap \"$21\" on each module, then \"Tick all with data\" and go for a drive. On K-line the scan takes a minute or two.</item>
+        <item>The first connection takes about 20 seconds: the app looks for the modules and reads their part numbers and codes. It doesn\'t find ABS, airbags or body modules.</item>
     </string-array>
 
     <string-array name="guide_safety">
         <item>Safety</item>
-        <item>Everything the app does on its own is read-only. Only the \"Clear\" button on \"Codes\" changes anything in the car, and it asks for confirmation.</item>
-        <item>Clearing erases not only the codes but also the readiness monitors and freeze frame — the car then has to complete its drive cycles again. Everything is saved to the session before clearing.</item>
-        <item>Scans in \"GM scan\" and bus listening: parked only. They tie up the adapter for minutes, and live data isn\'t read meanwhile.</item>
-        <item>On the road, it\'s better to let a passenger handle the app.</item>
+        <item>The app only reads. One button can change something in the car, \"Clear\" on \"Codes\", and it asks first.</item>
+        <item>Clearing erases not only the codes but also the readiness monitors and the freeze frame. The codes themselves are already saved in the session by then.</item>
+        <item>Run the scans in \"GM scan\" and the bus sniffing while parked: live data isn\'t read while they run.</item>
     </string-array>
 
     <string-array name="guide_files">
         <item>What\'s in a session</item>
-        <item>raw.log — the full exchange with the adapter, timestamped: what was asked and what the car answered.</item>
-        <item>data.csv — all values over time; trip charts are built from it.</item>
-        <item>report.txt — summary: adapter, protocol, VIN, modules, their part numbers, codes, Mode 06.</item>
-        <item>scan.csv — module search and scan findings; bus.csv — bus listening.</item>
+        <item>raw.log — the whole exchange with the adapter.</item>
+        <item>data.csv — all values over time.</item>
+        <item>report.txt — summary: adapter, VIN, modules, codes, tests.</item>
+        <item>scan.csv and bus.csv — module scans and bus sniffing.</item>
     </string-array>
 </resources>

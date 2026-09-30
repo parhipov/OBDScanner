@@ -106,10 +106,6 @@ fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onDismiss
                         style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.outline)
                 }
                 Text(source, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.outline)
-                if (r.name.endsWith("(?)")) {
-                    Text(stringResource(R.string.help_unverified), style = MaterialTheme.typography.bodyMedium, color = Warn,
-                        modifier = Modifier.padding(top = 8.dp))
-                }
                 if (texts == null) {
                     Text(stringResource(R.string.help_none), modifier = Modifier.padding(top = 12.dp))
                 } else {

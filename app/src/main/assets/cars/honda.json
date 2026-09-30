@@ -633,20 +633,16 @@
   "commands": [],
   "features": [
     {
-      "ru": "Honda с 2006–2008 г. (Civic 8, CR-V 3, Accord 8, Jazz 2 и новее) — CAN 29 бит, ATSP 7",
-      "en": "Honda from 2006-2008 (Civic 8, CR-V 3, Accord 8, Jazz 2 and later) use 29-bit CAN, ATSP 7"
+      "ru": "Honda с 2006–2008 г. (Civic 8, CR-V 3, Accord 8, Jazz 2 и новее) — CAN 29 бит",
+      "en": "Honda from 2006–2008 (Civic 8, CR-V 3, Accord 8, Jazz 2 and later) use 29-bit CAN"
     },
     {
-      "ru": "Заводские параметры Honda идут по 29-битным адресам (18DA10F1 и т. п.) — здесь их нет",
-      "en": "Honda factory data lives on 29-bit addresses (18DA10F1 etc.) - not in this list"
+      "ru": "Заводские параметры Honda приложение не читает",
+      "en": "The app doesn't read Honda factory parameters"
     },
     {
       "ru": "Accord 7 и Jazz 1 — K-line ISO 9141, только стандартный OBD-II",
       "en": "Accord 7 and Jazz 1 are K-line ISO 9141, standard OBD-II only"
-    },
-    {
-      "ru": "Температуру ATF/CVT по 11-битному CAN публично не нашли",
-      "en": "No public 11-bit CAN request for ATF/CVT temperature found"
     }
   ]
 }

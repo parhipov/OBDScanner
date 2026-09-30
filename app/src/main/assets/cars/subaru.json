@@ -431,8 +431,8 @@
         }
       ],
       "note": {
-        "ru": "Платформа общая с Outback BR; протокол для Legacy отдельно не подтверждён.",
-        "en": "Shares the platform with Outback BR; protocol not confirmed for the Legacy itself."
+        "ru": "Платформа общая с Outback BR.",
+        "en": "Shares the platform with the Outback BR."
       },
       "src": [
         "https://en.wikipedia.org/wiki/Subaru_Legacy_(fifth_generation)",

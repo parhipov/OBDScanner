@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Card help, section "Engine". Each array: [what it is, normal values, what a deviation means].
-  Rule: only facts we checked (standard, sources, this car's logs). Unknown → say so plainly.
+  Rules: any car, not one model. Say what is normal and what to do; common rules of thumb are fine.
+  No "we don't know", no "unverified": if there is nothing useful to say, leave the item out.
 -->
 <resources>
     <string-array name="help_rpm">
-        <item>Crankshaft speed. The ECU calculates it from the crankshaft position sensor.</item>
-        <item>On this car, 615 rpm was seen at warm idle in P. After a cold start RPM is higher and comes down as the engine warms up.</item>
-        <item>Noticeably \"hunting\" at warm idle — check per-cylinder misfires on the \"Fuel\" tab and the fuel trims. We don\'t know the exact allowed fluctuation for this engine.</item>
+        <item>Engine speed.</item>
+        <item>600–900 rpm at warm idle on most petrol engines. Higher after a cold start, coming down as the engine warms up.</item>
+        <item>If the idle hunts on a warm engine, look at per-cylinder misfires and fuel trims on the \"Fuel\" tab.</item>
     </string-array>
     <string-array name="help_speed">
         <item>Vehicle speed as the engine ECU sees it.</item>
-        <item>The speedometer usually reads slightly above actual speed. The best check is to compare with GPS speed at a steady pace.</item>
-        <item>Consistently differs from GPS — non-standard tire size: then mileage and L/100km are off too.</item>
+        <item>The speedometer usually reads a little high. The easy check is GPS speed at a steady pace.</item>
+        <item>If it\'s always off from GPS, the tires are probably a different size. Then the mileage and L/100km are off too.</item>
     </string-array>
     <string-array name="help_coolant">
-        <item>Coolant temperature from the engine sensor.</item>
-        <item>We don\'t know the exact thermostat opening and fan-on temperatures for this engine. Note where the gauge needle sits on a warm car and compare against that.</item>
-        <item>Takes long to warm up — possibly a thermostat stuck open (the ECU then usually sets P0128). Keeps rising without stopping — a cooling problem: coolant level, fans, water pump.</item>
+        <item>Coolant temperature.</item>
+        <item>Usually 85–105 °C on a warm engine, and steady. The fan comes on near the top of that range.</item>
+        <item>Slow to warm up: possibly a thermostat stuck open (often with code P0128). Keeps climbing: check the coolant level, fans and water pump.</item>
     </string-array>
     <string-array name="help_load">
-        <item>Calculated load (per the OBD standard): what share of the maximum possible air the engine is drawing in right now.</item>
-        <item>Low at idle, close to 100% at full throttle. At altitude it\'s lower at full throttle: the air is thinner. We have no exact figures for this car.</item>
-        <item>This one is mostly for comparing across sessions: if at full throttle and the same RPM it\'s lower than before, the engine is short of air (air filter, MAF, throttle).</item>
+        <item>Calculated load: how much air the engine is drawing in now, relative to the maximum.</item>
+        <item>Usually 20–40 % at warm idle, close to 100 % at full throttle. Lower at full throttle up in the mountains, where the air is thin.</item>
+        <item>If full throttle at the same rpm gives less than it used to, the engine is short of air: air filter, MAF, throttle.</item>
     </string-array>
     <string-array name="help_throttle">
-        <item>Throttle position (absolute). The ECU controls the throttle from the pedal signal — electronic throttle.</item>
-        <item>With this PID a closed throttle usually doesn\'t read 0%, and wide open may not read 100% — that\'s how it\'s measured. We don\'t know this car\'s values yet: check min/max after a drive.</item>
-        <item>Jumps while the pedal is still, or the ECU goes into limp mode — the throttle body or its sensors (codes P2135, P2101).</item>
+        <item>Throttle position. The ECU opens the throttle following the pedal.</item>
+        <item>A closed throttle usually reads 10–20 %, and wide open doesn\'t reach 100 %. That\'s just how it\'s measured.</item>
+        <item>Jumps while the pedal is still, or the car went into limp mode: the throttle body or its sensors (codes P2135, P2101).</item>
     </string-array>
     <string-array name="help_pedal">
-        <item>Accelerator pedal position, sensor D. The pedal has two independent sensors (D and E), and the ECU constantly cross-checks them.</item>
-        <item>As with the throttle, a released pedal doesn\'t read 0%, and floored doesn\'t read 100%. For this car\'s actual values, check min/max after a drive.</item>
-        <item>Jumps while your foot is still — the pedal assembly or its connector (D/E sensor correlation code — P2138). Sensor E is on the \"All data\" tab; it should move in step with D.</item>
+        <item>Accelerator pedal position, sensor D. The pedal has two sensors, D and E, and the ECU keeps cross-checking them.</item>
+        <item>A released pedal usually reads 10–20 %, floored about 80 %.</item>
+        <item>Jumps while your foot is still: the pedal assembly or its connector (code P2138). Sensor E is on the \"All data\" tab and should move together with D.</item>
     </string-array>
     <string-array name="help_timing">
-        <item>Ignition timing advance in degrees before top dead center. The ECU reduces it when it detects knock.</item>
-        <item>Depends on RPM and load. We don\'t have this engine\'s ignition maps, so there\'s no numeric norm.</item>
-        <item>Look at it together with knock retard on the \"Fuel\" tab: if there is often retard, the ECU is fighting knock (fuel, overheating). The retard formulas are unverified.</item>
+        <item>Ignition advance in degrees before TDC. The ECU pulls it back when it hears knock.</item>
+        <item>Usually 5–20° at idle, more when cruising, less at full throttle.</item>
+        <item>Look at knock retard on the \"Fuel\" tab. Frequent retard means the engine is knocking: bad fuel or overheating.</item>
     </string-array>
     <string-array name="help_maf">
-        <item>Mass air flow from the MAF sensor, in grams per second. The ECU bases its fuel calculation on it.</item>
-        <item>We have no reference values for this engine. Most useful is to note your own value at warm idle and compare with it in later sessions.</item>
-        <item>Lower than usual at idle, with fuel trims on both banks gone positive — the classic picture of a dirty MAF or an air leak after it.</item>
+        <item>Air flow from the MAF sensor, in grams per second. The ECU uses it to work out how much fuel to inject.</item>
+        <item>At warm idle roughly 1–1.5 g/s per liter of engine size. Worth noting your own value to compare against later.</item>
+        <item>Lower than usual at idle, with fuel trims gone positive: a dirty MAF or an air leak after it.</item>
     </string-array>
     <string-array name="help_map">
-        <item>Intake manifold absolute pressure. Shows the vacuum the engine creates.</item>
-        <item>With the engine off and ignition on, it equals atmospheric pressure (compare with \"Baro pressure\"). At idle it\'s far below atmospheric, at full throttle almost equal to it. We don\'t know the exact idle figure for this car — note your own.</item>
-        <item>Noticeably higher than usual at warm idle — weaker vacuum: air leak, valve timing, compression.</item>
+        <item>Intake manifold pressure (absolute).</item>
+        <item>Ignition on, engine off: equal to atmospheric. Usually 25–40 kPa at warm idle, almost atmospheric at full throttle. A turbo engine goes above atmospheric under boost.</item>
+        <item>Noticeably higher than usual at warm idle: an air leak, valve timing off, or low compression.</item>
     </string-array>
     <string-array name="help_iat">
         <item>Intake air temperature.</item>
-        <item>Slightly above outside temperature while driving. In traffic and after parking with a hot engine it\'s noticeably higher, and drops quickly once moving.</item>
-        <item>Shows −40 °C — usually an open sensor circuit: that\'s the bottom of the scale.</item>
+        <item>A little above the outside temperature while driving. Much higher in traffic and after parking with a hot engine, drops quickly once moving.</item>
+        <item>−40 °C almost always means an open sensor circuit.</item>
     </string-array>
     <string-array name="help_runtime">
-        <item>Time since engine start, in seconds. Resets on every start.</item>
-        <item>Just a counter. Useful when reviewing a session: the first minutes are warm-up, when mixture and RPM behave differently.</item>
-        <item>Reset to zero while driving — the engine stalled or the ECU rebooted.</item>
+        <item>Seconds since the engine was started.</item>
+        <item></item>
+        <item>Went back to zero while driving: the engine stalled or the ECU rebooted.</item>
     </string-array>
 </resources>

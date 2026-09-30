@@ -41,8 +41,8 @@
       "protocol": 6,
       "obd": "left_door",
       "buses": {
-        "ru": "Проверено на Весте: ЭБУ двигателя на CAN 11/500 (ISO 15765-4), стандартный OBD работает полностью.",
-        "en": "Checked on a Vesta: engine ECU on CAN 11/500 (ISO 15765-4), standard OBD works fully."
+        "ru": "Блок двигателя на CAN 11/500, стандартный OBD читается полностью.",
+        "en": "Engine ECU on CAN 11/500; standard OBD is read in full."
       },
       "note": {
         "ru": "Гнездо под рулевой колонкой слева, рядом с ручкой открывания капота, ниже монтажного блока реле и предохранителей.",
@@ -538,16 +538,16 @@
   ],
   "features": [
     {
-      "ru": "Веста проверена на машине: CAN 11/500, стандартный OBD работает полностью.",
-      "en": "The Vesta was checked on a car: CAN 11/500, standard OBD works fully."
+      "ru": "Веста на CAN 11/500, стандартный OBD читается полностью.",
+      "en": "The Vesta is on CAN 11/500; standard OBD is read in full."
     },
     {
       "ru": "Гранта, Калина, Приора: ЭБУ М74/ME17.9.7 бывают и с K-line, и с CAN — протокол подбирается сам.",
       "en": "Granta, Kalina, Priora: M74/ME17.9.7 ECUs come as K-line or CAN — the protocol is found automatically."
     },
     {
-      "ru": "Итэлма М74CAN: часовой расход топлива, длительность впрыска и время работы двигателя из блока 22 0001 (не проверено на машине).",
-      "en": "Itelma M74CAN: fuel rate, injection pulse width and engine run time from block 22 0001 (not checked on a car)."
+      "ru": "Итэлма M74CAN: часовой расход топлива, длительность впрыска, время работы двигателя.",
+      "en": "Itelma M74CAN: fuel rate, injection pulse width, engine run time."
     },
     {
       "ru": "Ларгус — это Logan MCV с моторами Renault, XRAY и Веста с H4M — мотор Nissan/Renault.",

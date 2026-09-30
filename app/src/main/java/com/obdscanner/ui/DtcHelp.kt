@@ -51,7 +51,7 @@ fun DtcHelpDialog(d: DtcShown, family: String?, onDismiss: () -> Unit) {
 
                 // Descriptions are English only (tools/dtc/SCHEMA.md): say so rather than surprise.
                 entry?.desc?.let { dsc -> dsc.text?.let { Section(tr("Подробнее", "Details") + if (dsc.untranslated) tr(" (на английском)", "") else "", it) } }
-                bullets(entry?.causes)?.let { Section(tr("Частые причины (сначала вероятные)", "Common causes (most likely first)"), it) }
+                bullets(entry?.causes)?.let { Section(tr("Частые причины", "Common causes"), it) }
                 bullets(entry?.symptoms)?.let { Section(tr("Симптомы", "Symptoms"), it) }
 
                 if (d.ftb != null) {
@@ -68,7 +68,7 @@ fun DtcHelpDialog(d: DtcShown, family: String?, onDismiss: () -> Unit) {
                     DtcAnatomy.subsystem(d.code)?.let { tr("Подсистема: $it.", "Subsystem: $it.") },
                     DtcAnatomy.owner(d.code),
                 )
-                Section(tr("Что говорит сам код", "What the code itself says"), anatomy.joinToString("\n"))
+                Section(tr("Что видно по номеру", "What the number tells"), anatomy.joinToString("\n"))
 
                 // A manufacturer code without this make's text: what other makes mean by it, clearly labelled.
                 if (entry == null && !DtcAnatomy.isGeneric(d.code)) {
@@ -87,12 +87,12 @@ private fun bullets(list: List<DtcText>?): String? =
     list?.mapNotNull { it.text }?.takeIf { it.isNotEmpty() }?.joinToString("\n") { "• $it" }
 
 private fun kindText(k: DtcKind) = when (k) {
-    DtcKind.STORED -> tr("Сохранённая: неисправность подтверждена, по ней может гореть Check.",
-        "Stored: the fault is confirmed; it may turn the Check Engine light on.")
-    DtcKind.PENDING -> tr("Ожидающая: ЭБУ увидел неисправность один раз и ждёт подтверждения в следующей поездке. Check пока не горит.",
-        "Pending: the ECU saw the fault once and waits for the next drive to confirm it. No Check Engine light yet.")
-    DtcKind.PERMANENT -> tr("Постоянная: сбросом не стирается. ЭБУ удалит её сам, когда его тест пройдёт без ошибки.",
-        "Permanent: a clear does not erase it. The ECU removes it itself once its test passes.")
+    DtcKind.STORED -> tr("Сохранённая: неисправность повторилась, из-за неё может гореть Check.",
+        "Stored: the fault came back; it can turn the Check Engine light on.")
+    DtcKind.PENDING -> tr("Ожидающая: блок заметил неисправность один раз. Повторится в следующей поездке — станет сохранённой. Check пока не горит.",
+        "Pending: the ECU saw the fault once. If it happens again on the next drive, it becomes stored. No Check Engine light yet.")
+    DtcKind.PERMANENT -> tr("Постоянная: сбросом не стирается. Блок удалит её сам, когда тест пройдёт без ошибки.",
+        "Permanent: clearing doesn't erase it. The ECU removes it by itself once the test passes.")
 }
 
 @Composable

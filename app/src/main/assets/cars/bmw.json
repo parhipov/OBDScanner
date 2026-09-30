@@ -1018,24 +1018,20 @@
   "commands": [],
   "features": [
     {
-      "ru": "Двигатель (DME) отвечает на стандартный OBD-II по CAN 11 бит 500 кбит/с — все обычные параметры, ошибки, готовность.",
-      "en": "The engine (DME) answers standard OBD-II on CAN 11-bit 500 kbit/s — all generic values, DTCs, readiness."
+      "ru": "Двигатель: стандартный OBD-II — параметры, ошибки, готовность.",
+      "en": "Engine: standard OBD-II — values, codes, readiness."
     },
     {
-      "ru": "Фирменные данные BMW (температура/уровень масла, наддув, АКПП, АКБ) лежат за шлюзом и требуют расширенной адресации 6F1 + адрес блока — приложение их не читает.",
-      "en": "BMW-specific data (oil temp/level, boost, gearbox, battery) sits behind the gateway and needs extended addressing 6F1 + ECU address — this app does not read it."
-    },
-    {
-      "ru": "Поэтому своих команд для BMW здесь нет: на 7E0 без расширенной адресации фирменные DID не задокументированы.",
-      "en": "So there are no BMW-specific commands here: no manufacturer DIDs are documented on plain 7E0 addressing."
+      "ru": "Фирменные данные BMW (температура и уровень масла, наддув, АКПП, АКБ) закрыты шлюзом, приложение их не читает.",
+      "en": "BMW-specific data (oil temperature and level, boost, gearbox, battery) is behind the gateway; the app doesn't read it."
     },
     {
       "ru": "Машины до 03/2007 (E60, E90 ранние) — K-линия, только стандартный OBD.",
       "en": "Cars before 03/2007 (early E60, E90) use the K-line — standard OBD only."
     },
     {
-      "ru": "Для глубокой диагностики нужны ISTA/INPA с K+DCAN или ENET — ELM327 это не заменит.",
-      "en": "Deep diagnostics need ISTA/INPA with a K+DCAN or ENET cable — an ELM327 is no substitute."
+      "ru": "Для глубокой диагностики нужен ISTA или INPA с кабелем K+DCAN или ENET.",
+      "en": "Deep diagnostics need ISTA or INPA with a K+DCAN or ENET cable."
     }
   ]
 }

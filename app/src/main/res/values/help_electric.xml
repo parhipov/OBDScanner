@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Card help, section "Electrical & ambient". Each array: [what it is, normal values, what a deviation means].
-  Rule: only facts we checked (standard, sources, this car's logs). Unknown → say so plainly.
-  GM RVC: motor.com/magazine-summary/trouble-shooter-september2015 and GM RVC training material.
+  Rules: any car, not one model. Say what is normal and what to do; common rules of thumb are fine.
+  No "we don't know", no "unverified": if there is nothing useful to say, leave the item out.
+  Smart charging (GM RVC and the like): motor.com/magazine-summary/trouble-shooter-september2015.
 -->
 <resources>
     <string-array name="help_ecu_voltage">
-        <item>System voltage as measured by the engine ECU at its own power supply.</item>
-        <item>On the CTS, charging is controlled by GM RVC (Regulated Voltage Control): alternator voltage changes with battery charge and temperature. So a \"floating\" voltage while driving is normal. In fuel economy mode (battery charged, low current) the alternator holds no more than 12.9 V — also normal, not \"not charging\".</item>
-        <item>Because of RVC, a single low reading means nothing. It\'s a concern if the voltage stays low for a long time and there is also a charging warning on the cluster or power-related codes in the modules (e.g. P0562 — system voltage low).</item>
+        <item>System voltage at the engine ECU\'s power supply.</item>
+        <item>12.4–12.7 V with the engine off, usually 13.5–14.7 V with it running. Many modern cars (GM calls it RVC) charge \"smart\": with a full battery the alternator drops to 12.5–13 V. So a healthy car can show the voltage moving around while driving.</item>
+        <item>One low reading says nothing. It\'s bad if the voltage stays below 13 V and the cluster shows a charging warning, or the modules have power codes (P0562, for example).</item>
     </string-array>
     <string-array name="help_adapter_voltage">
-        <item>Voltage at pin 16 of the OBD port, measured by the adapter itself.</item>
-        <item>Should be close to \"Voltage (ECU)\": slightly lower because of the wiring to the port.</item>
-        <item>Very different from the ECU value — the OBD port, ground or the diagnostic circuit fuse. On cheap ELM327 clones the measurement itself can be inaccurate — go by the ECU value.</item>
+        <item>Voltage at pin 16 of the OBD port, measured by the adapter.</item>
+        <item>A little lower than \"Voltage (ECU)\" because of the wiring to the port.</item>
+        <item>If it\'s far from the ECU value, check the OBD port, ground and the diagnostic fuse. Cheap ELM327 clones sometimes measure badly; then trust the ECU value.</item>
     </string-array>
     <string-array name="help_ambient">
-        <item>Outside air temperature from the car\'s sensor, reported by the engine ECU.</item>
-        <item>Close to actual while driving. When stopped or after a drive it may read high: the sensor is heated by the engine and the road.</item>
-        <item>Shows −40 °C — usually an open sensor circuit: that\'s the bottom of the scale.</item>
+        <item>Outside air temperature, reported by the engine ECU.</item>
+        <item>Close to the real thing while driving. Reads high when stopped and after a drive: the sensor picks up heat from the engine and the road.</item>
+        <item>−40 °C almost always means an open sensor circuit.</item>
     </string-array>
     <string-array name="help_baro">
-        <item>Atmospheric pressure as reported by the ECU.</item>
-        <item>About 101 kPa at sea level, dropping by roughly 1.2 kPa per 100 m of altitude. Weather changes it slightly too.</item>
-        <item>Very different from what you\'d expect at your altitude — suspect the sensor. The mixture calculation depends on this value.</item>
+        <item>Atmospheric pressure.</item>
+        <item>About 101 kPa at sea level, about 1.2 kPa lower for every 100 m up. Weather moves it by a couple of kPa.</item>
+        <item>Far from what you\'d expect at your altitude means a bad sensor. The mixture depends on this value.</item>
     </string-array>
 </resources>

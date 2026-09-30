@@ -683,7 +683,7 @@ class ObdManager(private val context: Context) {
                 active += c
                 val out = extReadings(c, data)
                 publish(out)
-                lines += "  ${c.key} [${c.source}] — " + out.joinToString("; ") { "${it.name} = ${it.display()} ${it.unit}".trim() }
+                lines += "  ${c.key} [${c.source}]${if (c.signals.any { it.confidence != "OK" }) " (?)" else ""} — " + out.joinToString("; ") { "${it.name} = ${it.display()} ${it.unit}".trim() }
             } else {
                 lines += "  ${c.key} [${c.source}] ${c.signals.first().name}${if (c.signals.size > 1) " +${c.signals.size - 1}" else ""} — " +
                     if (r == null) tr("нет ответа", "no answer") else "NRC %02X".format(r.second)
@@ -731,7 +731,7 @@ class ObdManager(private val context: Context) {
     /** The values of one manufacturer answer; a value that doesn't decode shows the raw bytes. */
     private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = c.signals.map { s ->
         val (v, text) = c.code?.let { f -> runCatching { f(data) }.getOrNull() to null } ?: (s.fmt.decode(data) ?: (null to null))
-        Reading(c.readingKey(s), c.req, s.displayName, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role)
+        Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role)
     }
 
     // ---------------------------------------------------------------- polling
