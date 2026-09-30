@@ -804,7 +804,7 @@
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10E5", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_KNOCK_RETARD_2_VAR_1", "name": {"en": "Knock retard 2,, variant 1", "ru": "Откат УОЗ по детонации 2, вариант 1"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "role": "knock_retard", "note": "OBDb dbg: not confirmed by response tests"},
-   {"id": "TIGUAN_IGNITION_TIMING_ANGLE_RETARD_C4", "name": {"en": "Ignition timing angle retard, cylinder 4", "ru": "Откат УОЗ, цилиндр 4"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 75, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "TIGUAN_IGNITION_TIMING_ANGLE_RETARD_C4", "name": {"en": "Ignition timing angle retard, cylinder 4", "ru": "Откат УОЗ, цилиндр 4"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 75, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10EA", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_OPEN_CAM_SHFT_ANG", "name": {"en": "Open cam shaft angle at quantity control valve", "ru": "Угол распредвала при открытии дозирующего клапана"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 1000, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
@@ -830,10 +830,10 @@
    {"id": "Q3_PQ35_INJ_DEV_CYL_1", "name": {"en": "Injection amount deviation cylinder 1", "ru": "Отклонение подачи топлива, цилиндр 1"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1100", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_INJ_DEV_CYL_3", "name": {"en": "Injection amount deviation cylinder 3", "ru": "Отклонение подачи топлива, цилиндр 3"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "Q3_PQ35_INJ_DEV_CYL_3", "name": {"en": "Injection amount deviation cylinder 3", "ru": "Отклонение подачи топлива, цилиндр 3"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1104", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_INJ_DEV_CYL_4", "name": {"en": "Injection amount deviation cylinder 4", "ru": "Отклонение подачи топлива, цилиндр 4"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "Q3_PQ35_INJ_DEV_CYL_4", "name": {"en": "Injection amount deviation cylinder 4", "ru": "Отклонение подачи топлива, цилиндр 4"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1105", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_PQ35_INJ_DEV_CYL_2", "name": {"en": "Injection amount deviation cylinder 2", "ru": "Отклонение подачи топлива, цилиндр 2"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -872,10 +872,10 @@
    {"id": "Q3_PQ35_COMP_TEST_CYL_2", "name": {"en": "Compression test cylinder 2", "ru": "Тест компрессии, цилиндр 2"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "112B", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_COMP_TEST_CYL_3", "name": {"en": "Compression test cylinder 3", "ru": "Тест компрессии, цилиндр 3"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "Q3_PQ35_COMP_TEST_CYL_3", "name": {"en": "Compression test cylinder 3", "ru": "Тест компрессии, цилиндр 3"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "112C", "rate": "fast", "models": ["Golf", "Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_COMP_TEST_CYL_4", "name": {"en": "Compression test cylinder 4", "ru": "Тест компрессии, цилиндр 4"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3"]},
+   {"id": "Q3_PQ35_COMP_TEST_CYL_4", "name": {"en": "Compression test cylinder 4", "ru": "Тест компрессии, цилиндр 4"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3"], "cyl": [4, 16]},
    {"id": "IBIZA_ACT", "name": {"en": "Turbine actuator 1 bank 1: activation", "ru": "Привод турбины 1, ряд 1: активация"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]},
    {"id": "GOLF_ACT", "name": {"en": "Turbine actuator 1 bank 1: activation", "ru": "Привод турбины 1, ряд 1: активация"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.01, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Golf"]}
   ]},
@@ -948,11 +948,11 @@
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1148", "rate": "fast", "models": ["Ibiza", "Jetta", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_PQ35_FUEL_METER", "name": {"en": "Fuel metering valve position", "ru": "Положение дозирующего клапана топлива"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Volkswagen-Tiguan"]},
-   {"id": "IBIZA_MISFIRES_1000REV_C3", "name": {"en": "Misfires / 1000 revolutions, cylinder 3", "ru": "Пропуски / 1000 об., цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"]}
+   {"id": "IBIZA_MISFIRES_1000REV_C3", "name": {"en": "Misfires / 1000 revolutions, cylinder 3", "ru": "Пропуски / 1000 об., цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1149", "rate": "fast", "models": ["Ibiza", "Jetta", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_PQ35_BOOST_P_CMD", "name": {"en": "Boost pressure commanded", "ru": "Давление наддува, заданное"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"},
-   {"id": "IBIZA_MISFIRES_1000REV_C4", "name": {"en": "Misfires / 1000 revolutions, cylinder 4", "ru": "Пропуски / 1000 об., цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"]}
+   {"id": "IBIZA_MISFIRES_1000REV_C4", "name": {"en": "Misfires / 1000 revolutions, cylinder 4", "ru": "Пропуски / 1000 об., цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "114A", "rate": "fast", "models": ["Ibiza", "Jetta", "Tiguan"], "signals": [
    {"id": "IBIZA_MISFIRES_1000REV_C2", "name": {"en": "Misfires / 1000 revolutions, cylinder 2", "ru": "Пропуски / 1000 об., цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -961,11 +961,11 @@
    {"id": "IBIZA_MISFIRES_C1", "name": {"en": "Misfires, cylinder 1", "ru": "Пропуски, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1150", "rate": "fast", "models": ["Ibiza", "Jetta", "Tiguan"], "signals": [
-   {"id": "IBIZA_MISFIRES_C3", "name": {"en": "Misfires, cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_MISFIRES_C3", "name": {"en": "Misfires, cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1151", "rate": "fast", "models": ["Ibiza", "Jetta", "SQ7", "Tiguan"], "signals": [
    {"id": "SQ7_EM_RPM_1", "name": {"en": "Electric motor 1 rpm", "ru": "Обороты электромотора 1"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-SQ7"]},
-   {"id": "IBIZA_MISFIRES__CYL__4", "name": {"en": "Misfires, cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_MISFIRES__CYL__4", "name": {"en": "Misfires, cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1152", "rate": "fast", "models": ["Ibiza", "Jetta", "SQ7", "Tiguan"], "signals": [
    {"id": "SQ7_EM_RPM_2", "name": {"en": "Electric motor 2 rpm", "ru": "Обороты электромотора 2"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-SQ7"]},
@@ -1221,12 +1221,12 @@
    {"id": "TIGUAN_KNOCK_SNS_C1_V_MS", "name": {"en": "Knock sensor, cylinder 1", "ru": "Датчик детонации, цилиндр 1"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "mul": 0.0076294, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "120F", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_KNOCK_SENS_CYL_3", "name": {"en": "Knock sensor, cylinder 3", "ru": "Датчик детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048489933}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
-   {"id": "TIGUAN_KNOCK_SNS_C3_V_MS", "name": {"en": "Knock sensor, cylinder 3", "ru": "Датчик детонации, цилиндр 3"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "mul": 0.0076294, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_KNOCK_SENS_CYL_3", "name": {"en": "Knock sensor, cylinder 3", "ru": "Датчик детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048489933}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [3, 16]},
+   {"id": "TIGUAN_KNOCK_SNS_C3_V_MS", "name": {"en": "Knock sensor, cylinder 3", "ru": "Датчик детонации, цилиндр 3"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "mul": 0.0076294, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1210", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_KNOCK_SENS_CYL_4", "name": {"en": "Knock sensor, cylinder 4", "ru": "Датчик детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048489933}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
-   {"id": "TIGUAN_KNOCK_SNS_C4_V_MS", "name": {"en": "Knock sensor, cylinder 4", "ru": "Датчик детонации, цилиндр 4"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "mul": 0.0076294, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_KNOCK_SENS_CYL_4", "name": {"en": "Knock sensor, cylinder 4", "ru": "Датчик детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048489933}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [4, 16]},
+   {"id": "TIGUAN_KNOCK_SNS_C4_V_MS", "name": {"en": "Knock sensor, cylinder 4", "ru": "Датчик детонации, цилиндр 4"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "mul": 0.0076294, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1211", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_KNOCK_SENS_CYL_2", "name": {"en": "Knock sensor, cylinder 2", "ru": "Датчик детонации, цилиндр 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048489933}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
@@ -1726,10 +1726,10 @@
    {"id": "IBIZA_EARLY_IGN_CNT_TOT_1", "name": {"en": "Early ignition counter, total, cylinder 1", "ru": "Счётчик раннего воспламенения, всего, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1716", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EARLY_IGN_CNT_TOT_3", "name": {"en": "Early ignition counter, total, cylinder 3", "ru": "Счётчик раннего воспламенения, всего, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_EARLY_IGN_CNT_TOT_3", "name": {"en": "Early ignition counter, total, cylinder 3", "ru": "Счётчик раннего воспламенения, всего, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1717", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EARLY_IGN_CNT_TOT_4", "name": {"en": "Early ignition counter, total, cylinder 4", "ru": "Счётчик раннего воспламенения, всего, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_EARLY_IGN_CNT_TOT_4", "name": {"en": "Early ignition counter, total, cylinder 4", "ru": "Счётчик раннего воспламенения, всего, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1718", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_EARLY_IGN_CNT_TOT_2", "name": {"en": "Early ignition counter, total, cylinder 2", "ru": "Счётчик раннего воспламенения, всего, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -1739,12 +1739,12 @@
    {"id": "TIGUAN_BASIC_CORR_FACTOR_1", "name": {"en": "Basic correction factor:, cylinder 1, filtered", "ru": "Базовый коэф. коррекции, цилиндр 1, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7999, "div": 65535000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "171B", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_BASIC_CORR_FACTOR_3", "name": {"en": "Basic correction factor:, cylinder 3, filtered", "ru": "Базовый коэф. коррекции, цилиндр 3, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.999, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
-   {"id": "TIGUAN_BASIC_CORR_FACTOR_3", "name": {"en": "Basic correction factor:, cylinder 3, filtered", "ru": "Базовый коэф. коррекции, цилиндр 3, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7999, "div": 65535000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_BASIC_CORR_FACTOR_3", "name": {"en": "Basic correction factor:, cylinder 3, filtered", "ru": "Базовый коэф. коррекции, цилиндр 3, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.999, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [3, 16]},
+   {"id": "TIGUAN_BASIC_CORR_FACTOR_3", "name": {"en": "Basic correction factor:, cylinder 3, filtered", "ru": "Базовый коэф. коррекции, цилиндр 3, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7999, "div": 65535000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "171C", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_BASIC_CORR_FACTOR_4", "name": {"en": "Basic correction factor:, cylinder 4, filtered", "ru": "Базовый коэф. коррекции, цилиндр 4, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.999, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
-   {"id": "TIGUAN_BASIC_CORR_FACTOR_4", "name": {"en": "Basic correction factor:, cylinder 4, filtered", "ru": "Базовый коэф. коррекции, цилиндр 4, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7999, "div": 65535000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_BASIC_CORR_FACTOR_4", "name": {"en": "Basic correction factor:, cylinder 4, filtered", "ru": "Базовый коэф. коррекции, цилиндр 4, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.999, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [4, 16]},
+   {"id": "TIGUAN_BASIC_CORR_FACTOR_4", "name": {"en": "Basic correction factor:, cylinder 4, filtered", "ru": "Базовый коэф. коррекции, цилиндр 4, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7999, "div": 65535000}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "171D", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_BASIC_CORR_FACTOR_2", "name": {"en": "Basic correction factor:, cylinder 2, filtered", "ru": "Базовый коэф. коррекции, цилиндр 2, фильтр."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.999, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "note": "OBDb dbg: not confirmed by response tests"},
@@ -1754,10 +1754,10 @@
    {"id": "IBIZA_EARLY_IGN_CNT_CYL_1", "name": {"en": "Early ignition counter, cylinder 1", "ru": "Счётчик раннего воспламенения, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1723", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EARLY_IGN_CNT_CYL_3", "name": {"en": "Early ignition counter, cylinder 3", "ru": "Счётчик раннего воспламенения, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_EARLY_IGN_CNT_CYL_3", "name": {"en": "Early ignition counter, cylinder 3", "ru": "Счётчик раннего воспламенения, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1724", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EARLY_IGN_CNT_CYL_4", "name": {"en": "Early ignition counter, cylinder 4", "ru": "Счётчик раннего воспламенения, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_EARLY_IGN_CNT_CYL_4", "name": {"en": "Early ignition counter, cylinder 4", "ru": "Счётчик раннего воспламенения, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1725", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_EARLY_IGN_CNT_CYL_2", "name": {"en": "Early ignition counter, cylinder 2", "ru": "Счётчик раннего воспламенения, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -1926,10 +1926,10 @@
    {"id": "Q3_PQ35_TIMING_ANGLE_RETARDATION_CYL_2", "name": {"en": "Timing angle retardation cylinder 2", "ru": "Откат УОЗ, цилиндр 2"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.375, "add": -48}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200C", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_TIMING_ANGLE_RETARDATION_CYL_3", "name": {"en": "Timing angle retardation cylinder 3", "ru": "Откат УОЗ, цилиндр 3"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.375, "add": -48}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "Q3_PQ35_TIMING_ANGLE_RETARDATION_CYL_3", "name": {"en": "Timing angle retardation cylinder 3", "ru": "Откат УОЗ, цилиндр 3"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.375, "add": -48}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200D", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_TIMING_ANGLE_RETARDATION_CYL_4", "name": {"en": "Timing angle retardation cylinder 4", "ru": "Откат УОЗ, цилиндр 4"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.375, "add": -48}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "Q3_PQ35_TIMING_ANGLE_RETARDATION_CYL_4", "name": {"en": "Timing angle retardation cylinder 4", "ru": "Откат УОЗ, цилиндр 4"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.375, "add": -48}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2017", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_AC_COMP_TQ", "name": {"en": "Air conditioning compressor torque", "ru": "Момент компрессора кондиционера"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -2087,10 +2087,10 @@
    {"id": "TIGUAN_FUEL_CONS_SINCE_DPF", "name": {"en": "Fuel consumption since last DPF regeneration", "ru": "Расход топлива с последней регенерации DPF"}, "unit": "L", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2100", "rate": "fast", "models": ["Ibiza"], "signals": [
-   {"id": "IBIZA_FUEL_INJ_TIME_DEV_3", "name": {"en": "Fuel injector time deviation, cylinder 3", "ru": "Отклонение времени впрыска, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_FUEL_INJ_TIME_DEV_3", "name": {"en": "Fuel injector time deviation, cylinder 3", "ru": "Отклонение времени впрыска, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2101", "rate": "fast", "models": ["Ibiza"], "signals": [
-   {"id": "IBIZA_FUEL_INJ_TIME_DEV_4", "name": {"en": "Fuel injector time deviation, cylinder 4", "ru": "Отклонение времени впрыска, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_FUEL_INJ_TIME_DEV_4", "name": {"en": "Fuel injector time deviation, cylinder 4", "ru": "Отклонение времени впрыска, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2122", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_TQ_LOSS_ADPT", "name": {"en": "Torque loss adaptation", "ru": "Адаптация потерь момента"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2141,10 +2141,10 @@
    {"id": "TIGUAN_MISFIRES_1000_RPM_C1", "name": {"en": "Misfires/1000 rpm, cylinder 1", "ru": "Пропуски/1000 об., цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "291E", "rate": "fast", "models": ["Tiguan"], "signals": [
-   {"id": "TIGUAN_MISFIRES_1000_RPM_C3", "name": {"en": "Misfires/1000 rpm, cylinder 3", "ru": "Пропуски/1000 об., цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "TIGUAN_MISFIRES_1000_RPM_C3", "name": {"en": "Misfires/1000 rpm, cylinder 3", "ru": "Пропуски/1000 об., цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "291F", "rate": "fast", "models": ["Tiguan"], "signals": [
-   {"id": "TIGUAN_MISFIRES_1000_RPM_C4", "name": {"en": "Misfires/1000 rpm, cylinder 4", "ru": "Пропуски/1000 об., цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "TIGUAN_MISFIRES_1000_RPM_C4", "name": {"en": "Misfires/1000 rpm, cylinder 4", "ru": "Пропуски/1000 об., цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2920", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_MISFIRES_1000_RPM_C2", "name": {"en": "Misfires/1000 rpm, cylinder 2", "ru": "Пропуски/1000 об., цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -2196,10 +2196,10 @@
    {"id": "IBIZA_MIS_VAR_2", "name": {"en": "Misfires, cylinder 2,, variant 2", "ru": "Пропуски, цилиндр 2, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2968", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_MIS_VAR_2_3", "name": {"en": "Misfires, cylinder 3,, variant 2", "ru": "Пропуски, цилиндр 3, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_MIS_VAR_2_3", "name": {"en": "Misfires, cylinder 3,, variant 2", "ru": "Пропуски, цилиндр 3, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2969", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_MIS_VAR_2_4", "name": {"en": "Misfires, cylinder 4,, variant 2", "ru": "Пропуски, цилиндр 4, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_MIS_VAR_2_4", "name": {"en": "Misfires, cylinder 4,, variant 2", "ru": "Пропуски, цилиндр 4, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "296F", "rate": "medium", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_EXH_GAS_T_BEFORE", "name": {"en": "Exhaust gas temperature before catalytic converter", "ru": "Температура ОГ до катализатора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2220,10 +2220,10 @@
    {"id": "IBIZA_COMPRESSION_TEST_CYL_2", "name": {"en": "Compression test, cylinder 2", "ru": "Тест компрессии, цилиндр 2"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "299D", "rate": "fast", "models": ["Ibiza"], "signals": [
-   {"id": "IBIZA_COMPRESSION_TEST_CYL_3", "name": {"en": "Compression test, cylinder 3", "ru": "Тест компрессии, цилиндр 3"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]}
+   {"id": "IBIZA_COMPRESSION_TEST_CYL_3", "name": {"en": "Compression test, cylinder 3", "ru": "Тест компрессии, цилиндр 3"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "299E", "rate": "fast", "models": ["Ibiza"], "signals": [
-   {"id": "IBIZA_COMPRESSION_TEST_CYL_4", "name": {"en": "Compression test, cylinder 4", "ru": "Тест компрессии, цилиндр 4"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]}
+   {"id": "IBIZA_COMPRESSION_TEST_CYL_4", "name": {"en": "Compression test, cylinder 4", "ru": "Тест компрессии, цилиндр 4"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "29C7", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_CHG_P_SENS_V", "name": {"en": "Charge pressure sensor, unconditioned voltage", "ru": "Датчик давления наддува, необработанное напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2281,10 +2281,10 @@
    {"id": "IBIZA_KNOCK_SENS_CYL_2_VAR_2", "name": {"en": "Knock sensor, cylinder 2, variant 2", "ru": "Датчик детонации, цилиндр 2, вариант 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3962", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_KNOCK_SENS_CYL_3_VAR_2", "name": {"en": "Knock sensor, cylinder 3, variant 2", "ru": "Датчик детонации, цилиндр 3, вариант 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_KNOCK_SENS_CYL_3_VAR_2", "name": {"en": "Knock sensor, cylinder 3, variant 2", "ru": "Датчик детонации, цилиндр 3, вариант 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3963", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_KNOCK_SENS_CYL_4_VAR_2", "name": {"en": "Knock sensor, cylinder 4, variant 2", "ru": "Датчик детонации, цилиндр 4, вариант 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
+   {"id": "IBIZA_KNOCK_SENS_CYL_4_VAR_2", "name": {"en": "Knock sensor, cylinder 4, variant 2", "ru": "Датчик детонации, цилиндр 4, вариант 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3996", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_MIXTURE_ADPT_FACTOR", "name": {"en": "Mixture adaptation factor at partial load", "ru": "Коэфф. адаптации смеси при частичной нагрузке"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2435,10 +2435,10 @@
    {"id": "TIGUAN_MIS_PER_1000_2", "name": {"en": "Misfires per 1000 revolutions, cylinder 2, port injection", "ru": "Пропуски на 1000 об., цилиндр 2, распред. впрыск"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "426D", "rate": "fast", "models": ["Tiguan"], "signals": [
-   {"id": "TIGUAN_MIS_PER_1000_3", "name": {"en": "Misfires per 1000 revolutions, cylinder 3, port injection", "ru": "Пропуски на 1000 об., цилиндр 3, распред. впрыск"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "TIGUAN_MIS_PER_1000_3", "name": {"en": "Misfires per 1000 revolutions, cylinder 3, port injection", "ru": "Пропуски на 1000 об., цилиндр 3, распред. впрыск"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "426E", "rate": "fast", "models": ["Tiguan"], "signals": [
-   {"id": "TIGUAN_MIS_PER_1000_4", "name": {"en": "Misfires per 1000 revolutions, cylinder 4, port injection", "ru": "Пропуски на 1000 об., цилиндр 4, распред. впрыск"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "TIGUAN_MIS_PER_1000_4", "name": {"en": "Misfires per 1000 revolutions, cylinder 4, port injection", "ru": "Пропуски на 1000 об., цилиндр 4, распред. впрыск"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4270", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_OIL_P_SWITCH_PISTON", "name": {"en": "Oil pressure switch for piston-cooling jets, closed", "ru": "Выключатель давления масла форсунок охлаждения поршней замкнут"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}
@@ -2581,10 +2581,10 @@
    {"id": "IBIZA_CYL_2_INTERNAL_TQ", "name": {"en": "Cylinder 2 internal torque", "ru": "Внутренний момент, цилиндр 2"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "584B", "rate": "fast", "models": ["Ibiza"], "signals": [
-   {"id": "IBIZA_CYL_3_INTERNAL_TQ", "name": {"en": "Cylinder 3 internal torque", "ru": "Внутренний момент, цилиндр 3"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_CYL_3_INTERNAL_TQ", "name": {"en": "Cylinder 3 internal torque", "ru": "Внутренний момент, цилиндр 3"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "584D", "rate": "fast", "models": ["Ibiza"], "signals": [
-   {"id": "IBIZA_CYL_4_INTERNAL_TQ", "name": {"en": "Cylinder 4 internal torque", "ru": "Внутренний момент, цилиндр 4"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_CYL_4_INTERNAL_TQ", "name": {"en": "Cylinder 4 internal torque", "ru": "Внутренний момент, цилиндр 4"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "58D1", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_ENG_OIL_LEVEL", "name": {"en": "Engine oil level current value", "ru": "Уровень масла ДВС, текущий"}, "unit": "%", "dec": 2, "group": "main", "fmt": {"bix": 64, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_level"}

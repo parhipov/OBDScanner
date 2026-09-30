@@ -634,10 +634,10 @@
    {"id": "DUSTER_CYL2_MISFIRE_CNT", "name": {"en": "Cylinder 2 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2843", "rate": "fast", "models": ["Duster"], "signals": [
-   {"id": "DUSTER_CYL3_MISFIRE_CNT", "name": {"en": "Cylinder 3 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "DUSTER_CYL3_MISFIRE_CNT", "name": {"en": "Cylinder 3 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2844", "rate": "fast", "models": ["Duster"], "signals": [
-   {"id": "DUSTER_CYL4_MISFIRE_CNT", "name": {"en": "Cylinder 4 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "DUSTER_CYL4_MISFIRE_CNT", "name": {"en": "Cylinder 4 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2847", "rate": "fast", "models": ["Duster"], "signals": [
    {"id": "DUSTER_CYL1_KNOCK", "name": {"en": "Cylinder 1 knock", "ru": "Детонация, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -646,10 +646,10 @@
    {"id": "DUSTER_CYL2_KNOCK", "name": {"en": "Cylinder 2 knock", "ru": "Детонация, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2849", "rate": "fast", "models": ["Duster"], "signals": [
-   {"id": "DUSTER_CYL3_KNOCK", "name": {"en": "Cylinder 3 knock", "ru": "Детонация, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "DUSTER_CYL3_KNOCK", "name": {"en": "Cylinder 3 knock", "ru": "Детонация, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "284A", "rate": "fast", "models": ["Duster"], "signals": [
-   {"id": "DUSTER_CYL4_KNOCK", "name": {"en": "Cylinder 4 knock", "ru": "Детонация, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "DUSTER_CYL4_KNOCK", "name": {"en": "Cylinder 4 knock", "ru": "Детонация, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "284D", "rate": "fast", "models": ["Duster"], "signals": [
    {"id": "DUSTER_KNOCK_AVG", "name": {"en": "Knock signal, average", "ru": "Сигнал детонации, средний"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}

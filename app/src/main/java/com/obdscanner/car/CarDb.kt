@@ -196,6 +196,9 @@ object CarDb {
         )
     }
 
+    /** The most cylinders a `cyl` range may name (W16). */
+    const val MAX_CYL = 16
+
     /** The only services the database may send (see [parseCommand]). */
     val READ_SERVICES = setOf("21", "22")
 
@@ -212,6 +215,10 @@ object CarDb {
         val poly = f.optJSONArray("poly")?.let { a -> (0 until a.length()).map { a.getDouble(it) } }?.takeIf { it.isNotEmpty() }
         require(!le || (bix % 8 == 0 && len % 8 == 0)) { "le needs whole bytes" }
         val map = f.optJSONObject("map")?.let { mj -> mj.keys().asSequence().associate { k -> k.toLong() to text(mj.getJSONObject(k)) } }
+        val cyl = s.optJSONArray("cyl")?.let { a ->
+            require(a.length() == 2 && a.getInt(0) in 1..a.getInt(1) && a.getInt(1) <= MAX_CYL) { "cyl ${a}: [from, to] within 1..$MAX_CYL" }
+            a.getInt(0)..a.getInt(1)
+        }
         return ExtSignal(
             id = s.getString("id"),
             name = text(s.getJSONObject("name")),
@@ -222,6 +229,7 @@ object CarDb {
             role = s.optString("role").ifEmpty { null },
             fmt = SignalFormat(bix, len, mul, div, add, signed, map, le, poly),
             src = s.optJSONArray("src").strings(),
+            cyl = cyl,
         )
     }
 
@@ -404,6 +412,8 @@ data class ExtSignal(
     val fmt: SignalFormat,
     /** Where it comes from (URLs). */
     val src: List<String> = emptyList(),
+    /** Engines with this many cylinders have it ("cylinder 7" = 7..16, "V8" = 8..8); null — any. */
+    val cyl: IntRange? = null,
 ) {
     val displayName get() = if (confidence == "OK") name else "$name (?)"
 }
@@ -429,6 +439,16 @@ data class ExtCommand(
 ) {
     /** The same request with every value marked unverified — known on another model or engine, not on this car. */
     fun unverified() = copy(signals = signals.map { it.copy(confidence = "?") })
+
+    /**
+     * Only the values an engine with [cylinders] has (no "cylinder 7" on a V6, no "V8" DID on a V6);
+     * null when none is left. Unknown count — everything, the car answers what it has.
+     */
+    fun forCylinders(cylinders: Int?): ExtCommand? {
+        if (cylinders == null || signals.all { it.cyl == null }) return this
+        val left = signals.filter { it.cyl == null || cylinders in it.cyl }
+        return if (left.isEmpty()) null else if (left.size == signals.size) this else copy(signals = left)
+    }
 
     // Stored, not getters: the loader, the probe and the poll loop look them up thousands of times.
     val didHex = if (service == "21") "%02X".format(did) else "%04X".format(did)

@@ -911,6 +911,7 @@
             "ru": "Коррекция подачи форсунки, цил. 3",
             "en": "Injector fuel correction, cyl 3"
           },
+          "cyl": [3, 16],
           "unit": "",
           "dec": 3,
           "group": "other",
@@ -957,6 +958,7 @@
             "ru": "Коррекция подачи форсунки, цил. 4",
             "en": "Injector fuel correction, cyl 4"
           },
+          "cyl": [4, 16],
           "unit": "",
           "dec": 3,
           "group": "other",

@@ -132,6 +132,50 @@ class CarDbTest {
         assertTrue(foreign.all { c -> c.signals.all { it.confidence == "?" } })
     }
 
+    /** CTS 2.8 (session 2026-09-30): the V8-only 22 119D answered a constant 248 "kPa" on the V6. */
+    @Test
+    fun cylinderFilter() {
+        val gm = CarDb.family("gm")!!.commands + GmKnown.commands
+        fun keys(cyl: Int?) = gm.mapNotNull { it.forCylinders(cyl) }.map { it.key }.toSet()
+        val v6 = keys(6)
+        assertTrue("7E0:22.119D" !in v6) // barometric pressure, V8
+        assertTrue("7E0:22.1251" in v6) // barometric pressure, V6
+        assertTrue("7E0:22.11EC" !in v6 && "7E0:22.11ED" !in v6) // misfires, cylinders 7/8
+        assertTrue("7E0:22.11EA" in v6 && "7E0:22.11EB" in v6) // misfires, cylinders 5/6
+        val i4 = keys(4)
+        assertTrue("7E0:22.11EA" !in i4 && "7E0:22.1206" in i4 && "7E0:22.1208" in i4)
+        assertTrue("7E0:22.1251" !in keys(8) && "7E0:22.119D" in keys(8))
+        assertEquals(gm.map { it.key }.toSet(), keys(null))
+        // One answer carrying three sets of cylinders 1–6 (Hyundai 7E0 21 08): a four-cylinder drops 5–6 of each.
+        val hy = CarDb.family("hyundai")!!.commands.first { it.key == "7E0:21.08" }
+        val kept = hy.forCylinders(4)!!.signals
+        assertEquals(hy.signals.size - 6, kept.size)
+        assertTrue(kept.all { it.cyl == null || 4 in it.cyl!! })
+    }
+
+    /** Every value named after a cylinder (3 and up) or an engine layout carries `cyl`, curated or imported. */
+    @Test
+    fun cylinderNamesHaveCyl() {
+        val perCyl = Regex("""\bcyl(?:inder)?\.?\s*#?\s*(\d+)\b""", RegexOption.IGNORE_CASE)
+        val layout = Regex("""(?:^|[\s,(])V(6|8|10|12)(?:$|[\s,)])""")
+        val missing = mutableListOf<String>()
+        for (d in listOf(File("src/main/assets/cars"), File("src/main/assets/cars/obdb"))) {
+            for (f in d.listFiles { x -> x.name.endsWith(".json") }.orEmpty()) {
+                val cmds = org.json.JSONObject(f.readText()).optJSONArray("commands") ?: continue
+                for (i in 0 until cmds.length()) {
+                    val sigs = cmds.getJSONObject(i).getJSONArray("signals")
+                    for (k in 0 until sigs.length()) {
+                        val s = sigs.getJSONObject(k)
+                        val en = s.getJSONObject("name").optString("en")
+                        val n = perCyl.find(en)?.groupValues?.get(1)?.toInt()
+                        if ((n != null && n >= 3 || layout.containsMatchIn(en)) && !s.has("cyl")) missing += "${f.name}: $en"
+                    }
+                }
+            }
+        }
+        assertTrue("no cyl:\n" + missing.joinToString("\n"), missing.isEmpty())
+    }
+
     /** The picker lists models by id: a repeated one crashed it (BMW E90, RAV4 XA20 split by years). */
     @Test
     fun modelIdsUnique() {

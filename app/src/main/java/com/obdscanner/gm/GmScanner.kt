@@ -29,7 +29,8 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
             obd.target(req, resp)
             for (p in probes) {
                 val r = obd.request(p, timeoutMs = 400, expectOne = true)
-                val msg = r.from(resp).firstOrNull()
+                // "7F 1A 78" is only "wait": the ECM sends it and then the real answer in the same read.
+                val msg = answer(r, resp) ?: r.from(resp).firstOrNull()
                 if (msg != null) {
                     val what = if (msg.isNegative) tr("$p → отказ %02X", "$p → NRC %02X").format(msg.nrc) else "$p → OK"
                     found += GmModule(req, resp, name(req), what)

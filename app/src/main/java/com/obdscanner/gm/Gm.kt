@@ -36,6 +36,8 @@ class GmDid(
     val group: String,
     /** How often to read it, see [com.obdscanner.obd.PollRate]. */
     val periodMs: Long,
+    /** Only on engines with this many cylinders (a per-cylinder DID); null — any. */
+    val cyl: IntRange? = null,
     val f: (IntArray) -> Double?,
 ) {
     val key get() = "%03X:%s.%04X".format(req, service, did)

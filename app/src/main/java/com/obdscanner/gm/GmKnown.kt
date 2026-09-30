@@ -1,5 +1,6 @@
 package com.obdscanner.gm
 
+import com.obdscanner.car.CarDb
 import com.obdscanner.car.ExtCommand
 import com.obdscanner.car.ExtSignal
 import com.obdscanner.car.SignalFormat
@@ -28,8 +29,11 @@ object GmKnown {
     private const val FAST = PollRate.FAST
     private const val SLOW = PollRate.SLOW
 
-    private fun did(req: Int, did: Int, name: String, unit: String, dec: Int, conf: String, group: String, every: Long = PollRate.MEDIUM, f: (IntArray) -> Double?) =
-        GmDid(req, "22", did, name, unit, dec, conf, group, every, f)
+    private fun did(req: Int, did: Int, name: String, unit: String, dec: Int, conf: String, group: String, every: Long = PollRate.MEDIUM, cyl: IntRange? = null, f: (IntArray) -> Double?) =
+        GmDid(req, "22", did, name, unit, dec, conf, group, every, cyl, f)
+
+    /** Cylinder [n] is on engines with n or more cylinders; 1–2 are on every engine. */
+    private fun cylFrom(n: Int) = if (n >= 3) n..CarDb.MAX_CYL else null
 
     val all: List<GmDid> = buildList {
         // ---- TCM (6L50)
@@ -61,16 +65,16 @@ object GmKnown {
         add(did(ECM, 0x1144, tr("Давление кондиционера (выс. сторона)", "A/C high side pressure"), tr("кПа", "kPa"), 0, MAYBE, "other") { (it[0] * 1.83 - 15) * 6.895 })
         // Current misfires — note GM's odd order: 1206 = cyl 1, 1205 = cyl 2.
         for ((d, cyl) in listOf(0x1206 to 1, 0x1205 to 2, 0x1207 to 3, 0x1208 to 4, 0x11EA to 5, 0x11EB to 6)) {
-            add(did(ECM, d, tr("Пропуски сейчас, цил. $cyl", "Misfires current, cyl $cyl"), "", 0, OK, "fuel") { it[0].toDouble() })
+            add(did(ECM, d, tr("Пропуски сейчас, цил. $cyl", "Misfires current, cyl $cyl"), "", 0, OK, "fuel", cyl = cylFrom(cyl)) { it[0].toDouble() })
         }
         for ((d, cyl) in listOf(0x1201 to 1, 0x1202 to 2, 0x1203 to 3, 0x1204 to 4, 0x11F8 to 5, 0x11F9 to 6)) {
-            add(did(ECM, d, tr("Пропуски история, цил. $cyl", "Misfires history, cyl $cyl"), "", 0, MAYBE, "fuel", every = SLOW) { ab(it).toDouble() })
+            add(did(ECM, d, tr("Пропуски история, цил. $cyl", "Misfires history, cyl $cyl"), "", 0, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { ab(it).toDouble() })
         }
         for (cyl in 1..6) {
-            add(did(ECM, 0x1192 + cyl, tr("Длительность впрыска, цил. $cyl", "Injector pulse width, cyl $cyl"), tr("мс", "ms"), 2, MAYBE, "fuel", every = SLOW) { ab(it) / 65.535 })
+            add(did(ECM, 0x1192 + cyl, tr("Длительность впрыска, цил. $cyl", "Injector pulse width, cyl $cyl"), tr("мс", "ms"), 2, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { ab(it) / 65.535 })
         }
         for (cyl in 1..6) {
-            add(did(ECM, 0x162E + cyl, tr("Баланс цилиндра $cyl", "Cylinder balance, cyl $cyl"), "", 2, MAYBE, "fuel", every = SLOW) { (ab(it) - 32768) * 0.015625 })
+            add(did(ECM, 0x162E + cyl, tr("Баланс цилиндра $cyl", "Cylinder balance, cyl $cyl"), "", 2, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { (ab(it) - 32768) * 0.015625 })
         }
 
         // ---- Candidates from OBDb Chevrolet-Traverse (3.6 LLT, same HFV6 family). Not yet seen on
@@ -99,7 +103,7 @@ object GmKnown {
     /** The same parameters as manufacturer requests for the poll loop; reading keys stay "7E2:22.1940". */
     val commands: List<ExtCommand> by lazy {
         all.map { d ->
-            val signal = ExtSignal("", d.name, d.unit, d.decimals, d.confidence, d.group, ROLES[d.did], SignalFormat(0, 8, 1.0, 1.0, 0.0, false, null))
+            val signal = ExtSignal("", d.name, d.unit, d.decimals, d.confidence, d.group, ROLES[d.did], SignalFormat(0, 8, 1.0, 1.0, 0.0, false, null), cyl = d.cyl)
             ExtCommand(d.req, responseFor(d.req), d.service, d.did, d.periodMs, listOf(signal), source = "code", code = d.f)
         }
     }

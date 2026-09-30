@@ -614,8 +614,20 @@ class ObdManager(private val context: Context) {
         // A gas-converted car still has a petrol ECU.
         val db = fam?.probeOrder(car, fuelOf(car)?.let { if (it == "lpg") "petrol" else it }).orEmpty()
         val gm = if (v.make == Make.GM) GmKnown.commands else emptyList()
+        val cyl = cylindersOf(car)?.first
         // Capped: a big family would mean hundreds of requests on the first connection.
-        return (gm + db).distinctBy { it.key }.take(MAX_PROBE)
+        return (gm + db).distinctBy { it.key }.mapNotNull { it.forCylinders(cyl) }.take(MAX_PROBE)
+    }
+
+    /**
+     * Cylinder count and where it comes from: the engine ECU's Mode 06 misfire tests (MID A2 = cylinder 1
+     * … AD = 12, one per cylinder it has), else the car's engines when they all agree. Null — unknown.
+     */
+    private fun cylindersOf(car: CarModel?): Pair<Int, String>? {
+        val byMode06 = _vehicle.value.ecus.values.maxOfOrNull { e -> e.mids06.filter { it in 0xA2..0xAD }.maxOrNull()?.minus(0xA1) ?: 0 } ?: 0
+        if (byMode06 > 0) return byMode06 to "Mode 06"
+        val byModel = car?.engines?.map { it.cyl }?.distinct()?.singleOrNull() ?: return null
+        return byModel to tr("по моторам модели", "by the model's engines")
     }
 
     /**
@@ -674,8 +686,10 @@ class ObdManager(private val context: Context) {
         o.broadcast()
         if (vin != null && (full || saved == null)) prefs.edit().putStringSet(prefKey, active.map { it.key }.toSet()).apply()
         _vehicle.update { it.copy(extActive = active) }
+        val cyl = cylindersOf(_vehicle.value.car)?.let { (n, by) -> tr("Цилиндров: $n ($by)", "Cylinders: $n ($by)") }
+            ?: tr("Цилиндров: неизвестно — отбора по ним нет", "Cylinders: unknown — no filtering by them")
         session?.report(tr("Параметры производителя", "Manufacturer parameters"),
-            tr("Проверено ${list.size} из ${all.size} запросов", "Probed ${list.size} of ${all.size} requests") +
+            "$cyl\n" + tr("Проверено ${list.size} из ${all.size} запросов", "Probed ${list.size} of ${all.size} requests") +
                 (if (list.size < all.size) tr(" (только ответившие в прошлый раз; все — «Повторный опрос»)", " (only those that answered last time; all — \"Rescan\")") else "") +
                 tr(", ответили ${active.size}\n", ", answered ${active.size}\n") + lines.joinToString("\n"))
     }

@@ -272,12 +272,12 @@
    {"id": "JOLIONHEV_KNOCK_RETARD_CYL_2", "name": {"en": "Knock retard, cylinder 2", "ru": "Откат УОЗ по детонации, цилиндр 2"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0172", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_3", "name": {"en": "Knock retard cylinder 3", "ru": "Откат УОЗ по детонации, цилиндр 3"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard"},
-   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_3", "name": {"en": "Knock retard, cylinder 3", "ru": "Откат УОЗ по детонации, цилиндр 3"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
+   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_3", "name": {"en": "Knock retard cylinder 3", "ru": "Откат УОЗ по детонации, цилиндр 3"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard", "cyl": [3, 16]},
+   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_3", "name": {"en": "Knock retard, cylinder 3", "ru": "Откат УОЗ по детонации, цилиндр 3"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard", "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0173", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_4", "name": {"en": "Knock retard cylinder 4", "ru": "Откат УОЗ по детонации, цилиндр 4"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard"},
-   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_4", "name": {"en": "Knock retard, cylinder 4", "ru": "Откат УОЗ по детонации, цилиндр 4"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
+   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_4", "name": {"en": "Knock retard cylinder 4", "ru": "Откат УОЗ по детонации, цилиндр 4"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard", "cyl": [4, 16]},
+   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_4", "name": {"en": "Knock retard, cylinder 4", "ru": "Откат УОЗ по детонации, цилиндр 4"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard", "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0174", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_1", "name": {"en": "Knock sensor reference voltage cylinder 1", "ru": "Опорное напряжение датчика детонации, цилиндр 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
@@ -288,12 +288,12 @@
    {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_2", "name": {"en": "Knock sensor voltage, cylinder 2", "ru": "Напряжение датчика детонации, цилиндр 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0176", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_3", "name": {"en": "Knock sensor reference voltage cylinder 3", "ru": "Опорное напряжение датчика детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
-   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_3", "name": {"en": "Knock sensor voltage, cylinder 3", "ru": "Напряжение датчика детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_3", "name": {"en": "Knock sensor reference voltage cylinder 3", "ru": "Опорное напряжение датчика детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "cyl": [3, 16]},
+   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_3", "name": {"en": "Knock sensor voltage, cylinder 3", "ru": "Напряжение датчика детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0177", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_4", "name": {"en": "Knock sensor reference voltage cylinder 4", "ru": "Опорное напряжение датчика детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
-   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_4", "name": {"en": "Knock sensor voltage, cylinder 4", "ru": "Напряжение датчика детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_4", "name": {"en": "Knock sensor reference voltage cylinder 4", "ru": "Опорное напряжение датчика детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "cyl": [4, 16]},
+   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_4", "name": {"en": "Knock sensor voltage, cylinder 4", "ru": "Напряжение датчика детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "017F", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_MISFIRES_TOTAL", "name": {"en": "Misfires total", "ru": "Пропуски, всего"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
@@ -302,10 +302,10 @@
    {"id": "JOLION_MISFIRES_CYL_1", "name": {"en": "Misfires cylinder 1", "ru": "Пропуски, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0181", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_MISFIRES_CYL_3", "name": {"en": "Misfires cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+   {"id": "JOLION_MISFIRES_CYL_3", "name": {"en": "Misfires cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0182", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_MISFIRES_CYL_4", "name": {"en": "Misfires cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+   {"id": "JOLION_MISFIRES_CYL_4", "name": {"en": "Misfires cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0183", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_MISFIRES_CYL_2", "name": {"en": "Misfires cylinder 2", "ru": "Пропуски, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
@@ -326,10 +326,10 @@
    {"id": "JOLION_MISFIRE_HISTORY_CYL_2", "name": {"en": "Misfire history cylinder 2", "ru": "История пропусков, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1203", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_MISFIRE_HISTORY_CYL_3", "name": {"en": "Misfire history cylinder 3", "ru": "История пропусков, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "JOLION_MISFIRE_HISTORY_CYL_3", "name": {"en": "Misfire history cylinder 3", "ru": "История пропусков, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1204", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_MISFIRE_HISTORY_CYL_4", "name": {"en": "Misfire history cylinder 4", "ru": "История пропусков, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "JOLION_MISFIRE_HISTORY_CYL_4", "name": {"en": "Misfire history cylinder 4", "ru": "История пропусков, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1205", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_MISFIRE_CURRENT_CYL_2", "name": {"en": "Misfire current cylinder 2", "ru": "Текущие пропуски, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -338,10 +338,10 @@
    {"id": "JOLION_MISFIRE_CURRENT_CYL_1", "name": {"en": "Misfire current cylinder 1", "ru": "Текущие пропуски, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1207", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_MISFIRE_CURRENT_CYL_3", "name": {"en": "Misfire current cylinder 3", "ru": "Текущие пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "JOLION_MISFIRE_CURRENT_CYL_3", "name": {"en": "Misfire current cylinder 3", "ru": "Текущие пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1208", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_MISFIRE_CURRENT_CYL_4", "name": {"en": "Misfire current cylinder 4", "ru": "Текущие пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "JOLION_MISFIRE_CURRENT_CYL_4", "name": {"en": "Misfire current cylinder 4", "ru": "Текущие пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "121E", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_ODO_ENG", "name": {"en": "Odometer, engine", "ru": "Пробег, ЭБУ ДВС"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
@@ -383,10 +383,10 @@
    {"id": "EHS_MISFIRES_C2", "name": {"en": "Misfires, cylinder 2", "ru": "Пропуски, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B145", "rate": "fast", "models": ["EHS"], "signals": [
-   {"id": "EHS_MISFIRES_C3", "name": {"en": "Misfires, cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "EHS_MISFIRES_C3", "name": {"en": "Misfires, cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "cyl": [3, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B146", "rate": "fast", "models": ["EHS"], "signals": [
-   {"id": "EHS_MISFIRES_C4", "name": {"en": "Misfires, cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "EHS_MISFIRES_C4", "name": {"en": "Misfires, cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "cyl": [4, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "FD19", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_OIL_PRESSURE", "name": {"en": "Oil pressure", "ru": "Давление масла"}, "unit": "kPa", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 156.25, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}

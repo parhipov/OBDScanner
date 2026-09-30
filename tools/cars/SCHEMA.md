@@ -115,5 +115,11 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
   cvt_wear gear tc_slip input_rpm output_rpm fuel_level_l odometer battery_soc battery_temp
   knock_retard boost dpf_soot service_km service_days hv_soc hv_soh`.
 - `group`: `main` (worth a card on the main screen), `fuel` (fuel tab), `other` (all data only).
+- `cyl` (signal, optional) — `[from, to]` cylinder counts of the engines that have this value: a value of
+  cylinder N is `[N, 16]` (set it for N ≥ 3), a layout-specific one ("V8") is `[8, 8]`. The app counts the
+  cylinders by the engine ECU's Mode 06 misfire tests (MID A2…AD, one per cylinder), else by the model's
+  engines when they all agree, and drops the other values (a request whose values are all dropped isn't
+  sent). Unknown count — everything is sent. The OBDb importer sets it from the English name; CarDbTest
+  checks that every "cylinder N" / "V8" name has it.
 - `conf`: `"OK"` — two independent sources agree or seen on a car; `"?"` — one source / conflicting.
 - Units: `°C kPa bar V A % rpm km/h km L ms ° s h` (metric; convert from psi/°F/miles in `mul/add`).

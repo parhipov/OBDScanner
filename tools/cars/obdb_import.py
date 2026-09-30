@@ -73,6 +73,8 @@ deduplicated by (bix, len, mul, div, add, signed) keeping the first id/name and 
 Only signalsets/v3/default.json is read, not the per-year override files (e.g. 2012-2020.json).
 Roles: from `suggestedMetric` where it matches, else from the English name (NAME_ROLES); a role
 makes the signal group "main", everything else is "other" (conf is always "?": one source).
+`cyl` also comes from the English name (cyl_of): "cylinder 7" / "…, V8" — the app drops such a value
+on an engine with another cylinder count.
 """
 
 from __future__ import annotations
@@ -451,6 +453,23 @@ def role_of(sig: dict, name: str, unit: str) -> str | None:
     return None
 
 
+# Cylinder counts the app knows of (CarDb.MAX_CYL): the upper end of "cylinder N and more".
+MAX_CYL = 16
+
+
+def cyl_of(name: str) -> list[int] | None:
+    """Engines a value exists on, by its English name: "cylinder 7" -> [7, 16] (an engine with 7
+    or more cylinders), "…, V8" -> [8, 8]. Cylinders 1–2 are on every engine: no limit."""
+    m = re.search(r"\bcyl(?:inder)?\.?\s*#?\s*(\d+)\b", name, re.I)
+    if m and 3 <= int(m.group(1)) <= MAX_CYL:
+        return [int(m.group(1)), MAX_CYL]
+    # A separate token only: "Battery block vol -V10" (Toyota hybrid) is not an engine layout.
+    m = re.search(r"(?:^|[\s,(])V(6|8|10|12)(?:$|[\s,)])", name)
+    if m:
+        return [int(m.group(1))] * 2
+    return None
+
+
 def convert_signal(sig: dict, repo: str, ru: dict, skips: Skips) -> dict | None:
     fmt = sig.get("fmt") or {}
     name = clean(sig.get("name") or "")
@@ -522,6 +541,9 @@ def convert_signal(sig: dict, repo: str, ru: dict, skips: Skips) -> dict | None:
     }
     if role:
         out["role"] = role
+    cyl = cyl_of(name)
+    if cyl:
+        out["cyl"] = cyl
     return out
 
 

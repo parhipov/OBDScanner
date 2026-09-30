@@ -1621,6 +1621,7 @@
             "ru": "Откат УОЗ по детонации, цил. 3",
             "en": "Knock retard, cyl 3"
           },
+          "cyl": [3, 16],
           "unit": "°",
           "dec": 2,
           "group": "other",
@@ -1671,6 +1672,7 @@
             "ru": "Откат УОЗ по детонации, цил. 4",
             "en": "Knock retard, cyl 4"
           },
+          "cyl": [4, 16],
           "unit": "°",
           "dec": 2,
           "group": "other",
