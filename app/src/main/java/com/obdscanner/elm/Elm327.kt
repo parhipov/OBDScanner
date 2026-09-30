@@ -14,11 +14,31 @@ import java.io.IOException
 import kotlin.concurrent.thread
 
 class ElmReply(val command: String, val text: String, val timedOut: Boolean) {
-    /** Non-empty lines without echo and the usual chatter. */
+    /**
+     * Non-empty lines without echo and the usual chatter. "SEARCHING..." / "BUS INIT: ...OK" are cut off
+     * the front, not dropped: some clones put the first reply on the same line (AndrOBD does the same).
+     * Lines starting with "+" are the Bluetooth module's own messages ("+CONNECTING<<…").
+     */
     val lines: List<String> by lazy {
         text.split('\r', '\n')
             .map { it.trim() }
-            .filter { it.isNotEmpty() && it != command && !it.startsWith("SEARCHING") && !(it.startsWith("BUS INIT") && !it.contains("ERROR")) }
+            .map { l ->
+                when {
+                    l.startsWith("SEARCHING") -> l.removePrefix("SEARCHING").trimStart('.', ' ')
+                    l.startsWith("BUS INIT") && !l.contains("ERROR") -> l.substringAfter("OK", "").trim()
+                    else -> l
+                }
+            }
+            .filter { it.isNotEmpty() && it != command && !it.startsWith("+") }
+    }
+
+    /**
+     * The adapter reset itself during this command: "LV RESET" (brown-out, e.g. cranking), "ERR94"
+     * (fatal CAN error, all settings back to defaults) or a clone's boot banner in the middle of a reply.
+     * It is then back to echo on, headers off and protocol auto.
+     */
+    val adapterReset: Boolean get() = !command.startsWith("AT") && lines.any {
+        it.contains("LV RESET") || it.startsWith("ERR94") || it.startsWith("ELM327 v", ignoreCase = true)
     }
     val isOk get() = !timedOut && lines.any { it == "OK" }
     val isUnknown get() = lines.any { it == "?" }

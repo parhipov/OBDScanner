@@ -1,0 +1,783 @@
+{
+  "family": "china",
+  "title": "Chery / Haval / Geely / Changan",
+  "brands": [
+    {
+      "name": "Chery",
+      "wmi": [
+        "LVV",
+        "LVU",
+        "LVT",
+        "LNN"
+      ]
+    },
+    {
+      "name": "Omoda",
+      "wmi": []
+    },
+    {
+      "name": "Jaecoo",
+      "wmi": []
+    },
+    {
+      "name": "Exeed",
+      "wmi": []
+    },
+    {
+      "name": "Haval",
+      "wmi": [
+        "LGW",
+        "XZG"
+      ]
+    },
+    {
+      "name": "Great Wall",
+      "wmi": [
+        "X9X"
+      ]
+    },
+    {
+      "name": "Geely",
+      "wmi": [
+        "LB3",
+        "L6T",
+        "Y4K"
+      ]
+    },
+    {
+      "name": "Changan",
+      "wmi": [
+        "LS5",
+        "LS4",
+        "LS6"
+      ]
+    },
+    {
+      "name": "MG",
+      "wmi": [
+        "LSJ"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Chery",
+      "model": "Tiggo 4 Pro",
+      "gen": "I",
+      "years": [
+        2022,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "E4G15C",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "E4T15C",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.5 атмосферный и 1.5 турбо; вариатор (CVT) или МКПП. В России с сентября 2022.",
+        "en": "1.5 NA and 1.5 turbo; CVT or manual. On sale in Russia since September 2022."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chery_Tiggo_5x"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chery",
+      "model": "Tiggo 7 Pro",
+      "gen": "T1E",
+      "years": [
+        2020,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "SQRE4T15C",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "1.5 турбо (147 л.с. в РФ), вариатор CVT, передний привод. В России с сентября 2020 по апрель 2024.",
+        "en": "1.5 turbo (147 hp in Russia), CVT, FWD. Sold in Russia September 2020 – April 2024."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chery_Tiggo_7",
+        "https://www.auto-data.net/ru/chery-tiggo-7-ii-pro-1.5-tci-145hp-cvt-48734",
+        "https://www.drive2.ru/l/698485928217288031/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chery",
+      "model": "Tiggo 7 Pro Max",
+      "gen": "T1E",
+      "years": [
+        2023,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "SQRE4T15C",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SQRF4J16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "1.5 турбо с вариатором CVT; 1.6 TGDI (с июля 2023) с 7-ступенчатым роботом 7DCT и полным приводом.",
+        "en": "1.5 turbo with CVT; 1.6 TGDI (from July 2023) with 7-speed DCT and AWD."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chery_Tiggo_7",
+        "https://www.drive2.ru/l/698485928217288031/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chery",
+      "model": "Tiggo 8 Pro",
+      "gen": "I",
+      "years": [
+        2021,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "SQRF4J16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SQRF4J20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.6 TGDI с 7-ступенчатым роботом; 2.0 TGDI. В России с марта 2021 по апрель 2024.",
+        "en": "1.6 TGDI with 7-speed DCT; 2.0 TGDI. Sold in Russia March 2021 – April 2024."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chery_Tiggo_8"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chery",
+      "model": "Tiggo 8 Pro Max",
+      "gen": "I",
+      "years": [
+        2022,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "SQRF4J20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "2.0 TGDI, 7-ступенчатый робот, полный привод. В России с апреля 2022.",
+        "en": "2.0 TGDI, 7-speed DCT, AWD. On sale in Russia since April 2022."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chery_Tiggo_8",
+        "https://www.drive2.ru/l/628437416801223234/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Omoda",
+      "model": "C5",
+      "gen": "I",
+      "years": [
+        2022,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.5 турбо с вариатором CVT; 1.6 турбо (с марта 2023) с 7-ступенчатым роботом. В России с октября 2022.",
+        "en": "1.5 turbo with CVT; 1.6 turbo (from March 2023) with 7-speed DCT. On sale in Russia since October 2022."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Omoda_5"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Jaecoo",
+      "model": "J7",
+      "gen": "I",
+      "years": [
+        2023,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "1.6 турбо 186 л.с., робот, полный привод. Разъём рядом с ручкой открывания капота; Car Scanner определяет профиль J7.",
+        "en": "1.6 turbo 186 hp, DCT, AWD. Socket next to the hood release; Car Scanner has a J7 profile."
+      },
+      "src": [
+        "https://www.drive2.ru/l/674538290086418914/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Exeed",
+      "model": "TXL",
+      "gen": "I",
+      "years": [
+        2020,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "F4J16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4J20C",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.6 и 2.0 турбо, 7-ступенчатый робот с двумя сцеплениями.",
+        "en": "1.6 and 2.0 turbo, 7-speed dual-clutch gearbox."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Exeed_TXL"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Exeed",
+      "model": "VX",
+      "gen": "I",
+      "years": [
+        2021,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "2.0 TGDI 249 л.с., 7-ступенчатый робот 7DCT, семиместный.",
+        "en": "2.0 TGDI 249 hp, 7-speed DCT, seven seats."
+      },
+      "src": [
+        "https://favorit-motors.ru/catalog/new/exeed/vx/tehnicheskie-harakteristiki/",
+        "https://auto.ru/mag/article/v-rossii-startovali-prodazhi-novogo-roskoshnogo-krossovera-iz-kitaya/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "Jolion",
+      "gen": "I",
+      "years": [
+        2021,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "GW4B15A",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Двигатель (7E0) и коробка (7E1) отвечают по CAN с 11-битными адресами (OBDb). На Jolion 2024 ELM327 с Car Scanner видит только двигатель и коробку — остальные блоки за шлюзом.",
+        "en": "Engine (7E0) and gearbox (7E1) answer on CAN with 11-bit ids (OBDb). On a 2024 Jolion an ELM327 with Car Scanner sees only engine and gearbox — the rest is behind the gateway."
+      },
+      "note": {
+        "ru": "1.5 турбо (150 л.с., с рестайлинга 2024 — 143 л.с.), 7-ступенчатый робот 7DCT или МКПП. Сборка в Тульской области.",
+        "en": "1.5 turbo (150 hp, 143 hp after the 2024 facelift), 7-speed DCT or manual. Built in Tula region, Russia."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Haval_Jolion",
+        "https://github.com/OBDb/Haval-Jolion",
+        "https://www.drive2.ru/l/607721518222292504/",
+        "https://www.drive2.ru/l/654225362519067116/",
+        "https://www.drive2.ru/l/683532570079539677/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "F7",
+      "gen": "I",
+      "years": [
+        2019,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "GW4B15",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "GW4C20NT",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "1.5 турбо 150 л.с. и 2.0 турбо 190 л.с. (версии для РФ), робот 7DCT450 с двумя сцеплениями. Сборка в Туле с июня 2019.",
+        "en": "1.5 turbo 150 hp and 2.0 turbo 190 hp (Russian versions), 7DCT450 dual-clutch. Built in Tula since June 2019."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Haval_F7",
+        "https://en.wikipedia.org/wiki/Haval_F7",
+        "https://www.drive2.ru/l/543511413549696202/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "F7x",
+      "gen": "I",
+      "years": [
+        2019,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "GW4B15",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "GW4C20NT",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Кросс-купе на базе F7 (с ноября 2019): те же моторы и робот 7DCT450.",
+        "en": "Coupe-SUV based on the F7 (from November 2019): same engines and 7DCT450 gearbox."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Haval_F7",
+        "https://en.wikipedia.org/wiki/Haval_F7"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "F7",
+      "gen": "II",
+      "years": [
+        2024,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Платформа L.E.M.O.N.: 1.5 турбо 150 л.с. (передний привод), 2.0 турбо 192 л.с. (полный), 7-ступенчатый робот.",
+        "en": "L.E.M.O.N. platform: 1.5 turbo 150 hp (FWD), 2.0 turbo 192 hp (AWD), 7-speed DCT."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Haval_F7",
+        "https://en.wikipedia.org/wiki/Haval_F7"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "Dargo",
+      "gen": "I",
+      "years": [
+        2022,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "GW4N20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "2.0 турбо 192 л.с. (версия для РФ), 7-ступенчатый робот с мокрыми сцеплениями, передний или полный привод. Сборка в Туле.",
+        "en": "2.0 turbo 192 hp (Russian version), 7-speed wet dual-clutch, FWD or AWD. Built in Tula."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Haval_Dargo",
+        "https://www.kolesa.ru/news/krossover-haval-dargo-sertifitsirovan-v-rf-s-odnim-motorom"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Coolray",
+      "gen": "I",
+      "years": [
+        2020,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "JLH-3G15TD",
+          "liters": 1.5,
+          "cyl": 3,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.5 турбо, три цилиндра, 150 л.с. для РФ; робот 7DCT330. Сборка BelGee (Беларусь) с февраля 2020.",
+        "en": "1.5 turbo three-cylinder, 150 hp for Russia; 7DCT330 gearbox. Assembled by BelGee (Belarus) since February 2020."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Coolray",
+        "https://en.wikipedia.org/wiki/Geely_Coolray"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Coolray",
+      "gen": "I FL",
+      "years": [
+        2023,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Рестайлинг: 1.5 турбо, четыре цилиндра, 147 л.с.; робот 7DCT300. В РФ также продаётся как BelGee X50.",
+        "en": "Facelift: 1.5 turbo four-cylinder, 147 hp; 7DCT300 gearbox. Also sold in Russia as BelGee X50."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Coolray",
+        "https://en.wikipedia.org/wiki/Geely_Coolray"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Atlas",
+      "gen": "NL-3",
+      "years": [
+        2018,
+        2022
+      ],
+      "engines": [
+        {
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "JLD-4G24",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "2.0 атмосферный; 2.4 атмосферный 149 л.с. с 6-ступенчатым автоматом, передний или полный привод. Сборка BelGee.",
+        "en": "2.0 NA; 2.4 NA 149 hp with 6-speed automatic, FWD or AWD. Assembled by BelGee."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Atlas",
+        "https://en.wikipedia.org/wiki/Geely_Boyue",
+        "https://www.kolesa.ru/news/izvestny-harakteristiki-geely-atlas-dlya-rossijskogo-rynka"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Atlas Pro",
+      "gen": "NL-3B",
+      "years": [
+        2021,
+        2023
+      ],
+      "engines": [
+        {
+          "liters": 1.5,
+          "cyl": 3,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.5 турбо (разработан совместно с Volvo), 7-ступенчатый робот.",
+        "en": "1.5 turbo (co-developed with Volvo), 7-speed DCT."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Atlas",
+        "https://en.wikipedia.org/wiki/Geely_Boyue"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Atlas",
+      "gen": "FX11",
+      "years": [
+        2023,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "JLH-4G20TDJ",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Новое поколение (платформа CMA): 2.0 турбо 200 л.с., 7-ступенчатый робот или 8-ступенчатый автомат.",
+        "en": "New generation (CMA platform): 2.0 turbo 200 hp, 7-speed DCT or 8-speed automatic."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Atlas",
+        "https://en.wikipedia.org/wiki/Geely_Boyue",
+        "https://mobile-review.com/all/news/geely-predstavil-v-rossii-krossover-atlas-novogo-pokoleniya/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Monjaro",
+      "gen": "I",
+      "years": [
+        2023,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "JLH-4G20TDB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "2.0 турбо 238 л.с., 8-ступенчатый автомат Aisin TG-81SC, полный привод. Официально в РФ с апреля 2023. Car Scanner читает уровень масла ([ECM] Oil level) на ЭБУ Denso.",
+        "en": "2.0 turbo 238 hp, Aisin TG-81SC 8-speed automatic, AWD. Official in Russia since April 2023. Car Scanner reads oil level ([ECM] Oil level) on Denso ECUs."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Monjaro",
+        "https://en.wikipedia.org/wiki/Geely_Xingyue_L",
+        "https://www.drive2.ru/l/693891069124806806/",
+        "https://www.drive2.ru/l/670241948400895720/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Geely",
+      "model": "Tugella",
+      "gen": "I",
+      "years": [
+        2020,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "2.0 турбо Volvo, 8-ступенчатый автомат, полный привод. Сборка также на BelGee.",
+        "en": "2.0 Volvo-derived turbo, 8-speed automatic, AWD. Also assembled by BelGee."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Geely_Tugella"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Changan",
+      "model": "CS35 Plus",
+      "gen": "I",
+      "years": [
+        2019,
+        2021
+      ],
+      "engines": [
+        {
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.6 атмосферный 117 л.с., 6-ступенчатый автомат, передний привод.",
+        "en": "1.6 NA 117 hp, 6-speed automatic, FWD."
+      },
+      "src": [
+        "https://autospot.ru/brands/changan/cs35plus/suv/spec/",
+        "https://en.wikipedia.org/wiki/Changan_CS35_Plus"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Changan",
+      "model": "CS35 Plus",
+      "gen": "I FL",
+      "years": [
+        2022,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.4 турбо 150 л.с., 7-ступенчатый робот с мокрыми сцеплениями.",
+        "en": "1.4 turbo 150 hp, 7-speed wet dual-clutch."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Changan_CS35_Plus",
+        "https://www.kolesa.ru/news/teper-ofitsialno-v-rossii-obyavleny-tseny-i-komplektatsii-obnovlennogo-changan-cs35-plus"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Changan",
+      "model": "CS55 Plus",
+      "gen": "II",
+      "years": [
+        2023,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "JL473ZQ7",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "1.5 турбо Blue Whale 181 л.с., 7-ступенчатый робот, передний привод.",
+        "en": "1.5 Blue Whale turbo 181 hp, 7-speed DCT, FWD."
+      },
+      "src": [
+        "https://www.kolesa.ru/news/novyy-changan-cs55-plus-gotovitsya-k-startu-prodazh-v-rossii-moshchnee-predshestvennika",
+        "https://en.wikipedia.org/wiki/Changan_CS55"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Changan",
+      "model": "UNI-K",
+      "gen": "I",
+      "years": [
+        2021,
+        2026
+      ],
+      "engines": [
+        {
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "2.0 турбо 226 л.с., 8-ступенчатый автомат Aisin, передний или полный привод. В РФ с декабря 2021.",
+        "en": "2.0 turbo 226 hp, Aisin 8-speed automatic, FWD or AWD. In Russia since December 2021."
+      },
+      "src": [
+        "https://www.kolesa.ru/news/krossover-changan-uni-k-gotovitsya-k-startu-prodazh-v-rossii-odin-motor-est-polnyy-privod"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [],
+  "features": [
+    {
+      "ru": "Стандартные OBD-II данные двигателя по CAN.",
+      "en": "Standard OBD-II engine data over CAN."
+    },
+    {
+      "ru": "Поиск блоков и чтение ошибок по UDS там, где машина отвечает; на новых моделях через ELM327 часто видны только двигатель и коробка — остальное за шлюзом.",
+      "en": "Module search and DTCs over UDS where the car answers; on newer models an ELM327 often reaches only engine and gearbox — the rest is behind the gateway."
+    },
+    {
+      "ru": "Haval Jolion: расширенные параметры двигателя и робота (температура масла, сцеплений) из базы OBDb.",
+      "en": "Haval Jolion: extra engine and DCT data (oil and clutch temps) from the OBDb database."
+    }
+  ]
+}

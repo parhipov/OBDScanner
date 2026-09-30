@@ -61,15 +61,31 @@ object CardHelp {
         "01.33" to R.array.help_baro,
     )
 
+    /** Manufacturer parameters of any make, by their role (tools/cars/SCHEMA.md). */
+    private val byRole: Map<String, Int> = mapOf(
+        "oil_temp" to R.array.help_oil_temp,
+        "oil_pressure" to R.array.help_oil_pressure,
+        "oil_life" to R.array.help_oil_life,
+        "atf_temp" to R.array.help_atf_temp,
+        "gear" to R.array.help_gear,
+        "tc_slip" to R.array.help_tcc_slip,
+        "input_rpm" to R.array.help_input_shaft,
+        "output_rpm" to R.array.help_output_shaft,
+    )
+
     @ArrayRes fun forSource(source: String): Int? = bySource[source]
+
+    @ArrayRes fun help(r: Reading): Int? = bySource[r.source] ?: r.role?.let { byRole[it] }
 }
 
 @Composable
 fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onDismiss: () -> Unit) {
-    val texts = CardHelp.forSource(r.source)?.let { stringArrayResource(it) }
+    val texts = CardHelp.help(r)?.let { stringArrayResource(it) }
     val source = when {
         r.source.startsWith("01.") -> stringResource(R.string.help_src_pid, r.source.substring(3, 5), ecuName(r.ecu))
-        r.source.startsWith("22.") -> stringResource(R.string.help_src_gm, r.source.substring(3), GmModules.name(r.ecu))
+        r.source.matches(Regex("22\\.[0-9A-F]{4}")) -> stringResource(R.string.help_src_gm, r.source.substring(3), GmModules.name(r.ecu))
+        r.source.startsWith("22.") || r.source.startsWith("21.") ->
+            stringResource(R.string.help_src_ext, r.source.substring(0, 2), r.source.substring(3).substringBefore('.'), ecuName(r.ecu + 8))
         r.source.startsWith("calc.") -> stringResource(R.string.help_src_calc)
         r.source == "ATRV" -> stringResource(R.string.help_src_adapter)
         else -> r.source

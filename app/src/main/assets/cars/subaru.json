@@ -1,0 +1,502 @@
+{
+  "family": "subaru",
+  "title": "Subaru",
+  "brands": [
+    {
+      "name": "Subaru",
+      "wmi": [
+        "JF1",
+        "JF2",
+        "4S3",
+        "4S4"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Subaru",
+      "model": "Forester",
+      "gen": "SH",
+      "years": [
+        2007,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "EJ20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EJ25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EJ255",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EE20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "note": {
+        "ru": "Автомат 4EAT, вариатора нет (кроме некоторых японских версий).",
+        "en": "4-speed automatic (4EAT); no CVT on most markets."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Forester",
+        "https://www.klavkarr.com/compatible/subaru-foresteriii-sh-57000108",
+        "https://en.wikipedia.org/wiki/Subaru_EJ_engine",
+        "https://en.wikipedia.org/wiki/Subaru_FB_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Forester",
+      "gen": "SJ",
+      "years": [
+        2012,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FB25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FA20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EE20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "note": {
+        "ru": "Вариатор Lineartronic TR580 (2.0XT — TR690).",
+        "en": "Lineartronic CVT TR580 (2.0XT: TR690)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Forester",
+        "https://www.klavkarr.com/compatible/subaru-foresteriv-sj-57000110",
+        "https://en.wikipedia.org/wiki/Subaru_FA_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Forester",
+      "gen": "SK",
+      "years": [
+        2018,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "FB25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Forester",
+        "https://github.com/OBDb/Subaru-Forester/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Outback",
+      "gen": "BR",
+      "years": [
+        2009,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "EJ25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FB25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EZ36",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EE20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "note": {
+        "ru": "2.5 — вариатор Lineartronic TR690, 3.6 — 5-ступенчатый автомат.",
+        "en": "2.5: Lineartronic TR690 CVT, 3.6: 5-speed automatic."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Outback",
+        "https://www.klavkarr.com/compatible/subaru-outbackiii-bl/bp-57000129",
+        "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+        "https://en.wikipedia.org/wiki/Subaru_EZ_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Outback",
+      "gen": "BS",
+      "years": [
+        2014,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "FB25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EZ36",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Outback",
+        "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Impreza",
+      "gen": "GP/GJ",
+      "years": [
+        2011,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "FB16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Impreza",
+        "https://www.klavkarr.com/compatible/subaru-imprezaiv-gp/gj-57000115",
+        "https://en.wikipedia.org/wiki/Subaru_FB_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "XV",
+      "gen": "GP",
+      "years": [
+        2011,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "FB16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EE20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_XV",
+        "https://www.klavkarr.com/compatible/subaru-xvi-gp-57000143"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Impreza",
+      "gen": "GT/GK",
+      "years": [
+        2016,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "FB16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Impreza",
+        "https://github.com/OBDb/Subaru-Impreza/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "XV",
+      "gen": "GT",
+      "years": [
+        2017,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "FB16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "FB20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, КПП/вариатор 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, transmission/CVT 7E1/7E9."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Crosstrek",
+        "https://github.com/OBDb/Subaru-Crosstrek/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Legacy",
+      "gen": "BM/BR",
+      "years": [
+        2009,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "EJ20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EJ25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "FB25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "EZ36",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "note": {
+        "ru": "Платформа общая с Outback BR; протокол для Legacy отдельно не подтверждён.",
+        "en": "Shares the platform with Outback BR; protocol not confirmed for the Legacy itself."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Legacy_(fifth_generation)",
+        "https://en.wikipedia.org/wiki/Subaru_EJ_engine"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "1017",
+      "rate": "slow",
+      "models": [
+        "Forester",
+        "Outback",
+        "Impreza",
+        "XV",
+        "Legacy"
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_TEMP",
+          "name": {
+            "ru": "Температура масла вариатора",
+            "en": "CVT fluid temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "cvt_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -50,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.subaruoutback.org/threads/help-need-pid-equation-for-subaru-cvt-temp.258273/",
+            "https://www.subaruforester.org/threads/2015-need-pid-equation-for-cvtf-temp-check.479937/",
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Forums post the Torque line 221017 / 7E1 / ((A*9)/5)-58 in °F, which is A-50 in °C; OBDb Outback has A-50 from MY2010. Lineartronic cars only; 4EAT/5AT cars (Forester SH, 3.6) will not answer. One 2014 Forester owner got 7F 22 31 with an OBDLink LX (torque-bhp) - may be adapter related."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Вариатор Lineartronic (TR580/TR690): температура масла CVT",
+      "en": "Lineartronic CVT (TR580/TR690): CVT fluid temperature"
+    },
+    {
+      "ru": "С 2008 г. (Forester SH, Impreza GE/GH, Legacy/Outback BL/BP) — CAN 11 бит 500 кбит/с",
+      "en": "From 2008 (Forester SH, Impreza GE/GH, Legacy/Outback BL/BP): 11-bit CAN 500 kbit/s"
+    },
+    {
+      "ru": "Более ранние модели — K-line (ISO 9141 / KWP2000), только стандартный OBD-II",
+      "en": "Older cars are K-line (ISO 9141 / KWP2000), standard OBD-II only"
+    }
+  ]
+}

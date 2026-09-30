@@ -1,0 +1,2030 @@
+{
+  "family": "hyundai",
+  "title": "Hyundai / Kia / Genesis",
+  "brands": [
+    {
+      "name": "Hyundai",
+      "wmi": [
+        "KMH",
+        "KMF",
+        "KM8",
+        "Z94",
+        "X7M",
+        "5NP",
+        "5NM",
+        "MAL",
+        "NLH",
+        "TMA",
+        "TMC"
+      ]
+    },
+    {
+      "name": "Kia",
+      "wmi": [
+        "KNA",
+        "KNC",
+        "KND",
+        "KNE",
+        "XWE",
+        "U5Y",
+        "U6Y"
+      ]
+    },
+    {
+      "name": "Genesis",
+      "wmi": [
+        "KMT",
+        "KMU"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Hyundai",
+      "model": "Solaris",
+      "gen": "RB",
+      "years": [
+        2011,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "G4FA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FC",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "АКПП: 4-ступенчатая A4CF1, после рестайлинга 2014 — 6-ступенчатая A6GF1. Разъём OBD — слева под рулём над площадкой для ноги, за крышкой блока предохранителей (проверено на Solaris, поколение не записано).",
+        "en": "Automatic: 4-speed A4CF1, 6-speed A6GF1 after the 2014 facelift. OBD socket: left under the steering wheel above the footrest, behind the fuse-box cover (seen on a Solaris, generation not recorded)."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Hyundai_Solaris",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
+        "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Solaris",
+      "gen": "HC",
+      "years": [
+        2017,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "G4LC",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "АКПП 6-ступенчатая. Разъём OBD — слева под рулём за крышкой блока предохранителей (проверено на Solaris, поколение не записано).",
+        "en": "6-speed automatic. OBD socket: left under the steering wheel behind the fuse-box cover (seen on a Solaris, generation not recorded)."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Hyundai_Solaris",
+        "https://en.wikipedia.org/wiki/Hyundai_Kappa_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Creta",
+      "gen": "GS",
+      "years": [
+        2016,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Creta",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Creta",
+      "gen": "SU2",
+      "years": [
+        2021,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "Для России — те же двигатели 1.6 Gamma и 2.0 Nu.",
+        "en": "Russian market keeps the 1.6 Gamma and 2.0 Nu engines."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Creta"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Tucson / ix35",
+      "gen": "LM",
+      "years": [
+        2010,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "G4KD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D4HA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Tucson",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine",
+        "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Tucson / ix35",
+      "gen": "TL",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FJ",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D4HA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Tucson",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Tucson / ix35",
+      "gen": "NX4",
+      "years": [
+        2020,
+        2025
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Tucson"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Elantra",
+      "gen": "MD",
+      "years": [
+        2010,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4NB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Elantra",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine",
+        "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Elantra",
+      "gen": "AD",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Elantra",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Santa Fe",
+      "gen": "CM",
+      "years": [
+        2006,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "G4KE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "D4HB",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "note": {
+        "ru": "ScanGauge относит к CAN Santa Fe с 2007 г.; протокол ранних машин не проверен. Дизель D4HB — после рестайлинга 2009.",
+        "en": "ScanGauge lists Santa Fe 2007+ as CAN; early cars not checked. D4HB diesel after the 2009 facelift."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Santa_Fe",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine",
+        "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Santa Fe",
+      "gen": "DM",
+      "years": [
+        2012,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "G4KE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "D4HB",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Santa_Fe",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine",
+        "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Santa Fe",
+      "gen": "TM",
+      "years": [
+        2018,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "G4KJ",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D4HB",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Santa_Fe",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Ioniq Electric",
+      "gen": "AE",
+      "years": [
+        2016,
+        2022
+      ],
+      "engines": [
+        {
+          "fuel": "electric"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит. BMS (система управления батареей) 7E4/7EC, VMCU 7E2/7EA, приборная панель 7C6/7CE.",
+        "en": "CAN 500 kbit/s, 11-bit. BMS 7E4/7EC, VMCU 7E2/7EA, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "Батарея 28 кВт·ч (до 2019), затем 38 кВт·ч. BMS отвечает на $21 01…05 — проверено источниками для 28 кВт·ч.",
+        "en": "28 kWh battery (to 2019), then 38 kWh. BMS answers $21 01…05 — sources cover the 28 kWh car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Ioniq",
+        "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+        "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Hyundai",
+      "model": "Kona Electric",
+      "gen": "OS",
+      "years": [
+        2018,
+        2023
+      ],
+      "engines": [
+        {
+          "fuel": "electric"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит. BMS (система управления батареей) 7E4/7EC, VMCU 7E2/7EA, приборная панель 7C6/7CE.",
+        "en": "CAN 500 kbit/s, 11-bit. BMS 7E4/7EC, VMCU 7E2/7EA, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "BMS отвечает на $22 0101…0105.",
+        "en": "BMS answers $22 0101…0105."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Hyundai_Kona",
+        "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Rio",
+      "gen": "QB",
+      "years": [
+        2011,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "G4FA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FC",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "Российская версия — на платформе Solaris RB, АКПП A4CF1 / A6GF1.",
+        "en": "Russian version shares the Solaris RB platform, A4CF1 / A6GF1 automatics."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Rio",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Rio",
+      "gen": "FB",
+      "years": [
+        2017,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "G4LC",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Rio",
+        "https://en.wikipedia.org/wiki/Hyundai_Kappa_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Sportage",
+      "gen": "SL",
+      "years": [
+        2010,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "G4KD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "D4HA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Sportage",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Sportage",
+      "gen": "QL",
+      "years": [
+        2016,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FJ",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D4HA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Sportage",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Sportage",
+      "gen": "NQ5",
+      "years": [
+        2021,
+        2025
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Sportage"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Ceed",
+      "gen": "JD",
+      "years": [
+        2012,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "G4FA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4FD",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Ceed",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Ceed",
+      "gen": "CD",
+      "years": [
+        2018,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "G4FG",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Ceed",
+        "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Optima",
+      "gen": "TF",
+      "years": [
+        2010,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "G4KD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "G4KE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "G4KJ",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Optima",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Optima",
+      "gen": "JF",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "G4NA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4KJ",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "G4KH",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Optima",
+        "https://en.wikipedia.org/wiki/Hyundai_Nu_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "K5",
+      "gen": "DL3",
+      "years": [
+        2020,
+        2025
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_K5"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Sorento",
+      "gen": "XM",
+      "years": [
+        2009,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "G4KE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "D4HB",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Sorento",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Sorento",
+      "gen": "UM",
+      "years": [
+        2014,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "G4KE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "G4KJ",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D4HB",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Sorento",
+        "https://en.wikipedia.org/wiki/Hyundai_Theta_engine",
+        "https://en.wikipedia.org/wiki/Hyundai_R_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Sorento",
+      "gen": "MQ4",
+      "years": [
+        2020,
+        2025
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
+        "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Sorento"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Kia",
+      "model": "Niro EV",
+      "gen": "DE",
+      "years": [
+        2018,
+        2022
+      ],
+      "engines": [
+        {
+          "fuel": "electric"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит. BMS (система управления батареей) 7E4/7EC, VMCU 7E2/7EA, приборная панель 7C6/7CE.",
+        "en": "CAN 500 kbit/s, 11-bit. BMS 7E4/7EC, VMCU 7E2/7EA, instrument cluster 7C6/7CE."
+      },
+      "note": {
+        "ru": "BMS отвечает на $22 0101…0105 (та же раскладка, что у Kona Electric).",
+        "en": "BMS answers $22 0101…0105 (same layout as Kona Electric)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Kia_Niro",
+        "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+        "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E1",
+      "svc": "21",
+      "did": "A0",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "HKM_ATF_T",
+          "name": {
+            "ru": "Температура масла АКПП",
+            "en": "ATF temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 104,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/",
+            "https://www.hyundai-forums.com/threads/scan-tool-for-atf-temp.333489/",
+            "https://github.com/OBDb/Hyundai-Elantra/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Kia-Sportage/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "atf_temp",
+          "note": "ScanGauge 'Transmission Temperature Alternative': 07E1 21A0, RXF 0322 (2nd consecutive frame), RXD 2808 -> data byte 13 after 61 A0; MTH 9/5-40 degF = raw-40 degC. OBDb Elantra/Santa Fe/Sportage/Soul/Stinger: bix 104, -40. ScanGauge's main variant (RXF 0325, RXD 2008 -> data byte 33) is for other TCUs; not included."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "A0",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "HKM_ATF_T_ECU",
+          "name": {
+            "ru": "Температура масла АКПП (через ЭБУ)",
+            "en": "ATF temperature (via engine ECU)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 104,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/"
+          ],
+          "role": "atf_temp",
+          "note": "ScanGauge 'Transmission Temperature Alternative 3': 07E0 21A0, RXF 0322, RXD 2808, same scaling. For cars where the gearbox is run by the engine ECU; ScanGauge does not name the models."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "01",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "HKM_EOT_2101",
+          "name": {
+            "ru": "Температура масла двигателя",
+            "en": "Engine oil temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 272,
+            "len": 8,
+            "mul": 3,
+            "div": 4,
+            "add": -48,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.scangauge.com/x-gauge-commands/hyundai-kia-specific-cansf/",
+            "https://www.hyundai-forums.com/threads/scan-tool-for-atf-temp.333489/",
+            "https://github.com/OBDb/Hyundai-Elantra/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Hyundai-Santa-Fe/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "oil_temp",
+          "note": "ScanGauge 'Engine Oil Temperature': 07E0 2101, RXF 0325 (5th consecutive frame), RXD 2808 -> data byte 34; MTH 27/20-54 degF = 0.75*raw-48 degC. OBDb Elantra/Santa Fe (to 2018)/Sonata (to 2019): bix 272, *0.75-48."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "E001",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "HKM_EOT_E001",
+          "name": {
+            "ru": "Температура масла двигателя",
+            "en": "Engine oil temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 272,
+            "len": 8,
+            "mul": 3,
+            "div": 4,
+            "add": -48,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://n-cars.net/forums/threads/i-finally-found-the-oil-temperature-pid.8469/",
+            "https://github.com/OBDb/Hyundai-Kona/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Kia-Sportage/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "oil_temp",
+          "note": "n-cars.net: 22E001 on 7E0 is CVVT oil temp, Torque token AI (= data byte 34); the Elantra CN7 fitted curve there is ~0.75*AI-48 (e.g. AI=160 -> 72 degC). OBDb Kona/Forte/Seltos/Sportage/Stinger: bix 272, /1.3333-48."
+        }
+      ]
+    },
+    {
+      "hdr": "7C6",
+      "svc": "22",
+      "did": "B002",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "HKM_ODO",
+          "name": {
+            "ru": "Пробег (одометр)",
+            "en": "Odometer"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 48,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Elantra/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "odometer",
+          "note": "JejuSoul: 22b002 on 7c6, Int24(g:h:i) = data bytes 6..8. OVMS Niro EV: frame 1 CAN_UINT24(3) = the same bytes. OVMS reads Kona from bytes 9..11 instead (OBDb: that is the miles field) -- if the value looks wrong, the car may differ."
+        }
+      ]
+    },
+    {
+      "hdr": "7E4",
+      "svc": "21",
+      "did": "01",
+      "rate": "medium",
+      "models": [
+        "Ioniq Electric"
+      ],
+      "signals": [
+        {
+          "id": "HKM_IQ_SOC_BMS",
+          "name": {
+            "ru": "Заряд ВВБ (BMS)",
+            "en": "HV battery SOC (BMS)"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 32,
+            "len": 8,
+            "mul": 1,
+            "div": 2,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Raw BMS SOC; the SOC shown on the dash is in page 05."
+        },
+        {
+          "id": "HKM_IQ_I",
+          "name": {
+            "ru": "Ток ВВБ",
+            "en": "HV battery current"
+          },
+          "unit": "A",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 80,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_U",
+          "name": {
+            "ru": "Напряжение ВВБ",
+            "en": "HV battery voltage"
+          },
+          "unit": "V",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 96,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_TMAX",
+          "name": {
+            "ru": "Макс. температура ВВБ",
+            "en": "HV battery max temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 112,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_TMIN",
+          "name": {
+            "ru": "Мин. температура ВВБ",
+            "en": "HV battery min temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 120,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_TIN",
+          "name": {
+            "ru": "Температура на входе ВВБ",
+            "en": "HV battery inlet temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 176,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_CVMAX",
+          "name": {
+            "ru": "Макс. напряжение ячейки",
+            "en": "Max cell voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 184,
+            "len": 8,
+            "mul": 1,
+            "div": 50,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_CVMAX_N",
+          "name": {
+            "ru": "Ячейка с макс. напряжением",
+            "en": "Max cell voltage no."
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 192,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_CVMIN",
+          "name": {
+            "ru": "Мин. напряжение ячейки",
+            "en": "Min cell voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 200,
+            "len": 8,
+            "mul": 1,
+            "div": 50,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_CVMIN_N",
+          "name": {
+            "ru": "Ячейка с мин. напряжением",
+            "en": "Min cell voltage no."
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 208,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_AUXV",
+          "name": {
+            "ru": "Напряжение бортсети 12 В (по BMS)",
+            "en": "12 V voltage (BMS)"
+          },
+          "unit": "V",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 232,
+            "len": 8,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_OPTIME",
+          "name": {
+            "ru": "Время работы BMS",
+            "en": "BMS operating time"
+          },
+          "unit": "h",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 368,
+            "len": 32,
+            "mul": 1,
+            "div": 3600,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    },
+    {
+      "hdr": "7E4",
+      "svc": "21",
+      "did": "05",
+      "rate": "slow",
+      "models": [
+        "Ioniq Electric"
+      ],
+      "signals": [
+        {
+          "id": "HKM_IQ_SOC",
+          "name": {
+            "ru": "Заряд ВВБ",
+            "en": "HV battery SOC"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 248,
+            "len": 8,
+            "mul": 1,
+            "div": 2,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "hv_soc",
+          "note": "SOC as shown on the dash."
+        },
+        {
+          "id": "HKM_IQ_SOH",
+          "name": {
+            "ru": "Состояние ВВБ (SOH)",
+            "en": "HV battery health (SOH)"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 200,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "hv_soh"
+        },
+        {
+          "id": "HKM_IQ_CVDEV",
+          "name": {
+            "ru": "Разброс напряжений ячеек",
+            "en": "Cell voltage deviation"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 160,
+            "len": 8,
+            "mul": 1,
+            "div": 50,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_IQ_HTR1",
+          "name": {
+            "ru": "Температура подогревателя ВВБ",
+            "en": "HV battery heater temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 184,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Ioniq%20EV%20-%2028kWh/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_hyundai_ioniqvfl/src/vehicle_hyundai_ioniqvfl.cpp",
+            "https://github.com/OBDb/Hyundai-IONIQ-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    },
+    {
+      "hdr": "7E4",
+      "svc": "22",
+      "did": "0101",
+      "rate": "medium",
+      "models": [
+        "Kona Electric",
+        "Niro EV"
+      ],
+      "signals": [
+        {
+          "id": "HKM_KN_SOC_BMS",
+          "name": {
+            "ru": "Заряд ВВБ (BMS)",
+            "en": "HV battery SOC (BMS)"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 32,
+            "len": 8,
+            "mul": 1,
+            "div": 2,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Raw BMS SOC; the SOC shown on the dash is in page 05."
+        },
+        {
+          "id": "HKM_KN_I",
+          "name": {
+            "ru": "Ток ВВБ",
+            "en": "HV battery current"
+          },
+          "unit": "A",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 80,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_U",
+          "name": {
+            "ru": "Напряжение ВВБ",
+            "en": "HV battery voltage"
+          },
+          "unit": "V",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 96,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_TMAX",
+          "name": {
+            "ru": "Макс. температура ВВБ",
+            "en": "HV battery max temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 112,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_TMIN",
+          "name": {
+            "ru": "Мин. температура ВВБ",
+            "en": "HV battery min temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 120,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_TIN",
+          "name": {
+            "ru": "Температура на входе ВВБ",
+            "en": "HV battery inlet temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 176,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_CVMAX",
+          "name": {
+            "ru": "Макс. напряжение ячейки",
+            "en": "Max cell voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 184,
+            "len": 8,
+            "mul": 1,
+            "div": 50,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_CVMAX_N",
+          "name": {
+            "ru": "Ячейка с макс. напряжением",
+            "en": "Max cell voltage no."
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 192,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_CVMIN",
+          "name": {
+            "ru": "Мин. напряжение ячейки",
+            "en": "Min cell voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 200,
+            "len": 8,
+            "mul": 1,
+            "div": 50,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_CVMIN_N",
+          "name": {
+            "ru": "Ячейка с мин. напряжением",
+            "en": "Min cell voltage no."
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 208,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_AUXV",
+          "name": {
+            "ru": "Напряжение бортсети 12 В (по BMS)",
+            "en": "12 V voltage (BMS)"
+          },
+          "unit": "V",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 232,
+            "len": 8,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_OPTIME",
+          "name": {
+            "ru": "Время работы BMS",
+            "en": "BMS operating time"
+          },
+          "unit": "h",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 368,
+            "len": 32,
+            "mul": 1,
+            "div": 3600,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    },
+    {
+      "hdr": "7E4",
+      "svc": "22",
+      "did": "0105",
+      "rate": "slow",
+      "models": [
+        "Kona Electric",
+        "Niro EV"
+      ],
+      "signals": [
+        {
+          "id": "HKM_KN_SOC",
+          "name": {
+            "ru": "Заряд ВВБ",
+            "en": "HV battery SOC"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 248,
+            "len": 8,
+            "mul": 1,
+            "div": 2,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "hv_soc",
+          "note": "SOC as shown on the dash."
+        },
+        {
+          "id": "HKM_KN_SOH",
+          "name": {
+            "ru": "Состояние ВВБ (SOH)",
+            "en": "HV battery health (SOH)"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 200,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "hv_soh"
+        },
+        {
+          "id": "HKM_KN_CVDEV",
+          "name": {
+            "ru": "Разброс напряжений ячеек",
+            "en": "Cell voltage deviation"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 160,
+            "len": 8,
+            "mul": 1,
+            "div": 50,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "HKM_KN_HTR1",
+          "name": {
+            "ru": "Температура подогревателя ВВБ",
+            "en": "HV battery heater temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 184,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp",
+            "https://github.com/OBDb/Hyundai-Kona-Electric/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "21",
+      "did": "02",
+      "rate": "slow",
+      "models": [
+        "Kona Electric",
+        "Niro EV"
+      ],
+      "signals": [
+        {
+          "id": "HKM_KN_AUX_SOC",
+          "name": {
+            "ru": "Заряд АКБ 12 В",
+            "en": "12 V battery SOC"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 184,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs/tree/master/Hyundai%20Kona%20EV%20%26%20Kia%20Niro%20EV/extendedpids",
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_kianiroev/src/kn_can_poll.cpp"
+          ],
+          "role": "battery_soc",
+          "note": "JejuSoul: 2102 on 7E2, token X (= data byte 23). OVMS Niro: VMCU $21 02 frame 3 CAN_BYTE(5) = the same byte."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Температура масла АКПП из блока коробки (7E1, $21 A0)",
+      "en": "ATF temperature from the gearbox ECU (7E1, $21 A0)"
+    },
+    {
+      "ru": "Температура масла двигателя из ЭБУ ($21 01 или $22 E001)",
+      "en": "Engine oil temperature from the ECU ($21 01 or $22 E001)"
+    },
+    {
+      "ru": "Пробег с приборной панели (7C6)",
+      "en": "Odometer from the instrument cluster (7C6)"
+    },
+    {
+      "ru": "Ioniq / Kona / Niro EV: заряд и SOH батареи, ток, напряжение, температуры, крайние ячейки (BMS 7E4)",
+      "en": "Ioniq / Kona / Niro EV: battery SOC and SOH, current, voltage, temperatures, min/max cells (BMS 7E4)"
+    },
+    {
+      "ru": "Kona / Niro EV: заряд 12-вольтовой АКБ (7E2)",
+      "en": "Kona / Niro EV: 12 V battery charge (7E2)"
+    }
+  ]
+}

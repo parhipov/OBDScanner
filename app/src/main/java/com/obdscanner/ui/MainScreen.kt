@@ -46,12 +46,20 @@ private val SECTIONS = listOf(
         "01.0B" to "MAP",
         "01.0F" to tr("Воздух на впуске", "Intake air"),
         "01.1F" to tr("С момента пуска", "Run time"),
+        "role:boost" to tr("Наддув", "Boost"),
+        "role:knock_retard" to tr("Откат по детонации", "Knock retard"),
     )),
     Section(tr("Масло", "Oil"), Color(0xFFFFC857), Color(0xFF2E2614), listOf(
         "01.5C" to tr("Масло двигателя", "Engine oil"),
         "22.1154" to tr("Масло двигателя", "Engine oil"),
         "22.1470" to tr("Давление масла", "Oil pressure"),
         "22.119F" to tr("Ресурс масла", "Oil life"),
+        "role:oil_temp" to tr("Масло двигателя", "Engine oil"),
+        "role:oil_pressure" to tr("Давление масла", "Oil pressure"),
+        "role:oil_life" to tr("Ресурс масла", "Oil life"),
+        "role:oil_level" to tr("Уровень масла", "Oil level"),
+        "role:service_km" to tr("До ТО, км", "Service in, km"),
+        "role:service_days" to tr("До ТО, дней", "Service in, days"),
     )),
     Section(tr("АКПП", "Transmission"), Color(0xFFB39DFF), Color(0xFF271D38), listOf(
         "22.1940" to tr("Масло АКПП", "Trans fluid"),
@@ -60,6 +68,14 @@ private val SECTIONS = listOf(
         "22.1991" to tr("Проскальз. ГТ", "TC slip"),
         "22.1941" to tr("Входной вал", "Input shaft"),
         "22.1942" to tr("Выходной вал", "Output shaft"),
+        "role:atf_temp" to tr("Масло АКПП", "Trans fluid"),
+        "role:cvt_temp" to tr("Масло вариатора", "CVT fluid"),
+        "role:clutch_temp" to tr("Сцепление", "Clutch"),
+        "role:cvt_wear" to tr("Износ масла CVT", "CVT fluid wear"),
+        "role:gear" to tr("Передача", "Gear"),
+        "role:tc_slip" to tr("Проскальз. ГТ", "TC slip"),
+        "role:input_rpm" to tr("Входной вал", "Input shaft"),
+        "role:output_rpm" to tr("Выходной вал", "Output shaft"),
     )),
     Section(tr("Топливо", "Fuel"), Color(0xFF6FD58E), Color(0xFF16291E), listOf(
         "01.2F" to tr("Топливо в баке", "Fuel level"),
@@ -67,12 +83,19 @@ private val SECTIONS = listOf(
         "calc.lph" to tr("Расход, л/ч", "Fuel rate, L/h"),
         "calc.trim1" to tr("Коррекция Б1", "Fuel trim B1"),
         "calc.trim2" to tr("Коррекция Б2", "Fuel trim B2"),
+        "role:fuel_level_l" to tr("Топливо в баке, л", "Fuel level, L"),
+        "role:dpf_soot" to tr("Сажа в DPF", "DPF soot"),
     )),
     Section(tr("Электрика и среда", "Electrical & ambient"), Color(0xFF5ED1D9), Color(0xFF14282C), listOf(
         "01.42" to tr("Бортсеть (ЭБУ)", "Voltage (ECU)"),
         "000:ATRV" to tr("Бортсеть (адаптер)", "Voltage (adapter)"),
         "01.46" to tr("За бортом", "Ambient"),
         "01.33" to tr("Атм. давление", "Baro pressure"),
+        "role:battery_soc" to tr("Заряд АКБ", "Battery charge"),
+        "role:battery_temp" to tr("Температура АКБ", "Battery temp"),
+        "role:hv_soc" to tr("Заряд ВВ батареи", "HV battery charge"),
+        "role:hv_soh" to tr("Здоровье ВВ батареи", "HV battery health"),
+        "role:odometer" to tr("Пробег", "Odometer"),
     )),
 )
 
@@ -87,11 +110,16 @@ fun MainScreen(r: Map<String, Reading>, v: VehicleInfo) {
     // Before the first value arrives (no connection yet) show every card empty, so the help can be read offline.
     val offline = r.isEmpty()
     val sections = SECTIONS.map { s ->
-        s to if (offline) s.items.distinctBy { it.second }.map { (k, label) -> label to placeholder(k, label) }
+        s to if (offline) s.items.filter { !it.first.startsWith(ROLE) }.distinctBy { it.second }.map { (k, label) -> label to placeholder(k, label) }
         else s.items.mapNotNull { (k, label) ->
-            val reading = if (k.contains(':')) r[k] else r.pick(k)
+            val reading = when {
+                // Manufacturer parameter of any make; GM ones are also listed by their DID above.
+                k.startsWith(ROLE) -> k.removePrefix(ROLE).let { role -> r.values.filter { it.role == role }.minByOrNull { it.key } }
+                k.contains(':') -> r[k]
+                else -> r.pick(k)
+            }
             reading?.let { label to it }
-        }
+        }.distinctBy { it.second.key }
     }.filter { it.second.isNotEmpty() }
     LazyVerticalGrid(
         columns = GridCells.Adaptive(165.dp),
@@ -133,6 +161,8 @@ private fun SectionHeader(s: Section) {
         Text(s.title, style = MaterialTheme.typography.titleMedium, color = s.accent, modifier = Modifier.padding(start = 8.dp))
     }
 }
+
+private const val ROLE = "role:"
 
 private val U_RPM = tr("об/мин", "rpm")
 private val U_KPA = tr("кПа", "kPa")
@@ -189,11 +219,11 @@ private fun placeholder(key: String, label: String): Reading {
         sample?.second ?: "", sample?.third ?: 1)
 }
 
-private fun tileColor(reading: Reading): Color? = when (reading.source) {
-    "calc.trim1", "calc.trim2" -> trimColor(reading.value)
-    "01.05" -> reading.value?.let { if (it > 105) Bad else if (it < 70) Warn else null }
-    "22.1940" -> reading.value?.let { if (it > 110) Bad else if (it > 95) Warn else null }
-    "22.1154" -> reading.value?.let { if (it > 135) Bad else if (it > 120) Warn else null }
-    "22.119F" -> reading.value?.let { if (it < 10) Bad else if (it < 25) Warn else null }
+private fun tileColor(reading: Reading): Color? = when {
+    reading.source == "calc.trim1" || reading.source == "calc.trim2" -> trimColor(reading.value)
+    reading.source == "01.05" -> reading.value?.let { if (it > 105) Bad else if (it < 70) Warn else null }
+    reading.source == "22.1940" || reading.role == "atf_temp" -> reading.value?.let { if (it > 110) Bad else if (it > 95) Warn else null }
+    reading.source == "22.1154" || reading.role == "oil_temp" -> reading.value?.let { if (it > 135) Bad else if (it > 120) Warn else null }
+    reading.source == "22.119F" || reading.role == "oil_life" -> reading.value?.let { if (it < 10) Bad else if (it < 25) Warn else null }
     else -> null
 }

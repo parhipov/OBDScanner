@@ -19,12 +19,39 @@ class Obd(val elm: Elm327) {
 
     suspend fun at(cmd: String, timeoutMs: Long = 1500) = elm.send(cmd, timeoutMs)
 
+    /**
+     * Brings the adapter back after it reset itself ([ElmReply.adapterReset]): format settings, timing and
+     * the known protocol — set by the owner, it knows them. Routing is restored here afterwards.
+     */
+    var onAdapterReset: (suspend () -> Unit)? = null
+    private var recovering = false
+    /** Physical target of the last [target] call, null = broadcast. */
+    private var lastTarget: Pair<Int, Int>? = null
+
     suspend fun request(hex: String, timeoutMs: Long = 1500, expectOne: Boolean = false): CanReply {
         val cmd = if (expectOne && countDigit) hex + "1" else hex
-        val first = CanParser.parse(elm.send(cmd, timeoutMs), headerChars)
+        var raw = elm.send(cmd, timeoutMs)
+        if (raw.adapterReset && !recovering) {
+            recover()
+            raw = elm.send(cmd, timeoutMs)
+        }
+        val first = CanParser.parse(raw, headerChars)
         if (!first.garbled) return first
         val second = CanParser.parse(elm.send(cmd, timeoutMs), headerChars)
         return if (second.garbled && second.messages.size < first.messages.size) first else second
+    }
+
+    private suspend fun recover() {
+        val hook = onAdapterReset ?: return
+        recovering = true
+        try {
+            val target = lastTarget
+            hook()
+            resetState()
+            if (target != null && !kline) target(target.first, target.second) else broadcast()
+        } finally {
+            recovering = false
+        }
     }
 
     /** Header/filter/flow-control are non-default (needed only for GM USDT 0x24x → 0x64x). */
@@ -34,6 +61,7 @@ class Obd(val elm: Elm327) {
     suspend fun target(req: Int, resp: Int) {
         // ATSH with a CAN id would replace the K-line header (68 6A F1) and break every later request.
         check(!kline) { tr("адресация блоков есть только на CAN", "module addressing is CAN only") }
+        lastTarget = req to resp
         if (req in 0x7E0..0x7E7 && resp == req + 8) {
             // Standard OBD ids: the default receive filter and automatic flow control already fit.
             if (customRouting) resetRouting()
@@ -76,6 +104,7 @@ class Obd(val elm: Elm327) {
 
     /** Back to functional OBD broadcast (7DF, all ECUs answer). */
     suspend fun broadcast() {
+        lastTarget = null
         if (kline) return
         if (customRouting) resetRouting()
         if (currentHeader == 0x7DF) return

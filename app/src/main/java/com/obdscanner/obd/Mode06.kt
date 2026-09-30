@@ -66,6 +66,9 @@ object Mode06 {
         0x8A to Scaling(0.000122, tr("В", "V"), signed = true), 0x8B to Scaling(0.001, tr("В", "V"), signed = true),
         0x8C to Scaling(0.01, tr("В", "V"), signed = true), 0x8D to Scaling(0.00390625, tr("мА", "mA"), signed = true),
         0x8E to Scaling(0.001, tr("А", "A"), signed = true), 0x90 to Scaling(1.0, tr("мс", "ms"), signed = true),
+        0x87 to Scaling(1.0, "ppm", signed = true), 0x99 to Scaling(0.1, tr("кПа", "kPa"), signed = true),
+        0xAD to Scaling(0.01, tr("мг/такт", "mg/stroke"), signed = true), 0xAE to Scaling(0.1, tr("мг/такт", "mg/stroke"), signed = true),
+        0xFC to Scaling(0.01, tr("кПа", "kPa"), signed = true),
         0x96 to Scaling(0.1, "°C", signed = true), 0x9C to Scaling(0.01, "°", signed = true),
         0x9D to Scaling(0.5, "°", signed = true), 0xA8 to Scaling(1.0, tr("г/с", "g/s"), signed = true),
         0xA9 to Scaling(0.25, tr("Па/с", "Pa/s"), signed = true), 0xAF to Scaling(0.01, "%", signed = true),
@@ -73,7 +76,8 @@ object Mode06 {
         0xFD to Scaling(0.001, tr("кПа", "kPa"), signed = true), 0xFE to Scaling(0.25, tr("Па", "Pa"), signed = true),
     )
 
-    fun scaling(uasid: Int) = UAS[uasid] ?: Scaling(1.0, "raw")
+    /** Unknown IDs: raw counts — signed for 0x80 and up (J1979: the signed half of the table), or pass/fail breaks on negatives. */
+    fun scaling(uasid: Int) = UAS[uasid] ?: Scaling(1.0, "raw", signed = uasid >= 0x80)
 
     fun midName(mid: Int): String = when (mid) {
         in 0x01..0x10 -> tr("Датчик O2 ", "O2 sensor ") + sensor(mid - 1)
@@ -83,8 +87,12 @@ object Mode06 {
         0x24 -> tr("Катализатор Б4", "Catalyst B4")
         0x31 -> tr("EGR Б1", "EGR B1")
         0x32 -> tr("EGR Б2", "EGR B2")
+        0x33 -> tr("EGR Б3", "EGR B3")
+        0x34 -> tr("EGR Б4", "EGR B4")
         0x35 -> tr("VVT Б1", "VVT B1")
         0x36 -> tr("VVT Б2", "VVT B2")
+        0x37 -> tr("VVT Б3", "VVT B3")
+        0x38 -> tr("VVT Б4", "VVT B4")
         0x39 -> tr("EVAP (утечка 0.150\")", "EVAP (0.150\" leak)")
         0x3A -> tr("EVAP (утечка 0.090\")", "EVAP (0.090\" leak)")
         0x3B -> tr("EVAP (утечка 0.040\")", "EVAP (0.040\" leak)")
@@ -93,12 +101,22 @@ object Mode06 {
         in 0x41..0x50 -> tr("Подогрев O2 ", "O2 heater ") + sensor(mid - 0x41)
         0x61 -> tr("Подогрев катализатора Б1", "Catalyst heater B1")
         0x62 -> tr("Подогрев катализатора Б2", "Catalyst heater B2")
+        0x63 -> tr("Подогрев катализатора Б3", "Catalyst heater B3")
+        0x64 -> tr("Подогрев катализатора Б4", "Catalyst heater B4")
         0x71 -> tr("Вторичный воздух 1", "Secondary air 1")
         0x72 -> tr("Вторичный воздух 2", "Secondary air 2")
+        0x73 -> tr("Вторичный воздух 3", "Secondary air 3")
+        0x74 -> tr("Вторичный воздух 4", "Secondary air 4")
         0x81 -> tr("Топливная система Б1", "Fuel system B1")
         0x82 -> tr("Топливная система Б2", "Fuel system B2")
         0x83 -> tr("Топливная система Б3", "Fuel system B3")
         0x84 -> tr("Топливная система Б4", "Fuel system B4")
+        0x85 -> tr("Давление наддува Б1", "Boost pressure control B1")
+        0x86 -> tr("Давление наддува Б2", "Boost pressure control B2")
+        0x90 -> tr("Накопитель NOx Б1", "NOx absorber B1")
+        0x91 -> tr("Накопитель NOx Б2", "NOx absorber B2")
+        0x98 -> tr("Катализатор NOx/SCR Б1", "NOx/SCR catalyst B1")
+        0x99 -> tr("Катализатор NOx/SCR Б2", "NOx/SCR catalyst B2")
         0xA1 -> tr("Пропуски зажигания (общее)", "Misfire (general)")
         in 0xA2..0xAD -> tr("Пропуски, цилиндр ${mid - 0xA1}", "Misfire, cylinder ${mid - 0xA1}")
         0xB0, 0xB1 -> tr("Сажевый фильтр", "Particulate filter")

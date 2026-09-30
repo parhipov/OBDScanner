@@ -1,0 +1,929 @@
+{
+  "family": "ford",
+  "title": "Ford",
+  "brands": [
+    {
+      "name": "Ford",
+      "wmi": [
+        "WF0",
+        "X9F",
+        "Z6F",
+        "VS6",
+        "SFA",
+        "NM0",
+        "MAJ",
+        "Y4F",
+        "1FA",
+        "1FB",
+        "1FD",
+        "1FM",
+        "1FT",
+        "2FA",
+        "2FM",
+        "2FT",
+        "3FA",
+        "3FM",
+        "3FT"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Ford",
+      "model": "Focus",
+      "gen": "II (C307)",
+      "years": [
+        2004,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "Duratec 1.4 (Sigma)",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 1.6 (Sigma)",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 1.6 Ti-VCT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec HE 1.8",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec HE 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 1.6 TDCi",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 1.8 TDCi",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 2.0 TDCi",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева под рулём, в маленькой нише. Автомат — 4-ступенчатый 4F27E.",
+        "en": "Socket left under the steering wheel, in a small cubby. The automatic is the 4-speed 4F27E."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Focus_(second_generation)",
+        "https://en.wikipedia.org/wiki/Ford_Sigma_engine",
+        "https://carwiki.de/?p=205197",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Focus",
+      "gen": "III (C346)",
+      "years": [
+        2011,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "Duratec 1.6 Ti-VCT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 2.0 GDI",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 1.5",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 1.6",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 2.0 (ST)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 1.6 TDCi",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 2.0 TDCi",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева под рулём, за крышкой с надписью OBD. Автомат — робот PowerShift DPS6 (6DCT250, сухие сцепления) с отдельным блоком TCM.",
+        "en": "Socket left under the steering wheel, behind a cover marked OBD. The automatic is the PowerShift DPS6 (6DCT250, dry clutches) with its own TCM."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Focus_(third_generation)",
+        "https://en.wikipedia.org/wiki/Ford_PowerShift_transmission",
+        "https://carwiki.de/?p=205197",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Mondeo",
+      "gen": "IV",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "Duratec 1.6 Ti-VCT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec HE 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec HE 2.3",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 2.5 T",
+          "liters": 2.5,
+          "cyl": 5,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 1.8 TDCi",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 2.0 TDCi",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 2.2 TDCi",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева под рулём: открыть карман слева от руля и снять крышку. С 2.3 ставился 6-ступенчатый автомат Aisin AW F21, с EcoBoost 2.0 и дизелями — PowerShift с мокрыми сцеплениями.",
+        "en": "Socket left under the steering wheel: open the cubby left of the wheel and remove the cover. The 2.3 came with the 6-speed Aisin AW F21 automatic; EcoBoost 2.0 and diesels with the wet-clutch PowerShift."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Mondeo_(fourth_generation)",
+        "https://en.wikipedia.org/wiki/Ford_PowerShift_transmission",
+        "https://carwiki.de/obd-stecker-ford-mondeo",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Mondeo",
+      "gen": "V (CD391)",
+      "years": [
+        2014,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "Duratec 2.5 iVCT",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 1.5",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 2.0 TDCi",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева от педалей, над рычагом открывания капота, за небольшой пластиковой крышкой.",
+        "en": "Socket left of the pedals, above the hood release lever, behind a small plastic cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Mondeo_(fifth_generation)",
+        "https://carwiki.de/obd-stecker-ford-mondeo",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Kuga",
+      "gen": "I (C394)",
+      "years": [
+        2008,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "Duratec 2.5 T",
+          "liters": 2.5,
+          "cyl": 5,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 2.0 TDCi",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём прямо над педалями, без крышки. С 2.0 TDCi с 2010 г. ставился PowerShift.",
+        "en": "Socket right above the pedals, no cover. The 2.0 TDCi got the PowerShift from 2010."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Kuga",
+        "https://en.wikipedia.org/wiki/Ford_PowerShift_transmission",
+        "https://carwiki.de/obd-stecker-ford-kuga",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Kuga",
+      "gen": "II (C520)",
+      "years": [
+        2012,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "EcoBoost 1.5",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 1.6",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 2.5 iVCT",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 2.0 TDCi",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева под рулём за пластиковой крышкой (после рестайлинга — под блоком переключателя света). Автомат — 6-ступенчатый гидромеханический 6F35.",
+        "en": "Socket left under the steering wheel behind a plastic cover (facelift: below the light switch). The automatic is the 6-speed 6F35 torque-converter unit."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Kuga",
+        "https://carwiki.de/obd-stecker-ford-kuga",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Fiesta",
+      "gen": "Mk7 (VI)",
+      "years": [
+        2008,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "Duratec 1.4 (Sigma)",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 1.6 Ti-VCT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 1.0",
+          "liters": 1.0,
+          "cyl": 3,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratorq 1.4 TDCi",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 1.6 TDCi",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева под рулём, ближе к двери, за пластиковой крышкой под блоком света. Автомат — PowerShift DPS6 (сухие сцепления); российский седан 2015–2019 — с 1.6 Ti-VCT.",
+        "en": "Socket left under the steering wheel towards the door, behind a plastic cover below the light panel. The automatic is the PowerShift DPS6 (dry clutches); the Russian sedan 2015–2019 has the 1.6 Ti-VCT."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Fiesta_(sixth_generation)",
+        "https://en.wikipedia.org/wiki/Ford_PowerShift_transmission",
+        "https://carwiki.de/obd-stecker-ford-fiesta",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "EcoSport",
+      "gen": "II (B515)",
+      "years": [
+        2013,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "Duratec 1.6 Ti-VCT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Duratec 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Dragon 1.5 Ti-VCT",
+          "liters": 1.5,
+          "cyl": 3,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева внизу под рулём, за маленькой откидной нишей. До 2017 г. автомат — PowerShift DPS6, с 2018 г. — обычный 6-ступенчатый гидромеханический.",
+        "en": "Socket low left under the steering wheel, behind a small flip-down cubby. Up to 2017 the automatic is the PowerShift DPS6, from 2018 a conventional 6-speed torque-converter unit."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_EcoSport",
+        "https://en.wikipedia.org/wiki/Ford_PowerShift_transmission",
+        "https://carwiki.de/obd-stecker-ford-ecosport",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Explorer",
+      "gen": "V (U502)",
+      "years": [
+        2010,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "Duratec 3.5 Ti-VCT V6",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 3.5 V6",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "EcoBoost 2.3",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева над педалями, прямо над площадкой для левой ноги. В России — в основном 3.5 V6.",
+        "en": "Socket upper left of the pedals, right above the footrest. Russian cars are mostly the 3.5 V6."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Explorer",
+        "https://carwiki.de/obd-stecker-ford-explorer",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Transit",
+      "gen": "Mk7",
+      "years": [
+        2006,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "Duratorq 2.2 TDCi",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Duratorq 2.4 TDCi",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём под рулём за крышкой: отщёлкнуть четыре угла крышки и снять её.",
+        "en": "Socket under the steering wheel behind a cover: release its four corners and remove it."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Transit",
+        "https://carwiki.de/obd-stecker-ford-transit",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Ford",
+      "model": "Transit",
+      "gen": "Mk8",
+      "years": [
+        2014,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "Duratorq 2.2 TDCi",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "EcoBlue 2.0",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём под рулём за небольшой пластиковой крышкой.",
+        "en": "Socket under the steering wheel behind a small plastic cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Ford_Transit",
+        "https://carwiki.de/obd-stecker-ford-transit",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "054B",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "FORD_OIL_LIFE",
+          "name": {
+            "ru": "Ресурс масла",
+            "en": "Oil life remaining"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "main",
+          "role": "oil_life",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.f150gen14.com/forum/threads/pid-experimenting.20273/post-391707",
+            "https://github.com/OBDb/Ford-Focus"
+          ],
+          "note": "Torque custom PID 22054B, equation A; an F-150 owner says it matches the cluster. OBDb Ford-Focus/Escape: same. Only PCMs with the Intelligent Oil Life Monitor answer (mostly NA calibrations)."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1E1C",
+      "rate": "medium",
+      "signals": [
+        {
+          "id": "FORD_ATF_T",
+          "name": {
+            "ru": "Температура масла АКПП",
+            "en": "Transmission fluid temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "atf_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 16,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.ranger5g.com/forum/threads/how-do-i-check-my-tranmission-fluid-temp.36159/post-781598",
+            "https://www.ranger5g.com/forum/goto/post?id=781709",
+            "https://github.com/OBDb/Ford-Explorer",
+            "https://github.com/OBDb/Ford-Focus"
+          ],
+          "note": "Torque built-in '[FORD]Transmission Temp' = 221E1C; custom-PID form (((signed(A)*256)+B)*(9/8)+320)/10 °F = raw/16 °C. OBDb Explorer: 7E0, signed /16 °C. Answers where the PCM runs the gearbox (6F35/6F50)."
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "svc": "22",
+      "did": "1E1C",
+      "rate": "medium",
+      "models": [
+        "Focus",
+        "Fiesta",
+        "EcoSport",
+        "Mondeo",
+        "Kuga"
+      ],
+      "signals": [
+        {
+          "id": "FORD_ATF_T_TCM",
+          "name": {
+            "ru": "Температура масла КПП (блок TCM)",
+            "en": "Transmission fluid temp (TCM)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "atf_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 16,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "?",
+          "src": [
+            "https://www.ranger5g.com/forum/goto/post?id=781709",
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://github.com/OBDb/Ford-Focus"
+          ],
+          "note": "Same DID/scaling asked from a separate TCM at 7E1 (PowerShift DPS6, Aisin AW F21). 7E1 221E1C is confirmed on Ford-derived Mazda TCMs; for Ford Focus/Fiesta no public source confirms the 7E1 address."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1310",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "FORD_EOT",
+          "name": {
+            "ru": "Температура масла двигателя",
+            "en": "Engine oil temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "oil_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Ford-Focus",
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv"
+          ],
+          "note": "OBDb Ford-Focus 221310 = (A*256+B)/100-40; same DID/formula in the mazdas247 Skyactiv list (Ford-style PCM). No Ford-owner confirmation found."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "0415",
+      "rate": "medium",
+      "signals": [
+        {
+          "id": "FORD_EOP",
+          "name": {
+            "ru": "Давление масла",
+            "en": "Engine oil pressure"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "main",
+          "role": "oil_pressure",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.f150gen14.com/forum/threads/pid-experimenting.20273/post-391707",
+            "https://github.com/OBDb/Ford-Focus"
+          ],
+          "note": "Torque 220415 = ((A*256)+B)*0.145 psi, i.e. raw kPa; OBDb Ford-Focus: signed kPa. Only engines with an oil pressure sensor."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "DD01",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "FORD_ODO",
+          "name": {
+            "ru": "Пробег (одометр)",
+            "en": "Odometer"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "role": "odometer",
+          "fmt": {
+            "bix": 0,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Ford-Focus",
+            "https://github.com/OBDb/Ford-Explorer",
+            "https://mazdas247.com/forum/goto/post?id=6820243"
+          ],
+          "note": "OBDb Ford-Focus/Explorer/Fusion: 7E0 22DD01, 24-bit km; the mazdas247 Skyactiv list has the same DID/formula."
+        }
+      ]
+    },
+    {
+      "hdr": "726",
+      "svc": "22",
+      "did": "4028",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "FORD_BATT_SOC",
+          "name": {
+            "ru": "Заряд АКБ (датчик BMS)",
+            "en": "Battery state of charge"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "main",
+          "role": "battery_soc",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Ford-Focus",
+            "https://mazdas247.com/forum/goto/post?id=6820243"
+          ],
+          "note": "BCM battery monitoring sensor (cars with start/stop or smart charging). OBDb Ford-Focus 726 224028 = A %; the Skyactiv list has the same at 726."
+        }
+      ]
+    },
+    {
+      "hdr": "726",
+      "svc": "22",
+      "did": "4029",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "FORD_BATT_T",
+          "name": {
+            "ru": "Температура АКБ",
+            "en": "Battery temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "role": "battery_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Ford-Focus",
+            "https://mazdas247.com/forum/goto/post?id=6820243"
+          ],
+          "note": "OBDb Ford-Focus 726 224029 = A-40; the Skyactiv list has the same at 726."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Температура масла АКПП: 6F35/6F50 — через блок двигателя, PowerShift и Aisin — через блок TCM",
+      "en": "Transmission fluid temperature: 6F35/6F50 via the engine ECU, PowerShift and Aisin via the TCM"
+    },
+    {
+      "ru": "Остаточный ресурс масла, давление и температура масла двигателя",
+      "en": "Oil life remaining, engine oil pressure and temperature"
+    },
+    {
+      "ru": "Пробег по одометру из блока управления",
+      "en": "Odometer reading from the control module"
+    },
+    {
+      "ru": "Заряд и температура АКБ по датчику BMS (блок 726)",
+      "en": "Battery charge and temperature from the BMS sensor (module 726)"
+    },
+    {
+      "ru": "Только HS-CAN (контакты 6/14): блоки на MS-CAN обычному ELM327 недоступны",
+      "en": "HS-CAN only (pins 6/14): MS-CAN modules are out of reach for a stock ELM327"
+    }
+  ]
+}

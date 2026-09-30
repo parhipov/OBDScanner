@@ -75,6 +75,7 @@ private fun AppRoot(m: ObdManager) {
     val scan by m.scan.collectAsStateWithLifecycle()
     val busy by m.busy.collectAsStateWithLifecycle()
     val bus by m.bus.collectAsStateWithLifecycle()
+    val picked by m.picked.collectAsStateWithLifecycle()
     var tab by rememberSaveable { mutableStateOf(Tab.Connect) }
 
     LaunchedEffect(tab) { m.activeTab.value = tab }
@@ -114,8 +115,8 @@ private fun AppRoot(m: ObdManager) {
                 }
             }
             when (tab) {
-                Tab.Connect -> ConnectScreen(m, conn)
-                Tab.Guide -> GuideScreen(vehicle.make)
+                Tab.Connect -> ConnectScreen(m, conn, vehicle, picked)
+                Tab.Guide -> GuideScreen(m, vehicle, picked)
                 Tab.Main -> MainScreen(readings, vehicle)
                 Tab.Fuel -> FuelScreen(m, readings, vehicle)
                 Tab.All -> AllScreen(readings, vehicle)

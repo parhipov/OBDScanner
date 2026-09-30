@@ -8,7 +8,6 @@ import com.obdscanner.gm.GmModule
 import com.obdscanner.gm.GmScanner
 import com.obdscanner.obd.Dtc
 import com.obdscanner.obd.DtcKind
-import com.obdscanner.obd.Make
 import com.obdscanner.gm.GmModule as Module
 import com.obdscanner.obd.UdsDtcReader
 import com.obdscanner.obd.Mode06
@@ -104,20 +103,6 @@ class MockPipelineTest {
         assertEquals("JTMZD33V300012345", Mode09.decode(r.messages.single().data))
         val dtc = CanParser.parse(ElmReply("03", "48 6B 10 43 01 33 00 00 00 00 3A", false), 3).messages.single()
         assertEquals(listOf("P0133"), Dtc.parse(dtc.data, dtc.header, DtcKind.STORED).map { it.code })
-    }
-
-    @Test
-    fun makeFromVin() {
-        assertEquals(Make.GM, Make.fromVin("1G6DM577980123456"))
-        assertEquals(Make.GM, Make.fromVin("W0L0AHL3575000000"))
-        assertEquals(Make.VAG, Make.fromVin("XW8ZZZ61ZBG000000"))
-        assertEquals(Make.VAG, Make.fromVin("wvwzzz6rzcy000000"))
-        assertEquals(Make.TOYOTA, Make.fromVin("JTMZD33V300012345"))
-        assertEquals(Make.LADA, Make.fromVin("XTAGFK330GY000000"))
-        assertEquals(Make.HYUNDAI, Make.fromVin("Z94CT41DBBR000000"))
-        assertEquals(Make.OTHER, Make.fromVin("SALLAAA1000000000"))
-        assertEquals(Make.OTHER, Make.fromVin(null))
-        assertEquals(Make.OTHER, Make.fromVin(""))
     }
 
     /** Real reply from the car (2026-09-25): the clone lost frame 24 and glued the rest — must not be decoded. */

@@ -7,7 +7,10 @@ import com.obdscanner.bus.BusId
 import com.obdscanner.bus.BusSniffer
 import com.obdscanner.elm.Elm327
 import com.obdscanner.elm.Obd
-import com.obdscanner.gm.GmDid
+import com.obdscanner.car.CarChoice
+import com.obdscanner.car.CarDb
+import com.obdscanner.car.CarModel
+import com.obdscanner.car.ExtCommand
 import com.obdscanner.gm.GmDtcReader
 import com.obdscanner.gm.GmDtcResult
 import com.obdscanner.gm.GmKnown
@@ -22,6 +25,7 @@ import com.obdscanner.obd.ObdModules
 import com.obdscanner.obd.UdsDtcReader
 import com.obdscanner.obd.Make
 import com.obdscanner.obd.Dtc
+import com.obdscanner.obd.FuelRate
 import com.obdscanner.obd.Mode06
 import com.obdscanner.obd.Mode09
 import com.obdscanner.obd.Monitor
@@ -48,6 +52,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -100,7 +105,12 @@ data class VehicleInfo(
     val freeze: List<Reading> = emptyList(),
     val mode06: List<TestResult> = emptyList(),
     val mode06Time: Long = 0,
-    val gmActive: List<GmDid> = emptyList(),
+    /** Manufacturer requests that answered (GmKnown on GM + the car database), polled with standard PIDs. */
+    val extActive: List<ExtCommand> = emptyList(),
+    /** The car: picked by hand or found by the VIN in [CarDb]. */
+    val car: CarModel? = null,
+    /** Brand by the VIN ("Cadillac"), null before the VIN or when unknown. */
+    val brand: String? = null,
     /** \$A9 DTCs of every GM module found on HS-CAN. */
     val gmDtcs: List<GmDtcResult> = emptyList(),
     val gmDtcTime: Long = 0,
@@ -147,6 +157,30 @@ class ObdManager(private val context: Context) {
     val busy: StateFlow<String?> = _busy.asStateFlow()
     val activeTab = MutableStateFlow(Tab.Connect)
 
+    private val _picked = MutableStateFlow(CarDb.choice(prefs.getString("car", null)))
+    /** The hand pick (Guide / Connect): a make or a make and model; null = by VIN. */
+    val picked: StateFlow<CarChoice?> = _picked.asStateFlow()
+
+    init {
+        // The database loads in the background (CarDb.init): take the saved pick once it's there.
+        scope.launch {
+            CarDb.loaded.first { it }
+            val pick = CarDb.choice(prefs.getString("car", null))
+            _picked.value = pick
+            pick?.model?.let { car -> _vehicle.update { if (it.car == null) it.copy(car = car) else it } }
+        }
+    }
+
+    /** Hand pick (null = by VIN). While connected it shows at once; its parameters are probed on "Rescan". */
+    fun pickCar(pick: CarChoice?) {
+        prefs.edit().putString("car", pick?.id).apply()
+        _picked.value = pick
+        _vehicle.update { v ->
+            val sameFamily = v.vin == null || CarDb.brandOf(v.vin)?.family.let { it == null || it == pick?.family }
+            v.copy(car = pick?.model?.takeIf { sameFamily } ?: CarDb.detect(v.vin))
+        }
+    }
+
     @Volatile var session: Session? = null
         private set
     private var obd: Obd? = null
@@ -175,10 +209,12 @@ class ObdManager(private val context: Context) {
     private fun connect(make: (Session) -> Transport) {
         if (mainJob?.isActive == true) return
         mainJob = scope.launch {
+            // The picked car's protocol and the manufacturer parameters come from it.
+            CarDb.loaded.first { it }
             val s = sessions.create()
             session = s
             _readings.value = emptyMap()
-            _vehicle.value = VehicleInfo()
+            _vehicle.value = VehicleInfo(car = _picked.value?.model)
             _scan.value = ScanState()
             _bus.value = BusState()
             var elm: Elm327? = null
@@ -226,6 +262,14 @@ class ObdManager(private val context: Context) {
                     }
                 }
                 obd = o
+                // Mid-session reset (LV RESET when cranking, ERR94, a clone's banner): the adapter is back to
+                // defaults and protocol auto — the search that dropped the Polo's clone. Put our settings back.
+                o.onAdapterReset = {
+                    s.note("adapter reset itself (LV RESET / ERR94 / boot banner) — settings and $protocolCmd again")
+                    baseSetup(o)
+                    o.at(o.adaptiveTiming)
+                    o.at(protocolCmd)
+                }
                 _conn.value = ConnState.Connected(name)
                 opMutex.withLock { discover(o) }
                 if (o.kline) s.note("K-line: standard OBD only, module search and DTCs of all modules skipped")
@@ -284,7 +328,9 @@ class ObdManager(private val context: Context) {
         val ver = o.at("ATI").lines.lastOrNull().orEmpty()
         val desc = o.at("AT@1").lines.firstOrNull().orEmpty()
         val saved = prefs.getInt("last_protocol_$name", prefs.getInt("last_protocol", 0)).takeIf { it in PROTOCOLS }
-        val order = ((listOfNotNull(saved) + PROTOCOL_ORDER).distinct() + KLINE_RETRY).filter { it !in skip }
+        // The picked car's protocol goes first: no probing of the others (the Polo's clone drops the link on some).
+        val carProto = _picked.value?.model?.protocol?.takeIf { it in PROTOCOLS }
+        val order = ((listOfNotNull(carProto, saved) + PROTOCOL_ORDER).distinct() + KLINE_RETRY).filter { it !in skip }
         var first: com.obdscanner.elm.CanReply? = null
         var errors = emptyList<String>()
         var lastKline = false
@@ -299,6 +345,8 @@ class ObdManager(private val context: Context) {
             probingProtocol = p
             step(tr("Протокол ${PROTOCOLS[p]} (${i + 1} из ${order.size})…", "Protocol ${PROTOCOLS[p]} (${i + 1} of ${order.size})…"))
             o.at("ATSP$p")
+            // Some clones (VLinker…) reset echo/spaces/headers/CAF on a protocol change (ddt4all notes this).
+            baseSetup(o)
             val r = o.request("0100", when (p) { in 6..9 -> 4000L; in 3..5 -> 10000L; else -> 3000L })
             if (!r.noData) { first = r; break }
             errors = r.errors
@@ -343,7 +391,7 @@ class ObdManager(private val context: Context) {
 
     // ---------------------------------------------------------------- discovery
 
-    private suspend fun discover(o: Obd) {
+    private suspend fun discover(o: Obd, full: Boolean = false) {
         step(tr("Поддерживаемые PID Mode 01…", "Supported PIDs (Mode 01)…"))
         val pids = mutableMapOf<Int, MutableSet<Int>>()
         var base = 0
@@ -390,11 +438,11 @@ class ObdManager(private val context: Context) {
         readFreezeFrame(o)
         step(tr("Бортовые тесты (Mode 06)…", "On-board tests (Mode 06)…"))
         readMode06(o, onlyMisfire = false)
-        if (_vehicle.value.make == Make.GM && !o.kline) {
-            step(tr("GM-параметры…", "GM parameters…"))
-            probeGmKnown(o)
+        if (!o.kline) {
+            step(tr("Параметры производителя…", "Manufacturer parameters…"))
+            probeExt(o, full)
         } else {
-            session?.note("GM parameters skipped: make ${_vehicle.value.make}")
+            session?.note("manufacturer parameters skipped: K-line")
         }
         step("")
     }
@@ -431,13 +479,23 @@ class ObdManager(private val context: Context) {
             }
         }
         val vin = info.values.firstNotNullOfOrNull { it[0x02] }
-        val make = Make.fromVin(vin)
+        val brand = CarDb.brandOf(vin)
+        val picked = _picked.value
+        // A hand-picked car stays while the VIN agrees with its family (or there is no VIN); otherwise the VIN wins.
+        val make = Make.fromVin(vin).takeIf { it != Make.OTHER } ?: picked?.let { Make.of(it.family) } ?: Make.OTHER
+        val car = picked?.model?.takeIf { brand == null || it.family == brand.family } ?: CarDb.detect(vin)
         _vehicle.update { v ->
             val ecus = v.ecus.toMutableMap()
             for ((h, i) in info) ecus[h] = (ecus[h] ?: EcuInfo(h)).copy(info09 = i)
-            v.copy(vin = vin, make = make, ecus = ecus)
+            v.copy(vin = vin, make = make, ecus = ecus, car = car, brand = brand?.name)
         }
-        session?.report(tr("Марка (по VIN)", "Make (by VIN)"), make.title + if (make == Make.GM) "" else tr(" — GM-параметры не опрашиваются", " — GM parameters not polled"))
+        session?.report(tr("Машина", "Car"), listOf(
+            tr("Марка (по VIN): ", "Make (by VIN): ") + (brand?.name ?: tr("не определена", "unknown")) + " — ${make.title}",
+            tr("Год (по VIN): ", "Model year (by VIN): ") + (vin?.let { CarDb.modelYear(it.trim().uppercase()) }?.toString() ?: "—"),
+            tr("Выбрано вручную: ", "Picked by hand: ") + (picked?.let { it.model?.title ?: tr("${it.brand} (только марка)", "${it.brand} (make only)") } ?: tr("нет", "nothing")),
+            tr("Модель: ", "Model: ") + (car?.title?.let { it + if (car == picked?.model) tr(" (выбрана вручную)", " (picked by hand)") else tr(" (по VIN)", " (by VIN)") } ?: tr("не определена", "unknown")),
+            tr("Двигатель: ", "Engine: ") + (car?.engines?.joinToString("; ") { it.title }?.ifEmpty { null } ?: "—"),
+        ).joinToString("\n"))
         session?.report("Mode 09", info.entries.joinToString("\n\n") { (h, i) ->
             "${ecuName(h)} [%03X]\n".format(h) + i.entries.joinToString("\n") { (t, s) -> "  ${Mode09.name(t)}: ${s.replace("\n", "\n    ")}" }
         }.ifEmpty { tr("нет ответа", "no answer") })
@@ -548,21 +606,78 @@ class ObdManager(private val context: Context) {
         _vehicle.update { it.copy(mode06Time = System.currentTimeMillis()) }
     }
 
-    private suspend fun probeGmKnown(o: Obd) {
+    /** What to probe: GmKnown on GM, then the car database for the make's family and the car's model. */
+    private fun extCandidates(): List<ExtCommand> {
+        val v = _vehicle.value
+        val fam = CarDb.family(v.car?.family ?: v.make.id)
+        val car = v.car?.takeIf { it.family == fam?.id }
+        // A gas-converted car still has a petrol ECU.
+        val db = fam?.probeOrder(car, fuelOf(car)?.let { if (it == "lpg") "petrol" else it }).orEmpty()
+        val gm = if (v.make == Make.GM) GmKnown.commands else emptyList()
+        // Capped: a big family would mean hundreds of requests on the first connection.
+        return (gm + db).distinctBy { it.key }.take(MAX_PROBE)
+    }
+
+    /**
+     * "petrol" / "diesel" by the ECU (PID 51) or, without it, by the car's engines when they all agree;
+     * null when unknown — then fuel-specific requests (a DPF DID means misfires on a petrol ECU) aren't sent.
+     */
+    private fun fuelOf(car: CarModel?): String? {
+        val pid = _readings.value.pick("01.51")?.text
+        return when {
+            pid == Pids.fuelType(4) -> "diesel"
+            pid == Pids.fuelType(1) -> "petrol"
+            pid == Pids.fuelType(5) -> "lpg"
+            else -> car?.engines?.mapNotNull { it.fuel }?.distinct()?.singleOrNull()?.takeIf { car.engines.all { e -> e.fuel != null } }
+        }
+    }
+
+    /**
+     * Asks every candidate request once; the ones that answer get polled. What answered is saved per VIN,
+     * so the next connection asks only those ([full] — everything again, "Rescan"). A module that has
+     * answered nothing after [SILENT_SKIP] requests is not asked the rest (no timeout per request).
+     */
+    private suspend fun probeExt(o: Obd, full: Boolean) {
+        val all = extCandidates()
+        val vin = _vehicle.value.vin
+        // Per app version too: a new build may bring new requests in the database.
+        val prefKey = "ext_ok_${BuildConfig.VERSION_CODE}_" + vin.orEmpty()
+        val saved = if (vin != null) prefs.getStringSet(prefKey, null) else null
+        val list = if (!full && saved != null) all.filter { it.key in saved } else all
         val sc = GmScanner(o) { session?.note(it) }
-        val active = mutableListOf<GmDid>()
-        for (d in GmKnown.all.sortedBy { it.req }) {
-            val data = sc.readRaw(d.req, GmKnown.responseFor(d.req), d.service, d.did)
+        val active = mutableListOf<ExtCommand>()
+        val silent = mutableMapOf<Int, Int>()
+        // A module that answered once (data or a refusal) stays: some ignore unknown DIDs instead of refusing them.
+        val alive = mutableSetOf<Int>()
+        val lines = mutableListOf<String>()
+        for ((i, c) in list.sortedBy { it.req }.withIndex()) {
+            if (c.req !in alive && (silent[c.req] ?: 0) >= SILENT_SKIP) {
+                lines += "  ${c.key} — " + tr("блок молчит, пропущено", "module silent, skipped")
+                continue
+            }
+            if (i % 10 == 0) step(tr("Параметры производителя ${i + 1} из ${list.size}…", "Manufacturer parameters ${i + 1} of ${list.size}…"))
+            check(c.service in CarDb.READ_SERVICES) { "not a read request: ${c.key}" }
+            o.target(c.req, c.resp)
+            val r = sc.read(GmModule(c.req, c.resp, "", ""), c.service, c.did)
+            if (r == null) silent[c.req] = (silent[c.req] ?: 0) + 1 else alive += c.req
+            val data = r?.first
             if (data != null) {
-                active += d
-                publish(listOf(gmReading(d, data)))
+                active += c
+                val out = extReadings(c, data)
+                publish(out)
+                lines += "  ${c.key} [${c.source}] — " + out.joinToString("; ") { "${it.name} = ${it.display()} ${it.unit}".trim() }
+            } else {
+                lines += "  ${c.key} [${c.source}] ${c.signals.first().name}${if (c.signals.size > 1) " +${c.signals.size - 1}" else ""} — " +
+                    if (r == null) tr("нет ответа", "no answer") else "NRC %02X".format(r.second)
             }
         }
         o.broadcast()
-        _vehicle.update { it.copy(gmActive = active) }
-        session?.report(tr("GM-параметры (известные)", "GM parameters (known)"), GmKnown.all.joinToString("\n") { d ->
-            "  %03X %s %04X %s — %s".format(d.req, d.service, d.did, d.name, if (d in active) tr("есть", "answered") else tr("нет ответа", "no answer"))
-        })
+        if (vin != null && (full || saved == null)) prefs.edit().putStringSet(prefKey, active.map { it.key }.toSet()).apply()
+        _vehicle.update { it.copy(extActive = active) }
+        session?.report(tr("Параметры производителя", "Manufacturer parameters"),
+            tr("Проверено ${list.size} из ${all.size} запросов", "Probed ${list.size} of ${all.size} requests") +
+                (if (list.size < all.size) tr(" (только ответившие в прошлый раз; все — «Повторный опрос»)", " (only those that answered last time; all — \"Rescan\")") else "") +
+                tr(", ответили ${active.size}\n", ", answered ${active.size}\n") + lines.joinToString("\n"))
     }
 
     /** Reads [EcuIdent] of one module; returns report lines, hits go to the scan list and scan.csv. */
@@ -593,9 +708,10 @@ class ObdManager(private val context: Context) {
         return out
     }
 
-    private fun gmReading(d: GmDid, data: IntArray): Reading {
-        val v = runCatching { d.f(data) }.getOrNull()
-        return Reading(d.key, d.req, d.displayName, v, if (v == null) Pids.hex(data) else null, d.unit, d.decimals)
+    /** The values of one manufacturer answer; a value that doesn't decode shows the raw bytes. */
+    private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = c.signals.map { s ->
+        val (v, text) = c.code?.let { f -> runCatching { f(data) }.getOrNull() to null } ?: (s.fmt.decode(data) ?: (null to null))
+        Reading(c.readingKey(s), c.req, s.displayName, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role)
     }
 
     // ---------------------------------------------------------------- polling
@@ -609,6 +725,7 @@ class ObdManager(private val context: Context) {
     private suspend fun reinitKline(o: Obd) {
         session?.note("K-line: ECU silent for 3 cycles — ATPC and a new bus init")
         o.at("ATPC")
+        baseSetup(o)
         delay(KLINE_GAP)
         val r = o.request("0100", 10000)
         session?.note("K-line re-init: ${if (r.noData) "no answer (${r.errors.joinToString()})" else "OK"}")
@@ -652,8 +769,8 @@ class ObdManager(private val context: Context) {
                     lastMisfire = now
                     readMode06(o, onlyMisfire = true)
                 }
-                val gm = _vehicle.value.gmActive
-                if (gm.isNotEmpty() && tab in listOf(Tab.Main, Tab.Fuel, Tab.All)) pollGm(o, gm, tab)
+                val ext = _vehicle.value.extActive
+                if (ext.isNotEmpty() && tab in listOf(Tab.Main, Tab.Fuel, Tab.All)) pollExt(o, ext, tab)
                 val watched = _scan.value.watched
                 if (watched.isNotEmpty() && (tab == Tab.Gm || now - lastWatch > 3000)) {
                     lastWatch = now
@@ -702,17 +819,17 @@ class ObdManager(private val context: Context) {
     private val lastPoll = mutableMapOf<String, Long>()
 
     /**
-     * A few GM parameters per poll cycle (each one is a separate request) so standard PIDs keep
-     * their pace; which ones — by [GmDid.periodMs], the current screen's slow ones lifted to MEDIUM.
+     * A few manufacturer requests per poll cycle (each one is a separate request) so standard PIDs keep
+     * their pace; which ones — by [ExtCommand.periodMs], the current screen's slow ones lifted to MEDIUM.
      */
-    private suspend fun pollGm(o: Obd, list: List<GmDid>, tab: Tab) {
+    private suspend fun pollExt(o: Obd, list: List<ExtCommand>, tab: Tab) {
         val group = when (tab) { Tab.Main -> "main"; Tab.Fuel -> "fuel"; else -> "" }
-        val batch = PollRate.due(list, lastPoll, System.currentTimeMillis(), GM_PER_CYCLE, { it.key }) {
+        val batch = PollRate.due(list, lastPoll, System.currentTimeMillis(), EXT_PER_CYCLE, { it.key }) {
             if (it.group == group) PollRate.onScreen(it.periodMs) else it.periodMs
         }.sortedBy { it.req }
         if (batch.isEmpty()) return
         val sc = GmScanner(o) { session?.note(it) }
-        val out = batch.mapNotNull { d -> sc.readRaw(d.req, GmKnown.responseFor(d.req), d.service, d.did)?.let { gmReading(d, it) } }
+        val out = batch.flatMap { c -> sc.readRaw(c.req, c.resp, c.service, c.did)?.let { extReadings(c, it) }.orEmpty() }
         o.broadcast()
         publish(out)
     }
@@ -747,12 +864,26 @@ class ObdManager(private val context: Context) {
         if (st1 != null && lt1 != null) add("calc.trim1", tr("Суммарная коррекция Б1", "Total fuel trim B1"), st1 + lt1, "%")
         if (st2 != null && lt2 != null) add("calc.trim2", tr("Суммарная коррекция Б2", "Total fuel trim B2"), st2 + lt2, "%")
         if (st1 != null && lt1 != null && st2 != null && lt2 != null) add("calc.trimDiff", tr("Разница банков (Б1−Б2)", "Bank difference (B1−B2)"), st1 + lt1 - st2 - lt2, "%")
-        val maf = r.pick("01.10")?.value
         val speed = r.pick("01.0D")?.value
-        val lambda = r.pick("01.44")?.value?.takeIf { it in 0.5..2.0 } ?: 1.0
-        val ecuRate = r.pick("01.5E")?.value
-        val lph = ecuRate ?: maf?.let { it / (14.7 * lambda) * 3600.0 / 745.0 }
-        add("calc.lph", tr("Расход топлива", "Fuel consumption") + (if (ecuRate == null) tr(" (по MAF)", " (from MAF)") else ""), lph, tr("л/ч", "L/h"), 2)
+        // Engine size for the MAP estimate: only when every engine of the model agrees.
+        val car = _vehicle.value.car
+        val liters = car?.engines?.mapNotNull { it.liters }?.distinct()?.singleOrNull()
+        val cyl = car?.engines?.mapNotNull { it.cyl }?.distinct()?.singleOrNull()
+        val rate = FuelRate.compute(
+            fuel = fuelOf(car),
+            ecuLph = r.pick("01.5E")?.value,
+            fuelGs = r.pick("01.9D.E")?.value,
+            mgStroke = r.pick("01.A2")?.value,
+            maf = r.pick("01.10")?.value,
+            lambda = r.pick("01.44")?.value?.takeIf { it in 0.5..2.0 } ?: 1.0,
+            map = r.pick("01.0B")?.value,
+            iat = r.pick("01.0F")?.value,
+            rpm = r.pick("01.0C")?.value,
+            liters = liters,
+            cyl = cyl,
+        )
+        val lph = rate?.lph
+        add("calc.lph", tr("Расход топлива", "Fuel consumption") + rate?.how.orEmpty(), lph, tr("л/ч", "L/h"), 2)
         if (lph != null && speed != null && speed >= 10) add("calc.l100", tr("Мгновенный расход", "Instant fuel economy"), lph / speed * 100, tr("л/100км", "L/100km"), 1)
         // 6L50: 4.06 / 2.37 / 1.55 / 1.16 / 0.85 / 0.67 — a ratio drifting in a steady gear means slip.
         val input = r.pick("22.1941")?.value
@@ -809,7 +940,7 @@ class ObdManager(private val context: Context) {
 
     fun refreshMode06() = launchOp("Mode 06") { readMode06(it, onlyMisfire = false) }
 
-    fun rediscover() = launchOp(tr("Повторный опрос", "Rescan")) { discover(it) }
+    fun rediscover() = launchOp(tr("Повторный опрос", "Rescan")) { discover(it, full = true) }
 
     fun probeModules() = launchOp(tr("Поиск модулей", "Module search")) { o ->
         if (o.kline) _scan.update { it.copy(status = tr("На K-line поиск модулей недоступен", "Module search is not available on K-line")) } else findModules(o)
@@ -821,8 +952,13 @@ class ObdManager(private val context: Context) {
     private fun addressing() = when (_vehicle.value.make) {
         Make.GM -> Addressing("GM", GmModules.candidates, listOf("1A90", "22F190", "3E00"), GmModules::name)
         Make.VAG -> Addressing("VAG", VagModules.candidates, VagModules.PROBES, VagModules::name)
-        Make.OTHER -> Addressing(tr("Блоки", "Modules"), ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
-        else -> Addressing(_vehicle.value.make.title, ObdModules.candidates, ObdModules.PROBES, ObdModules::name)
+        else -> {
+            val fam = _vehicle.value.make.id.ifEmpty { null }
+            // Modules the family's database requests talk to are worth looking for too.
+            val fromDb = CarDb.family(fam)?.commands.orEmpty().map { it.req to it.resp }.filter { it.first !in 0x7E0..0x7E7 }
+            Addressing(if (fam == null) tr("Блоки", "Modules") else _vehicle.value.make.title,
+                ObdModules.candidates(fam, fromDb), ObdModules.probes(fam)) { ObdModules.name(it, fam) }
+        }
     }
 
     /**
@@ -1016,7 +1152,7 @@ class ObdManager(private val context: Context) {
 
     companion object {
         private const val MAX_WATCHED = 24
-        private val PROTOCOLS = mapOf(6 to "CAN 11/500", 7 to "CAN 29/500", 8 to "CAN 11/250", 9 to "CAN 29/250",
+        val PROTOCOLS = mapOf(6 to "CAN 11/500", 7 to "CAN 29/500", 8 to "CAN 11/250", 9 to "CAN 29/250",
             4 to "KWP2000 5-baud", 5 to "KWP2000 fast", 3 to "ISO 9141-2")
         /**
          * CAN first (answers or fails at once), then K-line with its slow bus init, then CAN 250k.
@@ -1035,7 +1171,11 @@ class ObdManager(private val context: Context) {
             "Adapter disconnected and does not answer over Bluetooth. Unplug it for 5 seconds, plug it back in and connect again.",
         )
         private const val POLL_TIMEOUT = 1000L
-        private const val GM_PER_CYCLE = 5
+        private const val EXT_PER_CYCLE = 5
+        /** Requests in a row a module may leave unanswered before the probe skips it. */
+        private const val SILENT_SKIP = 3
+        /** At most this many manufacturer requests are probed on connect. */
+        private const val MAX_PROBE = 200
         /** Shown on the Main / Fuel screen: read at least every [PollRate.MEDIUM] while it's open. */
         val MAIN_PIDS = listOf(0x0C, 0x0D, 0x05, 0x0F, 0x04, 0x11, 0x42, 0x10, 0x0B, 0x0E, 0x2F, 0x5C, 0x46, 0x33, 0x1F, 0x43, 0x45, 0x49, 0x03, 0x06, 0x07, 0x08, 0x09)
         val FUEL_PIDS = listOf(0x03, 0x04, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10) +

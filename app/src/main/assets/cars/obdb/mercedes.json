@@ -1,0 +1,54 @@
+{
+ "family": "mercedes",
+ "source": "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py",
+ "commands": [
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "2001", "rate": "fast", "models": ["EQA", "G-Class"], "signals": [
+   {"id": "EQA_FL_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_TIRE_FL_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_FR_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_TIRE_FR_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_RL_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 32, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_TIRE_RL_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 32, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_RR_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 48, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_TIRE_RR_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 48, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "2002", "rate": "fast", "models": ["EQA", "G-Class"], "signals": [
+   {"id": "EQA_LON_ACC", "name": {"en": "Longitudinal acceleration", "ru": "Продольное ускорение"}, "unit": "g", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 16, "mul": 0.05, "div": 1000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_LNG_G", "name": {"en": "Longitudinal acceleration", "ru": "Продольное ускорение"}, "unit": "g", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 16, "div": 192747, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_LAT_ACC", "name": {"en": "Lateral acceleration", "ru": "Поперечное ускорение"}, "unit": "g", "dec": 2, "group": "other", "fmt": {"bix": 24, "len": 16, "mul": 15.625, "div": 1000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_LAT_G", "name": {"en": "Lateral acceleration", "ru": "Поперечное ускорение"}, "unit": "g", "dec": 3, "group": "other", "fmt": {"bix": 24, "len": 16, "div": 627.6, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_YAW_RATE", "name": {"en": "Yaw rate", "ru": "Скорость рыскания"}, "unit": "g", "dec": 3, "group": "other", "fmt": {"bix": 48, "len": 16, "mul": 34.97, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_YAW_RATE", "name": {"en": "Yaw rate", "ru": "Скорость рыскания"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 48, "len": 16, "mul": 114.591559, "div": 32767, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_STEER_ANGLE", "name": {"en": "Steering wheel angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 72, "len": 16, "mul": 1000, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_STEER_ANGLE", "name": {"en": "Steering wheel angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 72, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_MASTER_BREAK_CYLINDER_PRESSURE", "name": {"en": "Master break cylinder pressure", "ru": "Давление в главном тормозном цилиндре"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 96, "len": 16, "mul": 153, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_MCYL_BREAK", "name": {"en": "Master break cylinder pressure", "ru": "Давление в главном тормозном цилиндре"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 96, "len": 16, "div": 65.35883831, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]},
+   {"id": "EQA_VACUUM_BREAK_PRESSURE", "name": {"en": "Vacuum break pressure", "ru": "Давление срыва вакуума"}, "unit": "bar", "dec": 3, "group": "other", "fmt": {"bix": 144, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "GCLASS_VACC_BREAK", "name": {"en": "Vaccuum cylinder pressure", "ru": "Давление в вакуумном цилиндре"}, "unit": "bar", "dec": 3, "group": "other", "fmt": {"bix": 144, "len": 16, "div": 1000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-G-Class"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "2005", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_AUX_V", "name": {"en": "Auxiliary battery voltage", "ru": "Напряжение АКБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25.9, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "2526", "rate": "medium", "models": ["EQA"], "signals": [
+   {"id": "EQA_HV_COOLANT_T", "name": {"en": "HV battery coolant temperature", "ru": "Температура ОЖ ВВБ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 1250, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "6050", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_HV_SOC", "name": {"en": "HV battery state of charge", "ru": "Уровень заряда ВВБ (SOC)"}, "unit": "%", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "role": "hv_soc", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "6053", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_HV_A", "name": {"en": "HV battery amperage", "ru": "Ток ВВБ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "6071", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_CNVRTR_REQ_V", "name": {"en": "DC converter requested voltage", "ru": "Запрошенное напряжение DC/DC-преобразователя"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 250, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "6075", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_HV_V", "name": {"en": "HV battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "6502", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_HV_RANGE", "name": {"en": "HV battery remaining distance", "ru": "Запас хода на ВВБ"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "6504", "rate": "fast", "models": ["EQA"], "signals": [
+   {"id": "EQA_SERVICE_DIST", "name": {"en": "Distance to next service", "ru": "Пробег до следующего ТО"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mercedes-Benz-EQA"], "role": "service_km", "note": "OBDb dbg: not confirmed by response tests"}
+  ]}
+ ]
+}

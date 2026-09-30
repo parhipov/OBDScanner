@@ -44,3 +44,9 @@ known_issues/
 # Локальные скрипты и настройки VS Code (запуск на телефоне, logcat, пути SDK)
 .vscode/
 *.ps1
+
+# OBDb import cache (tools/cars/obdb_import.py)
+tools/cars/cache/
+
+# Research notes, third-party data (not in git)
+research/

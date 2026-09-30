@@ -1,0 +1,299 @@
+{
+  "family": "suzuki",
+  "title": "Suzuki",
+  "brands": [
+    {
+      "name": "Suzuki",
+      "wmi": [
+        "JS",
+        "TSM",
+        "MA3",
+        "2S3"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Suzuki",
+      "model": "Grand Vitara",
+      "gen": "III (JT)",
+      "years": [
+        2005,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "M16A",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "J20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "J24B",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H27A",
+          "liters": 2.7,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N32A",
+          "liters": 3.2,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F9Q",
+          "liters": 1.9,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "right_of_column",
+      "note": {
+        "ru": "Протокол зависит от года (K-line у ранних, CAN у поздних) — определяется автоматически. Разъём над педалью газа.",
+        "en": "Protocol depends on the year (K-line early, CAN later) - use auto-detect. Socket above the accelerator."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Suzuki_Grand_Vitara",
+        "https://www.klavkarr.com/location-plug-connector-obd/Suzuki-grand-vitara-3",
+        "https://en.wikipedia.org/wiki/Suzuki_J_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Suzuki",
+      "model": "SX4",
+      "gen": "I (GY)",
+      "years": [
+        2006,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "M15A",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M16A",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "J20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D19AA",
+          "liters": 1.9,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "D20AA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "1.6 VVT 2011 — CAN 11 бит; дизели — KWP2000. Разъём слева под рулём, у ручки капота.",
+        "en": "1.6 VVT 2011 reported on 11-bit CAN; diesels on KWP2000. Socket left under the wheel, by the hood release."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Suzuki_SX4",
+        "https://www.klavkarr.com/compatible/suzuki-sx4i-58000142",
+        "https://www.klavkarr.com/location-plug-connector-obd/Suzuki-sx4",
+        "https://en.wikipedia.org/wiki/Suzuki_M_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Suzuki",
+      "model": "SX4",
+      "gen": "II (JY, S-Cross)",
+      "years": [
+        2013,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "M16A",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K14C",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K10C",
+          "liters": 1.0,
+          "cyl": 3,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D16AA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "CAN 11 бит 500 кбит/с.",
+        "en": "11-bit CAN 500 kbit/s."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Suzuki_SX4_S-Cross",
+        "https://www.klavkarr.com/compatible/suzuki-sx4s-cross-58000143",
+        "https://www.klavkarr.com/location-plug-connector-obd/Suzuki-sx4-1",
+        "https://en.wikipedia.org/wiki/Suzuki_K_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Suzuki",
+      "model": "Vitara",
+      "gen": "IV (LY)",
+      "years": [
+        2015,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "M16A",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K14C",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K10C",
+          "liters": 1.0,
+          "cyl": 3,
+          "fuel": "petrol"
+        },
+        {
+          "code": "D16AA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "CAN 11 бит 500 кбит/с.",
+        "en": "11-bit CAN 500 kbit/s."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Suzuki_Vitara",
+        "https://www.klavkarr.com/compatible/suzuki-vitaraii-58000146",
+        "https://www.klavkarr.com/location-plug-connector-obd/Suzuki-vitara-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Suzuki",
+      "model": "Jimny",
+      "gen": "III (JB43)",
+      "years": [
+        1998,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "M13A",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "under_column",
+      "note": {
+        "ru": "Ранние — KWP2000 (ISO 14230), с 2012 г. встречается CAN 11 бит — определяется автоматически.",
+        "en": "Early cars KWP2000 (ISO 14230), 11-bit CAN reported from 2012 - use auto-detect."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Suzuki_Jimny",
+        "https://www.klavkarr.com/compatible/suzuki-jimnyiii-jb23/33/43/53-58000128",
+        "https://www.klavkarr.com/location-plug-connector-obd/Suzuki-Jimny"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Suzuki",
+      "model": "Jimny",
+      "gen": "IV (JB74)",
+      "years": [
+        2018,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "K15B",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11 бит 500 кбит/с.",
+        "en": "11-bit CAN 500 kbit/s."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Suzuki_Jimny",
+        "https://www.klavkarr.com/compatible/suzuki-jimnyiv-58000132"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [],
+  "features": [
+    {
+      "ru": "Только стандартный OBD-II: заводские запросы Suzuki публично не описаны",
+      "en": "Standard OBD-II only: Suzuki factory requests are not publicly documented"
+    },
+    {
+      "ru": "SX4 II, Vitara, Jimny с 2018 г. — CAN 11 бит 500 кбит/с",
+      "en": "SX4 II, Vitara, Jimny 2018+: 11-bit CAN 500 kbit/s"
+    },
+    {
+      "ru": "Grand Vitara, SX4 I, Jimny JB43 — K-line или CAN в зависимости от года",
+      "en": "Grand Vitara, SX4 I, Jimny JB43: K-line or CAN depending on the year"
+    }
+  ]
+}

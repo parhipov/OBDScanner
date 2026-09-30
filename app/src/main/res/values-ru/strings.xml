@@ -15,6 +15,7 @@
     <string name="help_unverified">Формула из одного источника и на машине не проверена. Сверяйте с чем-то известным, прежде чем доверять.</string>
     <string name="help_src_pid">Стандартный OBD: Mode 01, PID %1$s · %2$s</string>
     <string name="help_src_gm">GM Mode $22, DID %1$s · %2$s</string>
+    <string name="help_src_ext">Запрос производителя $%1$s %2$s · %3$s (база машин)</string>
     <string name="help_src_calc">Расчёт приложения из других параметров</string>
     <string name="help_src_adapter">Измеряет сам адаптер (ATRV)</string>
 </resources>

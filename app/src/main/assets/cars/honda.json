@@ -1,0 +1,652 @@
+{
+  "family": "honda",
+  "title": "Honda / Acura",
+  "brands": [
+    {
+      "name": "Honda",
+      "wmi": [
+        "JHM",
+        "JHL",
+        "SHH",
+        "SHS",
+        "1HG",
+        "2HG",
+        "2HK",
+        "2HJ",
+        "3HG",
+        "5FN",
+        "5J6",
+        "19X",
+        "MRH",
+        "LHG"
+      ]
+    },
+    {
+      "name": "Acura",
+      "wmi": [
+        "JH4",
+        "19U",
+        "2HN",
+        "5J8"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Honda",
+      "model": "CR-V",
+      "gen": "III (RE)",
+      "years": [
+        2006,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "R20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24Z",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N22A",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 7,
+      "obd": "right_of_column",
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "note": {
+        "ru": "Разъём под рулём, над педалью газа.",
+        "en": "Socket under the steering wheel, above the accelerator."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_CR-V_(third_generation)",
+        "https://www.klavkarr.com/compatible/honda-cr-viii-re-21000122",
+        "https://www.klavkarr.com/location-plug-connector-obd/Honda-cr-v-3",
+        "https://github.com/OBDb/Honda-CR-V/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "CR-V",
+      "gen": "IV (RM)",
+      "years": [
+        2012,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "R20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24Z",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24W",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N16A",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N22B",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 7,
+      "obd": "right_of_column",
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "note": {
+        "ru": "Разъём справа под рулём, над педалью газа у центральной консоли.",
+        "en": "Socket right under the steering wheel, above the accelerator near the console."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_CR-V_(fourth_generation)",
+        "https://www.klavkarr.com/compatible/honda-cr-viv-rm1-4re5/6-21000123",
+        "https://www.klavkarr.com/location-plug-connector-obd/Honda-cr-v-4",
+        "https://github.com/OBDb/Honda-CR-V/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "CR-V",
+      "gen": "V (RW)",
+      "years": [
+        2016,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "L15B",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "R20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24W",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LFB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_CR-V_(fifth_generation)",
+        "https://www.klavkarr.com/compatible/honda-cr-vv-rw/rt/ry-21000124",
+        "https://github.com/OBDb/Honda-CR-V/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Civic",
+      "gen": "VIII (FD/FK/FN)",
+      "years": [
+        2005,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "R18A",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L13Z",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K20Z",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N22A",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "L13A",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 7,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "note": {
+        "ru": "Разъём под педалями за пластиковой крышкой.",
+        "en": "Socket under the pedals behind a plastic cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Civic_(eighth_generation)",
+        "https://www.klavkarr.com/compatible/honda-civicviii-fa/fd/fn-21000117",
+        "https://www.klavkarr.com/location-plug-connector-obd/Honda-Civic-7",
+        "https://github.com/OBDb/Honda-Civic/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Civic",
+      "gen": "IX (FB/FK)",
+      "years": [
+        2011,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "R18Z",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L13Z",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24Z",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N16A",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N22B",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 7,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "note": {
+        "ru": "Разъём в блоке предохранителей под рулём.",
+        "en": "Socket inside the fuse box below the steering wheel."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Civic_(ninth_generation)",
+        "https://www.klavkarr.com/compatible/honda-civicix-fb/fg-21000114",
+        "https://www.klavkarr.com/location-plug-connector-obd/Honda-civic-9",
+        "https://github.com/OBDb/Honda-Civic/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Civic",
+      "gen": "X (FC/FK)",
+      "years": [
+        2015,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "L15B",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K20C",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "P10A",
+          "liters": 1.0,
+          "cyl": 3,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 7,
+      "obd": "under_column",
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Civic_(tenth_generation)",
+        "https://www.klavkarr.com/compatible/honda-civicx-fc/fk-21000118",
+        "https://www.klavkarr.com/location-plug-connector-obd/Honda-civic-10",
+        "https://github.com/OBDb/Honda-Civic/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Accord",
+      "gen": "VII (CL/CM)",
+      "years": [
+        2002,
+        2008
+      ],
+      "engines": [
+        {
+          "code": "K20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24A",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N22A",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 3,
+      "buses": {
+        "ru": "K-line (ISO 9141-2), только стандартный OBD-II.",
+        "en": "K-line (ISO 9141-2), standard OBD-II only."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Accord_(Japan_and_Europe_seventh_generation)",
+        "https://www.klavkarr.com/compatible/honda-accordvii-cl/cm/cn-21000101"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Accord",
+      "gen": "VIII (CU/CW)",
+      "years": [
+        2008,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "R20A",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K24Z",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N22B",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Accord_(Japan_and_Europe_eighth_generation)",
+        "https://www.klavkarr.com/compatible/honda-accordviii-cu/cw-21000103",
+        "https://github.com/OBDb/Honda-Accord/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Accord",
+      "gen": "IX (CR)",
+      "years": [
+        2012,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "K24W",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "J35Y",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Accord_(ninth_generation)",
+        "https://www.klavkarr.com/compatible/honda-accordix-cr/ct-21000105",
+        "https://github.com/OBDb/Honda-Accord/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Pilot",
+      "gen": "II (YF3/YF4)",
+      "years": [
+        2008,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "J35Z",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Pilot",
+        "https://www.klavkarr.com/compatible/honda-pilotii-yf3/yf4-21000159",
+        "https://github.com/OBDb/Honda-Pilot/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Pilot",
+      "gen": "III (YF5/YF6)",
+      "years": [
+        2015,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "J35Y",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Pilot",
+        "https://www.klavkarr.com/compatible/honda-pilotiii-yf5/yf6-21000160",
+        "https://github.com/OBDb/Honda-Pilot/blob/main/signalsets/v3/default.json"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Fit / Jazz",
+      "gen": "I (GD)",
+      "years": [
+        2001,
+        2008
+      ],
+      "engines": [
+        {
+          "code": "L12A",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L13A",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L15A",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 3,
+      "buses": {
+        "ru": "K-line (ISO 9141-2), только стандартный OBD-II.",
+        "en": "K-line (ISO 9141-2), standard OBD-II only."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Fit_(first_generation)",
+        "https://www.klavkarr.com/compatible/honda-jazzi-21000137",
+        "https://www.klavkarr.com/compatible/honda-fiti-gd/ge-21000128"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Fit / Jazz",
+      "gen": "II (GE)",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "L12B",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L13Z",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L15A",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 7,
+      "obd": "right_of_column",
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "note": {
+        "ru": "Разъём справа под рулём, над педалями.",
+        "en": "Socket right under the steering wheel, above the pedals."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Fit_(second_generation)",
+        "https://www.klavkarr.com/compatible/honda-jazzii-21000138",
+        "https://www.klavkarr.com/compatible/honda-fitii-ge/gg-21000129",
+        "https://www.klavkarr.com/location-plug-connector-obd/Honda-jazz-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Honda",
+      "model": "Fit / Jazz",
+      "gen": "III (GK)",
+      "years": [
+        2013,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "L13B",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L15B",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит 500 кбит/с: двигатель 18DA10F1, АКПП/CVT 18DA1EF1; 11-битных адресов нет.",
+        "en": "29-bit CAN 500 kbit/s: engine 18DA10F1, transmission 18DA1EF1; no 11-bit addresses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Honda_Fit",
+        "https://www.klavkarr.com/compatible/honda-fitiii-gk/gh/gp-21000130",
+        "https://www.klavkarr.com/compatible/honda-jazziii-21000141"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [],
+  "features": [
+    {
+      "ru": "Honda с 2006–2008 г. (Civic 8, CR-V 3, Accord 8, Jazz 2 и новее) — CAN 29 бит, ATSP 7",
+      "en": "Honda from 2006-2008 (Civic 8, CR-V 3, Accord 8, Jazz 2 and later) use 29-bit CAN, ATSP 7"
+    },
+    {
+      "ru": "Заводские параметры Honda идут по 29-битным адресам (18DA10F1 и т. п.) — здесь их нет",
+      "en": "Honda factory data lives on 29-bit addresses (18DA10F1 etc.) - not in this list"
+    },
+    {
+      "ru": "Accord 7 и Jazz 1 — K-line ISO 9141, только стандартный OBD-II",
+      "en": "Accord 7 and Jazz 1 are K-line ISO 9141, standard OBD-II only"
+    },
+    {
+      "ru": "Температуру ATF/CVT по 11-битному CAN публично не нашли",
+      "en": "No public 11-bit CAN request for ATF/CVT temperature found"
+    }
+  ]
+}

@@ -39,11 +39,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.obdscanner.ConnState
 import com.obdscanner.ObdManager
+import com.obdscanner.VehicleInfo
+import com.obdscanner.car.CarChoice
 import com.obdscanner.tr
 
 @SuppressLint("MissingPermission")
 @Composable
-fun ConnectScreen(m: ObdManager, conn: ConnState) {
+fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarChoice?) {
     val ctx = LocalContext.current
     val needPerm = Build.VERSION.SDK_INT >= 31
     fun granted() = !needPerm || ContextCompat.checkSelfPermission(ctx, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
@@ -91,6 +93,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState) {
                 ConnState.Idle -> Unit
             }
         }
+        item { CarCard(m, v, picked) }
         item {
             SectionTitle(tr("Адаптер ELM327", "ELM327 adapter"))
             when {

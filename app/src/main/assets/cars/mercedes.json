@@ -1,0 +1,884 @@
+{
+  "family": "mercedes",
+  "title": "Mercedes-Benz",
+  "brands": [
+    {
+      "name": "Mercedes-Benz",
+      "wmi": [
+        "WDB",
+        "WDD",
+        "WDC",
+        "WDF",
+        "WD3",
+        "W1K",
+        "W1N",
+        "W1V",
+        "4JG",
+        "55S"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Mercedes-Benz",
+      "model": "C-Class",
+      "gen": "W203",
+      "years": [
+        2000,
+        2007
+      ],
+      "engines": [
+        {
+          "code": "M271",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M112",
+          "liters": 3.2,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E35",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM646",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "buses": {
+        "ru": "Часть блоков на K-линии, OBD двигателя может быть как на CAN, так и на K-линии (зависит от года и мотора) — протокол лучше определять автоматически.",
+        "en": "Some units are on the K-line; engine OBD may be CAN or K-line depending on year and engine — let the protocol auto-detect."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_C-Class_(W203)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "C-Class",
+      "gen": "W204",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "M271",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E35",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM646",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_C-Class_(W204)",
+        "https://carwiki.de/obd-stecker-mercedes-c-klasse",
+        "https://mbworld.org/forums/c63-amg-w204/798801-transmission-temperature.html",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "C-Class",
+      "gen": "W205",
+      "years": [
+        2014,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "M274",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M264",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM654",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_C-Class_(W205)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "E-Class",
+      "gen": "W211",
+      "years": [
+        2002,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "M271",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M112",
+          "liters": 3.2,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E35",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M273",
+          "liters": 5.5,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM646",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "buses": {
+        "ru": "Часть блоков на K-линии, OBD двигателя может быть как на CAN, так и на K-линии (зависит от года и мотора) — протокол лучше определять автоматически.",
+        "en": "Some units are on the K-line; engine OBD may be CAN or K-line depending on year and engine — let the protocol auto-detect."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_E-Class_(W211)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "E-Class",
+      "gen": "W212",
+      "years": [
+        2009,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "M271",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M274",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E35",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M278",
+          "liters": 4.7,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_E-Class_(W212)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "E-Class",
+      "gen": "W213",
+      "years": [
+        2016,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "M274",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M264",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM654",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM656",
+          "liters": 2.9,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_E-Class_(W213)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "GLK",
+      "gen": "X204",
+      "years": [
+        2008,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "M272 E30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M272 E35",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M274",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_GLK-Class",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "GLC",
+      "gen": "X253",
+      "years": [
+        2015,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "M274",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M264",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM654",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_GLC-Class_(X253)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "M-Class",
+      "gen": "W164",
+      "years": [
+        2005,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "M272 E35",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M273",
+          "liters": 5.5,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_M-Class_(W164)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://www.drive2.ru/l/582617193859024927/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "M-Class",
+      "gen": "W166",
+      "years": [
+        2011,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M278",
+          "liters": 4.7,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_GLE-Class_(W166)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "GLE",
+      "gen": "W166",
+      "years": [
+        2015,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "M276",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M278",
+          "liters": 4.7,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_GLE-Class_(W166)",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "GLE",
+      "gen": "V167",
+      "years": [
+        2019,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "M264",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M256",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "OM654",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM656",
+          "liters": 2.9,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_GLE-Class",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "Sprinter",
+      "gen": "906",
+      "years": [
+        2006,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "OM646",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "buses": {
+        "ru": "Часть блоков на K-линии, OBD двигателя может быть как на CAN, так и на K-линии (зависит от года и мотора) — протокол лучше определять автоматически.",
+        "en": "Some units are on the K-line; engine OBD may be CAN or K-line depending on year and engine — let the protocol auto-detect."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_Sprinter",
+        "https://www.mercedesmedic.com/find-location-obd-ii-obd2-port-mercedes-benz/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "Sprinter",
+      "gen": "907",
+      "years": [
+        2018,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "OM651",
+          "liters": 2.1,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM642",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        },
+        {
+          "code": "OM654",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём — диагностическая шина CAN-D (500 кбит/с) через шлюз. Двигатель (ME/MED/CDI) отвечает на 7E0→7E8, АКПП 722.9 (блок VGS) — на 7E1→7E9. Остальные блоки (ESP, SAM, щиток) — фирменные адреса и сессии Xentry.",
+        "en": "The OBD socket is on the diagnostic CAN-D (500 kbit/s) behind the gateway. Engine (ME/MED/CDI) answers 7E0→7E8, the 722.9 gearbox (VGS) 7E1→7E9. Other units (ESP, SAM, cluster) use proprietary ids and Xentry sessions."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от педалей, со стороны водителя, часто под пластиковой крышкой.",
+        "en": "Socket under the dash left of the pedals on the driver's side, often behind a plastic flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mercedes-Benz_Sprinter",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "30",
+      "rate": "slow",
+      "models": [
+        "C-Class",
+        "E-Class",
+        "GLK",
+        "M-Class"
+      ],
+      "years": [
+        2004,
+        2015
+      ],
+      "signals": [
+        {
+          "id": "MB_722_9_ATF_T",
+          "name": {
+            "ru": "Температура масла АКПП",
+            "en": "Transmission oil temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "atf_temp",
+          "fmt": {
+            "bix": 88,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -50,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.drive2.ru/l/582617193859024927/",
+            "https://mbworld.org/forums/c63-amg-w204/798801-transmission-temperature.html",
+            "https://mbworld.org/forums/r-class-w251/814692-transmission-temperature-using-torque-pro.html",
+            "https://mbworld.org/forums/coupe-roadster/872937-pid-transmission-oil-temp.html"
+          ],
+          "note": "Torque PID 2130, header 7E1, equation L-50 (12th data byte). 7G-Tronic 722.9 (VGS). Matched a Delphi scanner on W164 (drive2); confirmed on W204 C63 and M157 cars (mbworld). No answer on W251 R-Class and -51 on AMG GT (DCT) — 9G-Tronic 725.0 not confirmed, hence years<=2015."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Температура масла АКПП 7G-Tronic (722.9) — прямо из блока коробки (7E1), как в Torque-PID 2130.",
+      "en": "7G-Tronic (722.9) transmission oil temperature straight from the gearbox unit (7E1), same as Torque PID 2130."
+    },
+    {
+      "ru": "Уровень масла в 722.9 проверяют при 45 °C — удобно смотреть эту температуру при замене масла.",
+      "en": "722.9 fluid level is set at 45 °C — handy to watch this value during a fluid change."
+    },
+    {
+      "ru": "На 9G-Tronic (с 2015 г.), AMG DCT и R-Class этот запрос не подтверждён или не отвечает.",
+      "en": "Not confirmed / no answer on 9G-Tronic (2015+), AMG DCT and R-Class."
+    },
+    {
+      "ru": "Двигатель и прочее — стандартный OBD-II; остальные блоки (ESP, SAM, щиток) требуют Xentry и сессий, ELM327 их не читает.",
+      "en": "Engine and the rest — standard OBD-II; other units (ESP, SAM, cluster) need Xentry sessions, an ELM327 can't read them."
+    },
+    {
+      "ru": "Машины до ~2007 (W203, W211, ранний Sprinter) могут быть на K-линии.",
+      "en": "Cars before ~2007 (W203, W211, early Sprinter) may be on the K-line."
+    }
+  ]
+}

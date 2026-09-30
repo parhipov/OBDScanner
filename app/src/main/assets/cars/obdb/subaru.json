@@ -1,0 +1,715 @@
+{
+ "family": "subaru",
+ "source": "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py",
+ "commands": [
+  {"hdr": "746", "rsp": "74E", "svc": "22", "did": "1032", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_STEER_ANGLE_746", "name": {"en": "Steering wheel angle, v2", "ru": "Угол поворота руля, вар. 2"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "753", "rsp": "75B", "svc": "22", "did": "1022", "rate": "slow", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_TP_FL", "name": {"en": "Front left tire pressure", "ru": "Давление в шине ПЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "CROSSTREK_TP_FR", "name": {"en": "Front right tire pressure", "ru": "Давление в шине ПП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "CROSSTREK_TP_RR", "name": {"en": "Rear right tire pressure", "ru": "Давление в шине ЗП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "CROSSTREK_TP_RL", "name": {"en": "Rear left tire pressure", "ru": "Давление в шине ЗЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]}
+  ]},
+  {"hdr": "753", "rsp": "75B", "svc": "22", "did": "1028", "rate": "slow", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_TID1", "name": {"en": "Tire 1 id", "ru": "ID шины 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "CROSSTREK_TID2", "name": {"en": "Tire 2 id", "ru": "ID шины 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "CROSSTREK_TID3", "name": {"en": "Tire 3 id", "ru": "ID шины 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 48, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "CROSSTREK_TID4", "name": {"en": "Tire 4 id", "ru": "ID шины 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 72, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "0005", "rate": "medium", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_ECT", "name": {"en": "Coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "0023", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FRP", "name": {"en": "Fuel rail pressure", "ru": "Давление в топливной рампе"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_FRP", "name": {"en": "Fuel rail pressure", "ru": "Давление в топливной рампе"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "003C", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EGT_AT_CATALYST_INLET", "name": {"en": "Exhaust gas temperature, catalyst inlet", "ru": "Температура ОГ на входе катализатора"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "003E", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EGT_DPF_INLET", "name": {"en": "Exhaust gas temperature at DPF inlet", "ru": "Температура ОГ на входе DPF"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10A1", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MAF_VOLTAGE", "name": {"en": "Mass airflow sensor voltage", "ru": "Напряжение ДМРВ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10A4", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FUEL_INJECTOR_2_PULSE_WIDTH", "name": {"en": "Fuel injector #2 pulse width", "ru": "Длительность импульса форсунки №2"}, "unit": "ms", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 3.90625}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10A5", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_ODO_7A2_10A5", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "odometer"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10A6", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ACC_PEDAL_ANGLE", "name": {"en": "Accelerator pedal angle", "ru": "Угол педали газа"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10A7", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FUEL_T", "name": {"en": "Fuel temperature", "ru": "Температура топлива"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10AB", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_RADIATOR_FAN", "name": {"en": "Radiator fan control", "ru": "Управление вентилятором радиатора"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10AC", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_PRIMARY_BOOST_CTRL", "name": {"en": "Primary boost control", "ru": "Основное управление наддувом"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10AE", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_CPC_VALVE_DUTY_CYCLE", "name": {"en": "Canister purge control valve duty cycle", "ru": "Скважность клапана продувки адсорбера"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B1", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_EGR_STEPS", "name": {"en": "Exhaust gas recirculation steps", "ru": "Шаги EGR"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B2", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ALTERNATOR_DUTY", "name": {"en": "Alternator duty", "ru": "Скважность генератора"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B3", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FUEL_PUMP_DUTY", "name": {"en": "Fuel pump duty", "ru": "Скважность топливного насоса"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B4", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_INTAKE_VVT_ADVANCE_RIGHT", "name": {"en": "Intake VVT advance angle right", "ru": "Опережение VVT впуска, правый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B5", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_INTAKE_VVT_ADVANCE_LEFT", "name": {"en": "Intake VVT advance angle left", "ru": "Опережение VVT впуска, левый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B6", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_OCV_DUTY_RIGHT", "name": {"en": "Oil control valve duty right", "ru": "Скважность клапана OCV, правый ряд"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10B7", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_OCV_DUTY_LEFT", "name": {"en": "Oil control valve duty left", "ru": "Скважность клапана OCV, левый ряд"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10BE", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_A_F_SENSOR_1", "name": {"en": "A/F sensor #1", "ru": "Датчик A/F №1"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 1.99, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10D2", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EWG_VALVE_POSITION_SENSOR_LEARNING_CLOSED", "name": {"en": "Electric waste gate valve position sensor learning value at fully-closed position", "ru": "Адаптация датчика положения вестгейта (полностью закрыт)"}, "unit": "mm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 39.8, "div": 255, "add": -10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10D3", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EWG_VALVE_REQUEST_POSITION", "name": {"en": "Electric waste gate valve request position value", "ru": "Положение электр. вестгейта, заданное"}, "unit": "mm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 40, "div": 65535, "add": -10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10D4", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EWG_VALVE_ACTUAL_POSITION", "name": {"en": "Electric waste gate valve actual position value", "ru": "Положение электр. вестгейта, факт."}, "unit": "mm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 40, "div": 65535, "add": -10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10DE", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_THROTTLE_MOTOR_DUTY", "name": {"en": "Throttle motor duty", "ru": "Скважность мотора дросселя"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.784, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10E3", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_CRUISE_VSS_T", "name": {"en": "Cruise speed, set", "ru": "Скорость круиза, установленная"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10E5", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ODO_7A2_10E5", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "odometer"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10E6", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FUEL_TANK_AIR_PRESSURE", "name": {"en": "Fuel tank air pressure", "ru": "Давление воздуха в топливном баке"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10E8", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_OSV_DUTY_RIGHT", "name": {"en": "Oil supply value, duty right", "ru": "Подача масла, скважность, правый ряд"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10E9", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_OSV_DUTY_LEFT", "name": {"en": "Oil supply value, duty left", "ru": "Подача масла, скважность, левый ряд"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10EE", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_EXHAUST_OCV_DUTY_RIGHT", "name": {"en": "Exhaust OCV duty right", "ru": "Скважность OCV выпуска, правый ряд"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "10EF", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_EXHAUST_OCV_DUTY_LEFT", "name": {"en": "Exhaust OCV duty left", "ru": "Скважность OCV выпуска, левый ряд"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "110B", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ROUGHNESS_MONITOR_1", "name": {"en": "Roughness monitor #1", "ru": "Неравномерность работы #1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "110C", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ROUGHNESS_MONITOR_2", "name": {"en": "Roughness monitor #2", "ru": "Неравномерность работы #2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "110D", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ROUGHNESS_MONITOR_3", "name": {"en": "Roughness monitor #3", "ru": "Неравномерность работы #3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "110E", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ROUGHNESS_MONITOR_4", "name": {"en": "Roughness monitor #4", "ru": "Неравномерность работы #4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1116", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FINAL_INJECTION_AMOUNT_MM_ST", "name": {"en": "Final injection amount", "ru": "Итоговая цикловая подача"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1118", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_TARGET_INTAKE_MANIFOLD_PRESSURE", "name": {"en": "Target intake manifold pressure", "ru": "Заданное давление во впускном коллекторе"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "111B", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EGR_TARGET_VALVE_OPENING_ANGLE", "name": {"en": "Exhaust gas recirculation target valve opening angle", "ru": "Угол открытия клапана EGR, заданный"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "111C", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EGR_VALVE_OPENING_ANGLE", "name": {"en": "Exhaust gas recirculation valve opening angle", "ru": "Угол открытия клапана EGR"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "111F", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_INLET_AIR_T_AFTER_AIR_FILTER", "name": {"en": "Inlet air temperature, after air filter", "ru": "Температура впускного воздуха после фильтра"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1121", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_TARGET_ENGINE_SPEED", "name": {"en": "Target engine speed", "ru": "Обороты двигателя, заданные"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "112A", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MILEAGE_AFTER_INJECTOR_LEARNING", "name": {"en": "Mileage after injector learning", "ru": "Пробег после обучения форсунок"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "112B", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MILEAGE_AFTER_INJECTOR_REPLACEMENT", "name": {"en": "Mileage after injector replacement", "ru": "Пробег после замены форсунок"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "112C", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_INTERIOR_HEATER", "name": {"en": "Interior heater", "ru": "Отопитель салона"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "112D", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_QUANTITY_CORRECTION_1", "name": {"en": "Quantity correction cylinder #1", "ru": "Коррекция подачи, цилиндр #1"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_QUANTITY_CORRECTION_1", "name": {"en": "Quantity correction cylinder #1", "ru": "Коррекция подачи, цилиндр #1"}, "unit": "ms", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 100, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "112E", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_QUANTITY_CORRECTION_2", "name": {"en": "Quantity correction cylinder #2", "ru": "Коррекция подачи, цилиндр #2"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_QUANTITY_CORRECTION_2", "name": {"en": "Quantity correction cylinder #2", "ru": "Коррекция подачи, цилиндр #2"}, "unit": "ms", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 100, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "112F", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_QUANTITY_CORRECTION_3", "name": {"en": "Quantity correction cylinder #3", "ru": "Коррекция подачи, цилиндр #3"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_QUANTITY_CORRECTION_3", "name": {"en": "Quantity correction cylinder #3", "ru": "Коррекция подачи, цилиндр #3"}, "unit": "ms", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 100, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1130", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_QUANTITY_CORRECTION_4", "name": {"en": "Quantity correction cylinder #4", "ru": "Коррекция подачи, цилиндр #4"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_QUANTITY_CORRECTION_4", "name": {"en": "Quantity correction cylinder #4", "ru": "Коррекция подачи, цилиндр #4"}, "unit": "ms", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 100, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1135", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_12V_C", "name": {"en": "12V battery current", "ru": "Ток АКБ 12 В"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.001, "add": -0.128}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1136", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_12V_T", "name": {"en": "12V battery temperature", "ru": "Температура АКБ 12 В"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "battery_temp"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1149", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_CUM_ASH_RAT", "name": {"en": "Cumulative ash ratio", "ru": "Накопленная доля золы"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "114A", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_PRESSURE_DIFFERENCE_BETWEEN_DPF_INLET_AND_OUTLET", "name": {"en": "Pressure difference between DPF inlet and outlet", "ru": "Перепад давления на входе и выходе DPF"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "114B", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_ESTIMATED_CATALYST_T", "name": {"en": "Estimated catalyst temperature", "ru": "Температура катализатора, расчётная"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "114C", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_ESTIMATED_DPF_T", "name": {"en": "Estimated DPF temperature", "ru": "Температура DPF, расчётная"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "114D", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_SOOT_ACCUMULATION_RATIO", "name": {"en": "Soot accumulation ratio", "ru": "Степень накопления сажи"}, "unit": "%", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "dpf_soot", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "114E", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_OIL_DILUTION_RATIO", "name": {"en": "Oil dilution ratio", "ru": "Разжижение масла, доля"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1155", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_ESTIMATED_DIST_OIL", "name": {"en": "Estimated distance to oil change", "ru": "Пробег до замены масла"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "service_km", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1156", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_RUNNING_DISTANCE_SINCE_LAST_DPF_REGENERATION", "name": {"en": "Running distance since last DPF regeneration", "ru": "Пробег после последней регенерации DPF"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1157", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_DPF_REGENERATION_COUNT", "name": {"en": "Diesel particulate filter regeneration count", "ru": "DPF, количество регенераций"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1158", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MQI_FLV_1_1", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #1", "ru": "Обучение микровпрыска №1, цилиндр №1"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_1_1", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #1", "ru": "Обучение микровпрыска №1, цилиндр №1"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_2_1", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #1", "ru": "Обучение микровпрыска №2, цилиндр №1"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_2_1", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #1", "ru": "Обучение микровпрыска №2, цилиндр №1"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_3_1", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #1", "ru": "Обучение микровпрыска №3, цилиндр №1"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_3_1", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #1", "ru": "Обучение микровпрыска №3, цилиндр №1"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_4_1", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #1", "ru": "Обучение микровпрыска №4, цилиндр №1"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_4_1", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #1", "ru": "Обучение микровпрыска №4, цилиндр №1"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 24, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_5_1", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #1", "ru": "Обучение микровпрыска №5, цилиндр №1"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_5_1", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #1", "ru": "Обучение микровпрыска №5, цилиндр №1"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1159", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MQI_FLV_1_2", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #2", "ru": "Обучение микровпрыска №1, цилиндр №2"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_1_2", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #2", "ru": "Обучение микровпрыска №1, цилиндр №2"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_2_2", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #2", "ru": "Обучение микровпрыска №2, цилиндр №2"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_2_2", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #2", "ru": "Обучение микровпрыска №2, цилиндр №2"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_3_2", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #2", "ru": "Обучение микровпрыска №3, цилиндр №2"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_3_2", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #2", "ru": "Обучение микровпрыска №3, цилиндр №2"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_4_2", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #2", "ru": "Обучение микровпрыска №4, цилиндр №2"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_4_2", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #2", "ru": "Обучение микровпрыска №4, цилиндр №2"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 24, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_5_2", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #2", "ru": "Обучение микровпрыска №5, цилиндр №2"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_5_2", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #2", "ru": "Обучение микровпрыска №5, цилиндр №2"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "115A", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MQI_FLV_1_3", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #3", "ru": "Обучение микровпрыска №1, цилиндр №3"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_1_3", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #3", "ru": "Обучение микровпрыска №1, цилиндр №3"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_2_3", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #3", "ru": "Обучение микровпрыска №2, цилиндр №3"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_2_3", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #3", "ru": "Обучение микровпрыска №2, цилиндр №3"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_3_3", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #3", "ru": "Обучение микровпрыска №3, цилиндр №3"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_3_3", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #3", "ru": "Обучение микровпрыска №3, цилиндр №3"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_4_3", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #3", "ru": "Обучение микровпрыска №4, цилиндр №3"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_4_3", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #3", "ru": "Обучение микровпрыска №4, цилиндр №3"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 24, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_5_3", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #3", "ru": "Обучение микровпрыска №5, цилиндр №3"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"]},
+   {"id": "IMPREZA_MQI_FLV_5_3", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #3", "ru": "Обучение микровпрыска №5, цилиндр №3"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "115B", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_MQI_FLV_1_4", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #4", "ru": "Обучение микровпрыска №1, цилиндр №4"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_1_4", "name": {"en": "Micro-quantity-injection final learning value #1 cylinder #4", "ru": "Обучение микровпрыска №1, цилиндр №4"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_2_4", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #4", "ru": "Обучение микровпрыска №2, цилиндр №4"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_2_4", "name": {"en": "Micro-quantity-injection final learning value #2 cylinder #4", "ru": "Обучение микровпрыска №2, цилиндр №4"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_3_4", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #4", "ru": "Обучение микровпрыска №3, цилиндр №4"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_3_4", "name": {"en": "Micro-quantity-injection final learning value #3 cylinder #4", "ru": "Обучение микровпрыска №3, цилиндр №4"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_4_4", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #4", "ru": "Обучение микровпрыска №4, цилиндр №4"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_4_4", "name": {"en": "Micro-quantity-injection final learning value #4 cylinder #4", "ru": "Обучение микровпрыска №4, цилиндр №4"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 24, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FORESTER_MQI_FLV_5_4", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #4", "ru": "Обучение микровпрыска №5, цилиндр №4"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_MQI_FLV_5_4", "name": {"en": "Micro-quantity-injection final learning value #5 cylinder #4", "ru": "Обучение микровпрыска №5, цилиндр №4"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 8, "div": 200, "add": -0.64}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1161", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_INDIVIDUAL_PUMP_DIFFERENCE_LEARNING_VALUE", "name": {"en": "Individual pump difference learning value", "ru": "Обучение индивидуальной разницы насоса"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "IMPREZA_INDIVIDUAL_PUMP_DIFFERENCE_LEARNING_VALUE", "name": {"en": "Individual pump difference learning value", "ru": "Обучение индивидуальной разницы насоса"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1162", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_FINAL_MAIN_INJECTION_PERIOD", "name": {"en": "Final main injection period", "ru": "Итоговая длительность основного впрыска"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "116A", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_DIST_SINCE_PF_WARN", "name": {"en": "Distance since particulate filter warning", "ru": "Пробег с предупреждения DPF"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1189", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_OIL_DILUTION_AMOUNT", "name": {"en": "Oil dilution amount", "ru": "Разжижение масла, объём"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "11A1", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_DPF_REGEN_CNT", "name": {"en": "Diesel particulate filter regeneration attempts", "ru": "DPF, попытки регенерации"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "11D0", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_KNOCKING_SIGNAL", "name": {"en": "Knocking signal", "ru": "Сигнал детонации"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "122F", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_CLUTCH_SWITCH", "name": {"en": "Clutch switch", "ru": "Выключатель сцепления"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1230", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_STOP_LIGHT_SWITCH", "name": {"en": "Stop light switch", "ru": "Выключатель стоп-сигнала"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1231", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_CC_SET_COAST_SWITCH", "name": {"en": "Cruise control set/coast switch", "ru": "Кнопка установки/снижения круиз-контроля"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1232", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_CC_RESUME_ACCELERATE_SWITCH", "name": {"en": "Cruise control resume/accelerate switch", "ru": "Кнопка возобновления/ускорения круиз-контроля"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1233", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_BRAKE_SWITCH", "name": {"en": "Brake switch", "ru": "Выключатель тормоза"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1234", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_CC_MAIN_TOGGLE_SWITCH", "name": {"en": "Cruise control main toggle switch", "ru": "Главный переключатель круиз-контроля"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "124A", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_CC_CANCEL_SWITCH", "name": {"en": "Cruise control cancel switch", "ru": "Кнопка отмены круиз-контроля"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "124C", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_OIL_LEVEL_SWITCH", "name": {"en": "Oil level switch", "ru": "Выключатель уровня масла"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "oil_level"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "124F", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_GLOW_RELAY_SWITCH", "name": {"en": "Glow relay switch", "ru": "Реле свечей накала"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1251", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_SUB_FUEL_PUMP_RELAY_SWITCH", "name": {"en": "Sub fuel pump relay switch", "ru": "Реле доп. топливного насоса"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1254", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_INJECTOR_LEARNING_SWITCH", "name": {"en": "Injector learning switch", "ru": "Переключатель обучения форсунок"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "125B", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_DPF_ACTIVE_REGENERATION_SWITCH", "name": {"en": "Diesel particulate filter active regeneration switch", "ru": "Выключатель активной регенерации DPF"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "129C", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_ENGINE_STARTING_TIME", "name": {"en": "Engine starting time", "ru": "Время пуска двигателя"}, "unit": "ms", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "12ED", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_MASS_AIR_FLOW_AVERAGE", "name": {"en": "Mass air flow average", "ru": "Массовый расход воздуха, средний"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1314", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_MONITOR_1", "name": {"en": "Cylinder monitor #1", "ru": "Мониторинг цилиндра №1"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.25}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek"]},
+   {"id": "FORESTER_MONITOR_1", "name": {"en": "Cylinder monitor #1", "ru": "Мониторинг цилиндра №1"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1315", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_MONITOR_2", "name": {"en": "Cylinder monitor #2", "ru": "Мониторинг цилиндра №2"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.25}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek"]},
+   {"id": "FORESTER_MONITOR_2", "name": {"en": "Cylinder monitor #2", "ru": "Мониторинг цилиндра №2"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1316", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_MONITOR_3", "name": {"en": "Cylinder monitor #3", "ru": "Мониторинг цилиндра №3"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.25}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek"]},
+   {"id": "FORESTER_MONITOR_3", "name": {"en": "Cylinder monitor #3", "ru": "Мониторинг цилиндра №3"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1317", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_MONITOR_4", "name": {"en": "Cylinder monitor #4", "ru": "Мониторинг цилиндра №4"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.25}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek"]},
+   {"id": "FORESTER_MONITOR_4", "name": {"en": "Cylinder monitor #4", "ru": "Мониторинг цилиндра №4"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1321", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_BAT_TERMINAL_VOLTAGE", "name": {"en": "Battery terminal voltage", "ru": "Напряжение на клеммах батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1322", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_BAT_CHARGE_DISCHARGE_CURRENT", "name": {"en": "Battery charge/discharge current", "ru": "Ток заряда/разряда батареи"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "mul": 10, "div": 10000, "add": -2000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1323", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ESTIMATED_BAT_T", "name": {"en": "Estimated battery temperature", "ru": "Температура батареи, оценочная"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek"]},
+   {"id": "FORESTER_ESTIMATED_BAT_T", "name": {"en": "Estimated battery temperature", "ru": "Температура батареи, оценочная"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "1324", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_REMAINING_BAT_CAPACITY", "name": {"en": "Remaining battery capacity", "ru": "Остаточная ёмкость батареи"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "hv_soc"}
+  ]},
+  {"hdr": "7A2", "rsp": "7AA", "svc": "22", "did": "307A", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_INLET_AIR_T", "name": {"en": "Inlet air temperature", "ru": "Температура впускного воздуха"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "10C8", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_LOCK_UP_DUTY_RATIO", "name": {"en": "Lock up duty ratio", "ru": "Скважность блокировки ГТД"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.5}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek"]},
+   {"id": "FORESTER_LOCK_UP_DUTY_RATIO", "name": {"en": "Lock up duty ratio", "ru": "Скважность блокировки ГТД"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "10C9", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_TRANSFER_DUTY_RATIO", "name": {"en": "Transfer duty ratio", "ru": "Скважность муфты раздатки"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "10CB", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_TURBINE_SPEED", "name": {"en": "Turbine speed", "ru": "Обороты турбины"}, "unit": "rpm", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 32}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "input_rpm"}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "10D2", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_CVT_T", "name": {"en": "Continuously variable transmission temperature", "ru": "Температура вариатора"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "1138", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_SECONDARY_PULLEY_SPEED", "name": {"en": "Secondary pulley speed", "ru": "Обороты вторичного шкива"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "113A", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ACTUAL_SECONDARY_PRESSURE", "name": {"en": "Actual secondary pressure", "ru": "Давление ведомого шкива, факт."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25.6, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "113B", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_SECONDARY_SET_CURRENT", "name": {"en": "Secondary set current", "ru": "Ток вторичного соленоида, заданный"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "113C", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_SECONDARY_ACTUAL_CURRENT", "name": {"en": "Secondary actual current", "ru": "Ток вторичного соленоида, факт."}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "113D", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_TARGET_GEAR_RATIO", "name": {"en": "Target gear ratio", "ru": "Заданное передаточное число"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 256, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "113E", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ACTUAL_GEAR_RATIO", "name": {"en": "Actual gear ratio", "ru": "Передаточное число, факт."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 256, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "1141", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ACTUAL_PRIMARY_PRESSURE", "name": {"en": "Actual primary pressure", "ru": "Давление ведущего шкива, факт."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25.6, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "1146", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_PRIMARY_PULLEY_SPEED", "name": {"en": "Primary pulley speed", "ru": "Обороты первичного шкива"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "1147", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_FRONT_WHEEL_SPEED", "name": {"en": "Front wheel speed", "ru": "Скорость переднего колеса"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "12B1", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_ACTUAL_LINE_PRESSURE", "name": {"en": "Actual line pressure", "ru": "Линейное давление, факт."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25.6, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "12B2", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_LIN_SOLENOID_ACTUAL_CURRENT", "name": {"en": "Lin. solenoid actual current", "ru": "Факт. ток линейного соленоида"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "12B4", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_AWD_SOLENOID_SET_CURRENT", "name": {"en": "All-wheel drive solenoid set current", "ru": "Ток соленоида полного привода, заданный"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7A3", "rsp": "7AB", "svc": "22", "did": "12B5", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback"], "signals": [
+   {"id": "CROSSTREK_AWD_SOLENOID_ACTUAL_CURRENT", "name": {"en": "All-wheel drive solenoid actual current", "ru": "Ток соленоида полного привода, факт."}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "22", "did": "1024", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_FR_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "FORESTER_FR_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "22", "did": "1025", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_FL_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "FORESTER_FL_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "22", "did": "1026", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_RR_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "FORESTER_RR_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "22", "did": "1027", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_RL_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-WRX"]},
+   {"id": "FORESTER_RL_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 562.5, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "22", "did": "1029", "rate": "fast", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_STEER_ANGLE", "name": {"en": "Steering wheel angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0005", "rate": "medium", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_ECT_7E0", "name": {"en": "Coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "002F", "rate": "fast", "models": ["Impreza", "Outback", "WRX"], "signals": [
+   {"id": "IMPREZA_FLI", "name": {"en": "Fuel level", "ru": "Уровень топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "101E", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_TRIP_CNT", "name": {"en": "Trip counter", "ru": "Счётчик поездки"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10A3", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_FUEL_INJ_1_WIDTH", "name": {"en": "Fuel injection 1 pulse width", "ru": "Длительность впрыска 1"}, "unit": "ms", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 32, "div": 125}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10AC", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_PRIMARY_BOOST_CTRL_7E0", "name": {"en": "Primary boost control", "ru": "Основное управление наддувом"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10AF", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_TUMBLE_GEN_VLV_POS", "name": {"en": "Tumble generator valve position sensor right", "ru": "Датчик положения заслонки TGV, правый"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10B0", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_TUMBLE_GEN_VLV_POS_SENS", "name": {"en": "Tumble generator valve position sensor left", "ru": "Датчик положения заслонки TGV, левый"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10E5", "rate": "slow", "models": ["Crosstrek", "Forester", "Impreza", "Outback", "WRX"], "signals": [
+   {"id": "CROSSTREK_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Crosstrek", "https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback", "https://github.com/OBDb/Subaru-WRX"], "role": "odometer"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10E7", "rate": "fast", "models": ["Forester", "Impreza", "Outback"], "signals": [
+   {"id": "FORESTER_EOT_V2", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "oil_temp"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10EC", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_EXH_VVT_RETARD_ANG", "name": {"en": "Exhaust VVT retard angle right", "ru": "Угол запаздывания VVT выпуска, правый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10ED", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_EXH_VVT_RETARD_ANG_LEFT", "name": {"en": "Exhaust VVT retard angle left", "ru": "Угол запаздывания VVT выпуска, левый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1149", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_CUM_ASH_RAT_7E0", "name": {"en": "Cumulative ash ratio", "ru": "Накопленная доля золы"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1155", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_ESTIMATED_DIST_OIL_CHANGE", "name": {"en": "Estimated distance to oil change", "ru": "Пробег до замены масла"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "service_km", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "116A", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_DIST_SINCE_PF_WARN_7E0", "name": {"en": "Distance since particulate filter warning", "ru": "Пробег с предупреждения DPF"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BE", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_INT_VVT_CLEANING", "name": {"en": "Intake VVT cleaning self-recovery counter", "ru": "Счётчик самоочистки VVT впуска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BF", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_EXH_VVT_CLEANING", "name": {"en": "Exhaust VVT cleaning self-recovery counter", "ru": "VVT выпуска: счётчик самоочистки"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1275", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_THROTTLE_MOTOR_V", "name": {"en": "Throttle motor voltage", "ru": "Напряжение мотора дросселя"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2, "div": 25}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1276", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_SUB_THROTTLE_SENS", "name": {"en": "Sub throttle sensor", "ru": "Датчик доп. дросселя"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1277", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_MAIN_THROTTLE_SENS", "name": {"en": "Main throttle sensor", "ru": "Основной датчик дросселя"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1278", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_SUB_ACCEL_SENS", "name": {"en": "Sub accelerator sensor", "ru": "Доп. датчик педали газа"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1279", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_MAIN_ACCEL_SENS", "name": {"en": "Main accelerator sensor", "ru": "Основной датчик педали газа"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1289", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_IDLE_MAF", "name": {"en": "Idle mass air flow", "ru": "Расход воздуха на ХХ"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "128A", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_IDLE_MAF_FEEDBACK", "name": {"en": "Idle mass air flow feedback correction", "ru": "Коррекция расхода воздуха ХХ по обратной связи"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -300}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "128B", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_IDLE_SPD_CTRL", "name": {"en": "Idle speed control learning value", "ru": "Обучение регулятора ХХ"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -300}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "128C", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_IDLE_AC_LOAD_CORR", "name": {"en": "Idle A/C load correction", "ru": "Коррекция ХХ под нагрузку кондиционера"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "128D", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_ELEC_LOAD_FEEDBACK", "name": {"en": "Electric load feedback value", "ru": "Обратная связь по электронагрузке, значение"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "128E", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_IDLE_DIRTY_THROTTLE", "name": {"en": "Idle dirty throttle correction", "ru": "Коррекция ХХ на загрязнение дросселя"}, "unit": "g/s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -300}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "128F", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_INT_VVT_ADVANCE_TGT", "name": {"en": "Intake VVT advance, target angle right", "ru": "Заданный угол VVT впуска, правый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1290", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_INT_VVT_ADVANCE_TGT_ANG", "name": {"en": "Intake VVT advance, target angle left", "ru": "Заданный угол VVT впуска, левый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1291", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_EXH_VVT_RETARD_TGT", "name": {"en": "Exhaust VVT retard, target angle right", "ru": "Угол запаздывания VVT выпуска, заданный, правый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1292", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_EXH_VVT_RETARD_TGT_ANG", "name": {"en": "Exhaust VVT retard, target angle left", "ru": "Угол запаздывания VVT выпуска, заданный, левый"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1295", "rate": "slow", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_PURGE_DENSITY_LEARN", "name": {"en": "Purge density learn value", "ru": "Адаптация плотности паров продувки"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 332, "div": 425, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1298", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_TRANS_TURBINE_SPD", "name": {"en": "Transmission turbine speed", "ru": "Обороты турбины КПП"}, "unit": "rpm", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "role": "input_rpm"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1299", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_TRANS_LOCK_UP", "name": {"en": "Transmission lock-up", "ru": "Блокировка ГТД"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "12CE", "rate": "medium", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_AMBIENT_T_SENS_SIG", "name": {"en": "Ambient temperature for sensor signal", "ru": "Температура наружного воздуха по датчику"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "12D1", "rate": "medium", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_AMBIENT_T_CTRL", "name": {"en": "Ambient temperature for control", "ru": "Температура наружного воздуха для управления"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1352", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_SPLIT_RAT_FUEL_INJ_1", "name": {"en": "Split ratio of fuel injection 1", "ru": "Доля впрыска топлива 1"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1353", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_SPLIT_RAT_FUEL_INJ_2", "name": {"en": "Split ratio of fuel injection 2", "ru": "Доля впрыска топлива 2"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1354", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_SPLIT_RAT_FUEL_INJ_3", "name": {"en": "Split ratio of fuel injection 3", "ru": "Доля впрыска топлива 3"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1355", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_SPLIT_RAT_FUEL_INJ_4", "name": {"en": "Split ratio of fuel injection 4", "ru": "Доля впрыска топлива 4"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1357", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_DIRECT_FUEL_INJ_TIME_1", "name": {"en": "Direct fuel injection time 1", "ru": "Время непосредственного впрыска 1"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1358", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_DIRECT_FUEL_INJ_TIME_2", "name": {"en": "Direct fuel injection time 2", "ru": "Время непосредственного впрыска 2"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1359", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_DIRECT_FUEL_INJ_TIME_3", "name": {"en": "Direct fuel injection time 3", "ru": "Время непосредственного впрыска 3"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "135A", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_DIRECT_FUEL_INJ_TIME_4", "name": {"en": "Direct fuel injection time 4", "ru": "Время непосредственного впрыска 4"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"]}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1017", "rate": "medium", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_T", "name": {"en": "CVT fluid temperature", "ru": "Температура масла вариатора"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1045", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_LOCKUP_DUTY", "name": {"en": "Torque converter lock-up duty", "ru": "Скважность блокировки ГТД"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1065", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_AWD_TRANSFER_DUTY", "name": {"en": "AWD transfer clutch duty", "ru": "Скважность муфты полного привода"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1067", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_TURBINE_RPM", "name": {"en": "Turbine speed", "ru": "Обороты турбины"}, "unit": "rpm", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 32}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "role": "input_rpm", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "11CB", "rate": "fast", "models": ["Impreza", "Outback"], "signals": [
+   {"id": "IMPREZA_TURBINE_REVOLUTION", "name": {"en": "Turbine revolution speed", "ru": "Обороты турбины"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 32}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza", "https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "300E", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_PRI_PULLEY_RPM", "name": {"en": "CVT primary pulley speed", "ru": "Обороты первичного шкива вариатора"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "30D0", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_SEC_PULLEY_RPM", "name": {"en": "CVT secondary pulley speed", "ru": "Обороты вторичного шкива вариатора"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "30DA", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_RATIO", "name": {"en": "CVT gear ratio, actual", "ru": "Передаточное число вариатора, факт."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "30F8", "rate": "fast", "models": ["Outback"], "years": [2010, 2099], "signals": [
+   {"id": "OUTBACK_CVT_RATIO_TGT", "name": {"en": "CVT gear ratio, target", "ru": "Передаточное число вариатора, заданное"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Outback"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "1021", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_ST_CHG", "name": {"en": "High voltage battery state of charge", "ru": "Уровень заряда ВВБ (SOC)"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "102A", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_T_1", "name": {"en": "High voltage battery temperature 1", "ru": "Температура ВВБ 1"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "102B", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_T_2", "name": {"en": "High voltage battery temperature 2", "ru": "Температура ВВБ 2"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "102C", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_T_3", "name": {"en": "High voltage battery temperature 3", "ru": "Температура ВВБ 3"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "102D", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_IAT", "name": {"en": "High voltage battery intake air temperature", "ru": "Температура воздуха на входе ВВБ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "1143", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_CELL_T", "name": {"en": "High voltage battery cell temperature estimated", "ru": "Температура ячеек ВВБ, расчётная"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1052", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_TORQUE_OUTPUT_ACTUAL", "name": {"en": "Drive motor torque output actual", "ru": "Выходной момент тягового двигателя, факт."}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 10, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1055", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_OUTPUT_POWER", "name": {"en": "Drive motor output power", "ru": "Выходная мощность тягового двигателя"}, "unit": "W", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1057", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_TORQUE_TARGET", "name": {"en": "Drive motor torque target", "ru": "Момент тягового двигателя, заданный"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 10, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1058", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_SPEED", "name": {"en": "Drive motor speed", "ru": "Обороты тягового двигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1059", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_SPEED_TARGET", "name": {"en": "Drive motor speed target", "ru": "Обороты тягового двигателя, заданные"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "105D", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_TORQUE_UPPER_LIMIT", "name": {"en": "Drive motor torque upper limit", "ru": "Верхний предел момента тягового двигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "105E", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_TORQUE_LOWER_LIMIT", "name": {"en": "Drive motor torque lower limit", "ru": "Нижний предел момента тягового двигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1063", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_INVERTER_INPUT_HV_SENSOR", "name": {"en": "Drive motor inverter input HV sensor", "ru": "Инвертор тягового двигателя, датчик ВВ на входе"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 2500, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1065", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_INVERTER_T_ESTIMATED", "name": {"en": "Inverter temperature estimated", "ru": "Температура инвертора, расчётная"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1066", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_INVERTER_T_A", "name": {"en": "Drive motor inverter temperature a", "ru": "Температура инвертора тягового двигателя A"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1067", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_INVERTER_T_B", "name": {"en": "Drive motor inverter temperature b", "ru": "Температура инвертора тягового двигателя B"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1068", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_INVERTER_T_C", "name": {"en": "Drive motor inverter temperature c", "ru": "Температура инвертора тягового двигателя C"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "106B", "rate": "medium", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_ATF_T", "name": {"en": "Transmission fluid temperature", "ru": "Температура масла АКПП"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "106D", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_T_A", "name": {"en": "Drive motor temperature a", "ru": "Температура тягового двигателя A"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "106E", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_DRIVEMOTOR_T_B", "name": {"en": "Drive motor temperature b", "ru": "Температура тягового двигателя B"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1081", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_COOLING_FAN", "name": {"en": "High voltage battery cooling fan speed", "ru": "Обороты вентилятора охлаждения ВВБ"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1082", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_COOLING_FAN_TGT", "name": {"en": "High voltage battery cooling fan duty, target", "ru": "Скважность вентилятора охлаждения ВВБ, заданная"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1084", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_COOLING_FAN_DUTY", "name": {"en": "High voltage battery cooling fan duty output", "ru": "Скважность вентилятора охлаждения ВВБ"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "1033", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_ST_CHG_7E7", "name": {"en": "High voltage battery state of charge", "ru": "Уровень заряда ВВБ (SOC)"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "1037", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_AUX_BAT_VOLTAGE", "name": {"en": "12V aux battery voltage", "ru": "Напряжение доп. АКБ 12 В"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25.5, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "1039", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_ENGINE_RESTART_BAT_VOLTAGE", "name": {"en": "12V engine restart battery voltage", "ru": "Напряжение АКБ перезапуска ДВС 12 В"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25.5, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "1077", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_ENGINE_RESTART_BAT_SOC", "name": {"en": "12V engine restart battery soc", "ru": "Уровень заряда АКБ перезапуска ДВС 12 В"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 127.5, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "1079", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_ENGINE_RESTART_BAT_T", "name": {"en": "12V engine restart battery temperature", "ru": "Температура АКБ перезапуска ДВС 12 В"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "107A", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_COOLING_FAN_DUTY_TGT", "name": {"en": "High voltage battery cooling fan duty, target", "ru": "Скважность вентилятора охлаждения ВВБ, заданная"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2006", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_ENGINE_TORQUE_TARGET", "name": {"en": "Engine torque target", "ru": "Крутящий момент двигателя, заданный"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -1000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2009", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_TOT_V", "name": {"en": "High voltage battery total voltage", "ru": "Общее напряжение ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "200A", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_CURRENT", "name": {"en": "High voltage battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -200}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "200C", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_COOLING_FAN_DUTY_TGT_7E7", "name": {"en": "High voltage battery cooling fan duty, target", "ru": "Скважность вентилятора охлаждения ВВБ, заданная"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2012", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_CURRENT", "name": {"en": "12V engine restart battery current", "ru": "Ток АКБ перезапуска ДВС 12 В"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -2000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2014", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_SOC_CONTROL", "name": {"en": "12V engine restart battery soc control", "ru": "Управление SOC АКБ перезапуска ДВС 12 В"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 127.5, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2021", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_ST_HEALTH", "name": {"en": "High voltage battery state of health", "ru": "Состояние ВВБ (SOH)"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2022", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_T_MAX", "name": {"en": "High voltage battery temperature max", "ru": "Температура ВВБ, макс."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2023", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_T_MIN", "name": {"en": "High voltage battery temperature min", "ru": "Температура ВВБ, мин."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2024", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_IAT_7E7", "name": {"en": "High voltage battery intake air temperature", "ru": "Температура воздуха на входе ВВБ"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2025", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_DCHG_POWER", "name": {"en": "High voltage battery discharge power", "ru": "Мощность разряда ВВБ"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2026", "rate": "fast", "models": ["Impreza"], "signals": [
+   {"id": "IMPREZA_HVBAT_CHG_POWER", "name": {"en": "High voltage battery charge power", "ru": "Мощность заряда ВВБ"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Impreza"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2034", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_ELECTRIC_OIL_PUMP_SPEED", "name": {"en": "Electric oil pump speed", "ru": "Обороты электрического масляного насоса"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2035", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_ELECTRIC_OIL_PUMP_CURRENT", "name": {"en": "Electric oil pump current", "ru": "Ток электрического масляного насоса"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2061", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_ENGINE_TORQUE_UPPER_ECM", "name": {"en": "Engine torque upper", "ru": "Крутящий момент двигателя, верхний предел"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 408, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "2062", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_ENGINE_TORQUE_ACTUAL", "name": {"en": "Engine torque actual", "ru": "Крутящий момент двигателя, факт."}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -1000}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "20E2", "rate": "fast", "models": ["Forester", "Impreza"], "signals": [
+   {"id": "FORESTER_12V_AUX_BAT_T", "name": {"en": "12V aux battery temperature", "ru": "Температура доп. АКБ 12 В"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Subaru-Forester", "https://github.com/OBDb/Subaru-Impreza"]}
+  ]}
+ ]
+}

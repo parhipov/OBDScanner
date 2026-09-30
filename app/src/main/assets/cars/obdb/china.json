@@ -1,0 +1,737 @@
+{
+ "family": "china",
+ "source": "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py",
+ "commands": [
+  {"hdr": "710", "rsp": "718", "svc": "22", "did": "B921", "rate": "fast", "models": ["EHS", "MG4", "ZS EV"], "signals": [
+   {"id": "EHS_GWM_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-MG4", "https://github.com/OBDb/MG-ZS-EV"], "role": "odometer"}
+  ]},
+  {"hdr": "710", "rsp": "718", "svc": "22", "did": "D001", "rate": "medium", "models": ["EHS", "MG4", "ZS EV"], "signals": [
+   {"id": "EHS_GWM_STATUS", "name": {"en": "Vehicle gateway status", "ru": "Состояние шлюза"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-MG4", "https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "724", "rsp": "72C", "svc": "22", "did": "B001", "rate": "medium", "models": ["EHS", "ZS EV"], "signals": [
+   {"id": "EHS_TP_FL", "name": {"en": "Front left tire pressure", "ru": "Давление в шине ПЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_TP_FR", "name": {"en": "Front right tire pressure", "ru": "Давление в шине ПП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_TP_RR", "name": {"en": "Rear right tire pressure", "ru": "Давление в шине ЗП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_TP_RL", "name": {"en": "Rear left tire pressure", "ru": "Давление в шине ЗЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "724", "rsp": "72C", "svc": "22", "did": "B003", "rate": "medium", "models": ["EHS", "ZS EV"], "signals": [
+   {"id": "EHS_TT_FL", "name": {"en": "Front left tire temperature", "ru": "Температура шины ПЛ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_TT_FR", "name": {"en": "Front right tire temperature", "ru": "Температура шины ПП"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_TT_RR", "name": {"en": "Rear right tire temperature", "ru": "Температура шины ЗП"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 16, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_TT_RL", "name": {"en": "Rear left tire temperature", "ru": "Температура шины ЗЛ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 24, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "748", "svc": "22", "did": "D117", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DRL", "name": {"en": "Headlights on", "ru": "Фары включены"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "748", "svc": "22", "did": "E101", "rate": "slow", "models": ["EHS", "ZS EV"], "signals": [
+   {"id": "EHS_BCM_ODO", "name": {"en": "Odometer, body control module", "ru": "Пробег (кузовной блок)"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "748", "svc": "22", "did": "E209", "rate": "slow", "models": ["EHS", "ZS EV"], "signals": [
+   {"id": "EHS_BCM_TP_FL", "name": {"en": "Front left tire pressure", "ru": "Давление в шине ПЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TP_FR", "name": {"en": "Front right tire pressure", "ru": "Давление в шине ПП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TP_RL", "name": {"en": "Rear left tire pressure", "ru": "Давление в шине ЗЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TP_RR", "name": {"en": "Rear right tire pressure", "ru": "Давление в шине ЗП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TT_FL", "name": {"en": "Front left tire temperature", "ru": "Температура шины ПЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8, "add": -60}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TT_FR", "name": {"en": "Front right tire temperature", "ru": "Температура шины ПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 40, "len": 8, "add": -60}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TT_RL", "name": {"en": "Rear left tire temperature", "ru": "Температура шины ЗЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 48, "len": 8, "add": -60}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EHS_BCM_TT_RR", "name": {"en": "Rear right tire temperature", "ru": "Температура шины ЗП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 56, "len": 8, "add": -60}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS", "https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "74D", "svc": "22", "did": "B013", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_UNLOCKED", "name": {"en": "Vehicle unlocked", "ru": "Автомобиль разблокирован"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 31, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "750", "rsp": "758", "svc": "22", "did": "E00F", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_BLOWER", "name": {"en": "Blower speed", "ru": "Скорость вентилятора отопителя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "750", "rsp": "758", "svc": "22", "did": "E013", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_FACE_OUTLET_T", "name": {"en": "Face vent outlet temperature", "ru": "Температура воздуха из центральных дефлекторов"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "750", "rsp": "758", "svc": "22", "did": "E01B", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_AAT_ATC", "name": {"en": "Ambient temperature, climate control", "ru": "Температура за бортом (климат)"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "750", "rsp": "758", "svc": "22", "did": "E01C", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_PTC_T", "name": {"en": "Cabin heater temperature", "ru": "Температура отопителя салона"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "B101", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_ODO_V2", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "role": "odometer"}
+  ]},
+  {"hdr": "763", "rsp": "7A3", "svc": "22", "did": "A012", "rate": "medium", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_HVAC_EVAPORATOR_T_FRONT", "name": {"en": "Evaporator temperature, front", "ru": "Температура испарителя, передний"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -20}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "763", "rsp": "7A3", "svc": "22", "did": "A019", "rate": "medium", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_HVAC_CABIN_T_FRONT", "name": {"en": "Cabin temperature, front", "ru": "Температура в салоне, спереди"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B041", "rate": "fast", "models": ["ZS EV"], "years": [1980, 2021], "signals": [
+   {"id": "ZSEV_HVBAT_BUS_VOLTAGE_GEN1", "name": {"en": "HV battery bus voltage", "ru": "Напряжение шины ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B042", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HBAT_V", "name": {"en": "High voltage battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B043", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HBAT_C", "name": {"en": "High voltage battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001, "div": 40, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B046", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_SOC", "name": {"en": "State of charge", "ru": "Уровень заряда (SOC)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "role": "hv_soc"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B047", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_ERR_GEN1", "name": {"en": "HV battery error code", "ru": "Код ошибки ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B048", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_IS_CHARGING", "name": {"en": "Is charging", "ru": "Идёт зарядка"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_IS_DCFC", "name": {"en": "Is DC fast charging", "ru": "Быстрая зарядка DC"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B049", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RELAY_B_GEN1", "name": {"en": "HV battery main relay B state", "ru": "Главное реле ВВБ B"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B04A", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RELAY_G_GEN1", "name": {"en": "HV battery main relay G state", "ru": "Главное реле ВВБ G"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B052", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RELAY_P_GEN1", "name": {"en": "HV battery main relay P state", "ru": "Главное реле ВВБ P"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B056", "rate": "slow", "models": ["ZS EV"], "years": [1980, 2021], "signals": [
+   {"id": "ZSEV_HVBAT_TEMP_GEN1", "name": {"en": "HV battery temperature", "ru": "Температура ВВБ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B058", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_CELL_V_MAX_GEN1", "name": {"en": "Highest cell voltage", "ru": "Максимальное напряжение ячейки"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B059", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_CELL_V_MIN_GEN1", "name": {"en": "Lowest cell voltage", "ru": "Минимальное напряжение ячейки"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B05C", "rate": "slow", "models": ["ZS EV"], "years": [1980, 2021], "signals": [
+   {"id": "ZSEV_HVBAT_COOLANT_TEMP_GEN1", "name": {"en": "HV battery coolant temperature", "ru": "Температура ОЖ ВВБ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B061", "rate": "fast", "models": ["ZS EV"], "years": [1980, 2021], "signals": [
+   {"id": "ZSEV_SOH", "name": {"en": "State of health", "ru": "Состояние батареи (SOH)"}, "unit": "%", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "role": "hv_soh"}
+  ]},
+  {"hdr": "781", "rsp": "789", "svc": "22", "did": "B0CE", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RANGE_RAW_GEN1", "name": {"en": "HV battery range count", "ru": "Счётчик диапазона ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "782", "rsp": "7C2", "svc": "22", "did": "6303", "rate": "fast", "models": ["Jolion"], "signals": [
+   {"id": "JOLION_FRONT_LEFT_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLION_FRONT_RIGHT_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLION_REAR_LEFT_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 32, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLION_REAR_RIGHT_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 48, "len": 16, "mul": 0.05625}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]}
+  ]},
+  {"hdr": "785", "rsp": "78D", "svc": "22", "did": "B025", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_LOAD", "name": {"en": "DC/DC converter load", "ru": "Нагрузка DC/DC-преобразователя"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "785", "rsp": "78D", "svc": "22", "did": "B026", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_T", "name": {"en": "DC/DC converter temperature", "ru": "Температура DC/DC-преобразователя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "1109", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_GMCU_MOTOR_T_1", "name": {"en": "Motor temperature, GMCU", "ru": "Температура электродвигателя, GMCU"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "1110", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_GMCU_MOTOR_SPEED", "name": {"en": "Motor speed, GMCU", "ru": "Обороты электродвигателя, GMCU"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "1111", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_GMCU_MOTOR_T_2", "name": {"en": "Motor winding temperature, GMCU", "ru": "Температура обмотки электродвигателя, GMCU"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "2108", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_TMCU_INVERTOR_T", "name": {"en": "Inverter temperature", "ru": "Температура инвертора"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "2109", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_TMCU_MOTOR_T_1", "name": {"en": "Motor temperature", "ru": "Температура электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "2110", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_TMCU_MOTOR_SPEED", "name": {"en": "Motor speed", "ru": "Частота вращения электродвигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "2111", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_TMCU_MOTOR_T_2", "name": {"en": "Motor winding temperature", "ru": "Температура обмотки электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "2304", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_GMCU_TORQUE_MAX", "name": {"en": "Torque maximum, GMCU", "ru": "Максимальный момент, GMCU"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "787", "rsp": "7C7", "svc": "22", "did": "2305", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_MCU_GMCU_TORQUE_MIN", "name": {"en": "Torque minimum, GMCU", "ru": "Минимальный момент, GMCU"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -1023}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E006", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_VOLTAGE", "name": {"en": "HV battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E007", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_TOTAL_CELL_VOLTAGES", "name": {"en": "Cell voltages, total", "ru": "Сумма напряжений ячеек"}, "unit": "V", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E008", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_CELL_VOLTAGE_MAX", "name": {"en": "Cell voltage, maximum", "ru": "Напряжение ячейки, макс."}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E009", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_CELL_VOLTAGE_MIN", "name": {"en": "Cell voltage, minimum", "ru": "Напряжение ячейки, мин."}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E00A", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MAX_CELL_VOLTAGE_POSITION", "name": {"en": "Cell position, maximum voltage", "ru": "Ячейка с макс. напряжением"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E00B", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MIN_CELL_VOLTAGE_POSITION", "name": {"en": "Cell position, minimum voltage", "ru": "Ячейка с мин. напряжением"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E088", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MODULE_T_MAXIMUM", "name": {"en": "Module temperature, maximum", "ru": "Температура модулей, макс."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E089", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MODULE_T_MINIMUM", "name": {"en": "Module temperature, minimum", "ru": "Температура модулей, мин."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0A1", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MODULE_T_AVERAGE", "name": {"en": "Module temperature, average", "ru": "Температура модулей, средняя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0A4", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_BUS_CURRENT", "name": {"en": "Battery current, bus", "ru": "Ток батареи, шина"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5, "add": -1200}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0C6", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_DISCHARGE_CURRENT_LIMIT", "name": {"en": "Discharge current limit, pack", "ru": "Предел тока разряда, ВВБ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5, "add": -1200}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0C8", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_RECHARGE_CURRENT_LIMIT", "name": {"en": "Recharge current limit, pack", "ru": "Предел тока заряда, батарея"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5, "add": -1200}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0DD", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_LAST_SLEEP_DURATION", "name": {"en": "Sleep duration, last", "ru": "Длительность сна, последняя"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0E4", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_LOOP_INLET_T", "name": {"en": "Coolant inlet temperature, pack", "ru": "Температура ОЖ на входе ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0F1", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MAX_CELL_SOC", "name": {"en": "Cell state of charge, maximum", "ru": "Уровень заряда ячейки, макс."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0F2", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_MIN_CELL_SOC", "name": {"en": "Cell state of charge, minimum", "ru": "Уровень заряда ячейки, мин."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0F4", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_BATT_SOC", "name": {"en": "State of charge", "ru": "Уровень заряда (SOC)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "hv_soc"}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0F5", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_SOH", "name": {"en": "State of health", "ru": "Состояние батареи (SOH)"}, "unit": "%", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "hv_soh"}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E0F6", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_SOE", "name": {"en": "State of energy", "ru": "Уровень энергии (SOE)"}, "unit": "kWh", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E13D", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_2S_DISCHARGE_POWER_LIMIT", "name": {"en": "Discharge power limit, pack, 2 seconds", "ru": "Предел мощности разряда ВВБ, 2 с"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E13E", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_10S_DISCHARGE_POWER_LIMIT", "name": {"en": "Discharge power limit, pack, 10 seconds", "ru": "Предел мощности разряда ВВБ, 10 с"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E13F", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_2S_RECHARGE_POWER_LIMIT", "name": {"en": "Recharge power limit, pack, 2 seconds", "ru": "Предел мощности заряда, батарея, 2 с"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E140", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_10S_RECHARGE_POWER_LIMIT", "name": {"en": "Recharge power limit, pack, 10 seconds", "ru": "Предел мощности заряда, батарея, 10 с"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E15B", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_ACCUMULATED_CHARGE_1", "name": {"en": "Accumulated charge, pack, counter 1", "ru": "Накопленный заряд ВВБ, счётчик 1"}, "unit": "Ah", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 32, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "78B", "rsp": "7CB", "svc": "22", "did": "E15C", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_BMS_PACK_ACCUMULATED_CHARGE_2", "name": {"en": "Accumulated charge, pack, counter 2", "ru": "Накопленный заряд ВВБ, счётчик 2"}, "unit": "Ah", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 32, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "002F", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_FUEL_LEVEL_INPUT", "name": {"en": "Fuel level", "ru": "Уровень топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "00A6", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_ODO", "name": {"en": "Vehicle odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0106", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_FUEL_LEVEL_LITERS", "name": {"en": "Fuel level, liters", "ru": "Уровень топлива, л"}, "unit": "L", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "fuel_level_l"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0107", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_OIL_T", "name": {"en": "Oil temperature, model", "ru": "Температура масла, расчётная"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273.15}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "oil_temp"},
+   {"id": "JOLIONHEV_OIL_T", "name": {"en": "Oil temperature", "ru": "Температура масла"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.023437, "add": -273.15}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "oil_temp"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "010F", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_BP_ACTUAL", "name": {"en": "Boost pressure, actual", "ru": "Давление наддува, факт."}, "unit": "kPa", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "boost"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0111", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_FUEL_FLOW", "name": {"en": "Fuel flow", "ru": "Расход топлива"}, "unit": "L", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.00429156}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0112", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_BP_TARGET", "name": {"en": "Boost pressure, target", "ru": "Давление наддува, заданное"}, "unit": "kPa", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "boost"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0113", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_PRESSURE_BEFORE_TURBOCHARGER", "name": {"en": "Turbocharger inlet pressure, model", "ru": "Давление на входе турбокомпрессора, расчётное"}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0114", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_AIR_T_BEFORE_TURBOCHARGER", "name": {"en": "Turbocharger inlet temperature, model", "ru": "Температура на входе турбокомпрессора, расчётная"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.023437, "add": -273.15}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0132", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_GEAR", "name": {"en": "Current gear", "ru": "Текущая передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "gear"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0152", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_INTAKE_VVT_ACTUAL", "name": {"en": "Valve timing opening, intake, actual", "ru": "Фаза открытия впуска, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 156, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0154", "rate": "fast", "models": ["Jolion HEV"], "signals": [
+   {"id": "JOLIONHEV_INTAKE_VVT_TARGET", "name": {"en": "Valve timing opening, intake, target", "ru": "Фаза открытия впуска, заданная"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 78, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "016A", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_BOOST_PRESSURE_VALUE", "name": {"en": "Boost pressure", "ru": "Давление наддува"}, "unit": "kPa", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "boost"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "016D", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_INJECTION_PULSE_WIDTH", "name": {"en": "Injection pulse width", "ru": "Длительность импульса впрыска"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0170", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_1", "name": {"en": "Knock retard cylinder 1", "ru": "Откат УОЗ по детонации, цилиндр 1"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard"},
+   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_1", "name": {"en": "Knock retard, cylinder 1", "ru": "Откат УОЗ по детонации, цилиндр 1"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0171", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_2", "name": {"en": "Knock retard cylinder 2", "ru": "Откат УОЗ по детонации, цилиндр 2"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard"},
+   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_2", "name": {"en": "Knock retard, cylinder 2", "ru": "Откат УОЗ по детонации, цилиндр 2"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0172", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_3", "name": {"en": "Knock retard cylinder 3", "ru": "Откат УОЗ по детонации, цилиндр 3"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard"},
+   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_3", "name": {"en": "Knock retard, cylinder 3", "ru": "Откат УОЗ по детонации, цилиндр 3"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0173", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_INJECTION_KNOCK_RETARD_CYL_4", "name": {"en": "Knock retard cylinder 4", "ru": "Откат УОЗ по детонации, цилиндр 4"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "knock_retard"},
+   {"id": "JOLIONHEV_KNOCK_RETARD_CYL_4", "name": {"en": "Knock retard, cylinder 4", "ru": "Откат УОЗ по детонации, цилиндр 4"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 3, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0174", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_1", "name": {"en": "Knock sensor reference voltage cylinder 1", "ru": "Опорное напряжение датчика детонации, цилиндр 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_1", "name": {"en": "Knock sensor voltage, cylinder 1", "ru": "Напряжение датчика детонации, цилиндр 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0175", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_2", "name": {"en": "Knock sensor reference voltage cylinder 2", "ru": "Опорное напряжение датчика детонации, цилиндр 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_2", "name": {"en": "Knock sensor voltage, cylinder 2", "ru": "Напряжение датчика детонации, цилиндр 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0176", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_3", "name": {"en": "Knock sensor reference voltage cylinder 3", "ru": "Опорное напряжение датчика детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_3", "name": {"en": "Knock sensor voltage, cylinder 3", "ru": "Напряжение датчика детонации, цилиндр 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0177", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_KNOCK_SENSOR_REFERENCE_CYL_4", "name": {"en": "Knock sensor reference voltage cylinder 4", "ru": "Опорное напряжение датчика детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 7.625e-05}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
+   {"id": "JOLIONHEV_KNOCK_SENSOR_VOLTAGE_CYL_4", "name": {"en": "Knock sensor voltage, cylinder 4", "ru": "Напряжение датчика детонации, цилиндр 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "017F", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRES_TOTAL", "name": {"en": "Misfires total", "ru": "Пропуски, всего"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0180", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRES_CYL_1", "name": {"en": "Misfires cylinder 1", "ru": "Пропуски, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0181", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRES_CYL_3", "name": {"en": "Misfires cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0182", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRES_CYL_4", "name": {"en": "Misfires cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0183", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRES_CYL_2", "name": {"en": "Misfires cylinder 2", "ru": "Пропуски, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11A0", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_KNOCK_COUNTER", "name": {"en": "Knock counter", "ru": "Счётчик детонации"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11A6", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_KNOCK_RETARD", "name": {"en": "Knock retard", "ru": "Откат УОЗ по детонации"}, "unit": "°", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 8.82, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "knock_retard", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1200", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_CURRENT_TOTAL", "name": {"en": "Misfire current, total", "ru": "Текущие пропуски, всего"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 256}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1201", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_HISTORY_CYL_1", "name": {"en": "Misfire history cylinder 1", "ru": "История пропусков, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1202", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_HISTORY_CYL_2", "name": {"en": "Misfire history cylinder 2", "ru": "История пропусков, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1203", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_HISTORY_CYL_3", "name": {"en": "Misfire history cylinder 3", "ru": "История пропусков, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1204", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_HISTORY_CYL_4", "name": {"en": "Misfire history cylinder 4", "ru": "История пропусков, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1205", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_CURRENT_CYL_2", "name": {"en": "Misfire current cylinder 2", "ru": "Текущие пропуски, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1206", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_CURRENT_CYL_1", "name": {"en": "Misfire current cylinder 1", "ru": "Текущие пропуски, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1207", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_CURRENT_CYL_3", "name": {"en": "Misfire current cylinder 3", "ru": "Текущие пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1208", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_MISFIRE_CURRENT_CYL_4", "name": {"en": "Misfire current cylinder 4", "ru": "Текущие пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "121E", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_ODO_ENG", "name": {"en": "Odometer, engine", "ru": "Пробег, ЭБУ ДВС"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "12C5", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_FUEL_LEVEL_OUTPUT", "name": {"en": "Fuel level, output", "ru": "Уровень топлива, выход"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1469", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_AC_PRESSURE_HVAC", "name": {"en": "A/C pressure", "ru": "Давление кондиционера"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 1250, "div": 10000, "add": -4096}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1602", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_EOT", "name": {"en": "Oil temperature", "ru": "Температура масла"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1603", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_OT_VCPC_MIN", "name": {"en": "Variable clutch pressure control, min oil temperature", "ru": "Регулирование давления сцепления, мин. температура масла"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "clutch_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1702", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_BATTERY_VOLTAGE", "name": {"en": "Battery voltage", "ru": "Напряжение АКБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 12.5, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "210C", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_AC_PRESSURE_HVAC2", "name": {"en": "A/C pressure, enhanced", "ru": "Давление кондиционера, расшир."}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 2, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B034", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_EO_T", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 0.75, "add": -48}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B036", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_EOP", "name": {"en": "Engine oil pressure", "ru": "Давление масла ДВС"}, "unit": "kPa", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 229, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B043", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_FUEL_TANK_LEVEL", "name": {"en": "Fuel tank level", "ru": "Уровень топлива в баке"}, "unit": "L", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "role": "fuel_level_l", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B140", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_KNOCK_SNS_V", "name": {"en": "Knock sensor voltage", "ru": "Напряжение датчика детонации"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B143", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_MISFIRES_C1", "name": {"en": "Misfires, cylinder 1", "ru": "Пропуски, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B144", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_MISFIRES_C2", "name": {"en": "Misfires, cylinder 2", "ru": "Пропуски, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B145", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_MISFIRES_C3", "name": {"en": "Misfires, cylinder 3", "ru": "Пропуски, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "B146", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_MISFIRES_C4", "name": {"en": "Misfires, cylinder 4", "ru": "Пропуски, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "FD19", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_OIL_PRESSURE", "name": {"en": "Oil pressure", "ru": "Давление масла"}, "unit": "kPa", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 156.25, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1940", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_ATF_T_ECU_10513229", "name": {"en": "Transmission fluid temperature, ECU 10513229", "ru": "Температура масла АКПП, ЭБУ 10513229"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6901", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_ODO_TRANS", "name": {"en": "Transmission odometer", "ru": "Пробег КПП"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6902", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_ODD_AXIS_SPEED", "name": {"en": "Transmission odd axis speed", "ru": "Обороты нечётного вала КПП"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6903", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_EVEN_AXIS_SPEED", "name": {"en": "Transmission even axis speed", "ru": "Обороты чётного вала КПП"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "690B", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CLUTCH_1_PRESSURE", "name": {"en": "Clutch 1 pressure", "ru": "Давление сцепления 1"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -200}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "JOLION_TRANSMISSION_ODD_CLUTCH_ACTUAL_PRESSURE", "name": {"en": "Odd clutch actual pressure", "ru": "Давление сцепления нечётных передач, факт."}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 16, "add": -2000}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "690C", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CLUTCH_2_PRESSURE", "name": {"en": "Clutch 2 pressure", "ru": "Давление сцепления 2"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -200}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "JOLION_TRANSMISSION_EVEN_CLUTCH_ACTUAL_PRESSURE", "name": {"en": "Even clutch actual pressure", "ru": "Давление сцепления чётных передач, факт."}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 16, "add": -2000}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "690D", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_INPUT_SHAFT_SPEED", "name": {"en": "Transmission input shaft speed", "ru": "Обороты входного вала КПП"}, "unit": "rpm", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 100}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "input_rpm", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6915", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_ENGINE_TORQUE", "name": {"en": "Engine torque", "ru": "Крутящий момент двигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "JOLION_TRANSMISSION_ENGINE_NET_TORQUE", "name": {"en": "Engine net torque", "ru": "Полезный крутящий момент двигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 16, "add": -510}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6925", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CURRENT_GEAR", "name": {"en": "Current gear", "ru": "Текущая передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "gear", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6926", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_TARGET_GEAR", "name": {"en": "Target gear", "ru": "Заданная передача"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6932", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CLUTCH_1_TORQUE", "name": {"en": "Clutch 1 torque", "ru": "Момент сцепления 1"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6933", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CLUTCH_2_TORQUE", "name": {"en": "Clutch 2 torque", "ru": "Момент сцепления 2"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6934", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CLUTCH_TEMP", "name": {"en": "Clutch temperature", "ru": "Температура сцепления"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 4, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "clutch_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "69BC", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_ODD_CLUTCH_REQUESTED_PRESSURE", "name": {"en": "Odd clutch requested pressure", "ru": "Давление сцепления нечётных передач, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "69BD", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_EVEN_CLUTCH_REQUESTED_PRESSURE", "name": {"en": "Even clutch requested pressure", "ru": "Давление сцепления чётных передач, задан."}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6A0A", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_CLUTCH_TEMP_V1", "name": {"en": "Clutch temperature v2", "ru": "Температура сцепления, вар. 2"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 4, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "clutch_temp", "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "JOLION_TFT_PAN", "name": {"en": "Transmission temperature, pan", "ru": "Температура КПП, поддон"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 8, "len": 16, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "6A1A", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TRANSMISSION_ELECTRIC_PUMP_SPEED", "name": {"en": "Transmission electric pump speed", "ru": "Обороты электронасоса КПП"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "B423", "rate": "fast", "models": ["EHS"], "signals": [
+   {"id": "EHS_ATF_T_ECU_10472701_11194479", "name": {"en": "Transmission fluid temperature, ECU 10472701 and 11194479", "ru": "Температура масла АКПП, ЭБУ 10472701 и 11194479"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-EHS"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "D126", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
+   {"id": "JOLION_TFT", "name": {"en": "Transmission fluid temperature", "ru": "Температура масла АКПП"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -60}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "0112", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_12V_V", "name": {"en": "12V supply voltage", "ru": "Напряжение бортсети 12 В"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B120", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_BRAKE", "name": {"en": "Brake pedal", "ru": "Педаль тормоза"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B18C", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_IGN", "name": {"en": "Ignition state", "ru": "Состояние зажигания"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B309", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_MOTOR_COOLANT_T", "name": {"en": "Motor coolant temperature", "ru": "Температура ОЖ электромотора"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B401", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_MOTOR_TQ", "name": {"en": "Motor torque", "ru": "Момент электродвигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -32767}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B402", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_MOTOR_RPM", "name": {"en": "Motor speed", "ru": "Частота вращения электродвигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -32767}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B405", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_MOTOR_T", "name": {"en": "Motor temperature", "ru": "Температура электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B580", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_MODE", "name": {"en": "DC/DC converter mode", "ru": "Режим DC/DC-преобразователя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B581", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_IN_A", "name": {"en": "DC/DC converter input current", "ru": "Входной ток DC/DC-преобразователя"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -3276.7}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B582", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_IN_V", "name": {"en": "DC/DC converter input voltage", "ru": "Входное напряжение DC/DC-преобразователя"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B583", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_OUT_A", "name": {"en": "DC/DC converter output current", "ru": "Выходной ток DC/DC-преобразователя"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B584", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_OUT_V", "name": {"en": "DC/DC converter output voltage", "ru": "Выходное напряжение DC/DC-преобразователя"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B587", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_DCDC_T_VCU", "name": {"en": "DC/DC converter temperature, vehicle control unit", "ru": "Температура DC/DC-преобразователя (блок управления)"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B703", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HV_CONTACTOR", "name": {"en": "HV contactor closed", "ru": "Контактор ВВБ замкнут"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B705", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_V_VCU", "name": {"en": "HV battery voltage, vehicle control unit", "ru": "Напряжение ВВБ (блок управления)"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B712", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_CHG_A_LIMIT", "name": {"en": "Charge current limit", "ru": "Ограничение тока зарядки"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B71B", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_CHG_CONNECTED", "name": {"en": "Charger connected", "ru": "Зарядка подключена"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "B900", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_GEAR_RAW", "name": {"en": "Gear selector code", "ru": "Код положения селектора"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "BA00", "rate": "fast", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_VSS", "name": {"en": "Vehicle reported speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -200}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "BA40", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_PARK_BRAKE", "name": {"en": "Parking brake applied", "ru": "Стояночный тормоз включён"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "BB01", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_AC_P", "name": {"en": "A/C power", "ru": "Мощность кондиционера"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "BB05", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_AAT", "name": {"en": "External temperature", "ru": "Температура за бортом"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "BB06", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HOOD", "name": {"en": "Hood open", "ru": "Открыт капот"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "BB91", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_RAD_FAN", "name": {"en": "Radiator fan state", "ru": "Вентилятор радиатора"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "D112", "rate": "fast", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_DOOR_BOOT", "name": {"en": "Door open, boot", "ru": "Открыт багажник"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 2, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_DOOR_BONNET", "name": {"en": "Door open, bonnet", "ru": "Открыт капот"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 3, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_DOOR_RH_REAR", "name": {"en": "Door open, RH rear", "ru": "Дверь открыта, задняя правая"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_DOOR_LH_REAR", "name": {"en": "Door open, LH rear", "ru": "Дверь открыта, задняя левая"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 5, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_DOOR_PASSENGER", "name": {"en": "Door open, passenger", "ru": "Дверь пассажира открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_DOOR_DRIVER", "name": {"en": "Door open, driver", "ru": "Дверь водителя открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Yes", "ru": "Да"}, "1": {"en": "No", "ru": "Нет"}}}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "B001", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_EVCC_CURRENT", "name": {"en": "Current", "ru": "Ток"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.2, "add": -409.6}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "B003", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_EVCC_MAX_CURRENT", "name": {"en": "Max Current", "ru": "Максимальный ток"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.434782609}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "B00F", "rate": "medium", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_EVCC_CHARGING", "name": {"en": "Charging", "ru": "Зарядка"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "B010", "rate": "medium", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_EVCC_VOLTAGE", "name": {"en": "Voltage", "ru": "Напряжение"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0103092783}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B001", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_CMU01_MINVOLT", "name": {"en": "HV battery module 01 min voltage", "ru": "Модуль ВВБ 01, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_HVBAT_CMU01_MAXVOLT", "name": {"en": "HV battery module 01 max voltage", "ru": "Модуль ВВБ 01, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_HVBAT_CMU01_MINTEMP", "name": {"en": "HV battery module 01 min temperature", "ru": "Модуль ВВБ 01, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZSEV_HVBAT_CMU01_MAXTEMP", "name": {"en": "HV battery module 01 max temperature", "ru": "Модуль ВВБ 01, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B009", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU02_MINVOLT", "name": {"en": "HV battery module 02 min voltage", "ru": "Модуль ВВБ 02, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU02_MAXVOLT", "name": {"en": "HV battery module 02 max voltage", "ru": "Модуль ВВБ 02, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU02_MINTEMP", "name": {"en": "HV battery module 02 min temperature", "ru": "Модуль ВВБ 02, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU02_MAXTEMP", "name": {"en": "HV battery module 02 max temperature", "ru": "Модуль ВВБ 02, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B011", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU03_MINVOLT", "name": {"en": "HV battery module 03 min voltage", "ru": "Модуль ВВБ 03, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU03_MAXVOLT", "name": {"en": "HV battery module 03 max voltage", "ru": "Модуль ВВБ 03, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU03_MINTEMP", "name": {"en": "HV battery module 03 min temperature", "ru": "Модуль ВВБ 03, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU03_MAXTEMP", "name": {"en": "HV battery module 03 max temperature", "ru": "Модуль ВВБ 03, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B019", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU04_MINVOLT", "name": {"en": "HV battery module 04 min voltage", "ru": "Модуль ВВБ 04, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU04_MAXVOLT", "name": {"en": "HV battery module 04 max voltage", "ru": "Модуль ВВБ 04, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU04_MINTEMP", "name": {"en": "HV battery module 04 min temperature", "ru": "Модуль ВВБ 04, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU04_MAXTEMP", "name": {"en": "HV battery module 04 max temperature", "ru": "Модуль ВВБ 04, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B021", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU05_MINVOLT", "name": {"en": "HV battery module 05 min voltage", "ru": "Модуль ВВБ 05, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU05_MAXVOLT", "name": {"en": "HV battery module 05 max voltage", "ru": "Модуль ВВБ 05, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU05_MINTEMP", "name": {"en": "HV battery module 05 min temperature", "ru": "Модуль ВВБ 05, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU05_MAXTEMP", "name": {"en": "HV battery module 05 max temperature", "ru": "Модуль ВВБ 05, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B029", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU06_MINVOLT", "name": {"en": "HV battery module 06 min voltage", "ru": "Модуль ВВБ 06, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU06_MAXVOLT", "name": {"en": "HV battery module 06 max voltage", "ru": "Модуль ВВБ 06, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU06_MINTEMP", "name": {"en": "HV battery module 06 min temperature", "ru": "Модуль ВВБ 06, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU06_MAXTEMP", "name": {"en": "HV battery module 06 max temperature", "ru": "Модуль ВВБ 06, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B041", "rate": "medium", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_BUS_VOLTAGE", "name": {"en": "HV battery bus voltage", "ru": "Напряжение шины ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B042", "rate": "fast", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_VOLTAGE", "name": {"en": "HV battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.25}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B043", "rate": "fast", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CURRENT", "name": {"en": "HV battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.025, "add": -1000}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B045", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_RESISTANCE", "name": {"en": "HV battery internal resistance", "ru": "Внутреннее сопротивление ВВБ"}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.5}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B047", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_ERR", "name": {"en": "HV battery error code", "ru": "Код ошибки ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B048", "rate": "fast", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CHARGING", "name": {"en": "HV battery is charging?", "ru": "ВВБ заряжается"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B049", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RELAY_B", "name": {"en": "HV battery main relay B state", "ru": "Главное реле ВВБ B"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B04A", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RELAY_G", "name": {"en": "HV battery main relay G state", "ru": "Главное реле ВВБ G"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B052", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RELAY_P", "name": {"en": "HV battery main relay P state", "ru": "Главное реле ВВБ P"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B056", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_TEMP", "name": {"en": "HV battery temperature", "ru": "Температура ВВБ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B058", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_CELL_V_MAX", "name": {"en": "Highest cell voltage", "ru": "Максимальное напряжение ячейки"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B059", "rate": "medium", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_CELL_V_MIN", "name": {"en": "Lowest cell voltage", "ru": "Минимальное напряжение ячейки"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B05C", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_COOLANT_TEMP", "name": {"en": "HV battery coolant temperature", "ru": "Температура ОЖ ВВБ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B061", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_SOH", "name": {"en": "HV battery health", "ru": "Состояние ВВБ (SOH)"}, "unit": "%", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"], "role": "hv_soh"}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0A3", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU07_MINVOLT", "name": {"en": "HV battery module 07 min voltage", "ru": "Модуль ВВБ 07, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU07_MAXVOLT", "name": {"en": "HV battery module 07 max voltage", "ru": "Модуль ВВБ 07, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU07_MINTEMP", "name": {"en": "HV battery module 07 min temperature", "ru": "Модуль ВВБ 07, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU07_MAXTEMP", "name": {"en": "HV battery module 07 max temperature", "ru": "Модуль ВВБ 07, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0AB", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU08_MINVOLT", "name": {"en": "HV battery module 08 min voltage", "ru": "Модуль ВВБ 08, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU08_MAXVOLT", "name": {"en": "HV battery module 08 max voltage", "ru": "Модуль ВВБ 08, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU08_MINTEMP", "name": {"en": "HV battery module 08 min temperature", "ru": "Модуль ВВБ 08, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU08_MAXTEMP", "name": {"en": "HV battery module 08 max temperature", "ru": "Модуль ВВБ 08, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0B3", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU09_MINVOLT", "name": {"en": "HV battery module 09 min voltage", "ru": "Модуль ВВБ 09, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU09_MAXVOLT", "name": {"en": "HV battery module 09 max voltage", "ru": "Модуль ВВБ 09, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU09_MINTEMP", "name": {"en": "HV battery module 09 min temperature", "ru": "Модуль ВВБ 09, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU09_MAXTEMP", "name": {"en": "HV battery module 09 max temperature", "ru": "Модуль ВВБ 09, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0BB", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU10_MINVOLT", "name": {"en": "HV battery module 10 min voltage", "ru": "Модуль ВВБ 10, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU10_MAXVOLT", "name": {"en": "HV battery module 10 max voltage", "ru": "Модуль ВВБ 10, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU10_MINTEMP", "name": {"en": "HV battery module 10 min temperature", "ru": "Модуль ВВБ 10, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU10_MAXTEMP", "name": {"en": "HV battery module 10 max temperature", "ru": "Модуль ВВБ 10, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0C3", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU11_MINVOLT", "name": {"en": "HV battery module 11 min voltage", "ru": "Модуль ВВБ 11, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU11_MAXVOLT", "name": {"en": "HV battery module 11 max voltage", "ru": "Модуль ВВБ 11, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU11_MINTEMP", "name": {"en": "HV battery module 11 min temperature", "ru": "Модуль ВВБ 11, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU11_MAXTEMP", "name": {"en": "HV battery module 11 max temperature", "ru": "Модуль ВВБ 11, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0CB", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU12_MINVOLT", "name": {"en": "HV battery module 12 min voltage", "ru": "Модуль ВВБ 12, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU12_MAXVOLT", "name": {"en": "HV battery module 12 max voltage", "ru": "Модуль ВВБ 12, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU12_MINTEMP", "name": {"en": "HV battery module 12 min temperature", "ru": "Модуль ВВБ 12, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU12_MAXTEMP", "name": {"en": "HV battery module 12 max temperature", "ru": "Модуль ВВБ 12, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0CE", "rate": "slow", "models": ["ZS EV"], "signals": [
+   {"id": "ZSEV_HVBAT_RANGE_RAW", "name": {"en": "HV battery range count", "ru": "Счётчик диапазона ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0DB", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU13_MINVOLT", "name": {"en": "HV battery module 13 min voltage", "ru": "Модуль ВВБ 13, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU13_MAXVOLT", "name": {"en": "HV battery module 13 max voltage", "ru": "Модуль ВВБ 13, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU13_MINTEMP", "name": {"en": "HV battery module 13 min temperature", "ru": "Модуль ВВБ 13, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU13_MAXTEMP", "name": {"en": "HV battery module 13 max temperature", "ru": "Модуль ВВБ 13, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0DC", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU14_MINVOLT", "name": {"en": "HV battery module 14 min voltage", "ru": "Модуль ВВБ 14, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU14_MAXVOLT", "name": {"en": "HV battery module 14 max voltage", "ru": "Модуль ВВБ 14, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU14_MINTEMP", "name": {"en": "HV battery module 14 min temperature", "ru": "Модуль ВВБ 14, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU14_MAXTEMP", "name": {"en": "HV battery module 14 max temperature", "ru": "Модуль ВВБ 14, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0DD", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU15_MINVOLT", "name": {"en": "HV battery module 15 min voltage", "ru": "Модуль ВВБ 15, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU15_MAXVOLT", "name": {"en": "HV battery module 15 max voltage", "ru": "Модуль ВВБ 15, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU15_MINTEMP", "name": {"en": "HV battery module 15 min temperature", "ru": "Модуль ВВБ 15, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU15_MAXTEMP", "name": {"en": "HV battery module 15 max temperature", "ru": "Модуль ВВБ 15, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B0DE", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU16_MINVOLT", "name": {"en": "HV battery module 16 min voltage", "ru": "Модуль ВВБ 16, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU16_MAXVOLT", "name": {"en": "HV battery module 16 max voltage", "ru": "Модуль ВВБ 16, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU16_MINTEMP", "name": {"en": "HV battery module 16 min temperature", "ru": "Модуль ВВБ 16, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU16_MAXTEMP", "name": {"en": "HV battery module 16 max temperature", "ru": "Модуль ВВБ 16, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B10E", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU17_MINVOLT", "name": {"en": "HV battery module 17 min voltage", "ru": "Модуль ВВБ 17, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU17_MAXVOLT", "name": {"en": "HV battery module 17 max voltage", "ru": "Модуль ВВБ 17, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU17_MINTEMP", "name": {"en": "HV battery module 17 min temperature", "ru": "Модуль ВВБ 17, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU17_MAXTEMP", "name": {"en": "HV battery module 17 max temperature", "ru": "Модуль ВВБ 17, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B10F", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU18_MINVOLT", "name": {"en": "HV battery module 18 min voltage", "ru": "Модуль ВВБ 18, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU18_MAXVOLT", "name": {"en": "HV battery module 18 max voltage", "ru": "Модуль ВВБ 18, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU18_MINTEMP", "name": {"en": "HV battery module 18 min temperature", "ru": "Модуль ВВБ 18, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU18_MAXTEMP", "name": {"en": "HV battery module 18 max temperature", "ru": "Модуль ВВБ 18, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B110", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU19_MINVOLT", "name": {"en": "HV battery module 19 min voltage", "ru": "Модуль ВВБ 19, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU19_MAXVOLT", "name": {"en": "HV battery module 19 max voltage", "ru": "Модуль ВВБ 19, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU19_MINTEMP", "name": {"en": "HV battery module 19 min temperature", "ru": "Модуль ВВБ 19, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU19_MAXTEMP", "name": {"en": "HV battery module 19 max temperature", "ru": "Модуль ВВБ 19, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B111", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU20_MINVOLT", "name": {"en": "HV battery module 20 min voltage", "ru": "Модуль ВВБ 20, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU20_MAXVOLT", "name": {"en": "HV battery module 20 max voltage", "ru": "Модуль ВВБ 20, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU20_MINTEMP", "name": {"en": "HV battery module 20 min temperature", "ru": "Модуль ВВБ 20, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU20_MAXTEMP", "name": {"en": "HV battery module 20 max temperature", "ru": "Модуль ВВБ 20, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B112", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU21_MINVOLT", "name": {"en": "HV battery module 21 min voltage", "ru": "Модуль ВВБ 21, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU21_MAXVOLT", "name": {"en": "HV battery module 21 max voltage", "ru": "Модуль ВВБ 21, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU21_MINTEMP", "name": {"en": "HV battery module 21 min temperature", "ru": "Модуль ВВБ 21, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU21_MAXTEMP", "name": {"en": "HV battery module 21 max temperature", "ru": "Модуль ВВБ 21, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B113", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU22_MINVOLT", "name": {"en": "HV battery module 22 min voltage", "ru": "Модуль ВВБ 22, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU22_MAXVOLT", "name": {"en": "HV battery module 22 max voltage", "ru": "Модуль ВВБ 22, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU22_MINTEMP", "name": {"en": "HV battery module 22 min temperature", "ru": "Модуль ВВБ 22, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU22_MAXTEMP", "name": {"en": "HV battery module 22 max temperature", "ru": "Модуль ВВБ 22, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B114", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU23_MINVOLT", "name": {"en": "HV battery module 23 min voltage", "ru": "Модуль ВВБ 23, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU23_MAXVOLT", "name": {"en": "HV battery module 23 max voltage", "ru": "Модуль ВВБ 23, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU23_MINTEMP", "name": {"en": "HV battery module 23 min temperature", "ru": "Модуль ВВБ 23, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU23_MAXTEMP", "name": {"en": "HV battery module 23 max temperature", "ru": "Модуль ВВБ 23, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]},
+  {"hdr": "7E5", "rsp": "7ED", "svc": "22", "did": "B115", "rate": "slow", "models": ["ZS EV"], "years": [2021, 2099], "signals": [
+   {"id": "ZSEV_HVBAT_CMU24_MINVOLT", "name": {"en": "HV battery module 24 min voltage", "ru": "Модуль ВВБ 24, мин. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU24_MAXVOLT", "name": {"en": "HV battery module 24 max voltage", "ru": "Модуль ВВБ 24, макс. напряжение"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 0.0005, "add": 1}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU24_MINTEMP", "name": {"en": "HV battery module 24 min temperature", "ru": "Модуль ВВБ 24, мин. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]},
+   {"id": "ZSEV_HVBAT_CMU24_MAXTEMP", "name": {"en": "HV battery module 24 max temperature", "ru": "Модуль ВВБ 24, макс. температура"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 0.5, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/MG-ZS-EV"]}
+  ]}
+ ]
+}

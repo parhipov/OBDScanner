@@ -1,0 +1,1443 @@
+{
+  "family": "mazda",
+  "title": "Mazda",
+  "brands": [
+    {
+      "name": "Mazda",
+      "wmi": [
+        "JM1",
+        "JM3",
+        "JMZ",
+        "JM0",
+        "1YV",
+        "3MZ",
+        "4F2",
+        "MM0",
+        "MM6",
+        "MM7",
+        "MM8"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Mazda",
+      "model": "Mazda 3",
+      "gen": "BK",
+      "years": [
+        2003,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "Z6 (MZR 1.6)",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LF (MZR 2.0)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L3 (MZR 2.3)",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L3-VDT (MZR 2.3 DISI Turbo)",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_cover",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева внизу под рулём, в нише. Автомат — 4-ступенчатый FN4A-EL.",
+        "en": "Socket low left under the steering wheel, in a cubby. The automatic is the 4-speed FN4A-EL."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda3",
+        "https://en.wikipedia.org/wiki/Mazda_L_engine",
+        "https://carwiki.de/?p=205438",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "Mazda 3",
+      "gen": "BL",
+      "years": [
+        2009,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "Z6 (MZR 1.6)",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LF (MZR 2.0)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L5 (MZR 2.5)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L3-VDT (MZR 2.3 DISI Turbo)",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "SkyActiv-G 2.0 (PE)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева от рулевой колонки. SkyActiv 2.0 — только на рынке США (2012–2013).",
+        "en": "Socket left of the steering column. The SkyActiv 2.0 is US-market only (2012–2013)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda3",
+        "https://en.wikipedia.org/wiki/Mazda_L_engine",
+        "https://carwiki.de/?p=205438",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "Mazda 3",
+      "gen": "BM",
+      "years": [
+        2013,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "SkyActiv-G 1.5 (P5)",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z6 (MZR 1.6)",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "SkyActiv-G 2.0 (PE)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5 (PY)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-D 2.2 (SH)",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "note": {
+        "ru": "Разъём слева внизу под рулём, правее рычага открывания капота. Автомат — SkyActiv-Drive (6 ступ.).",
+        "en": "Socket low left under the steering wheel, right of the hood release lever. The automatic is the 6-speed SkyActiv-Drive."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda3",
+        "https://en.wikipedia.org/wiki/Mazda_Skyactiv",
+        "https://carwiki.de/?p=205438"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "Mazda 3",
+      "gen": "BP",
+      "years": [
+        2019,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "SkyActiv-G 1.5 (P5)",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.0 (PE)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5 (PY)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5T (PY-VPTS)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-X 2.0 (HF)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda3",
+        "https://en.wikipedia.org/wiki/Mazda_Skyactiv"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "Mazda 6",
+      "gen": "GG",
+      "years": [
+        2002,
+        2008
+      ],
+      "engines": [
+        {
+          "code": "L8 (MZR 1.8)",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LF (MZR 2.0)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L3 (MZR 2.3)",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L3-VDT (MZR 2.3 DISI Turbo)",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём над педалью сцепления.",
+        "en": "Socket above the clutch pedal."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda6_(GG)",
+        "https://en.wikipedia.org/wiki/Mazda_L_engine",
+        "https://carwiki.de/obd-stecker-mazda-6",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "Mazda 6",
+      "gen": "GH",
+      "years": [
+        2007,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "L8 (MZR 1.8)",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LF (MZR 2.0)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L5 (MZR 2.5)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём слева под рулём, возле рычага открывания капота. Автомат — 5-ступенчатый FS5A-EL.",
+        "en": "Socket left under the steering wheel, by the hood release lever. The automatic is the 5-speed FS5A-EL."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda6",
+        "https://en.wikipedia.org/wiki/Mazda_L_engine",
+        "https://carwiki.de/obd-stecker-mazda-6",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "Mazda 6",
+      "gen": "GJ",
+      "years": [
+        2012,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "SkyActiv-G 2.0 (PE)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5 (PY)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5T (PY-VPTS)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-D 2.2 (SH)",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "note": {
+        "ru": "Разъём слева под рулём, над площадкой для левой ноги.",
+        "en": "Socket left under the steering wheel, above the footrest."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda6_(GJ)",
+        "https://en.wikipedia.org/wiki/Mazda_Skyactiv",
+        "https://carwiki.de/obd-stecker-mazda-6"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "CX-5",
+      "gen": "KE",
+      "years": [
+        2011,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "SkyActiv-G 2.0 (PE)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5 (PY)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-D 2.2 (SH)",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "note": {
+        "ru": "Разъём слева под рулём, возле рычага открывания капота. Автомат — SkyActiv-Drive FW6A-EL (полный привод — FW6AX-EL), датчик температуры масла в блоке клапанов.",
+        "en": "Socket left under the steering wheel, by the hood release lever. The automatic is the SkyActiv-Drive FW6A-EL (AWD: FW6AX-EL), fluid temp sensor in the valve body."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda_CX-5",
+        "https://en.wikipedia.org/wiki/Mazda_Skyactiv",
+        "https://carwiki.de/obd-stecker-mazda-cx-5",
+        "https://mazdas247.com/forum/goto/post?id=6608324"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "CX-5",
+      "gen": "KF",
+      "years": [
+        2017,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "SkyActiv-G 2.0 (PE)",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5 (PY)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-G 2.5T (PY-VPTS)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "SkyActiv-D 2.2 (SH)",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "note": {
+        "ru": "Разъём под рулём, над площадкой для левой ноги.",
+        "en": "Socket under the steering wheel, above the footrest."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda_CX-5",
+        "https://en.wikipedia.org/wiki/Mazda_Skyactiv",
+        "https://carwiki.de/obd-stecker-mazda-cx-5"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "CX-7",
+      "gen": "ER",
+      "years": [
+        2006,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "L3-VDT (MZR 2.3 DISI Turbo)",
+          "liters": 2.3,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L5 (MZR 2.5)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "MZR-CD 2.2",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "note": {
+        "ru": "Разъём над педалями, правее педали стояночного тормоза.",
+        "en": "Socket above the pedals, right of the foot parking brake."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda_CX-7",
+        "https://en.wikipedia.org/wiki/Mazda_L_engine",
+        "https://carwiki.de/obd-stecker-mazda-cx-7",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "CX-9",
+      "gen": "TB",
+      "years": [
+        2006,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "MZI 3.5 V6",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "MZI 3.7 V6",
+          "liters": 3.7,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с на контактах 6/14 (двигатель, АКПП, ABS) и MS-CAN 125 кбит/с на контактах 3/11 (кузовные блоки, климат, аудио). Обычный ELM327 переключать контакты не умеет и видит только HS-CAN; для MS-CAN нужен адаптер с переключателем HS/MS (как для FORScan).",
+        "en": "HS-CAN 500 kbit/s on pins 6/14 (engine, transmission, ABS) and MS-CAN 125 kbit/s on pins 3/11 (body modules, climate, audio). A stock ELM327 cannot switch pins and sees HS-CAN only; MS-CAN needs an adapter with an HS/MS switch (as used with FORScan)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda_CX-9",
+        "https://forum.forscan.org/viewtopic.php?p=4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mazda",
+      "model": "CX-9",
+      "gen": "TC",
+      "years": [
+        2016,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "SkyActiv-G 2.5T (PY-VPTS)",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "src": [
+        "https://en.wikipedia.org/wiki/Mazda_CX-9",
+        "https://en.wikipedia.org/wiki/Mazda_Skyactiv",
+        "https://mazdas247.com/forum/goto/post?id=6835373"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E1",
+      "svc": "22",
+      "did": "1E1C",
+      "rate": "medium",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_ATF_T",
+          "name": {
+            "ru": "Температура масла АКПП",
+            "en": "Transmission fluid temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "atf_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 16,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6608324",
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-CX-5",
+            "https://github.com/OBDb/Mazda-CX-9"
+          ],
+          "note": "CX-5 2016 owner (Torque, 07E1 221E1C, ((A*256+B)*(9/80)+32) °F, plausible 177 °F vs coolant 202 °F); Skyactiv list: (SIGNED(A)*256+B)/16 °C, header 7E1; OBDb CX-5/CX-9 same. The '/80 °C' formula in the CX-9 thread is a mis-conversion (it gives 1/5 of the real value)."
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "svc": "22",
+      "did": "1E12",
+      "rate": "fast",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_GEAR",
+          "name": {
+            "ru": "Передача",
+            "en": "Gear"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "main",
+          "role": "gear",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false,
+            "map": {
+              "1": {
+                "ru": "1",
+                "en": "1"
+              },
+              "2": {
+                "ru": "2",
+                "en": "2"
+              },
+              "3": {
+                "ru": "3",
+                "en": "3"
+              },
+              "4": {
+                "ru": "4",
+                "en": "4"
+              },
+              "5": {
+                "ru": "5",
+                "en": "5"
+              },
+              "6": {
+                "ru": "6",
+                "en": "6"
+              },
+              "50": {
+                "ru": "N",
+                "en": "N"
+              },
+              "60": {
+                "ru": "R",
+                "en": "R"
+              },
+              "70": {
+                "ru": "P",
+                "en": "P"
+              }
+            }
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-3"
+          ],
+          "note": "Skyactiv list: LOOKUP(A: 50=N, 60=R, 70=P), else the gear number. OBDb Mazda-3 has 7E1 221E12 as a plain number."
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "svc": "22",
+      "did": "1E24",
+      "rate": "medium",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TC_LOCKUP",
+          "name": {
+            "ru": "Блокировка гидротрансформатора",
+            "en": "Torque converter lock-up"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false,
+            "map": {
+              "0": {
+                "ru": "выкл",
+                "en": "off"
+              },
+              "1": {
+                "ru": "вкл",
+                "en": "on"
+              }
+            }
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-3"
+          ],
+          "note": "Skyactiv list: 221E24 = A, ON/OFF, header 7E1. OBDb Mazda-3 has the same DID (scalar)."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1310",
+      "rate": "slow",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_EOT",
+          "name": {
+            "ru": "Температура масла двигателя",
+            "en": "Engine oil temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "oil_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-CX-5",
+            "https://github.com/OBDb/Mazda-CX-9"
+          ],
+          "note": "Skyactiv list: (((A*256)+B)/100)-40 °C; OBDb CX-5/CX-9/Mazda-3 same."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "0519",
+      "rate": "slow",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_OIL_DIST",
+          "name": {
+            "ru": "Пробег после замены масла",
+            "en": "Distance since oil change"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 4,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-3"
+          ],
+          "note": "Skyactiv list: (A*256+B)*4 km; OBDb Mazda-3 same. Reset when the oil service reminder is reset."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "03EC",
+      "rate": "fast",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_KR",
+          "name": {
+            "ru": "Откат УОЗ по детонации (цил. 1)",
+            "en": "Knock retard (cyl 1)"
+          },
+          "unit": "°",
+          "dec": 1,
+          "group": "other",
+          "role": "knock_retard",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": -1,
+            "div": 512,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv"
+          ],
+          "note": "Skyactiv list: 2203EC ((signed(A)*256)+B)/-512, listed as both 'Knock Retard' and 'Ignition Correction Cylinder 1'. One source."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "16C1",
+      "rate": "slow",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_FUEL_PCT",
+          "name": {
+            "ru": "Уровень топлива",
+            "en": "Fuel level"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 328,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv"
+          ],
+          "note": "Skyactiv list: 2216C1 ((A*256)+B)/328 %, header auto (PCM). One source."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "DD01",
+      "rate": "slow",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_ODO",
+          "name": {
+            "ru": "Пробег (одометр)",
+            "en": "Odometer"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "role": "odometer",
+          "fmt": {
+            "bix": 0,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-3"
+          ],
+          "note": "Skyactiv list: 22DD01 (A<<16)+(B<<8)+C km, header 7E0; OBDb Mazda-3 same."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "4028",
+      "rate": "slow",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_BATT_SOC",
+          "name": {
+            "ru": "Заряд АКБ (датчик i-stop)",
+            "en": "Battery state of charge"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "main",
+          "role": "battery_soc",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-3"
+          ],
+          "note": "Skyactiv list: 224028 = A %, header 7E0 (also listed at 726); OBDb Mazda-3 7E0 same. Cars with a battery current sensor (i-stop / i-ELOOP)."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "4029",
+      "rate": "slow",
+      "models": [
+        "Mazda 3",
+        "Mazda 6",
+        "CX-5",
+        "CX-9"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_BATT_T",
+          "name": {
+            "ru": "Температура АКБ",
+            "en": "Battery temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "role": "battery_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv",
+            "https://github.com/OBDb/Mazda-3"
+          ],
+          "note": "Skyactiv list: 224029 = A-40, header 7E0; OBDb Mazda-3 same."
+        }
+      ]
+    },
+    {
+      "hdr": "761",
+      "svc": "22",
+      "did": "1E7A",
+      "rate": "fast",
+      "models": [
+        "CX-5",
+        "CX-9",
+        "Mazda 6",
+        "Mazda 3"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_AWD_DUTY",
+          "name": {
+            "ru": "Муфта полного привода (скважность)",
+            "en": "AWD coupling solenoid duty"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 100,
+            "div": 255,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6820243",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMWtKb_zFRwskZ_qbUjO33OihiAw7i927nur1gOMPDyJU7ket67XCmVcFJhpZ0ftc7trBnkXzJecgi/pub?gid=1473020557&single=true&output=csv"
+          ],
+          "note": "Skyactiv list: 221E7A A*100/255 %, header 761 (AWD module). Author: reads only on older AWD cars (CX-5/CX-9/Mazda 6, rare Mazda 3 AWD). One source."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A05",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TP1",
+          "name": {
+            "ru": "Давление в шине 1",
+            "en": "Tire 1 pressure"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1373,
+            "div": 1000,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A0A",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TT1",
+          "name": {
+            "ru": "Температура шины 1",
+            "en": "Tire 1 temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -50,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247: header 720, 222A0A..0D, A-50 °C. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A06",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TP2",
+          "name": {
+            "ru": "Давление в шине 2",
+            "en": "Tire 2 pressure"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1373,
+            "div": 1000,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A0B",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TT2",
+          "name": {
+            "ru": "Температура шины 2",
+            "en": "Tire 2 temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -50,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247: header 720, 222A0A..0D, A-50 °C. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A07",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TP3",
+          "name": {
+            "ru": "Давление в шине 3",
+            "en": "Tire 3 pressure"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1373,
+            "div": 1000,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A0C",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TT3",
+          "name": {
+            "ru": "Температура шины 3",
+            "en": "Tire 3 temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -50,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247: header 720, 222A0A..0D, A-50 °C. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A08",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TP4",
+          "name": {
+            "ru": "Давление в шине 4",
+            "en": "Tire 4 pressure"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1373,
+            "div": 1000,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+        }
+      ]
+    },
+    {
+      "hdr": "720",
+      "svc": "22",
+      "did": "2A0D",
+      "rate": "slow",
+      "models": [
+        "CX-5"
+      ],
+      "years": [
+        2017,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "MAZDA_TT4",
+          "name": {
+            "ru": "Температура шины 4",
+            "en": "Tire 4 temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -50,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://mazdas247.com/forum/goto/post?id=6819338"
+          ],
+          "note": "mazdas247: header 720, 222A0A..0D, A-50 °C. Cars with direct TPMS only."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Температура масла АКПП SkyActiv-Drive (блок TCM 7E1)",
+      "en": "SkyActiv-Drive transmission fluid temperature (TCM 7E1)"
+    },
+    {
+      "ru": "Передача, блокировка гидротрансформатора, работа муфты полного привода",
+      "en": "Gear, torque converter lock-up, AWD coupling duty"
+    },
+    {
+      "ru": "Температура масла двигателя и пробег после замены масла",
+      "en": "Engine oil temperature and distance since the last oil change"
+    },
+    {
+      "ru": "Заряд и температура АКБ (i-stop), одометр, откат УОЗ по детонации",
+      "en": "Battery charge and temperature (i-stop), odometer, knock retard"
+    },
+    {
+      "ru": "Давление и температура в шинах (CX-5 KF с прямым TPMS)",
+      "en": "Tire pressures and temperatures (CX-5 KF with direct TPMS)"
+    }
+  ]
+}

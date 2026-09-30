@@ -1,0 +1,557 @@
+{
+  "family": "lada",
+  "title": "Lada",
+  "brands": [
+    {
+      "name": "Lada",
+      "wmi": [
+        "XTA"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Lada",
+      "model": "Vesta",
+      "gen": "2180 (incl. SW, Cross)",
+      "years": [
+        2015,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "21129",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21179",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Проверено на Весте: ЭБУ двигателя на CAN 11/500 (ISO 15765-4), стандартный OBD работает полностью.",
+        "en": "Checked on a Vesta: engine ECU on CAN 11/500 (ISO 15765-4), standard OBD works fully."
+      },
+      "note": {
+        "ru": "Гнездо под рулевой колонкой слева, рядом с ручкой открывания капота, ниже монтажного блока реле и предохранителей.",
+        "en": "Socket under the steering column on the left, next to the hood release, below the fuse/relay box."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Vesta"
+      ],
+      "verified": true
+    },
+    {
+      "brand": "Lada",
+      "model": "Granta",
+      "gen": "2190",
+      "years": [
+        2011,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "11183",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "11186",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21116",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21126",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21127",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "console",
+      "buses": {
+        "ru": "Блоки М74 и Bosch ME17.9.7 выпускались и в версии с K-line, и в версии с CAN (М74CAN, ME17.9.7 CAN), поэтому протокол зависит от конкретного ЭБУ, а не только от модели. Приложение подбирает протокол само.",
+        "en": "The M74 and Bosch ME17.9.7 ECUs exist both as K-line and as CAN versions (M74CAN, ME17.9.7 CAN), so the protocol depends on the actual ECU, not just the model. The app finds the protocol itself."
+      },
+      "note": {
+        "ru": "Колодка справа от центральной консоли со стороны пассажира, наполовину закрыта облицовкой, без крышки.",
+        "en": "Socket on the right side of the centre console, passenger side, half hidden by the trim, no cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Granta",
+        "https://elm327-obd2.ru/diagnosticheskiy-razem/lada-granta.html",
+        "https://astrade.ru/catalog/item/programmnye-moduli-m74-bosch-me17-9-7-dlya-vaz-m74-me17-9-7-can/",
+        "https://www.drive2.ru/b/2342162/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Granta",
+      "gen": "2190 FL",
+      "years": [
+        2018,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "11186",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21116",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21127",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "buses": {
+        "ru": "Блоки М74 и Bosch ME17.9.7 выпускались и в версии с K-line, и в версии с CAN (М74CAN, ME17.9.7 CAN), поэтому протокол зависит от конкретного ЭБУ, а не только от модели. Приложение подбирает протокол само.",
+        "en": "The M74 and Bosch ME17.9.7 ECUs exist both as K-line and as CAN versions (M74CAN, ME17.9.7 CAN), so the protocol depends on the actual ECU, not just the model. The app finds the protocol itself."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Granta",
+        "https://astrade.ru/catalog/item/programmnye-moduli-m74-bosch-me17-9-7-dlya-vaz-m74-me17-9-7-can/",
+        "https://www.drive2.ru/b/2342162/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Kalina",
+      "gen": "1117/1118/1119",
+      "years": [
+        2004,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "11183",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21126",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "console",
+      "buses": {
+        "ru": "Блоки М74 и Bosch ME17.9.7 выпускались и в версии с K-line, и в версии с CAN (М74CAN, ME17.9.7 CAN), поэтому протокол зависит от конкретного ЭБУ, а не только от модели. Приложение подбирает протокол само.",
+        "en": "The M74 and Bosch ME17.9.7 ECUs exist both as K-line and as CAN versions (M74CAN, ME17.9.7 CAN), so the protocol depends on the actual ECU, not just the model. The app finds the protocol itself."
+      },
+      "note": {
+        "ru": "Разъём под заглушкой рядом с рычагом КПП.",
+        "en": "Socket under a plug next to the gear lever."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Kalina",
+        "https://start-motor.ru/blog/gde-nahoditsya-diagnosticheskij-raz-em-lada",
+        "https://timeturbo.ru/blog/stati/gde-nakhoditsya-diagnosticheskiy-razem-lada/",
+        "https://astrade.ru/catalog/item/programmnye-moduli-m74-bosch-me17-9-7-dlya-vaz-m74-me17-9-7-can/",
+        "https://www.drive2.ru/b/2342162/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Kalina",
+      "gen": "2192/2194",
+      "years": [
+        2013,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "11186",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21116",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21126",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21127",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "buses": {
+        "ru": "Блоки М74 и Bosch ME17.9.7 выпускались и в версии с K-line, и в версии с CAN (М74CAN, ME17.9.7 CAN), поэтому протокол зависит от конкретного ЭБУ, а не только от модели. Приложение подбирает протокол само.",
+        "en": "The M74 and Bosch ME17.9.7 ECUs exist both as K-line and as CAN versions (M74CAN, ME17.9.7 CAN), so the protocol depends on the actual ECU, not just the model. The app finds the protocol itself."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Kalina",
+        "https://astrade.ru/catalog/item/programmnye-moduli-m74-bosch-me17-9-7-dlya-vaz-m74-me17-9-7-can/",
+        "https://www.drive2.ru/b/2342162/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Priora",
+      "gen": "2170",
+      "years": [
+        2007,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "21126",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21116",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21127",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "passenger",
+      "buses": {
+        "ru": "Блоки М74 и Bosch ME17.9.7 выпускались и в версии с K-line, и в версии с CAN (М74CAN, ME17.9.7 CAN), поэтому протокол зависит от конкретного ЭБУ, а не только от модели. Приложение подбирает протокол само.",
+        "en": "The M74 and Bosch ME17.9.7 ECUs exist both as K-line and as CAN versions (M74CAN, ME17.9.7 CAN), so the protocol depends on the actual ECU, not just the model. The app finds the protocol itself."
+      },
+      "note": {
+        "ru": "Разъём за перчаточным ящиком, на его задней стенке слева — откройте бардачок.",
+        "en": "Socket behind the glovebox, on its back wall on the left — open the glovebox."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Priora",
+        "https://vaz-lada-granta.ru/priora/elektrika/razem-obd.html",
+        "https://start-motor.ru/blog/gde-nahoditsya-diagnosticheskij-raz-em-lada",
+        "https://timeturbo.ru/blog/stati/gde-nakhoditsya-diagnosticheskiy-razem-lada/",
+        "https://astrade.ru/catalog/item/programmnye-moduli-m74-bosch-me17-9-7-dlya-vaz-m74-me17-9-7-can/",
+        "https://www.drive2.ru/b/2342162/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Largus",
+      "gen": "R90/F90",
+      "years": [
+        2012,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "K7M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "11189",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21129",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "passenger",
+      "note": {
+        "ru": "Техника Dacia Logan MCV: моторы Renault K7M/K4M с ЭБУ Renault. Разъём в бардачке на задней стенке, под колпачком.",
+        "en": "Dacia Logan MCV underneath: Renault K7M/K4M engines with Renault ECUs. Socket in the glovebox on the back wall, under a cap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Largus",
+        "https://largus-lada.ru/gde-nahoditsya-diagnosticheskij-razem-lada-largus/",
+        "https://start-motor.ru/blog/gde-nahoditsya-diagnosticheskij-raz-em-lada",
+        "https://timeturbo.ru/blog/stati/gde-nakhoditsya-diagnosticheskiy-razem-lada/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Niva Legend",
+      "gen": "2121/21214 (4x4)",
+      "years": [
+        1996,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "21214",
+          "liters": 1.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_cover",
+      "note": {
+        "ru": "Гнездо слева от педалей под пластиковой крышкой на двух винтах.",
+        "en": "Socket left of the pedals under a plastic cover held by two screws."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Niva_Legend",
+        "https://www.klavkarr.com/location-plug-connector-obd/Lada-niva-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "Niva Travel",
+      "gen": "2123",
+      "years": [
+        2021,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "21214",
+          "liters": 1.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Бывшая Chevrolet Niva. Её VIN может начинаться не с XTA (выпуск бывшего СП GM-АвтоВАЗ) — тогда марка по VIN не определится.",
+        "en": "The former Chevrolet Niva. Its VIN may not start with XTA (built at the former GM-AvtoVAZ plant) — then the make is not detected from the VIN."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Niva_Travel"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lada",
+      "model": "XRAY",
+      "gen": "GAB (incl. Cross)",
+      "years": [
+        2016,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "21129",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "21179",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "passenger",
+      "note": {
+        "ru": "Разъём в перчаточном ящике.",
+        "en": "Socket inside the glovebox."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lada_Xray",
+        "https://xraycars.ru/diagnosticheskij-razem-na-lada-x-rej/",
+        "https://start-motor.ru/blog/gde-nahoditsya-diagnosticheskij-raz-em-lada",
+        "https://timeturbo.ru/blog/stati/gde-nakhoditsya-diagnosticheskiy-razem-lada/"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "0001",
+      "rate": "medium",
+      "models": [
+        "Granta",
+        "Kalina"
+      ],
+      "fuel": [
+        "petrol"
+      ],
+      "signals": [
+        {
+          "id": "LADA_M74_FUEL_RATE",
+          "name": {
+            "ru": "Расход топлива, л/ч",
+            "en": "Fuel rate, L/h"
+          },
+          "unit": "L",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 248,
+            "len": 16,
+            "mul": 0.00215,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://elm3.ru/instruktsii/pidy-dlya-torque",
+            "https://elm3.ru/wp-content/uploads/PIDs/vaz_m74can.csv"
+          ],
+          "note": "Itelma M74CAN, block 22 0001 from the elm3.ru Torque CSV (single source). Letters: A=byte 0 after 62 00 01. (AF*256+AG)*0.00215 L/h"
+        },
+        {
+          "id": "LADA_M74_INJ_PW",
+          "name": {
+            "ru": "Длительность впрыска",
+            "en": "Injection pulse width"
+          },
+          "unit": "ms",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 64,
+            "len": 16,
+            "mul": 0.00634,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://elm3.ru/instruktsii/pidy-dlya-torque",
+            "https://elm3.ru/wp-content/uploads/PIDs/vaz_m74can.csv"
+          ],
+          "note": "Itelma M74CAN, block 22 0001 from the elm3.ru Torque CSV (single source). Letters: A=byte 0 after 62 00 01. (I*256+J)*0.00634 ms"
+        },
+        {
+          "id": "LADA_M74_IDLE_TGT",
+          "name": {
+            "ru": "Заданные обороты ХХ",
+            "en": "Target idle speed"
+          },
+          "unit": "rpm",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 312,
+            "len": 8,
+            "mul": 10,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://elm3.ru/instruktsii/pidy-dlya-torque",
+            "https://elm3.ru/wp-content/uploads/PIDs/vaz_m74can.csv"
+          ],
+          "note": "Itelma M74CAN, block 22 0001 from the elm3.ru Torque CSV (single source). Letters: A=byte 0 after 62 00 01. AN*10 rpm"
+        },
+        {
+          "id": "LADA_M74_RUN_TIME",
+          "name": {
+            "ru": "Время работы двигателя",
+            "en": "Engine run time"
+          },
+          "unit": "h",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 432,
+            "len": 16,
+            "mul": 6,
+            "div": 60,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://elm3.ru/instruktsii/pidy-dlya-torque",
+            "https://elm3.ru/wp-content/uploads/PIDs/vaz_m74can.csv"
+          ],
+          "note": "Itelma M74CAN, block 22 0001 from the elm3.ru Torque CSV (single source). Letters: A=byte 0 after 62 00 01. (BC*256+BD)*6 min, converted to hours"
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Веста проверена на машине: CAN 11/500, стандартный OBD работает полностью.",
+      "en": "The Vesta was checked on a car: CAN 11/500, standard OBD works fully."
+    },
+    {
+      "ru": "Гранта, Калина, Приора: ЭБУ М74/ME17.9.7 бывают и с K-line, и с CAN — протокол подбирается сам.",
+      "en": "Granta, Kalina, Priora: M74/ME17.9.7 ECUs come as K-line or CAN — the protocol is found automatically."
+    },
+    {
+      "ru": "Итэлма М74CAN: часовой расход топлива, длительность впрыска и время работы двигателя из блока 22 0001 (не проверено на машине).",
+      "en": "Itelma M74CAN: fuel rate, injection pulse width and engine run time from block 22 0001 (not checked on a car)."
+    },
+    {
+      "ru": "Ларгус — это Logan MCV с моторами Renault, XRAY и Веста с H4M — мотор Nissan/Renault.",
+      "en": "The Largus is a Logan MCV with Renault engines; XRAY and Vesta with H4M use the Nissan/Renault engine."
+    }
+  ]
+}

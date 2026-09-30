@@ -1,0 +1,1957 @@
+{
+  "family": "gm",
+  "title": "GM",
+  "brands": [
+    {
+      "name": "Chevrolet",
+      "wmi": [
+        "1G",
+        "2G",
+        "3G",
+        "1G1",
+        "1GC",
+        "1GN",
+        "1GA",
+        "1GB",
+        "2G1",
+        "2GC",
+        "2GN",
+        "3G1",
+        "3GC",
+        "3GN",
+        "6G3",
+        "KL1",
+        "KL7",
+        "KL8",
+        "KLY",
+        "LSG",
+        "X9L",
+        "XUF",
+        "XUU"
+      ]
+    },
+    {
+      "name": "Cadillac",
+      "wmi": [
+        "1G6",
+        "1GY",
+        "1GE",
+        "2G6",
+        "3GY",
+        "LRE",
+        "W06"
+      ]
+    },
+    {
+      "name": "Buick",
+      "wmi": [
+        "1G4",
+        "2G4",
+        "3G4",
+        "3G5",
+        "5GA",
+        "KL4",
+        "LRB",
+        "W04"
+      ]
+    },
+    {
+      "name": "GMC",
+      "wmi": [
+        "1GT",
+        "1GK",
+        "1GD",
+        "1GJ",
+        "2GT",
+        "2GK",
+        "2GD",
+        "3GT",
+        "3GK",
+        "KL6"
+      ]
+    },
+    {
+      "name": "Opel/Vauxhall",
+      "wmi": [
+        "W0L",
+        "W0V",
+        "VXK",
+        "VSX",
+        "SED",
+        "SKA"
+      ]
+    },
+    {
+      "name": "Holden",
+      "wmi": [
+        "6G",
+        "6G1",
+        "6H8",
+        "KL3",
+        "3GM"
+      ]
+    },
+    {
+      "name": "Daewoo (GM Korea)",
+      "wmi": [
+        "KL",
+        "KLA",
+        "Y6D"
+      ]
+    },
+    {
+      "name": "Ravon / UzDaewoo",
+      "wmi": [
+        "XWB"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Cadillac",
+      "model": "CTS",
+      "gen": "GMX320 (1st gen)",
+      "years": [
+        2003,
+        2007
+      ],
+      "engines": [
+        {
+          "code": "LA3",
+          "liters": 3.2,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LP1",
+          "liters": 2.8,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LY7",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LS6",
+          "liters": 5.7,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LS2",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "note": {
+        "ru": "Протокол зависит от года и рынка: klavkarr сообщает KWP fast на 3.2 LA3 2003 г. — используйте автоподбор (ATSP0). LS6 — CTS-V 2004–05, LS2 — CTS-V 2006–07. VIN: 4-й знак D — линия CTS/STS, 6-й: 5 седан (1 купе, 8 универсал), у STS — 6 (по примерам VIN).",
+        "en": "Protocol depends on year and market: klavkarr reports KWP fast on a 2003 3.2 LA3 — use auto (ATSP0). LS6 is the 2004–05 CTS-V, LS2 the 2006–07 CTS-V. VIN: 4th char D — CTS/STS line, 6th: 5 sedan (1 coupe, 8 wagon), STS has 6 (from sample VINs)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_CTS",
+        "https://www.klavkarr.com/compatible/cadillac-ctsi-6000104",
+        "https://stat.vin/vin-decoding/cadillac/cts/1G6DF577080213450",
+        "https://www.myfloridalegal.com/resale_vehicle/1G6DV57V280157948?page=927"
+      ],
+      "verified": false,
+      "vin": [
+        "^1G6D.[158]"
+      ]
+    },
+    {
+      "brand": "Cadillac",
+      "model": "CTS",
+      "gen": "2nd gen",
+      "years": [
+        2008,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "LP1",
+          "liters": 2.8,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LY7",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LLT",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LF1",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LFX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LSA",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "Проверено приложением на CTS 2009 2.8 LP1 (АКПП 6L50): ECM 7E0, TCM 7E2 отвечают на $22. LSA — компрессорный CTS-V 2009–14. VIN: 4-й знак D — линия CTS/STS, 6-й: 5 седан (1 купе, 8 универсал), у STS — 6 (по примерам VIN).",
+        "en": "Checked with the app on a 2009 CTS 2.8 LP1 (6L50 automatic): ECM 7E0 and TCM 7E2 answer $22. LSA is the supercharged 2009–14 CTS-V. VIN: 4th char D — CTS/STS line, 6th: 5 sedan (1 coupe, 8 wagon), STS has 6 (from sample VINs)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_CTS",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics",
+        "https://stat.vin/vin-decoding/cadillac/cts/1G6DF577080213450",
+        "https://www.myfloridalegal.com/resale_vehicle/1G6DV57V280157948?page=927"
+      ],
+      "verified": true,
+      "vin": [
+        "^1G6D.[158]"
+      ]
+    },
+    {
+      "brand": "Cadillac",
+      "model": "CTS",
+      "gen": "3rd gen",
+      "years": [
+        2014,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "LTG",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LFX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LGX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LF3",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LT4",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "LF3 — битурбо CTS V-Sport, LT4 — компрессорный CTS-V 2016–19.",
+        "en": "LF3 is the twin-turbo CTS V-Sport, LT4 the supercharged 2016–19 CTS-V."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_CTS",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics",
+        "https://www.klavkarr.com/compatible/cadillac-ctsiii-6000106"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "STS",
+      "gen": "Sigma",
+      "years": [
+        2005,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "LY7",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LLT",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LH2",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LC3",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "LH2 — Northstar V8, LC3 — компрессорный STS-V. Протокол ранних лет не подтверждён источником; с 2008 модельного года в США обязателен CAN.",
+        "en": "LH2 is the Northstar V8, LC3 the supercharged STS-V. Early-year protocol not confirmed by a source; CAN is mandatory in the US from MY2008."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_STS"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "SRX",
+      "gen": "1st gen",
+      "years": [
+        2004,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "LY7",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LH2",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "CAN 11/500 по отчётам владельцев 2005–2006 г. (klavkarr).",
+        "en": "CAN 11/500 per owner reports for 2005–2006 (klavkarr)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_SRX",
+        "https://www.klavkarr.com/compatible/cadillac-srxi-6000121"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "SRX",
+      "gen": "2nd gen",
+      "years": [
+        2010,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "LF1",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LAU",
+          "liters": 2.8,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LFX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "LAU — 2.8 турбо V6 (2010–11), LF1 — 2010–11, LFX — 2012–16.",
+        "en": "LAU is the 2.8 turbo V6 (2010–11), LF1 2010–11, LFX 2012–16."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_SRX",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "Escalade",
+      "gen": "GMT800",
+      "years": [
+        2002,
+        2006
+      ],
+      "engines": [
+        {
+          "code": "LM7",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LQ9",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 2,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Class 2 (SAE J1850 VPW, контакт 2): двигатель, АКПП и кузовные блоки на одной шине, CAN нет. Функции GM $22/$A9 приложения работают только по CAN.",
+        "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
+      },
+      "note": {
+        "ru": "Разъём под панелью слева от рулевой колонки, ближе к двери (схема EPA, позиция 2).",
+        "en": "Socket under the dash between the door and the steering column (EPA chart, location 2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_Escalade",
+        "https://www.klavkarr.com/compatible/cadillac-escaladeii-gmt800-6000117",
+        "https://deq.nc.gov/motor/inspect/dlc-locations/download"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "Escalade",
+      "gen": "GMT900",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "L92",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L94",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LFA",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "L94 (2009–14) — с отключением цилиндров AFM; LFA — Escalade Hybrid 2009–13.",
+        "en": "L94 (2009–14) has AFM cylinder deactivation; LFA is the 2009–13 Escalade Hybrid."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_Escalade",
+        "https://www.klavkarr.com/compatible/cadillac-escaladeiii-gmt900-6000118"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "Escalade",
+      "gen": "K2XL",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "L86",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_Escalade",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "ATS",
+      "gen": "Alpha",
+      "years": [
+        2013,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "LCV",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LTG",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LFX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LGX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LF4",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "LF4 — битурбо ATS-V.",
+        "en": "LF4 is the twin-turbo ATS-V."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_ATS",
+        "https://www.klavkarr.com/compatible/cadillac-ats-6000100"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "XT5",
+      "gen": "C1XX",
+      "years": [
+        2017,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "LGX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LSY",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_XT5",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "CT6",
+      "gen": "Omega",
+      "years": [
+        2016,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "LTG",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LGX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LGW",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LTA",
+          "liters": 4.2,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "LGW — 3.0 битурбо V6, LTA — 4.2 битурбо V8 Blackwing (2019–20). Гибридная версия CT6 PHEV не описана.",
+        "en": "LGW is the 3.0 twin-turbo V6, LTA the 4.2 twin-turbo Blackwing V8 (2019–20). The CT6 PHEV is not covered."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_CT6",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "DTS",
+      "gen": "G-body",
+      "years": [
+        2006,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "LD8",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L37",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Northstar V8. Протокол по годам источником не подтверждён; с 2008 модельного года в США обязателен CAN.",
+        "en": "Northstar V8. Protocol by year not confirmed by a source; CAN is mandatory in the US from MY2008."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_DTS"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "DeVille",
+      "gen": "8th gen",
+      "years": [
+        2000,
+        2005
+      ],
+      "engines": [
+        {
+          "code": "LD8",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L37",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 2,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Class 2 (SAE J1850 VPW, контакт 2): двигатель, АКПП и кузовные блоки на одной шине, CAN нет. Функции GM $22/$A9 приложения работают только по CAN.",
+        "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
+      },
+      "note": {
+        "ru": "Northstar V8. Разъём под панелью между дверью и рулевой колонкой (схема EPA, позиция 2).",
+        "en": "Northstar V8. Socket under the dash between the door and the steering column (EPA chart, location 2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_DeVille",
+        "https://www.klavkarr.com/compatible/cadillac-devillexv-6000108",
+        "https://deq.nc.gov/motor/inspect/dlc-locations/download"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "Seville",
+      "gen": "5th gen",
+      "years": [
+        1998,
+        2004
+      ],
+      "engines": [
+        {
+          "code": "LD8",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L37",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 2,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Class 2 (SAE J1850 VPW, контакт 2): двигатель, АКПП и кузовные блоки на одной шине, CAN нет. Функции GM $22/$A9 приложения работают только по CAN.",
+        "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
+      },
+      "note": {
+        "ru": "Northstar V8. Разъём под панелью между дверью и рулевой колонкой (схема EPA, позиция 2).",
+        "en": "Northstar V8. Socket under the dash between the door and the steering column (EPA chart, location 2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_Seville",
+        "https://www.klavkarr.com/compatible/cadillac-sevillev-6000120",
+        "https://deq.nc.gov/motor/inspect/dlc-locations/download"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Cruze",
+      "gen": "J300",
+      "years": [
+        2009,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "F16D3",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F16D4",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F18D4",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A14NET",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z20D1",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "Разъём над педалями слева (klavkarr).",
+        "en": "Socket above the pedals on the left (klavkarr)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Cruze",
+        "https://www.klavkarr.com/compatible/chevrolet-cruzei-j300-8000128",
+        "https://www.klavkarr.com/location-plug-connector-obd/Chevrolet-cruze-1"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Lacetti",
+      "gen": "J200",
+      "years": [
+        2004,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "F14D3",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F16D3",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F18D3",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 5,
+      "buses": {
+        "ru": "K-line (контакт 7, KWP2000 fast init): двигатель; ABS и подушки тоже по K-line. CAN нет — функции GM $22/$A9 не применимы, работает стандартный OBD.",
+        "en": "K-line (pin 7, KWP2000 fast init): engine; ABS and airbag also on K-line. No CAN — the GM $22/$A9 functions don't apply, standard OBD works."
+      },
+      "note": {
+        "ru": "Daewoo Lacetti / Nubira / Optra, в Узбекистане — Gentra. KWP fast по отчётам владельцев 1.6 (klavkarr).",
+        "en": "Also Daewoo Lacetti / Nubira / Optra, Gentra in Uzbekistan. KWP fast per owner reports on the 1.6 (klavkarr)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Lacetti",
+        "https://www.klavkarr.com/compatible/chevrolet-lacettii-8000144"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Aveo",
+      "gen": "T250",
+      "years": [
+        2006,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "B12S1",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F14D3",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F14D4",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F15S3",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F16D3",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 5,
+      "obd": "right_of_column",
+      "buses": {
+        "ru": "K-line (контакт 7, KWP2000 fast init): двигатель; ABS и подушки тоже по K-line. CAN нет — функции GM $22/$A9 не применимы, работает стандартный OBD.",
+        "en": "K-line (pin 7, KWP2000 fast init): engine; ABS and airbag also on K-line. No CAN — the GM $22/$A9 functions don't apply, standard OBD works."
+      },
+      "note": {
+        "ru": "KWP fast на 1.2/1.4/1.6 2005–2010 (klavkarr); один отчёт о CAN на 1.6 2011 г. (рынок США). Разъём под рулём справа, над педалями.",
+        "en": "KWP fast on the 1.2/1.4/1.6 2005–2010 (klavkarr); one report of CAN on a 2011 1.6 (US market). Socket under the steering wheel on the right, above the pedals."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Aveo_(T200)",
+        "https://www.klavkarr.com/compatible/chevrolet-aveoi-t250-8000107",
+        "https://www.klavkarr.com/location-plug-connector-obd/Chevrolet-aveo-1"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Aveo",
+      "gen": "T300",
+      "years": [
+        2011,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "F16D4",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A14NET",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F18D4",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B12D1",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A13DTE",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "В США — Chevrolet Sonic. CAN 11/500 по отчётам (1.3 VCDi); один отчёт о KWP на 1.4 — при неудаче используйте ATSP0.",
+        "en": "Sold as Chevrolet Sonic in the US. CAN 11/500 per reports (1.3 VCDi); one KWP report on a 1.4 — fall back to ATSP0 if needed."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Sonic",
+        "https://www.klavkarr.com/compatible/chevrolet-aveoii-t300-8000108"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Captiva",
+      "gen": "C100",
+      "years": [
+        2006,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "Z24SED",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LU1",
+          "liters": 3.2,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z20S",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "Близнец Opel Antara. Разъём у рычага открывания капота (klavkarr).",
+        "en": "Twin of the Opel Antara. Socket near the hood release (klavkarr)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Captiva",
+        "https://www.klavkarr.com/compatible/chevrolet-captivai-c100/c140-8000117",
+        "https://www.klavkarr.com/location-plug-connector-obd/Chevrolet-captiva-1"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Captiva",
+      "gen": "C140",
+      "years": [
+        2011,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "LE9",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "LF1",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "Z22D1",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Captiva",
+        "https://www.klavkarr.com/compatible/chevrolet-captivai-c100/c140-8000117"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Niva",
+      "gen": "VAZ-2123",
+      "years": [
+        2002,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "VAZ-2123",
+          "liters": 1.7,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 5,
+      "buses": {
+        "ru": "K-line (контакт 7, KWP2000 fast init). ЭБУ — семейства ВАЗ (Bosch / «Январь»), не GM: функции GM $22/$A9 не применимы, работает стандартный OBD.",
+        "en": "K-line (pin 7, KWP2000 fast init). The ECU is from the Lada family (Bosch / Yanvar), not GM: the GM $22/$A9 functions don't apply, standard OBD works."
+      },
+      "note": {
+        "ru": "Выпускалась СП GM-АвтоВАЗ (WMI X9L), позже как Lada Niva. KWP fast на 1.7 (klavkarr).",
+        "en": "Built by the GM-AvtoVAZ joint venture (WMI X9L), later sold as Lada Niva. KWP fast on the 1.7 (klavkarr)."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Chevrolet_Niva",
+        "https://www.klavkarr.com/compatible/chevrolet-niva-8000209"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Tahoe",
+      "gen": "GMT800",
+      "years": [
+        2000,
+        2006
+      ],
+      "engines": [
+        {
+          "code": "LR4",
+          "liters": 4.8,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LM7",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L59",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 2,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Class 2 (SAE J1850 VPW, контакт 2): двигатель, АКПП и кузовные блоки на одной шине, CAN нет. Функции GM $22/$A9 приложения работают только по CAN.",
+        "en": "Class 2 (SAE J1850 VPW, pin 2): engine, transmission and body modules share one bus, no CAN. The app's GM $22/$A9 functions work over CAN only."
+      },
+      "note": {
+        "ru": "Разъём под панелью между дверью и рулевой колонкой (схема EPA, позиция 2).",
+        "en": "Socket under the dash between the door and the steering column (EPA chart, location 2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Tahoe",
+        "https://www.klavkarr.com/compatible/chevrolet-tahoeii-gmt800-8000179",
+        "https://deq.nc.gov/motor/inspect/dlc-locations/download"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Tahoe",
+      "gen": "GMT900",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "LY2",
+          "liters": 4.8,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LMG",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LY5",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LC9",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LFA",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "Платформа Escalade GMT900 (CAN 11/500). Моторы 5.3 — с отключением цилиндров AFM.",
+        "en": "Same platform as the Escalade GMT900 (CAN 11/500). The 5.3 engines have AFM cylinder deactivation."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Tahoe",
+        "https://www.klavkarr.com/compatible/cadillac-escaladeiii-gmt900-6000118"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Tahoe",
+      "gen": "K2XX",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "L83",
+          "liters": 5.3,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L86",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Chevrolet_Tahoe",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Opel/Vauxhall",
+      "model": "Astra",
+      "gen": "H",
+      "years": [
+        2004,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "Z14XEP",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z16XEP",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z16XER",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z18XER",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z20LEH",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z17DTH",
+          "liters": 1.7,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "Z19DTH",
+          "liters": 1.9,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "console",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, КПП, ABS. Кузовные и мультимедийные блоки — на других шинах (MS-CAN контакты 3/11 или SW-CAN контакт 1, зависит от модели); обычный ELM327 их не видит.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
+      },
+      "note": {
+        "ru": "Разъём в центральной консоли у рычага стояночного тормоза, под крышкой (Haynes).",
+        "en": "Socket in the centre console by the handbrake lever, under a cover (Haynes)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Opel_Astra",
+        "https://www.klavkarr.com/compatible/opel-astrah-43000109",
+        "https://uk.haynes.com/de/blogs/step-by-step-guides/fusebox-and-diagnostic-socket-locations-opel-astra-2004-2008-haynes-manuals"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Opel/Vauxhall",
+      "model": "Astra",
+      "gen": "J",
+      "years": [
+        2009,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "A14XER",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A14NET",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A16XER",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A16LET",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A18XER",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A17DTR",
+          "liters": 1.7,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "A20DTH",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, КПП, ABS. Кузовные и мультимедийные блоки — на других шинах (MS-CAN контакты 3/11 или SW-CAN контакт 1, зависит от модели); обычный ELM327 их не видит.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
+      },
+      "note": {
+        "ru": "Разъём под рулём слева, над педалями (klavkarr). Собиралась и в Санкт-Петербурге (WMI XUF).",
+        "en": "Socket under the steering wheel on the left, above the pedals (klavkarr). Also built in St Petersburg (WMI XUF)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Opel_Astra",
+        "https://www.klavkarr.com/compatible/opel-astraj-43000112",
+        "https://www.klavkarr.com/location-plug-connector-obd/Opel-astra-j"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Opel/Vauxhall",
+      "model": "Insignia",
+      "gen": "A",
+      "years": [
+        2008,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "A16LET",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A18XER",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A20NHT",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A28NET",
+          "liters": 2.8,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A20DTH",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, КПП, ABS. Кузовные и мультимедийные блоки — на других шинах (MS-CAN контакты 3/11 или SW-CAN контакт 1, зависит от модели); обычный ELM327 их не видит.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
+      },
+      "note": {
+        "ru": "Разъём над педалями (klavkarr). В Австралии — Holden Insignia, в США — Buick Regal.",
+        "en": "Socket above the pedals (klavkarr). Sold as Holden Insignia in Australia and Buick Regal in the US."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Opel_Insignia",
+        "https://www.klavkarr.com/compatible/opel-insigniai-43000133",
+        "https://www.klavkarr.com/location-plug-connector-obd/Opel-insignia-1"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Opel/Vauxhall",
+      "model": "Corsa",
+      "gen": "D",
+      "years": [
+        2006,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "Z10XEP",
+          "liters": 1.0,
+          "cyl": 3,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z12XEP",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z14XEP",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z16LER",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "Z13DTJ",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "console",
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, КПП, ABS. Кузовные и мультимедийные блоки — на других шинах (MS-CAN контакты 3/11 или SW-CAN контакт 1, зависит от модели); обычный ELM327 их не видит.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, gearbox, ABS. Body and infotainment modules sit on other buses (MS-CAN pins 3/11 or SW-CAN pin 1, depending on the model); a plain ELM327 can't reach them."
+      },
+      "note": {
+        "ru": "Разъём внизу центральной консоли, рядом с прикуривателем (klavkarr).",
+        "en": "Socket at the bottom of the centre console near the cigarette lighter (klavkarr)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Opel_Corsa",
+        "https://www.klavkarr.com/compatible/opel-corsad-43000123",
+        "https://www.klavkarr.com/location-plug-connector-obd/Opel-corsa-d"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Holden",
+      "model": "Commodore",
+      "gen": "VE",
+      "years": [
+        2006,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "LE0",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LY7",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LLT",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LF1",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L98",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L76",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "L77",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "Платформа Zeta, АКПП 6L50/6L80. Расширенные $22 проверены на VE/VF (ECM 7E0, TCM 7E2).",
+        "en": "Zeta platform, 6L50/6L80 automatics. Extended $22 checked on VE/VF (ECM 7E0, TCM 7E2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Holden_Commodore_(VE)",
+        "https://github.com/alm4096/Holden-OBD2-Extended-PIDs"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Holden",
+      "model": "Commodore",
+      "gen": "VF",
+      "years": [
+        2013,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "LFX",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LFW",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "L77",
+          "liters": 6.0,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "LS3",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "В США — Chevrolet SS (LS3).",
+        "en": "Sold as Chevrolet SS (LS3) in the US."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Holden_Commodore_(VF)",
+        "https://github.com/alm4096/Holden-OBD2-Extended-PIDs"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Buick",
+      "model": "Enclave",
+      "gen": "C1XX (2nd gen)",
+      "years": [
+        2018,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "LFY",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
+      },
+      "note": {
+        "ru": "Проверено сторонним проектом на Enclave 2022: ECM 7E0/7E8, BCM 241/641; оставшийся ресурс масла читается не через $22 119F (отказ 7F 22 31), а через $1A 6D.",
+        "en": "Checked by a third-party project on a 2022 Enclave: ECM 7E0/7E8, BCM 241/641; oil life is not in $22 119F there (7F 22 31 reject) but in $1A 6D."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Buick_Enclave",
+        "https://github.com/ViolentPoo/gm-c1xx-wican-research"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "1940",
+      "rate": "medium",
+      "signals": [
+        {
+          "id": "GM_ECM_TFT",
+          "name": {
+            "ru": "Температура масла АКПП (через ECM)",
+            "en": "Transmission fluid temp (via ECM)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/ViolentPoo/gm-c1xx-wican-research",
+            "https://github.com/OBDb/Chevrolet-Camaro/blob/main/signalsets/v3/default.json",
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "role": "atf_temp",
+          "note": "Same DID as the TCM one in GmKnown (7E2), asked from the ECM: on cars where the ECM runs the gearbox or relays TFT. Live 2022 Enclave answered 7E8 04 62 19 40 46 = 30 C (c1xx repo); OBDb Camaro lists 7E0 1940 A-40; Torque 'GM Method 1' is 221940 with Auto header."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "132A",
+      "rate": "slow",
+      "fuel": [
+        "petrol"
+      ],
+      "engines": [
+        "LM7"
+      ],
+      "signals": [
+        {
+          "id": "GM_FUEL_L",
+          "name": {
+            "ru": "Остаток топлива",
+            "en": "Fuel remaining"
+          },
+          "unit": "L",
+          "dec": 1,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 64,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260125030250/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/page-13"
+          ],
+          "role": "fuel_level_l",
+          "note": "TJBaker57 on a 2005 Yukon 5.3 (Class 2 PCM): 2 bytes, 1 bit = 1/64 L, found by comparing with Tech 2 EVAP data. Another member never got an answer on his GM cars. Not seen on a CAN car yet."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "131D",
+      "rate": "slow",
+      "fuel": [
+        "petrol"
+      ],
+      "engines": [
+        "LM7"
+      ],
+      "signals": [
+        {
+          "id": "GM_FUEL_CAP",
+          "name": {
+            "ru": "Объём топливного бака",
+            "en": "Fuel tank capacity"
+          },
+          "unit": "L",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 64,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260125030250/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/page-13"
+          ],
+          "note": "Same post as 132A: tank capacity, 2 bytes, 1/64 L (2005 Yukon, Class 2 PCM). Useful to check 132A: capacity should match the owner's manual."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "11A3",
+      "rate": "medium",
+      "fuel": [
+        "petrol"
+      ],
+      "engines": [
+        "LL8"
+      ],
+      "signals": [
+        {
+          "id": "GM_CAT_TEMP",
+          "name": {
+            "ru": "Температура катализатора (расчётная)",
+            "en": "Catalyst temp (calculated)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 50,
+            "div": 9,
+            "add": -17.78,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Torque PID 2211A3 'TWC Temperature Calculated', A*10 in F, from a 2002 TrailBlazer 4.2 (Class 2); converted to C: (A*10-32)*5/9. Single source."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "12F6",
+      "rate": "fast",
+      "fuel": [
+        "petrol"
+      ],
+      "engines": [
+        "LL8"
+      ],
+      "signals": [
+        {
+          "id": "GM_KS1_V",
+          "name": {
+            "ru": "Датчик детонации 1, напряжение",
+            "en": "Knock sensor 1 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 51,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Torque PID 2212F6, A/51 V, 2002 TrailBlazer 4.2 (Class 2). Single source."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "147A",
+      "rate": "fast",
+      "fuel": [
+        "petrol"
+      ],
+      "engines": [
+        "LL8"
+      ],
+      "signals": [
+        {
+          "id": "GM_KS2_V",
+          "name": {
+            "ru": "Датчик детонации 2, напряжение",
+            "en": "Knock sensor 2 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 51,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Torque PID 22147A, A/51 V, 2002 TrailBlazer 4.2 (Class 2). Single source."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "162B",
+      "rate": "medium",
+      "fuel": [
+        "petrol"
+      ],
+      "engines": [
+        "LL8"
+      ],
+      "signals": [
+        {
+          "id": "GM_FAN_RPM",
+          "name": {
+            "ru": "Обороты вентилятора (вискомуфта)",
+            "en": "Cooling fan speed (fan clutch)"
+          },
+          "unit": "rpm",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 16,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Torque PID 22162B, A*16 rpm, confirmed on a 2002 TrailBlazer 4.2 and an '05 EXT 4.2 (Class 2, electro-viscous fan clutch). Only trucks/SUVs with a PCM-controlled fan clutch."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Расширенные параметры GM ($22): температура масла АКПП и двигателя, давление масла, ресурс масла, пропуски и баланс по цилиндрам, откат по детонации",
+      "en": "GM enhanced parameters ($22): transmission and engine oil temperature, oil pressure, oil life, per-cylinder misfires and balance, knock retard"
+    },
+    {
+      "ru": "Коды неисправностей всех блоков на HS-CAN (GM $A9), не только двигателя",
+      "en": "Trouble codes from every module on HS-CAN (GM $A9), not just the engine"
+    },
+    {
+      "ru": "Поиск блоков на шине и их идентификация (номера деталей, калибровки)",
+      "en": "Module search on the bus with identification (part and calibration numbers)"
+    },
+    {
+      "ru": "Прослушивание шины CAN: живые сообщения блоков без запросов",
+      "en": "CAN bus listening: live module broadcasts without requests"
+    },
+    {
+      "ru": "Блоки на GMLAN SW-CAN (контакт 1: кузов, щиток, климат) — только с адаптером, поддерживающим SW-CAN",
+      "en": "Modules on GMLAN SW-CAN (pin 1: body, cluster, HVAC) need an adapter with SW-CAN support"
+    },
+    {
+      "ru": "Машины до ~2007 г. на Class 2 (J1850 VPW) и Daewoo на K-line — только стандартный OBD",
+      "en": "Pre-~2007 Class 2 (J1850 VPW) cars and K-line Daewoos get standard OBD only"
+    }
+  ]
+}

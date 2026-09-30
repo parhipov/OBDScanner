@@ -1,5 +1,8 @@
 package com.obdscanner.gm
 
+import com.obdscanner.car.ExtCommand
+import com.obdscanner.car.ExtSignal
+import com.obdscanner.car.SignalFormat
 import com.obdscanner.obd.PollRate
 import com.obdscanner.tr
 
@@ -86,4 +89,18 @@ object GmKnown {
     }
 
     fun responseFor(req: Int) = if (req in 0x7E0..0x7E7) req + 8 else req + 0x400
+
+    /** Main-screen roles (see tools/cars/SCHEMA.md `role`). */
+    private val ROLES = mapOf(
+        0x1940 to "atf_temp", 0x199A to "gear", 0x1991 to "tc_slip", 0x1941 to "input_rpm", 0x1942 to "output_rpm",
+        0x1154 to "oil_temp", 0x1470 to "oil_pressure", 0x119F to "oil_life",
+    )
+
+    /** The same parameters as manufacturer requests for the poll loop; reading keys stay "7E2:22.1940". */
+    val commands: List<ExtCommand> by lazy {
+        all.map { d ->
+            val signal = ExtSignal("", d.name, d.unit, d.decimals, d.confidence, d.group, ROLES[d.did], SignalFormat(0, 8, 1.0, 1.0, 0.0, false, null))
+            ExtCommand(d.req, responseFor(d.req), d.service, d.did, d.periodMs, listOf(signal), source = "code", code = d.f)
+        }
+    }
 }

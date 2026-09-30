@@ -1,0 +1,1937 @@
+{
+  "family": "toyota",
+  "title": "Toyota / Lexus",
+  "brands": [
+    {
+      "name": "Toyota",
+      "wmi": [
+        "JT",
+        "4T",
+        "5T",
+        "2T",
+        "SB1",
+        "NMT",
+        "VNK",
+        "AHT",
+        "XW7"
+      ]
+    },
+    {
+      "name": "Lexus",
+      "wmi": [
+        "JTH",
+        "JTJ",
+        "2T2"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Toyota",
+      "model": "RAV4",
+      "gen": "XA20",
+      "years": [
+        2005,
+        2005
+      ],
+      "engines": [
+        {
+          "code": "1AZ-FE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Проверено на RAV4 2005 1AZ-FE: ЭБУ двигателя отвечает по CAN 11/500 на 7E0/7E8, адреса 7E1–7E7 молчат (АКПП U241E ведёт ЭБУ двигателя). VIN в блоке не записан (FF).",
+        "en": "Checked on a RAV4 2005 1AZ-FE: the engine ECU answers on CAN 11/500 at 7E0/7E8, 7E1–7E7 are silent (the U241E automatic is run by the engine ECU). No VIN stored in the ECU (FF)."
+      },
+      "note": {
+        "ru": "Гнездо под панелью слева у двери, правее ручки открывания капота, под блоком предохранителей.",
+        "en": "Socket under the dash on the left by the door, right of the hood release, below the fuse box."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA20)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-rav4-2-2"
+      ],
+      "verified": true
+    },
+    {
+      "brand": "Toyota",
+      "model": "RAV4",
+      "gen": "XA20",
+      "years": [
+        2000,
+        2004
+      ],
+      "engines": [
+        {
+          "code": "1AZ-FE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1ZZ-FE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AZ-FE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "note": {
+        "ru": "Протокол ранних лет не проверен: до рестайлинга мог быть K-line (ISO 9141/14230). Приложение само перебирает протоколы.",
+        "en": "Protocol of the early years not checked: before the facelift it may be K-line (ISO 9141/14230). The app tries all protocols itself."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA20)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-rav4-2-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "RAV4",
+      "gen": "XA30",
+      "years": [
+        2005,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "1AZ-FE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "3ZR-FAE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AZ-FE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AD-FTV",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "buses": {
+        "ru": "АКПП на большинстве Toyota ведёт ЭБУ двигателя: температура ATF, передача и блокировка ГДТ читаются запросом $21 на 7E0. Отдельный блок коробки (7E1) бывает не всегда.",
+        "en": "On most Toyotas the engine ECU also runs the automatic: ATF temperature, gear and lock-up are read with $21 on 7E0. A separate gearbox module (7E1) is not always there."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA30)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-rav4-3"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "RAV4",
+      "gen": "XA40",
+      "years": [
+        2012,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "3ZR-FE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AR-FE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AD-FTV",
+          "liters": 2.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "2AR-FXE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA40)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-rav4-4",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "RAV4",
+      "gen": "XA50",
+      "years": [
+        2018,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "M20A-FKS",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A25A-FKS",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A25A-FXS",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_RAV4_(XA50)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Camry",
+      "gen": "XV40",
+      "years": [
+        2006,
+        2011
+      ],
+      "engines": [
+        {
+          "code": "2AZ-FE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AZ-FXE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "buses": {
+        "ru": "АКПП на большинстве Toyota ведёт ЭБУ двигателя: температура ATF, передача и блокировка ГДТ читаются запросом $21 на 7E0. Отдельный блок коробки (7E1) бывает не всегда.",
+        "en": "On most Toyotas the engine ECU also runs the automatic: ATF temperature, gear and lock-up are read with $21 on 7E0. A separate gearbox module (7E1) is not always there."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Camry_(XV40)"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Camry",
+      "gen": "XV50/XV55",
+      "years": [
+        2011,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "1AZ-FE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "6AR-FSE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AR-FE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AR-FXE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "note": {
+        "ru": "XV55 — рестайлинг 2014 года для России.",
+        "en": "XV55 is the 2014 facelift for Russia."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Camry_(XV50)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Camry",
+      "gen": "XV70",
+      "years": [
+        2017,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "6AR-FSE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AR-FE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A25A-FKS",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FKS",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "A25A-FXS",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Camry_(XV70)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Corolla",
+      "gen": "E150",
+      "years": [
+        2006,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "1NR-FE",
+          "liters": 1.33,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4ZZ-FE",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1ZR-FE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2ZR-FE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "obd": "left_door",
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Corolla_(E140)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-corolla-e140"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Corolla",
+      "gen": "E180",
+      "years": [
+        2013,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "1NR-FE",
+          "liters": 1.33,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1ZR-FAE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2ZR-FAE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Corolla_(E170)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-corolla-11",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Corolla",
+      "gen": "E210",
+      "years": [
+        2019,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "1ZR-FAE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2ZR-FE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M20A-FKS",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2ZR-FXE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "note": {
+        "ru": "1.6 с вариатором: температуру масла CVT читают в Torque той же формулой, что ATF у других Toyota (drive2).",
+        "en": "1.6 with CVT: owners read the CVT fluid temperature in Torque with the same formula as other Toyotas' ATF (drive2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Corolla_(E210)",
+        "https://www.drive2.ru/l/588391554050176193/",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Land Cruiser Prado",
+      "gen": "120",
+      "years": [
+        2002,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "2TR-FE",
+          "liters": 2.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1GR-FE",
+          "liters": 4.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1KD-FTV",
+          "liters": 3.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Land_Cruiser_Prado"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Land Cruiser Prado",
+      "gen": "150",
+      "years": [
+        2009,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "2TR-FE",
+          "liters": 2.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1GR-FE",
+          "liters": 4.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1KD-FTV",
+          "liters": 3.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "1GD-FTV",
+          "liters": 2.8,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500. Дизель 1GD-FTV (с 2015): запросы $21 на 7E0 дают сажевый фильтр, коррекции форсунок; коробка — тоже с 7E0 (newhilux, Prado 150 / Hilux).",
+        "en": "CAN 11/500. 1GD-FTV diesel (2015+): $21 on 7E0 gives the DPF load and injector corrections; the gearbox is read from 7E0 too (newhilux, Prado 150 / Hilux)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Land_Cruiser_Prado",
+        "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Land Cruiser",
+      "gen": "200",
+      "years": [
+        2007,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "2UZ-FE",
+          "liters": 4.7,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1UR-FE",
+          "liters": 4.6,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "3UR-FE",
+          "liters": 5.7,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1VD-FTV",
+          "liters": 4.5,
+          "cyl": 8,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Land_Cruiser_(J200)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Highlander",
+      "gen": "XU40",
+      "years": [
+        2007,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "1AR-FE",
+          "liters": 2.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "3MZ-FE",
+          "liters": 3.3,
+          "cyl": 6,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Highlander",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Highlander",
+      "gen": "XU50",
+      "years": [
+        2013,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "1AR-FE",
+          "liters": 2.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FKS",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FXE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "note": {
+        "ru": "Запрос детонации 7E0 21B2 на Highlander/Kluger 2017 не отвечает (hptuners).",
+        "en": "The knock request 7E0 21B2 does not answer on a 2017 Highlander/Kluger (hptuners)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Highlander",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics",
+        "https://forum.hptuners.com/showthread.php?94196-knock-feedback-amp-KCLV"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Prius",
+      "gen": "XW20",
+      "years": [
+        2003,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "1NZ-FXE",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "CAN 11/500. Гибридная система: 7E2 (HV ECU), батарея: 7E3 (ЭБУ ВВБ) — SOC, ток, напряжения 14 блоков, температуры.",
+        "en": "CAN 11/500. Hybrid system: 7E2 (HV ECU), battery: 7E3 (battery ECU) — SOC, current, 14 block voltages, temperatures."
+      },
+      "note": {
+        "ru": "Частый праворульный «японец» на Дальнем Востоке. Место гнезда указано для левого руля, на правом не проверено.",
+        "en": "A common right-hand-drive import in the Russian Far East. Socket location is for left-hand drive, not checked on RHD."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Prius_(XW20)",
+        "https://www.klavkarr.com/location-plug-connector-obd/Toyota-Prius-2",
+        "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+        "https://priuschat.com/threads/gen2-prius-custom-pids-for-torque-android-app-with-formulas.95370/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lexus",
+      "model": "RX",
+      "gen": "AL10",
+      "years": [
+        2008,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "1AR-FE",
+          "liters": 2.7,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FXE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "note": {
+        "ru": "RX270 (2.7), RX350 (3.5), RX450h (гибрид).",
+        "en": "RX270 (2.7), RX350 (3.5), RX450h (hybrid)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lexus_RX",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lexus",
+      "model": "RX",
+      "gen": "AL20",
+      "years": [
+        2015,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "8AR-FTS",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FKS",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FXS",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "note": {
+        "ru": "RX200t/RX300 (2.0 турбо), RX350, RX450h.",
+        "en": "RX200t/RX300 (2.0 turbo), RX350, RX450h."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lexus_RX",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Lexus",
+      "model": "NX",
+      "gen": "AZ10",
+      "years": [
+        2014,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "3ZR-FAE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "8AR-FTS",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AR-FXE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500 по году: в США с 2008 модельного года OBD обязан идти по ISO 15765-4 (CAN), те же ЭБУ стоят на машинах для России. На машине не проверено.",
+        "en": "CAN 11/500 by model year: US law requires ISO 15765-4 (CAN) OBD from MY2008, Russian-market cars share the ECUs. Not checked on a car."
+      },
+      "note": {
+        "ru": "NX200 (2.0), NX200t/NX300 (2.0 турбо), NX300h (гибрид).",
+        "en": "NX200 (2.0), NX200t/NX300 (2.0 turbo), NX300h (hybrid)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Lexus_NX",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "82",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "TOY_ATF_PAN",
+          "name": {
+            "ru": "Температура ATF (поддон)",
+            "en": "ATF temp (pan)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 256,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=431841",
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+            "https://www.tacomaworld.com/threads/custom-pids-for-torque-pro-app.438689/",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "atf_temp",
+          "note": "Hilux/Prado (newhilux): A-40 / C-40 on 7E0 = integer part of raw16/256-40. Tacoma (tacomaworld) and Corolla E210 CVT (drive2): raw16*0.007-40 in F = raw16*0.00389-40 C, matches /256. OBDb: raw16/256-40."
+        },
+        {
+          "id": "TOY_ATF_TC",
+          "name": {
+            "ru": "Температура ATF (на выходе ГДТ)",
+            "en": "ATF temp (torque converter out)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 16,
+            "len": 16,
+            "mul": 1,
+            "div": 256,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=431841",
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+            "https://www.tacomaworld.com/threads/custom-pids-for-torque-pro-app.438689/",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Second sensor, converter outlet (Tacoma/Hilux threads, OBDb). Not every gearbox has it."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "D9",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "TOY_ATF_PAN_D9",
+          "name": {
+            "ru": "Температура ATF (поддон), старые ЭБУ",
+            "en": "ATF temp (pan), older ECUs"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 32,
+            "len": 16,
+            "mul": 1,
+            "div": 256,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.tacomaworld.com/posts/19913533",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "atf_temp",
+          "note": "Tacoma 2005-2009: 21D9 bytes E,F; newer ECUs use 2182."
+        },
+        {
+          "id": "TOY_ATF_TC_D9",
+          "name": {
+            "ru": "Температура ATF (выход ГДТ), старые ЭБУ",
+            "en": "ATF temp (converter out), older ECUs"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 48,
+            "len": 16,
+            "mul": 1,
+            "div": 256,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.tacomaworld.com/posts/19913533",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Tacoma 2005-2009: 21D9 bytes G,H."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "85",
+      "rate": "fast",
+      "signals": [
+        {
+          "id": "TOY_GEAR",
+          "name": {
+            "ru": "Передача АКПП",
+            "en": "Gear"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "gear",
+          "note": "newhilux: 2185 A; OBDb the same."
+        },
+        {
+          "id": "TOY_LOCKUP",
+          "name": {
+            "ru": "Блокировка ГДТ",
+            "en": "Converter lock-up"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 8,
+            "len": 1,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false,
+            "map": {
+              "0": {
+                "ru": "выкл",
+                "en": "off"
+              },
+              "1": {
+                "ru": "вкл",
+                "en": "on"
+              }
+            }
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "newhilux: BIT(B:7) = MSB of byte B; OBDb bix 8."
+        }
+      ]
+    },
+    {
+      "hdr": "7C0",
+      "svc": "21",
+      "did": "29",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "TOY_FUEL_L",
+          "name": {
+            "ru": "Топливо в баке",
+            "en": "Fuel in tank"
+          },
+          "unit": "L",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 2,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+            "https://github.com/OBDb/Toyota-RAV4/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "fuel_level_l",
+          "note": "Combination meter 7C0. newhilux (Hilux/Prado): A/2 L; OBDb RAV4: A/2 L."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "B2",
+      "rate": "medium",
+      "signals": [
+        {
+          "id": "TOY_KCLV",
+          "name": {
+            "ru": "Обучение по детонации (KCLV)",
+            "en": "Knock control learn value (KCLV)"
+          },
+          "unit": "°",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 32,
+            "add": -64,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.toyotanation.com/threads/torque-pro-custom-pids.1645034/",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json",
+            "https://forum.hptuners.com/showthread.php?94196-knock-feedback-amp-KCLV"
+          ],
+          "note": "(A*256+B)/32-64 per a toyotanation Torque post (read via search snippet only) and OBDb (*2048/65535-64). Does not answer on a 2017 Highlander (hptuners). Knock feedback left out: the two sources disagree."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "38",
+      "rate": "slow",
+      "models": [
+        "Land Cruiser Prado"
+      ],
+      "signals": [
+        {
+          "id": "TOY_DPF_PM",
+          "name": {
+            "ru": "Заполнение сажевого фильтра",
+            "en": "DPF soot load"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 72,
+            "len": 8,
+            "mul": 2,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737",
+            "https://github.com/OBDb/Toyota/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "dpf_soot",
+          "note": "1GD-FTV: 2138 J*2 (newhilux); OBDb Toyota: bix 72 *2."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "21",
+      "did": "3D",
+      "rate": "medium",
+      "models": [
+        "Land Cruiser Prado"
+      ],
+      "signals": [
+        {
+          "id": "TOY_INJ_FB1",
+          "name": {
+            "ru": "Коррекция форсунки 1",
+            "en": "Injector 1 correction"
+          },
+          "unit": "mm³",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 120,
+            "len": 8,
+            "mul": 10,
+            "div": 128,
+            "add": -10,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737"
+          ],
+          "note": "1GD-FTV 130 kW: 213D P/12.8-10 mm3/stroke (newhilux, one source)."
+        },
+        {
+          "id": "TOY_INJ_FB2",
+          "name": {
+            "ru": "Коррекция форсунки 2",
+            "en": "Injector 2 correction"
+          },
+          "unit": "mm³",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 128,
+            "len": 8,
+            "mul": 10,
+            "div": 128,
+            "add": -10,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737"
+          ],
+          "note": "1GD-FTV 130 kW: 213D Q/12.8-10 mm3/stroke (newhilux, one source)."
+        },
+        {
+          "id": "TOY_INJ_FB3",
+          "name": {
+            "ru": "Коррекция форсунки 3",
+            "en": "Injector 3 correction"
+          },
+          "unit": "mm³",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 136,
+            "len": 8,
+            "mul": 10,
+            "div": 128,
+            "add": -10,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737"
+          ],
+          "note": "1GD-FTV 130 kW: 213D R/12.8-10 mm3/stroke (newhilux, one source)."
+        },
+        {
+          "id": "TOY_INJ_FB4",
+          "name": {
+            "ru": "Коррекция форсунки 4",
+            "en": "Injector 4 correction"
+          },
+          "unit": "mm³",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 144,
+            "len": 8,
+            "mul": 10,
+            "div": 128,
+            "add": -10,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737"
+          ],
+          "note": "1GD-FTV 130 kW: 213D S/12.8-10 mm3/stroke (newhilux, one source)."
+        },
+        {
+          "id": "TOY_INJ_VOL",
+          "name": {
+            "ru": "Цикловая подача топлива",
+            "en": "Injection quantity"
+          },
+          "unit": "mm³",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 152,
+            "len": 16,
+            "mul": 10,
+            "div": 512,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.newhilux.net/forum/viewtopic.php?p=455737"
+          ],
+          "note": "1GD-FTV: 213D (T*256+U)*10/512 mm3/stroke (newhilux, one source)."
+        }
+      ]
+    },
+    {
+      "hdr": "7E3",
+      "svc": "21",
+      "did": "CE",
+      "rate": "medium",
+      "models": [
+        "Prius"
+      ],
+      "signals": [
+        {
+          "id": "TOY_HV_SOC",
+          "name": {
+            "ru": "Заряд ВВБ (SOC)",
+            "en": "HV battery SOC"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 2,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ],
+          "role": "hv_soc"
+        },
+        {
+          "id": "TOY_HV_I",
+          "name": {
+            "ru": "Ток ВВБ",
+            "en": "HV battery current"
+          },
+          "unit": "A",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 8,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Sign: + discharge / - charge per Techstream convention; not checked."
+        },
+        {
+          "id": "TOY_HV_BLK01",
+          "name": {
+            "ru": "ВВБ: блок 1, напряжение",
+            "en": "HV battery block 1 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 24,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK02",
+          "name": {
+            "ru": "ВВБ: блок 2, напряжение",
+            "en": "HV battery block 2 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 40,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK03",
+          "name": {
+            "ru": "ВВБ: блок 3, напряжение",
+            "en": "HV battery block 3 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 56,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK04",
+          "name": {
+            "ru": "ВВБ: блок 4, напряжение",
+            "en": "HV battery block 4 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 72,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK05",
+          "name": {
+            "ru": "ВВБ: блок 5, напряжение",
+            "en": "HV battery block 5 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 88,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK06",
+          "name": {
+            "ru": "ВВБ: блок 6, напряжение",
+            "en": "HV battery block 6 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 104,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK07",
+          "name": {
+            "ru": "ВВБ: блок 7, напряжение",
+            "en": "HV battery block 7 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 120,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK08",
+          "name": {
+            "ru": "ВВБ: блок 8, напряжение",
+            "en": "HV battery block 8 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 136,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK09",
+          "name": {
+            "ru": "ВВБ: блок 9, напряжение",
+            "en": "HV battery block 9 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 152,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK10",
+          "name": {
+            "ru": "ВВБ: блок 10, напряжение",
+            "en": "HV battery block 10 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 168,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK11",
+          "name": {
+            "ru": "ВВБ: блок 11, напряжение",
+            "en": "HV battery block 11 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 184,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK12",
+          "name": {
+            "ru": "ВВБ: блок 12, напряжение",
+            "en": "HV battery block 12 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 200,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK13",
+          "name": {
+            "ru": "ВВБ: блок 13, напряжение",
+            "en": "HV battery block 13 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 216,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_BLK14",
+          "name": {
+            "ru": "ВВБ: блок 14, напряжение",
+            "en": "HV battery block 14 voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 232,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    },
+    {
+      "hdr": "7E3",
+      "svc": "21",
+      "did": "CF",
+      "rate": "slow",
+      "models": [
+        "Prius"
+      ],
+      "signals": [
+        {
+          "id": "TOY_HV_TIN",
+          "name": {
+            "ru": "ВВБ: воздух на входе",
+            "en": "HV battery intake air temp"
+          },
+          "unit": "°C",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_DSOC",
+          "name": {
+            "ru": "ВВБ: разброс заряда (Delta SOC)",
+            "en": "HV battery delta SOC"
+          },
+          "unit": "%",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 48,
+            "len": 8,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_T1",
+          "name": {
+            "ru": "ВВБ: температура 1",
+            "en": "HV battery temp 1"
+          },
+          "unit": "°C",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 80,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_T2",
+          "name": {
+            "ru": "ВВБ: температура 2",
+            "en": "HV battery temp 2"
+          },
+          "unit": "°C",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 96,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_T3",
+          "name": {
+            "ru": "ВВБ: температура 3",
+            "en": "HV battery temp 3"
+          },
+          "unit": "°C",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 112,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    },
+    {
+      "hdr": "7E3",
+      "svc": "21",
+      "did": "D0",
+      "rate": "slow",
+      "models": [
+        "Prius"
+      ],
+      "signals": [
+        {
+          "id": "TOY_HV_VMIN",
+          "name": {
+            "ru": "ВВБ: мин. напряжение блока",
+            "en": "HV battery lowest block voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 72,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_VMIN_N",
+          "name": {
+            "ru": "ВВБ: номер самого слабого блока",
+            "en": "HV battery lowest block no."
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 88,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_VMAX",
+          "name": {
+            "ru": "ВВБ: макс. напряжение блока",
+            "en": "HV battery highest block voltage"
+          },
+          "unit": "V",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 96,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": -327.68,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "TOY_HV_VMAX_N",
+          "name": {
+            "ru": "ВВБ: номер самого сильного блока",
+            "en": "HV battery highest block no."
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 112,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/gerdbremer/Prius-gen2-torque-PIDs/blob/master/nhw20-metric.csv",
+            "https://github.com/OBDb/Toyota-Prius/blob/main/signalsets/v3/default.json"
+          ]
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Температура масла АКПП (поддон и выход ГДТ) — как в Torque, запрос $21 82 к ЭБУ двигателя",
+      "en": "Automatic fluid temperature (pan and converter outlet) — the Torque PIDs, $21 82 to the engine ECU"
+    },
+    {
+      "ru": "Текущая передача и блокировка гидротрансформатора",
+      "en": "Current gear and torque-converter lock-up"
+    },
+    {
+      "ru": "Остаток топлива в литрах из щитка приборов (7C0)",
+      "en": "Fuel left in litres from the instrument cluster (7C0)"
+    },
+    {
+      "ru": "Дизель 1GD (Prado 150): заполнение сажевого фильтра и коррекции форсунок",
+      "en": "1GD diesel (Prado 150): DPF soot load and injector corrections"
+    },
+    {
+      "ru": "Prius 20: заряд, ток, напряжения 14 блоков и температуры высоковольтной батареи",
+      "en": "Prius 20: HV battery SOC, current, 14 block voltages and temperatures"
+    }
+  ]
+}

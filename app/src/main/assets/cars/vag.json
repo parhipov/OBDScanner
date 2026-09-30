@@ -1,0 +1,2482 @@
+{
+  "family": "vag",
+  "title": "Volkswagen / Skoda / Audi / Seat",
+  "brands": [
+    {
+      "name": "Volkswagen",
+      "wmi": [
+        "WVW",
+        "WVG",
+        "WV1",
+        "WV2",
+        "XW8",
+        "9BW",
+        "3VW",
+        "1VW",
+        "AAV",
+        "LSV",
+        "LFV"
+      ]
+    },
+    {
+      "name": "Skoda",
+      "wmi": [
+        "TMB"
+      ]
+    },
+    {
+      "name": "Audi",
+      "wmi": [
+        "WAU",
+        "TRU"
+      ]
+    },
+    {
+      "name": "Seat",
+      "wmi": [
+        "VSS"
+      ]
+    },
+    {
+      "name": "Cupra",
+      "wmi": []
+    }
+  ],
+  "models": [
+    {
+      "brand": "Volkswagen",
+      "model": "Polo",
+      "gen": "9N",
+      "years": [
+        2001,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "BBY",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BUD",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BTS",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BMD",
+          "liters": 1.2,
+          "cyl": 3,
+          "fuel": "petrol"
+        }
+      ],
+      "buses": {
+        "ru": "Двигатель на K-line; в приложении — только стандартный OBD.",
+        "en": "Engine on K-line; the app reads standard OBD only."
+      },
+      "note": {
+        "ru": "Гнездо по разным источникам: в центральной консоли под пепельницей или над педалями слева. Протокол K-line (ISO 9141/14230) не уточнён.",
+        "en": "Sources differ on the socket: in the centre console under the ashtray, or above the pedals on the left. Exact K-line protocol (ISO 9141/14230) not confirmed."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk4",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-polo-4",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-polo-9n"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Polo",
+      "gen": "Polo Sedan (6R/61)",
+      "years": [
+        2010,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "CFNA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CFNB",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "protocol": 4,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ25. ЭБУ двигателя отвечает на OBD по K-line (ранние Magneti Marelli, CFNA) или по CAN 11/500 (EA211). Остальные блоки — KWP2000 через шлюз по VW TP2.0, ELM327 их не видит.",
+        "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
+      },
+      "note": {
+        "ru": "Проверено приложением: ЭБУ Magneti Marelli (CALID 03C906014B) на K-line ISO 14230 с 5-бод инициализацией, адрес 010, только датчик давления (без ДМРВ), VIN в Mode 09 нет. АКПП Aisin 09G.",
+        "en": "Checked with the app: Magneti Marelli ECU (CALID 03C906014B) on K-line ISO 14230 with 5-baud init, address 010, MAP only (no MAF), no VIN in Mode 09. Aisin 09G automatic."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk5",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-Polo-5"
+      ],
+      "verified": true
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Polo",
+      "gen": "Polo Sedan (6R/61) facelift",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "CWVA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CWVB",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ25. ЭБУ двигателя отвечает на OBD по K-line (ранние Magneti Marelli, CFNA) или по CAN 11/500 (EA211). Остальные блоки — KWP2000 через шлюз по VW TP2.0, ELM327 их не видит.",
+        "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
+      },
+      "note": {
+        "ru": "Двигатели EA211 (Bosch), OBD по CAN. 1.6 — МКПП или АКПП Aisin 09G, 1.4 TSI — DSG DQ200. На машине не проверено.",
+        "en": "EA211 engines (Bosch ECU), OBD over CAN. 1.6 with manual or Aisin 09G automatic, 1.4 TSI with DQ200 DSG. Not checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk5",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-Polo-5"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Polo",
+      "gen": "Polo liftback (CK)",
+      "years": [
+        2020,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "CWVA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CWVB",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "1.4 TSI (EA211)",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "Платформа PQ25. ЭБУ двигателя отвечает на OBD по K-line (ранние Magneti Marelli, CFNA) или по CAN 11/500 (EA211). Остальные блоки — KWP2000 через шлюз по VW TP2.0, ELM327 их не видит.",
+        "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
+      },
+      "note": {
+        "ru": "Российский Polo на базе Škoda Rapid второго поколения (Калуга). 1.6 — АКПП Aisin AQ160, 1.4 TSI — DSG DQ200.",
+        "en": "Russian Polo based on the second Škoda Rapid (Kaluga). 1.6 with Aisin AQ160 automatic, 1.4 TSI with DQ200 DSG."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Polo_(CK)",
+        "https://en.wikipedia.org/wiki/Volkswagen_Polo_Mk6",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Golf",
+      "gen": "Mk5 (1K)",
+      "years": [
+        2003,
+        2008
+      ],
+      "engines": [
+        {
+          "code": "BCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BSE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "BLF",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BMY",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "BWA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BXE",
+          "liters": 1.9,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        },
+        {
+          "code": "BKD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Golf_Mk5",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-golf-5"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Golf",
+      "gen": "Mk6 (5K)",
+      "years": [
+        2008,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "CGGA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "CAXA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAVD",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CCSA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "CCZB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CFFB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Golf_Mk6",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-golf-6"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Golf",
+      "gen": "Mk7 (5G)",
+      "years": [
+        2012,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "CJZA",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CMBA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CJSA",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CHHB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CRBC",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "note": {
+        "ru": "1.8/2.0 TSI (EA888 gen3) — ЭБУ Continental Simos 18: для него есть расширенные параметры (масло, наддув, откат УОЗ).",
+        "en": "1.8/2.0 TSI (EA888 gen3) use a Continental Simos 18 ECU: extended parameters (oil, boost, knock retard) exist for it."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Golf_Mk7",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-golf-7"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Passat",
+      "gen": "B6 (3C)",
+      "years": [
+        2005,
+        2010
+      ],
+      "engines": [
+        {
+          "code": "BSE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAXA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "BZB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CDAB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CCZA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "BKP",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        },
+        {
+          "code": "CBAB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "note": {
+        "ru": "Гнездо слева под панелью, у рычага открывания капота.",
+        "en": "Socket under the dash on the left, by the hood release lever."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Passat_(B6)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-passat"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Passat",
+      "gen": "B7 (3C)",
+      "years": [
+        2010,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "CAXA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CDAB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CCZA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CFFB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        },
+        {
+          "code": "CFGB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Passat_(B7)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-passat-b7"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Passat",
+      "gen": "B8 (3G)",
+      "years": [
+        2014,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "CZCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZDA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CJSA",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CHHB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CRLB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Passat_(B8)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-passat-b8"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "gen": "1 (5N)",
+      "years": [
+        2007,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "CAXA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAVA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CCZA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAWA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CBAB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        },
+        {
+          "code": "CFFB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "note": {
+        "ru": "Гнездо под рулём слева, у рычага открывания капота. Собирался в Калуге (VIN XW8…).",
+        "en": "Socket under the steering wheel on the left, by the hood release. Assembled in Kaluga (VIN XW8…)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Tiguan",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-tiguan-5n"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Tiguan",
+      "gen": "2 (AD1)",
+      "years": [
+        2016,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "CZCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZDA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZPA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CHHA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "DFGA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "note": {
+        "ru": "КПП: DSG DQ250/DQ381/DQ500, полный привод — муфта Haldex 5.",
+        "en": "Gearbox: DQ250/DQ381/DQ500 DSG; 4Motion uses a Haldex 5 coupling."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Tiguan",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Volkswagen-tiguan-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Jetta",
+      "gen": "Mk6 (1B)",
+      "years": [
+        2010,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "CFNA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CWVA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAXA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "note": {
+        "ru": "Собиралась в Нижнем Новгороде. Протокол ЭБУ с CFNA (K-line или CAN) не проверен, у EA211 — CAN 11/500. АКПП 1.6 — Aisin.",
+        "en": "Assembled in Nizhny Novgorod. Engine ECU protocol with CFNA (K-line or CAN) not checked; EA211 is CAN 11/500. 1.6 automatic is Aisin."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Volkswagen_Jetta_(A6)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Skoda",
+      "model": "Octavia",
+      "gen": "A5 (1Z)",
+      "years": [
+        2004,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "BSE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CGGA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "CAXA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "BZB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CDAB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CCZA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "BKD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа PQ35/PQ46: шлюз J533, диагностический CAN 500 кбит/с. Двигатель и КПП отвечают на OBD по ISO 15765 CAN 11/500 (7E0/7E1), а заводская диагностика блоков идёт по VW TP2.0 (KWP2000) — ELM327 её не умеет, поэтому находятся в основном 7E0/7E1.",
+        "en": "PQ35/PQ46 platform: J533 gateway, 500 kbit/s diagnostic CAN. Engine and gearbox answer OBD on ISO 15765 CAN 11/500 (7E0/7E1); factory diagnostics of the modules is VW TP2.0 (KWP2000), which an ELM327 can't do, so mostly 7E0/7E1 are found."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Škoda_Octavia",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Skoda-octavia-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Skoda",
+      "model": "Octavia",
+      "gen": "A7 (5E)",
+      "years": [
+        2013,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "CWVA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CMBA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZDA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CJSA",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CHHB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CRMB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "note": {
+        "ru": "Гнездо под рулём слева, у рычага капота. 1.6 — АКПП Aisin 09G, 1.4 TSI — DSG DQ200, 1.8 TSI — DSG DQ200/DQ250.",
+        "en": "Socket under the wheel on the left, by the hood release. 1.6 with Aisin 09G automatic, 1.4 TSI with DQ200 DSG, 1.8 TSI with DQ200/DQ250 DSG."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Škoda_Octavia",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Skoda-octavia-3"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Skoda",
+      "model": "Octavia",
+      "gen": "A8 (NX)",
+      "years": [
+        2020,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "CWVA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "1.4 TSI (EA211)",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "note": {
+        "ru": "Российская сборка: 1.6 — АКПП Aisin AQ160, 1.4 TSI — АКПП Aisin AQ250 (8 ст.).",
+        "en": "Russian assembly: 1.6 with Aisin AQ160 automatic, 1.4 TSI with Aisin AQ250 8-speed automatic."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Škoda_Octavia",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Skoda-octavia-4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Skoda",
+      "model": "Rapid",
+      "gen": "1 (NH)",
+      "years": [
+        2014,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "CFNA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CWVA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CWVB",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZCA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "buses": {
+        "ru": "Платформа PQ25. ЭБУ двигателя отвечает на OBD по K-line (ранние Magneti Marelli, CFNA) или по CAN 11/500 (EA211). Остальные блоки — KWP2000 через шлюз по VW TP2.0, ELM327 их не видит.",
+        "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
+      },
+      "note": {
+        "ru": "Калужская сборка, та же техника, что у Polo Sedan: с CFNA ЭБУ может быть на K-line, с EA211 (CWVA/CZCA) — CAN 11/500.",
+        "en": "Kaluga-built, same hardware as the Polo Sedan: with CFNA the ECU may be on K-line, with EA211 (CWVA/CZCA) on CAN 11/500."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Škoda_Rapid_(2012)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Skoda",
+      "model": "Kodiaq",
+      "gen": "1 (NS)",
+      "years": [
+        2016,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "CZDA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CZPA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "DFGA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Škoda_Kodiaq",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Skoda-kodiak"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Skoda",
+      "model": "Fabia",
+      "gen": "2 (5J)",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "BXW",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "BTS",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "CFNA",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "obd": "left_cover",
+      "buses": {
+        "ru": "Платформа PQ25. ЭБУ двигателя отвечает на OBD по K-line (ранние Magneti Marelli, CFNA) или по CAN 11/500 (EA211). Остальные блоки — KWP2000 через шлюз по VW TP2.0, ELM327 их не видит.",
+        "en": "PQ25 platform. The engine ECU answers OBD on K-line (early Magneti Marelli, CFNA) or CAN 11/500 (EA211). Other modules talk KWP2000 over VW TP2.0 behind the gateway, which an ELM327 can't do."
+      },
+      "note": {
+        "ru": "Гнездо под рулём за откидной крышкой — потянуть крышку на себя. Протокол ЭБУ (K-line или CAN) зависит от мотора и не проверен.",
+        "en": "Socket under the steering wheel behind a flap — pull the cover towards you. Engine ECU protocol (K-line or CAN) depends on the engine and is not checked."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Škoda_Fabia",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Skoda-fabia-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Audi",
+      "model": "A4",
+      "gen": "B8 (8K)",
+      "years": [
+        2007,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "CDHB",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CDNC",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAGA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "Платформа MLB (Audi): шлюз J533, двигатель и КПП отвечают на OBD по CAN 11/500 (7E0/7E1). Блоки ранних лет — KWP по TP2.0, более поздние — UDS.",
+        "en": "MLB platform (Audi): J533 gateway, engine and gearbox answer OBD on CAN 11/500 (7E0/7E1). Early modules are KWP over TP2.0, later ones UDS."
+      },
+      "note": {
+        "ru": "Гнездо над педалью тормоза.",
+        "en": "Socket above the brake pedal."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Audi_A4_(B8)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Audi-a4-b8"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Audi",
+      "model": "A6",
+      "gen": "C7 (4G)",
+      "years": [
+        2011,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "CDNB",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CHVA",
+          "liters": 2.8,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MLB (Audi): шлюз J533, двигатель и КПП отвечают на OBD по CAN 11/500 (7E0/7E1). Блоки ранних лет — KWP по TP2.0, более поздние — UDS.",
+        "en": "MLB platform (Audi): J533 gateway, engine and gearbox answer OBD on CAN 11/500 (7E0/7E1). Early modules are KWP over TP2.0, later ones UDS."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Audi_A6_(C7)",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Audi-audi-a6-c7"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Audi",
+      "model": "Q5",
+      "gen": "8R",
+      "years": [
+        2008,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "CDNC",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CAHA",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "Платформа MLB (Audi): шлюз J533, двигатель и КПП отвечают на OBD по CAN 11/500 (7E0/7E1). Блоки ранних лет — KWP по TP2.0, более поздние — UDS.",
+        "en": "MLB platform (Audi): J533 gateway, engine and gearbox answer OBD on CAN 11/500 (7E0/7E1). Early modules are KWP over TP2.0, later ones UDS."
+      },
+      "note": {
+        "ru": "Гнездо над педалью тормоза.",
+        "en": "Socket above the brake pedal."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Audi_Q5",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_diesel_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Audi-q5"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Seat",
+      "model": "Leon",
+      "gen": "3 (5F)",
+      "years": [
+        2012,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "CJZA",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CJSA",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        },
+        {
+          "code": "CHPA",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": false
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "Платформа MQB: все блоки на UDS по ISO 15765 CAN 11/500 через шлюз J533 (адрес запроса 7xx, ответ +0x6A); двигатель и КПП также на стандартных 7E0/7E1.",
+        "en": "MQB platform: all modules speak UDS on ISO 15765 CAN 11/500 behind the J533 gateway (request 7xx, response +0x6A); engine and gearbox also on the standard 7E0/7E1."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/SEAT_León",
+        "https://en.wikipedia.org/wiki/List_of_Volkswagen_Group_petrol_engines",
+        "https://www.outilsobdfacile.com/location-plug-connector-obd/Seat-leon-3"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "295A",
+      "rate": "slow",
+      "signals": [
+        {
+          "id": "VAG_ODO_ECM",
+          "name": {
+            "ru": "Пробег (по ЭБУ двигателя)",
+            "en": "Odometer (engine ECU)"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "role": "odometer",
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Golf/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Audi-A4/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "24-bit km. T6 CXEB (EDC17) and OBDb Golf/A4/Tiguan agree."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "202F",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_OIL_T",
+          "name": {
+            "ru": "Температура масла двигателя",
+            "en": "Engine oil temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": -273.14,
+            "signed": false
+          },
+          "role": "oil_temp",
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "(x - 2731.4)/10. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "202A",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_BOOST",
+          "name": {
+            "ru": "Давление наддува (факт, абс.)",
+            "en": "Boost pressure actual (abs)"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "role": "boost",
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv"
+          ],
+          "note": "Pressure upstream of throttle, absolute. OBDb Tiguan (PQ35 ECU) has x*0.08 for this DID — different ECU. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2029",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_BOOST_SP",
+          "name": {
+            "ru": "Давление наддува (задание, абс.)",
+            "en": "Boost pressure specified (abs)"
+          },
+          "unit": "kPa",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv"
+          ],
+          "note": "Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "200A",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_KNOCK_C1",
+          "name": {
+            "ru": "Откат УОЗ по детонации, цил. 1",
+            "en": "Knock retard, cyl 1"
+          },
+          "unit": "°",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": true
+          },
+          "role": "knock_retard",
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv"
+          ],
+          "note": "Signed, 0 or negative = retard. OBDb Tiguan (PQ35) uses 8-bit x*0.375-48 here — different ECU. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "200B",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_KNOCK_C2",
+          "name": {
+            "ru": "Откат УОЗ по детонации, цил. 2",
+            "en": "Knock retard, cyl 2"
+          },
+          "unit": "°",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": true
+          },
+          "role": "knock_retard",
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv"
+          ],
+          "note": "Signed, 0 or negative = retard. OBDb Tiguan (PQ35) uses 8-bit x*0.375-48 here — different ECU. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "200C",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_KNOCK_C3",
+          "name": {
+            "ru": "Откат УОЗ по детонации, цил. 3",
+            "en": "Knock retard, cyl 3"
+          },
+          "unit": "°",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": true
+          },
+          "role": "knock_retard",
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv"
+          ],
+          "note": "Signed, 0 or negative = retard. OBDb Tiguan (PQ35) uses 8-bit x*0.375-48 here — different ECU. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "200D",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_KNOCK_C4",
+          "name": {
+            "ru": "Откат УОЗ по детонации, цил. 4",
+            "en": "Knock retard, cyl 4"
+          },
+          "unit": "°",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": true
+          },
+          "role": "knock_retard",
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv"
+          ],
+          "note": "Signed, 0 or negative = retard. OBDb Tiguan (PQ35) uses 8-bit x*0.375-48 here — different ECU. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2904",
+      "rate": "medium",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_MISFIRES",
+          "name": {
+            "ru": "Пропуски зажигания (счётчик)",
+            "en": "Misfires (counter)"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "437C",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_TORQUE",
+          "name": {
+            "ru": "Крутящий момент (факт)",
+            "en": "Engine torque actual"
+          },
+          "unit": "Nm",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/bri3d/MQBSimosLogVariables/blob/master/exportedPIDs.csv",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2025",
+      "rate": "medium",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_FP_LOW",
+          "name": {
+            "ru": "Давление топлива (контур низкого давления)",
+            "en": "Fuel pressure, low-pressure side"
+          },
+          "unit": "bar",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1000,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2027",
+      "rate": "fast",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2012,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_S18_FP_HIGH",
+          "name": {
+            "ru": "Давление в топливной рампе (факт)",
+            "en": "Fuel rail pressure actual"
+          },
+          "unit": "bar",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/bri3d/VW_Flash/blob/master/logs/csv/parameters_22.csv",
+            "https://github.com/Switchleg1/SimosTools/blob/master/PID/PIDList22-USA.csv",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Direct injection high-pressure side. Continental Simos 18 (EA888 gen3 1.8/2.0 TSI, MQB). Other ECUs (EA211 Bosch MED17, EDC17 diesel) not checked: expect NRC 31 or a different meaning."
+        }
+      ],
+      "engines": [
+        "EA888"
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "2104",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Octavia",
+        "Passat",
+        "Tiguan",
+        "Kodiaq",
+        "Leon"
+      ],
+      "years": [
+        2013,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_DSG_OIL_T",
+          "name": {
+            "ru": "Температура масла DSG",
+            "en": "DSG oil temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": true,
+            "le": true
+          },
+          "role": "atf_temp",
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "DSG (DQ200/DQ250/DQ381): 16-bit little-endian °C (t6forum 7E9 62 21 04 34 00 = 52 °C). Aisin automatics answer A-40 on the same DID — not covered."
+        }
+      ],
+      "engines": []
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "114F",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia"
+      ],
+      "years": [
+        2008,
+        2016
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI_SOOT_CALC",
+          "name": {
+            "ru": "Сажа в сажевом фильтре (расчёт)",
+            "en": "DPF soot mass calculated"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "role": "dpf_soot",
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI (EA189 CR, PQ35/PQ46 and T5/T6). Diesel only: on petrol ECUs 114E/114F mean other things (OBDb Jetta: 114F = misfires cyl 1)."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "114E",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia"
+      ],
+      "years": [
+        2008,
+        2016
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI_SOOT_MEAS",
+          "name": {
+            "ru": "Сажа в сажевом фильтре (по датчику перепада)",
+            "en": "DPF soot mass measured"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI (EA189 CR, PQ35/PQ46 and T5/T6). Diesel only: on petrol ECUs 114E/114F mean other things (OBDb Jetta: 114F = misfires cyl 1)."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "1156",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia"
+      ],
+      "years": [
+        2008,
+        2016
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI_DIST_REGEN",
+          "name": {
+            "ru": "Пробег после последней регенерации",
+            "en": "Distance since last DPF regen"
+          },
+          "unit": "km",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 32,
+            "mul": 1,
+            "div": 1000,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Metres, 32-bit (OBDb); the T6 post uses only the low 16 bits. Bosch EDC17 TDI (EA189 CR, PQ35/PQ46 and T5/T6). Diesel only: on petrol ECUs 114E/114F mean other things (OBDb Jetta: 114F = misfires cyl 1)."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "11B2",
+      "rate": "medium",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia"
+      ],
+      "years": [
+        2008,
+        2016
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI_DPF_T_IN",
+          "name": {
+            "ru": "Температура на входе сажевого фильтра",
+            "en": "DPF inlet temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": -273.1,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI (EA189 CR, PQ35/PQ46 and T5/T6). Diesel only: on petrol ECUs 114E/114F mean other things (OBDb Jetta: 114F = misfires cyl 1)."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "10F9",
+      "rate": "medium",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia"
+      ],
+      "years": [
+        2008,
+        2016
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI_DPF_T_OUT",
+          "name": {
+            "ru": "Температура на выходе сажевого фильтра",
+            "en": "DPF outlet temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": -273.1,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI (EA189 CR, PQ35/PQ46 and T5/T6). Diesel only: on petrol ECUs 114E/114F mean other things (OBDb Jetta: 114F = misfires cyl 1)."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "178C",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia"
+      ],
+      "years": [
+        2008,
+        2016
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI_ASH",
+          "name": {
+            "ru": "Зола в сажевом фильтре",
+            "en": "DPF oil ash"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI (EA189 CR, PQ35/PQ46 and T5/T6). Diesel only: on petrol ECUs 114E/114F mean other things (OBDb Jetta: 114F = misfires cyl 1)."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "208B",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia",
+        "Kodiaq"
+      ],
+      "years": [
+        2015,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI2_SOOT_CALC",
+          "name": {
+            "ru": "Сажа в сажевом фильтре (расчёт)",
+            "en": "DPF soot mass calculated"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "role": "dpf_soot",
+          "conf": "?",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/"
+          ],
+          "note": "T6 frame 62 20 8B 0B BF = 30.07 g. OBDb Tiguan lists it without scaling. Bosch EDC17 TDI EA288 (seen on a T6 CXEB EU6 with raw frames). Diesel only."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "208C",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia",
+        "Kodiaq"
+      ],
+      "years": [
+        2015,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI2_SOOT_MEAS",
+          "name": {
+            "ru": "Сажа в сажевом фильтре (по датчику перепада)",
+            "en": "DPF soot mass measured"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI EA288 (seen on a T6 CXEB EU6 with raw frames). Diesel only."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "208D",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia",
+        "Kodiaq"
+      ],
+      "years": [
+        2015,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI2_DIST_REGEN",
+          "name": {
+            "ru": "Пробег после последней регенерации",
+            "en": "Distance since last DPF regen"
+          },
+          "unit": "km",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/"
+          ],
+          "note": "T6 frame shows 2 data bytes (0F86 = 397.4 km); OBDb Tiguan says 32-bit /1000 — conflicting. Bosch EDC17 TDI EA288 (seen on a T6 CXEB EU6 with raw frames). Diesel only."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "20D8",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia",
+        "Kodiaq"
+      ],
+      "years": [
+        2015,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI2_FUEL_REGEN",
+          "name": {
+            "ru": "Топливо после последней регенерации",
+            "en": "Fuel used since last DPF regen"
+          },
+          "unit": "L",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Bosch EDC17 TDI EA288 (seen on a T6 CXEB EU6 with raw frames). Diesel only."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "406C",
+      "rate": "slow",
+      "models": [
+        "Golf",
+        "Passat",
+        "Tiguan",
+        "Octavia",
+        "Kodiaq"
+      ],
+      "years": [
+        2015,
+        2026
+      ],
+      "signals": [
+        {
+          "id": "VAG_TDI2_ASH",
+          "name": {
+            "ru": "Зола в сажевом фильтре",
+            "en": "DPF oil ash"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.t6forum.com/threads/vw-t6-custom-pid-codes-for-dpf.33964/",
+            "https://github.com/OBDb/Volkswagen-Tiguan/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "OBDb calls it GPF oil ash mass, same scaling. Bosch EDC17 TDI EA288 (seen on a T6 CXEB EU6 with raw frames). Diesel only."
+        }
+      ],
+      "fuel": [
+        "diesel"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Поиск блоков VAG: 7E0–7E7 и UDS-блоки 700–775 (ответ на +0x6A); на машинах с TP2.0 (до ~2012) находятся только двигатель и КПП",
+      "en": "VAG module search: 7E0–7E7 and UDS modules 700–775 (answer at +0x6A); on TP2.0 cars (before ~2012) only engine and gearbox are found"
+    },
+    {
+      "ru": "Номер детали VW, версия ПО и VIN каждого блока (UDS $22 F1xx / KWP $1A), ошибки всех найденных блоков (UDS $19 / KWP $18)",
+      "en": "VW part number, software version and VIN of each module (UDS $22 F1xx / KWP $1A), DTCs of all found modules (UDS $19 / KWP $18)"
+    },
+    {
+      "ru": "1.8/2.0 TSI с Simos 18 (MQB): температура масла, наддув факт/задание, откат УОЗ по цилиндрам, пропуски, момент, давление топлива",
+      "en": "1.8/2.0 TSI with Simos 18 (MQB): oil temp, boost actual/specified, knock retard per cylinder, misfires, torque, fuel pressures"
+    },
+    {
+      "ru": "DSG на MQB: температура масла коробки",
+      "en": "DSG on MQB: gearbox oil temperature"
+    },
+    {
+      "ru": "TDI: сажа и зола в сажевом фильтре, пробег и топливо после регенерации, температуры фильтра",
+      "en": "TDI: DPF soot and ash, distance and fuel since regeneration, DPF temperatures"
+    },
+    {
+      "ru": "Polo 9N и Polo Sedan с CFNA (K-line) — только стандартный OBD",
+      "en": "Polo 9N and Polo Sedan with CFNA (K-line): standard OBD only"
+    }
+  ]
+}

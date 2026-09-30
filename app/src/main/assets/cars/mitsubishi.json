@@ -1,0 +1,717 @@
+{
+  "family": "mitsubishi",
+  "title": "Mitsubishi",
+  "brands": [
+    {
+      "name": "Mitsubishi",
+      "wmi": [
+        "JA3",
+        "JA4",
+        "JMB",
+        "JMY",
+        "4A3",
+        "4A4",
+        "MMA",
+        "MMB",
+        "MMC",
+        "MMT",
+        "Z8T"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Mitsubishi",
+      "model": "Outlander XL",
+      "gen": "CW",
+      "years": [
+        2006,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "4B11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4B12",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "6B31",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, вариатор/АКПП 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, CVT/automatic 7E1/7E9."
+      },
+      "note": {
+        "ru": "2.0/2.4 — вариатор Jatco JF011E (F1CJA), 3.0 — 6-ступенчатый автомат. Разъём над педалью тормоза.",
+        "en": "2.0/2.4: Jatco JF011E (F1CJA) CVT, 3.0: 6-speed automatic. Socket above the brake pedal."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Outlander",
+        "https://www.klavkarr.com/compatible/mitsubishi-outlanderii-cw-39000150",
+        "https://www.klavkarr.com/location-plug-connector-obd/Mitsubishi-outlander-2",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4B1_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "Outlander",
+      "gen": "III (GF/GG)",
+      "years": [
+        2012,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "4B11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4B12",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4J11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4J12",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "6B31",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4B11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, вариатор/АКПП 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, CVT/automatic 7E1/7E9."
+      },
+      "note": {
+        "ru": "2.0/2.4 — вариатор Jatco (JF016E), 3.0 — 6-ступенчатый автомат; GG — PHEV.",
+        "en": "2.0/2.4: Jatco CVT (JF016E), 3.0: 6-speed automatic; GG is the PHEV."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Outlander",
+        "https://www.klavkarr.com/compatible/mitsubishi-outlanderiii-gf-39000152",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4J1_engine",
+        "https://www.drive2.ru/l/7181318/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "Lancer",
+      "gen": "X (CY)",
+      "years": [
+        2007,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "4A91",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4A92",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4B10",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4B11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4B12",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, вариатор/АКПП 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, CVT/automatic 7E1/7E9."
+      },
+      "note": {
+        "ru": "Вариатор Jatco JF011E (F1CJA) ставился с 1.8/2.0/2.4; 1.5/1.6 — механика или обычный автомат.",
+        "en": "Jatco JF011E (F1CJA) CVT with 1.8/2.0/2.4; 1.5/1.6 came with a manual or a conventional automatic."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Lancer",
+        "https://www.klavkarr.com/compatible/mitsubishi-lancerviii-39000139",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4A9_engine",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4B1_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "ASX",
+      "gen": "GA",
+      "years": [
+        2010,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "4A92",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4B10",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4B11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "4N13",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "buses": {
+        "ru": "CAN 500 кбит/с, 11 бит: двигатель 7E0/7E8, вариатор/АКПП 7E1/7E9.",
+        "en": "CAN 500 kbit/s, 11-bit: engine 7E0/7E8, CVT/automatic 7E1/7E9."
+      },
+      "note": {
+        "ru": "1.8/2.0 — вариатор Jatco (F1CJA). Разъём над педалью тормоза.",
+        "en": "1.8/2.0: Jatco CVT (F1CJA). Socket above the brake pedal."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_ASX",
+        "https://www.klavkarr.com/compatible/mitsubishi-asx-39000101",
+        "https://www.klavkarr.com/location-plug-connector-obd/Mitsubishi-ASX"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "Pajero",
+      "gen": "IV (V80/V90)",
+      "years": [
+        2006,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "6G72",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "6G75",
+          "liters": 3.8,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "4M41",
+          "liters": 3.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "note": {
+        "ru": "CAN 11 бит подтверждён отчётами для 3.2 DI-D 2007–2009.",
+        "en": "11-bit CAN confirmed by reports on 3.2 DI-D 2007-2009."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Pajero",
+        "https://www.klavkarr.com/compatible/mitsubishi-pajeroiv-v8-39000158",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4M4_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "Pajero Sport",
+      "gen": "II (KH)",
+      "years": [
+        2008,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "4D56",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "4M41",
+          "liters": 3.2,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "6B31",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Pajero_Sport",
+        "https://www.klavkarr.com/compatible/mitsubishi-pajerosportii-39000161",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4D5_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "Pajero Sport",
+      "gen": "III (KS/QE)",
+      "years": [
+        2015,
+        2025
+      ],
+      "engines": [
+        {
+          "code": "4N15",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "6B31",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Pajero_Sport",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4N1_engine"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "L200",
+      "gen": "IV (KB)",
+      "years": [
+        2006,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "4D56",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "under_column",
+      "note": {
+        "ru": "Разъём над педалями.",
+        "en": "Socket above the pedals."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Triton",
+        "https://www.klavkarr.com/compatible/mitsubishi-l200iv-39000125",
+        "https://www.klavkarr.com/location-plug-connector-obd/Mitsubishi-l-200-4"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "L200",
+      "gen": "V (KK/KL)",
+      "years": [
+        2015,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "4N15",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "note": {
+        "ru": "Разъём слева от педалей, над площадкой для левой ноги.",
+        "en": "Socket left of the pedals, above the footrest."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Triton",
+        "https://www.klavkarr.com/compatible/mitsubishi-l200v-39000126",
+        "https://www.klavkarr.com/location-plug-connector-obd/Mitsubishi-l200-5-phase2",
+        "https://en.wikipedia.org/wiki/Mitsubishi_4N1_engine"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "03",
+      "rate": "fast",
+      "models": [
+        "Outlander XL",
+        "Outlander",
+        "Lancer",
+        "ASX"
+      ],
+      "engines": [
+        "4B1",
+        "4J1"
+      ],
+      "signals": [
+        {
+          "id": "MMC_CVT_PRI_RPM",
+          "name": {
+            "ru": "Обороты первичного шкива CVT",
+            "en": "CVT primary pulley speed"
+          },
+          "unit": "rpm",
+          "dec": 0,
+          "group": "other",
+          "role": "input_rpm",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 32,
+            "div": 1,
+            "add": -64,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv",
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "(A-2)*32 in the Out-Club/drive2 CSVs and OBDb; the same CSVs also carry a plain A*32 line (torque-bhp) - offset 64 rpm uncertain. Jatco JF011E/JF016E only."
+        },
+        {
+          "id": "MMC_CVT_SEC_RPM",
+          "name": {
+            "ru": "Обороты вторичного шкива CVT",
+            "en": "CVT secondary pulley speed"
+          },
+          "unit": "rpm",
+          "dec": 0,
+          "group": "other",
+          "role": "output_rpm",
+          "fmt": {
+            "bix": 8,
+            "len": 8,
+            "mul": 64,
+            "div": 1,
+            "add": -128,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv",
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "(B-2)*64; a plain B*64 variant is also posted (torque-bhp)."
+        },
+        {
+          "id": "MMC_CVT_RATIO",
+          "name": {
+            "ru": "Передаточное отношение CVT",
+            "en": "CVT actual ratio"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 32,
+            "len": 8,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv",
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json"
+          ]
+        },
+        {
+          "id": "MMC_CVT_TEMP",
+          "name": {
+            "ru": "Температура масла вариатора",
+            "en": "CVT fluid temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "cvt_temp",
+          "fmt": {
+            "bix": 104,
+            "len": 8,
+            "signed": false,
+            "poly": [
+              -36.6,
+              2.302,
+              -0.03501,
+              0.0003193,
+              -1.387e-06,
+              2.344e-09
+            ]
+          },
+          "conf": "?",
+          "src": [
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://www.drive2.ru/l/7181318/",
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv"
+          ],
+          "note": "5th-order fit of byte N from OUT3.csv (drive2, 2014) and shlyahten/CVT PIDs.csv (identical; the repo credits Out-Club/drive2, so likely one lineage -> '?'). Byte position also in OBDb (raw only). Check: N=100 -> 47.5 °C, N=150 -> 74.4 °C. A cubic variant 0.0000286 N^3 - 0.00951 N^2 + 1.46 N - 30.1 is also posted."
+        },
+        {
+          "id": "MMC_CVT_TEMP_RAW",
+          "name": {
+            "ru": "Температура масла CVT, код АЦП (не °C)",
+            "en": "CVT fluid temp, raw count (not °C)"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 104,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv",
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://torque-bhp.com/community/main-forum/07-mitsubishi-outlander/",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Byte N, raw sensor count behind MMC_CVT_TEMP - kept for checking the polynomial."
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "03",
+      "rate": "slow",
+      "models": [
+        "Outlander"
+      ],
+      "engines": [
+        "6B31"
+      ],
+      "signals": [
+        {
+          "id": "MMC_AT_TEMP",
+          "name": {
+            "ru": "Температура масла АКПП",
+            "en": "ATF temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "atf_temp",
+          "fmt": {
+            "bix": 72,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -55,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.drive2.ru/l/7187366/",
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Byte J-55, Outlander III 3.0 V6 with the 6-speed automatic. On CVT cars the same byte is input torque - hence engines 6B31."
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "06",
+      "rate": "medium",
+      "models": [
+        "Outlander XL",
+        "Outlander",
+        "Lancer",
+        "ASX"
+      ],
+      "engines": [
+        "4B1",
+        "4J1"
+      ],
+      "signals": [
+        {
+          "id": "MMC_CVT_STEP",
+          "name": {
+            "ru": "Ступень CVT (ручной режим)",
+            "en": "CVT step (manual mode)"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 16,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 1,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv",
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://torque-bhp.com/community/main-forum/07-mitsubishi-outlander/",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "C+1, range 1..6 - the virtual step of the sport/manual mode."
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "10",
+      "rate": "slow",
+      "models": [
+        "Outlander XL",
+        "Outlander",
+        "Lancer",
+        "ASX"
+      ],
+      "engines": [
+        "4B1",
+        "4J1"
+      ],
+      "signals": [
+        {
+          "id": "MMC_CVT_OIL_DEG",
+          "name": {
+            "ru": "Счётчик деградации масла CVT",
+            "en": "CVT fluid degradation counter"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "main",
+          "role": "cvt_wear",
+          "fmt": {
+            "bix": 216,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.dropbox.com/s/arx08y7hsr8ggwf/OUT3.csv?dl=0",
+            "https://github.com/shlyahten/CVT/blob/main/PIDs.csv",
+            "https://github.com/OBDb/Mitsubishi-Outlander/blob/main/signalsets/v3/default.json",
+            "https://www.drive2.ru/l/502591713932477721/"
+          ],
+          "note": "Bytes AB..AD (AB*65536+AC*256+AD, OUT3.csv / shlyahten 'test'); shlyahten default and OBDb read only AC*256+AD (16 bit, bix 224). Owners report values like 89000 (>65535), so 24 bit is used. Counter grows with time at high fluid temperature; reset needs MUT/cvtz50, not done here."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Вариатор Jatco (Outlander XL/III, Lancer X, ASX): счётчик деградации масла CVT",
+      "en": "Jatco CVT (Outlander XL/III, Lancer X, ASX): CVT fluid degradation counter"
+    },
+    {
+      "ru": "Обороты первичного и вторичного шкивов, передаточное отношение вариатора",
+      "en": "CVT primary/secondary pulley speed and actual ratio"
+    },
+    {
+      "ru": "Температура масла вариатора (полином по коду датчика, как в Torque/CVT50)",
+      "en": "CVT fluid temperature (polynomial over the sensor count, as in Torque/CVT50)"
+    },
+    {
+      "ru": "Двигатель и КПП — CAN 11 бит 500 кбит/с (модели с 2006–2007 г.)",
+      "en": "Engine and transmission on 11-bit CAN 500 kbit/s (2006-2007 onwards)"
+    }
+  ]
+}

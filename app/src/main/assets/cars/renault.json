@@ -1,0 +1,1129 @@
+{
+  "family": "renault",
+  "title": "Renault / Dacia",
+  "brands": [
+    {
+      "name": "Renault",
+      "wmi": [
+        "VF1",
+        "X7L"
+      ]
+    },
+    {
+      "name": "Dacia",
+      "wmi": [
+        "UU1"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "Renault",
+      "model": "Logan",
+      "gen": "1 (L90)",
+      "years": [
+        2004,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "K7J",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K7M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "passenger",
+      "note": {
+        "ru": "Разъём в перчаточном ящике, под крышкой. Он же Dacia Logan.",
+        "en": "Socket in the glovebox, under a cover. Same car as the Dacia Logan."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Dacia_Logan",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-Logan"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Logan",
+      "gen": "2 (L52)",
+      "years": [
+        2012,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "K7M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "passenger",
+      "note": {
+        "ru": "Разъём внизу перчаточного ящика.",
+        "en": "Socket at the bottom of the glovebox."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Dacia_Logan",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-logan-2-1",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-logan-2-2",
+        "https://www.drive2.ru/l/561373804576637191/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Sandero",
+      "gen": "1 (B90)",
+      "years": [
+        2008,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "K7M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "passenger",
+      "src": [
+        "https://en.wikipedia.org/wiki/Dacia_Sandero",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-sandero-1"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Sandero",
+      "gen": "2 (B52)",
+      "years": [
+        2012,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "K7M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "passenger",
+      "note": {
+        "ru": "Разъём внизу перчаточного ящика, за крышкой.",
+        "en": "Socket at the bottom of the glovebox, behind a cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Dacia_Sandero",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-sandero-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Duster",
+      "gen": "1 (HS)",
+      "years": [
+        2010,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "passenger",
+      "note": {
+        "ru": "Разъём в перчаточном ящике, под крышкой.",
+        "en": "Socket inside the glovebox, under a cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Dacia_Duster",
+        "https://www.klavkarr.com/location-plug-connector-obd/Renault-duster-1",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-Duster",
+        "https://www.drive2.ru/l/493790947985850980/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Duster",
+      "gen": "2 (HM)",
+      "years": [
+        2017,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H5Ht",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_cover",
+      "note": {
+        "ru": "Гнездо в вещевом отсеке под рулём слева, под предохранителями.",
+        "en": "Socket in the storage compartment under the wheel on the left, below the fuses."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Dacia_Duster",
+        "https://www.klavkarr.com/location-plug-connector-obd/Dacia-duster-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Kaptur",
+      "gen": "J5 (Russia)",
+      "years": [
+        2016,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H5Ht",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Российский Kaptur на платформе Duster, не путать с европейским Captur.",
+        "en": "The Russian Kaptur is on the Duster platform, not the European Captur."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Renault_Kaptur"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Arkana",
+      "gen": "LCA (Russia)",
+      "years": [
+        2019,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H5Ht",
+          "liters": 1.3,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Renault_Arkana"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Megane",
+      "gen": "2",
+      "years": [
+        2002,
+        2009
+      ],
+      "engines": [
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "console",
+      "note": {
+        "ru": "Разъём внизу центральной консоли, под крышкой ниже картридера.",
+        "en": "Socket at the bottom of the centre console, under the cover below the key card reader."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Renault_Mégane",
+        "https://www.klavkarr.com/location-plug-connector-obd/Renault-Megane-2"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Megane",
+      "gen": "3",
+      "years": [
+        2008,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "console",
+      "note": {
+        "ru": "Разъём за гнездом прикуривателя.",
+        "en": "Socket behind the cigarette lighter."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Renault_Mégane",
+        "https://www.klavkarr.com/location-plug-connector-obd/Renault-Megane-3",
+        "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Renault",
+      "model": "Fluence",
+      "gen": "L38",
+      "years": [
+        2009,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "console",
+      "note": {
+        "ru": "Разъём в центральной консоли под крышкой.",
+        "en": "Socket in the centre console under a cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Renault_Fluence",
+        "https://www.klavkarr.com/location-plug-connector-obd/Renault-fluence-1"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "242C",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_DPF_SOOT",
+          "name": {
+            "ru": "Масса сажи в сажевом фильтре",
+            "en": "DPF soot mass"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "main",
+          "role": "dpf_soot",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv",
+            "https://www.drive2.ru/l/561373804576637191/"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. (A*256+B)/100 g; drive2 Logan 2 owner watches it fall during regeneration."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2442",
+      "rate": "medium",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_DPF_IN_T",
+          "name": {
+            "ru": "Температура на входе сажевого фильтра",
+            "en": "DPF inlet temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": -273,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv",
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. ((A*256+B)-2730)/10"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2542",
+      "rate": "medium",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_DPF_DP",
+          "name": {
+            "ru": "Перепад давления на сажевом фильтре",
+            "en": "DPF differential pressure"
+          },
+          "unit": "kPa",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 10,
+            "add": -3276.8,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv",
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. (A*256+B)-32768 mbar, /10 to kPa"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2485",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_DPF_REGEN_FAIL",
+          "name": {
+            "ru": "Неудачные попытки регенерации",
+            "en": "Failed regeneration attempts"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv",
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2481",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_DPF_REGEN_OK",
+          "name": {
+            "ru": "Успешные регенерации",
+            "en": "Successful regenerations"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. Only in the K9K 832/836 file."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "24A9",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_DPF_KM_SINCE_REGEN",
+          "name": {
+            "ru": "Пробег после последней регенерации",
+            "en": "Distance since last regeneration"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. (A*65536+B*256+C) km; both files are PyRen exports."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2006",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_ODO",
+          "name": {
+            "ru": "Пробег (по ЭБУ двигателя)",
+            "en": "Odometer (engine ECU)"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "role": "odometer",
+          "fmt": {
+            "bix": 0,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv",
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. (A*65536+B*256+C) km"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "FD07",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_K9K_INJ_CORR_1",
+          "name": {
+            "ru": "Коррекция подачи форсунки, цил. 1",
+            "en": "Injector fuel correction, cyl 1"
+          },
+          "unit": "",
+          "dec": 3,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 3.05e-05,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. 0.0000305*(A*256+B), unitless factor (~1.0 = no correction?)"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "FD08",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_K9K_INJ_CORR_2",
+          "name": {
+            "ru": "Коррекция подачи форсунки, цил. 2",
+            "en": "Injector fuel correction, cyl 2"
+          },
+          "unit": "",
+          "dec": 3,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 3.05e-05,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. 0.0000305*(A*256+B), unitless factor (~1.0 = no correction?)"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "FD09",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_K9K_INJ_CORR_3",
+          "name": {
+            "ru": "Коррекция подачи форсунки, цил. 3",
+            "en": "Injector fuel correction, cyl 3"
+          },
+          "unit": "",
+          "dec": 3,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 3.05e-05,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. 0.0000305*(A*256+B), unitless factor (~1.0 = no correction?)"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "FD0A",
+      "rate": "slow",
+      "models": [
+        "Logan",
+        "Sandero",
+        "Duster",
+        "Megane",
+        "Fluence"
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_K9K_INJ_CORR_4",
+          "name": {
+            "ru": "Коррекция подачи форсунки, цил. 4",
+            "en": "Injector fuel correction, cyl 4"
+          },
+          "unit": "",
+          "dec": 3,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 3.05e-05,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv",
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "Renault diesel ECU DID (Torque CSV made with PyRen from the Renault database). Diesel K9K only; petrol ECUs will refuse. 0.0000305*(A*256+B), unitless factor (~1.0 = no correction?)"
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "A6",
+      "rate": "medium",
+      "models": [
+        "Megane"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_EDC_OIL_T",
+          "name": {
+            "ru": "Температура масла коробки EDC",
+            "en": "EDC gearbox oil temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "atf_temp",
+          "fmt": {
+            "bix": 248,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "K9K 832/836 CSV, gearbox ECU 7E1, 21A6 AF-40. Clutch-slip/clutch-temp rows suggest the EDC (DC4) dual-clutch box."
+        },
+        {
+          "id": "RN_EDC_OUT_RPM",
+          "name": {
+            "ru": "Обороты на выходе коробки",
+            "en": "Gearbox output speed"
+          },
+          "unit": "rpm",
+          "dec": 0,
+          "group": "other",
+          "role": "output_rpm",
+          "fmt": {
+            "bix": 48,
+            "len": 16,
+            "mul": 1,
+            "div": 8,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "21A6 signed(G*256+H)/8"
+        }
+      ]
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "A7",
+      "rate": "medium",
+      "models": [
+        "Megane"
+      ],
+      "engines": [
+        "K9K"
+      ],
+      "signals": [
+        {
+          "id": "RN_EDC_CL1_T",
+          "name": {
+            "ru": "Температура сцепления 1",
+            "en": "Clutch 1 temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "role": "clutch_temp",
+          "fmt": {
+            "bix": 64,
+            "len": 16,
+            "mul": 1,
+            "div": 4,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "21A7 signed(I*256+J)/4"
+        },
+        {
+          "id": "RN_EDC_CL2_T",
+          "name": {
+            "ru": "Температура сцепления 2",
+            "en": "Clutch 2 temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "role": "clutch_temp",
+          "fmt": {
+            "bix": 80,
+            "len": 16,
+            "mul": 1,
+            "div": 4,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/seninp/r-torque/blob/master/K9K_832_and_836_v.1.97.csv"
+          ],
+          "note": "21A7 signed(K*256+L)/4"
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "Дизель K9K (1.5 dCi): масса сажи в сажевом фильтре, перепад давления и температура на входе фильтра.",
+      "en": "K9K diesel (1.5 dCi): DPF soot mass, differential pressure and inlet temperature."
+    },
+    {
+      "ru": "K9K: счётчики регенераций, пробег после последней регенерации, коррекции подачи форсунок.",
+      "en": "K9K: regeneration counters, distance since the last regeneration, injector fuel corrections."
+    },
+    {
+      "ru": "Пробег, записанный в ЭБУ двигателя (22 2006) — полезно сверить с одометром.",
+      "en": "The distance stored in the engine ECU (22 2006) — worth comparing with the odometer."
+    },
+    {
+      "ru": "Megane 3 с роботом EDC: температура масла коробки и обоих сцеплений (не проверено на машине).",
+      "en": "Megane 3 with the EDC gearbox: gearbox oil and both clutch temperatures (not checked on a car)."
+    },
+    {
+      "ru": "Для АКПП DP0/DP2/DP8 и AL4 формулы в открытом доступе не найдены — не читаем.",
+      "en": "No public formulas found for the DP0/DP2/DP8 and AL4 automatics — not read."
+    }
+  ]
+}

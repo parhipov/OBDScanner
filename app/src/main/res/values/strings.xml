@@ -14,6 +14,7 @@
     <string name="help_unverified">Formula from a single source, not verified on a car. Check it against something known before trusting it.</string>
     <string name="help_src_pid">Standard OBD: Mode 01, PID %1$s · %2$s</string>
     <string name="help_src_gm">GM Mode $22, DID %1$s · %2$s</string>
+    <string name="help_src_ext">Manufacturer request $%1$s %2$s · %3$s (car database)</string>
     <string name="help_src_calc">Calculated by the app from other parameters</string>
     <string name="help_src_adapter">Measured by the adapter itself (ATRV)</string>
 </resources>

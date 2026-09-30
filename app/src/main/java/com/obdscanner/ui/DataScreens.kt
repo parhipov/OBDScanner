@@ -135,7 +135,11 @@ fun InfoScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
             ValueRow(tr("Мульти-PID запросы", "Multi-PID requests"), if (v.multiPid) tr("да", "yes") else tr("нет", "no"))
             SectionTitle(tr("Автомобиль", "Vehicle"))
             ValueRow("VIN", v.vin ?: "—")
-            if (v.adapter.isNotEmpty()) ValueRow(tr("Марка (по VIN)", "Make (from VIN)"), v.make.title)
+            if (v.adapter.isNotEmpty()) ValueRow(tr("Марка (по VIN)", "Make (from VIN)"), listOfNotNull(v.brand, v.make.title.takeIf { v.make != Make.OTHER || v.brand == null }).distinct().joinToString(" · "))
+            v.car?.let { ValueRow(tr("Модель", "Model"), it.title, sub = it.engines.joinToString("; ") { e -> e.title }.ifEmpty { null }) }
+            if (v.adapter.isNotEmpty()) ValueRow(tr("Параметры производителя", "Manufacturer parameters"),
+                tr("ответили ${v.extActive.size}", "${v.extActive.size} answered"),
+                sub = tr("запросы \$21/\$22 из базы машин (только чтение), список — в report.txt", "\$21/\$22 requests from the car database (read only), the list is in report.txt"))
             Row(Modifier.padding(8.dp)) {
                 OutlinedButton(onClick = { m.rediscover() }, enabled = busy == null) { Text(tr("Опросить заново", "Rescan")) }
                 OutlinedButton(onClick = { m.refreshMode06() }, enabled = busy == null, modifier = Modifier.padding(start = 8.dp)) { Text("Mode 06") }

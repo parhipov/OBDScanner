@@ -1,0 +1,960 @@
+{
+ "family": "mazda",
+ "source": "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py",
+ "commands": [
+  {"hdr": "700", "rsp": "708", "svc": "22", "did": "1074", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_EOP_700", "name": {"en": "Engine oil pressure", "ru": "Давление масла ДВС"}, "unit": "kPa", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 10, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "700", "rsp": "708", "svc": "22", "did": "10A5", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_MIS_ALL", "name": {"en": "Misfire count, all", "ru": "Пропуски зажигания, всего"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "700", "rsp": "708", "svc": "22", "did": "10A7", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_MIS_1", "name": {"en": "Misfire count, cylinder 1", "ru": "Пропуски зажигания, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_MIS_2", "name": {"en": "Misfire count, cylinder 2", "ru": "Пропуски зажигания, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_MIS_3", "name": {"en": "Misfire count, cylinder 3", "ru": "Пропуски зажигания, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_MIS_4", "name": {"en": "Misfire count, cylinder 4", "ru": "Пропуски зажигания, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "700", "rsp": "708", "svc": "22", "did": "10CD", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_LFPS", "name": {"en": "Low fuel pressure sensor", "ru": "Датчик низкого давления топлива"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -3276.75}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "700", "rsp": "708", "svc": "22", "did": "1F5C", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_EOT_V2", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A05", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_1", "name": {"en": "Wheel 1 pressure", "ru": "Давление в колесе 1"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 1373, "div": 100000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A06", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_2", "name": {"en": "Wheel 2 pressure", "ru": "Давление в колесе 2"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 1373, "div": 100000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A07", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_3", "name": {"en": "Wheel 3 pressure", "ru": "Давление в колесе 3"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 1373, "div": 100000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A08", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_4", "name": {"en": "Wheel 4 pressure", "ru": "Давление в колесе 4"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 1373, "div": 100000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A0A", "rate": "slow", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_1", "name": {"en": "Wheel 1 temperature", "ru": "Температура колеса 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A0B", "rate": "slow", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_2", "name": {"en": "Wheel 2 temperature", "ru": "Температура колеса 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A0C", "rate": "slow", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_3", "name": {"en": "Wheel 3 temperature", "ru": "Температура колеса 3"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "2A0D", "rate": "slow", "models": ["3", "6", "CX-3", "CX-5", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_4", "name": {"en": "Wheel 4 temperature", "ru": "Температура колеса 4"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "61B1", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_FUEL_LEVEL", "name": {"en": "Fuel level", "ru": "Уровень топлива"}, "unit": "L", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"], "role": "fuel_level_l"}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "C901", "rate": "fast", "models": ["MX-5"], "years": [1980, 2015], "signals": [
+   {"id": "MX5_TP_FL", "name": {"en": "Front left tire pressure", "ru": "Давление в шине ПЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MX5_TP_FR", "name": {"en": "Front right tire pressure", "ru": "Давление в шине ПП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MX5_TP_RL", "name": {"en": "Rear left tire pressure", "ru": "Давление в шине ЗЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MX5_TP_RR", "name": {"en": "Rear right tire pressure", "ru": "Давление в шине ЗП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "C902", "rate": "fast", "models": ["MX-5"], "years": [1980, 2015], "signals": [
+   {"id": "MX5_TT_FL", "name": {"en": "Front left tire temperature", "ru": "Температура шины ПЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MX5_TT_FR", "name": {"en": "Front right tire temperature", "ru": "Температура шины ПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MX5_TT_RL", "name": {"en": "Rear left tire temperature", "ru": "Температура шины ЗЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MX5_TT_RR", "name": {"en": "Rear right tire temperature", "ru": "Температура шины ЗП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "480D", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50_HVBAT_VOLTAGE", "name": {"en": "Battery pack voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 10, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "D90E", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_12V_VOLTAGE", "name": {"en": "12V battery voltage", "ru": "Напряжение АКБ 12 В"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "D914", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50_HV_EV_BATT_SOC", "name": {"en": "High voltage battery state of charge", "ru": "Уровень заряда ВВБ (SOC)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "hv_soc", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "DCE1", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_IG_ON_TIMER", "name": {"en": "Engine runtime", "ru": "Время работы двигателя"}, "unit": "min", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 60}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "DCE2", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_12V_SOC", "name": {"en": "12V battery state of charge", "ru": "Уровень заряда АКБ 12 В (SOC)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "battery_soc", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "DD01", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_ODO", "name": {"en": "Total distance", "ru": "Общий пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "DD05", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_AAT", "name": {"en": "Ambient air temperature", "ru": "Температура наружного воздуха"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "F40C", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_ENGINE_RPM", "name": {"en": "Engine RPM", "ru": "Обороты двигателя"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "F40D", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_VEHICLE_SPEED", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "723", "rsp": "72B", "svc": "22", "did": "F41F", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_ENGINE_RUN_TIME", "name": {"en": "Engine run time", "ru": "Время работы двигателя"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DD8B", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_MOTOR_TRQ_REQ", "name": {"en": "Motor torque, requested", "ru": "Момент электродвигателя, запрошенный"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DD8C", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_COOL_TEMP", "name": {"en": "Coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "add": -17.77777778, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DDAF", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_CAPACITOR_V", "name": {"en": "Capacitor voltage", "ru": "Напряжение конденсатора"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DDB1", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_MOTOR_AAT", "name": {"en": "Motor ambient air temperature", "ru": "Температура воздуха у электромотора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DDB3", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_IGBT_TEMP", "name": {"en": "Insulated gate bipolar transistor temperature", "ru": "Температура IGBT-транзистора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DDC3", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_MOTOR_RPM", "name": {"en": "Motor RPM", "ru": "Обороты электродвигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DDEF", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_MOTOR_IAT", "name": {"en": "Motor internal temperature", "ru": "Внутренняя температура электродвигателя"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "725", "rsp": "72D", "svc": "22", "did": "DDF4", "rate": "fast", "models": ["CX-50"], "signals": [
+   {"id": "CX50_MOTOR_TRQ_EST", "name": {"en": "Motor torque, estimated", "ru": "Момент электродвигателя, расчётный"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5, "add": -350}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D922", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_FL", "name": {"en": "Front left pressure", "ru": "Давление ПЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D923", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_FR", "name": {"en": "Front right pressure", "ru": "Давление ПП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D924", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_RL", "name": {"en": "Rear left pressure", "ru": "Давление ЗЛ"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D925", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP_RR", "name": {"en": "Rear right pressure", "ru": "Давление ЗП"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.894757, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D926", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_FL", "name": {"en": "Front left temperature", "ru": "Температура ПЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D927", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_FR", "name": {"en": "Front right temperature", "ru": "Температура ПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D928", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_RL", "name": {"en": "Rear left temperature", "ru": "Температура ЗЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "D929", "rate": "fast", "models": ["3", "CX-50", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_TT_RR", "name": {"en": "Rear right temperature", "ru": "Температура ЗП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "DA05", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_BRAKE_SWITCH", "name": {"en": "Brake switch", "ru": "Выключатель тормоза"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "747", "rsp": "74F", "svc": "22", "did": "0103", "rate": "slow", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 8, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "odometer", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "747", "rsp": "74F", "svc": "22", "did": "182E", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_HVBAT_C01_V", "name": {"en": "HV battery cell #01 voltage", "ru": "Напряжение ячейки ВВБ №01"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C02_V", "name": {"en": "HV battery cell #02 voltage", "ru": "Напряжение ячейки ВВБ №02"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C03_V", "name": {"en": "HV battery cell #03 voltage", "ru": "Напряжение ячейки ВВБ №03"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C04_V", "name": {"en": "HV battery cell #04 voltage", "ru": "Напряжение ячейки ВВБ №04"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 48, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C05_V", "name": {"en": "HV battery cell #05 voltage", "ru": "Напряжение ячейки ВВБ №05"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 64, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C06_V", "name": {"en": "HV battery cell #06 voltage", "ru": "Напряжение ячейки ВВБ №06"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 80, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C07_V", "name": {"en": "HV battery cell #07 voltage", "ru": "Напряжение ячейки ВВБ №07"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 96, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C08_V", "name": {"en": "HV battery cell #08 voltage", "ru": "Напряжение ячейки ВВБ №08"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 112, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C09_V", "name": {"en": "HV battery cell #09 voltage", "ru": "Напряжение ячейки ВВБ №09"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 128, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C10_V", "name": {"en": "HV battery cell #10 voltage", "ru": "Напряжение ячейки ВВБ №10"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 144, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C11_V", "name": {"en": "HV battery cell #11 voltage", "ru": "Напряжение ячейки ВВБ №11"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 160, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C12_V", "name": {"en": "HV battery cell #12 voltage", "ru": "Напряжение ячейки ВВБ №12"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 176, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C13_V", "name": {"en": "HV battery cell #13 voltage", "ru": "Напряжение ячейки ВВБ №13"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 192, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C14_V", "name": {"en": "HV battery cell #14 voltage", "ru": "Напряжение ячейки ВВБ №14"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 208, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C15_V", "name": {"en": "HV battery cell #15 voltage", "ru": "Напряжение ячейки ВВБ №15"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 224, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C16_V", "name": {"en": "HV battery cell #16 voltage", "ru": "Напряжение ячейки ВВБ №16"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 240, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C17_V", "name": {"en": "HV battery cell #17 voltage", "ru": "Напряжение ячейки ВВБ №17"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 256, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C18_V", "name": {"en": "HV battery cell #18 voltage", "ru": "Напряжение ячейки ВВБ №18"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 272, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C19_V", "name": {"en": "HV battery cell #19 voltage", "ru": "Напряжение ячейки ВВБ №19"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 288, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C20_V", "name": {"en": "HV battery cell #20 voltage", "ru": "Напряжение ячейки ВВБ №20"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 304, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C21_V", "name": {"en": "HV battery cell #21 voltage", "ru": "Напряжение ячейки ВВБ №21"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 320, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C22_V", "name": {"en": "HV battery cell #22 voltage", "ru": "Напряжение ячейки ВВБ №22"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 336, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C23_V", "name": {"en": "HV battery cell #23 voltage", "ru": "Напряжение ячейки ВВБ №23"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 352, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C24_V", "name": {"en": "HV battery cell #24 voltage", "ru": "Напряжение ячейки ВВБ №24"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 368, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C25_V", "name": {"en": "HV battery cell #25 voltage", "ru": "Напряжение ячейки ВВБ №25"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 384, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C26_V", "name": {"en": "HV battery cell #26 voltage", "ru": "Напряжение ячейки ВВБ №26"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 400, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C27_V", "name": {"en": "HV battery cell #27 voltage", "ru": "Напряжение ячейки ВВБ №27"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 416, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C28_V", "name": {"en": "HV battery cell #28 voltage", "ru": "Напряжение ячейки ВВБ №28"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 432, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C29_V", "name": {"en": "HV battery cell #29 voltage", "ru": "Напряжение ячейки ВВБ №29"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 448, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C30_V", "name": {"en": "HV battery cell #30 voltage", "ru": "Напряжение ячейки ВВБ №30"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 464, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C31_V", "name": {"en": "HV battery cell #31 voltage", "ru": "Напряжение ячейки ВВБ №31"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 480, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C32_V", "name": {"en": "HV battery cell #32 voltage", "ru": "Напряжение ячейки ВВБ №32"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 496, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C33_V", "name": {"en": "HV battery cell #33 voltage", "ru": "Напряжение ячейки ВВБ №33"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 512, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C34_V", "name": {"en": "HV battery cell #34 voltage", "ru": "Напряжение ячейки ВВБ №34"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 528, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C35_V", "name": {"en": "HV battery cell #35 voltage", "ru": "Напряжение ячейки ВВБ №35"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 544, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C36_V", "name": {"en": "HV battery cell #36 voltage", "ru": "Напряжение ячейки ВВБ №36"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 560, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C37_V", "name": {"en": "HV battery cell #37 voltage", "ru": "Напряжение ячейки ВВБ №37"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 576, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C38_V", "name": {"en": "HV battery cell #38 voltage", "ru": "Напряжение ячейки ВВБ №38"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 592, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C39_V", "name": {"en": "HV battery cell #39 voltage", "ru": "Напряжение ячейки ВВБ №39"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 608, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C40_V", "name": {"en": "HV battery cell #40 voltage", "ru": "Напряжение ячейки ВВБ №40"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 624, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C41_V", "name": {"en": "HV battery cell #41 voltage", "ru": "Напряжение ячейки ВВБ №41"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 640, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C42_V", "name": {"en": "HV battery cell #42 voltage", "ru": "Напряжение ячейки ВВБ №42"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 656, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C43_V", "name": {"en": "HV battery cell #43 voltage", "ru": "Напряжение ячейки ВВБ №43"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 672, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C44_V", "name": {"en": "HV battery cell #44 voltage", "ru": "Напряжение ячейки ВВБ №44"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 688, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C45_V", "name": {"en": "HV battery cell #45 voltage", "ru": "Напряжение ячейки ВВБ №45"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 704, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C46_V", "name": {"en": "HV battery cell #46 voltage", "ru": "Напряжение ячейки ВВБ №46"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 720, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C47_V", "name": {"en": "HV battery cell #47 voltage", "ru": "Напряжение ячейки ВВБ №47"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 736, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C48_V", "name": {"en": "HV battery cell #48 voltage", "ru": "Напряжение ячейки ВВБ №48"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 752, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C49_V", "name": {"en": "HV battery cell #49 voltage", "ru": "Напряжение ячейки ВВБ №49"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 768, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C50_V", "name": {"en": "HV battery cell #50 voltage", "ru": "Напряжение ячейки ВВБ №50"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 784, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C51_V", "name": {"en": "HV battery cell #51 voltage", "ru": "Напряжение ячейки ВВБ №51"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 800, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C52_V", "name": {"en": "HV battery cell #52 voltage", "ru": "Напряжение ячейки ВВБ №52"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 816, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C53_V", "name": {"en": "HV battery cell #53 voltage", "ru": "Напряжение ячейки ВВБ №53"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 832, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C54_V", "name": {"en": "HV battery cell #54 voltage", "ru": "Напряжение ячейки ВВБ №54"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 848, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C55_V", "name": {"en": "HV battery cell #55 voltage", "ru": "Напряжение ячейки ВВБ №55"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 864, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C56_V", "name": {"en": "HV battery cell #56 voltage", "ru": "Напряжение ячейки ВВБ №56"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 880, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C57_V", "name": {"en": "HV battery cell #57 voltage", "ru": "Напряжение ячейки ВВБ №57"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 896, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C58_V", "name": {"en": "HV battery cell #58 voltage", "ru": "Напряжение ячейки ВВБ №58"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 912, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C59_V", "name": {"en": "HV battery cell #59 voltage", "ru": "Напряжение ячейки ВВБ №59"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 928, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C60_V", "name": {"en": "HV battery cell #60 voltage", "ru": "Напряжение ячейки ВВБ №60"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 944, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C61_V", "name": {"en": "HV battery cell #61 voltage", "ru": "Напряжение ячейки ВВБ №61"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 960, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C62_V", "name": {"en": "HV battery cell #62 voltage", "ru": "Напряжение ячейки ВВБ №62"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 976, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C63_V", "name": {"en": "HV battery cell #63 voltage", "ru": "Напряжение ячейки ВВБ №63"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 992, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C64_V", "name": {"en": "HV battery cell #64 voltage", "ru": "Напряжение ячейки ВВБ №64"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1008, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C65_V", "name": {"en": "HV battery cell #65 voltage", "ru": "Напряжение ячейки ВВБ №65"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1024, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C66_V", "name": {"en": "HV battery cell #66 voltage", "ru": "Напряжение ячейки ВВБ №66"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1040, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C67_V", "name": {"en": "HV battery cell #67 voltage", "ru": "Напряжение ячейки ВВБ №67"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1056, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C68_V", "name": {"en": "HV battery cell #68 voltage", "ru": "Напряжение ячейки ВВБ №68"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1072, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C69_V", "name": {"en": "HV battery cell #69 voltage", "ru": "Напряжение ячейки ВВБ №69"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1088, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C70_V", "name": {"en": "HV battery cell #70 voltage", "ru": "Напряжение ячейки ВВБ №70"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1104, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C71_V", "name": {"en": "HV battery cell #71 voltage", "ru": "Напряжение ячейки ВВБ №71"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1120, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C72_V", "name": {"en": "HV battery cell #72 voltage", "ru": "Напряжение ячейки ВВБ №72"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1136, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C73_V", "name": {"en": "HV battery cell #73 voltage", "ru": "Напряжение ячейки ВВБ №73"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1152, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C74_V", "name": {"en": "HV battery cell #74 voltage", "ru": "Напряжение ячейки ВВБ №74"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1168, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C75_V", "name": {"en": "HV battery cell #75 voltage", "ru": "Напряжение ячейки ВВБ №75"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1184, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C76_V", "name": {"en": "HV battery cell #76 voltage", "ru": "Напряжение ячейки ВВБ №76"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1200, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C77_V", "name": {"en": "HV battery cell #77 voltage", "ru": "Напряжение ячейки ВВБ №77"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1216, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C78_V", "name": {"en": "HV battery cell #78 voltage", "ru": "Напряжение ячейки ВВБ №78"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1232, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C79_V", "name": {"en": "HV battery cell #79 voltage", "ru": "Напряжение ячейки ВВБ №79"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1248, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C80_V", "name": {"en": "HV battery cell #80 voltage", "ru": "Напряжение ячейки ВВБ №80"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1264, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C81_V", "name": {"en": "HV battery cell #81 voltage", "ru": "Напряжение ячейки ВВБ №81"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1280, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C82_V", "name": {"en": "HV battery cell #82 voltage", "ru": "Напряжение ячейки ВВБ №82"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1296, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C83_V", "name": {"en": "HV battery cell #83 voltage", "ru": "Напряжение ячейки ВВБ №83"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1312, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C84_V", "name": {"en": "HV battery cell #84 voltage", "ru": "Напряжение ячейки ВВБ №84"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1328, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C85_V", "name": {"en": "HV battery cell #85 voltage", "ru": "Напряжение ячейки ВВБ №85"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1344, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C86_V", "name": {"en": "HV battery cell #86 voltage", "ru": "Напряжение ячейки ВВБ №86"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1360, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C87_V", "name": {"en": "HV battery cell #87 voltage", "ru": "Напряжение ячейки ВВБ №87"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1376, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C88_V", "name": {"en": "HV battery cell #88 voltage", "ru": "Напряжение ячейки ВВБ №88"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1392, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C89_V", "name": {"en": "HV battery cell #89 voltage", "ru": "Напряжение ячейки ВВБ №89"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1408, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C90_V", "name": {"en": "HV battery cell #90 voltage", "ru": "Напряжение ячейки ВВБ №90"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1424, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C91_V", "name": {"en": "HV battery cell #91 voltage", "ru": "Напряжение ячейки ВВБ №91"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1440, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C92_V", "name": {"en": "HV battery cell #92 voltage", "ru": "Напряжение ячейки ВВБ №92"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1456, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C93_V", "name": {"en": "HV battery cell #93 voltage", "ru": "Напряжение ячейки ВВБ №93"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1472, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C94_V", "name": {"en": "HV battery cell #94 voltage", "ru": "Напряжение ячейки ВВБ №94"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1488, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C95_V", "name": {"en": "HV battery cell #95 voltage", "ru": "Напряжение ячейки ВВБ №95"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1504, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "CX50HYBRID_HVBAT_C96_V", "name": {"en": "HV battery cell #96 voltage", "ru": "Напряжение ячейки ВВБ №96"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 1520, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "761", "rsp": "769", "svc": "22", "did": "1E7A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_COUPLING_SOLENOID", "name": {"en": "Coupling solenoid duty cycle", "ru": "Скважность соленоида муфты"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "793", "rsp": "79B", "svc": "22", "did": "D901", "rate": "fast", "models": ["3", "CX-5"], "signals": [
+   {"id": "MAZDA3_CC_TGT_DIST", "name": {"en": "Distance from bumper to target", "ru": "Расстояние от бампера до препятствия"}, "unit": "m", "dec": 1, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5"]}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "21", "did": "03", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_TIRE_FR_SPD", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 256, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_TIRE_FL_SPD", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 256, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_TIRE_RR_SPD", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 256, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_TIRE_RL_SPD", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 256, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "21", "did": "21", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_VSS_V1", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 1.28}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "21", "did": "47", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_LAT_G", "name": {"en": "Lateral g", "ru": "Поперечное ускорение (g)"}, "unit": "g", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_LNG_G", "name": {"en": "Longitudinal g", "ru": "Продольное ускорение (g)"}, "unit": "g", "dec": 2, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_YAW_RATE", "name": {"en": "Yaw rate value (degrees/se", "ru": "Скорость рыскания (град/с)"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -128}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_STEER_ANGLE", "name": {"en": "Steering wheel angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 24, "len": 16, "div": 10, "add": -3276.8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7B0", "rsp": "7B8", "svc": "22", "did": "1006", "rate": "medium", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_MASTER_CYL_TEMP", "name": {"en": "Master cylinder sensor temperature", "ru": "Температура датчика ГТЦ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -80}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7B3", "rsp": "7BB", "svc": "22", "did": "1004", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_STEERING_ANGLE", "name": {"en": "Steering angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 1.5, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7C0", "rsp": "7C8", "svc": "21", "did": "29", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_FLI_VOL", "name": {"en": "Fuel level, volume", "ru": "Уровень топлива, объём"}, "unit": "L", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "fuel_level_l", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7C0", "rsp": "7C8", "svc": "22", "did": "1021", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_BATTERY_VOLTAGE", "name": {"en": "Battery voltage", "ru": "Напряжение АКБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7C0", "rsp": "7C8", "svc": "22", "did": "1022", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_FLV", "name": {"en": "Fuel remaining", "ru": "Остаток топлива"}, "unit": "L", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "fuel_level_l", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "0103", "rate": "slow", "models": ["CX-50"], "signals": [
+   {"id": "CX50HYBRID_ODO_V2", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 8, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "odometer"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1040", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_TRANSAXLE_OIL_T", "name": {"en": "Transaxle oil temperature", "ru": "Температура масла КПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "106C", "rate": "medium", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_HVBAT_SOC_MAX", "name": {"en": "HV battery charge, max", "ru": "Заряд ВВБ, макс."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 8, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_HVBAT_SOC_MIN", "name": {"en": "HV battery charge, min", "ru": "Заряд ВВБ, мин."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 16, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1075", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_FR_WHEEL_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -327.68}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_FL_WHEEL_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 16, "len": 16, "div": 100, "add": -327.68}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_RR_WHEEL_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 32, "len": 16, "div": 100, "add": -327.68}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_RL_WHEEL_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 48, "len": 16, "div": 100, "add": -327.68}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "10A1", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_RPM", "name": {"en": "Motor RPM", "ru": "Обороты электродвигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -32768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_TQ", "name": {"en": "Motor torque", "ru": "Момент электродвигателя"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 48, "len": 16, "div": 8, "add": -4096}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "10A2", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_RM_TQ_REQ", "name": {"en": "Rear motor torque, requested", "ru": "Момент заднего электродвигателя, запрошенный"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -32768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_RM_TQ", "name": {"en": "Rear motor torque", "ru": "Момент заднего электродвигателя"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 48, "len": 16, "div": 8, "add": -4096}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "10A6", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_RM_INVRT_COOL_T", "name": {"en": "Rear motor inverter, coolant temperature", "ru": "Температура ОЖ инвертора заднего электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_M_INVRT_MAX_T", "name": {"en": "Motor inverter, maximum temperature", "ru": "Температура инвертора электродвигателя, макс."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "10B2", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_INVRT_COOLANT_T", "name": {"en": "Inverter coolant temperature", "ru": "Температура ОЖ инвертора"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "15EE", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_12V_V", "name": {"en": "12V battery voltage", "ru": "Напряжение АКБ 12 В"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.31448, "add": 0.0125}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "15F7", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_12V_C", "name": {"en": "12V battery current", "ru": "Ток АКБ 12 В"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 38.147, "div": 10000, "add": -125}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "15F8", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_12V_T", "name": {"en": "12V battery temperature", "ru": "Температура АКБ 12 В"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "battery_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1609", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_HVBAT_CHRG_V", "name": {"en": "HV battery charge voltage", "ru": "Напряжение заряда ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1829", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_HVBAT_MAX_T", "name": {"en": "HV battery maximum temperature", "ru": "Макс. температура ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "182A", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_HVBAT_MIN_T", "name": {"en": "HV battery minimum temperature", "ru": "Мин. температура ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F05", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_COOL_T", "name": {"en": "Coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F0D", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_VSS_V2", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F46", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_AAT", "name": {"en": "Ambient temperature", "ru": "Температура наружного воздуха"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F49", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_ACC_PEDAL_POS_1", "name": {"en": "Accelerator pedal, position 1", "ru": "Педаль газа, положение 1"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F4A", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_ACC_PEDAL_POS_2", "name": {"en": "Accelerator pedal, position 2", "ru": "Педаль газа, положение 2"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F5B", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_SOC", "name": {"en": "State of charge", "ru": "Уровень заряда (SOC)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"], "role": "hv_soc"}
+  ]},
+  {"hdr": "7D2", "rsp": "7DA", "svc": "22", "did": "1F9A", "rate": "fast", "models": ["CX-50"], "years": [2025, 2099], "signals": [
+   {"id": "CX50HYBRID_HVBAT_V", "name": {"en": "HV battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 16, "len": 16, "mul": 156.25, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]},
+   {"id": "CX50HYBRID_HVBAT_C", "name": {"en": "HV battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "21", "did": "21", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_CC_S", "name": {"en": "Cruise control speed", "ru": "Скорость круиз-контроля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "21", "did": "51", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_PREV_TRIP_DST", "name": {"en": "Previous trip distance", "ru": "Пробег за предыдущую поездку"}, "unit": "km", "dec": 2, "group": "other", "fmt": {"bix": 40, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_VVTOT", "name": {"en": "Variable valve timing oil temperature", "ru": "Температура масла VVT"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 56, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_EOT_V1", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 72, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "21", "did": "82", "rate": "fast", "models": ["3", "CX-50"], "signals": [
+   {"id": "MAZDA3_ATF_PAN_T", "name": {"en": "Transmission temperature, pan", "ru": "Температура КПП, поддон"}, "unit": "°C", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 256, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_ATF_TQC_T", "name": {"en": "Transmission temperature, torque converter", "ru": "Температура КПП, ГТД"}, "unit": "°C", "dec": 3, "group": "main", "fmt": {"bix": 16, "len": 16, "div": 256, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-50"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0200", "rate": "slow", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_DTC_CNT", "name": {"en": "Number of DTCs", "ru": "Кол-во кодов ошибок"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0202", "rate": "slow", "models": ["3", "6", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_DTC_CNTD", "name": {"en": "Number of DTCs", "ru": "Кол-во кодов ошибок"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0301", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_MAP", "name": {"en": "Map voltage", "ru": "Напряжение датчика MAP"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0306", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EGR_OPEN_MM", "name": {"en": "Exhaust gas recirculation open", "ru": "EGR открыт"}, "unit": "mm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0307", "rate": "fast", "models": ["3", "CX-3", "CX-5", "CX-50", "CX-90"], "signals": [
+   {"id": "MAZDA3_FP_LD", "name": {"en": "Fuel pump duty cycle", "ru": "Скважность топливного насоса"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25, "div": 8192}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "CX3_FP_LD", "name": {"en": "Fuel pump load", "ru": "Нагрузка топливного насоса"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-90"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "030F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CL", "name": {"en": "Lambda, commanded", "ru": "Лямбда, заданная"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0316", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_INT_DUTY", "name": {"en": "VCT intake camshaft solenoid duty cycle", "ru": "Скважность клапана VCT впускного распредвала"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0030517578}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0317", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_EXH_DUTY", "name": {"en": "VCT exhaust camshaft solenoid duty cycle", "ru": "Скважность клапана VCT выпускного распредвала"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0030517578}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0318", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_INT_ACT", "name": {"en": "VCT intake camshaft actual", "ru": "VCT впускной распредвал, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0319", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_EXH_ACT", "name": {"en": "VCT exhaust camshaft actual", "ru": "VCT выпускной распредвал, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "031A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_INT_ERR", "name": {"en": "VCT intake camshaft error", "ru": "VCT впускной распредвал, ошибка"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "031B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_EXH_ERR", "name": {"en": "VCT exhaust camshaft error", "ru": "VCT выпускной распредвал, ошибка"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0324", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_HPFP_V", "name": {"en": "High pressure fuel rail sensor voltage", "ru": "Напряжение датчика давления в рампе (ВД)"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 204.6}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "032B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ACC_POS", "name": {"en": "Accelerator pedal position", "ru": "Положение педали газа"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0334", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_HEAD_T_CORR", "name": {"en": "Cylinder head temperature", "ru": "Температура ГБЦ"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0338", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ETC_TRIM_LEARNED", "name": {"en": "Electronic throttle control learned trim angle", "ru": "Адаптация угла дроссельной заслонки"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "033C", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TIP_V", "name": {"en": "Throttle inlet pressure sensor voltage", "ru": "Напряжение датчика давления перед дросселем"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 204.8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "033E", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TIP_ABS", "name": {"en": "Throttle inlet pressure absolute", "ru": "Давление перед дросселем, абс."}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 903.8107848}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0345", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_EVENTS_LATEST_CYC", "name": {"en": "Misfire events, latest cycle", "ru": "Пропуски, последний цикл"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0353", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BARO", "name": {"en": "Barometric pressure", "ru": "Атмосферное давление"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 27.582114}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "035A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BARO_V_7E0", "name": {"en": "Barometric pressure sensor voltage", "ru": "Напряжение датчика атм. давления"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048875855}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "035F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_RO2_V", "name": {"en": "Rear O2 voltage", "ru": "Напряжение заднего датчика O2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0380", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_REGEN", "name": {"en": "Diesel particulate filter regeneration status", "ru": "DPF, статус регенерации"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0382", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_ACCEL_CYL1_NORM", "name": {"en": "Misfire acceleration, cylinder 1", "ru": "Пропуски (ускорение), цилиндр 1"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0388", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_ACCEL_CYL2_NORM", "name": {"en": "Misfire acceleration, cylinder 2", "ru": "Пропуски (ускорение), цилиндр 2"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_ACCEL_CYL3_NORM", "name": {"en": "Misfire acceleration, cylinder 3", "ru": "Пропуски (ускорение), цилиндр 3"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_ACCEL_CYL4_NORM", "name": {"en": "Misfire acceleration, cylinder 4", "ru": "Пропуски (ускорение), цилиндр 4"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038C", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_ACCEL_CYL5_NORM", "name": {"en": "Misfire acceleration, cylinder 5", "ru": "Пропуски (ускорение), цилиндр 5"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038E", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EVAP_V", "name": {"en": "Evaporative vapor pressure sensor voltage", "ru": "Напряжение датчика давления паров EVAP"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5.0048876, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038F", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ECT", "name": {"en": "Engine coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0393", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AC_P", "name": {"en": "A/C compressor pressure", "ru": "Давление компрессора кондиционера"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 1690946.049, "div": 845473}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0398", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_MISF_ACCEL_CYL6_NORM", "name": {"en": "Misfire acceleration, cylinder 6", "ru": "Пропуски (ускорение), цилиндр 6"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03AF", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TRQ_CTRL_REQ", "name": {"en": "Torque request", "ru": "Запрос момента"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03B9", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_COOLING_FAN_DUTY", "name": {"en": "Cooling fan duty cycle", "ru": "Скважность вентилятора охлаждения"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 40, "div": 13107}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BA", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AAT_V", "name": {"en": "Ambient air temperature sensor voltage", "ru": "Напряжение датчика температуры наружного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048875855}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BB", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_EXH_DES", "name": {"en": "VCT exhaust cam, desired", "ru": "VCT выпускной распредвал, заданный"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BC", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VCT_INT_DES", "name": {"en": "VCT intake cam, desired", "ru": "VCT впускной распредвал, заданный"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BD", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CL_LC", "name": {"en": "Closed loop lambda correction", "ru": "Коррекция лямбды в замкнутом контуре"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8192, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03CA", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_MCT", "name": {"en": "Manifold charge temperature", "ru": "Температура заряда в коллекторе"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03DB", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EXH_DIFF_P", "name": {"en": "Exhaust differential pressure", "ru": "Перепад давления ОГ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03DC", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_HPFP_DES", "name": {"en": "High pressure fuel pressure desired", "ru": "Высокое давление топлива, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 9.99999971}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03DF", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VGT_OPEN_PERC", "name": {"en": "Variable geometry turbocharger open", "ru": "Турбина с изменяемой геометрией открыта"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03E5", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AC_LOAD_SIG_V", "name": {"en": "Air conditioning load signal voltage", "ru": "Напряжение сигнала нагрузки кондиционера"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 12207, "div": 2500000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03E8", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_OAR", "name": {"en": "Octane adjust ratio", "ru": "Коэффициент октан-коррекции"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16384, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03EC", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_IGN_CORR_CYL1", "name": {"en": "Ignition correction, cylinder 1", "ru": "Коррекция УОЗ, цилиндр 1"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03FB", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EGR_OPEN_PERC", "name": {"en": "Exhaust gas recirculation open", "ru": "EGR открыт"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0403", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_KS1_RAW", "name": {"en": "Knock sensor, 1", "ru": "Датчик детонации, 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0404", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_KS2_RAW", "name": {"en": "Knock sensor, 2", "ru": "Датчик детонации, 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0415", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_EOP", "name": {"en": "Engine oil pressure", "ru": "Давление масла ДВС"}, "unit": "kPa", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"], "role": "oil_pressure"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "041F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_LPFP_DES", "name": {"en": "Fuel pressure, low desired", "ru": "Низкое давление топлива, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2999.219295, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0427", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BPV_OPEN", "name": {"en": "Bypass valve", "ru": "Перепускной клапан"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "042C", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_PM_ACC", "name": {"en": "Diesel particulate filter particulate matter accumulation", "ru": "DPF, накопление твёрдых частиц"}, "unit": "g/L", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "042D", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_PM_GEN", "name": {"en": "Diesel particulate filter particulate matter generation", "ru": "DPF, образование твёрдых частиц"}, "unit": "g/L", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0432", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_REGEN_CNT", "name": {"en": "Diesel particulate filter regeneration count", "ru": "DPF, количество регенераций"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0433", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_LAMP_CNT", "name": {"en": "Diesel particulate filter lamp count", "ru": "DPF, счётчик включений лампы"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0434", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_REGEN_DIST", "name": {"en": "Diesel particulate filter regeneration distance", "ru": "DPF, пробег регенерации"}, "unit": "km", "dec": 3, "group": "other", "fmt": {"bix": 8, "len": 24, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0435", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_OIL_DIL_CNT", "name": {"en": "Oil dilution events", "ru": "Разжижение масла, события"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "044B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_PM_ACC_DES", "name": {"en": "Diesel particulate filter particulate matter accumulation (desired)", "ru": "DPF, накопление твёрдых частиц (заданное)"}, "unit": "g/L", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0451", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_OXY", "name": {"en": "Oxygen concentration", "ru": "Концентрация кислорода"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0460", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CAT_SENS_V", "name": {"en": "Charge air temperature sensor voltage", "ru": "Напряжение датчика температуры наддувочного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0461", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CAT", "name": {"en": "Charge air temperature", "ru": "Температура наддувочного воздуха"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "add": -40, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0462", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_WGDC", "name": {"en": "Wastegate duty cycle", "ru": "Скважность вестгейта"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 32768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0466", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TIP_DES_ABS", "name": {"en": "Throttle inlet pressure, desired", "ru": "Давление перед дросселем, заданное"}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 255.106009, "div": 33441}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "046F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_INJ_MODE", "name": {"en": "Injection mode", "ru": "Режим впрыска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "050F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VGT_OPEN", "name": {"en": "Variable geometry turbocharger open", "ru": "Турбина с изменяемой геометрией открыта"}, "unit": "mm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0519", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_OIL_CHANGE_DIST", "name": {"en": "Distance since oil changed", "ru": "Пробег с замены масла"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 4}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0522", "rate": "fast", "models": ["3", "CX-5", "CX-50"], "signals": [
+   {"id": "MAZDA3_FUEL_T", "name": {"en": "Fuel temp", "ru": "Температура топлива"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "053B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CATDMG_MIS_1", "name": {"en": "Catalyst damaging misfires, cylinder 1", "ru": "Пропуски, опасные для катализатора, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_CATDMG_MIS_2", "name": {"en": "Catalyst damaging misfires, cylinder 2", "ru": "Пропуски, опасные для катализатора, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_CATDMG_MIS_3", "name": {"en": "Catalyst damaging misfires, cylinder 3", "ru": "Пропуски, опасные для катализатора, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_CATDMG_MIS_4", "name": {"en": "Catalyst damaging misfires, cylinder 4", "ru": "Пропуски, опасные для катализатора, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EMISSION_FAILURE_MIS_1", "name": {"en": "Emission failure misfires, cylinder 1", "ru": "Пропуски зажигания (токсичность), цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 64, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EMISSION_FAILURE_MIS_2", "name": {"en": "Emission failure misfires, cylinder 2", "ru": "Пропуски зажигания (токсичность), цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 72, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EMISSION_FAILURE_MIS_3", "name": {"en": "Emission failure misfires, cylinder 3", "ru": "Пропуски зажигания (токсичность), цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 80, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EMISSION_FAILURE_MIS_4", "name": {"en": "Emission failure misfires, cylinder 4", "ru": "Пропуски зажигания (токсичность), цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 88, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_CATDMG_MIS_TOT", "name": {"en": "Catalyst damaging misfires total during this trip", "ru": "Пропуски, опасные для катализатора, за поездку"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 160, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EMISSION_FAILURE_MIS", "name": {"en": "Emission failure misfires total during this trip", "ru": "Пропуски зажигания (токсичность), всего за поездку"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 176, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0542", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_OIL_CHANGE_DIST_MAX", "name": {"en": "Max distance to oil change", "ru": "Макс. пробег до замены масла"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "service_km", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0548", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_LPFP_ACT", "name": {"en": "Fuel pressure, low actual", "ru": "Низкое давление топлива, факт."}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 68947.57, "div": 137892, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "054B", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_ENG_OIL_LIFE_REM", "name": {"en": "Oil life remaining", "ru": "Остаточный ресурс масла"}, "unit": "%", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "oil_life", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "054D", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_LPFP_SENS_V", "name": {"en": "Fuel pressure sensor voltage, low", "ru": "Напряжение датчика низкого давления топлива"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "057D", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AAT_ALT", "name": {"en": "Ambient temperature, alternate", "ru": "Температура наружного воздуха, альтерн."}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0580", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_GRILL_SHUTTER_POS", "name": {"en": "Grill shutter position", "ru": "Положение жалюзи радиатора"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AC", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_1_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 1", "ru": "Счётчик детонации, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AD", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_2_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 2", "ru": "Счётчик детонации, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AE", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_3_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 3", "ru": "Счётчик детонации, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AF", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_4_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 4", "ru": "Счётчик детонации, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05B0", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_5_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 5", "ru": "Счётчик детонации, цилиндр 5"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05B1", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_6_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 6", "ru": "Счётчик детонации, цилиндр 6"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05FC", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CYL_HEAD_T_SENS_2_RAW", "name": {"en": "Cylinder head temperature, sensor 2", "ru": "Температура ГБЦ, датчик 2"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0604", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_A_C_REFRIG_P", "name": {"en": "A/C refrigerant pressure", "ru": "Давление хладагента"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0700", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_IAT_FAULT", "name": {"en": "Intake temperature fault", "ru": "Неисправность датчика температуры впуска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0707", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_GRILL_SHUT_DC", "name": {"en": "Grill shutter duty cycle", "ru": "Скважность жалюзи радиатора"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0900", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_MAP_V", "name": {"en": "Manifold absolute pressure voltage", "ru": "Напряжение датчика абс. давления"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0914", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_APP1_V", "name": {"en": "APP sensor 1 voltage", "ru": "Напряжение датчика педали газа 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0915", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_APP2_V", "name": {"en": "APP sensor 2 voltage", "ru": "Напряжение датчика педали газа 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0917", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP1_V", "name": {"en": "Throttle position 1 voltage", "ru": "Напряжение ДПДЗ 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0918", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TP2_V", "name": {"en": "Throttle position 2 voltage", "ru": "Напряжение ДПДЗ 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "091A", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_ETC_DSD_DEG", "name": {"en": "Throttle control desired", "ru": "Управление дросселем, задан."}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "093C", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_ETC_ACT_DEG", "name": {"en": "Throttle position actual", "ru": "Положение дроссельной заслонки, факт."}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0967", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_FAN3_SW", "name": {"en": "Cooling fan relay control", "ru": "Управление реле вентилятора охлаждения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 5, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0968", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_GEN_CHRGLP", "name": {"en": "Generator warning light", "ru": "Лампа генератора"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "096E", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_IDLE", "name": {"en": "Idle speed", "ru": "Обороты ХХ"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "097C", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_GEN_DSD_V", "name": {"en": "Generator voltage desired", "ru": "Напряжение генератора, заданное"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2048}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "098E", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_EGRP_STEPS", "name": {"en": "Exhaust gas recirculation purge steps", "ru": "Шаги продувки EGR"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "099B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AC_STATE", "name": {"en": "A/C compressor, state", "ru": "Компрессор кондиционера, состояние"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1101", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_PSP_SW", "name": {"en": "Power steering position switch", "ru": "Выключатель положения ГУР"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_INGEAR_SW", "name": {"en": "In gear switch", "ru": "Датчик включённой передачи"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_BOO_SW", "name": {"en": "Brake on/off switch", "ru": "Выключатель стоп-сигнала"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_ACCS_SW", "name": {"en": "A/C relay", "ru": "Реле кондиционера"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1103", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_MIL_SW", "name": {"en": "Malfunction indicator lamp", "ru": "Лампа неисправности (MIL)"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 2, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_IMRC_SW", "name": {"en": "Intake manifold runner control", "ru": "Управление заслонками впускного коллектора"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 3, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_FAN2_SW", "name": {"en": "Cooling fan relay control", "ru": "Управление реле вентилятора охлаждения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_FAN1_SW", "name": {"en": "Cooling fan relay control", "ru": "Управление реле вентилятора охлаждения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 5, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1104", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_AC_REQ_SW", "name": {"en": "A/C refrigerant pressure switch", "ru": "Датчик-выключатель давления хладагента"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "111F", "rate": "medium", "models": ["MX-5"], "signals": [
+   {"id": "MX5_EOT_2", "name": {"en": "Engine oil temperature 2", "ru": "Температура масла ДВС 2"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-MX-5"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1126", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ERT", "name": {"en": "Engine run time", "ru": "Время работы двигателя"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "114A", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_IAT_V", "name": {"en": "Intake air temp voltage", "ru": "Напряжение датчика температуры впускного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "114D", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_ECT_V", "name": {"en": "Engine coolant temp voltage", "ru": "Напряжение датчика температуры ОЖ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1166", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EVAP_PURGE_CMD", "name": {"en": "Evaporative purge", "ru": "Продувка адсорбера"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 32768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1169", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_TPCT", "name": {"en": "Throttle position closed voltage", "ru": "Напряжение ДПДЗ в закрытом положении"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "116B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_IGN_TIM_CYL1", "name": {"en": "Ignition timing, cylinder 1", "ru": "УОЗ, цилиндр 1"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1174", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_O2S12_A_V", "name": {"en": "O2 sensor 1-2 voltage", "ru": "Напряжение датчика O2 1-2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1177", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_MAF_V", "name": {"en": "Mass air-flow voltage", "ru": "Напряжение ДМРВ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BD", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TRANS_T_VAR_5", "name": {"en": "Transmission temperature, variant 5", "ru": "Температура КПП, вар. 5"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 80}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1279", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_IAT_SENS_V", "name": {"en": "Intake temperature sensor voltage", "ru": "Напряжение датчика температуры впуска"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1023}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1305", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BOOST_DES", "name": {"en": "Boost, desired", "ru": "Наддув, заданный"}, "unit": "bar", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 6400}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1310", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "CX-90", "MX-5"], "signals": [
+   {"id": "MAZDA3_EOT", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-CX-90", "https://github.com/OBDb/Mazda-MX-5"], "role": "oil_temp"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1340", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_APP", "name": {"en": "Accelerator pedal position, full range", "ru": "Положение педали газа, полный диапазон"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1410", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_FUEL_PW", "name": {"en": "Injector fuel pulse width", "ru": "Длительность импульса форсунки"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 125}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1505", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VSS_HD", "name": {"en": "Vehicle speed, high resolution", "ru": "Скорость автомобиля, высокое разрешение"}, "unit": "km/h", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "160D", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_IMTV_SW", "name": {"en": "Variable intake air control", "ru": "Управление изменяемым впуском"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1631", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_O2S_HTR12_SW", "name": {"en": "O2 sensor 2 heater control, rear", "ru": "Управление подогревом датчика O2 2, задний"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_O2S_HTR11_SW", "name": {"en": "O2 sensor 1 heater control, front", "ru": "Управление подогревом датчика O2 1, передний"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "163E", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_O2S12_FT", "name": {"en": "Rear O2 sensor fuel trim", "ru": "Топливная коррекция по заднему датчику O2"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 8192}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16B3", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_BARO_V", "name": {"en": "BARO sensor voltage", "ru": "Напряжение датчика атм. давления"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16CD", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_VT_ACT", "name": {"en": "Valve timing actual", "ru": "Фазы ГРМ, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16CE", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_VT_DIFF", "name": {"en": "Valve timing error", "ru": "Ошибка фаз ГРМ"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16CF", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_VT_DUTY", "name": {"en": "Valve timing OCV control duty", "ru": "Скважность клапана OCV фаз ГРМ"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 200, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16E1", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_WASTEGATE_DUTY", "name": {"en": "Wastegate duty cycle", "ru": "Скважность вестгейта"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25, "div": 64}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16E8", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_GEN_FC", "name": {"en": "Generator field coil control duty", "ru": "Скважность обмотки возбуждения генератора"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 200, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16E9", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_GEN_V", "name": {"en": "Generator output voltage", "ru": "Выходное напряжение генератора"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16F0", "rate": "slow", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_TIRESIZE", "name": {"en": "Tire revolutions per mile", "ru": "Оборотов шины на милю"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1706", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_LAMBDA_MOD_SW", "name": {"en": "Lambda modification switch", "ru": "Переключатель коррекции лямбды"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 1, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_HIDET_SW", "name": {"en": "High detonation switch", "ru": "Флаг сильной детонации"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1718", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_FP_RELAY_SW", "name": {"en": "Fuel pump relay switch", "ru": "Контакт реле топливного насоса"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1723", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BOOSTED_AIR_T", "name": {"en": "Boosted air temperature", "ru": "Температура наддувочного воздуха"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5, "div": 8, "add": -39.4}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1746", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_KNOCKR", "name": {"en": "Knock retard", "ru": "Откат УОЗ по детонации"}, "unit": "°", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 284}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"], "role": "knock_retard"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "174F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AIR_FUEL_RAT_ACT", "name": {"en": "Air/fuel ratio, actual", "ru": "Состав смеси (AFR), факт."}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 287, "div": 2500}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17B3", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TRANS_T_VAR_1", "name": {"en": "Transmission temperature, variant 1", "ru": "Температура КПП, вар. 1"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 23.33333333, "div": 25, "add": -49.44444444}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17F4", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_LDP_MON_CURRENT", "name": {"en": "EVAP LDP monitoring current", "ru": "EVAP LDP: ток контроля"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5.61e-07}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17F5", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_LDP_REF_CURRENT", "name": {"en": "EVAP LDP reference current", "ru": "EVAP LDP: опорный ток"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5.61e-07}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17F7", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_LDP_IDL_CURRENT", "name": {"en": "EVAP LDP idle current", "ru": "EVAP LDP: ток покоя"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5.61e-07}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17F8", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_LDP_SL_DV", "name": {"en": "EVAP LDP small leak detect value", "ru": "EVAP LDP: значение малой утечки"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5.61e-07}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17FA", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_LDP_EVAPCP", "name": {"en": "EVAP LDP incorrect purge flow value", "ru": "EVAP LDP: некорректный расход продувки"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5.61e-07}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E12", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_GEAR", "name": {"en": "Current gear", "ru": "Текущая передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "map": {"1": {"en": "1", "ru": "1"}, "2": {"en": "2", "ru": "2"}, "3": {"en": "3", "ru": "3"}, "4": {"en": "4", "ru": "4"}, "5": {"en": "5", "ru": "5"}, "6": {"en": "6", "ru": "6"}, "7": {"en": "7", "ru": "7"}, "8": {"en": "8", "ru": "8"}, "9": {"en": "9", "ru": "9"}, "10": {"en": "10", "ru": "10"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "gear", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E16", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AXLE_GEAR_RATIO_MEAS", "name": {"en": "Axle gear ratio, measured", "ru": "Передаточное число главной пары, измер."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4096}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E19", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CMD_TRANS_GEAR_RATIO", "name": {"en": "Gear ratio, commanded", "ru": "Передаточное число, заданное"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 16, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E1A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_CMD_TRANS_MAIN_LINE_P", "name": {"en": "Transmission pressure, commanded", "ru": "Давление в КПП, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E1C", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TOT_7E0", "name": {"en": "Transmission oil temperature", "ru": "Температура масла КПП"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E1F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_GEAR_ENG", "name": {"en": "Gear, engaged", "ru": "Включённая передача"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E23", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_GEAR_SHFT", "name": {"en": "Shift gear", "ru": "Передача переключения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"10": {"en": "Manual", "ru": "Ручной"}, "46": {"en": "Drive", "ru": "D (движение)"}, "50": {"en": "Neutral", "ru": "N (нейтраль)"}, "60": {"en": "Reverse", "ru": "R (задний ход)"}, "70": {"en": "PARK", "ru": "PARK"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "280A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BRAKE_FLUID_P", "name": {"en": "Brake fluid pressure", "ru": "Давление тормозной жидкости"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25, "div": 32}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4028", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BAT_ESTIMATED_ST_CHG", "name": {"en": "Battery estimated state of charge", "ru": "Расчётный уровень заряда батареи (SOC)"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4029", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BAT_FLUID_T", "name": {"en": "Battery fluid temperature", "ru": "Температура электролита АКБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4194", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DTE", "name": {"en": "Distance to empty, calculated", "ru": "Запас хода, расчётный"}, "unit": "km", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4195", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DTE_DISP", "name": {"en": "Distance to empty, displayed", "ru": "Запас хода, отображаемый"}, "unit": "km", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "9800", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_AC_P_SENS_V", "name": {"en": "A/C compressor pressure sensor voltage", "ru": "Напряжение датчика давления кондиционера"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "A211", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_IVS_SW", "name": {"en": "Idle validation switch", "ru": "Выключатель подтверждения ХХ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 3, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_PNP_SW", "name": {"en": "Park neutral position switch", "ru": "Выключатель положения P/N"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 5, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_BPA_SW", "name": {"en": "Brake pressure applied switch", "ru": "Датчик давления торможения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]},
+   {"id": "MAZDA3_CPP_SW", "name": {"en": "Clutch pedal position switch", "ru": "Выключатель положения педали сцепления"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "A216", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
+   {"id": "MAZDA3_SCCS_V", "name": {"en": "Cruise control voltage", "ru": "Напряжение круиз-контроля"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "D988", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BAT_ACCUMULATED_AMP", "name": {"en": "Battery accumulated amp hours", "ru": "Накопленные А·ч батареи"}, "unit": "Ah", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 200, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DA01", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_OIL_P_SOLENOID_VLV", "name": {"en": "Oil pressure solenoid valve, open", "ru": "Клапан давления масла открыт"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "oil_pressure"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DA9D", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_BAT_INTERNAL_RES", "name": {"en": "Battery internal resistance", "ru": "Внутреннее сопротивление батареи"}, "unit": "Ω", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DAA1", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TIM_CHAIN_ELONGATION", "name": {"en": "Timing chain elongation angle", "ru": "Угол растяжения цепи ГРМ"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000, "add": -32.768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_TIM_CHAIN_ELONGATION_2", "name": {"en": "Timing chain elongation angle 2", "ru": "Угол растяжения цепи ГРМ 2"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "div": 1000, "add": -32.768}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DD01", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "odometer"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F404", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ENG_LOAD_PCT", "name": {"en": "Engine load", "ru": "Нагрузка двигателя"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F406", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_STFT", "name": {"en": "Fuel trim, short term", "ru": "Краткосрочная коррекция топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 128, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F407", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_LTFT", "name": {"en": "Fuel trim, long term", "ru": "Долгосрочная коррекция топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 128, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40B", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_MAP_7E0", "name": {"en": "Manifold pressure", "ru": "Давление в коллекторе"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 68947.57, "div": 68947}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40C", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_RPM", "name": {"en": "Engine speed", "ru": "Обороты двигателя"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40D", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_VSS", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40F", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_IAT_ALT2", "name": {"en": "Intake temperature, alternate", "ru": "Температура впуска, альт."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F411", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_INT_SHUTTER_VLV_POS", "name": {"en": "Intake shutter valve position", "ru": "Положение впускной заслонки"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F421", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_MIL_DIST", "name": {"en": "Distance with MIL", "ru": "Пробег с горящей MIL"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F42F", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_FLI", "name": {"en": "Fuel level", "ru": "Уровень топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F430", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_WARMUP_CLR", "name": {"en": "Warm-ups since DTC clear", "ru": "Прогревов после сброса ошибок"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F431", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DIST_DTC_CLR", "name": {"en": "Distance since DTC clear", "ru": "Пробег после сброса ошибок"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F433", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_BAROMETRIC_P", "name": {"en": "Barometric pressure", "ru": "Атмосферное давление"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F43C", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CAT_TEMP", "name": {"en": "Catalyst temperature", "ru": "Температура катализатора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F443", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_ENG_LOAD_ACT", "name": {"en": "Engine load, actual", "ru": "Нагрузка двигателя, факт."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F45C", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EOP_ALT", "name": {"en": "Engine oil pressure", "ru": "Давление масла ДВС"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F462", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_ACT_ENG_PCT_TRQ", "name": {"en": "Actual engine percent torque", "ru": "Крутящий момент ДВС, факт., %"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -125}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F463", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_ENG_REFERENCE_TRQ", "name": {"en": "Engine reference torque", "ru": "Эталонный крутящий момент двигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F469", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_EGR_VLV_POS_DES", "name": {"en": "Exhaust gas recirculation A valve position, desired", "ru": "Положение клапана EGR A, заданное"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EGR_VLV_POS", "name": {"en": "Exhaust gas recirculation A valve position", "ru": "Положение клапана EGR A"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EGR_ERROR", "name": {"en": "Exhaust gas recirculation A error", "ru": "Ошибка EGR A"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 25, "div": 32, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EGR_B_VLV_POS_DES", "name": {"en": "Exhaust gas recirculation B valve position, desired", "ru": "Положение клапана EGR B, заданное"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 32, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EGR_B_VLV_POS", "name": {"en": "Exhaust gas recirculation B valve position", "ru": "Положение клапана EGR B"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 40, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]},
+   {"id": "MAZDA3_EGR_B_ERROR", "name": {"en": "Exhaust gas recirculation B error", "ru": "Ошибка EGR B"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 48, "len": 8, "mul": 25, "div": 32, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F46F", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TURBOCHARGER_COMP_P", "name": {"en": "Turbocharger A compressor inlet pressure", "ru": "Давление на входе компрессора турбины A"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_TURBOCHARGER_B_COMP_P", "name": {"en": "Turbocharger B compressor inlet pressure", "ru": "Давление на входе компрессора турбины B"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F470", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_INT_MAP_DES", "name": {"en": "Intake manifold absolute pressure, desired", "ru": "Абсолютное давление во впускном коллекторе, заданное"}, "unit": "kPa", "dec": 2, "group": "other", "fmt": {"bix": 8, "len": 16, "div": 32}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MAZDA3_INT_MAP", "name": {"en": "Intake manifold absolute pressure", "ru": "Абсолютное давление во впускном коллекторе"}, "unit": "kPa", "dec": 2, "group": "other", "fmt": {"bix": 24, "len": 16, "div": 32}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F477", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_CHG_AIR_COOLER_T", "name": {"en": "Charge air cooler temperature", "ru": "Температура интеркулера"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F47A", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_DPF_DIFF_P", "name": {"en": "Diesel particulate filter differential pressure", "ru": "Перепад давления DPF"}, "unit": "kPa", "dec": 2, "group": "other", "fmt": {"bix": 8, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F4A6", "rate": "slow", "models": ["3"], "signals": [
+   {"id": "MAZDA3_PCM_VEH_ODO", "name": {"en": "Vehicle odometer", "ru": "Пробег"}, "unit": "km", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 32, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "odometer"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "11BD", "rate": "medium", "models": ["3"], "signals": [
+   {"id": "MAZDA3_TRANS_T_VAR_6", "name": {"en": "Transmission temperature, variant 6", "ru": "Температура КПП, вар. 6"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 80}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "17B3", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_TRANS_T_V5", "name": {"en": "Transmission temperature v5", "ru": "Температура КПП, вар. 5"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 23.33333333, "div": 25, "add": -49.44444444}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1E12", "rate": "fast", "models": ["3"], "signals": [
+   {"id": "MAZDA3_GEAR_7E1", "name": {"en": "Gear", "ru": "Передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "gear"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1E1C", "rate": "fast", "models": ["3", "6", "CX-3", "CX-5", "CX-50", "CX-9", "MX-5"], "signals": [
+   {"id": "MAZDA3_TRANS_T_V6", "name": {"en": "Transmission temperature", "ru": "Температура КПП"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 80}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-6", "https://github.com/OBDb/Mazda-CX-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-CX-50", "https://github.com/OBDb/Mazda-CX-9", "https://github.com/OBDb/Mazda-MX-5"], "role": "atf_temp"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1E24", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_TQ_CONV_LOCK_UP", "name": {"en": "Torque converter lock-up", "ru": "Блокировка ГТД"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1EC7", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_TQ_DES", "name": {"en": "Torque, desired", "ru": "Крутящий момент, заданный"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1EE4", "rate": "fast", "models": ["3", "MX-5"], "signals": [
+   {"id": "MAZDA3_TQ_ACT", "name": {"en": "Torque, actual", "ru": "Крутящий момент, факт."}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"]}
+  ]}
+ ]
+}

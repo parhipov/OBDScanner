@@ -17,6 +17,8 @@ data class Reading(
     val min: Double? = value,
     val max: Double? = value,
     val time: Long = System.currentTimeMillis(),
+    /** What the value is ("oil_temp", "atf_temp"…, tools/cars/SCHEMA.md), for manufacturer parameters of any make. */
+    val role: String? = null,
 ) {
     val source get() = key.substringAfter(':')
 

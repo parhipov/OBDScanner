@@ -1,0 +1,876 @@
+{
+ "family": "ford",
+ "source": "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py",
+ "commands": [
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "404C", "rate": "medium", "models": ["F-150", "F-150 Lightning", "F-350", "Fiesta", "Focus", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "F150_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 24, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"], "role": "odometer"}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "6180", "rate": "slow", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ODO_720", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 24, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "odometer"}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "6185", "rate": "fast", "models": ["Edge", "Escape", "F-150", "Focus", "Fusion Energi"], "signals": [
+   {"id": "EDGE_FLI", "name": {"en": "Fuel tank level", "ru": "Уровень топлива в баке"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "61A5", "rate": "slow", "models": ["Edge", "Escape", "F-150", "F-150 Lightning", "Fiesta", "Focus", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "EDGE_TPMS_WARN", "name": {"en": "Tire pressure warning indicator", "ru": "Индикатор давления в шинах"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 2, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "720", "rsp": "728", "svc": "22", "did": "DD01", "rate": "slow", "models": ["Bronco Sport", "Edge", "Fiesta", "Fusion Energi"], "signals": [
+   {"id": "BRONCOSPORT_ODO_TRIP", "name": {"en": "Trip distance", "ru": "Пробег за поездку"}, "unit": "km", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 24, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Fusion-Energi"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "2813", "rate": "medium", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-150 Lightning", "F-350", "Fiesta", "Focus", "Focus Electric", "Fusion", "Fusion Energi", "Mustang Mach E", "Ranger", "Taurus", "Transit Connect"], "signals": [
+   {"id": "BRONCO_TP_FL", "name": {"en": "Front left tire pressure", "ru": "Давление в шине ПЛ"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Fusion", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus", "https://github.com/OBDb/Ford-Transit-Connect"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "2814", "rate": "medium", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-150 Lightning", "F-350", "Fiesta", "Focus", "Focus Electric", "Fusion", "Fusion Energi", "Mustang Mach E", "Ranger", "Taurus", "Transit Connect"], "signals": [
+   {"id": "BRONCO_TP_FR", "name": {"en": "Front right tire pressure", "ru": "Давление в шине ПП"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Fusion", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus", "https://github.com/OBDb/Ford-Transit-Connect"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "2815", "rate": "medium", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-150 Lightning", "F-350", "Fiesta", "Focus", "Focus Electric", "Fusion", "Fusion Energi", "Mustang Mach E", "Ranger", "Taurus", "Transit Connect"], "signals": [
+   {"id": "BRONCO_TP_RRO", "name": {"en": "Rear right outer tire pressure", "ru": "Давление во внешн. шине ЗП"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Fusion", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus", "https://github.com/OBDb/Ford-Transit-Connect"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "2816", "rate": "medium", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-150 Lightning", "F-350", "Fiesta", "Focus", "Focus Electric", "Fusion", "Fusion Energi", "Mustang Mach E", "Ranger", "Taurus", "Transit Connect"], "signals": [
+   {"id": "BRONCO_TP_RLO", "name": {"en": "Rear left outer tire pressure", "ru": "Давление во внешн. шине ЗЛ"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fiesta", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Fusion", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus", "https://github.com/OBDb/Ford-Transit-Connect"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "2817", "rate": "medium", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-350", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "BRONCO_TP_RRI", "name": {"en": "Rear right inner tire pressure", "ru": "Давление во внутр. шине ЗП"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "2818", "rate": "medium", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-350", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "BRONCO_TP_RLI", "name": {"en": "Rear left inner tire pressure", "ru": "Давление во внутр. шине ЗЛ"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "401E", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_NORM_CUM_CHG_IGN_ON", "name": {"en": "Normalized cumulative charge when ignition is on", "ru": "Нормир. суммарный заряд при вкл. зажигании"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "div": 10, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4021", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_NORM_CUM_DCHG_BAT_ON", "name": {"en": "Normalized cumulative discharge from battery with engine on", "ru": "Нормир. суммарный разряд батареи при работе ДВС"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "div": 10, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4025", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BAT_QUIESCENT", "name": {"en": "Battery quiescent current, low range", "ru": "Ток покоя АКБ, нижний диапазон"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001, "div": 2, "add": -1}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4026", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_NORM_CUM_DCHG_BAT_OFF", "name": {"en": "Normalized cumulative discharge from battery with engine off", "ru": "Нормир. суммарный разряд батареи при выкл. ДВС"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "div": 10, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4027", "rate": "slow", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Mustang Mach E", "Taurus"], "signals": [
+   {"id": "ESCAPE_BATT_AGE", "name": {"en": "Battery age", "ru": "Возраст батареи"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_12V_AGE", "name": {"en": "12V battery age", "ru": "Возраст АКБ 12 В"}, "unit": "h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 24}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4028", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Mustang Mach E", "Taurus"], "signals": [
+   {"id": "ESCAPE_BATT_SOC", "name": {"en": "Battery charge", "ru": "Заряд батареи"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_12V_SOC", "name": {"en": "12V battery state of charge", "ru": "Уровень заряда АКБ 12 В (SOC)"}, "unit": "%", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "role": "battery_soc"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4029", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Taurus"], "signals": [
+   {"id": "ESCAPE_BATT_TEMP", "name": {"en": "Battery temperature", "ru": "Температура батареи"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "402A", "rate": "fast", "models": ["Focus", "Focus Electric", "Mustang Mach E", "Taurus"], "signals": [
+   {"id": "FOCUS_12V_V", "name": {"en": "12V battery voltage", "ru": "Напряжение АКБ 12 В"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 20, "add": 6}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"]},
+   {"id": "TAURUS_VEH_BAT_V", "name": {"en": "Vehicle battery voltage", "ru": "Напряжение АКБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "div": 20, "add": 6, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "402B", "rate": "fast", "models": ["Focus", "Mustang Mach E", "Taurus"], "signals": [
+   {"id": "MACHE_12V_A", "name": {"en": "Aux 12V battery current", "ru": "Ток АКБ 12 В"}, "unit": "A", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -127}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]},
+   {"id": "FOCUS_VEH_BAT_CURRENT", "name": {"en": "Vehicle battery current", "ru": "Ток АКБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "add": -127, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "407E", "rate": "fast", "models": ["Edge", "Focus", "Focus Electric"], "signals": [
+   {"id": "EDGE_EXTERIOR_LIGHT_STATE", "name": {"en": "Focus Exterior Lighting State", "ru": "Состояние наружного освещения (Focus)"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "0", "ru": "0"}, "216": {"en": "1", "ru": "1"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4090", "rate": "fast", "models": ["Focus"], "signals": [
+   {"id": "FOCUS_BAT_CURRENT_726", "name": {"en": "Battery current", "ru": "Ток батареи"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "add": -511.7}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "41A9", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BAT_CURRENT_TOO_HIGH", "name": {"en": "Battery current too high for start/stop", "ru": "Ток АКБ велик для старт-стоп"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 2, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_V_TOO_LOW_START", "name": {"en": "Battery voltage too low for start/stop", "ru": "Напряжение АКБ мало для старт-стоп"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 3, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_ST_CHG_TOO_LOW", "name": {"en": "Battery state of charge too low for start/stop", "ru": "Заряд АКБ мал для старт-стоп"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_CAP_TOO_LOW", "name": {"en": "Battery capacity too low for start/stop", "ru": "Ёмкость АКБ мала для старт-стоп"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 5, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_V_TOO_LOW_COLD", "name": {"en": "Battery voltage too low for cold cranking capability", "ru": "Напряжение АКБ мало для холодного пуска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_V_TOO_LOW_AUTO", "name": {"en": "Battery voltage too low for auto restart", "ru": "Напряжение АКБ мало для автозапуска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 12, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_T_TOO_LOW_AUTO", "name": {"en": "Battery temperature too low for auto stop", "ru": "Температура АКБ мала для автостопа"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 13, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_BAT_REFRESH_CYCLE", "name": {"en": "Battery refresh cycle in progress for start/stop", "ru": "Идёт цикл восстановления АКБ для старт-стоп"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 14, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "41E8", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_VEH_BAT_B_V", "name": {"en": "Vehicle battery B voltage", "ru": "Напряжение АКБ B"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "div": 20, "add": 6, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "4209", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BAT_CURRENT", "name": {"en": "Battery current, predicted", "ru": "Ток батареи, прогноз"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 24, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "420A", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BAT_ST_DETECTION", "name": {"en": "Battery state detection status", "ru": "Статус определения состояния АКБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "423C", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_VEH_BAT_B_CURRENT", "name": {"en": "Vehicle battery B current", "ru": "Ток АКБ B"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "div": 32, "signed": true, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "7151", "rate": "medium", "models": ["Edge", "Focus", "Focus Electric"], "signals": [
+   {"id": "EDGE_HIGHBEAM_STATUS", "name": {"en": "Highbeam Status", "ru": "Состояние дальнего света"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "C150", "rate": "medium", "models": ["Edge", "Focus", "Focus Electric"], "signals": [
+   {"id": "EDGE_TRUNK_OPEN", "name": {"en": "Trunk Ajar?", "ru": "Багажник приоткрыт?"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 11, "len": 1, "map": {"0": {"en": "No", "ru": "Нет"}, "1": {"en": "Yes", "ru": "Да"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EDGE_RRD_OPEN", "name": {"en": "Rear Right Door Ajar?", "ru": "Задняя правая дверь открыта?"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 12, "len": 1, "map": {"0": {"en": "No", "ru": "Нет"}, "1": {"en": "Yes", "ru": "Да"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EDGE_RLD_OPEN", "name": {"en": "Rear Left Door Ajar?", "ru": "Задняя левая дверь открыта?"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 13, "len": 1, "map": {"0": {"en": "No", "ru": "Нет"}, "1": {"en": "Yes", "ru": "Да"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EDGE_DRIVER_DOOR_OPEN", "name": {"en": "Driver Door Ajar", "ru": "Дверь водителя открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 1, "map": {"0": {"en": "No", "ru": "Нет"}, "1": {"en": "Yes", "ru": "Да"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "EDGE_PASSENGER_DOOR_OPEN", "name": {"en": "Passenger Door Ajar?", "ru": "Дверь пассажира открыта?"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 17, "len": 1, "map": {"0": {"en": "No", "ru": "Нет"}, "1": {"en": "Yes", "ru": "Да"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "C154", "rate": "medium", "models": ["Edge", "Focus", "Focus Electric"], "signals": [
+   {"id": "EDGE_HOOD_OPEN", "name": {"en": "Hood Ajar?", "ru": "Капот приоткрыт?"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "No", "ru": "Нет"}, "1": {"en": "Yes", "ru": "Да"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "C259", "rate": "medium", "models": ["Edge", "Focus", "Focus Electric"], "signals": [
+   {"id": "EDGE_CENTRAL_LOCK_STATUS", "name": {"en": "Lock Status", "ru": "Статус блокировки"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Unlocked", "ru": "Разблокировано"}, "2": {"en": "Locked", "ru": "Заблокировано"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "DD01", "rate": "medium", "models": ["Escape", "Focus", "Focus Electric", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "ESCAPE_ODO_726", "name": {"en": "Odometer, instrument panel", "ru": "Пробег, приборная панель"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"], "role": "odometer"}
+  ]},
+  {"hdr": "726", "rsp": "72E", "svc": "22", "did": "DD04", "rate": "medium", "models": ["Focus"], "signals": [
+   {"id": "FOCUS_CAR_T", "name": {"en": "In car temperature", "ru": "Температура в салоне"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "746", "rsp": "74E", "svc": "22", "did": "4836", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_DCDC_LV_A", "name": {"en": "LV DC-DC converter low voltage current", "ru": "Ток DC-DC, НВ-сторона"}, "unit": "A", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "746", "rsp": "74E", "svc": "22", "did": "483A", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_DCDC_HV_A", "name": {"en": "LV DC-DC converter high voltage current", "ru": "Ток DC-DC, ВВ-сторона"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "746", "rsp": "74E", "svc": "22", "did": "483D", "rate": "slow", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_DCDC_ENABLED", "name": {"en": "DC-DC converter", "ru": "DC/DC-преобразователь"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B00", "rate": "medium", "models": ["Bronco Sport", "Edge", "Escape", "F-150", "F-150 Lightning", "Focus", "Focus Electric", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_PARKING_BRAKE", "name": {"en": "Parking brake state", "ru": "Состояние стояночного тормоза"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B06", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Taurus"], "signals": [
+   {"id": "ESCAPE_FR_VSS", "name": {"en": "Front right wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B07", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Taurus"], "signals": [
+   {"id": "ESCAPE_FL_VSS", "name": {"en": "Front left wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B08", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Taurus"], "signals": [
+   {"id": "ESCAPE_RR_VSS", "name": {"en": "Rear right wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B09", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Taurus"], "signals": [
+   {"id": "ESCAPE_RL_VSS", "name": {"en": "Rear left wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B0C", "rate": "fast", "models": ["Escape", "F-150", "Taurus"], "signals": [
+   {"id": "ESCAPE_LAT_ANG", "name": {"en": "Lateral angle", "ru": "Угол поперечного наклона"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B0D", "rate": "fast", "models": ["Escape", "F-150", "Taurus"], "signals": [
+   {"id": "ESCAPE_BRK_FL_P", "name": {"en": "Brake hydraulic pressure", "ru": "Давление в тормозной системе"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "2B11", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Focus Electric", "Taurus"], "signals": [
+   {"id": "ESCAPE_LAT_G", "name": {"en": "Lateral acceleration", "ru": "Поперечное ускорение"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "3201", "rate": "fast", "models": ["Edge", "Escape", "F-150", "F-150 Lightning", "F-350", "Focus", "Fusion Energi", "Taurus"], "signals": [
+   {"id": "EDGE_STEER_ANGLE", "name": {"en": "Steering wheel angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 6.25, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi"]},
+   {"id": "F150_STEER_ANG", "name": {"en": "Steering angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20, "add": -1638.4}, "conf": "?", "src": ["https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "3987", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ABS_WHL_SPD_1", "name": {"en": "Anti-lock brake wheel speed 1", "ru": "Скорость колеса 1 (ABS)"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_ABS_WHL_SPD_2", "name": {"en": "Anti-lock brake wheel speed 2", "ru": "Скорость колеса 2 (ABS)"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_ABS_WHL_SPD_3", "name": {"en": "Anti-lock brake wheel speed 3", "ru": "Скорость колеса 3 (ABS)"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "FOCUS_ABS_WHL_SPD_4", "name": {"en": "Anti-lock brake wheel speed 4", "ru": "Скорость колеса 4 (ABS)"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "3A51", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ABS_LATERAL_ACCEL", "name": {"en": "Anti-lock brake lateral acceleration", "ru": "Поперечное ускорение (ABS)"}, "unit": "g", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "760", "rsp": "768", "svc": "22", "did": "DD01", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_ODO_BCM", "name": {"en": "Odometer, battery control module", "ru": "Пробег, блок управления батареей"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"], "role": "odometer"}
+  ]},
+  {"hdr": "764", "rsp": "76C", "svc": "22", "did": "A224", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "F-150", "F-150 Lightning", "F-350", "Fusion Energi"], "signals": [
+   {"id": "BRONCOSPORT_CC_TGT_VSS", "name": {"en": "Target vehicle speed", "ru": "Заданная скорость автомобиля"}, "unit": "km/h", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3.6, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Fusion-Energi"]}
+  ]},
+  {"hdr": "7C7", "rsp": "7CF", "svc": "22", "did": "99AB", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_AC_COMP_A", "name": {"en": "A/C compressor current", "ru": "Ток компрессора кондиционера"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 32767, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0301", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_MAP_V", "name": {"en": "Manifold absolute pressure sensor voltage", "ru": "Напряжение датчика абс. давления"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0009765625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_MAP_V", "name": {"en": "Manifold pressure sensor voltage", "ru": "Напряжение датчика давления в коллекторе"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0304", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CMD_GEN_V", "name": {"en": "Commanded generator voltage", "ru": "Заданное напряжение генератора"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.000488}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0307", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_LPFP_DUTY", "name": {"en": "Low pressure fuel pump commanded duty cycle", "ru": "Заданная скважность подкачивающего насоса"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0030517578}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_LPFP_DUTY", "name": {"en": "Fuel pump duty cycle, low pressure", "ru": "Скважность топл. насоса низкого давления"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25, "div": 8192}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "030F", "rate": "fast", "models": ["Edge", "Escape", "Explorer", "F-150", "Focus", "Mustang", "Taurus"], "signals": [
+   {"id": "EDGE_CL", "name": {"en": "Commanded lambda", "ru": "Заданная лямбда"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3.05176e-05}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_CL", "name": {"en": "Lambda, commanded", "ru": "Лямбда, заданная"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32768}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0316", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_INT_DUTY", "name": {"en": "VCT intake camshaft solenoid duty cycle", "ru": "Скважность клапана VCT впускного распредвала"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0030517578}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_INT_DUTY", "name": {"en": "Camshaft solenoid duty cycle, intake", "ru": "Скважность клапана VVT, впуск"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25, "div": 8192}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0317", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_EXH_DUTY", "name": {"en": "VCT exhaust camshaft solenoid duty cycle", "ru": "Скважность клапана VCT выпускного распредвала"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0030517578}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_EXH_DUTY", "name": {"en": "Camshaft solenoid duty cycle, exhaust", "ru": "Скважность клапана VVT, выпуск"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 25, "div": 8192}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0318", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_INT_ACT", "name": {"en": "VCT intake camshaft actual", "ru": "VCT впускной распредвал, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_INT_ACT", "name": {"en": "Camshaft position, intake actual", "ru": "Положение распредвала впуска, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0319", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_EXH_ACT", "name": {"en": "VCT exhaust camshaft actual", "ru": "VCT выпускной распредвал, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_EXH_ACT", "name": {"en": "Camshaft position, exhaust actual", "ru": "Положение распредвала выпуска, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "031A", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_INT_ERR", "name": {"en": "VCT intake camshaft error", "ru": "VCT впускной распредвал, ошибка"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_INT_ERR", "name": {"en": "Camshaft position error, intake", "ru": "Ошибка положения распредвала впуска"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "031B", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_EXH_ERR", "name": {"en": "VCT exhaust camshaft error", "ru": "VCT выпускной распредвал, ошибка"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_EXH_ERR", "name": {"en": "Camshaft position error, exhaust", "ru": "Ошибка положения распредвала выпуска"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0324", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_HPFP_V", "name": {"en": "High pressure fuel rail sensor voltage", "ru": "Напряжение датчика давления в рампе (ВД)"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 204.6}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Fusion-Energi"]},
+   {"id": "EDGE_HPFP_V", "name": {"en": "High pressure fuel rail sensor voltage", "ru": "Напряжение датчика давления в рампе (ВД)"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048875855}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_HPFP_V", "name": {"en": "Fuel rail sensor voltage, high pressure", "ru": "Напряжение датчика давления в рампе (ВД)"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1023}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "032B", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-150 Lightning", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_ACC_POS", "name": {"en": "Accelerator pedal position", "ru": "Положение педали газа"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "EDGE_ACC_POS", "name": {"en": "Accelerator Pedal Position", "ru": "Положение педали газа"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.5}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0334", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CYL_HEAD_T_CORR", "name": {"en": "Cylinder head temperature", "ru": "Температура ГБЦ"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0338", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_ETC_TRIM_LEARNED", "name": {"en": "Electronic throttle control learned trim angle", "ru": "Адаптация угла дроссельной заслонки"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "EDGE_ETC_TRIM_LEARNED", "name": {"en": "Electronic throttle control learned trim angle", "ru": "Адаптация угла дроссельной заслонки"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001953125}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "033C", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_TIP_V", "name": {"en": "Throttle inlet pressure sensor voltage", "ru": "Напряжение датчика давления перед дросселем"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 204.8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Fusion-Energi"]},
+   {"id": "EDGE_TIP_V", "name": {"en": "Throttle inlet pressure sensor voltage", "ru": "Напряжение датчика давления перед дросселем"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048828125}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_TIP_V", "name": {"en": "Throttle inlet pressure sensor voltage", "ru": "Напряжение датчика давления перед дросселем"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1024}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "033E", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_TIP_ABS", "name": {"en": "Throttle inlet pressure absolute", "ru": "Давление перед дросселем, абс."}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 903.8107848}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Fusion-Energi"]},
+   {"id": "EDGE_TIP_ABS", "name": {"en": "Throttle inlet pressure absolute", "ru": "Давление перед дросселем, абс."}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.007628540477}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_TIP_ABS", "name": {"en": "Throttle inlet pressure", "ru": "Давление перед дросселем"}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 255.106009, "div": 33441}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0345", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_MISF_EVENTS_LATEST_CYC", "name": {"en": "Misfire events, latest cycle", "ru": "Пропуски, последний цикл"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0353", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_BARO", "name": {"en": "Barometric pressure", "ru": "Атмосферное давление"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 27.582114}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Fusion-Energi"]},
+   {"id": "EDGE_BARO", "name": {"en": "Barometric pressure", "ru": "Атмосферное давление"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.2499720288}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_BARO", "name": {"en": "Barometric pressure", "ru": "Атмосферное давление"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 4240.275555, "div": 16963}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "035A", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_BARO_V", "name": {"en": "Barometric pressure sensor voltage", "ru": "Напряжение датчика атм. давления"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048875855}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_BARO_V", "name": {"en": "Barometric pressure sensor voltage", "ru": "Напряжение датчика атм. давления"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1023}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "035F", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_RO2_V", "name": {"en": "Rear O2 voltage", "ru": "Напряжение заднего датчика O2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0009765625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_RO2_V", "name": {"en": "O2 sensor voltage, rear", "ru": "Напряжение датчика O2, задний"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0370", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MAP_HIRES", "name": {"en": "Manifold absolute pressure, high resolution", "ru": "Абс. давление в коллекторе, высокое разрешение"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0378", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_GEN_CTRL", "name": {"en": "Generator control", "ru": "Управление генератором"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.003052}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0382", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_MISF_ACCEL_CYL1_NORM", "name": {"en": "Misfire acceleration, cylinder 1", "ru": "Пропуски (ускорение), цилиндр 1"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0388", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_MISF_ACCEL_CYL2_NORM", "name": {"en": "Misfire acceleration, cylinder 2", "ru": "Пропуски (ускорение), цилиндр 2"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038A", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_MISF_ACCEL_CYL3_NORM", "name": {"en": "Misfire acceleration, cylinder 3", "ru": "Пропуски (ускорение), цилиндр 3"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038B", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_MISF_ACCEL_CYL4_NORM", "name": {"en": "Misfire acceleration, cylinder 4", "ru": "Пропуски (ускорение), цилиндр 4"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038C", "rate": "fast", "models": ["F-150", "Focus", "Taurus"], "signals": [
+   {"id": "F150_PCM_MISF_ACCEL_CYL5_NORM", "name": {"en": "Misfire acceleration, cylinder 5", "ru": "Пропуски (ускорение), цилиндр 5"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038E", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_EVAP_V", "name": {"en": "Evaporative vapor pressure sensor voltage", "ru": "Напряжение датчика давления паров EVAP"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5.0048876, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Fusion-Energi"]},
+   {"id": "EDGE_EVAP_V", "name": {"en": "Evaporative vapor pressure sensor voltage", "ru": "Напряжение датчика давления паров EVAP"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.1998046869}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_EVAP_V", "name": {"en": "Evaporative pressure sensor voltage", "ru": "Напряжение датчика давления EVAP"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 195597, "div": 978941}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "038F", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_ECT", "name": {"en": "Engine coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "EDGE_ECT", "name": {"en": "Engine coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.015625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0393", "rate": "fast", "models": ["Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "EDGE_AC_P", "name": {"en": "Air conditioning compressor pressure", "ru": "Давление компрессора кондиционера"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 2.000000058}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_AC_P", "name": {"en": "A/C compressor pressure", "ru": "Давление компрессора кондиционера"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 1690946.049, "div": 845473}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0398", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_MISF_ACCEL_CYL6_NORM", "name": {"en": "Misfire acceleration, cylinder 6", "ru": "Пропуски (ускорение), цилиндр 6"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03AF", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_TRQ_CTRL_REQ", "name": {"en": "Torque request", "ru": "Запрос момента"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03B9", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FAN_SPD_DES", "name": {"en": "Fan speed, desired", "ru": "Обороты вентилятора, заданные"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 40, "div": 13107}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BA", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_AAT_V", "name": {"en": "Ambient air temperature sensor voltage", "ru": "Напряжение датчика температуры наружного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048875855}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_AAT_V", "name": {"en": "Ambient temperature sensor voltage", "ru": "Напряжение датчика температуры наружного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1023}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BB", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_EXH_DES", "name": {"en": "VCT exhaust cam, desired", "ru": "VCT выпускной распредвал, заданный"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_VCT_EXH_DES", "name": {"en": "Camshaft position, exhaust desired", "ru": "Положение распредвала выпуска, заданное"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BC", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_VCT_INT_DES", "name": {"en": "VCT intake cam, desired", "ru": "VCT впускной распредвал, заданный"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "EDGE_VCT_INT_DES", "name": {"en": "VCT intake cam desired", "ru": "VCT впускной распредвал, заданный"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0625}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03BD", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_CL_LC", "name": {"en": "Closed loop lambda correction", "ru": "Коррекция лямбды в замкнутом контуре"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8192, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Taurus"]},
+   {"id": "EDGE_CL_LC", "name": {"en": "Closed loop lambda correction", "ru": "Коррекция лямбды в замкнутом контуре"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0001220703}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03CA", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_MCT", "name": {"en": "Manifold charge temperature", "ru": "Температура заряда в коллекторе"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03DC", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_HPFP_DES", "name": {"en": "High pressure fuel pressure desired", "ru": "Высокое давление топлива, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 9.99999971}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03E8", "rate": "fast", "models": ["Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "Focus", "Fusion Energi", "Mustang", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_OAR", "name": {"en": "Octane adjust ratio", "ru": "Коэффициент октан-коррекции"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.10352e-05}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang"]},
+   {"id": "ESCAPE_OAR", "name": {"en": "Octane adjustment", "ru": "Октан-коррекция"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16384, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03EC", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_IGN_CORR_CYL1", "name": {"en": "Ignition correction, cylinder 1", "ru": "Коррекция УОЗ, цилиндр 1"}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03F3", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_SUMP_OIL_T_MEAS", "name": {"en": "Sump oil temperature measured", "ru": "Температура масла в картере, измер."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03F4", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_EXH_GAS_T_1", "name": {"en": "Exhaust gas temperature 1", "ru": "Температура ОГ 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "03F5", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_EXH_GAS_T_2", "name": {"en": "Exhaust gas temperature 2", "ru": "Температура ОГ 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 5}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0403", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_KS1_RAW", "name": {"en": "Knock sensor, 1", "ru": "Датчик детонации, 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0404", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_KS2_RAW", "name": {"en": "Knock sensor, 2", "ru": "Датчик детонации, 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0415", "rate": "fast", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_PCM_ENG_EOP_RAW", "name": {"en": "Oil pressure", "ru": "Давление масла"}, "unit": "kPa", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"], "role": "oil_pressure"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "041F", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_LPFP_DES", "name": {"en": "Fuel pressure, low desired", "ru": "Низкое давление топлива, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2999.219295, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0427", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_BPV_OPEN", "name": {"en": "Bypass valve", "ru": "Перепускной клапан"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0460", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_CAT_SENS_V", "name": {"en": "Charge air temperature sensor voltage", "ru": "Напряжение датчика температуры наддувочного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0461", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_CAT", "name": {"en": "Charge air temperature", "ru": "Температура наддувочного воздуха"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "add": -40, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0462", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_WGDC", "name": {"en": "Wastegate duty cycle", "ru": "Скважность вестгейта"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 32768}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0466", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_TIP_DES_ABS", "name": {"en": "Throttle inlet pressure, desired", "ru": "Давление перед дросселем, заданное"}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 255.106009, "div": 33441}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "046F", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_INJ_MODE", "name": {"en": "Injection mode", "ru": "Режим впрыска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "04F7", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_GEN_CURRENT", "name": {"en": "Generator current", "ru": "Ток генератора"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 781, "div": 50000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "051C", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CHG_AIR_T", "name": {"en": "Charge air temperature", "ru": "Температура наддувочного воздуха"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "051D", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CYL_HEAD_T", "name": {"en": "Cylinder head temperature", "ru": "Температура ГБЦ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0522", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FUEL_T", "name": {"en": "Fuel temperature", "ru": "Температура топлива"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "053F", "rate": "slow", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TIME_SINCE_OIL", "name": {"en": "Time since last oil change", "ru": "Время с последней замены масла"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 200, "div": 13107}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0542", "rate": "slow", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_DIST_SINCE_OIL", "name": {"en": "Distance since last oil change", "ru": "Пробег с последней замены масла"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0548", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_LPFP_ACT", "name": {"en": "Fuel pressure, low actual", "ru": "Низкое давление топлива, факт."}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 68947.57, "div": 137892, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "054B", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_ENG_OIL_LIFE_REM", "name": {"en": "Oil life remaining", "ru": "Остаточный ресурс масла"}, "unit": "%", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "oil_life"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "054D", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_LPFP_SENS_V", "name": {"en": "Fuel pressure sensor voltage, low", "ru": "Напряжение датчика низкого давления топлива"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "057D", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_AAT_ALT", "name": {"en": "Ambient temperature, alternate", "ru": "Температура наружного воздуха, альтерн."}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0580", "rate": "fast", "models": ["Focus", "Mustang Mach E"], "signals": [
+   {"id": "FOCUS_GRILL_SHUTTER_POS", "name": {"en": "Grill shutter position", "ru": "Положение жалюзи радиатора"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AC", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CYL_1_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 1", "ru": "Счётчик детонации, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AD", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CYL_2_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 2", "ru": "Счётчик детонации, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AE", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CYL_3_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 3", "ru": "Счётчик детонации, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05AF", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CYL_4_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 4", "ru": "Счётчик детонации, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05B0", "rate": "fast", "models": ["F-150", "Focus", "Taurus"], "signals": [
+   {"id": "F150_PCM_CYL_5_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 5", "ru": "Счётчик детонации, цилиндр 5"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05B1", "rate": "fast", "models": ["F-150", "Focus", "Taurus"], "signals": [
+   {"id": "F150_PCM_CYL_6_KNK_COMB_PERF_CNT", "name": {"en": "Knock counter, cylinder 6", "ru": "Счётчик детонации, цилиндр 6"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05BE", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TURBO_INLET_P", "name": {"en": "Turbo inlet pressure", "ru": "Давление на входе турбокомпрессора"}, "unit": "kPa", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "05FC", "rate": "medium", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_PCM_CYL_HEAD_T_SENS_2_RAW", "name": {"en": "Cylinder head temperature, sensor 2", "ru": "Температура ГБЦ, датчик 2"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0604", "rate": "fast", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_PCM_A_C_REFRIG_P", "name": {"en": "A/C refrigerant pressure", "ru": "Давление хладагента"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0700", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_IAT_FAULT", "name": {"en": "Intake temperature fault", "ru": "Неисправность датчика температуры впуска"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0707", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_GRILL_SHUT_DC", "name": {"en": "Grill shutter duty cycle", "ru": "Скважность жалюзи радиатора"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "070D", "rate": "medium", "models": ["Taurus"], "signals": [
+   {"id": "TAURUS_TRANSFER_CASE_FLUID_T", "name": {"en": "Transfer case fluid temperature", "ru": "Температура масла раздатки"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "091A", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_ETC_ANG_DES", "name": {"en": "Throttle angle, desired", "ru": "Угол дросселя, задан."}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "092C", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ATF_T_VAR_6", "name": {"en": "Transmission fluid temperature, variant 6", "ru": "Температура масла АКПП, вар. 6"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "093C", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_ETC_ANG_ACT", "name": {"en": "Throttle angle, actual", "ru": "Угол дросселя, факт."}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "099B", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_AC_STATE", "name": {"en": "A/C compressor, state", "ru": "Компрессор кондиционера, состояние"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "099F", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FAN_SPD_SENS", "name": {"en": "Fan speed sensor", "ru": "Датчик оборотов вентилятора"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "09CB", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TQ_INTO_TQ_CONV", "name": {"en": "Torque into torque converter", "ru": "Момент на входе ГТД"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1.35581795}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "09D4", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ACCEL_PEDAL_POS", "name": {"en": "Accelerator pedal position", "ru": "Положение педали газа"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "09DB", "rate": "fast", "models": ["Focus"], "signals": [
+   {"id": "FOCUS_TURBO_BOOST", "name": {"en": "Turbo boost", "ru": "Наддув"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1126", "rate": "slow", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_ERT", "name": {"en": "Engine run time", "ru": "Время работы двигателя"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1127", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BAROMETRIC_P", "name": {"en": "Barometric pressure", "ru": "Атмосферное давление"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 338639, "div": 80000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "113C", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_EGR_DUTY", "name": {"en": "Exhaust gas recirculation duty cycle", "ru": "Скважность EGR"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1141", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_INJ_IMPULSE_WIDTH", "name": {"en": "Injector impulse width", "ru": "Длительность импульса форсунки"}, "unit": "s", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 2.2e-05}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "TAURUS_FUEL_PMP_WIDTH_BANK_1", "name": {"en": "Fuel pump pulse width, bank 1", "ru": "Длительность импульса топл. насоса, ряд 1"}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1142", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FUEL_PMP_WIDTH_BANK_2", "name": {"en": "Fuel pump pulse width, bank 2", "ru": "Длительность импульса топл. насоса, ряд 2"}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 5}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1166", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_EVAP_PURGE_CMD", "name": {"en": "Evaporative purge", "ru": "Продувка адсорбера"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 32768}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "116B", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_IGN_TIM_CYL1", "name": {"en": "Ignition timing, cylinder 1", "ru": "УОЗ, цилиндр 1"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1172", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BAT_V", "name": {"en": "Battery voltage", "ru": "Напряжение АКБ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11B3", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TRANS_GEAR", "name": {"en": "Transmission gear", "ru": "Передача КПП"}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11B5", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TRANS_OUTPUT_SHFT", "name": {"en": "Transmission output shaft speed", "ru": "Обороты выходного вала КПП"}, "unit": "rpm", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "output_rpm", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11B8", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TQ_CONV_SLIP", "name": {"en": "Torque converter slip", "ru": "Проскальзывание ГТД"}, "unit": "rpm", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 1.638538424}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "tc_slip", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BA", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CONV_SPD_RAT", "name": {"en": "Converter speed ratio", "ru": "Коэфф. скорости ГТД"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 82}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11C0", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TQ_CONV_LINE_P", "name": {"en": "Torque converter line pressure", "ru": "Давление в магистрали ГТД"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 172369, "div": 5000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1279", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_IAT_SENS_V", "name": {"en": "Intake temperature sensor voltage", "ru": "Напряжение датчика температуры впуска"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1023}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1310", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_EOT", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1440", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_BOOST", "name": {"en": "Boost", "ru": "Наддув"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1505", "rate": "fast", "models": ["Focus", "Mustang Mach E"], "signals": [
+   {"id": "FOCUS_VSS_HD", "name": {"en": "Vehicle speed, high resolution", "ru": "Скорость автомобиля, высокое разрешение"}, "unit": "km/h", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "160E", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_1", "name": {"en": "Cylinder 1 misfire count", "ru": "Пропуски зажигания, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "160F", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_2", "name": {"en": "Cylinder 2 misfire count", "ru": "Пропуски зажигания, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1610", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_3", "name": {"en": "Cylinder 3 misfire count", "ru": "Пропуски зажигания, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1611", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_4", "name": {"en": "Cylinder 4 misfire count", "ru": "Пропуски зажигания, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1612", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_5", "name": {"en": "Cylinder 5 misfire count", "ru": "Пропуски зажигания, цилиндр 5"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1613", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_6", "name": {"en": "Cylinder 6 misfire count", "ru": "Пропуски зажигания, цилиндр 6"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1614", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_7", "name": {"en": "Cylinder 7 misfire count", "ru": "Пропуски зажигания, цилиндр 7"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1615", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_MIS_CNT_8", "name": {"en": "Cylinder 8 misfire count", "ru": "Пропуски зажигания, цилиндр 8"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1616", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TOT_MIS_CNT", "name": {"en": "Total misfire count", "ru": "Общее число пропусков зажигания"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1624", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CYL_HEAD_T_7E0", "name": {"en": "Cylinder head temperature", "ru": "Температура ГБЦ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1639", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FUEL_TANK_P", "name": {"en": "Fuel tank pressure", "ru": "Давление в топливном баке"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 6.894757, "div": 6.901311249}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "163A", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TQ_INTO_TQ_CONV_7E0", "name": {"en": "Torque into torque converter", "ru": "Момент на входе ГТД"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.2711635897}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "163B", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TRANS_GEAR_RAT", "name": {"en": "Transmission gear ratio", "ru": "Передаточное число КПП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 15.7480315}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1672", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FUEL_PMP_DUTY", "name": {"en": "Fuel pump duty cycle", "ru": "Скважность топливного насоса"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25, "div": 32}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1674", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ATF_T_VAR_1", "name": {"en": "Transmission fluid temperature, variant 1", "ru": "Температура масла АКПП, вар. 1"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "div": 8, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1685", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CYL_HEAD_T_ALT", "name": {"en": "Cylinder head temperature, alternate", "ru": "Температура ГБЦ, альтернативная"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 156.1111111, "div": 1000, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "168B", "rate": "fast", "models": ["Focus"], "signals": [
+   {"id": "FOCUS_FUEL_INJ_IMPULSE", "name": {"en": "Fuel injection impulse width", "ru": "Длительность импульса впрыска"}, "unit": "s", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 125000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16A8", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_IAT_2", "name": {"en": "Intake air temperature 2", "ru": "Температура впускного воздуха 2"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 9, "add": -17.777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16C1", "rate": "slow", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_FLI_7E0", "name": {"en": "Fuel level", "ru": "Уровень топлива"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0030518509}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16E1", "rate": "fast", "models": ["Focus"], "signals": [
+   {"id": "FOCUS_WASTEGATE_CTRL", "name": {"en": "Wastegate control", "ru": "Управление вестгейтом"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 763, "div": 50000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16E8", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_CMD_GEN_DUTY", "name": {"en": "Commanded generator duty", "ru": "Заданная скважность генератора"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.003052}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E12", "rate": "fast", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-350", "Focus", "Fusion Energi", "Ranger", "Taurus", "Transit Connect"], "signals": [
+   {"id": "BRONCO_GEAR", "name": {"en": "Current gear", "ru": "Текущая передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "map": {"1": {"en": "1", "ru": "1"}, "2": {"en": "2", "ru": "2"}, "3": {"en": "3", "ru": "3"}, "4": {"en": "4", "ru": "4"}, "5": {"en": "5", "ru": "5"}, "6": {"en": "6", "ru": "6"}, "7": {"en": "7", "ru": "7"}, "8": {"en": "8", "ru": "8"}, "9": {"en": "9", "ru": "9"}, "10": {"en": "10", "ru": "10"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus", "https://github.com/OBDb/Ford-Transit-Connect"], "role": "gear"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E16", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_AXLE_GEAR_RATIO_MEAS", "name": {"en": "Axle gear ratio, measured", "ru": "Передаточное число главной пары, измер."}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4096}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E19", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CMD_TRANS_GEAR_RATIO", "name": {"en": "Gear ratio, commanded", "ru": "Передаточное число, заданное"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 16, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E1A", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_PCM_CMD_TRANS_MAIN_LINE_P", "name": {"en": "Transmission pressure, commanded", "ru": "Давление в КПП, заданное"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 2, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E1C", "rate": "fast", "models": ["Bronco", "Bronco Sport", "Edge", "Explorer", "Fusion Energi", "Ranger"], "signals": [
+   {"id": "BRONCO_TOT", "name": {"en": "Transmission oil temperature", "ru": "Температура масла КПП"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-Fusion-Energi"], "role": "atf_temp"},
+   {"id": "RANGER_TOT", "name": {"en": "Transmission oil temperature", "ru": "Температура масла КПП"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Ranger"], "role": "atf_temp"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E1F", "rate": "fast", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_GEAR_ENG", "name": {"en": "Gear, engaged", "ru": "Включённая передача"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1E23", "rate": "fast", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-350", "Focus", "Fusion Energi", "Ranger", "Taurus"], "signals": [
+   {"id": "BRONCO_GEAR_SHFT", "name": {"en": "Shift gear", "ru": "Передача переключения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"10": {"en": "Manual", "ru": "Ручной"}, "46": {"en": "Drive", "ru": "D (движение)"}, "50": {"en": "Neutral", "ru": "N (нейтраль)"}, "60": {"en": "Reverse", "ru": "R (задний ход)"}, "70": {"en": "PARK", "ru": "PARK"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4194", "rate": "medium", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_DTE", "name": {"en": "Distance to empty, calculated", "ru": "Запас хода, расчётный"}, "unit": "km", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4195", "rate": "medium", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_DTE_DISP", "name": {"en": "Distance to empty, displayed", "ru": "Запас хода, отображаемый"}, "unit": "km", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "9800", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_AC_P_SENS_V", "name": {"en": "A/C compressor pressure sensor voltage", "ru": "Напряжение датчика давления кондиционера"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DD01", "rate": "medium", "models": ["Bronco Sport", "Edge", "Explorer", "F-150 Lightning", "Focus", "Fusion", "Fusion Energi", "Mustang Mach E", "Taurus"], "signals": [
+   {"id": "BRONCOSPORT_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E", "https://github.com/OBDb/Ford-Taurus"], "role": "odometer"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F404", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_ENG_LOAD_PCT", "name": {"en": "Engine load", "ru": "Нагрузка двигателя"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F406", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_STFT", "name": {"en": "Fuel trim, short term", "ru": "Краткосрочная коррекция топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 128, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F407", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_LTFT", "name": {"en": "Fuel trim, long term", "ru": "Долгосрочная коррекция топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 128, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40B", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_MAP", "name": {"en": "Manifold pressure", "ru": "Давление в коллекторе"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 68947.57, "div": 68947}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40C", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_RPM", "name": {"en": "Engine speed", "ru": "Обороты двигателя"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40D", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_VSS", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F40F", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_IAT_ALT2", "name": {"en": "Intake temperature, alternate", "ru": "Температура впуска, альт."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F41F", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_RUN_TIME", "name": {"en": "Engine run time", "ru": "Время работы двигателя"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F421", "rate": "slow", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_MIL_DIST", "name": {"en": "Distance with MIL", "ru": "Пробег с горящей MIL"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F42C", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_EGR", "name": {"en": "Exhaust gas recirculation", "ru": "EGR"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F42F", "rate": "fast", "models": ["Bronco", "Bronco Sport", "Edge", "Escape", "Explorer", "F-150", "F-350", "Focus", "Fusion Energi", "Ranger", "Taurus"], "signals": [
+   {"id": "BRONCO_FLI", "name": {"en": "Fuel level", "ru": "Уровень топлива"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Bronco", "https://github.com/OBDb/Ford-Bronco-Sport", "https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-Explorer", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-F-350", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Ranger", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F430", "rate": "slow", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_WARMUP_CLR", "name": {"en": "Warm-ups since DTC clear", "ru": "Прогревов после сброса ошибок"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F431", "rate": "slow", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_DIST_DTC_CLR", "name": {"en": "Distance since DTC clear", "ru": "Пробег после сброса ошибок"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F434", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_AIR_FUEL_RAT", "name": {"en": "Air/fuel ratio", "ru": "Состав смеси (AFR)"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.000446787}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F43C", "rate": "medium", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_CAT_TEMP", "name": {"en": "Catalyst temperature", "ru": "Температура катализатора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F443", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
+   {"id": "ESCAPE_ENG_LOAD_ACT", "name": {"en": "Engine load, actual", "ru": "Нагрузка двигателя, факт."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F45E", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ENG_FUEL_RATE", "name": {"en": "Engine fuel rate", "ru": "Расход топлива двигателем"}, "unit": "L", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F462", "rate": "fast", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_PCM_ACT_ENG_PCT_TRQ", "name": {"en": "Actual engine percent torque", "ru": "Крутящий момент ДВС, факт., %"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -125}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F463", "rate": "fast", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_PCM_ENG_REFERENCE_TRQ", "name": {"en": "Engine reference torque", "ru": "Эталонный крутящий момент двигателя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F4A6", "rate": "medium", "models": ["Escape", "F-150", "Focus"], "signals": [
+   {"id": "ESCAPE_PCM_VEH_ODO", "name": {"en": "Vehicle odometer", "ru": "Пробег"}, "unit": "km", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 32, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus"], "role": "odometer"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "FD18", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_AC_P_7E0", "name": {"en": "Air conditioning pressure", "ru": "Давление кондиционера"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 12.156863}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "11B3", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TRANS_GEAR_7E1", "name": {"en": "Transmission gear", "ru": "Передача КПП"}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "163A", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TQ_INTO_TQ_CONV_VAR_2", "name": {"en": "Torque into torque converter, variant 2", "ru": "Момент на входе ГТД, вар. 2"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.2711635897}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1674", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ATF_T_VAR_2", "name": {"en": "Transmission fluid temperature, variant 2", "ru": "Температура масла АКПП, вар. 2"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1E3F", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_ATF_T_VAR_5", "name": {"en": "Transmission fluid temperature, variant 5", "ru": "Температура масла АКПП, вар. 5"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "DD01", "rate": "slow", "models": ["Focus", "Taurus"], "signals": [
+   {"id": "FOCUS_TRANS_ODO", "name": {"en": "Transmission odometer", "ru": "Пробег КПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "484A", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_OUT_V", "name": {"en": "HV charger output voltage", "ru": "Выходное напряжение зарядного устройства"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "484E", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_PWR_AVAIL", "name": {"en": "HV charger input power available", "ru": "Доступная мощность на входе зарядного устройства"}, "unit": "kW", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "4851", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_EVSE_TYPE", "name": {"en": "Charger type", "ru": "Тип ЗУ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "NONE", "ru": "NONE"}, "1": {"en": "Level 1", "ru": "Уровень 1"}, "2": {"en": "Level 2", "ru": "Уровень 2"}, "3": {"en": "DC", "ru": "DC"}, "4": {"en": "Basic", "ru": "Базовый"}, "5": {"en": "High Level", "ru": "Высокий уровень"}, "6": {"en": "Basic AC", "ru": "Базовый AC"}, "7": {"en": "High Level AC", "ru": "Высокий уровень, AC"}, "8": {"en": "High Level DC", "ru": "Высокий уровень, DC"}, "10": {"en": "No communication", "ru": "Нет связи"}, "11": {"en": "Fault", "ru": "Неисправность"}, "12": {"en": "Handshake end", "ru": "Завершение согласования"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "485E", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_AC_CHG_IN_V", "name": {"en": "HV AC charger input voltage", "ru": "Входное напряжение зарядного устройства AC"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "485F", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_AC_CHG_IN_A", "name": {"en": "HV AC charger input current", "ru": "Входной ток зарядного устройства AC"}, "unit": "A", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "4860", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_AC_CHG_IN_FREQ", "name": {"en": "HV AC charger input frequency", "ru": "Частота сети зарядного устройства AC"}, "unit": "Hz", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "4861", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_PILOT_DUTY", "name": {"en": "HV charger pilot duty cycle", "ru": "Скважность пилот-сигнала зарядки"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "4862", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_PROX_STATUS", "name": {"en": "HV charger proximity status", "ru": "Статус подключения зарядного разъёма"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "OFF", "ru": "OFF"}, "1": {"en": "On S3", "ru": "Вкл S3"}, "2": {"en": "ON", "ru": "ON"}, "3": {"en": "10A", "ru": "10A"}, "4": {"en": "13A", "ru": "13A"}, "5": {"en": "16A", "ru": "16A"}, "6": {"en": "20A", "ru": "20A"}, "7": {"en": "Fault", "ru": "Неисправность"}, "8": {"en": "32A", "ru": "32A"}, "9": {"en": "63A", "ru": "63A"}, "16": {"en": "DC", "ru": "DC"}, "17": {"en": "OPEN", "ru": "OPEN"}, "18": {"en": "Short", "ru": "КЗ"}, "19": {"en": "Short to power", "ru": "КЗ на питание"}, "20": {"en": "Out of range", "ru": "Вне диапазона"}, "21": {"en": "Open circuit", "ru": "Обрыв цепи"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "4888", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_AC_CHG_COUPLER_T", "name": {"en": "HV AC charger coupler temperature", "ru": "Температура разъёма зарядки AC"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "4897", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_DC_CHG_COUPLER_T1", "name": {"en": "HV DC charger coupler temperature 1", "ru": "Температура разъёма DC-зарядки 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "489E", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_DC_CHG_STATUS", "name": {"en": "HV DC charger status", "ru": "Статус DC-зарядки"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Not ready", "ru": "Не готово"}, "1": {"en": "INIT", "ru": "INIT"}, "2": {"en": "Ready", "ru": "Готово"}, "3": {"en": "Wait check", "ru": "Ожидание проверки"}, "4": {"en": "Pre-condition", "ru": "Предподготовка"}, "5": {"en": "Charging", "ru": "Зарядка"}, "6": {"en": "DONE", "ru": "DONE"}, "8": {"en": "WAIT", "ru": "WAIT"}, "9": {"en": "Not capable", "ru": "Не поддерживается"}, "10": {"en": "Fault", "ru": "Неисправность"}, "11": {"en": "Charger check", "ru": "Проверка ЗУ"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48A0", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_PROX_V", "name": {"en": "HV charger proximity voltage", "ru": "Напряжение цепи обнаружения зарядного разъёма"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48A4", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_DC_CHG_COUPLER_T3", "name": {"en": "HV DC charger coupler temperature 3", "ru": "Температура разъёма DC-зарядки 3"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48A5", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_OUT_REDUCT_T", "name": {"en": "HV charger output reduction temperature", "ru": "Температура снижения мощности зарядного устройства"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48B6", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_PILOT_V", "name": {"en": "HV charger pilot voltage", "ru": "Напряжение пилот-сигнала зарядки"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48B7", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_EVSE_DIGITAL_MODE", "name": {"en": "Charger digital mode", "ru": "ЗУ, цифровой режим"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "NONE", "ru": "NONE"}, "1": {"en": "DC E-", "ru": "DC E-"}, "2": {"en": "DC -P", "ru": "DC -P"}, "3": {"en": "DC EP", "ru": "DC EP"}, "4": {"en": "AC E-", "ru": "AC E-"}, "5": {"en": "AC -P", "ru": "AC -P"}, "6": {"en": "AC EP", "ru": "AC EP"}, "7": {"en": "Reset", "ru": "Сброс"}, "8": {"en": "OFF", "ru": "OFF"}, "9": {"en": "Establish", "ru": "Установление"}, "10": {"en": "Fault", "ru": "Неисправность"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48BC", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_MAX_CHG_A", "name": {"en": "HV battery maximum charge current", "ru": "Макс. ток заряда ВВБ"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "48C4", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_MAX_PWR", "name": {"en": "HV charger maximum power", "ru": "Макс. мощность зарядного устройства"}, "unit": "kW", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "DD04", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Fusion Energi", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_IAT", "name": {"en": "Interior temperature", "ru": "Температура в салоне"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "DD05", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Fusion Energi", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_AAT", "name": {"en": "Exterior temperature", "ru": "Наружная температура"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "05A1", "rate": "slow", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_TARGET_SOC", "name": {"en": "Target/desired state of charge", "ru": "Заданный уровень заряда (SOC)"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4800", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Focus Electric", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_T", "name": {"en": "HV battery temperature", "ru": "Температура ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4801", "rate": "fast", "models": ["Edge", "F-150 Lightning", "Focus Electric", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_SOC", "name": {"en": "HV battery charge", "ru": "Заряд ВВБ"}, "unit": "%", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 500}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "role": "hv_soc", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4803", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HV_POS_LEAK_V", "name": {"en": "HV positive leakage voltage", "ru": "Напряжение утечки ВВ, плюс"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4804", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HV_NEG_LEAK_V", "name": {"en": "HV negative leakage voltage", "ru": "Напряжение утечки ВВ, минус"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4805", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CONTACTOR_V_POS", "name": {"en": "Contactor voltage positive", "ru": "Напряжение контактора, плюс"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4806", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CONTACTOR_V_NEG", "name": {"en": "Contactor voltage negative", "ru": "Напряжение контактора, минус"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4808", "rate": "medium", "models": ["Focus Electric", "Mustang Mach E"], "signals": [
+   {"id": "FOCUSEV_HVBAT_T_MAX", "name": {"en": "HV battery temperature, maximum", "ru": "Температура ВВБ, макс."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "FOCUSEV_HVBAT_T_MIN", "name": {"en": "HV battery temperature, minimum", "ru": "Температура ВВБ, мин."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "MACHE_T_RANGE", "name": {"en": "HV battery temperature range", "ru": "Диапазон температур ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]},
+   {"id": "FOCUSEV_HVBAT_T_AVG", "name": {"en": "HV battery temperature, average", "ru": "Температура ВВБ, средняя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4809", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_CHR_A", "name": {"en": "HV battery current high range", "ru": "Ток ВВБ, высокий диапазон"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "480B", "rate": "fast", "models": ["Focus Electric", "Mustang Mach E"], "signals": [
+   {"id": "FOCUSEV_HVBAT_A", "name": {"en": "HV battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "480D", "rate": "fast", "models": ["Edge", "F-150 Lightning", "Focus Electric", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_V", "name": {"en": "HV battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4810", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_AGE", "name": {"en": "HV battery age", "ru": "Возраст ВВБ"}, "unit": "h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 720, "div": 200}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4815", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_MAX_DISCH_PWR_LIM", "name": {"en": "Maximum discharge power limit", "ru": "Предел макс. мощности разряда"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "483F", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_MOD_V", "name": {"en": "HV battery modules voltage", "ru": "Напряжение модулей ВВБ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4840", "rate": "medium", "models": ["Focus Electric", "Mustang Mach E"], "signals": [
+   {"id": "FOCUSEV_HVBAT_MIN_MOD_V", "name": {"en": "HV battery minimum module voltage", "ru": "Мин. напряжение модуля ВВБ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus-Electric", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4841", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_AVG_MOD_V", "name": {"en": "HV battery average module voltage", "ru": "Среднее напряжение модуля ВВБ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4842", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_CCR", "name": {"en": "HV battery charge current requested", "ru": "Запрошенный ток заряда ВВБ"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4844", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_CVR", "name": {"en": "HV battery charge voltage requested", "ru": "Запрошенное напряжение заряда ВВБ"}, "unit": "V", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4845", "rate": "fast", "models": ["Edge", "F-150 Lightning", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_SOC_DISP", "name": {"en": "HV battery charge (displayed)", "ru": "Заряд ВВБ (отображаемый)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "role": "hv_soc", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4846", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_COOLANT_INLET_T", "name": {"en": "HV battery coolant inlet temperature", "ru": "Температура ОЖ на входе ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4848", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_KWH", "name": {"en": "HV battery energy", "ru": "Энергия ВВБ"}, "unit": "kWh", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 500}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "484D", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_CHG_STATUS", "name": {"en": "HV battery charging status", "ru": "Статус зарядки ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Not ready", "ru": "Не готово"}, "1": {"en": "WAIT", "ru": "WAIT"}, "2": {"en": "Ready", "ru": "Готово"}, "3": {"en": "Charging", "ru": "Зарядка"}, "4": {"en": "DONE", "ru": "DONE"}, "5": {"en": "Fault", "ru": "Неисправность"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "484F", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_CHRG_STATE", "name": {"en": "Charging state", "ru": "Состояние зарядки"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Not ready", "ru": "Не готово"}, "1": {"en": "Ready", "ru": "Готово"}, "2": {"en": "Fault", "ru": "Неисправность"}, "3": {"en": "WAIT", "ru": "WAIT"}, "4": {"en": "Pre-condition", "ru": "Предподготовка"}, "5": {"en": "Charging", "ru": "Зарядка"}, "6": {"en": "DONE", "ru": "DONE"}, "7": {"en": "EXT", "ru": "EXT"}, "8": {"en": "INIT", "ru": "INIT"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4850", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_CHG_OUT_A", "name": {"en": "HV charger output current measured", "ru": "Выходной ток зарядного устройства, изм."}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "48F9", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_A", "name": {"en": "HV battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "48FB", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_CHG_PWR_LIM", "name": {"en": "HV battery charge power limit", "ru": "Предел мощности заряда ВВБ"}, "unit": "kW", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "490C", "rate": "slow", "models": ["Edge", "F-150 Lightning", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_HVBAT_SOH", "name": {"en": "HV battery state of health", "ru": "Состояние ВВБ (SOH)"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Mustang-Mach-E"], "role": "hv_soh", "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1E12", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_GEAR_CMD", "name": {"en": "Gear commanded", "ru": "Передача, заданная"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "Unknown", "ru": "Неизвестно"}, "20": {"en": "L", "ru": "L"}, "40": {"en": "D", "ru": "D"}, "50": {"en": "N", "ru": "N"}, "60": {"en": "R", "ru": "R"}, "70": {"en": "P", "ru": "P"}, "255": {"en": "Fault", "ru": "Неисправность"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1E1C", "rate": "medium", "models": ["Edge", "F-150 Lightning", "Fusion Energi", "Mustang Mach E"], "signals": [
+   {"id": "EDGE_TT", "name": {"en": "Transmission temperature", "ru": "Температура КПП"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Edge", "https://github.com/OBDb/Ford-F-150-Lightning", "https://github.com/OBDb/Ford-Fusion-Energi", "https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "1E2C", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_PRI_MOTOR_RPM", "name": {"en": "Primary motor speed", "ru": "Обороты основного электродвигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "481C", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_PRI_MOTOR_TQ", "name": {"en": "Primary motor torque", "ru": "Момент основного электродвигателя"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "481D", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_PRI_MOTOR_INV_V", "name": {"en": "Primary motor inverter voltage", "ru": "Напряжение инвертора основного электродвигателя"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "481F", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_PRI_MOTOR_COIL_T", "name": {"en": "Primary motor coil temperature", "ru": "Температура обмотки основного электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "4824", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_PRI_MOTOR_INV_T", "name": {"en": "Primary motor inverter temperature", "ru": "Температура инвертора основного электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "48DE", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_COOLANT_HTR_PWR", "name": {"en": "Coolant heater power", "ru": "Подогреватель ОЖ, мощность"}, "unit": "kW", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "48DF", "rate": "slow", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_COOLANT_HTR_OP_MODE", "name": {"en": "Coolant heater operation mode", "ru": "Подогреватель ОЖ, режим работы"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "OFF", "ru": "OFF"}, "1": {"en": "ON", "ru": "ON"}, "2": {"en": "Degraded", "ru": "Деградация"}, "3": {"en": "Shutdown", "ru": "Выключение"}, "4": {"en": "Short", "ru": "КЗ"}, "5": {"en": "No response", "ru": "Нет ответа"}, "6": {"en": "Unknown", "ru": "Неизвестно"}, "7": {"en": "STOP", "ru": "STOP"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E6", "rsp": "7EE", "svc": "22", "did": "48E0", "rate": "slow", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_HVBAT_THERMAL_OP_MODE", "name": {"en": "HV battery thermal operation mode", "ru": "Режим терморегулирования ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "map": {"0": {"en": "OFF", "ru": "OFF"}, "1": {"en": "Equalize", "ru": "Выравнивание"}, "2": {"en": "Coolant flow", "ru": "Расход ОЖ"}, "3": {"en": "Coolant fan", "ru": "Вентилятор охлаждения"}, "4": {"en": "Coolant moderate", "ru": "ОЖ, умеренно"}, "5": {"en": "Coolant maximum", "ru": "ОЖ, максимум"}, "15": {"en": "HEAT", "ru": "HEAT"}}}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "481A", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_SEC_MOTOR_TQ", "name": {"en": "Secondary motor torque", "ru": "Момент второго электродвигателя"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "481E", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_SEC_MOTOR_INV_T", "name": {"en": "Secondary motor inverter temperature", "ru": "Температура инвертора второго электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "4820", "rate": "medium", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_SEC_MOTOR_COIL_T", "name": {"en": "Secondary motor coil temperature", "ru": "Температура обмотки второго электродвигателя"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "4821", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_SEC_MOTOR_RPM", "name": {"en": "Secondary motor speed", "ru": "Обороты второго электродвигателя"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]},
+  {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "4823", "rate": "fast", "models": ["Mustang Mach E"], "signals": [
+   {"id": "MACHE_SEC_MOTOR_INV_V", "name": {"en": "Secondary motor inverter voltage", "ru": "Напряжение инвертора второго электродвигателя"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Mustang-Mach-E"]}
+  ]}
+ ]
+}

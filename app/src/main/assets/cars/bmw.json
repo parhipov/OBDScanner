@@ -1,0 +1,1041 @@
+{
+  "family": "bmw",
+  "title": "BMW / Mini",
+  "brands": [
+    {
+      "name": "BMW",
+      "wmi": [
+        "WBA",
+        "WBS",
+        "WBX",
+        "WBY",
+        "5UX",
+        "5YM",
+        "4US",
+        "X4X",
+        "LBV"
+      ]
+    },
+    {
+      "name": "Mini",
+      "wmi": [
+        "WMW"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "brand": "BMW",
+      "model": "3 Series",
+      "gen": "E90",
+      "years": [
+        2005,
+        2007
+      ],
+      "engines": [
+        {
+          "code": "N46B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N52B25",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "M47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "M57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "buses": {
+        "ru": "До 03/2007 диагностика через K-линию (OBD-протокол двигателя может быть ISO 9141/14230). Фирменная диагностика BMW (DS2/KWP) — только дилерскими/INPA-адаптерами.",
+        "en": "Before 03/2007 diagnostics run over the K-line (engine OBD may be ISO 9141/14230). BMW proprietary diagnostics (DS2/KWP) need dealer/INPA-type tools."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой. Машины до 03/2007 — на K-линии; протокол выберется автоматически.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap. Cars built before 03/2007 are on the K-line; let the protocol auto-detect."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_3_Series_(E90)",
+        "https://www.ecstuning.com/b-bremmen-parts/kdcan-cable-ftdi-ft232rl-style-obd2-cable/01kdcable~brp/",
+        "https://cobbtuning.atlassian.net/wiki/spaces/PRS/pages/3021570121/BMW+OBD+Port+Location",
+        "https://www.autodoc.co.uk/car-parts/mass-airflow-sensor-airflow-meter-12906/bmw/3er-reihe/3-e90/33573-320-i",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "3 Series",
+      "gen": "E90",
+      "years": [
+        2007,
+        2012
+      ],
+      "engines": [
+        {
+          "code": "N46B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N52B25",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N54B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "M57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_3_Series_(E90)",
+        "https://www.ecstuning.com/b-bremmen-parts/kdcan-cable-ftdi-ft232rl-style-obd2-cable/01kdcable~brp/",
+        "https://cobbtuning.atlassian.net/wiki/spaces/PRS/pages/3021570121/BMW+OBD+Port+Location",
+        "https://www.autodoc.co.uk/car-parts/mass-airflow-sensor-airflow-meter-12906/bmw/3er-reihe/3-e90/33573-320-i",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "3 Series",
+      "gen": "F30",
+      "years": [
+        2011,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "N13B16",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N20B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B48B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B58B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_3_Series_(F30)",
+        "https://cobbtuning.atlassian.net/wiki/spaces/PRS/pages/3021570121/BMW+OBD+Port+Location",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "3 Series",
+      "gen": "G20",
+      "years": [
+        2019,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "B48B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B58B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "B57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём идёт в центральный шлюз ZGW (CAN 500 кбит/с + Ethernet для программирования). Стандартный OBD двигателя отвечает на 7DF/7E0→7E8. Всё фирменное BMW — через 6F1 с расширенной адресацией (адрес блока в первом байте), обычным ELM327-опросом недоступно.",
+        "en": "The OBD socket goes to the ZGW central gateway (CAN 500 kbit/s + Ethernet for programming). Standard engine OBD answers on 7DF/7E0→7E8. All BMW-specific data goes via 6F1 with extended addressing (ECU address in the first byte) — not reachable with plain ELM327 polling."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_3_Series_(G20)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "5 Series",
+      "gen": "E60",
+      "years": [
+        2003,
+        2007
+      ],
+      "engines": [
+        {
+          "code": "M54B25",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M54B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N52B25",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N62B48",
+          "liters": 4.8,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "M57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_door",
+      "buses": {
+        "ru": "До 03/2007 диагностика через K-линию (OBD-протокол двигателя может быть ISO 9141/14230). Фирменная диагностика BMW (DS2/KWP) — только дилерскими/INPA-адаптерами.",
+        "en": "Before 03/2007 diagnostics run over the K-line (engine OBD may be ISO 9141/14230). BMW proprietary diagnostics (DS2/KWP) need dealer/INPA-type tools."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой. Машины до 03/2007 — на K-линии; протокол выберется автоматически.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap. Cars built before 03/2007 are on the K-line; let the protocol auto-detect."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_5_Series_(E60)",
+        "https://www.ecstuning.com/b-bremmen-parts/kdcan-cable-ftdi-ft232rl-style-obd2-cable/01kdcable~brp/",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "5 Series",
+      "gen": "E60",
+      "years": [
+        2007,
+        2010
+      ],
+      "engines": [
+        {
+          "code": "N52B25",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N62B48",
+          "liters": 4.8,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "M57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_5_Series_(E60)",
+        "https://www.ecstuning.com/b-bremmen-parts/kdcan-cable-ftdi-ft232rl-style-obd2-cable/01kdcable~brp/",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "5 Series",
+      "gen": "F10",
+      "years": [
+        2009,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "N20B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_5_Series_(F10)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "5 Series",
+      "gen": "G30",
+      "years": [
+        2017,
+        2023
+      ],
+      "engines": [
+        {
+          "code": "B48B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B58B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "B57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём идёт в центральный шлюз ZGW (CAN 500 кбит/с + Ethernet для программирования). Стандартный OBD двигателя отвечает на 7DF/7E0→7E8. Всё фирменное BMW — через 6F1 с расширенной адресацией (адрес блока в первом байте), обычным ELM327-опросом недоступно.",
+        "en": "The OBD socket goes to the ZGW central gateway (CAN 500 kbit/s + Ethernet for programming). Standard engine OBD answers on 7DF/7E0→7E8. All BMW-specific data goes via 6F1 with extended addressing (ECU address in the first byte) — not reachable with plain ELM327 polling."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_5_Series_(G30)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X1",
+      "gen": "E84",
+      "years": [
+        2009,
+        2015
+      ],
+      "engines": [
+        {
+          "code": "N46B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N20B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X1_(E84)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics",
+        "https://www.autodoc.co.uk/car-parts/mass-airflow-sensor-airflow-meter-12906/bmw/3er-reihe/3-e90/33573-320-i",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X1",
+      "gen": "F48",
+      "years": [
+        2015,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "B38A15",
+          "liters": 1.5,
+          "cyl": 3,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B48B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X1_(F48)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X3",
+      "gen": "F25",
+      "years": [
+        2010,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "N20B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X3_(F25)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X3",
+      "gen": "G01",
+      "years": [
+        2017,
+        2024
+      ],
+      "engines": [
+        {
+          "code": "B48B20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B58B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "B57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём идёт в центральный шлюз ZGW (CAN 500 кбит/с + Ethernet для программирования). Стандартный OBD двигателя отвечает на 7DF/7E0→7E8. Всё фирменное BMW — через 6F1 с расширенной адресацией (адрес блока в первом байте), обычным ELM327-опросом недоступно.",
+        "en": "The OBD socket goes to the ZGW central gateway (CAN 500 kbit/s + Ethernet for programming). Standard engine OBD answers on 7DF/7E0→7E8. All BMW-specific data goes via 6F1 with extended addressing (ECU address in the first byte) — not reachable with plain ELM327 polling."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X3_(G01)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X5",
+      "gen": "E70",
+      "years": [
+        2006,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "N52B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N62B48",
+          "liters": 4.8,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X5_(E70)",
+        "https://www.ecstuning.com/b-bremmen-parts/kdcan-cable-ftdi-ft232rl-style-obd2-cable/01kdcable~brp/",
+        "https://www.bimmerworld.com/Intake-Fuel/HFM-Airflow-Sensor-BMW-E90-E60-E85-N52-7520519.html"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X5",
+      "gen": "F15",
+      "years": [
+        2013,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N47D20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X5_(F15)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X5",
+      "gen": "G05",
+      "years": [
+        2018,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "B58B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "B57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "OBD-разъём идёт в центральный шлюз ZGW (CAN 500 кбит/с + Ethernet для программирования). Стандартный OBD двигателя отвечает на 7DF/7E0→7E8. Всё фирменное BMW — через 6F1 с расширенной адресацией (адрес блока в первом байте), обычным ELM327-опросом недоступно.",
+        "en": "The OBD socket goes to the ZGW central gateway (CAN 500 kbit/s + Ethernet for programming). Standard engine OBD answers on 7DF/7E0→7E8. All BMW-specific data goes via 6F1 with extended addressing (ECU address in the first byte) — not reachable with plain ELM327 polling."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X5_(G05)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X6",
+      "gen": "E71",
+      "years": [
+        2008,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "N54B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X6",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "BMW",
+      "model": "X6",
+      "gen": "F16",
+      "years": [
+        2014,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "N55B30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N63B44",
+          "liters": 4.4,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "N57D30",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "protocol": 6,
+      "obd": "left_door",
+      "buses": {
+        "ru": "D-CAN 500 кбит/с на пинах 6/14 через шлюз. DME отвечает на стандартный OBD (7DF/7E0→7E8). Фирменные блоки BMW доступны только через расширенную адресацию: запрос на 6F1 с адресом блока в первом байте (DME 12, АКПП 18), ответ с 6xx — это приложение так не опрашивает.",
+        "en": "D-CAN 500 kbit/s on pins 6/14 behind the gateway. The DME answers standard OBD (7DF/7E0→7E8). BMW-specific data needs extended addressing: request on 6F1 with the ECU address as the first byte (DME 12, gearbox 18), answer from 6xx — this app does not poll that way."
+      },
+      "note": {
+        "ru": "Разъём в нише водителя слева, у рычага капота, под маленькой крышкой.",
+        "en": "Socket in the driver's footwell on the left, near the hood release, under a small flap."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/BMW_X6_(F16)",
+        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [],
+  "features": [
+    {
+      "ru": "Двигатель (DME) отвечает на стандартный OBD-II по CAN 11 бит 500 кбит/с — все обычные параметры, ошибки, готовность.",
+      "en": "The engine (DME) answers standard OBD-II on CAN 11-bit 500 kbit/s — all generic values, DTCs, readiness."
+    },
+    {
+      "ru": "Фирменные данные BMW (температура/уровень масла, наддув, АКПП, АКБ) лежат за шлюзом и требуют расширенной адресации 6F1 + адрес блока — приложение их не читает.",
+      "en": "BMW-specific data (oil temp/level, boost, gearbox, battery) sits behind the gateway and needs extended addressing 6F1 + ECU address — this app does not read it."
+    },
+    {
+      "ru": "Поэтому своих команд для BMW здесь нет: на 7E0 без расширенной адресации фирменные DID не задокументированы.",
+      "en": "So there are no BMW-specific commands here: no manufacturer DIDs are documented on plain 7E0 addressing."
+    },
+    {
+      "ru": "Машины до 03/2007 (E60, E90 ранние) — K-линия, только стандартный OBD.",
+      "en": "Cars before 03/2007 (early E60, E90) use the K-line — standard OBD only."
+    },
+    {
+      "ru": "Для глубокой диагностики нужны ISTA/INPA с K+DCAN или ENET — ELM327 это не заменит.",
+      "en": "Deep diagnostics need ISTA/INPA with a K+DCAN or ENET cable — an ELM327 is no substitute."
+    }
+  ]
+}

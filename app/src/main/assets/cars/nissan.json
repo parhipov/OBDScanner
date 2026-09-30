@@ -1,0 +1,869 @@
+{
+  "family": "nissan",
+  "title": "Nissan / Infiniti / Datsun",
+  "brands": [
+    {
+      "name": "Nissan",
+      "wmi": [
+        "JN1",
+        "JN8",
+        "SJN",
+        "VSK",
+        "Z8N",
+        "1N4",
+        "1N6",
+        "3N1",
+        "5N1"
+      ]
+    },
+    {
+      "name": "Infiniti",
+      "wmi": [
+        "JNK",
+        "JNR",
+        "5N3"
+      ]
+    },
+    {
+      "name": "Datsun",
+      "wmi": []
+    }
+  ],
+  "models": [
+    {
+      "brand": "Nissan",
+      "model": "Qashqai",
+      "gen": "J10",
+      "years": [
+        2006,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "HR16DE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "MR20DE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "M9R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "note": {
+        "ru": "Вариатор JATCO JF011E (2.0). Место гнезда по разным источникам различается — ищите под панелью у блока предохранителей.",
+        "en": "JATCO JF011E CVT (2.0). Sources differ on the socket place — look under the dash by the fuse box."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Qashqai",
+        "https://www.klavkarr.com/location-plug-connector-obd/Nissan-qashqai-2",
+        "https://cvtz50.info/en/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Qashqai",
+      "gen": "J11",
+      "years": [
+        2013,
+        2021
+      ],
+      "engines": [
+        {
+          "code": "MR20DD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "HRA2DDT",
+          "liters": 1.2,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "MR16DDT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        },
+        {
+          "code": "R9M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_cover",
+      "note": {
+        "ru": "Гнездо под рулём над педалями, за пластиковой крышкой.",
+        "en": "Socket under the wheel above the pedals, behind a plastic cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Qashqai",
+        "https://www.klavkarr.com/location-plug-connector-obd/Nissan-qashqai-2-bis"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "X-Trail",
+      "gen": "T31",
+      "years": [
+        2007,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "MR20DE",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "QR25DE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "M9R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "under_column",
+      "note": {
+        "ru": "Гнездо под рулём на уровне педалей, над педалями.",
+        "en": "Socket under the wheel at pedal level, above the pedals."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_X-Trail",
+        "https://www.klavkarr.com/location-plug-connector-obd/Nissan-x-trail-2",
+        "https://cvtz50.info/en/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "X-Trail",
+      "gen": "T32",
+      "years": [
+        2014,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "MR20DD",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "QR25DE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "R9M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_cover",
+      "note": {
+        "ru": "Гнездо над педалями — снимите небольшую пластиковую крышку над педалью тормоза.",
+        "en": "Socket above the pedals — remove the small plastic cover above the brake pedal."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_X-Trail",
+        "https://www.klavkarr.com/location-plug-connector-obd/Nissan-x-trail-3",
+        "https://www.drive2.ru/l/539557569736214108/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Almera",
+      "gen": "G15",
+      "years": [
+        2012,
+        2018
+      ],
+      "engines": [
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Сборка АвтоВАЗ на платформе Logan (B0), мотор Renault K4M.",
+        "en": "Built by AvtoVAZ on the Logan (B0) platform, Renault K4M engine."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Almera"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Juke",
+      "gen": "F15",
+      "years": [
+        2010,
+        2019
+      ],
+      "engines": [
+        {
+          "code": "HR16DE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "MR16DDT",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "under_column",
+      "note": {
+        "ru": "Гнездо над педалями.",
+        "en": "Socket above the pedals."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Juke",
+        "https://www.klavkarr.com/location-plug-connector-obd/Nissan-juke"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Note",
+      "gen": "E11",
+      "years": [
+        2005,
+        2013
+      ],
+      "engines": [
+        {
+          "code": "CR14DE",
+          "liters": 1.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "HR16DE",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "K9K",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "diesel"
+        }
+      ],
+      "obd": "left_cover",
+      "note": {
+        "ru": "Слева под рулём, белая колодка за маленькой крышкой блока предохранителей.",
+        "en": "Left under the wheel, white plug behind the small fuse box cover."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Note",
+        "https://www.klavkarr.com/location-plug-connector-obd/Nissan-Note"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Teana",
+      "gen": "J32",
+      "years": [
+        2008,
+        2014
+      ],
+      "engines": [
+        {
+          "code": "QR25DE",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "VQ25DE",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "VQ35DE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Teana"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Terrano",
+      "gen": "D10",
+      "years": [
+        2014,
+        2022
+      ],
+      "engines": [
+        {
+          "code": "K4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "F4R",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "H4M",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Родственник Renault Duster 1 (моторы Renault).",
+        "en": "A sibling of the Renault Duster 1 (Renault engines)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Terrano"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Murano",
+      "gen": "Z51",
+      "years": [
+        2007,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "VQ35DE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Вариатор JATCO; основная машина для программы CVTz50.",
+        "en": "JATCO CVT; the main car for the CVTz50 app."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Murano",
+        "https://cvtz50.info/en/"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Infiniti",
+      "model": "FX",
+      "gen": "S50",
+      "years": [
+        2002,
+        2008
+      ],
+      "engines": [
+        {
+          "code": "VQ35DE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "VK45DE",
+          "liters": 4.5,
+          "cyl": 8,
+          "fuel": "petrol"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Infiniti_FX"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Infiniti",
+      "model": "FX",
+      "gen": "S51 (QX70 from 2013)",
+      "years": [
+        2008,
+        2017
+      ],
+      "engines": [
+        {
+          "code": "VQ35HR",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "VQ37VHR",
+          "liters": 3.7,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "VK50VE",
+          "liters": 5.0,
+          "cyl": 8,
+          "fuel": "petrol"
+        },
+        {
+          "code": "V9X",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "diesel"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Infiniti_FX"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Datsun",
+      "model": "on-DO",
+      "gen": "",
+      "years": [
+        2014,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "11186",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Седан на базе Лады Гранты, моторы и ЭБУ ВАЗ (Итэлма М74). VIN начинается с Z8N (как у Nissan), поэтому по VIN определится как Nissan.",
+        "en": "A sedan based on the Lada Granta with VAZ engines and ECUs (Itelma M74). The VIN starts with Z8N (as Nissan), so the VIN shows it as a Nissan."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Datsun_on-Do",
+        "https://vd11.ru/Articles/Details/55"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Datsun",
+      "model": "mi-DO",
+      "gen": "",
+      "years": [
+        2015,
+        2020
+      ],
+      "engines": [
+        {
+          "code": "11186",
+          "liters": 1.6,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Хэтчбек на базе Лады Калины 2, моторы и ЭБУ ВАЗ.",
+        "en": "A hatchback based on the Lada Kalina 2, VAZ engines and ECUs."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Datsun_mi-Do"
+      ],
+      "verified": false
+    }
+  ],
+  "commands": [
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "21",
+      "did": "01",
+      "rate": "medium",
+      "models": [
+        "Qashqai",
+        "X-Trail",
+        "Juke",
+        "Teana",
+        "Murano"
+      ],
+      "fuel": [
+        "petrol"
+      ],
+      "signals": [
+        {
+          "id": "NIS_CVT_TEMP",
+          "name": {
+            "ru": "Температура масла вариатора",
+            "en": "CVT fluid temperature"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "cvt_temp",
+          "fmt": {
+            "bix": 232,
+            "len": 8,
+            "signed": false,
+            "poly": [
+              -36.6,
+              2.302,
+              -0.03501,
+              0.0003193,
+              -1.387e-06,
+              2.344e-09
+            ]
+          },
+          "conf": "?",
+          "src": [
+            "https://torque-bhp.com/community/main-forum/nissan-transmission-temperature/"
+          ],
+          "note": "From a Torque forum thread about a 2017 Altima CVT: header 7E1, 2101, byte AD, 5th-order polynomial. Models = those cvtz50.info lists with JATCO CVTs; not checked on these cars."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "242C",
+      "rate": "slow",
+      "models": [
+        "X-Trail"
+      ],
+      "years": [
+        2014,
+        2022
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "R9M"
+      ],
+      "signals": [
+        {
+          "id": "NIS_R9M_DPF_SOOT",
+          "name": {
+            "ru": "Масса сажи в сажевом фильтре",
+            "en": "DPF soot mass"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "main",
+          "role": "dpf_soot",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.drive2.ru/l/539557569736214108/",
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv"
+          ],
+          "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse. (A*256+B)/100 g, same DID/formula as Renault K9K."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "24A5",
+      "rate": "slow",
+      "models": [
+        "X-Trail"
+      ],
+      "years": [
+        2014,
+        2022
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "R9M"
+      ],
+      "signals": [
+        {
+          "id": "NIS_R9M_SOOT_AFTER",
+          "name": {
+            "ru": "Сажа после последней регенерации",
+            "en": "Soot after last regeneration"
+          },
+          "unit": "g",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 100,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2485",
+      "rate": "slow",
+      "models": [
+        "X-Trail"
+      ],
+      "years": [
+        2014,
+        2022
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "R9M"
+      ],
+      "signals": [
+        {
+          "id": "NIS_R9M_REGEN_FAIL",
+          "name": {
+            "ru": "Неудачные попытки регенерации",
+            "en": "Failed regeneration attempts"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.drive2.ru/l/539557569736214108/",
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv"
+          ],
+          "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2489",
+      "rate": "slow",
+      "models": [
+        "X-Trail"
+      ],
+      "years": [
+        2014,
+        2022
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "R9M"
+      ],
+      "signals": [
+        {
+          "id": "NIS_R9M_OIL_VISC_LOSS",
+          "name": {
+            "ru": "Снижение вязкости масла",
+            "en": "Oil viscosity loss"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 655.35,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse. (A*256+B)/655.35 %"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2294",
+      "rate": "slow",
+      "models": [
+        "X-Trail"
+      ],
+      "years": [
+        2014,
+        2022
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "R9M"
+      ],
+      "signals": [
+        {
+          "id": "NIS_R9M_OIL_DILUTION",
+          "name": {
+            "ru": "Разжижение масла топливом",
+            "en": "Oil fuel dilution"
+          },
+          "unit": "%",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 32,
+            "mul": 1,
+            "div": 214748364.8,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "?",
+          "src": [
+            "https://www.drive2.ru/l/539557569736214108/"
+          ],
+          "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse. signed 32-bit / 214748364.8 %"
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "2006",
+      "rate": "slow",
+      "models": [
+        "X-Trail"
+      ],
+      "years": [
+        2014,
+        2022
+      ],
+      "fuel": [
+        "diesel"
+      ],
+      "engines": [
+        "R9M"
+      ],
+      "signals": [
+        {
+          "id": "NIS_R9M_ODO",
+          "name": {
+            "ru": "Пробег (по ЭБУ двигателя)",
+            "en": "Odometer (engine ECU)"
+          },
+          "unit": "km",
+          "dec": 0,
+          "group": "other",
+          "role": "odometer",
+          "fmt": {
+            "bix": 0,
+            "len": 24,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://www.drive2.ru/l/539557569736214108/",
+            "https://github.com/MeganeClubUkraine/k9k_pids/blob/master/common_with_DPF/K9k_common.csv"
+          ],
+          "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse."
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "ru": "X-Trail T32 1.6 dCi (R9M): масса сажи, счётчик неудачных регенераций, разжижение и снижение вязкости масла.",
+      "en": "X-Trail T32 1.6 dCi (R9M): soot mass, failed regeneration count, oil dilution and viscosity loss."
+    },
+    {
+      "ru": "Вариатор JATCO: температура масла (7E1 21 01, формула с форума, не проверена на машине). Счётчик старения масла пока не читаем.",
+      "en": "JATCO CVT: fluid temperature (7E1 21 01, formula from a forum, not checked on a car). The fluid deterioration counter is not read yet."
+    },
+    {
+      "ru": "Datsun on-DO и mi-DO — это Лады (моторы и ЭБУ ВАЗ), по VIN определяются как Nissan.",
+      "en": "Datsun on-DO and mi-DO are Ladas underneath (VAZ engines and ECUs); the VIN shows them as Nissan."
+    },
+    {
+      "ru": "Almera G15 и Terrano D10 — машины Renault (моторы K4M/F4R/H4M).",
+      "en": "The Almera G15 and Terrano D10 are Renault-based (K4M/F4R/H4M engines)."
+    }
+  ]
+}

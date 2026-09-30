@@ -1,0 +1,709 @@
+{
+ "family": "renault",
+ "source": "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py",
+ "commands": [
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "0100", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_STEER_ANGLE", "name": {"en": "Steering wheel angle", "ru": "Угол поворота руля"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "012F", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_ECU_V", "name": {"en": "Computer supply voltage", "ru": "Напряжение питания ЭБУ"}, "unit": "V", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B00", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_FL_VSS", "name": {"en": "FL wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B01", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_FR_VSS", "name": {"en": "FR wheel speed", "ru": "Скорость колеса ПП"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B02", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_RL_VSS", "name": {"en": "RL wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B03", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_RR_VSS", "name": {"en": "RR wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B04", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_VSS_740", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B05", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_FAULT_CNT", "name": {"en": "Fault counter", "ru": "Счётчик неисправностей"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B06", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "role": "odometer"}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B07", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_ACCEL_LONG", "name": {"en": "Acceleration, longitudinal", "ru": "Ускорение, продольное"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B08", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_FAULT_CYCLES", "name": {"en": "Fault cycles since disappeared", "ru": "Циклов после исчезновения неисправности"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B09", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_FAULT_DIST_FIRST", "name": {"en": "Distance at first fault", "ru": "Пробег при первой неисправности"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B0A", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_FAULT_DIST_LAST", "name": {"en": "Mileage since last fault", "ru": "Пробег с последней ошибки"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B0B", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_ACCEL_LAT", "name": {"en": "Acceleration, lateral", "ru": "Ускорение, поперечное"}, "unit": "g", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B0C", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_YAW", "name": {"en": "Yaw angle", "ru": "Угол рыскания"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B0E", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_BRAKE_P_MC", "name": {"en": "Brake pressure, master cylinder", "ru": "Давление в главном тормозном цилиндре"}, "unit": "bar", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B11", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_BRAKE_PEDAL", "name": {"en": "Brake pedal", "ru": "Педаль тормоза"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B14", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_HAZARD_LED", "name": {"en": "Hazard lights LED", "ru": "Светодиод аварийной сигнализации"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B15", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_BRAKE_LIGHTS", "name": {"en": "Brake lights request", "ru": "Запрос стоп-сигналов"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B17", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_HYD_T", "name": {"en": "Hydraulic unit temperature", "ru": "Температура гидроблока"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B1A", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_VEH", "name": {"en": "Vehicle status", "ru": "Состояние автомобиля"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B24", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_SPEEDO_IDX", "name": {"en": "Speedometer index", "ru": "Индекс спидометра"}, "unit": "mm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B26", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_GBOX_TYPE", "name": {"en": "Gearbox type", "ru": "Тип КПП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B27", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_PARK_BRAKE", "name": {"en": "Parking brake", "ru": "Стояночный тормоз"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B2E", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_TRAILER_STAB", "name": {"en": "Trailer stability", "ru": "Стабилизация прицепа"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B31", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_HILL_START", "name": {"en": "Hill start assist", "ru": "Помощь при трогании на подъёме"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B35", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_EBD", "name": {"en": "Electronic brakeforce distribution", "ru": "Распределение тормозных сил (EBD)"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_EBD_WARN", "name": {"en": "Electronic brakeforce distribution, warning", "ru": "Распределение тормозных сил (EBD), предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 1, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_ABS", "name": {"en": "ABS", "ru": "ABS"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 2, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_ABS_WARN", "name": {"en": "ABS, warning", "ru": "ABS, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 3, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TC_OFF", "name": {"en": "Traction control, deactivated", "ru": "Антипробуксовка отключена"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TC", "name": {"en": "Traction control", "ru": "Антипробуксовочная система"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TC_WARN", "name": {"en": "Traction control, warning", "ru": "Антипробуксовка, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_ESP_OFF", "name": {"en": "ESP, deactivated", "ru": "ESP отключена"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TRAJ_CTRL", "name": {"en": "Trajectory control", "ru": "Контроль траектории"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 10, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TRAJ_CTRL_WARN", "name": {"en": "Trajectory control, warning", "ru": "Контроль траектории, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 11, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TORQUE_CTRL", "name": {"en": "Engine torque control", "ru": "Управление моментом двигателя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 12, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_TORQUE_CTRL_WARN", "name": {"en": "Engine torque control, warning", "ru": "Управление моментом двигателя, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 13, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_EBA_ASSIST", "name": {"en": "Emergency braking assistance", "ru": "Помощь при экстренном торможении"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 15, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_EBA_ASSIST_WARN", "name": {"en": "Emergency braking assistance, warning", "ru": "Помощь при экстренном торможении, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_EBA_ANT", "name": {"en": "Emergency braking anticipation", "ru": "Подготовка к экстренному торможению"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 20, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_EBA_ANT_WARN", "name": {"en": "Emergency braking anticipation, warning", "ru": "Подготовка к экстренному торможению, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 21, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_ANTI_ROLL", "name": {"en": "Anti-rollover control", "ru": "Защита от опрокидывания"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_ANTI_ROLL_WARN", "name": {"en": "Anti-rollover control, warning", "ru": "Защита от опрокидывания, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 25, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_BRAKE_DIVE", "name": {"en": "Brake dive limiter", "ru": "Ограничитель клевка при торможении"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]},
+   {"id": "MEGANE_BRAKE_DIVE_WARN", "name": {"en": "Brake dive limiter, warning", "ru": "Ограничитель клевка при торможении, предупреждение"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 33, "len": 1}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B36", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_STEER_ANGLE_OFFSET", "name": {"en": "Steering wheel angle, offset", "ru": "Угол поворота руля, смещение"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B37", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_ACCEL_LAT_OFFSET", "name": {"en": "Acceleration offset, lateral", "ru": "Смещение нуля ускорения, поперечное"}, "unit": "g", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B38", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_ACCEL_LONG_OFFSET", "name": {"en": "Acceleration offset, longitudinal", "ru": "Смещение нуля ускорения, продольное"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B39", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_P_SNS_OFFSET", "name": {"en": "Pressure sensor offset", "ru": "Смещение датчика давления"}, "unit": "bar", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B3C", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_DRIVE_TYPE", "name": {"en": "Driving type", "ru": "Тип вождения"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B3D", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_SUPPLIER_NUM", "name": {"en": "Supplier number", "ru": "Номер поставщика"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B42", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_STEER_SPD", "name": {"en": "Steering wheel speed", "ru": "Скорость вращения руля"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B47", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_GRIP_CTRL", "name": {"en": "Improved grip", "ru": "Улучшенное сцепление с дорогой"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4B4E", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_VACUUM_P", "name": {"en": "Vacuum sensor pressure", "ru": "Давление по датчику вакуума"}, "unit": "bar", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "740", "rsp": "760", "svc": "22", "did": "4BBB", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_WHEEL_SPD_SIGN", "name": {"en": "Wheel speed sensor, signed", "ru": "Датчик скорости колеса, со знаком"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "743", "rsp": "763", "svc": "22", "did": "0207", "rate": "medium", "models": ["Kadjar", "ZOE"], "signals": [
+   {"id": "KADJAR_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Kadjar", "https://github.com/OBDb/Renault-ZOE"], "role": "odometer"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4009", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_CABIN_T", "name": {"en": "Cabin temperature", "ru": "Температура в салоне"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "400A", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_EVAP_T", "name": {"en": "Evaporator temperature", "ru": "Температура испарителя"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4341", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_PTC_REQ", "name": {"en": "Electric heater request", "ru": "Запрос электроподогревателя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 4}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4368", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_EVAP_T_SET", "name": {"en": "Evaporator temperature set point", "ru": "Температура испарителя, уставка"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4369", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_P", "name": {"en": "A/C compressor pressure", "ru": "Давление компрессора кондиционера"}, "unit": "bar", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "43A4", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_HEAT_T", "name": {"en": "Heating temperature", "ru": "Температура обогрева"}, "unit": "°C", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 256, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "43A5", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COND_T_SET", "name": {"en": "Heating condenser temperature set point", "ru": "Температура конденсатора обогрева, уставка"}, "unit": "°C", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "43D8", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_RPM", "name": {"en": "A/C compressor speed", "ru": "Обороты компрессора кондиционера"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4402", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_MODE", "name": {"en": "A/C compressor mode", "ru": "Режим компрессора кондиционера"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 4, "len": 4, "map": {"1": {"en": "AC", "ru": "AC"}, "2": {"en": "De-ice", "ru": "Антиобледенение"}, "4": {"en": "Heat pump", "ru": "Тепловой насос"}, "6": {"en": "Demisting", "ru": "Устранение запотевания"}, "7": {"en": "IDLE", "ru": "IDLE"}}}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4404", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_RPM_REQ", "name": {"en": "A/C compressor speed request", "ru": "Запрос оборотов компрессора кондиционера"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "440C", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_DIS_T", "name": {"en": "A/C compressor discharge temperature", "ru": "Температура на выходе компрессора кондиционера"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "440D", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_SUC_T", "name": {"en": "A/C compressor suction temperature", "ru": "Температура на входе компрессора кондиционера"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4429", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COND_T", "name": {"en": "Heating condenser temperature", "ru": "Температура конденсатора обогрева"}, "unit": "°C", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 256, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "744", "rsp": "764", "svc": "22", "did": "4436", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_COMP_PWR", "name": {"en": "A/C compressor power", "ru": "Мощность компрессора кондиционера"}, "unit": "W", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "4109", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_FL_ALERT", "name": {"en": "Front left tire pressure alert", "ru": "Давление в шине ПЛ, тревога"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "map": {"0": {"en": "NONE", "ru": "NONE"}, "1": {"en": "Alert", "ru": "Предупреждение"}, "2": {"en": "Warning", "ru": "Предупреждение"}, "3": {"en": "Alert", "ru": "Предупреждение"}, "4": {"en": "Warning", "ru": "Предупреждение"}, "5": {"en": "Alert", "ru": "Предупреждение"}, "6": {"en": "Warning", "ru": "Предупреждение"}, "7": {"en": "Alert", "ru": "Предупреждение"}}}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "410A", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_FR_ALERT", "name": {"en": "Front right tire pressure alert", "ru": "Давление в шине ПП, тревога"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "map": {"0": {"en": "NONE", "ru": "NONE"}, "1": {"en": "Alert", "ru": "Предупреждение"}, "2": {"en": "Warning", "ru": "Предупреждение"}, "3": {"en": "Alert", "ru": "Предупреждение"}, "4": {"en": "Warning", "ru": "Предупреждение"}, "5": {"en": "Alert", "ru": "Предупреждение"}, "6": {"en": "Warning", "ru": "Предупреждение"}, "7": {"en": "Alert", "ru": "Предупреждение"}}}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "410B", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_RL_ALERT", "name": {"en": "Rear left tire pressure alert", "ru": "Сигнал давления в шине ЗЛ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "map": {"0": {"en": "NONE", "ru": "NONE"}, "1": {"en": "Alert", "ru": "Предупреждение"}, "2": {"en": "Warning", "ru": "Предупреждение"}, "3": {"en": "Alert", "ru": "Предупреждение"}, "4": {"en": "Warning", "ru": "Предупреждение"}, "5": {"en": "Alert", "ru": "Предупреждение"}, "6": {"en": "Warning", "ru": "Предупреждение"}, "7": {"en": "Alert", "ru": "Предупреждение"}}}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "410C", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_RR_ALERT", "name": {"en": "Rear right tire pressure alert", "ru": "Сигнал давления в шине ЗП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "map": {"0": {"en": "NONE", "ru": "NONE"}, "1": {"en": "Alert", "ru": "Предупреждение"}, "2": {"en": "Warning", "ru": "Предупреждение"}, "3": {"en": "Alert", "ru": "Предупреждение"}, "4": {"en": "Warning", "ru": "Предупреждение"}, "5": {"en": "Alert", "ru": "Предупреждение"}, "6": {"en": "Warning", "ru": "Предупреждение"}, "7": {"en": "Alert", "ru": "Предупреждение"}}}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "4186", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_LOW_BEAM", "name": {"en": "Low beams on", "ru": "Ближний свет вкл."}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6026", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_FL_DOOR", "name": {"en": "Front left door open", "ru": "Дверь ПЛ открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6027", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_FR_DOOR", "name": {"en": "Front right door open", "ru": "Дверь ПП открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "609B", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TAILGATE", "name": {"en": "Tailgate open", "ru": "Дверь багажника открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "60C6", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_IGN", "name": {"en": "Ignition relay on", "ru": "Реле зажигания вкл."}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "61B2", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_RL_DOOR", "name": {"en": "Rear left door open", "ru": "Задняя левая дверь открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "61B3", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_RR_DOOR", "name": {"en": "Rear right door open", "ru": "Задняя правая дверь открыта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6300", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_FL", "name": {"en": "Front left tire pressure", "ru": "Давление в шине ПЛ"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6301", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_FR", "name": {"en": "Front right tire pressure", "ru": "Давление в шине ПП"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6302", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_RL", "name": {"en": "Rear left tire pressure", "ru": "Давление в шине ЗЛ"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6303", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TP_RR", "name": {"en": "Rear right tire pressure", "ru": "Давление в шине ЗП"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3, "div": 4}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6310", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TT_FL", "name": {"en": "Front left tire temperature", "ru": "Температура шины ПЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6311", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TT_FR", "name": {"en": "Front right tire temperature", "ru": "Температура шины ПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6312", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TT_RL", "name": {"en": "Rear left tire temperature", "ru": "Температура шины ЗЛ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "6313", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_TT_RR", "name": {"en": "Rear right tire temperature", "ru": "Температура шины ЗП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -30}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "745", "rsp": "765", "svc": "22", "did": "8004", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_LOCKED", "name": {"en": "Vehicle locked", "ru": "Автомобиль закрыт"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3001", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_12V_BAT_V", "name": {"en": "Battery voltage, 12V", "ru": "Напряжение АКБ, 12 В"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3005", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_2WD_MODE_SW", "name": {"en": "2WD mode switch", "ru": "2WD: переключатель режима"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_AUTO_MODE_SW", "name": {"en": "Auto mode switch", "ru": "Кнопка AUTO"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_4WD_MODE_SW", "name": {"en": "4WD mode switch", "ru": "4WD: переключатель режима"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3006", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_FR_VSS", "name": {"en": "FR wheel speed", "ru": "Скорость колеса ПП"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_FL_VSS", "name": {"en": "FL wheel speed", "ru": "Скорость колеса ПЛ"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_RR_VSS", "name": {"en": "RR wheel speed", "ru": "Скорость колеса ЗП"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_RL_VSS", "name": {"en": "RL wheel speed", "ru": "Скорость колеса ЗЛ"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3008", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_VSS_TC", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "300A", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_ACCEL_POS_TC", "name": {"en": "Accelerator pedal position", "ru": "Положение педали газа"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "300D", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_MOTOR_STS_TC", "name": {"en": "Motor status", "ru": "Статус электродвигателя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3010", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_TRACTION_CTRL", "name": {"en": "Traction control", "ru": "Антипробуксовочная система"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "DUSTER_TRAJECTORY_CTRL", "name": {"en": "Trajectory control", "ru": "Контроль траектории"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "DUSTER_ENGINE_TORQUE_CTRL", "name": {"en": "Engine torque control", "ru": "Управление моментом двигателя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3011", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_ENGINE_TORQUE_REF", "name": {"en": "Engine torque, reference", "ru": "Крутящий момент двигателя, эталонный"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2, "add": -400, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_TORQUE_SETPT_PROG", "name": {"en": "Torque setpoint programming", "ru": "Программирование уставки момента"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_COUPLER", "name": {"en": "Coupler", "ru": "Муфта"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 24, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3020", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CLUTCH_T", "name": {"en": "Clutch temperature", "ru": "Температура сцепления"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "role": "clutch_temp"}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3022", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_TRANS_MODE_BTN_POS", "name": {"en": "Transmission mode button position", "ru": "Положение кнопки режима КПП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3023", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_OP_MODE_SEL", "name": {"en": "Operating mode, selected", "ru": "Режим работы, выбранный"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3024", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_4WD_MODE_MON", "name": {"en": "4WD mode monitor", "ru": "4WD: контроль режима"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "DUSTER_WARNING_LIGHT", "name": {"en": "Warning light", "ru": "Контрольная лампа"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 8, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3025", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_TORQUE_REQ", "name": {"en": "Torque, requested", "ru": "Крутящий момент, запрошенный"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3026", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_OP_MODE", "name": {"en": "Operating mode", "ru": "Режим работы"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "302C", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_TORQUE_APPLIED", "name": {"en": "Torque, applied", "ru": "Крутящий момент, приложенный"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "302D", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_INT_FAULT_CODE", "name": {"en": "Internal fault code", "ru": "Внутренний код ошибки"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3043", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_SPEEDO_INDEX", "name": {"en": "Speedo index", "ru": "Индекс спидометра"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 32, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "748", "rsp": "768", "svc": "22", "did": "3050", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_GEARBOX_TYPE", "name": {"en": "Gearbox type", "ru": "Тип КПП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]}
+  ]},
+  {"hdr": "74D", "rsp": "76D", "svc": "22", "did": "6079", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_12V_A", "name": {"en": "12V battery current", "ru": "Ток АКБ 12 В"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "79B", "rsp": "7BB", "svc": "21", "did": "04", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_MOD_T1", "name": {"en": "Battery module 1 temperature", "ru": "Температура модуля батареи 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T2", "name": {"en": "Battery module 2 temperature", "ru": "Температура модуля батареи 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 40, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T3", "name": {"en": "Battery module 3 temperature", "ru": "Температура модуля батареи 3"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 64, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T4", "name": {"en": "Battery module 4 temperature", "ru": "Температура модуля батареи 4"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 88, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T5", "name": {"en": "Battery module 5 temperature", "ru": "Температура модуля батареи 5"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 112, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T6", "name": {"en": "Battery module 6 temperature", "ru": "Температура модуля батареи 6"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 136, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T7", "name": {"en": "Battery module 7 temperature", "ru": "Температура модуля батареи 7"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 160, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T8", "name": {"en": "Battery module 8 temperature", "ru": "Температура модуля батареи 8"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 184, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T9", "name": {"en": "Battery module 9 temperature", "ru": "Температура модуля батареи 9"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 208, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T10", "name": {"en": "Battery module 10 temperature", "ru": "Температура модуля батареи 10"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 232, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T11", "name": {"en": "Battery module 11 temperature", "ru": "Температура модуля батареи 11"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 256, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_MOD_T12", "name": {"en": "Battery module 12 temperature", "ru": "Температура модуля батареи 12"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 280, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "79B", "rsp": "7BB", "svc": "21", "did": "41", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_CELL1_V1", "name": {"en": "Cell 1 voltage", "ru": "Напряжение ячейки 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V2", "name": {"en": "Cell 2 voltage", "ru": "Напряжение ячейки 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V3", "name": {"en": "Cell 3 voltage", "ru": "Напряжение ячейки 3"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V4", "name": {"en": "Cell 4 voltage", "ru": "Напряжение ячейки 4"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 48, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V5", "name": {"en": "Cell 5 voltage", "ru": "Напряжение ячейки 5"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 64, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V6", "name": {"en": "Cell 6 voltage", "ru": "Напряжение ячейки 6"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 80, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V7", "name": {"en": "Cell 7 voltage", "ru": "Напряжение ячейки 7"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 96, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V8", "name": {"en": "Cell 8 voltage", "ru": "Напряжение ячейки 8"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 112, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V9", "name": {"en": "Cell 9 voltage", "ru": "Напряжение ячейки 9"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 128, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V10", "name": {"en": "Cell 10 voltage", "ru": "Напряжение ячейки 10"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 144, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V11", "name": {"en": "Cell 11 voltage", "ru": "Напряжение ячейки 11"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 160, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V12", "name": {"en": "Cell 12 voltage", "ru": "Напряжение ячейки 12"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 176, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V13", "name": {"en": "Cell 13 voltage", "ru": "Напряжение ячейки 13"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 192, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V14", "name": {"en": "Cell 14 voltage", "ru": "Напряжение ячейки 14"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 208, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V15", "name": {"en": "Cell 15 voltage", "ru": "Напряжение ячейки 15"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 224, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V16", "name": {"en": "Cell 16 voltage", "ru": "Напряжение ячейки 16"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 240, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V17", "name": {"en": "Cell 17 voltage", "ru": "Напряжение ячейки 17"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 256, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V18", "name": {"en": "Cell 18 voltage", "ru": "Напряжение ячейки 18"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 272, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V19", "name": {"en": "Cell 19 voltage", "ru": "Напряжение ячейки 19"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 288, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V20", "name": {"en": "Cell 20 voltage", "ru": "Напряжение ячейки 20"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 304, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V21", "name": {"en": "Cell 21 voltage", "ru": "Напряжение ячейки 21"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 320, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V22", "name": {"en": "Cell 22 voltage", "ru": "Напряжение ячейки 22"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 336, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V23", "name": {"en": "Cell 23 voltage", "ru": "Напряжение ячейки 23"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 352, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V24", "name": {"en": "Cell 24 voltage", "ru": "Напряжение ячейки 24"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 368, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V25", "name": {"en": "Cell 25 voltage", "ru": "Напряжение ячейки 25"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 384, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V26", "name": {"en": "Cell 26 voltage", "ru": "Напряжение ячейки 26"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 400, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V27", "name": {"en": "Cell 27 voltage", "ru": "Напряжение ячейки 27"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 416, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V28", "name": {"en": "Cell 28 voltage", "ru": "Напряжение ячейки 28"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 432, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V29", "name": {"en": "Cell 29 voltage", "ru": "Напряжение ячейки 29"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 448, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V30", "name": {"en": "Cell 30 voltage", "ru": "Напряжение ячейки 30"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 464, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V31", "name": {"en": "Cell 31 voltage", "ru": "Напряжение ячейки 31"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 480, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V32", "name": {"en": "Cell 32 voltage", "ru": "Напряжение ячейки 32"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 496, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V33", "name": {"en": "Cell 33 voltage", "ru": "Напряжение ячейки 33"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 512, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V34", "name": {"en": "Cell 34 voltage", "ru": "Напряжение ячейки 34"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 528, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V35", "name": {"en": "Cell 35 voltage", "ru": "Напряжение ячейки 35"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 544, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V36", "name": {"en": "Cell 36 voltage", "ru": "Напряжение ячейки 36"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 560, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V37", "name": {"en": "Cell 37 voltage", "ru": "Напряжение ячейки 37"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 576, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V38", "name": {"en": "Cell 38 voltage", "ru": "Напряжение ячейки 38"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 592, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V39", "name": {"en": "Cell 39 voltage", "ru": "Напряжение ячейки 39"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 608, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V40", "name": {"en": "Cell 40 voltage", "ru": "Напряжение ячейки 40"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 624, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V41", "name": {"en": "Cell 41 voltage", "ru": "Напряжение ячейки 41"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 640, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V42", "name": {"en": "Cell 42 voltage", "ru": "Напряжение ячейки 42"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 656, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V43", "name": {"en": "Cell 43 voltage", "ru": "Напряжение ячейки 43"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 672, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V44", "name": {"en": "Cell 44 voltage", "ru": "Напряжение ячейки 44"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 688, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V45", "name": {"en": "Cell 45 voltage", "ru": "Напряжение ячейки 45"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 704, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V46", "name": {"en": "Cell 46 voltage", "ru": "Напряжение ячейки 46"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 720, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V47", "name": {"en": "Cell 47 voltage", "ru": "Напряжение ячейки 47"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 736, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V48", "name": {"en": "Cell 48 voltage", "ru": "Напряжение ячейки 48"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 752, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V49", "name": {"en": "Cell 49 voltage", "ru": "Напряжение ячейки 49"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 768, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V50", "name": {"en": "Cell 50 voltage", "ru": "Напряжение ячейки 50"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 784, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V51", "name": {"en": "Cell 51 voltage", "ru": "Напряжение ячейки 51"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 800, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V52", "name": {"en": "Cell 52 voltage", "ru": "Напряжение ячейки 52"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 816, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V53", "name": {"en": "Cell 53 voltage", "ru": "Напряжение ячейки 53"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 832, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V54", "name": {"en": "Cell 54 voltage", "ru": "Напряжение ячейки 54"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 848, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V55", "name": {"en": "Cell 55 voltage", "ru": "Напряжение ячейки 55"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 864, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V56", "name": {"en": "Cell 56 voltage", "ru": "Напряжение ячейки 56"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 880, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V57", "name": {"en": "Cell 57 voltage", "ru": "Напряжение ячейки 57"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 896, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V58", "name": {"en": "Cell 58 voltage", "ru": "Напряжение ячейки 58"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 912, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V59", "name": {"en": "Cell 59 voltage", "ru": "Напряжение ячейки 59"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 928, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V60", "name": {"en": "Cell 60 voltage", "ru": "Напряжение ячейки 60"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 944, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V61", "name": {"en": "Cell 61 voltage", "ru": "Напряжение ячейки 61"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 960, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V62", "name": {"en": "Cell 62 voltage", "ru": "Напряжение ячейки 62"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 976, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "79B", "rsp": "7BB", "svc": "21", "did": "42", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_CELL1_V63", "name": {"en": "Cell 63 voltage", "ru": "Напряжение ячейки 63"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V64", "name": {"en": "Cell 64 voltage", "ru": "Напряжение ячейки 64"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 16, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V65", "name": {"en": "Cell 65 voltage", "ru": "Напряжение ячейки 65"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 32, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V66", "name": {"en": "Cell 66 voltage", "ru": "Напряжение ячейки 66"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 48, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V67", "name": {"en": "Cell 67 voltage", "ru": "Напряжение ячейки 67"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 64, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V68", "name": {"en": "Cell 68 voltage", "ru": "Напряжение ячейки 68"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 80, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V69", "name": {"en": "Cell 69 voltage", "ru": "Напряжение ячейки 69"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 96, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V70", "name": {"en": "Cell 70 voltage", "ru": "Напряжение ячейки 70"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 112, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V71", "name": {"en": "Cell 71 voltage", "ru": "Напряжение ячейки 71"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 128, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V72", "name": {"en": "Cell 72 voltage", "ru": "Напряжение ячейки 72"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 144, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V73", "name": {"en": "Cell 73 voltage", "ru": "Напряжение ячейки 73"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 160, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V74", "name": {"en": "Cell 74 voltage", "ru": "Напряжение ячейки 74"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 176, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V75", "name": {"en": "Cell 75 voltage", "ru": "Напряжение ячейки 75"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 192, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V76", "name": {"en": "Cell 76 voltage", "ru": "Напряжение ячейки 76"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 208, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V77", "name": {"en": "Cell 77 voltage", "ru": "Напряжение ячейки 77"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 224, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V78", "name": {"en": "Cell 78 voltage", "ru": "Напряжение ячейки 78"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 240, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V79", "name": {"en": "Cell 79 voltage", "ru": "Напряжение ячейки 79"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 256, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V80", "name": {"en": "Cell 80 voltage", "ru": "Напряжение ячейки 80"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 272, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V81", "name": {"en": "Cell 81 voltage", "ru": "Напряжение ячейки 81"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 288, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V82", "name": {"en": "Cell 82 voltage", "ru": "Напряжение ячейки 82"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 304, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V83", "name": {"en": "Cell 83 voltage", "ru": "Напряжение ячейки 83"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 320, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V84", "name": {"en": "Cell 84 voltage", "ru": "Напряжение ячейки 84"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 336, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V85", "name": {"en": "Cell 85 voltage", "ru": "Напряжение ячейки 85"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 352, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V86", "name": {"en": "Cell 86 voltage", "ru": "Напряжение ячейки 86"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 368, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V87", "name": {"en": "Cell 87 voltage", "ru": "Напряжение ячейки 87"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 384, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V88", "name": {"en": "Cell 88 voltage", "ru": "Напряжение ячейки 88"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 400, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V89", "name": {"en": "Cell 89 voltage", "ru": "Напряжение ячейки 89"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 416, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V90", "name": {"en": "Cell 90 voltage", "ru": "Напряжение ячейки 90"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 432, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V91", "name": {"en": "Cell 91 voltage", "ru": "Напряжение ячейки 91"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 448, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V92", "name": {"en": "Cell 92 voltage", "ru": "Напряжение ячейки 92"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 464, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V93", "name": {"en": "Cell 93 voltage", "ru": "Напряжение ячейки 93"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 480, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V94", "name": {"en": "Cell 94 voltage", "ru": "Напряжение ячейки 94"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 496, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V95", "name": {"en": "Cell 95 voltage", "ru": "Напряжение ячейки 95"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 512, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"},
+   {"id": "ZOE_CELL1_V96", "name": {"en": "Cell 96 voltage", "ru": "Напряжение ячейки 96"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 528, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2001", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ECT", "name": {"en": "Coolant temperature", "ru": "Температура ОЖ"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2003", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_VSS", "name": {"en": "Vehicle speed", "ru": "Скорость автомобиля"}, "unit": "km/h", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2004", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ENGINE_TORQUE", "name": {"en": "Engine torque", "ru": "Крутящий момент двигателя"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32, "add": -400}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2005", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ECU_SUPPLY_V", "name": {"en": "Supply voltage, ECU", "ru": "Напряжение питания ЭБУ"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2007", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_EST_OIL_T", "name": {"en": "Engine oil temperature, estimated", "ru": "Температура масла ДВС, оценочная"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"], "role": "oil_temp"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200B", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ACCEL_POT_V1", "name": {"en": "Accelerator pedal potentiometer voltage, track 1", "ru": "Напряжение потенциометра педали газа, дорожка 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200C", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ACCEL_POT_V2", "name": {"en": "Accelerator pedal potentiometer voltage, track 2", "ru": "Напряжение потенциометра педали газа, дорожка 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200D", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_REFRIG_P_SNS_V", "name": {"en": "Refrigerant pressure sensor voltage", "ru": "Напряжение датчика давления хладагента"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200E", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ECU_POST_IGN", "name": {"en": "Post-ignition status", "ru": "Статус после зажигания"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "200F", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_BRAKE_MUX_SIG", "name": {"en": "Braking detected multiplex signal", "ru": "Торможение, мультиплексный сигнал"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2010", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_MOTOR_STS", "name": {"en": "Motor status", "ru": "Статус электродвигателя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2014", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CAM_TDC_SYNC", "name": {"en": "Camshaft top dead center synchronization", "ru": "Синхронизация распредвала по ВМТ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2016", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CRANK_SYNC", "name": {"en": "Crankshaft synchronization", "ru": "Синхронизация коленвала"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "201E", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_AC_COMP", "name": {"en": "A/C compressor", "ru": "Компрессор кондиционера"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2021", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_SNS_FEED_V1", "name": {"en": "Sensor feed voltage 1", "ru": "Напряжение питания датчиков 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2022", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_SNS_FEED_V2", "name": {"en": "Sensor feed voltage 2", "ru": "Напряжение питания датчиков 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2025", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_BRAKE_PEDAL", "name": {"en": "Brake pedal", "ru": "Педаль тормоза"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2026", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_WIRED_BRAKE_CONTACT", "name": {"en": "Brake contact, wired", "ru": "Выключатель тормоза, проводной"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2028", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_OBD_LIGHT_REQ", "name": {"en": "Diagnostic light request", "ru": "Запрос лампы диагностики"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "202E", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ACCEL_POS", "name": {"en": "Accelerator pedal position", "ru": "Положение педали газа"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 800}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2030", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IN_CAM_DEPHASER_SETPT", "name": {"en": "Inlet camshaft dephaser setpoint", "ru": "Уставка фазорегулятора впускного вала"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2031", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IN_CAM_DEPHASING", "name": {"en": "Inlet camshaft dephasing", "ru": "Смещение фазы впускного вала"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2033", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IN_CAM_DEPHASER_OCR", "name": {"en": "Inlet camshaft dephaser control OCR", "ru": "Управление фазорегулятором впускного вала (OCR)"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2036", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ACCEL_DETECT_BLOCKED", "name": {"en": "Accelerator pedal detection blocked", "ru": "Распознавание педали газа заблокировано"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2047", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_FIRST_START", "name": {"en": "First start", "ru": "Первый пуск"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "204A", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_FAN_HI_SPD", "name": {"en": "Fan high speed request", "ru": "Запрос высокой скорости вентилятора"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2057", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ALT_PWR", "name": {"en": "Alternator power", "ru": "Мощность генератора"}, "unit": "W", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2059", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CLUTCH_TRAVEL_SW", "name": {"en": "Clutch start-of-travel switch", "ru": "Выключатель начала хода педали сцепления"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 7, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "206A", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_BRAKE_CONTACT_1_DUR", "name": {"en": "Brake contact duration 1", "ru": "Длительность нажатия тормоза 1"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "206B", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_BRAKE_CONTACT_2_DUR", "name": {"en": "Brake contact duration 2", "ru": "Длительность нажатия тормоза 2"}, "unit": "s", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "206D", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CLUTCH_CONTACT_WIRE", "name": {"en": "Clutch contact wire connection", "ru": "Сцепление, подключение контактного провода"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2099", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ALT_LOAD", "name": {"en": "Alternator load", "ru": "Нагрузка генератора"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "209A", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IDLE_ADAPT_CORR", "name": {"en": "Idle adaptive correction", "ru": "Адаптивная коррекция ХХ"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32, "add": -1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "MEGANE_IDLE_ADAPT_CORR", "name": {"en": "Idle adaptive correction", "ru": "Адаптивная коррекция ХХ"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "210E", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_ENGINE_ROT_COUNT", "name": {"en": "Engine rotation count", "ru": "Счётчик оборотов двигателя"}, "unit": "", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 32, "div": 1000000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2156", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_TORQUEMETER_PROG", "name": {"en": "Torquemeter value, programmed", "ru": "Значение датчика момента, запрограммир."}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "215B", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_FLYWHEEL_TGT_PROG", "name": {"en": "Flywheel target programming", "ru": "Адаптация задающего диска маховика"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "215D", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_TORQUEMETER_ADAPT_CORR", "name": {"en": "Torquemeter correction, adaptive", "ru": "Коррекция датчика момента, адаптивная"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -32768}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2161", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_TDC_SNS_SIG", "name": {"en": "Top dead center sensor signal", "ru": "Сигнал датчика ВМТ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2162", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CRANK_SYNC_LOSS_CNT", "name": {"en": "Crankshaft sync loss counter", "ru": "Счётчик потерь синхронизации коленвала"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "218D", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_HEAT_RESISTOR_CNT", "name": {"en": "Heating resistors active count", "ru": "Число активных нагревательных резисторов"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "222A", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_REFRIG_P", "name": {"en": "Refrigerant pressure", "ru": "Давление хладагента"}, "unit": "bar", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "222D", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CLUTCH_PEDAL_SW", "name": {"en": "Clutch pedal switch", "ru": "Выключатель педали сцепления"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2241", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IN_CAM_DEPHASER_SOL_PROG", "name": {"en": "Inlet camshaft dephaser solenoid programming", "ru": "Программирование клапана фазорегулятора впускного вала"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2246", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IDLE_REG_INT_CORR", "name": {"en": "Idle regulation integral correction", "ru": "Интегральная коррекция регулятора ХХ"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32, "add": -1024, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"]},
+   {"id": "MEGANE_IDLE_REG_INT_CORR", "name": {"en": "Idle regulation integral correction", "ru": "Интегральная коррекция регулятора ХХ"}, "unit": "Nm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 32, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2401", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_BOOST_P", "name": {"en": "Boost pressure", "ru": "Давление наддува"}, "unit": "bar", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"], "role": "boost"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "240B", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_MANIFOLD_P", "name": {"en": "Manifold pressure", "ru": "Давление в коллекторе"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2414", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_POS_REF", "name": {"en": "Throttle position, reference", "ru": "Положение дроссельной заслонки, опорное"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2415", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_POS_1", "name": {"en": "Throttle position, track 1", "ru": "Положение дроссельной заслонки, канал 1"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2416", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_POS_2", "name": {"en": "Throttle position, track 2", "ru": "Положение дроссельной заслонки, канал 2"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2418", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_V1", "name": {"en": "Throttle voltage, track 1", "ru": "Напряжение дросселя, канал 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2419", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_V2", "name": {"en": "Throttle voltage, track 2", "ru": "Напряжение дросселя, канал 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "242F", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_POS", "name": {"en": "Throttle position, measured", "ru": "Положение дроссельной заслонки, измер."}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "243F", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_INLET_AIR_T", "name": {"en": "Inlet air temperature", "ru": "Температура впускного воздуха"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2449", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_O2_UP_V", "name": {"en": "O2 sensor voltage, upstream", "ru": "Напряжение датчика O2, до катал."}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "244A", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_O2_DN_V", "name": {"en": "O2 sensor voltage, downstream", "ru": "Напряжение датчика O2, после катал."}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "244B", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_O2_UP_HEAT_R", "name": {"en": "O2 sensor heating resistance, upstream", "ru": "Сопротивление подогрева датчика O2, до катал."}, "unit": "Ω", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "244C", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_O2_DN_HEAT_R", "name": {"en": "O2 sensor heating resistance, downstream", "ru": "Сопротивление подогрева датчика O2, после катал."}, "unit": "Ω", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2457", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_LOW_STOP_PROG", "name": {"en": "Throttle low stop, programmed", "ru": "Нижний упор дросселя, запрограммир."}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "245D", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_LIMITS_PROG", "name": {"en": "Throttle limits programming", "ru": "Программирование пределов дросселя"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2493", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_TEST_RESULT_1", "name": {"en": "Test result 1", "ru": "Результат теста 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2494", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_TEST_RESULT_2", "name": {"en": "Test result 2", "ru": "Результат теста 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "24C4", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_O2_UP_HEAT_DELAY", "name": {"en": "O2 sensor heating delay, upstream", "ru": "Задержка подогрева датчика O2, до катал."}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "24C9", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_THROTTLE_SAFE_MODE_PROG", "name": {"en": "Throttle safe mode value, programmed", "ru": "Положение дросселя в аварийном режиме, запрограммир."}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "24D7", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_MANIFOLD_P_LIN", "name": {"en": "Manifold pressure, linearised", "ru": "Давление в коллекторе, линеаризованное"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "24F2", "rate": "fast", "models": ["Megane"], "signals": [
+   {"id": "MEGANE_MAF", "name": {"en": "Measured air flow", "ru": "Измеренный расход воздуха"}, "unit": "g/s", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Renault-Megane"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2807", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_IGN_TIMING_ADV", "name": {"en": "Ignition timing advance", "ru": "УОЗ"}, "unit": "°", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "281B", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_LOW_FUEL", "name": {"en": "Fuel level, low", "ru": "Низкий уровень топлива"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "281C", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_FUEL_PUMP_CTRL", "name": {"en": "Fuel pump control circuit", "ru": "Цепь управления топливным насосом"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2822", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_CANISTER_BLEED_SOL_RCO", "name": {"en": "Canister bleed solenoid valve RCO", "ru": "Клапан продувки адсорбера, RCO"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2841", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL1_MISFIRE_CNT", "name": {"en": "Cylinder 1 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2842", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL2_MISFIRE_CNT", "name": {"en": "Cylinder 2 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2843", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL3_MISFIRE_CNT", "name": {"en": "Cylinder 3 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2844", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL4_MISFIRE_CNT", "name": {"en": "Cylinder 4 misfire counter", "ru": "Счётчик пропусков зажигания, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2847", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL1_KNOCK", "name": {"en": "Cylinder 1 knock", "ru": "Детонация, цилиндр 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2848", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL2_KNOCK", "name": {"en": "Cylinder 2 knock", "ru": "Детонация, цилиндр 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2849", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL3_KNOCK", "name": {"en": "Cylinder 3 knock", "ru": "Детонация, цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "284A", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_CYL4_KNOCK", "name": {"en": "Cylinder 4 knock", "ru": "Детонация, цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "284D", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_KNOCK_AVG", "name": {"en": "Knock signal, average", "ru": "Сигнал детонации, средний"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "284E", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_RICHNESS_CORR", "name": {"en": "Richness correction", "ru": "Коррекция состава смеси"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2850", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_RICHNESS_CORR_OP", "name": {"en": "Richness correction, operating", "ru": "Коррекция состава смеси, рабочая"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2851", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_RICHNESS_REG_GAIN", "name": {"en": "Richness regulation gain", "ru": "Коэфф. усиления регулирования состава смеси"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2852", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_RICHNESS_REG_OFFSET", "name": {"en": "Richness regulation offset", "ru": "Смещение регулирования состава смеси"}, "unit": "ms", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2873", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_RICHNESS_ADAPT", "name": {"en": "Richness, adaptive operating", "ru": "Адаптация состава смеси, рабочая"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2874", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_MISFIRE_CNT", "name": {"en": "Misfire counter, total", "ru": "Счётчик пропусков, всего"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2881", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_FLI_EST", "name": {"en": "Fuel tank level, estimated", "ru": "Уровень топлива в баке, расчётный"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 65535}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "28B1", "rate": "fast", "models": ["Duster"], "signals": [
+   {"id": "DUSTER_GAS_T", "name": {"en": "Fuel temperature", "ru": "Температура топлива"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2C03", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_GEARBOX_RATIO_TGT", "name": {"en": "Gearbox ratio, target", "ru": "Передаточное число КПП, заданное"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2C04", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_GEARBOX_RATIO", "name": {"en": "Gearbox ratio", "ru": "Передаточное число КПП"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F423", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_LPG_P", "name": {"en": "LPG pressure", "ru": "Давление газа (ГБО)"}, "unit": "bar", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "FD81", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_MANIFOLD_P_SNS_V", "name": {"en": "Manifold pressure sensor voltage", "ru": "Напряжение датчика давления в коллекторе"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4096}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "FD83", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_AIR_INLET_T_SNS_V", "name": {"en": "Air inlet temperature sensor voltage", "ru": "Напряжение датчика температуры впускного воздуха"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4096}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "FD8B", "rate": "fast", "models": ["Duster", "Megane"], "signals": [
+   {"id": "DUSTER_COOLANT_T_SNS_V", "name": {"en": "Coolant temperature sensor voltage", "ru": "Напряжение датчика температуры ОЖ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4096}, "conf": "?", "src": ["https://github.com/OBDb/Dacia-Duster", "https://github.com/OBDb/Renault-Megane"]}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "3203", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_HV_V_PEB", "name": {"en": "High voltage battery voltage, power electronics", "ru": "Напряжение ВВБ (силовая электроника)"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "3204", "rate": "medium", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_HV_A_PEB", "name": {"en": "High voltage battery current, power electronics", "ru": "Ток ВВБ (силовая электроника)"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4, "add": -8192}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]},
+  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "33F6", "rate": "slow", "models": ["ZOE"], "signals": [
+   {"id": "ZOE_INV_T_PEB", "name": {"en": "Inverter temperature, power electronics", "ru": "Температура инвертора, силовая электроника"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Renault-ZOE"], "note": "OBDb dbg: not confirmed by response tests"}
+  ]}
+ ]
+}

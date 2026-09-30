@@ -52,6 +52,49 @@ object ObdModules {
     /** Tester present (UDS and KWP on CAN), then the UDS VIN, then the KWP VIN. */
     val PROBES = listOf("3E00", "22F190", "1A90")
 
+    /** Renault-platform modules answer the KWP identification 21 80 and don't need 3E (pyren never sends it). */
+    val PROBES_RENAULT = listOf("2180", "22F190", "3E00")
+
+    /**
+     * Extra modules per family, (request, reply). Renault platform (also Nissan and Lada Vesta/XRAY/Largus):
+     * body and chassis modules answer on +0x20 (pyren / ddt4all address tables); Haval/GWM on +0x40;
+     * the rest on +8 — addresses seen answering on real cars in openpilot's FW queries (opendbc, MIT) and OVMS.
+     */
+    private val EXTRA: Map<String, List<Pair<Int, Int>>> = run {
+        val renault = listOf(0x740, 0x742, 0x743, 0x744, 0x745, 0x748, 0x752, 0x758, 0x79B, 0x707).map { it to it + 0x20 }
+        mapOf(
+            "renault" to renault,
+            "nissan" to renault,
+            "lada" to renault,
+            "toyota" to listOf(0x700, 0x701, 0x780, 0x791).map { it to it + 8 },
+            "hyundai" to listOf(0x7D4, 0x7B3, 0x7B1, 0x7B7, 0x730, 0x7C5, 0x794, 0x770).map { it to it + 8 },
+            "ford" to listOf(0x706, 0x726, 0x730, 0x732, 0x760, 0x764).map { it to it + 8 },
+            "mazda" to listOf(0x706, 0x730, 0x732, 0x760, 0x764).map { it to it + 8 },
+            "subaru" to listOf(0x7A2, 0x7A3, 0x746, 0x787).map { it to it + 8 },
+            "china" to listOf(0x763, 0x782, 0x787, 0x78B).map { it to it + 0x40 } +
+                listOf(0x710, 0x724, 0x740, 0x745, 0x750, 0x760, 0x781, 0x784, 0x785).map { it to it + 8 },
+        )
+    }
+
+    /** The shared list, the family's extra modules and every module the family's database requests talk to. */
+    fun candidates(family: String?, fromDb: List<Pair<Int, Int>>): List<Pair<Int, Int>> =
+        (candidates + EXTRA[family].orEmpty() + fromDb).distinctBy { it.first }
+
+    fun probes(family: String?) = if (family in setOf("renault", "nissan", "lada")) PROBES_RENAULT else PROBES
+
+    fun name(req: Int, family: String?): String = if (family in setOf("renault", "nissan", "lada")) when (req) {
+        0x740 -> "ABS / ESP (740)"
+        0x742 -> tr("Электроусилитель руля (742)", "Power steering (742)")
+        0x743 -> tr("Приборная панель (743)", "Instrument cluster (743)")
+        0x744 -> tr("Климат (744)", "Climate (744)")
+        0x745 -> tr("Кузовной блок UCH/BCM (745)", "Body module UCH/BCM (745)")
+        0x748 -> tr("Полный привод 4WD (748)", "4WD (748)")
+        0x752 -> tr("Подушки безопасности (752)", "Airbags (752)")
+        0x758 -> tr("Давление в шинах TPMS (758)", "Tyre pressure TPMS (758)")
+        0x79B -> tr("Батарея электромобиля (79B)", "EV battery (79B)")
+        else -> name(req)
+    } else name(req)
+
     fun name(req: Int): String = when (req) {
         0x7E0 -> tr("Двигатель (7E0)", "Engine (7E0)")
         0x7E1 -> tr("КПП (7E1)", "Transmission (7E1)")
