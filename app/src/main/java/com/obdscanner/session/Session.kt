@@ -20,10 +20,12 @@ import java.util.zip.ZipOutputStream
  *   report.txt — discovery results: ECUs, supported PIDs, VIN, DTCs, Mode 06, GM scan
  *   scan.csv   — GM Mode 22 / 1A scan hits
  *   bus.csv    — passive bus listening (only if it was started)
- *   sensors.csv — phone accelerometer and gyroscope, see [PhoneSensors]
+ *   sensors.csv — phone accelerometer and gyroscope, every sample, see [PhoneSensors]
  */
 class Session(val dir: File) {
-    private val t0 = System.currentTimeMillis()
+    /** Session start, wall clock ms: t_ms in every file counts from here. */
+    val startMs = System.currentTimeMillis()
+    private val t0 = startMs
     private val clock = SimpleDateFormat("HH:mm:ss.SSS", Locale.US)
     private val raw = writer("raw.log")
     private val csv = writer("data.csv")
@@ -101,15 +103,14 @@ class Session(val dir: File) {
 
     private var sensors: BufferedWriter? = null
 
-    /** One averaged row: acceleration m/s² (with gravity), rotation °/s; null — the sensor gave nothing. */
-    @Synchronized fun sensors(time: Long, acc: DoubleArray?, gyro: DoubleArray?) {
+    /** Ready rows `t_ms,s,x,y,z`: s — a (acceleration m/s², with gravity) or g (rotation °/s). */
+    @Synchronized fun sensors(rows: CharSequence) {
         if (closed) return
         val w = sensors ?: writer("sensors.csv").also {
-            it.write("t_ms,time,ax,ay,az,gx,gy,gz\n")
+            it.write("t_ms,s,x,y,z\n")
             sensors = it
         }
-        fun f(v: DoubleArray?, dec: Int) = v?.joinToString(",") { String.format(Locale.US, "%.${dec}f", it) } ?: ",,"
-        w.write("${time - t0},${clock.format(Date(time))},${f(acc, 3)},${f(gyro, 2)}\n")
+        w.append(rows)
     }
 
     @Synchronized fun flush() {
