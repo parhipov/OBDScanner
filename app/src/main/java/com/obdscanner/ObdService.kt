@@ -23,8 +23,13 @@ class ObdService : Service() {
         )
         val device = intent?.getStringExtra("device") ?: ""
         val sensorsOnly = intent?.getBooleanExtra("sensorsOnly", false) == true
+        val usb = intent?.getBooleanExtra("usb", false) == true
         val n = Notification.Builder(this, CHANNEL)
-            .setSmallIcon(if (sensorsOnly) android.R.drawable.ic_menu_compass else android.R.drawable.stat_sys_data_bluetooth)
+            .setSmallIcon(when {
+                sensorsOnly -> android.R.drawable.ic_menu_compass
+                usb -> android.R.drawable.stat_notify_sdcard_usb
+                else -> android.R.drawable.stat_sys_data_bluetooth
+            })
             .setContentTitle("OBD Scanner")
             .setContentText(if (sensorsOnly) tr("Идёт запись датчиков телефона", "Recording phone sensors")
                 else tr("Подключено: $device — идёт запись сессии", "Connected: $device — recording session"))
@@ -36,6 +41,7 @@ class ObdService : Service() {
                 // No Bluetooth link to point to: Android 14+ wants another type for that.
                 sensorsOnly && Build.VERSION.SDK_INT >= 34 -> startForeground(1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
                 sensorsOnly -> startForeground(1, n)
+                // Android 14+ takes Bluetooth permission or access to a USB device for this type.
                 Build.VERSION.SDK_INT >= 29 -> startForeground(1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE)
                 else -> startForeground(1, n)
             }
@@ -49,9 +55,10 @@ class ObdService : Service() {
     companion object {
         private const val CHANNEL = "obd"
 
-        fun start(context: Context, device: String, sensorsOnly: Boolean = false) {
+        fun start(context: Context, device: String, sensorsOnly: Boolean = false, usb: Boolean = false) {
             runCatching {
-                context.startForegroundService(Intent(context, ObdService::class.java).putExtra("device", device).putExtra("sensorsOnly", sensorsOnly))
+                context.startForegroundService(Intent(context, ObdService::class.java).putExtra("device", device)
+                    .putExtra("sensorsOnly", sensorsOnly).putExtra("usb", usb))
             }
         }
 

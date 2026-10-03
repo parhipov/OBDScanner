@@ -1,8 +1,16 @@
 package com.obdscanner
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.bluetooth.BluetoothDevice
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbManager
+import android.os.Build
+import androidx.core.content.ContextCompat
 import com.obdscanner.bus.BusId
 import com.obdscanner.bus.BusSniffer
 import com.obdscanner.elm.Elm327
@@ -43,6 +51,10 @@ import com.obdscanner.session.SessionStore
 import com.obdscanner.transport.BluetoothTransport
 import com.obdscanner.transport.MockTransport
 import com.obdscanner.transport.Transport
+import com.obdscanner.transport.UsbAdapter
+import com.obdscanner.transport.UsbAdapters
+import com.obdscanner.transport.UsbSerialLink
+import com.obdscanner.transport.UsbTransport
 import com.obdscanner.vag.VagModules
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -204,10 +216,44 @@ class ObdManager(private val context: Context) {
 
     val lastDevice: String? get() = prefs.getString("last_device", null)
 
-    /** The source picked on Connect: an adapter's address, [SOURCE_DEMO] or [SOURCE_SENSORS]. */
-    var source: String?
-        get() = prefs.getString("source", null) ?: lastDevice
-        set(v) { prefs.edit().putString("source", v).apply() }
+    private val _source = MutableStateFlow(prefs.getString("source", null) ?: lastDevice)
+    /** The source picked on Connect: a Bluetooth adapter's address, a USB id ([UsbAdapters]), [SOURCE_DEMO] or [SOURCE_SENSORS]. */
+    val source: StateFlow<String?> = _source.asStateFlow()
+
+    /** While a session runs the pick is locked: it shows what is running. */
+    fun pickSource(id: String) {
+        if (mainJob?.isActive == true) return
+        prefs.edit().putString("source", id).apply()
+        _source.value = id
+    }
+
+    private val usbManager = context.getSystemService(UsbManager::class.java)
+    private val _usb = MutableStateFlow(UsbAdapters.list(usbManager))
+    /** Plugged-in USB adapters, kept up to date on plug and unplug. */
+    val usb: StateFlow<List<UsbAdapter>> = _usb.asStateFlow()
+
+    init {
+        val filter = IntentFilter().apply {
+            addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+            addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
+        }
+        ContextCompat.registerReceiver(context, object : BroadcastReceiver() {
+            override fun onReceive(c: Context, i: Intent) {
+                if (i.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) usbAttached() else _usb.value = UsbAdapters.list(usbManager)
+            }
+        }, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+    }
+
+    /**
+     * An adapter was plugged in (broadcast, or the app opened by Android for it): it's the one to use, so it gets
+     * picked. Stays picked until the next plug-in even if Bluetooth is chosen instead.
+     */
+    fun usbAttached() {
+        val list = UsbAdapters.list(usbManager)
+        val added = list.filter { a -> _usb.value.none { it.id == a.id } }
+        _usb.value = list
+        (added.firstOrNull() ?: list.firstOrNull()?.takeIf { _source.value == null })?.let { pickSource(it.id) }
+    }
 
     @SuppressLint("MissingPermission")
     fun connectBluetooth(device: BluetoothDevice) {
@@ -216,6 +262,50 @@ class ObdManager(private val context: Context) {
         connect { s ->
             BluetoothTransport(device, prefs.getString(key, null), { s.note(it) }) { prefs.edit().putString(key, it).apply() }
         }
+    }
+
+    @Volatile private var usbAsking = false
+
+    /** USB adapter [id] from [usb]. Without access yet, Android asks first and the connect goes on once allowed. */
+    fun connectUsb(id: String) {
+        if (mainJob?.isActive == true || usbAsking) return
+        val um = usbManager
+        val a = UsbAdapters.list(um).firstOrNull { it.id == id }
+        if (um == null || a == null) {
+            _conn.value = ConnState.Failed(tr("USB-адаптер не найден. Проверьте переходник OTG.", "USB adapter not found. Check the OTG adapter."))
+            return
+        }
+        if (!um.hasPermission(a.device)) {
+            askUsb(um, a.device) { ok ->
+                if (ok) connectUsb(id)
+                else _conn.value = ConnState.Failed(tr("Нет доступа к USB-адаптеру.", "No access to the USB adapter."))
+            }
+            return
+        }
+        prefs.edit().putString("last_device", id).apply()
+        val key = "usb_baud_$id"
+        connect { s ->
+            // Looked up again on every try: after a reconnect the device object may be a new one.
+            val cur = UsbAdapters.list(um).firstOrNull { it.id == id }
+                ?: throw IOException(tr("USB-адаптер отключён", "USB adapter unplugged"))
+            s.note("USB: ${cur.chip} $id ${cur.product ?: ""}".trimEnd())
+            UsbTransport(UsbSerialLink(um, cur), prefs.getInt(key, 0).takeIf { it > 0 }, { s.note(it) }) { prefs.edit().putInt(key, it).apply() }
+        }
+    }
+
+    private fun askUsb(um: UsbManager, device: UsbDevice, done: (Boolean) -> Unit) {
+        usbAsking = true
+        val action = context.packageName + ".USB_PERMISSION"
+        ContextCompat.registerReceiver(context, object : BroadcastReceiver() {
+            override fun onReceive(c: Context, i: Intent) {
+                context.unregisterReceiver(this)
+                usbAsking = false
+                done(um.hasPermission(device) || i.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
+            }
+        }, IntentFilter(action), ContextCompat.RECEIVER_NOT_EXPORTED)
+        // Android puts the device into the intent: it has to be mutable (explicit, so Android 14 allows that).
+        val flags = if (Build.VERSION.SDK_INT >= 31) PendingIntent.FLAG_MUTABLE else 0
+        um.requestPermission(device, PendingIntent.getBroadcast(context, 0, Intent(action).setPackage(context.packageName), flags))
     }
 
     fun connectDemo() = connect { MockTransport() }
@@ -286,7 +376,7 @@ class ObdManager(private val context: Context) {
                             delay(2000)
                         }
                     }
-                    ObdService.start(context, name)
+                    ObdService.start(context, name, usb = transport is UsbTransport)
                     // Clones miss the first command sent right after the link comes up (AndrOBD #233: Car Scanner waits ~500 ms).
                     delay(500)
                     try {
@@ -1235,8 +1325,8 @@ class ObdManager(private val context: Context) {
             "Adapter rebooted, reconnecting… If it takes long, unplug it for 5 seconds and plug it back in.",
         )
         private val REPLUG = tr(
-            "Адаптер отключился и не отвечает по Bluetooth. Выньте его из разъёма на 5 секунд, вставьте и подключитесь снова.",
-            "Adapter disconnected and does not answer over Bluetooth. Unplug it for 5 seconds, plug it back in and connect again.",
+            "Адаптер отключился и не отвечает. Выньте его из разъёма на 5 секунд, вставьте и подключитесь снова.",
+            "Adapter disconnected and does not answer. Unplug it for 5 seconds, plug it back in and connect again.",
         )
         private const val POLL_TIMEOUT = 1000L
         private const val EXT_PER_CYCLE = 5

@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.obdscanner.ConnState
 import com.obdscanner.ObdManager
 import com.obdscanner.SOURCE_DEMO
@@ -81,10 +82,12 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     }
     // While a session runs the pick is locked: it shows what is running.
     val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
-    var source by remember { mutableStateOf(m.source) }
-    fun pick(id: String) { if (!running) { source = id; m.source = id } }
+    val source by m.source.collectAsStateWithLifecycle()
+    val usb by m.usb.collectAsStateWithLifecycle()
+    fun pick(id: String) { if (!running) m.pickSource(id) }
     val device = devices.firstOrNull { it.address == source }
-    val canStart = device != null || source == SOURCE_DEMO || source == SOURCE_SENSORS
+    val usbPicked = usb.firstOrNull { it.id == source }
+    val canStart = device != null || usbPicked != null || source == SOURCE_DEMO || source == SOURCE_SENSORS
 
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
@@ -108,8 +111,14 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                 }
             }
             item { CarCard(m, v, picked) }
+            item { SectionTitle(tr("Адаптер ELM327", "ELM327 adapter")) }
+            // Only while plugged in, and on top: a plugged-in cable is the adapter meant.
+            items(usb, key = { it.id }) { a ->
+                SourceCard(tr("USB-адаптер", "USB adapter"),
+                    listOfNotNull("USB · ${a.chip}", a.product).joinToString(" · ") + if (a.id == m.lastDevice) tr(" · последний", " · last used") else "",
+                    selected = a.id == source, locked = running) { pick(a.id) }
+            }
             item {
-                SectionTitle(tr("Адаптер ELM327", "ELM327 adapter"))
                 when {
                     adapter == null -> Muted(tr("На устройстве нет Bluetooth.", "This device has no Bluetooth."))
                     !hasPerm -> Button(onClick = { permLauncher.launch(arrayOf(Manifest.permission.BLUETOOTH_CONNECT)) }, Modifier.padding(8.dp)) {
@@ -132,8 +141,8 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                     OutlinedButton(onClick = { ctx.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) }) { Text(tr("Настройки Bluetooth", "Bluetooth settings")) }
                     OutlinedButton(onClick = { refresh++ }, Modifier.padding(start = 8.dp)) { Text(tr("Обновить", "Refresh")) }
                 }
-                Muted(tr("Старые клоны ELM327 работают только по классическому Bluetooth. Включите зажигание перед подключением.",
-                    "Old ELM327 clones work over classic Bluetooth only. Turn the ignition on before connecting."))
+                Muted(tr("Старые клоны ELM327 работают по классическому Bluetooth, USB-адаптеры — через переходник OTG. Включите зажигание перед подключением.",
+                    "Old ELM327 clones work over classic Bluetooth, USB adapters through an OTG adapter. Turn the ignition on before connecting."))
                 SectionTitle(tr("Без адаптера", "No adapter"))
                 SourceCard(tr("Демо-режим", "Demo mode"),
                     tr("Эмулятор ELM327 + CTS 2.8: ECM, TCM, ошибки, Mode 06, GM-модули", "ELM327 emulator + CTS 2.8: ECM, TCM, codes, Mode 06, GM modules"),
@@ -149,6 +158,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                 when {
                     running -> m.disconnect()
                     device != null -> m.connectBluetooth(device)
+                    usbPicked != null -> m.connectUsb(usbPicked.id)
                     source == SOURCE_DEMO -> m.connectDemo()
                     source == SOURCE_SENSORS -> m.recordSensors()
                 }

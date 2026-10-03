@@ -22,8 +22,8 @@ android {
         applicationId = "com.obdscanner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 32
-        versionName = "1.21"
+        versionCode = 33
+        versionName = "1.22"
     }
 
     buildTypes {
@@ -63,6 +63,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    // USB adapters: drivers for the USB-serial chips (CH340, FTDI, CP210x, PL2303, CDC). MIT.
+    implementation("com.github.mik3y:usb-serial-for-android:3.10.0")
 
     testImplementation("junit:junit:4.13.2")
     // Android's org.json is a stub in local unit tests; the car database (CarDb) parses with it.

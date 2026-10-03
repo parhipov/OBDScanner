@@ -1,6 +1,7 @@
 package com.obdscanner
 
 import android.content.Intent
+import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Process
 import android.view.WindowManager
@@ -62,6 +63,17 @@ class MainActivity : ComponentActivity() {
             return
         }
         setContent { AppTheme { AppRoot(m) } }
+        usbIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        usbIntent(intent)
+    }
+
+    /** Opened by Android for a plugged-in USB adapter (usb_device_filter.xml). */
+    private fun usbIntent(intent: Intent?) {
+        if (intent?.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) ObdApp.manager(this).usbAttached()
     }
 }
 

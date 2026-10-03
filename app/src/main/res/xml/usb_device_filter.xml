@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- USB-serial chips found in ELM327 USB adapters (decimal ids). Connect lists any chip with a driver. -->
+<resources>
+    <!-- FTDI FT232R 0403:6001, FT230X/FT231X 0403:6015 -->
+    <usb-device vendor-id="1027" product-id="24577" />
+    <usb-device vendor-id="1027" product-id="24597" />
+    <!-- WCH CH340 1A86:7523, CH341 1A86:5523 -->
+    <usb-device vendor-id="6790" product-id="29987" />
+    <usb-device vendor-id="6790" product-id="21795" />
+    <!-- Prolific PL2303 067B:2303 -->
+    <usb-device vendor-id="1659" product-id="8963" />
+    <!-- Silicon Labs CP210x 10C4:EA60 -->
+    <usb-device vendor-id="4292" product-id="60000" />
+</resources>
