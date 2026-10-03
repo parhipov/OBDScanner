@@ -20,6 +20,7 @@ import java.util.zip.ZipOutputStream
  *   report.txt — discovery results: ECUs, supported PIDs, VIN, DTCs, Mode 06, GM scan
  *   scan.csv   — GM Mode 22 / 1A scan hits
  *   bus.csv    — passive bus listening (only if it was started)
+ *   sensors.csv — phone accelerometer and gyroscope, see [PhoneSensors]
  */
 class Session(val dir: File) {
     private val t0 = System.currentTimeMillis()
@@ -98,16 +99,29 @@ class Session(val dir: File) {
         w.flush()
     }
 
+    private var sensors: BufferedWriter? = null
+
+    /** One averaged row: acceleration m/s² (with gravity), rotation °/s; null — the sensor gave nothing. */
+    @Synchronized fun sensors(time: Long, acc: DoubleArray?, gyro: DoubleArray?) {
+        if (closed) return
+        val w = sensors ?: writer("sensors.csv").also {
+            it.write("t_ms,time,ax,ay,az,gx,gy,gz\n")
+            sensors = it
+        }
+        fun f(v: DoubleArray?, dec: Int) = v?.joinToString(",") { String.format(Locale.US, "%.${dec}f", it) } ?: ",,"
+        w.write("${time - t0},${clock.format(Date(time))},${f(acc, 3)},${f(gyro, 2)}\n")
+    }
+
     @Synchronized fun flush() {
         if (closed) return
-        raw.flush(); csv.flush(); report.flush(); scan.flush(); bus?.flush()
+        raw.flush(); csv.flush(); report.flush(); scan.flush(); bus?.flush(); sensors?.flush()
     }
 
     @Synchronized fun close() {
         if (closed) return
         flush()
         closed = true
-        runCatching { raw.close(); csv.close(); report.close(); scan.close(); bus?.close() }
+        runCatching { raw.close(); csv.close(); report.close(); scan.close(); bus?.close(); sensors?.close() }
     }
 
     companion object {

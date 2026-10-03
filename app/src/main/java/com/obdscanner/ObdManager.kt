@@ -37,6 +37,7 @@ import com.obdscanner.obd.Readiness
 import com.obdscanner.obd.TestResult
 import com.obdscanner.obd.ecuName
 import com.obdscanner.obd.pick
+import com.obdscanner.session.PhoneSensors
 import com.obdscanner.session.Session
 import com.obdscanner.session.SessionStore
 import com.obdscanner.transport.BluetoothTransport
@@ -188,6 +189,7 @@ class ObdManager(private val context: Context) {
 
     @Volatile var session: Session? = null
         private set
+    private val phone = PhoneSensors(context)
     private var obd: Obd? = null
     private var mainJob: Job? = null
     private var opJob: Job? = null
@@ -218,6 +220,7 @@ class ObdManager(private val context: Context) {
             CarDb.loaded.first { it }
             val s = sessions.create()
             session = s
+            phone.start(s)
             _readings.value = emptyMap()
             _vehicle.value = VehicleInfo(car = _picked.value?.model)
             _scan.value = ScanState()
@@ -287,6 +290,7 @@ class ObdManager(private val context: Context) {
                 s.note("ERROR: ${e.stackTraceToString()}")
             } finally {
                 opJob?.cancel()
+                phone.stop()
                 obd = null
                 elm?.close()
                 s.report(tr("Конец сессии", "End of session"), failure ?: tr("отключено пользователем", "disconnected by user"))

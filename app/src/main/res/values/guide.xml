@@ -87,5 +87,6 @@
         <item>data.csv — all values over time.</item>
         <item>report.txt — summary: adapter, VIN, modules, codes, tests.</item>
         <item>scan.csv and bus.csv — module scans and bus sniffing.</item>
+        <item>sensors.csv — phone accelerometer and gyroscope.</item>
     </string-array>
 </resources>

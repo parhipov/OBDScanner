@@ -88,5 +88,6 @@
         <item>data.csv — все значения по времени.</item>
         <item>report.txt — сводка: адаптер, VIN, блоки, ошибки, тесты.</item>
         <item>scan.csv и bus.csv — сканы блоков и прослушка шины.</item>
+        <item>sensors.csv — акселерометр и гироскоп телефона.</item>
     </string-array>
 </resources>
