@@ -23,7 +23,7 @@ Android-приложение для чтения данных из машины 
   <tr>
     <td align="center">Катализаторы, EVAP, ошибки</td>
     <td align="center">GM-скан: модули и DID</td>
-    <td align="center">Связь, демо-режим</td>
+    <td align="center">Связь: выбор источника, Старт</td>
   </tr>
 </table>
 
