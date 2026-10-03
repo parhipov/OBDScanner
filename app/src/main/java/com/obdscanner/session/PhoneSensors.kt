@@ -5,8 +5,10 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.PowerManager
 import android.os.SystemClock
 import com.obdscanner.tr
 
@@ -23,12 +25,16 @@ class PhoneSensors(context: Context) {
     private val acc = sm?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
     private val gyro = sm?.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
     private var running: Triple<HandlerThread, Handler, Recorder>? = null
+    /** The sensors are not wake-up ones: with the CPU asleep their FIFO (a few seconds) overflows and samples are lost. */
+    private val wake = context.getSystemService(PowerManager::class.java)
+        ?.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "obdscanner:sensors")?.apply { setReferenceCounted(false) }
 
     @Synchronized fun start(s: Session) {
         stop()
         fun line(x: Sensor?) = x?.let { "${it.vendor} ${it.name}, " + tr("до", "up to") + " %.0f ".format(1e6 / periodUs(it)) + tr("Гц", "Hz") }
             ?: tr("нет", "none")
         s.report(tr("Датчики телефона", "Phone sensors"),
+            tr("Телефон", "Phone") + ": ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}\n" +
             tr("Акселерометр", "Accelerometer") + ": " + line(acc) + "\n" + tr("Гироскоп", "Gyroscope") + ": " + line(gyro))
         if (sm == null || (acc == null && gyro == null)) return
         val t = HandlerThread("sensors").apply { start() }
@@ -37,6 +43,7 @@ class PhoneSensors(context: Context) {
         acc?.let { sm.registerListener(l, it, periodUs(it), h) }
         gyro?.let { sm.registerListener(l, it, periodUs(it), h) }
         running = Triple(t, h, l)
+        wake?.acquire(MAX_WAKE_MS)
     }
 
     @Synchronized fun stop() {
@@ -47,6 +54,7 @@ class PhoneSensors(context: Context) {
             t.join(2000)
         }
         running = null
+        if (wake?.isHeld == true) wake.release()
     }
 
     /** The requested sampling period: [TARGET_HZ], or the sensor's own limit if it is slower. */
@@ -121,6 +129,8 @@ class PhoneSensors(context: Context) {
         private const val TARGET_HZ = 400
         private const val HOLD_MS = 200L
         private const val WRITE_EVERY_MS = 100L
+        /** Safety cap on the wake lock if a session is never stopped. */
+        private const val MAX_WAKE_MS = 12 * 3600_000L
         private const val RAD_TO_DEG = (180.0 / Math.PI).toFloat()
     }
 }

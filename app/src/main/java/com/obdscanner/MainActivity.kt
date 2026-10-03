@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
         // The language was switched while the process lived (the activity is recreated for it): tr() texts
         // are fixed per process, so start over instead of showing two languages. Not while connected —
         // the session being recorded matters more; the next start picks the new language up.
-        if (L10n.ru != L10n.isRu(resources.configuration.locales[0]) && m.conn.value !is ConnState.Connected && m.conn.value !is ConnState.Connecting) {
+        if (L10n.ru != L10n.isRu(resources.configuration.locales[0]) && m.conn.value !is ConnState.Connected && m.conn.value !is ConnState.Connecting && m.conn.value !is ConnState.Recording) {
             startActivity(Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
             Process.killProcess(Process.myPid())
             return
@@ -90,6 +90,7 @@ private fun AppRoot(m: ObdManager) {
                         val (status, color) = when (val c = conn) {
                             is ConnState.Connected -> "● ${c.device}${busy?.let { " · $it" } ?: ""}" to Good
                             is ConnState.Connecting -> "○ ${c.step}" to Warn
+                            ConnState.Recording -> tr("● запись датчиков телефона", "● recording phone sensors") to Good
                             is ConnState.Failed -> "✕ ${c.message}" to MaterialTheme.colorScheme.error
                             ConnState.Idle -> tr("не подключено", "not connected") to MaterialTheme.colorScheme.outline
                         }
@@ -101,7 +102,7 @@ private fun AppRoot(m: ObdManager) {
                         val dir = m.session?.also { it.flush() }?.dir ?: m.sessions.list().firstOrNull()
                         if (dir == null) toast(ctx, tr("Сессий пока нет", "No sessions yet")) else shareFile(ctx, m.sessions.zip(dir))
                     }) { Icon(Icons.Default.Share, tr("Отправить сессию", "Share session")) }
-                    if (conn is ConnState.Connected || conn is ConnState.Connecting) {
+                    if (conn is ConnState.Connected || conn is ConnState.Connecting || conn is ConnState.Recording) {
                         IconButton(onClick = { m.disconnect() }) { Icon(Icons.Default.Close, tr("Отключиться", "Disconnect")) }
                     }
                 },

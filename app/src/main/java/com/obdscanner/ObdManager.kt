@@ -50,6 +50,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -68,8 +69,13 @@ sealed interface ConnState {
     data object Idle : ConnState
     data class Connecting(val device: String, val step: String) : ConnState
     data class Connected(val device: String) : ConnState
+    /** Phone sensors only, no adapter. */
+    data object Recording : ConnState
     data class Failed(val message: String) : ConnState
 }
+
+const val SOURCE_DEMO = "demo"
+const val SOURCE_SENSORS = "sensors"
 
 enum class Tab(val title: String) {
     Connect(tr("Связь", "Connect")),
@@ -198,6 +204,11 @@ class ObdManager(private val context: Context) {
 
     val lastDevice: String? get() = prefs.getString("last_device", null)
 
+    /** The source picked on Connect: an adapter's address, [SOURCE_DEMO] or [SOURCE_SENSORS]. */
+    var source: String?
+        get() = prefs.getString("source", null) ?: lastDevice
+        set(v) { prefs.edit().putString("source", v).apply() }
+
     @SuppressLint("MissingPermission")
     fun connectBluetooth(device: BluetoothDevice) {
         prefs.edit().putString("last_device", device.address).apply()
@@ -208,6 +219,28 @@ class ObdManager(private val context: Context) {
     }
 
     fun connectDemo() = connect { MockTransport() }
+
+    /** Phone sensors only, no adapter: a second phone elsewhere in the car, or a car without an adapter. */
+    fun recordSensors() {
+        if (mainJob?.isActive == true) return
+        mainJob = scope.launch {
+            val s = sessions.create()
+            session = s
+            s.report(tr("Режим", "Mode"), tr("Только датчики телефона, без адаптера", "Phone sensors only, no adapter"))
+            phone.start(s)
+            ObdService.start(context, tr("Датчики телефона", "Phone sensors"), sensorsOnly = true)
+            _conn.value = ConnState.Recording
+            try {
+                awaitCancellation()
+            } finally {
+                phone.stop()
+                s.report(tr("Конец сессии", "End of session"), tr("остановлено пользователем", "stopped by user"))
+                s.close()
+                ObdService.stop(context)
+                _conn.value = ConnState.Idle
+            }
+        }
+    }
 
     fun disconnect() {
         mainJob?.cancel()

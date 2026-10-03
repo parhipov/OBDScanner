@@ -20,7 +20,7 @@
 
     <string-array name="guide_steps">
         <item>How to test</item>
-        <item>1. Ignition on, engine off. \"Connect\" → adapter.</item>
+        <item>1. Ignition on, engine off. \"Connect\" → adapter → \"Start\".</item>
         <item>2. Wait until \"Scanning the car…\" disappears on \"Main\". The first time takes a few minutes.</item>
         <item>3. Start the engine, idle for 5–10 minutes.</item>
         <item>4. Drive 20–40 minutes: city, steady 60 and 90 km/h, accelerations, one full-throttle run.</item>
@@ -87,6 +87,6 @@
         <item>data.csv — all values over time.</item>
         <item>report.txt — summary: adapter, VIN, modules, codes, tests.</item>
         <item>scan.csv and bus.csv — module scans and bus sniffing.</item>
-        <item>sensors.csv — phone accelerometer and gyroscope.</item>
+        <item>sensors.csv — phone accelerometer and gyroscope. Without an adapter: \"Phone sensors\" on \"Connect\", then \"Start\".</item>
     </string-array>
 </resources>

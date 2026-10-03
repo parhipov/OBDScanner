@@ -10,20 +10,24 @@ import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.obdscanner.ConnState
 import com.obdscanner.ObdManager
+import com.obdscanner.SOURCE_DEMO
+import com.obdscanner.SOURCE_SENSORS
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarChoice
 import com.obdscanner.tr
@@ -73,72 +79,104 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
         else adapter.bondedDevices.orEmpty().sortedWith(compareByDescending<BluetoothDevice> { it.address == m.lastDevice }
             .thenByDescending { looksLikeObd(it.name) }.thenBy { it.name ?: "" })
     }
-    val busy = conn is ConnState.Connecting
+    // While a session runs the pick is locked: it shows what is running.
+    val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
+    var source by remember { mutableStateOf(m.source) }
+    fun pick(id: String) { if (!running) { source = id; m.source = id } }
+    val device = devices.firstOrNull { it.address == source }
+    val canStart = device != null || source == SOURCE_DEMO || source == SOURCE_SENSORS
 
-    LazyColumn(Modifier.fillMaxSize().padding(8.dp)) {
-        item {
-            when (conn) {
-                is ConnState.Connecting -> Card(Modifier.fillMaxWidth().padding(4.dp)) {
-                    Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                        CircularProgressIndicator(Modifier.padding(end = 16.dp))
-                        Column {
-                            Text(conn.device, style = MaterialTheme.typography.titleMedium)
-                            Text(conn.step)
+    Column(Modifier.fillMaxSize()) {
+        LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
+            item {
+                when (conn) {
+                    is ConnState.Connecting -> Card(Modifier.fillMaxWidth().padding(4.dp)) {
+                        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                            CircularProgressIndicator(Modifier.padding(end = 16.dp))
+                            Column {
+                                Text(conn.device, style = MaterialTheme.typography.titleMedium)
+                                Text(conn.step)
+                            }
                         }
                     }
+                    is ConnState.Failed -> Hint(tr("Ошибка: ${conn.message}\n\nЛог попытки сохранён в сессии — можно отправить кнопкой ⇪ сверху.",
+                        "Error: ${conn.message}\n\nThe attempt log is saved in the session — send it with the ⇪ button at the top."), Bad)
+                    is ConnState.Connected -> Hint(tr("Подключено: ${conn.device}", "Connected: ${conn.device}"), Good)
+                    ConnState.Recording -> Hint(tr("Идёт запись датчиков телефона. Держите приложение открытым, телефон закрепите неподвижно.",
+                        "Recording phone sensors. Keep the app open and the phone fixed in place."), Good)
+                    ConnState.Idle -> Unit
                 }
-                is ConnState.Failed -> Hint(tr("Ошибка: ${conn.message}\n\nЛог попытки сохранён в сессии — можно отправить кнопкой ⇪ сверху.",
-                    "Error: ${conn.message}\n\nThe attempt log is saved in the session — send it with the ⇪ button at the top."), Bad)
-                is ConnState.Connected -> Hint(tr("Подключено: ${conn.device}", "Connected: ${conn.device}"), Good)
-                ConnState.Idle -> Unit
+            }
+            item { CarCard(m, v, picked) }
+            item {
+                SectionTitle(tr("Адаптер ELM327", "ELM327 adapter"))
+                when {
+                    adapter == null -> Muted(tr("На устройстве нет Bluetooth.", "This device has no Bluetooth."))
+                    !hasPerm -> Button(onClick = { permLauncher.launch(arrayOf(Manifest.permission.BLUETOOTH_CONNECT)) }, Modifier.padding(8.dp)) {
+                        Text(tr("Разрешить доступ к Bluetooth", "Allow Bluetooth access"))
+                    }
+                    !adapter.isEnabled -> Button(onClick = { enableLauncher.launch(Intent(android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE)) }, Modifier.padding(8.dp)) {
+                        Text(tr("Включить Bluetooth", "Turn on Bluetooth"))
+                    }
+                    devices.isEmpty() -> Muted(tr("Нет спаренных устройств. Спарьте адаптер в настройках Bluetooth (PIN обычно 1234 или 0000).",
+                        "No paired devices. Pair the adapter in the Bluetooth settings (PIN is usually 1234 or 0000)."))
+                }
+            }
+            items(devices, key = { it.address }) { d ->
+                SourceCard(d.name ?: tr("Без имени", "Unnamed"),
+                    d.address + if (d.address == m.lastDevice) tr(" · последний", " · last used") else "",
+                    selected = d.address == source, locked = running) { pick(d.address) }
+            }
+            item {
+                Row(Modifier.padding(8.dp)) {
+                    OutlinedButton(onClick = { ctx.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) }) { Text(tr("Настройки Bluetooth", "Bluetooth settings")) }
+                    OutlinedButton(onClick = { refresh++ }, Modifier.padding(start = 8.dp)) { Text(tr("Обновить", "Refresh")) }
+                }
+                Muted(tr("Старые клоны ELM327 работают только по классическому Bluetooth. Включите зажигание перед подключением.",
+                    "Old ELM327 clones work over classic Bluetooth only. Turn the ignition on before connecting."))
+                SectionTitle(tr("Без адаптера", "No adapter"))
+                SourceCard(tr("Демо-режим", "Demo mode"),
+                    tr("Эмулятор ELM327 + CTS 2.8: ECM, TCM, ошибки, Mode 06, GM-модули", "ELM327 emulator + CTS 2.8: ECM, TCM, codes, Mode 06, GM modules"),
+                    selected = source == SOURCE_DEMO, locked = running) { pick(SOURCE_DEMO) }
+                SourceCard(tr("Датчики телефона", "Phone sensors"),
+                    tr("Только акселерометр и гироскоп. Например, второй телефон в багажнике во время обычной сессии: записи сводятся по времени.",
+                        "Accelerometer and gyroscope only. For example, a second phone in the boot during a normal session: the recordings are lined up by time."),
+                    selected = source == SOURCE_SENSORS, locked = running) { pick(SOURCE_SENSORS) }
             }
         }
-        item { CarCard(m, v, picked) }
-        item {
-            SectionTitle(tr("Адаптер ELM327", "ELM327 adapter"))
-            when {
-                adapter == null -> Muted(tr("На устройстве нет Bluetooth.", "This device has no Bluetooth."))
-                !hasPerm -> Button(onClick = { permLauncher.launch(arrayOf(Manifest.permission.BLUETOOTH_CONNECT)) }, Modifier.padding(8.dp)) {
-                    Text(tr("Разрешить доступ к Bluetooth", "Allow Bluetooth access"))
+        Button(
+            onClick = {
+                when {
+                    running -> m.disconnect()
+                    device != null -> m.connectBluetooth(device)
+                    source == SOURCE_DEMO -> m.connectDemo()
+                    source == SOURCE_SENSORS -> m.recordSensors()
                 }
-                !adapter.isEnabled -> Button(onClick = { enableLauncher.launch(Intent(android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE)) }, Modifier.padding(8.dp)) {
-                    Text(tr("Включить Bluetooth", "Turn on Bluetooth"))
-                }
-                devices.isEmpty() -> Muted(tr("Нет спаренных устройств. Спарьте адаптер в настройках Bluetooth (PIN обычно 1234 или 0000).",
-                    "No paired devices. Pair the adapter in the Bluetooth settings (PIN is usually 1234 or 0000)."))
-            }
+            },
+            enabled = running || canStart,
+            colors = if (running) ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error) else ButtonDefaults.buttonColors(),
+            modifier = Modifier.fillMaxWidth().padding(12.dp).height(56.dp),
+        ) {
+            Text(if (running) tr("Стоп", "Stop") else tr("Старт", "Start"), style = MaterialTheme.typography.titleMedium)
         }
-        items(devices, key = { it.address }) { d ->
-            Card(
-                Modifier.fillMaxWidth().padding(4.dp).clickable(enabled = !busy) { m.connectBluetooth(d) },
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            ) {
-                Column(Modifier.padding(14.dp)) {
-                    Text(d.name ?: tr("Без имени", "Unnamed"), style = MaterialTheme.typography.titleMedium)
-                    Text(d.address + if (d.address == m.lastDevice) tr(" · последний", " · last used") else "", style = MaterialTheme.typography.bodySmall)
-                }
+    }
+}
+
+/** One pickable source: a frame and a filled radio when picked. */
+@Composable
+private fun SourceCard(title: String, sub: String, selected: Boolean, locked: Boolean, onClick: () -> Unit) {
+    Card(
+        Modifier.fillMaxWidth().padding(4.dp).clickable(enabled = !locked, onClick = onClick),
+        colors = CardDefaults.cardColors(
+            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant),
+        border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null,
+    ) {
+        Row(Modifier.padding(end = 14.dp, top = 6.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(selected = selected, onClick = null, enabled = !locked || selected, modifier = Modifier.padding(14.dp))
+            Column {
+                Text(title, style = MaterialTheme.typography.titleMedium)
+                Text(sub, style = MaterialTheme.typography.bodySmall)
             }
-        }
-        item {
-            Row(Modifier.padding(8.dp)) {
-                OutlinedButton(onClick = { ctx.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) }) { Text(tr("Настройки Bluetooth", "Bluetooth settings")) }
-                OutlinedButton(onClick = { refresh++ }, Modifier.padding(start = 8.dp)) { Text(tr("Обновить", "Refresh")) }
-            }
-            SectionTitle(tr("Без машины", "No car"))
-            Card(
-                Modifier.fillMaxWidth().padding(4.dp).clickable(enabled = !busy) { m.connectDemo() },
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            ) {
-                Column(Modifier.padding(14.dp)) {
-                    Text(tr("Демо-режим", "Demo mode"), style = MaterialTheme.typography.titleMedium)
-                    Text(tr("Эмулятор ELM327 + CTS 2.8: ECM, TCM, ошибки, Mode 06, GM-модули", "ELM327 emulator + CTS 2.8: ECM, TCM, codes, Mode 06, GM modules"), style = MaterialTheme.typography.bodySmall)
-                }
-            }
-            if (conn is ConnState.Connected || busy) {
-                Button(onClick = { m.disconnect() }, Modifier.padding(8.dp)) { Text(tr("Отключиться", "Disconnect")) }
-            }
-            Muted(tr("Старые клоны ELM327 работают только по классическому Bluetooth. Включите зажигание перед подключением.",
-                "Old ELM327 clones work over classic Bluetooth only. Turn the ignition on before connecting."))
         }
     }
 }
