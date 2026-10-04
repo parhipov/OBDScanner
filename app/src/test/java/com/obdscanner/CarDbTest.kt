@@ -16,14 +16,13 @@ class CarDbTest {
         /** The app's own assets (unit tests run in app/). */
         fun load(force: Boolean = false) {
             if (CarDb.families.isNotEmpty() && !force) return
-            val dirs = listOf(File("src/main/assets/cars"), File("src/main/assets/cars/obdb"))
-            val texts = dirs.flatMap { d -> d.listFiles { f -> f.name.endsWith(".json") }.orEmpty().sortedBy { it.name }.map { it.readText() } }
-            val t0 = System.currentTimeMillis()
-            CarDb.load(texts)
-            loadMs = System.currentTimeMillis() - t0
+            CarDb.load(texts())
         }
 
-        var loadMs = 0L
+        fun texts(): List<String> {
+            val dirs = listOf(File("src/main/assets/cars"), File("src/main/assets/cars/obdb"))
+            return dirs.flatMap { d -> d.listFiles { f -> f.name.endsWith(".json") }.orEmpty().sortedBy { it.name }.map { it.readText() } }
+        }
 
         @BeforeClass @JvmStatic
         fun setUp() = load()
@@ -32,8 +31,15 @@ class CarDbTest {
     /** 1.04 hung on startup: merging commands was quadratic. On a desktop JVM the whole database parses well under a second. */
     @Test
     fun loadsFast() {
-        println("car database parsed in $loadMs ms")
-        assertTrue("parse took $loadMs ms", loadMs < 1500)
+        // Timed warm: the first parse in a test JVM also pays for class loading and the JIT, several times
+        // more on a CI runner than here. Quadratic merging (1.04) took seconds even warm.
+        val texts = texts()
+        CarDb.load(texts)
+        val t0 = System.currentTimeMillis()
+        CarDb.load(texts)
+        val ms = System.currentTimeMillis() - t0
+        println("car database parsed in $ms ms (warm)")
+        assertTrue("parse took $ms ms", ms < 1500)
     }
 
     @Test

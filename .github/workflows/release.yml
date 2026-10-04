@@ -36,6 +36,19 @@ jobs:
           chmod +x gradlew
           ./gradlew testDebugUnitTest assembleRelease --console=plain
 
+      # The run log needs a login; annotations don't — each failed test becomes one, with its message.
+      - name: Failed tests
+        if: failure()
+        run: |
+          python3 - <<'EOF'
+          import glob, html, re
+          for p in glob.glob('app/build/test-results/testDebugUnitTest/*.xml'):
+              s = open(p, encoding='utf-8').read()
+              for m in re.finditer(r'<testcase name="([^"]+)" classname="([^"]+)"[^>]*>\s*<failure message="(.*?)"', s, re.S):
+                  msg = html.unescape(m.group(3))[:3000].replace('%', '%25').replace('\r', '').replace('\n', '%0A')
+                  print(f"::error title={m.group(2)}.{m.group(1)}::{msg}")
+          EOF
+
       - name: Check the tag matches versionName
         run: |
           apk=$(ls app/build/outputs/apk/release/*.apk)
