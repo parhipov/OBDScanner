@@ -55,6 +55,8 @@ import com.obdscanner.transport.UsbAdapter
 import com.obdscanner.transport.UsbAdapters
 import com.obdscanner.transport.UsbSerialLink
 import com.obdscanner.transport.UsbTransport
+import com.obdscanner.transport.WifiNet
+import com.obdscanner.transport.WifiTransport
 import com.obdscanner.vag.VagModules
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -88,6 +90,7 @@ sealed interface ConnState {
 
 const val SOURCE_DEMO = "demo"
 const val SOURCE_SENSORS = "sensors"
+const val SOURCE_WIFI = "wifi"
 
 enum class Tab(val title: String) {
     Connect(tr("Связь", "Connect")),
@@ -217,7 +220,7 @@ class ObdManager(private val context: Context) {
     val lastDevice: String? get() = prefs.getString("last_device", null)
 
     private val _source = MutableStateFlow(prefs.getString("source", null) ?: lastDevice)
-    /** The source picked on Connect: a Bluetooth adapter's address, a USB id ([UsbAdapters]), [SOURCE_DEMO] or [SOURCE_SENSORS]. */
+    /** The source picked on Connect: a Bluetooth adapter's address, a USB id ([UsbAdapters]), [SOURCE_WIFI], [SOURCE_DEMO] or [SOURCE_SENSORS]. */
     val source: StateFlow<String?> = _source.asStateFlow()
 
     /** While a session runs the pick is locked: it shows what is running. */
@@ -308,6 +311,28 @@ class ObdManager(private val context: Context) {
         um.requestPermission(device, PendingIntent.getBroadcast(context, 0, Intent(action).setPackage(context.packageName), flags))
     }
 
+    /** Address typed on Connect for the Wi-Fi adapter ("host:port"); empty — found by itself. */
+    var wifiAddress: String
+        get() = prefs.getString("wifi_address", null).orEmpty()
+        set(v) = prefs.edit().putString("wifi_address", v.trim()).apply()
+
+    /** The address that answered last time, "host:port". */
+    val wifiLast: String? get() = prefs.getString("wifi_last", null)
+
+    /** Wi-Fi adapter: the typed address, else the last one that worked, the Wi-Fi gateway and the usual clone addresses. */
+    fun connectWifi() {
+        prefs.edit().putString("last_device", SOURCE_WIFI).apply()
+        val cm = context.getSystemService(android.net.ConnectivityManager::class.java)
+        connect { s ->
+            val net = WifiNet.find(cm)
+            s.note("Wi-Fi: network ${net.network ?: "none"}, gateway ${net.gateway ?: "none"}")
+            val typed = wifiAddress.takeIf { it.isNotEmpty() }
+            val candidates = if (typed != null) listOf(typed) else listOfNotNull(wifiLast) +
+                listOfNotNull(net.gateway).flatMap { listOf("$it:${WifiTransport.DEFAULT_PORT}", "$it:23") } + WifiTransport.DEFAULTS
+            WifiTransport(candidates, net.factory, { s.note(it) }) { prefs.edit().putString("wifi_last", it).apply() }
+        }
+    }
+
     fun connectDemo() = connect { MockTransport() }
 
     /** Phone sensors only, no adapter: a second phone elsewhere in the car, or a car without an adapter. */
@@ -376,7 +401,7 @@ class ObdManager(private val context: Context) {
                             delay(2000)
                         }
                     }
-                    ObdService.start(context, name, usb = transport is UsbTransport)
+                    ObdService.start(context, name, usb = transport is UsbTransport, wifi = transport is WifiTransport)
                     // Clones miss the first command sent right after the link comes up (AndrOBD #233: Car Scanner waits ~500 ms).
                     delay(500)
                     try {

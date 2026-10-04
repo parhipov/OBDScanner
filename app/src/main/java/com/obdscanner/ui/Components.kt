@@ -176,12 +176,16 @@ fun Gap() = Spacer(Modifier.height(8.dp))
 
 val spaced = Arrangement.spacedBy(8.dp)
 
+/** The project's mailbox for sessions: mail apps put it into "To", messengers ignore it. */
+const val SESSION_EMAIL = "obdscanner@internet.ru"
+
 fun shareFile(context: Context, file: File) {
     val uri = FileProvider.getUriForFile(context, "${context.packageName}.files", file)
     val send = Intent(Intent.ACTION_SEND).apply {
         type = "application/zip"
         putExtra(Intent.EXTRA_STREAM, uri)
-        putExtra(Intent.EXTRA_SUBJECT, "OBD Scanner: ${file.nameWithoutExtension}")
+        putExtra(Intent.EXTRA_EMAIL, arrayOf(SESSION_EMAIL))
+        putExtra(Intent.EXTRA_SUBJECT, "OBD Scanner ${com.obdscanner.BuildConfig.VERSION_NAME}: ${file.nameWithoutExtension}")
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
     context.startActivity(Intent.createChooser(send, tr("Отправить сессию", "Send session")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

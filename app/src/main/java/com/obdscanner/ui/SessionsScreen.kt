@@ -37,6 +37,8 @@ fun SessionsScreen(m: ObdManager) {
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
         item { Muted(tr("Каждое подключение — отдельная сессия: raw.log (обмен с адаптером), data.csv (все значения), report.txt (сводка), scan.csv (GM-скан).",
             "Each connection is a separate session: raw.log (adapter traffic), data.csv (all values), report.txt (summary), scan.csv (GM scan).")) }
+        item { Muted(tr("Сессию с ошибкой подключения или странными значениями пришлите на $SESSION_EMAIL — почтовое приложение подставит адрес само. В письме укажите машину и что пошло не так.",
+            "Send a session with a connection error or odd values to $SESSION_EMAIL — a mail app fills the address in. Name the car and what went wrong in the email.")) }
         items(list, key = { it.name }) { dir ->
             Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
                 Row(Modifier.padding(start = 12.dp), verticalAlignment = Alignment.CenterVertically) {

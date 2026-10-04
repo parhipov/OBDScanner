@@ -27,6 +27,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,8 +47,10 @@ import com.obdscanner.ConnState
 import com.obdscanner.ObdManager
 import com.obdscanner.SOURCE_DEMO
 import com.obdscanner.SOURCE_SENSORS
+import com.obdscanner.SOURCE_WIFI
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarChoice
+import com.obdscanner.transport.WifiTransport
 import com.obdscanner.tr
 
 @SuppressLint("MissingPermission")
@@ -87,7 +90,9 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     fun pick(id: String) { if (!running) m.pickSource(id) }
     val device = devices.firstOrNull { it.address == source }
     val usbPicked = usb.firstOrNull { it.id == source }
-    val canStart = device != null || usbPicked != null || source == SOURCE_DEMO || source == SOURCE_SENSORS
+    var wifiAddress by remember { mutableStateOf(m.wifiAddress) }
+    val wifiOk = wifiAddress.isBlank() || WifiTransport.parse(wifiAddress) != null
+    val canStart = device != null || usbPicked != null || (source == SOURCE_WIFI && wifiOk) || source == SOURCE_DEMO || source == SOURCE_SENSORS
 
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
@@ -102,8 +107,8 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                             }
                         }
                     }
-                    is ConnState.Failed -> Hint(tr("Ошибка: ${conn.message}\n\nЛог попытки сохранён в сессии — можно отправить кнопкой ⇪ сверху.",
-                        "Error: ${conn.message}\n\nThe attempt log is saved in the session — send it with the ⇪ button at the top."), Bad)
+                    is ConnState.Failed -> Hint(tr("Ошибка: ${conn.message}\n\nЛог попытки сохранён в сессии — отправьте его кнопкой ⇪ сверху на $SESSION_EMAIL.",
+                        "Error: ${conn.message}\n\nThe attempt log is saved in the session — send it with the ⇪ button at the top to $SESSION_EMAIL."), Bad)
                     is ConnState.Connected -> Hint(tr("Подключено: ${conn.device}", "Connected: ${conn.device}"), Good)
                     ConnState.Recording -> Hint(tr("Идёт запись датчиков телефона. Держите приложение открытым, телефон закрепите неподвижно.",
                         "Recording phone sensors. Keep the app open and the phone fixed in place."), Good)
@@ -141,8 +146,31 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                     OutlinedButton(onClick = { ctx.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) }) { Text(tr("Настройки Bluetooth", "Bluetooth settings")) }
                     OutlinedButton(onClick = { refresh++ }, Modifier.padding(start = 8.dp)) { Text(tr("Обновить", "Refresh")) }
                 }
-                Muted(tr("Старые клоны ELM327 работают по классическому Bluetooth, USB-адаптеры — через переходник OTG. Включите зажигание перед подключением.",
-                    "Old ELM327 clones work over classic Bluetooth, USB adapters through an OTG adapter. Turn the ignition on before connecting."))
+                SourceCard(tr("Wi-Fi-адаптер", "Wi-Fi adapter"),
+                    "Wi-Fi · " + (wifiAddress.trim().ifEmpty { null } ?: m.wifiLast ?: tr("адрес определяется сам", "address found automatically")) +
+                        if (m.lastDevice == SOURCE_WIFI) tr(" · последний", " · last used") else "",
+                    selected = source == SOURCE_WIFI, locked = running) { pick(SOURCE_WIFI) }
+                if (source == SOURCE_WIFI) {
+                    Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        OutlinedTextField(
+                            value = wifiAddress,
+                            onValueChange = { wifiAddress = it; m.wifiAddress = it },
+                            label = { Text(tr("Адрес адаптера", "Adapter address")) },
+                            placeholder = { Text(tr("пусто — автоматически", "empty — automatic")) },
+                            isError = !wifiOk,
+                            singleLine = true,
+                            enabled = !running,
+                            modifier = Modifier.weight(1f),
+                        )
+                        OutlinedButton(onClick = { ctx.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }, Modifier.padding(start = 8.dp)) {
+                            Text(tr("Настройки Wi-Fi", "Wi-Fi settings"))
+                        }
+                    }
+                    Muted(tr("Подключите телефон к сети адаптера (обычно WiFi_OBDII, без пароля). Если Android спросит про сеть без интернета — оставайтесь в ней. Адрес вида 192.168.0.10:35000.",
+                        "Connect the phone to the adapter's network (usually WiFi_OBDII, no password). If Android asks about a network without internet, stay connected. Address like 192.168.0.10:35000."))
+                }
+                Muted(tr("Старые клоны ELM327 работают по классическому Bluetooth, USB-адаптеры — через переходник OTG, Wi-Fi-адаптеры — через свою сеть Wi-Fi. Включите зажигание перед подключением.",
+                    "Old ELM327 clones work over classic Bluetooth, USB adapters through an OTG adapter, Wi-Fi adapters through their own Wi-Fi network. Turn the ignition on before connecting."))
                 SectionTitle(tr("Без адаптера", "No adapter"))
                 SourceCard(tr("Демо-режим", "Demo mode"),
                     tr("Эмулятор ELM327 + CTS 2.8: ECM, TCM, ошибки, Mode 06, GM-модули", "ELM327 emulator + CTS 2.8: ECM, TCM, codes, Mode 06, GM modules"),
@@ -159,6 +187,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                     running -> m.disconnect()
                     device != null -> m.connectBluetooth(device)
                     usbPicked != null -> m.connectUsb(usbPicked.id)
+                    source == SOURCE_WIFI -> m.connectWifi()
                     source == SOURCE_DEMO -> m.connectDemo()
                     source == SOURCE_SENSORS -> m.recordSensors()
                 }
