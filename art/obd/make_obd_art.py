@@ -16,7 +16,7 @@ Locations:
 
 Writes art/obd/obd_loc_<id>.svg (source) and app/src/main/res/drawable-nodpi/obd_loc_<id>.webp, rendered
 with headless Edge (needs Pillow for the WebP step). No text inside the pictures: captions are in
-CarPicker.kt (translatable); which car uses which — `obd` in app/src/main/assets/cars/*.json.
+CarPicker.kt (translatable); which car uses which — `obd` in core/data/cars/*.json.
 
 The scene is one "world" drawn in 1080x660 driver-footwell units (column at x=600, dash lip ~y 300,
 floor ~y 450); the centre console sits at x~1030..1400 and the passenger footwell to the right of it.

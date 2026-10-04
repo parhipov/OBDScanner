@@ -22,9 +22,12 @@ android {
         applicationId = "com.obdscanner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 39
-        versionName = "2.0"
+        versionCode = 40
+        versionName = "3.0"
     }
+
+    // The car and trouble code databases belong to the core (the browser page reads them too).
+    sourceSets.getByName("main").assets.srcDirs("../core/data")
 
     buildTypes {
         release {
@@ -62,6 +65,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-core")
+    implementation(project(":core"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
     // USB adapters: drivers for the USB-serial chips (CH340, FTDI, CP210x, PL2303, CDC). MIT.
     implementation("com.github.mik3y:usb-serial-for-android:3.10.0")

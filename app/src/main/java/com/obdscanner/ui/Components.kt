@@ -32,6 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import com.obdscanner.obd.Reading
+import com.obdscanner.screen.Level
+import com.obdscanner.screen.rowSub
+import com.obdscanner.screen.tileRange
+import com.obdscanner.screen.trimLevel
 import com.obdscanner.tr
 import java.io.File
 import kotlin.math.abs
@@ -80,8 +84,7 @@ fun ValueTile(label: String, r: Reading?, modifier: Modifier = Modifier, color: 
                 }
             }
             // Always reserve the min/max line so tiles in a grid row keep the same height.
-            val range = note ?: if (r?.value != null && r.min != null && r.max != null && r.min != r.max)
-                tr("мин ${Reading.fmt(r.min, r.decimals)} · макс ${Reading.fmt(r.max, r.decimals)}", "min ${Reading.fmt(r.min, r.decimals)} · max ${Reading.fmt(r.max, r.decimals)}") else " "
+            val range = note ?: r?.tileRange() ?: " "
             Text(range, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline, maxLines = 1)
         }
     }
@@ -119,9 +122,7 @@ fun ValueRow(name: String, value: String, unit: String = "", sub: String? = null
 
 @Composable
 fun ReadingRow(r: Reading, color: Color? = null) {
-    val range = if (r.value != null && r.min != null && r.max != null && r.min != r.max)
-        "${r.source} · ${Reading.fmt(r.min, r.decimals)}…${Reading.fmt(r.max, r.decimals)}" else r.source
-    ValueRow(r.name, r.display(), if (r.value != null) r.unit else "", range, color)
+    ValueRow(r.name, r.display(), if (r.value != null) r.unit else "", r.rowSub(), color)
 }
 
 /** Horizontal bar centered at zero, for fuel trims (±25%). */
@@ -148,11 +149,11 @@ fun TrimBar(value: Double?, limit: Double = 25.0) {
     }
 }
 
-fun trimColor(v: Double?): Color? = when {
-    v == null -> null
-    abs(v) >= 15 -> Bad
-    abs(v) >= 8 -> Warn
-    else -> Good
+fun trimColor(v: Double?): Color? = when (trimLevel(v)) {
+    Level.BAD -> Bad
+    Level.WARN -> Warn
+    Level.GOOD -> Good
+    else -> null
 }
 
 @Composable

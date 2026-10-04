@@ -1,6 +1,7 @@
 # Release on a version tag: git tag -a v1.02 -m "notes…" && git push origin v1.02
 # Builds the release APK (signed with the project key from keystore/, same as local builds, so it
-# installs over them), runs the unit tests and publishes a GitHub release with the APK attached.
+# installs over them), runs the unit tests (core/: the logic and the session replays; app/: the
+# transports) and publishes a GitHub release with the APK attached.
 # The release text is the tag's annotation message.
 name: Release
 
@@ -34,7 +35,7 @@ jobs:
       - name: Test and build
         run: |
           chmod +x gradlew
-          ./gradlew testDebugUnitTest assembleRelease --console=plain
+          ./gradlew :core:jvmTest testDebugUnitTest assembleRelease --console=plain
 
       # The run log needs a login; annotations don't — each failed test becomes one, with its message.
       - name: Failed tests
@@ -42,7 +43,7 @@ jobs:
         run: |
           python3 - <<'EOF'
           import glob, html, re
-          for p in glob.glob('app/build/test-results/testDebugUnitTest/*.xml'):
+          for p in glob.glob('core/build/test-results/jvmTest/*.xml') + glob.glob('app/build/test-results/testDebugUnitTest/*.xml'):
               s = open(p, encoding='utf-8').read()
               for m in re.finditer(r'<testcase name="([^"]+)" classname="([^"]+)"[^>]*>\s*<failure message="(.*?)"', s, re.S):
                   msg = html.unescape(m.group(3))[:3000].replace('%', '%25').replace('\r', '').replace('\n', '%0A')

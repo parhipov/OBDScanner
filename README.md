@@ -47,7 +47,7 @@ Android-приложение для чтения данных из машины 
 
 ## База машин
 
-`app/src/main/assets/cars/` — JSON по семействам марок (GM, VAG, Toyota/Lexus, Hyundai/Kia, Lada, Renault, Nissan, Ford, Mazda, BMW, Mercedes, Honda, Mitsubishi, Subaru, Suzuki, китайцы). Формат — [tools/cars/SCHEMA.md](tools/cars/SCHEMA.md).
+`core/data/cars/` — JSON по семействам марок (GM, VAG, Toyota/Lexus, Hyundai/Kia, Lada, Renault, Nissan, Ford, Mazda, BMW, Mercedes, Honda, Mitsubishi, Subaru, Suzuki, китайцы). Формат — [tools/cars/SCHEMA.md](tools/cars/SCHEMA.md).
 
 | Что | Сколько | Для чего |
 |---|---|---|
@@ -73,7 +73,7 @@ Android-приложение для чтения данных из машины 
 
 ## База кодов ошибок
 
-`app/src/main/assets/dtc/` — описание по нажатию на код (стандартные коды, коды всех блоков, «Топливо»). Формат — [tools/dtc/SCHEMA.md](tools/dtc/SCHEMA.md), сборка — [tools/dtc/dtc_import.py](tools/dtc/dtc_import.py) (`--refresh` — скачать источники заново).
+`core/data/dtc/` — описание по нажатию на код (стандартные коды, коды всех блоков, «Топливо»). Формат — [tools/dtc/SCHEMA.md](tools/dtc/SCHEMA.md), сборка — [tools/dtc/dtc_import.py](tools/dtc/dtc_import.py) (`--refresh` — скачать источники заново).
 
 | Что | Сколько | Источник |
 |---|---|---|
@@ -155,7 +155,7 @@ Android-приложение для чтения данных из машины 
 
 ## GM-параметры
 
-Таблица: первые записи `commands` в [gm.json](app/src/main/assets/cars/gm.json) (до 2.0 — GmKnown.kt). Источники: Holden VE/VF, списки GM Class 2, OBDb.
+Таблица: первые записи `commands` в [gm.json](core/data/cars/gm.json) (до 2.0 — GmKnown.kt). Источники: Holden VE/VF, списки GM Class 2, OBDb.
 - без пометки — несколько источников или проверено на машине;
 - «(?)» — один источник или расхождения.
 
@@ -185,9 +185,10 @@ VS Code (Ctrl+Shift+P → Tasks: Run Task):
 Консоль:
 
 ```
-gradlew assembleDebug        # APK: app/build/outputs/apk/debug/OBDScanner_PavelArkhipov_<версия>.apk
-gradlew installDebug         # сборка и установка
-gradlew testDebugUnitTest    # тесты
+gradlew assembleDebug                        # APK: app/build/outputs/apk/debug/OBDScanner_PavelArkhipov_<версия>.apk
+gradlew installDebug                         # сборка и установка
+gradlew :core:jvmTest testDebugUnitTest      # тесты: ядро (логика, проигрывание сессий) и приложение (USB, Wi-Fi)
+gradlew :core:jsBrowserProductionLibraryDistribution   # ядро для браузера: core/build/dist/js/productionLibrary
 ```
 
 Записанные сессии (`sessions/<машина>/<сессия>/raw.log`, не в git) проигрываются тестом `ReplayTest`: приложение подключается к «адаптеру», который отвечает записанными ответами, и всё, что оно отправило и нашло (запросы, `report.txt`, значения), сравнивается с `replay-golden.txt` рядом с сессией. `REPLAY_RECORD=1` — записать эталоны текущим кодом, `REPLAY_GOLDEN=replay-main.txt` — сравнить с поведением ветки main.
@@ -196,33 +197,41 @@ gradlew testDebugUnitTest    # тесты
 
 ## Демо-режим
 
-Вкладка «Связь» → «Демо-режим»: эмулятор ELM327 v1.5 + CTS 2.8 ([MockTransport.kt](app/src/main/java/com/obdscanner/transport/MockTransport.kt)). Двигатель, АКПП, BCM, многокадровые ответы, ошибки, Mode 06, GM-параметры, трафик для прослушки. На нём же unit-тесты.
+Вкладка «Связь» → «Демо-режим»: эмулятор ELM327 v1.5 + CTS 2.8 ([MockTransport.kt](core/src/commonMain/kotlin/com/obdscanner/transport/MockTransport.kt)). Двигатель, АКПП, BCM, многокадровые ответы, ошибки, Mode 06, GM-параметры, трафик для прослушки. На нём же unit-тесты.
 
 ## Код
 
+Два модуля. `core` — вся логика без Android, на Kotlin Multiplatform: собирается для JVM (приложение, тесты) и в JavaScript (страница в браузере, Web Serial). `app` — Android: адаптеры, сервис, сессии на диске, экраны на Compose. Экраны только рисуют: что показать (карточки «Главной», подсказки «Топлива», строки «Ошибок» и «Инфо», тексты, пороги, цвета-уровни) собирает ядро ([core/…/screen](core/src/commonMain/kotlin/com/obdscanner/screen/)), так что телефон и страница показывают одно и то же.
+
 ```
-app/src/main/java/com/obdscanner/
-├── CarLink.kt       подключение к машине без Android: поиск протокола, опрос, блоки, ошибки, цикл чтения
-├── ObdManager.kt    Android-обвязка: адаптеры (BT/USB/Wi-Fi), сессии, датчики, кнопки → CarLink
-├── ObdService.kt    фоновый сервис (запись при выключенном экране)
-├── MainActivity.kt  заголовок, вкладки
-├── transport/       Bluetooth SPP, USB, Wi-Fi, эмулятор
+core/src/commonMain/kotlin/com/obdscanner/
+├── CarLink.kt       подключение к машине: поиск протокола, опрос, блоки, ошибки, цикл чтения
+├── State.kt         состояние подключения и машины (VehicleInfo, ScanState, Tab…)
+├── transport/       Transport (read/write) и эмулятор демо-режима
 ├── elm/             драйвер ELM327, разбор CAN/ISO-TP и K-line, адресация
 ├── obd/             PID и формулы, ошибки (Mode 03, UDS $19 / KWP $18 / $13), Mode 06, Mode 09, готовность, общий список блоков
 ├── car/             база машин: семейства, модели, блоки и диалекты, опознание (VIN, ответ блока), декодер значений
 ├── gm/              поиск и скан блоков (любая марка), GMLAN $1A и $A9
 ├── bus/             прослушка шины
-├── session/         запись сессий, zip; Recorder / Store — то, что CarLink пишет и помнит
-└── ui/              экраны (Jetpack Compose)
+├── session/         Recorder / Store — то, что CarLink пишет и помнит
+├── screen/          что показывают экраны: блоки (заголовок, строка, плашка, банк коррекций…), уровни, кнопки
+└── util/            что нужно от платформы (String.format, время, JSON, поток чтения): jvmMain — как раньше, jsMain — браузер
+core/data/           базы машин (cars/) и кодов ошибок (dtc/)
+core/src/jvmTest/    ReplayTest (проигрывание sessions/ через CarLink, сравнение с эталоном), ReplayTransport,
+                     DialectTest, DemoTest, JavaFormatTest (браузерный String.format против Java) и др.
 
-app/src/test/java/com/obdscanner/
-├── ReplayTest.kt       проигрывание записанных сессий (sessions/) через CarLink, сравнение с эталоном
-├── ReplayTransport.kt  «адаптер», отвечающий записанными ответами из raw.log
-├── DialectTest.kt      блоки и диалекты, списки адресов, ручной выбор марки, $13
-├── DemoTest.kt         демо-режим через всё подключение
-└── …                   база машин, база ошибок, разбор ответов ELM, USB, Wi-Fi, расход
+app/src/main/java/com/obdscanner/
+├── ObdManager.kt    Android-обвязка: адаптеры (BT/USB/Wi-Fi), сессии, датчики, кнопки → CarLink
+├── ObdService.kt    фоновый сервис (запись при выключенном экране)
+├── MainActivity.kt  заголовок, вкладки
+├── transport/       Bluetooth SPP, USB, Wi-Fi (StreamTransport — блокирующие потоки)
+├── session/         запись сессий на диск, zip, датчики телефона
+└── ui/              Compose: рисует блоки ядра (Blocks.kt), справку, выбор машины, связь, GM-скан
+app/src/test/        USB и Wi-Fi транспорты
 ```
 
 Как читается машина ([CarLink.kt](app/src/main/java/com/obdscanner/CarLink.kt)): протокол → PID Mode 01 → VIN и калибровки (Mode 09) → какая это машина (ручной выбор, VIN, ответ блока двигателя) → у каждого блока его диалект (назван моделью, узнан по ответу, по умолчанию для марки) → данные через $21, если так требует диалект → ошибки, стоп-кадр, Mode 06 → параметры производителя (марки и диалектов блоков) → поиск блоков и их ошибки способами их диалектов → цикл чтения. Что выбрано и почему — в `report.txt`, раздел «Блоки и диалекты». Особенности машины — данные в базе, а не условия в коде: новая машина обычно — правка JSON ([tools/cars/SCHEMA.md](tools/cars/SCHEMA.md)), новый код нужен только для нового способа чтения.
 
-Исходник иконки: [art/icon.png](art/icon.png). База машин: `app/src/main/assets/cars/`, инструменты и формат — `tools/cars/`.
+Лицензии: приложение — MIT ([LICENSE](LICENSE)); данные и библиотеки других авторов, их лицензии и тексты — [core/data/licenses](core/data/licenses/licenses.json), в приложении — «Инфо» → «Лицензии». Новую библиотеку или источник данных — сразу туда.
+
+Исходник иконки: [art/icon.png](art/icon.png). Базы: `core/data/` (в APK — assets), инструменты и форматы — `tools/cars/`, `tools/dtc/`.

@@ -1,7 +1,6 @@
 package com.obdscanner
 
 import com.obdscanner.elm.Elm327
-import com.obdscanner.transport.MockTransport
 import com.obdscanner.transport.SerialLink
 import com.obdscanner.transport.UsbTransport
 import kotlinx.coroutines.runBlocking
@@ -22,7 +21,7 @@ import kotlin.random.Random
  */
 private class FakeChip(private val adapterBaud: Int?) : SerialLink {
     override val name = "USB · FAKE"
-    private val elm = MockTransport()
+    private val elm = BlockingMock()
     private val rx = LinkedBlockingQueue<Int>()
     private val random = Random(1)
     var baud = 0
@@ -99,12 +98,13 @@ class UsbTransportTest {
             val chip = FakeChip(speed)
             var found = 0
             val elm = Elm327(transport(chip) { found = it }) { d, t -> println("$d $t") }
-            elm.open()
+            runBlocking { elm.open() }
             assertEquals(speed, found)
             runBlocking {
                 assertTrue(elm.send("ATZ").lines.any { it.startsWith("ELM327") })
                 // A whole request to the car goes through, not only the probe.
-                assertTrue(elm.send("0100").lines.any { "41 00" in it })
+                // The demo car searches 1.5 s before its first answer: more than the default timeout.
+                assertTrue(elm.send("0100", 4000).lines.any { "41 00" in it })
             }
             elm.close()
         }
@@ -113,7 +113,7 @@ class UsbTransportTest {
     @Test
     fun triesTheRememberedSpeedFirst() {
         val chip = FakeChip(9600)
-        transport(chip, preferred = 9600).open()
+        transport(chip, preferred = 9600).connect()
         assertEquals(listOf(9600), chip.bauds)
     }
 
@@ -121,7 +121,7 @@ class UsbTransportTest {
     fun rememberedSpeedThatNoLongerWorksFallsBack() {
         val chip = FakeChip(38400)
         var found = 0
-        transport(chip, preferred = 115200) { found = it }.open()
+        transport(chip, preferred = 115200) { found = it }.connect()
         assertEquals(listOf(115200, 38400), chip.bauds)
         assertEquals(38400, found)
     }
@@ -130,7 +130,7 @@ class UsbTransportTest {
     fun silentAdapterFailsAndClosesThePort() {
         val chip = FakeChip(null)
         try {
-            transport(chip).open()
+            transport(chip).connect()
             fail("opened a port nobody answers on")
         } catch (e: IOException) {
             assertEquals(UsbTransport.BAUDS, chip.bauds)
@@ -151,7 +151,7 @@ class UsbTransportTest {
     fun closeEndsTheBlockedRead() {
         val chip = FakeChip(38400)
         val t = transport(chip)
-        t.open()
+        t.connect()
         var got = 0
         val reader = thread { got = t.input.read(ByteArray(512)) }
         Thread.sleep(200)
@@ -166,7 +166,7 @@ class UsbTransportTest {
     fun unplugIsALostLink() {
         val chip = FakeChip(38400)
         val elm = Elm327(transport(chip)) { d, t -> println("$d $t") }
-        elm.open()
+        runBlocking { elm.open() }
         assertTrue(elm.alive)
         chip.unplug()
         val end = System.currentTimeMillis() + 2000

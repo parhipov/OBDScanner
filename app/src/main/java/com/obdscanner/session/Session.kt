@@ -1,8 +1,6 @@
 package com.obdscanner.session
 
 import android.util.Log
-import com.obdscanner.obd.Reading
-import com.obdscanner.tr
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileOutputStream
@@ -13,124 +11,37 @@ import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-/**
- * One connection = one folder:
- *   raw.log    — every byte exchanged with the adapter, with timestamps (debugging)
- *   data.csv   — every decoded value (long format: one row per value)
- *   report.txt — discovery results: ECUs, supported PIDs, VIN, DTCs, Mode 06, GM scan
- *   scan.csv   — GM Mode 22 / 1A scan hits
- *   bus.csv    — passive bus listening (only if it was started)
- *   sensors.csv — phone accelerometer and gyroscope, every sample, see [PhoneSensors]
- */
-class Session(val dir: File) : Recorder {
-    /** Session start, wall clock ms: t_ms in every file counts from here. */
-    val startMs = System.currentTimeMillis()
-    private val t0 = startMs
-    private val clock = SimpleDateFormat("HH:mm:ss.SSS", Locale.US)
-    private val raw = writer("raw.log")
-    private val csv = writer("data.csv")
-    private val report = writer("report.txt")
-    private val scan = writer("scan.csv")
-    @Volatile var closed = false
-        private set
+/** One connection = one folder of the [SessionLog] files; the adapter exchange also goes to logcat. */
+class Session(val dir: File) : SessionLog(dir.name) {
+    private val files = linkedMapOf(
+        "raw.log" to writer("raw.log"),
+        "data.csv" to writer("data.csv"),
+        "report.txt" to writer("report.txt"),
+        "scan.csv" to writer("scan.csv"),
+    )
 
     init {
-        csv.write("t_ms,time,ecu,key,name,value,text,unit\n")
-        scan.write("time,module_req,module_resp,service,id,len,hex,ascii\n")
-        report.write(tr("OBD Scanner — сессия ${dir.name}\n", "OBD Scanner — session ${dir.name}\n"))
+        start()
     }
 
     private fun writer(name: String) = BufferedWriter(OutputStreamWriter(FileOutputStream(File(dir, name), true), Charsets.UTF_8))
 
-    private fun now() = clock.format(Date())
-
-    @Synchronized fun raw(direction: Char, text: String) {
-        if (closed) return
-        Log.d(TAG, "$direction $text")
-        raw.write("${now()} $direction $text\n")
+    override fun append(file: String, text: String) {
+        files.getOrPut(file) { writer(file) }.write(text)
     }
 
-    @Synchronized override fun note(text: String) {
-        if (closed) return
-        Log.i(TAG, "# $text")
-        raw.write("${now()} # $text\n")
+    override fun echo(direction: Char, text: String) {
+        if (direction == '#') Log.i(TAG, "# $text") else Log.d(TAG, "$direction $text")
     }
 
-    private val lastLogged = HashMap<String, Pair<Any?, Long>>()
+    override fun flushFiles() = files.values.forEach { it.flush() }
 
-    /** Logs a value when it changes, and unchanged values at most once per second. */
-    @Synchronized override fun value(r: Reading) {
-        if (closed) return
-        val v: Any? = r.value ?: r.text
-        val prev = lastLogged[r.key]
-        if (prev != null && prev.first == v && r.time - prev.second < 1000) return
-        lastLogged[r.key] = v to r.time
-        val ecu = "%03X".format(r.ecu)
-        csv.write("${r.time - t0},${now()},$ecu,${q(r.source)},${q(r.name)},${r.value ?: ""},${q(r.text ?: "")},${q(r.unit)}\n")
-    }
-
-    @Synchronized override fun report(title: String, body: String) {
-        if (closed) return
-        report.write("\n=== $title ===\n$body\n")
-        report.flush()
-    }
-
-    @Synchronized override fun scanHit(req: Int, resp: Int, service: String, id: String, data: IntArray) {
-        if (closed) return
-        val hex = data.joinToString(" ") { "%02X".format(it) }
-        val ascii = data.map { if (it in 0x20..0x7E) it.toChar() else '.' }.joinToString("")
-        val ids = "%03X,%03X".format(req, resp)
-        scan.write("${now()},$ids,$service,$id,${data.size},$hex,${q(ascii)}\n")
-        scan.flush()
-    }
-
-    private var bus: BufferedWriter? = null
-
-    /** Frames from one listening window. ELM gives no per-frame time, so it's spread over the window. */
-    @Synchronized override fun busFrames(window: Int, frames: List<Pair<Int, IntArray>>, windowMs: Long) {
-        if (closed) return
-        val w = bus ?: writer("bus.csv").also {
-            it.write("window,t_ms_approx,id,len,hex\n")
-            bus = it
-        }
-        val start = System.currentTimeMillis() - windowMs - t0
-        frames.forEachIndexed { i, (id, d) ->
-            val t = start + if (frames.size > 1) windowMs * i / (frames.size - 1) else 0
-            w.write("$window,$t,%03X,${d.size},".format(id) + d.joinToString(" ") { "%02X".format(it) } + "\n")
-        }
-        w.flush()
-    }
-
-    private var sensors: BufferedWriter? = null
-
-    /** Ready rows `t_ms,s,x,y,z`: s — a (acceleration m/s², with gravity) or g (rotation °/s). */
-    @Synchronized fun sensors(rows: CharSequence) {
-        if (closed) return
-        val w = sensors ?: writer("sensors.csv").also {
-            it.write("t_ms,s,x,y,z\n")
-            sensors = it
-        }
-        w.append(rows)
-    }
-
-    @Synchronized override fun flush() {
-        if (closed) return
-        raw.flush(); csv.flush(); report.flush(); scan.flush(); bus?.flush(); sensors?.flush()
-    }
-
-    @Synchronized fun close() {
-        if (closed) return
-        flush()
-        closed = true
-        runCatching { raw.close(); csv.close(); report.close(); scan.close(); bus?.close(); sensors?.close() }
-    }
+    override fun closeFiles() = files.values.forEach { it.close() }
 
     companion object {
         /** Logcat tag: `adb logcat OBD:D *:S` shows the adapter exchange live. */
         const val TAG = "OBD"
     }
-
-    private fun q(s: String) = if (s.any { it == ',' || it == '"' || it == '\n' }) "\"" + s.replace("\"", "\"\"").replace("\n", " / ") + "\"" else s
 }
 
 class SessionStore(private val root: File, private val shareDir: File) {

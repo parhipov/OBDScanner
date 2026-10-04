@@ -18,7 +18,7 @@ Source: https://github.com/OBDb -- one repository per vehicle (`<Make>-<Model>`,
 `signalsets/v3/default.json`. Licensed CC BY-SA 4.0, so the output keeps the attribution in
 `source` and every signal links its repository in `src`.
 
-Output: app/src/main/assets/cars/obdb/<family>.json, format in tools/cars/SCHEMA.md
+Output: core/data/cars/obdb/<family>.json, format in tools/cars/SCHEMA.md
 ({"family", "source", "commands": [...]}, parameters only). Russian names come from
 tools/cars/obdb_ru.json ({English name -> Russian}); names missing there are listed at the end.
 
@@ -97,7 +97,7 @@ CACHE = HERE / "cache"
 RAW_CACHE = CACHE / "raw"
 LISTING = CACHE / "repos.json"
 RU_FILE = HERE / "obdb_ru.json"
-OUT_DIR = ROOT / "app" / "src" / "main" / "assets" / "cars" / "obdb"
+OUT_DIR = ROOT / "core" / "data" / "cars" / "obdb"
 
 ORG = "OBDb"
 SOURCE = "OBDb (CC BY-SA 4.0) https://github.com/OBDb, converted by tools/cars/obdb_import.py"

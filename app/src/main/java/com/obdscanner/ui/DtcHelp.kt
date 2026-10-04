@@ -12,87 +12,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.obdscanner.obd.Dtc
-import com.obdscanner.obd.DtcAnatomy
-import com.obdscanner.obd.DtcDb
-import com.obdscanner.obd.DtcKind
-import com.obdscanner.obd.DtcText
-import com.obdscanner.tr
+import com.obdscanner.screen.DtcHelp
+import com.obdscanner.screen.DtcHelpView
+import com.obdscanner.screen.DtcRef
 
-/**
- * What the app knows about one trouble code, for the dialog on a tap (like the main screen card help).
- * [ftb] — failure type byte (GM \$A9 symptom / UDS FTB), null when the protocol has none;
- * [state] — the status as text ("active, history"); [kind] — for Mode 03/07/0A codes.
- */
-data class DtcShown(
-    val code: String,
-    val module: String,
-    val ftb: Int? = null,
-    val gmFtb: Boolean = false,
-    val state: String? = null,
-    val kind: DtcKind? = null,
-    /** The code as listed, "B1517 03" or "P0301 (VAG 16685)". */
-    val label: String = code,
-)
-
+/** What the app knows about one trouble code ([DtcHelp]), on a tap (like the main screen card help). */
 @Composable
-fun DtcHelpDialog(d: DtcShown, family: String?, onDismiss: () -> Unit) {
-    val entry = DtcDb.find(d.code, family)
-    val title = Dtc.describe(d.code, family)
+fun DtcHelpDialog(d: DtcRef, family: String?, onDismiss: () -> Unit) {
+    val h = DtcHelp.build(d, family)
     AlertDialog(
         onDismissRequest = onDismiss,
-        confirmButton = { TextButton(onClick = onDismiss) { Text(tr("Закрыть", "Close")) } },
-        title = { Text(d.label) },
+        confirmButton = { TextButton(onClick = onDismiss) { Text(DtcHelpView.CLOSE) } },
+        title = { Text(h.label) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                if (entry?.title?.untranslated == true) Muted(tr("Описание есть только на английском.", "Only a Russian description is available."))
-                Muted(d.module)
-
-                // Descriptions are English only (tools/dtc/SCHEMA.md): say so rather than surprise.
-                entry?.desc?.let { dsc -> dsc.text?.let { Section(tr("Подробнее", "Details") + if (dsc.untranslated) tr(" (на английском)", "") else "", it) } }
-                bullets(entry?.causes)?.let { Section(tr("Частые причины", "Common causes"), it) }
-                bullets(entry?.symptoms)?.let { Section(tr("Симптомы", "Symptoms"), it) }
-
-                if (d.ftb != null) {
-                    val meaning = DtcDb.failureType(d.ftb, d.gmFtb)?.text
-                    Section(tr("Тип отказа %02X", "Failure type %02X").format(d.ftb),
-                        meaning ?: if (d.ftb == 0) tr("Без уточнения.", "No further detail.") else tr("Нет в таблице типов отказа.", "Not in the failure type table."))
-                }
-
-                val state = listOfNotNull(d.kind?.let(::kindText), d.state?.let { tr("Состояние: $it.", "Status: $it.") })
-                if (state.isNotEmpty()) Section(tr("Состояние", "Status"), state.joinToString("\n"))
-
-                val anatomy = listOfNotNull(
-                    DtcAnatomy.system(d.code)?.let { tr("Система: $it.", "System: $it.") },
-                    DtcAnatomy.subsystem(d.code)?.let { tr("Подсистема: $it.", "Subsystem: $it.") },
-                    DtcAnatomy.owner(d.code),
-                )
-                Section(tr("Что видно по номеру", "What the number tells"), anatomy.joinToString("\n"))
-
-                // A manufacturer code without this make's text: what other makes mean by it, clearly labelled.
-                if (entry == null && !DtcAnatomy.isGeneric(d.code)) {
-                    val others = DtcDb.others(d.code)
-                    if (others.isNotEmpty()) Section(tr("У других марок этот код значит", "On other makes this code means"),
-                        others.joinToString("\n") { "${it.set.uppercase()}: ${it.title.text}" })
-                }
-
-                entry?.takeIf { it.title.text == title }?.let { Muted(tr("Источник описания: ${it.source}", "Description source: ${it.source}")) }
+                Text(h.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                h.untranslated?.let { Muted(it) }
+                Muted(h.module)
+                for ((title, text) in h.sections) Section(title, text)
+                h.source?.let { Muted(it) }
             }
         },
     )
-}
-
-private fun bullets(list: List<DtcText>?): String? =
-    list?.mapNotNull { it.text }?.takeIf { it.isNotEmpty() }?.joinToString("\n") { "• $it" }
-
-private fun kindText(k: DtcKind) = when (k) {
-    DtcKind.STORED -> tr("Сохранённая: неисправность повторилась, из-за неё может гореть Check.",
-        "Stored: the fault came back; it can turn the Check Engine light on.")
-    DtcKind.PENDING -> tr("Ожидающая: блок заметил неисправность один раз. Повторится в следующей поездке — станет сохранённой. Check пока не горит.",
-        "Pending: the ECU saw the fault once. If it happens again on the next drive, it becomes stored. No Check Engine light yet.")
-    DtcKind.PERMANENT -> tr("Постоянная: сбросом не стирается. Блок удалит её сам, когда тест пройдёт без ошибки.",
-        "Permanent: clearing doesn't erase it. The ECU removes it by itself once the test passes.")
 }
 
 @Composable

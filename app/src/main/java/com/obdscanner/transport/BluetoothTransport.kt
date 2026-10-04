@@ -22,14 +22,14 @@ class BluetoothTransport(
     private val preferred: String? = null,
     private val log: (String) -> Unit,
     private val onConnected: (String) -> Unit = {},
-) : Transport {
+) : StreamTransport() {
 
     override val name: String = device.name ?: device.address
     private var socket: BluetoothSocket? = null
     override lateinit var input: InputStream
     override lateinit var output: OutputStream
 
-    override fun open() {
+    override fun connect() {
         // Clones are picky. Insecure first, like AndrOBD: on the Polo's clone secure hung for minutes while
         // insecure connected in seconds. Then the hidden channel-1 method, then secure.
         val attempts: List<Pair<String, () -> BluetoothSocket>> = listOf(

@@ -1,0 +1,117 @@
+{
+  "about": "What the app and the browser page are made of and under which terms: shown on the Licenses screen (core/…/screen/Licenses.kt). text — a file next to this one; in — where the part is shipped.",
+  "items": [
+    {
+      "id": "obdscanner",
+      "group": "app",
+      "name": "OBD Scanner",
+      "what": {"ru": "Приложение и его ядро: связь с адаптером, разбор ответов, экраны, база машин, переводы кодов ошибок", "en": "The app and its core: the adapter link, decoding, the screens, the car database, the trouble code translations"},
+      "license": "MIT",
+      "copyright": "Copyright (c) 2026 Pavel Arkhipov",
+      "url": "https://github.com/parhipov/OBDScanner",
+      "text": "obdscanner-mit.txt",
+      "in": ["app", "web"]
+    },
+    {
+      "id": "obdb",
+      "group": "data",
+      "name": "OBDb",
+      "what": {"ru": "Параметры производителей (запросы и формулы) по моделям", "en": "Manufacturer parameters (requests and formulas) by model"},
+      "license": "CC BY-SA 4.0",
+      "copyright": "OBDb contributors",
+      "url": "https://github.com/OBDb",
+      "changes": {"ru": "Переведены в формат приложения, названия переведены на русский (tools/cars/obdb_import.py). Изменённые данные (core/data/cars/obdb) распространяются на тех же условиях — CC BY-SA 4.0.", "en": "Converted to the app's format, names translated into Russian (tools/cars/obdb_import.py). The changed data (core/data/cars/obdb) is shared under the same terms, CC BY-SA 4.0."},
+      "text": "cc-by-sa-4.0.txt",
+      "in": ["app", "web"]
+    },
+    {
+      "id": "dtc-database",
+      "group": "data",
+      "name": "dtc-database",
+      "what": {"ru": "Коды ошибок производителей и их описания", "en": "Manufacturer trouble codes and their descriptions"},
+      "license": "MIT",
+      "copyright": "Copyright (c) 2024 Wal33D (Waleed Judah)",
+      "url": "https://github.com/Wal33D/dtc-database",
+      "changes": {"ru": "Названия, причины и симптомы переведены на русский (tools/dtc).", "en": "Titles, causes and symptoms translated into Russian (tools/dtc)."},
+      "text": "dtc-database-mit.txt",
+      "in": ["app", "web"]
+    },
+    {
+      "id": "obdex",
+      "group": "data",
+      "name": "OBDex",
+      "what": {"ru": "Общие коды ошибок SAE: названия, описания, причины, симптомы", "en": "Generic SAE trouble codes: titles, descriptions, causes, symptoms"},
+      "license": "CC0 1.0",
+      "copyright": "foerbsnavi",
+      "url": "https://github.com/foerbsnavi/OBDex",
+      "changes": {"ru": "Общественное достояние, указание авторства не требуется.", "en": "Public domain, no attribution required."},
+      "in": ["app", "web"]
+    },
+    {
+      "id": "kotlin",
+      "group": "libs",
+      "name": "Kotlin, kotlinx.coroutines",
+      "what": {"ru": "Язык и его стандартная библиотека, корутины", "en": "The language and its standard library, coroutines"},
+      "license": "Apache 2.0",
+      "copyright": "Copyright JetBrains s.r.o. and Kotlin Programming Language contributors",
+      "url": "https://github.com/JetBrains/kotlin",
+      "text": "apache-2.0.txt",
+      "in": ["app", "web"]
+    },
+    {
+      "id": "androidx",
+      "group": "libs",
+      "name": "AndroidX, Jetpack Compose, Material 3",
+      "what": {"ru": "Экраны и компоненты Android", "en": "Android screens and components"},
+      "license": "Apache 2.0",
+      "copyright": "Copyright The Android Open Source Project",
+      "url": "https://developer.android.com/jetpack/androidx",
+      "text": "apache-2.0.txt",
+      "in": ["app"]
+    },
+    {
+      "id": "usb-serial-for-android",
+      "group": "libs",
+      "name": "usb-serial-for-android",
+      "what": {"ru": "Драйверы USB-переходников (CH340, FTDI, CP210x, PL2303, CDC)", "en": "USB-serial chip drivers (CH340, FTDI, CP210x, PL2303, CDC)"},
+      "license": "MIT",
+      "copyright": "Copyright (c) 2011-2013 Google Inc., Copyright (c) 2013 Mike Wakerly",
+      "url": "https://github.com/mik3y/usb-serial-for-android",
+      "text": "usb-serial-for-android-mit.txt",
+      "in": ["app"]
+    },
+    {
+      "id": "kotlinx-serialization",
+      "group": "libs",
+      "name": "kotlinx.serialization",
+      "what": {"ru": "Разбор JSON в браузере", "en": "JSON parsing in the browser"},
+      "license": "Apache 2.0",
+      "copyright": "Copyright JetBrains s.r.o. and contributors",
+      "url": "https://github.com/Kotlin/kotlinx.serialization",
+      "text": "apache-2.0.txt",
+      "in": ["web"]
+    },
+    {
+      "id": "preact",
+      "group": "libs",
+      "name": "Preact",
+      "what": {"ru": "Отрисовка страницы", "en": "Drawing the page"},
+      "license": "MIT",
+      "copyright": "Copyright (c) 2015-present Jason Miller",
+      "url": "https://github.com/preactjs/preact",
+      "text": "preact-mit.txt",
+      "in": ["web"]
+    },
+    {
+      "id": "fflate",
+      "group": "libs",
+      "name": "fflate",
+      "what": {"ru": "Архив сессии (zip)", "en": "The session archive (zip)"},
+      "license": "MIT",
+      "copyright": "Copyright (c) 2026 Arjun Barrett",
+      "url": "https://github.com/101arrowz/fflate",
+      "text": "fflate-mit.txt",
+      "in": ["web"]
+    }
+  ]
+}

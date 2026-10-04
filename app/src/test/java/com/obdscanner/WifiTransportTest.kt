@@ -1,7 +1,6 @@
 package com.obdscanner
 
 import com.obdscanner.elm.Elm327
-import com.obdscanner.transport.MockTransport
 import com.obdscanner.transport.WifiTransport
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -22,7 +21,7 @@ import kotlin.concurrent.thread
 private class FakeWifiAdapter : AutoCloseable {
     private val server = ServerSocket(0)
     val address = "127.0.0.1:${server.localPort}"
-    private val elm = MockTransport()
+    private val elm = BlockingMock()
 
     init {
         thread(isDaemon = true) {
@@ -62,12 +61,13 @@ class WifiTransportTest {
         var found: String? = null
         val t = WifiTransport(listOf("not an address", deadAddress(), a.address), log = { println(it) }) { found = it }
         val elm = Elm327(t) { d, x -> println("$d $x") }
-        elm.open()
+        runBlocking { elm.open() }
         assertEquals(a.address, found)
         assertEquals("Wi-Fi ${a.address}", t.name)
         runBlocking {
             assertTrue(elm.send("ATZ").lines.any { it.startsWith("ELM327") })
-            assertTrue(elm.send("0100").lines.any { "41 00" in it })
+            // The demo car searches 1.5 s before its first answer: more than the default timeout.
+            assertTrue(elm.send("0100", 4000).lines.any { "41 00" in it })
         }
         elm.close()
     }
@@ -75,7 +75,7 @@ class WifiTransportTest {
     @Test
     fun nobodyAnswersIsAnError() {
         try {
-            WifiTransport(listOf(deadAddress()), log = { println(it) }).open()
+            WifiTransport(listOf(deadAddress()), log = { println(it) }).connect()
             fail("connected to nobody")
         } catch (_: IOException) {
         }
@@ -92,7 +92,7 @@ class WifiTransportTest {
             override fun createSocket(host: InetAddress?, port: Int, local: InetAddress?, localPort: Int) = createSocket()
         }
         val t = WifiTransport(listOf(a.address), refusing, log = { println(it) })
-        t.open()
+        t.connect()
         assertEquals("Wi-Fi ${a.address}", t.name)
         t.close()
     }
@@ -100,7 +100,7 @@ class WifiTransportTest {
     @Test
     fun vpnIsNamedInTheError() {
         try {
-            WifiTransport(listOf(deadAddress()), vpn = true, log = { println(it) }).open()
+            WifiTransport(listOf(deadAddress()), vpn = true, log = { println(it) }).connect()
             fail("connected to nobody")
         } catch (e: IOException) {
             assertTrue(e.message!!.contains("VPN"))
@@ -110,7 +110,7 @@ class WifiTransportTest {
     @Test
     fun closeEndsTheBlockedRead()= FakeWifiAdapter().use { a ->
         val t = WifiTransport(listOf(a.address), log = { println(it) })
-        t.open()
+        t.connect()
         var got = 0
         val reader = thread { got = runCatching { t.input.read(ByteArray(512)) }.getOrDefault(-1) }
         Thread.sleep(200)

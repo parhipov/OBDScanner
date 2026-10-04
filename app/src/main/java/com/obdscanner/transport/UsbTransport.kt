@@ -26,12 +26,12 @@ class UsbTransport(
     private val preferredBaud: Int? = null,
     private val log: (String) -> Unit,
     private val onConnected: (Int) -> Unit = {},
-) : Transport {
+) : StreamTransport() {
 
     override val name: String get() = link.name
     @Volatile private var closed = false
 
-    override fun open() {
+    override fun connect() {
         link.open()
         try {
             for (baud in (listOfNotNull(preferredBaud) + BAUDS).distinct()) {
@@ -118,26 +118,16 @@ class UsbTransport(
     }
 
     companion object {
-        /** Most common first; python-OBD tries the same set. */
-        val BAUDS = listOf(38400, 115200, 9600, 230400, 57600, 19200)
-        private const val SETTLE_MS = 250L
-        private const val PROBE_MS = 1000L
+        /** The speeds and the reply test are the core's ([ElmProbe]): the browser page finds a USB adapter the same way. */
+        val BAUDS = ElmProbe.BAUDS
+        private const val SETTLE_MS = ElmProbe.SETTLE_MS
+        private const val PROBE_MS = ElmProbe.PROBE_MS
         private const val READ_TIMEOUT_MS = 200
 
-        /**
-         * At the wrong speed the bytes come in as 00/80/F8/FF and the like. Text only, ending in the prompt:
-         * that's the adapter.
-         */
-        fun isElmReply(r: ByteArray): Boolean {
-            val text = String(r, Charsets.ISO_8859_1).trimEnd()
-            return text.endsWith(">") && text.length > 1 && r.all(::isText)
-        }
+        fun isElmReply(r: ByteArray): Boolean = ElmProbe.isElmReply(r)
 
-        private fun isText(b: Byte) = b == '\r'.code.toByte() || b == '\n'.code.toByte() || b in 0x20..0x7E
+        private fun isText(b: Byte) = ElmProbe.isText(b)
 
-        private fun show(r: ByteArray): String =
-            if (r.isEmpty()) "nothing"
-            else if (isElmReply(r)) "\"" + String(r, Charsets.ISO_8859_1).replace("\r", "\\r").replace("\n", "\\n") + "\""
-            else "${r.size} bytes: " + r.take(16).joinToString(" ") { "%02X".format(it) } + if (r.size > 16) " …" else ""
+        private fun show(r: ByteArray): String = ElmProbe.show(r)
     }
 }

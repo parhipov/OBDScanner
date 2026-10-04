@@ -25,7 +25,7 @@ class WifiTransport(
     private val vpn: Boolean = false,
     private val log: (String) -> Unit,
     private val onConnected: (String) -> Unit = {},
-) : Transport {
+) : StreamTransport() {
 
     override var name: String = "Wi-Fi"
         private set
@@ -35,7 +35,7 @@ class WifiTransport(
     /** [factory] failed to make a socket once — plain sockets from then on. */
     private var plain = false
 
-    override fun open() {
+    override fun connect() {
         var last: Exception? = null
         for (addr in candidates.distinct()) {
             val (host, port) = parse(addr) ?: continue

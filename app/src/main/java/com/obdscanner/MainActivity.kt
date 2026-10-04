@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
         // The language was switched while the process lived (the activity is recreated for it): tr() texts
         // are fixed per process, so start over instead of showing two languages. Not while connected —
         // the session being recorded matters more; the next start picks the new language up.
-        if (L10n.ru != L10n.isRu(resources.configuration.locales[0]) && m.conn.value !is ConnState.Connected && m.conn.value !is ConnState.Connecting && m.conn.value !is ConnState.Recording) {
+        if (L10n.ru != (resources.configuration.locales[0].language == "ru") && m.conn.value !is ConnState.Connected && m.conn.value !is ConnState.Connecting && m.conn.value !is ConnState.Recording) {
             startActivity(Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
             Process.killProcess(Process.myPid())
             return

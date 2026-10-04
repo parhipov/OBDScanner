@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the app's trouble code database (app/src/main/assets/dtc/) from open sources.
+"""Build the app's trouble code database (core/data/dtc/) from open sources.
 
 Usage:
     python tools/dtc/dtc_import.py [--refresh] [--untranslated N]
@@ -43,7 +43,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 CACHE = HERE / "cache"
 RU_FILE = HERE / "dtc_ru.json"
-OUT_DIR = ROOT / "app" / "src" / "main" / "assets" / "dtc"
+OUT_DIR = ROOT / "core" / "data" / "dtc"
 
 OBDEX = "https://raw.githubusercontent.com/foerbsnavi/OBDex/main/data/generic/{}xxx_enriched.yaml"
 OBDEX_SETS = ["P0", "P2", "P3", "B0", "C0", "U0", "U3"]

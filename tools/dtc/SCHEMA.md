@@ -1,4 +1,4 @@
-# Trouble code database (`app/src/main/assets/dtc/`)
+# Trouble code database (`core/data/dtc/`)
 
 Built by `tools/dtc/dtc_import.py` (sources, licences and what is left out: its docstring). Read by
 `DtcDb.kt` in the app; plain JSON, so scripts can use it too.
