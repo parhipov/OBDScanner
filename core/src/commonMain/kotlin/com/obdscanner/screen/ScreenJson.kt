@@ -35,6 +35,67 @@ object ScreenJson {
 
     fun blocks(list: List<Block>): String = arr { list.forEach { raw(block(it)) } }
 
+    private fun pairs(a: Arr, list: List<Pair<String, String>>) = list.forEach { (k, v) -> a.obj { str("k", k); str("v", v) } }
+
+    fun carCard(c: CarCardView): String = obj {
+        str("label", c.label); str("title", c.title); str("status", c.status); str("pick", c.pick)
+        c.reads?.let { (k, v) -> obj("reads") { str("k", k); str("v", v) } }
+        arr("details") { pairs(this, c.details) }
+        c.features?.let { (t, items) -> obj("features") { str("title", t); arr("items") { items.forEach { str(it) } } } }
+        bool("hasMore", c.hasMore); str("more", CarCardView.MORE); str("less", CarCardView.LESS)
+    }
+
+    fun picker(r: CarPicker.Rows, compareCount: Int): String = obj {
+        arr("rows") {
+            for (x in r.rows) obj {
+                str("title", x.title); str("sub", x.sub); bool("selected", x.selected)
+                str("pick", x.pick); str("open", x.open); str("compare", x.compare)
+            }
+        }
+        bool("nothing", r.nothing)
+        obj("texts") {
+            str("title", CarPicker.TITLE); str("search", CarPicker.SEARCH); str("back", CarPicker.BACK); str("reset", CarPicker.RESET)
+            str("close", CarPicker.CLOSE); str("nothing", CarPicker.NOTHING); str("compare", CarPicker.compare(compareCount))
+        }
+    }
+
+    fun compare(c: CompareView): String = obj {
+        str("title", c.title); str("names", c.names); str("empty", c.empty); str("same", c.same); str("close", c.close)
+        arr("rows") { for ((t, groups) in c.rows) obj { str("title", t); arr("groups") { pairs(this, groups) } } }
+    }
+
+    fun guide(g: GuideView, car: CarCardView): String = obj {
+        raw("car", carCard(car))
+        str("steps", g.steps); num("collapsed", GuideView.COLLAPSED.toDouble()); str("showAll", GuideView.SHOW_ALL); str("collapse", GuideView.COLLAPSE)
+        str("obdTitle", g.obdTitle); str("obdPicture", g.obdPicture); str("obdPlace", g.obdPlace)
+        g.obdCommon?.let { a -> arr("obdCommon") { a.forEach { str(it) } } }
+        str("obdNote", g.obdNote); str("detailsTitle", g.detailsTitle)
+        arr("sections") { g.sections.forEach { str(it) } }
+        g.features?.let { (t, items) -> obj("features") { str("title", t); arr("items") { items.forEach { str(it) } } } }
+        arr("tail") { g.tail.forEach { str(it) } }
+    }
+
+    fun gm(g: GmView): String = obj {
+        arr("hints") { g.hints.forEach { str(it) } }
+        str("find", g.find); str("stop", g.stop)
+        g.scan?.let { p -> obj("scan") { bool("running", p.running); num("progress", p.progress.toDouble()); str("status", p.status) } }
+        str("busTitle", g.busTitle); str("busNote", g.busNote); str("busButton", g.busButton)
+        g.bus?.let { p -> obj("bus") { bool("running", p.running); num("progress", p.progress.toDouble()); str("status", p.status) } }
+        arr("busIds") { for (b in g.busIds) obj { str("id", b.id); str("hz", b.hz); str("last", b.last) } }
+        str("rangeTitle", g.rangeTitle)
+        arr("ranges") { g.ranges.forEach { str(it) } }
+        str("modulesTitle", g.modulesTitle); str("modulesEmpty", g.modulesEmpty)
+        arr("modules") { for (m in g.modules) obj { str("id", m.id); str("title", m.title); str("answeredTo", m.answeredTo) } }
+        str("scanLabel", g.scanLabel); str("scanNote", g.scanNote)
+        str("hitsTitle", g.hitsTitle); str("onlyWatched", g.onlyWatched); str("tickAll", g.tickAll); str("untick", g.untick); str("hitsNote", g.hitsNote)
+        arr("hits") {
+            for (h in g.hits) obj {
+                str("key", h.key); str("title", h.title); str("data", h.data); str("partNumber", h.partNumber)
+                str("ascii", h.ascii); str("live", h.live); bool("watched", h.watched)
+            }
+        }
+    }
+
     fun dtcHelp(h: DtcHelpView): String = obj {
         str("label", h.label)
         str("title", h.title)
