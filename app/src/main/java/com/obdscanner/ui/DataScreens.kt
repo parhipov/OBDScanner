@@ -72,7 +72,7 @@ fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
             val list = v.dtcs.filter { it.kind == kind }
             item(key = kind.name) {
                 SectionTitle("${kind.title} (${list.size})")
-                if (list.isEmpty()) Muted(tr("нет", "none"))
+                if (list.isEmpty()) Muted(if (kind == DtcKind.STORED && v.dtcNoAnswer) tr("нет ответа", "no answer") else tr("нет", "none"))
                 for (d in list) Box(Modifier.clickable { shown = DtcShown(d.code, ecuName(d.ecu), kind = kind) }) {
                     ValueRow(d.code, ecuName(d.ecu), "", d.description, if (kind == DtcKind.PENDING) Warn else Bad)
                 }

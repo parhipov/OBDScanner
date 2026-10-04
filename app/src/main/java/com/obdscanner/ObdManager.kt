@@ -124,6 +124,8 @@ data class VehicleInfo(
     val make: Make = Make.OTHER,
     val dtcs: List<DtcCode> = emptyList(),
     val dtcTime: Long = 0,
+    /** Nobody answered mode 03 at all (not even "43 00"): the empty list says nothing about the codes. */
+    val dtcNoAnswer: Boolean = false,
     val freezeDtc: String? = null,
     val freeze: List<Reading> = emptyList(),
     val mode06: List<TestResult> = emptyList(),
@@ -325,11 +327,11 @@ class ObdManager(private val context: Context) {
         val cm = context.getSystemService(android.net.ConnectivityManager::class.java)
         connect { s ->
             val net = WifiNet.find(cm)
-            s.note("Wi-Fi: network ${net.network ?: "none"}, gateway ${net.gateway ?: "none"}")
+            s.note("Wi-Fi: network ${net.network ?: "none"} (${net.iface ?: "?"}), gateway ${net.gateway ?: "none"}" + if (net.vpn) ", VPN on" else "")
             val typed = wifiAddress.takeIf { it.isNotEmpty() }
             val candidates = if (typed != null) listOf(typed) else listOfNotNull(wifiLast) +
                 listOfNotNull(net.gateway).flatMap { listOf("$it:${WifiTransport.DEFAULT_PORT}", "$it:23") } + WifiTransport.DEFAULTS
-            WifiTransport(candidates, net.factory, { s.note(it) }) { prefs.edit().putString("wifi_last", it).apply() }
+            WifiTransport(candidates, net.factory, net.vpn, { s.note(it) }) { prefs.edit().putString("wifi_last", it).apply() }
         }
     }
 
@@ -617,8 +619,12 @@ class ObdManager(private val context: Context) {
         }
         val wanted = types.values.flatten().toSet().ifEmpty { setOf(0x02, 0x04, 0x0A) }
         val info = mutableMapOf<Int, MutableMap<Int, String>>()
-        for (t in wanted.filter { it in listOf(0x02, 0x04, 0x06, 0x08, 0x0A, 0x0B, 0x0D) }.sorted()) {
+        // No CVN (06) on K-line: a Priora's ECU answered "7F 09 78" (busy) and then nothing for 7+ s, a bus
+        // re-init included. The ELM waits out 78 by itself only on CAN.
+        val asked = listOf(0x02, 0x04, 0x06, 0x08, 0x0A, 0x0B, 0x0D).let { if (o.kline) it - 0x06 else it }
+        for (t in wanted.filter { it in asked }.sorted()) {
             val rr = o.request("09%02X".format(t), 4000)
+            if (o.kline && rr.messages.any { it.nrc == 0x78 } && rr.messages.none { it.service == 0x49 }) waitKlineBusy(o, "09%02X".format(t))
             var msgs = rr.messages
             // ECM and TCM both stream long CALID lists at once and the clone overflows (BUFFER FULL,
             // lost frames): ask each ECU on its own id instead of taking the truncated text.
@@ -661,14 +667,17 @@ class ObdManager(private val context: Context) {
 
     private suspend fun readDtcs(o: Obd) {
         val all = mutableListOf<DtcCode>()
+        // Every ECU in the sessions answers 03 ("43 00" with no codes); 0A often gets NO DATA on older cars.
+        var noAnswer = false
         for ((svc, kind) in listOf("03" to DtcKind.STORED, "07" to DtcKind.PENDING, "0A" to DtcKind.PERMANENT)) {
             val r = o.request(svc, 3000)
+            if (svc == "03") noAnswer = r.noData
             val resp = svc.toInt(16) + 0x40
             for (m in r.messages) if (m.service == resp) all += Dtc.parse(m.data, m.header, kind)
         }
-        _vehicle.update { it.copy(dtcs = all, dtcTime = System.currentTimeMillis()) }
+        _vehicle.update { it.copy(dtcs = all, dtcTime = System.currentTimeMillis(), dtcNoAnswer = noAnswer) }
         session?.report(tr("Коды ошибок", "Trouble codes"), all.joinToString("\n") { "${it.kind.title}: ${it.code} [%03X] ${it.description}".format(it.ecu) }
-            .ifEmpty { tr("нет", "none") })
+            .ifEmpty { if (noAnswer) tr("нет ответа", "no answer") else tr("нет", "none") })
     }
 
     private suspend fun readFreezeFrame(o: Obd) {
@@ -676,7 +685,7 @@ class ObdManager(private val context: Context) {
         val m = r.messages.firstOrNull { it.data.size >= 5 && it.data[0] == 0x42 && it.data[1] == 0x02 }
         if (m == null || (m.data[3] == 0 && m.data[4] == 0)) {
             _vehicle.update { it.copy(freezeDtc = null, freeze = emptyList()) }
-            session?.report(tr("Стоп-кадр", "Freeze frame"), tr("нет", "none"))
+            session?.report(tr("Стоп-кадр", "Freeze frame"), if (r.noData) tr("нет ответа", "no answer") else tr("нет", "none"))
             return
         }
         val dtc = Dtc.decode(m.data[3], m.data[4])
@@ -894,13 +903,31 @@ class ObdManager(private val context: Context) {
      * The K-line ECU stopped answering (engine cranked, ignition cycled): the adapter keeps the old
      * session, so close it (ATPC), let the bus rest and init again with the known protocol (as AndrOBD does).
      */
-    private suspend fun reinitKline(o: Obd) {
-        session?.note("K-line: ECU silent for 3 cycles — ATPC and a new bus init")
+    private suspend fun reinitKline(o: Obd, why: String = "ECU silent for 3 cycles"): Boolean {
+        session?.note("K-line: $why — ATPC and a new bus init")
         o.at("ATPC")
         baseSetup(o)
         delay(KLINE_GAP)
         val r = o.request("0100", 10000)
         session?.note("K-line re-init: ${if (r.noData) "no answer (${r.errors.joinToString()})" else "OK"}")
+        return !r.noData
+    }
+
+    /**
+     * A K-line ECU said "busy, the answer comes later" (7F xx 78). The ELM doesn't wait for that answer, and
+     * the ECU ignores requests while busy: wait until it answers OBD again, else a new bus init.
+     */
+    private suspend fun waitKlineBusy(o: Obd, what: String) {
+        session?.note("K-line: $what — ECU busy (78), waiting for it")
+        val until = System.currentTimeMillis() + KLINE_BUSY_WAIT
+        while (System.currentTimeMillis() < until) {
+            delay(1000)
+            if (!o.request("0100", 2000).noData) {
+                session?.note("K-line: ECU answers again")
+                return
+            }
+        }
+        reinitKline(o, "ECU still busy")
     }
 
     private suspend fun pollLoop(o: Obd) {
@@ -1220,7 +1247,10 @@ class ObdManager(private val context: Context) {
         o.at(protocolCmd)
         o.resetState()
         o.broadcast()
-        if (o.request("0100", 5000).noData) throw IOException(tr("Адаптер не восстановился после чтения ошибок блоков — переподключитесь", "Adapter did not recover after reading module codes — reconnect"))
+        var back = !o.request("0100", if (o.kline) 10000 else 5000).noData
+        // K-line: BUS INIT ERROR right after ATZ while the ECU is still busy or its old session hasn't timed out.
+        if (!back && o.kline) for (n in 1..2) if (reinitKline(o, "no answer after re-init (try $n)")) { back = true; break }
+        if (!back) throw IOException(tr("Адаптер не восстановился после чтения ошибок блоков — переподключитесь", "Adapter did not recover after reading module codes — reconnect"))
         session?.note("adapter re-init OK")
     }
 
@@ -1345,6 +1375,8 @@ class ObdManager(private val context: Context) {
         /** Second round for K-line only. */
         private val KLINE_RETRY = listOf(4, 3, 5)
         private const val KLINE_GAP = 3000L
+        /** How long a K-line ECU that answered 78 (busy) gets to come back before a bus re-init. */
+        private const val KLINE_BUSY_WAIT = 15000L
         private val REBOOTING = tr(
             "Адаптер перезагрузился, переподключаюсь… Если долго — выньте его из разъёма на 5 секунд и вставьте снова.",
             "Adapter rebooted, reconnecting… If it takes long, unplug it for 5 seconds and plug it back in.",

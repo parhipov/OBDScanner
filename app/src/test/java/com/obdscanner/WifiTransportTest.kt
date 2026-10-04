@@ -11,7 +11,11 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 import java.io.IOException
+import java.net.InetAddress
 import java.net.ServerSocket
+import java.net.Socket
+import java.net.SocketException
+import javax.net.SocketFactory
 import kotlin.concurrent.thread
 
 /** A Wi-Fi clone: the demo ELM327 behind a TCP port on localhost. */
@@ -77,8 +81,34 @@ class WifiTransportTest {
         }
     }
 
+    /** Android refused to bind the socket to the Wi-Fi network (EPERM under a VPN): plain sockets still reach it. */
     @Test
-    fun closeEndsTheBlockedRead() = FakeWifiAdapter().use { a ->
+    fun bindingRefusedFallsBackToPlainSocket() = FakeWifiAdapter().use { a ->
+        val refusing = object : SocketFactory() {
+            override fun createSocket(): Socket = throw SocketException("Binding socket to network 164 failed: EPERM")
+            override fun createSocket(host: String?, port: Int) = createSocket()
+            override fun createSocket(host: String?, port: Int, local: InetAddress?, localPort: Int) = createSocket()
+            override fun createSocket(host: InetAddress?, port: Int) = createSocket()
+            override fun createSocket(host: InetAddress?, port: Int, local: InetAddress?, localPort: Int) = createSocket()
+        }
+        val t = WifiTransport(listOf(a.address), refusing, log = { println(it) })
+        t.open()
+        assertEquals("Wi-Fi ${a.address}", t.name)
+        t.close()
+    }
+
+    @Test
+    fun vpnIsNamedInTheError() {
+        try {
+            WifiTransport(listOf(deadAddress()), vpn = true, log = { println(it) }).open()
+            fail("connected to nobody")
+        } catch (e: IOException) {
+            assertTrue(e.message!!.contains("VPN"))
+        }
+    }
+
+    @Test
+    fun closeEndsTheBlockedRead()= FakeWifiAdapter().use { a ->
         val t = WifiTransport(listOf(a.address), log = { println(it) })
         t.open()
         var got = 0
