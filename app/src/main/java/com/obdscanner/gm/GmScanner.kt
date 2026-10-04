@@ -1,6 +1,7 @@
 package com.obdscanner.gm
 
 import com.obdscanner.elm.CanReply
+import com.obdscanner.elm.EcuMessage
 import com.obdscanner.elm.Obd
 import com.obdscanner.tr
 import kotlinx.coroutines.NonCancellable
@@ -117,11 +118,11 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         val req = service + fmtDid(service, did)
         // K-line: 10.4 kbit/s and P2 up to 50 ms per message — a long answer takes a few hundred ms.
         var reply: CanReply = obd.request(req, timeoutMs = if (obd.kline) 1500 else 600, expectOne = true)
-        var msg = answer(reply, module.resp)
+        var msg = answer(reply, module.resp, service, did)
         // Truncated multi-frame with the count digit → retry without it.
         if (obd.countDigit && reply.errors.any { it.startsWith("ISO-TP") }) {
             reply = obd.request(req, timeoutMs = 1200)
-            msg = answer(reply, module.resp)
+            msg = answer(reply, module.resp, service, did)
         }
         // Only "7F xx 78" (response pending) arrived — the ECM on the car does this for $1A B4:
         // the real answer comes after the prompt and is lost. Ask again with a longer wait.
@@ -130,7 +131,7 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
             obd.at("ATSTFF")
             try {
                 reply = obd.request(req, timeoutMs = 3000)
-                msg = answer(reply, module.resp)
+                msg = answer(reply, module.resp, service, did)
             } finally {
                 withContext(NonCancellable) {
                     runCatching { obd.at("ATST32") }
@@ -140,13 +141,25 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         }
         msg ?: return null
         if (msg.isNegative) return null to msg.nrc
-        val echo = if (oneByteId(service)) 2 else 3
-        if (msg.service != service.toInt(16) + 0x40 || msg.data.size < echo) return null to -1
-        return msg.data.copyOfRange(echo, msg.data.size) to 0
+        return msg.data.copyOfRange(if (oneByteId(service)) 2 else 3, msg.data.size) to 0
     }
 
     /** First real answer: "7F xx 78" only means "wait", the reply may follow in the same read. */
     private fun answer(reply: CanReply, resp: Int) = reply.from(resp).firstOrNull { it.nrc != 0x78 }
+
+    /**
+     * The answer to this very request: a positive reply must echo the DID, a refusal the service.
+     * On a slow link a late reply to the previous request arrives instead (Ford 2017: 22 1172 got
+     * 62 11 6B …) — taking it would put one value under another's name, so it counts as silence.
+     */
+    private fun answer(reply: CanReply, resp: Int, service: String, did: Int): EcuMessage? {
+        val svc = service.toInt(16)
+        val id = if (oneByteId(service)) intArrayOf(did) else intArrayOf(did shr 8, did and 0xFF)
+        return reply.from(resp).firstOrNull { m ->
+            if (m.isNegative) m.nrc != 0x78 && m.data.getOrNull(1) == svc
+            else m.service == svc + 0x40 && m.data.size >= id.size + 1 && id.indices.all { m.data[it + 1] == id[it] }
+        }
+    }
 
     suspend fun readRaw(req: Int, resp: Int, service: String, did: Int): IntArray? {
         obd.target(req, resp)

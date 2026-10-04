@@ -3,10 +3,13 @@ package com.obdscanner
 import com.obdscanner.elm.Elm327
 import com.obdscanner.elm.ElmReply
 import com.obdscanner.elm.Obd
+import com.obdscanner.gm.GmModule
+import com.obdscanner.gm.GmScanner
 import com.obdscanner.transport.Transport
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.InputStream
@@ -97,6 +100,27 @@ class ElmQuirksTest {
         // Protocol set again before the retry, and the module target restored (ATSH7E0 twice: before and after).
         val after = t.sent.dropWhile { it != "ATSP6" }
         assertTrue(t.sent.toString(), "ATSH7E0" in after && after.last() == "010C")
+        elm.close()
+    }
+
+    /** Slow Bluetooth (Ford 2017): the late reply to the previous DID arrives instead — not taken as this one. */
+    @Test
+    fun lateReplyToAnotherDidIsIgnored() = runBlocking {
+        val t = ScriptTransport { cmd ->
+            when (cmd) {
+                "221172" -> "7E8 05 62 11 6B 00 6A"
+                "22116B" -> "7E8 05 62 11 6B 00 78"
+                "221173" -> "7E8 03 7F 22 31"
+                else -> if (cmd.startsWith("AT")) "OK" else "NO DATA"
+            }
+        }
+        val elm = Elm327(t) { _, _ -> }
+        elm.open()
+        val o = Obd(elm)
+        val sc = GmScanner(o) { }
+        assertNull(sc.readRaw(0x7E0, 0x7E8, "22", 0x1172))
+        assertEquals(listOf(0x00, 0x78), sc.readRaw(0x7E0, 0x7E8, "22", 0x116B)?.toList())
+        assertEquals(0x31, sc.read(GmModule(0x7E0, 0x7E8, "", ""), "22", 0x1173)?.second)
         elm.close()
     }
 

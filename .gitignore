@@ -52,3 +52,6 @@ tools/dtc/cache/
 
 # Research notes, third-party data (not in git)
 research/
+
+# Входящие zip-сессии от тестеров (до разбора в sessions/)
+income/

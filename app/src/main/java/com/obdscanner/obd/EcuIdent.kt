@@ -93,6 +93,11 @@ object ObdModules {
         0x758 -> tr("Давление в шинах TPMS (758)", "Tyre pressure TPMS (758)")
         0x79B -> tr("Батарея электромобиля (79B)", "EV battery (79B)")
         else -> name(req)
+    } else if (family == "ford") when (req) {
+        // Seen on a Ford 2017 (Vsevolozhsk): 720 answers the odometer, 760 the four wheel speeds.
+        0x720 -> tr("Приборная панель (720)", "Instrument cluster (720)")
+        0x760 -> "ABS (760)"
+        else -> name(req)
     } else name(req)
 
     /**
