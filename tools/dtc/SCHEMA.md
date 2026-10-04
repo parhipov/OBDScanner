@@ -9,6 +9,9 @@ Built by `tools/dtc/dtc_import.py` (sources, licences and what is left out: its 
 - `<family>.json` — one make family's own codes (`gm`, `vag`, `ford`, `toyota`, `hyundai`, …: the car
   database family ids, tools/cars/SCHEMA.md), manufacturer ranges only, from Wal33D dtc-database (MIT).
 - `ftb.json` — hand-written failure type byte tables (not generated, the importer doesn't touch it).
+- `gm_hand.json` — hand-written GM codes the imported sets get wrong (not generated): GM redefines some
+  SAE-range codes, e.g. C0575–C0590 = Magnetic Ride damper circuits, not the generic brake booster text.
+  Same set id `gm`: the app merges files of one set, the first file by name wins per code.
 
 ## Code set
 

@@ -22,8 +22,8 @@ android {
         applicationId = "com.obdscanner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 37
-        versionName = "1.25"
+        versionCode = 38
+        versionName = "1.26"
     }
 
     buildTypes {

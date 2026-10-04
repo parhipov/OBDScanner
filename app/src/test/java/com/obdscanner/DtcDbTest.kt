@@ -39,6 +39,18 @@ class DtcDbTest {
         assertEquals("generic", DtcDb.find("P0300", "gm")?.set)
     }
 
+    /** Escalade 2011 suspension module: GM redefines C0585/C0590 (Magnetic Ride damper circuits), the generic text is wrong there. */
+    @Test
+    fun gmHandWrittenChassisCodes() {
+        val c = DtcDb.find("C0585", "gm")
+        assertEquals("gm", c?.set)
+        assertEquals("Left Rear Damper Actuator Circuit", c?.title?.en)
+        assertTrue(c!!.causes.isNotEmpty() && c.symptoms.isNotEmpty())
+        assertEquals("generic", DtcDb.find("C0585", null)?.set)
+        // The imported GM set still answers for its own codes.
+        assertNotNull(DtcDb.find("P1031", "gm"))
+    }
+
     @Test
     fun anatomy() {
         assertTrue(DtcAnatomy.isGeneric("P0300") && DtcAnatomy.isGeneric("P2096") && DtcAnatomy.isGeneric("P3400") && DtcAnatomy.isGeneric("U0100"))

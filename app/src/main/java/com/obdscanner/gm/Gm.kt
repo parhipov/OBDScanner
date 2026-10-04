@@ -75,10 +75,11 @@ object GmModules {
         0x7E1 -> "7E1"
         0x7E2 -> tr("TCM (АКПП)", "TCM (transmission)")
         0x7E3 -> "7E3"
-        0x7E4 -> tr("7E4 (гибрид/BECM?)", "7E4 (hybrid/BECM?)")
+        0x7E4 -> "7E4"
         0x241 -> tr("BCM (кузов)", "BCM (body)")
-        0x243 -> "243 (EBCM / ABS?)"
-        0x760 -> "760 (ABS?)"
+        0x243 -> "EBCM (ABS)"
+        // Escalade 2011: holds the Magnetic Ride damper codes C0585/C0590.
+        0x24E -> tr("Подвеска (Magnetic Ride)", "Suspension (Magnetic Ride)")
         else -> "%03X".format(req)
     }
 

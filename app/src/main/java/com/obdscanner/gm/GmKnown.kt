@@ -63,17 +63,19 @@ object GmKnown {
         add(did(ECM, 0x1564, tr("Датчик давления кондиционера (сырое)", "A/C pressure sensor (raw)"), "", 0, MAYBE, "other") { it[0].toDouble() })
         // Torque Pro lists (GM trucks): "AC Hi Side Pressure" = A·1.83 − 15 psi. Not yet seen on the car.
         add(did(ECM, 0x1144, tr("Давление кондиционера (выс. сторона)", "A/C high side pressure"), tr("кПа", "kPa"), 0, MAYBE, "other") { (it[0] * 1.83 - 15) * 6.895 })
-        // Current misfires — note GM's odd order: 1206 = cyl 1, 1205 = cyl 2.
-        for ((d, cyl) in listOf(0x1206 to 1, 0x1205 to 2, 0x1207 to 3, 0x1208 to 4, 0x11EA to 5, 0x11EB to 6)) {
+        // Current misfires — note GM's odd order: 1206 = cyl 1, 1205 = cyl 2. Cylinders 7–8 (OBDb) answered on
+        // the Escalade 6.2 V8 (2026-10-04): one byte, like cylinders 1–6.
+        for ((d, cyl) in listOf(0x1206 to 1, 0x1205 to 2, 0x1207 to 3, 0x1208 to 4, 0x11EA to 5, 0x11EB to 6, 0x11EC to 7, 0x11ED to 8)) {
             add(did(ECM, d, tr("Пропуски сейчас, цил. $cyl", "Misfires current, cyl $cyl"), "", 0, OK, "fuel", cyl = cylFrom(cyl)) { it[0].toDouble() })
         }
-        for ((d, cyl) in listOf(0x1201 to 1, 0x1202 to 2, 0x1203 to 3, 0x1204 to 4, 0x11F8 to 5, 0x11F9 to 6)) {
+        for ((d, cyl) in listOf(0x1201 to 1, 0x1202 to 2, 0x1203 to 3, 0x1204 to 4, 0x11F8 to 5, 0x11F9 to 6, 0x11FA to 7, 0x11FB to 8)) {
             add(did(ECM, d, tr("Пропуски история, цил. $cyl", "Misfires history, cyl $cyl"), "", 0, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { ab(it).toDouble() })
         }
-        for (cyl in 1..6) {
-            add(did(ECM, 0x1192 + cyl, tr("Длительность впрыска, цил. $cyl", "Injector pulse width, cyl $cyl"), tr("мс", "ms"), 2, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { ab(it) / 65.535 })
+        // Cylinder 8 breaks the run (OBDb: 129A, not 119A).
+        for ((d, cyl) in (1..7).map { 0x1192 + it to it } + (0x129A to 8)) {
+            add(did(ECM, d, tr("Длительность впрыска, цил. $cyl", "Injector pulse width, cyl $cyl"), tr("мс", "ms"), 2, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { ab(it) / 65.535 })
         }
-        for (cyl in 1..6) {
+        for (cyl in 1..8) {
             add(did(ECM, 0x162E + cyl, tr("Баланс цилиндра $cyl", "Cylinder balance, cyl $cyl"), "", 2, MAYBE, "fuel", every = SLOW, cyl = cylFrom(cyl)) { (ab(it) - 32768) * 0.015625 })
         }
 

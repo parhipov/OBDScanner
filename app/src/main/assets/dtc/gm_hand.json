@@ -1,0 +1,13 @@
+{"set": "gm", "source": "OBD Scanner (GM service information, written by hand)", "texts": [
+  {"en": "Ordinary (non-magnetic) dampers fitted in place of Magnetic Ride ones", "ru": "Вместо магнитных амортизаторов стоят обычные"},
+  {"en": "Damper connector unplugged, not latched or corroded", "ru": "Разъём амортизатора не подключён, не защёлкнут или окислился"},
+  {"en": "Damaged wiring between the suspension module and the damper", "ru": "Повреждена проводка от блока подвески к амортизатору"},
+  {"en": "Faulty damper coil", "ru": "Неисправна обмотка амортизатора"},
+  {"en": "Service Suspension message on the dash", "ru": "Сообщение «Service Suspension» на щитке"},
+  {"en": "Damping no longer adapts (fixed firmness)", "ru": "Жёсткость амортизаторов не регулируется"}
+], "codes": {
+  "C0575": {"en":"Left Front Damper Actuator Circuit","ru":"Цепь привода переднего левого амортизатора","d":{"en":"GM cars with Magnetic Ride: the suspension control module sees a fault in the coil circuit of this damper. On GM these C05xx codes do not mean what the generic SAE table says. Failure type 04 = open circuit."},"c":[0,1,2,3],"s":[4,5]},
+  "C0580": {"en":"Right Front Damper Actuator Circuit","ru":"Цепь привода переднего правого амортизатора","d":{"en":"GM cars with Magnetic Ride: the suspension control module sees a fault in the coil circuit of this damper. On GM these C05xx codes do not mean what the generic SAE table says. Failure type 04 = open circuit."},"c":[0,1,2,3],"s":[4,5]},
+  "C0585": {"en":"Left Rear Damper Actuator Circuit","ru":"Цепь привода заднего левого амортизатора","d":{"en":"GM cars with Magnetic Ride: the suspension control module sees a fault in the coil circuit of this damper. On GM these C05xx codes do not mean what the generic SAE table says. Failure type 04 = open circuit."},"c":[0,1,2,3],"s":[4,5]},
+  "C0590": {"en":"Right Rear Damper Actuator Circuit","ru":"Цепь привода заднего правого амортизатора","d":{"en":"GM cars with Magnetic Ride: the suspension control module sees a fault in the coil circuit of this damper. On GM these C05xx codes do not mean what the generic SAE table says. Failure type 04 = open circuit."},"c":[0,1,2,3],"s":[4,5]}
+}}
