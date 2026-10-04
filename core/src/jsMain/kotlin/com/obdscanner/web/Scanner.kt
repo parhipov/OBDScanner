@@ -24,12 +24,14 @@ import com.obdscanner.screen.Action
 import com.obdscanner.screen.AllScreen
 import com.obdscanner.screen.CodesScreen
 import com.obdscanner.screen.DtcHelp
+import com.obdscanner.screen.DtcHelpView
 import com.obdscanner.screen.DtcRef
 import com.obdscanner.screen.FuelScreen
 import com.obdscanner.screen.InfoScreen
 import com.obdscanner.screen.Licenses
 import com.obdscanner.screen.MainScreen
 import com.obdscanner.screen.ScreenJson
+import com.obdscanner.screen.Support
 import com.obdscanner.tr
 import com.obdscanner.transport.MockTransport
 import com.obdscanner.transport.Transport
@@ -253,6 +255,9 @@ class Scanner(appVersion: String) {
 
     /** The texts of the question before clearing codes: title, text, yes, no. */
     fun clearQuestion(): Array<String> = arrayOf(CodesScreen.CLEAR_TITLE, CodesScreen.CLEAR_TEXT, CodesScreen.CLEAR_YES, CodesScreen.CLEAR_NO)
+
+    /** "Support the project" ([Support]): label, text, link (empty — no line), open, close. */
+    fun support(): Array<String> = arrayOf(Support.LABEL, Support.TEXT, Support.URL, Support.OPEN, DtcHelpView.CLOSE)
 
     /** A screen's button ("READ_DTC", "CLEAR_DTC" — after the page asked —, "READ_ALL_MODULES", "RESCAN", "MODE06"). */
     fun action(name: String) {

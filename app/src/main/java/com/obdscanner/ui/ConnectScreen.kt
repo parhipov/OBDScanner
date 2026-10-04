@@ -96,6 +96,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
 
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
+            item { SupportLine() }
             item {
                 when (conn) {
                     is ConnState.Connecting -> Card(Modifier.fillMaxWidth().padding(4.dp)) {
