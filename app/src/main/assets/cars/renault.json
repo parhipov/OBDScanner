@@ -1,6 +1,72 @@
 {
   "family": "renault",
   "title": "Renault / Dacia",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "740",
+          "742",
+          "743",
+          "744",
+          "745",
+          "748",
+          "752",
+          "758",
+          "79B",
+          "707"
+        ],
+        "rsp": "+20"
+      }
+    ],
+    "probes": [
+      "2180",
+      "22F190",
+      "3E00"
+    ],
+    "names": {
+      "740": {
+        "ru": "ABS / ESP (740)",
+        "en": "ABS / ESP (740)"
+      },
+      "742": {
+        "ru": "Электроусилитель руля (742)",
+        "en": "Power steering (742)"
+      },
+      "743": {
+        "ru": "Приборная панель (743)",
+        "en": "Instrument cluster (743)"
+      },
+      "744": {
+        "ru": "Климат (744)",
+        "en": "Climate (744)"
+      },
+      "745": {
+        "ru": "Кузовной блок UCH/BCM (745)",
+        "en": "Body module UCH/BCM (745)"
+      },
+      "748": {
+        "ru": "Полный привод 4WD (748)",
+        "en": "4WD (748)"
+      },
+      "752": {
+        "ru": "Подушки безопасности (752)",
+        "en": "Airbags (752)"
+      },
+      "758": {
+        "ru": "Давление в шинах TPMS (758)",
+        "en": "Tyre pressure TPMS (758)"
+      },
+      "79B": {
+        "ru": "Батарея электромобиля (79B)",
+        "en": "EV battery (79B)"
+      }
+    },
+    "src": [
+      "https://github.com/cedricp/ddt4all",
+      "https://gitlab.com/py_ren/pyren"
+    ]
+  },
   "brands": [
     {
       "name": "Renault",

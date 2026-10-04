@@ -67,7 +67,7 @@ class MockPipelineTest {
 
     @Test
     fun parsesVagDtcs() {
-        val reader = UdsDtcReader(open(), vagNumbers = true) { }
+        val reader = UdsDtcReader(open()) { }
         val mod = Module(0x7E0, 0x7E8, "01", "")
         // UDS 59 02 FF: P0171 FTB 00 status 09 (failed + confirmed), U0121 status 28 (failed since clear).
         val uds = reader.parseUds(mod, intArrayOf(0x59, 0x02, 0xFF, 0x01, 0x71, 0x00, 0x09, 0xC1, 0x21, 0x00, 0x28))
@@ -76,7 +76,7 @@ class MockPipelineTest {
         assertTrue(!uds.codes[1].current)
         assertTrue(uds.complete)
         // KWP 58 02: 0x412C = VAG 16684 = P0300, status 0x60 = present now; 0x462D = VAG 17965, no SAE form.
-        val kwp = reader.parseKwp(mod, intArrayOf(0x58, 0x02, 0x41, 0x2C, 0x60, 0x46, 0x2D, 0x20))
+        val kwp = reader.parseKwp(mod, intArrayOf(0x58, 0x02, 0x41, 0x2C, 0x60, 0x46, 0x2D, 0x20), vagNumbers = true)
         assertEquals(listOf("P0300 (VAG 16684)", "VAG 17965"), kwp.codes.map { it.full })
         assertTrue(kwp.codes[0].current)
         assertTrue(!kwp.codes[1].current)

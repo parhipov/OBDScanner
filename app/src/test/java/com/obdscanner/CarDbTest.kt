@@ -2,7 +2,6 @@ package com.obdscanner
 
 import com.obdscanner.car.CarDb
 import com.obdscanner.car.SignalFormat
-import com.obdscanner.gm.GmKnown
 import com.obdscanner.obd.Make
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -15,8 +14,8 @@ import java.io.File
 class CarDbTest {
     companion object {
         /** The app's own assets (unit tests run in app/). */
-        fun load() {
-            if (CarDb.families.isNotEmpty()) return
+        fun load(force: Boolean = false) {
+            if (CarDb.families.isNotEmpty() && !force) return
             val dirs = listOf(File("src/main/assets/cars"), File("src/main/assets/cars/obdb"))
             val texts = dirs.flatMap { d -> d.listFiles { f -> f.name.endsWith(".json") }.orEmpty().sortedBy { it.name }.map { it.readText() } }
             val t0 = System.currentTimeMillis()
@@ -46,7 +45,7 @@ class CarDbTest {
     /** Whatever is in the files, the app only ever sends read requests to one module's physical id. */
     @Test
     fun onlyReadRequests() {
-        val all = CarDb.families.values.flatMap { it.commands } + GmKnown.commands
+        val all = CarDb.families.values.flatMap { it.commands } + CarDb.dialects.values.flatMap { it.commands }
         for (c in all) {
             assertTrue(c.key, c.service == "21" || c.service == "22")
             assertTrue(c.key, c.req in 0x700..0x7FF && c.req != 0x7DF)
@@ -139,7 +138,7 @@ class CarDbTest {
     /** CTS 2.8 (session 2026-09-30): the V8-only 22 119D answered a constant 248 "kPa" on the V6. */
     @Test
     fun cylinderFilter() {
-        val gm = CarDb.family("gm")!!.commands + GmKnown.commands
+        val gm = CarDb.family("gm")!!.commands
         fun keys(cyl: Int?) = gm.mapNotNull { it.forCylinders(cyl) }.map { it.key }.toSet()
         val v6 = keys(6)
         assertTrue("7E0:22.119D" !in v6) // barometric pressure, V8
@@ -190,7 +189,7 @@ class CarDbTest {
     /** Renault-platform modules answer on +0x20 (743 → 763); an OBDb command without a reply id must follow that. */
     @Test
     fun renaultReplyOffset() {
-        val cands = com.obdscanner.obd.ObdModules.candidates("renault", emptyList())
+        val cands = com.obdscanner.obd.ObdModules.addressing(CarDb.family("renault"), "Renault").candidates
         assertTrue(0x743 to 0x763 in cands)
         assertTrue(0x7E0 to 0x7E8 in cands)
         val renault = CarDb.family("renault")!!.commands.filter { it.req !in 0x7E0..0x7E7 }

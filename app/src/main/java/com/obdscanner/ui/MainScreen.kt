@@ -24,8 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.obdscanner.car.CarDb
 import com.obdscanner.VehicleInfo
-import com.obdscanner.gm.GmKnown
 import com.obdscanner.obd.Reading
 import com.obdscanner.obd.pick
 import com.obdscanner.tr
@@ -207,7 +207,8 @@ private val SAMPLES: Map<String, Triple<Double, String, Int>> = mapOf(
 
 /** An offline card for [key] (a main-screen source or "ecu:source"), keyed like the live reading it stands in for. */
 private fun placeholder(key: String, label: String): Reading {
-    val gm = GmKnown.all.firstOrNull { "%s.%04X".format(it.service, it.did) == key }
+    // The GM parameters checked on the CTS keep keys without a signal id ("22.1940").
+    val gm = CarDb.family("gm")?.commands?.firstOrNull { c -> "${c.service}.${c.didHex}" == key && c.signals.singleOrNull()?.id == "" }
     val full = when {
         key.contains(':') -> key
         gm != null -> gm.key
@@ -215,7 +216,7 @@ private fun placeholder(key: String, label: String): Reading {
         else -> Reading.key(0x7E8, key)
     }
     val sample = SAMPLES[key]
-    return Reading(full, full.substringBefore(':').toInt(16), gm?.name ?: label, sample?.first, null,
+    return Reading(full, full.substringBefore(':').toInt(16), gm?.signals?.first()?.name ?: label, sample?.first, null,
         sample?.second ?: "", sample?.third ?: 1)
 }
 

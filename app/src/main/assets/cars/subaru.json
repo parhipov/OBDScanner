@@ -1,6 +1,23 @@
 {
   "family": "subaru",
   "title": "Subaru",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "7A2",
+          "7A3",
+          "746",
+          "787"
+        ],
+        "rsp": "+8"
+      }
+    ],
+    "src": [
+      "https://github.com/commaai/opendbc",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
+    ]
+  },
   "brands": [
     {
       "name": "Subaru",

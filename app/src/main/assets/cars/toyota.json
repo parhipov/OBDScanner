@@ -1,6 +1,39 @@
 {
   "family": "toyota",
   "title": "Toyota / Lexus",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "700",
+          "701",
+          "780",
+          "791"
+        ],
+        "rsp": "+8"
+      }
+    ],
+    "src": [
+      "https://github.com/commaai/opendbc",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
+    ]
+  },
+  "dialects": [
+    {
+      "id": "toyota_jdm",
+      "title": {
+        "ru": "Toyota для японского рынка (KWP на CAN)",
+        "en": "Toyota for the Japanese market (KWP on CAN)"
+      },
+      "live": "21",
+      "dtc": [
+        "uds19",
+        "kwp18",
+        "kwp13"
+      ],
+      "note": "Seen on a Crown GRS18x 4GR-FSE (owner session 2026-10-04, app 1.23): 0100 → 7F 01 11 from 7E8/7E9, 21 00 → BF9FA893, 21 0C/05/10/23/24 = rpm/ECT/MAF/rail/λ as Mode 01 over 9 min of idle."
+    }
+  ],
   "brands": [
     {
       "name": "Toyota",
@@ -885,6 +918,68 @@
         "https://en.wikipedia.org/wiki/On-board_diagnostics"
       ],
       "verified": false
+    },
+    {
+      "brand": "Toyota",
+      "model": "Crown",
+      "gen": "S180",
+      "years": [
+        2003,
+        2008
+      ],
+      "engines": [
+        {
+          "code": "4GR-FSE",
+          "liters": 2.5,
+          "cyl": 6,
+          "fuel": "petrol",
+          "maf": true
+        },
+        {
+          "code": "3GR-FSE",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2GR-FSE",
+          "liters": 3.5,
+          "cyl": 6,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500, отвечают двигатель (7E0) и КПП (7E1). Стандартные Mode 01 и 03 блоки не поддерживают: те же параметры отдаются через $21 на 7E0. VIN в блоке нет, модель узнаётся по ответу блока двигателя (21 C1).",
+        "en": "CAN 11/500, the engine (7E0) and gearbox (7E1) answer. The ECUs don't support standard Mode 01 and 03: the same values come with $21 to 7E0. No VIN in the ECU; the model is recognised by the engine ECU's answer (21 C1)."
+      },
+      "blocks": [
+        {
+          "role": "engine",
+          "addr": "7E0",
+          "dialect": "toyota_jdm"
+        },
+        {
+          "role": "gearbox",
+          "addr": "7E1",
+          "dialect": "toyota_jdm"
+        }
+      ],
+      "match": [
+        {
+          "hdr": "7E0",
+          "svc": "21",
+          "did": "C1",
+          "ascii": "^GRS18",
+          "when": {
+            "obd": "refused"
+          }
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Toyota_Crown_(S180)"
+      ],
+      "verified": true
     }
   ],
   "commands": [

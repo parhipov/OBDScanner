@@ -1,6 +1,37 @@
 {
   "family": "china",
   "title": "Chery / Haval / Geely / Changan",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "763",
+          "782",
+          "787",
+          "78B"
+        ],
+        "rsp": "+40"
+      },
+      {
+        "req": [
+          "710",
+          "724",
+          "740",
+          "745",
+          "750",
+          "760",
+          "781",
+          "784",
+          "785"
+        ],
+        "rsp": "+8"
+      }
+    ],
+    "src": [
+      "https://github.com/commaai/opendbc",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
+    ]
+  },
   "brands": [
     {
       "name": "Chery",

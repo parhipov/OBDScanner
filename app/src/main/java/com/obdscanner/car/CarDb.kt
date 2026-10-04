@@ -14,9 +14,18 @@ import kotlin.concurrent.thread
 /**
  * The car database: assets/cars/<family>.json (curated) and assets/cars/obdb/<family>.json
  * (generated from OBDb by tools/cars/obdb_import.py). Format: tools/cars/SCHEMA.md.
+ *
+ * A car is a set of blocks (engine, gearbox, ABS…), and how a block talks is its [Dialect]: whose
+ * diagnostic spec its ECU follows, not whose badge is on the car (a Volvo engine speaks Volvo in any car).
+ * Every family has its default dialect; a model can name the dialect of each block, and a dialect can be
+ * recognised by the block's own answers ([MatchRule]) when the car is unknown.
  */
 object CarDb {
     @Volatile var families: Map<String, CarFamily> = emptyMap()
+        private set
+
+    /** Every dialect by id: the families' defaults (id = family id) and the named ones. */
+    @Volatile var dialects: Map<String, Dialect> = emptyMap()
         private set
 
     /** Entries the loader refused, "file: what" — the unit test fails on any. */
@@ -58,6 +67,7 @@ object CarDb {
         val parsed = texts.map { JSONObject(it) }.sortedBy { if (it.has("brands")) 0 else 1 }
         val out = linkedMapOf<String, CarFamily>()
         val bad = mutableListOf<String>()
+        val specs = linkedMapOf<String, DialectSpec>()
         fun <T> tryParse(what: String, f: () -> T): T? = runCatching(f).onFailure { bad += "$what: ${it.message}" }.getOrNull()
         for (j in parsed) {
             val id = j.getString("family")
@@ -67,15 +77,59 @@ object CarDb {
             j.optJSONArray("brands")?.objects()?.forEach { b -> f.brands += Brand(b.getString("name"), b.optJSONArray("wmi").strings().map { it.uppercase() }, id) }
             j.optJSONArray("models")?.objects()?.forEach { m -> tryParse("$file ${m.optString("brand")} ${m.optString("model")} ${m.optString("gen")}") { parseModel(m, id) }?.let { f.models += it } }
             j.optJSONArray("features")?.objects()?.forEach { f.features += text(it) }
+            j.optJSONObject("dialect")?.let { d -> tryParse("$file dialect") { parseDialect(d, id, id) }?.let { specs[id] = it } }
+            j.optJSONObject("modules")?.let { m -> tryParse("$file modules") { parseModules(m) }?.let { f.modules = it } }
+            j.optJSONArray("dialects")?.objects()?.forEach { d ->
+                tryParse("$file dialect ${d.optString("id")}") {
+                    val spec = parseDialect(d, d.getString("id"), id)
+                    require(spec.id !in specs && spec.id !in out.keys) { "dialect id ${spec.id} is taken" }
+                    spec
+                }?.let { specs[it.id] = it }
+            }
             val source = if (j.has("brands")) "db" else "obdb"
             j.optJSONArray("commands")?.objects()?.forEach { c -> tryParse("$file ${c.optString("hdr")} ${c.optString("svc")} ${c.optString("did")}") { parseCommand(c, source) }?.let { f.addCommand(it) } }
         }
+        // Every family has a default dialect (the family's own requests); the named ones inherit from theirs.
+        for (id in out.keys) specs.getOrPut(id) { DialectSpec(id, id) }
+        val resolved = linkedMapOf<String, Dialect>()
+        fun resolve(id: String, seen: Set<String> = emptySet()): Dialect? {
+            resolved[id]?.let { return it }
+            val spec = specs[id] ?: return null
+            require(id !in seen) { "dialect $id extends itself" }
+            val parentId = spec.extends ?: spec.family.takeIf { it != id }
+            val parent = parentId?.let { resolve(it, seen + id) ?: throw IllegalArgumentException("dialect $id: no dialect $it") } ?: Dialect.GENERIC
+            val own = if (id == spec.family) out[id]?.commands.orEmpty() else spec.commands
+            return Dialect(
+                id = id,
+                family = spec.family,
+                title = spec.title ?: parent.title,
+                live = spec.live ?: parent.live,
+                dtc = spec.dtc ?: parent.dtc,
+                dtcFormat = spec.dtcFormat ?: parent.dtcFormat,
+                ident = spec.ident ?: parent.ident,
+                match = spec.match,
+                commands = own,
+            ).also { resolved[id] = it }
+        }
+        for (id in specs.keys) tryParse("dialect $id") { resolve(id) }
+        // A block may only name a dialect that exists.
+        for (f in out.values) f.models.removeAll { m ->
+            val missing = m.allBlocks.map { it.dialect }.filter { it !in resolved }
+            if (missing.isNotEmpty()) bad += "${f.id}.json ${m.title}: no dialect ${missing.joinToString()}"
+            missing.isNotEmpty()
+        }
         families = out
+        dialects = resolved
         problems = bad
         _loaded.value = true
     }
 
     fun family(id: String?): CarFamily? = id?.let { families[it] }
+
+    fun dialect(id: String?): Dialect? = id?.let { dialects[it] }
+
+    /** Models that can be recognised by an ECU's answer (no VIN, or a VIN that doesn't say the model). */
+    val matchable: List<CarModel> get() = models.filter { it.match.isNotEmpty() }
 
     fun model(id: String?): CarModel? = id?.let { k -> models.firstOrNull { it.id == k } }
 
@@ -140,6 +194,7 @@ object CarDb {
                 e.optInt("cyl", 0).takeIf { it > 0 },
                 e.optString("fuel").ifEmpty { null },
                 if (e.has("maf")) e.getBoolean("maf") else null,
+                blocks = e.optJSONArray("blocks").objects().map { parseBlock(it) },
             )
         }
         return CarModel(
@@ -156,7 +211,80 @@ object CarDb {
             note = m.optJSONObject("note")?.let { text(it) },
             src = m.optJSONArray("src").strings(),
             verified = m.optBoolean("verified", false),
+            blocks = m.optJSONArray("blocks").objects().map { parseBlock(it) },
+            match = m.optJSONArray("match").objects().map { parseMatch(it) },
         )
+    }
+
+    /** `{ "role": "engine", "addr": "7E0", "dialect": "toyota_jdm" }` — 11-bit CAN or a K-line address. */
+    private fun parseBlock(b: JSONObject): BlockSpec {
+        val role = b.getString("role")
+        require(role in BlockSpec.ROLES) { "role $role: one of ${BlockSpec.ROLES.joinToString()}" }
+        val addr = b.getString("addr")
+        val req = when {
+            addr.matches(Regex("7[0-9A-Fa-f]{2}")) -> addr.toInt(16).also { require(it != 0x7DF) { "7DF is the broadcast id" } }
+            addr.matches(Regex("[0-9A-Fa-f]{2}")) -> addr.toInt(16).also { require(it in 0x01..0xEF && it != 0x33) { "K-line address $addr" } }
+            else -> throw IllegalArgumentException("addr $addr: 7xx (CAN) or xx (K-line)")
+        }
+        val resp = b.optString("rsp").ifEmpty { null }?.toInt(16) ?: if (req > 0xFF) req + 8 else req
+        return BlockSpec(role, req, resp, b.getString("dialect"))
+    }
+
+    /**
+     * A read request whose answer recognises a model or a dialect: `{ "hdr": "7E0", "svc": "21", "did": "C1",
+     * "ascii": "^GRS18" }`. Same safety as the parameters: a read service to one module's physical id.
+     */
+    private fun parseMatch(r: JSONObject): MatchRule {
+        val hdr = r.getString("hdr")
+        require(hdr.matches(Regex("7[0-9A-Fa-f]{2}"))) { "hdr $hdr: 11-bit 700–7FF only" }
+        val req = hdr.toInt(16)
+        require(req != 0x7DF) { "7DF is the broadcast id" }
+        val service = r.getString("svc")
+        require(service in MATCH_SERVICES) { "service $service: only ${MATCH_SERVICES.joinToString("/")} (read)" }
+        val didText = r.getString("did")
+        require(didText.matches(Regex(if (service == "22") "[0-9A-Fa-f]{4}" else "[0-9A-Fa-f]{2}"))) { "did $didText doesn't fit service $service" }
+        val ascii = r.optString("ascii").ifEmpty { null }?.let { Regex(it) }
+        val hex = r.optString("hex").ifEmpty { null }?.let { Regex(it, RegexOption.IGNORE_CASE) }
+        require(ascii != null || hex != null) { "match needs \"ascii\" or \"hex\"" }
+        val w = r.optJSONObject("when")
+        val obd = w?.optString("obd")?.ifEmpty { null }?.also { require(it in setOf("refused", "ok")) { "when.obd $it: refused / ok" } }
+        val protocols = w?.optJSONArray("protocol")?.let { a -> (0 until a.length()).map { a.getInt(it) }.toSet() }.orEmpty()
+        return MatchRule(req, r.optString("rsp").ifEmpty { null }?.toInt(16) ?: (req + 8), service, didText.toInt(16), ascii, hex, obd, protocols)
+    }
+
+    /** One dialect as written in a file; what it leaves out comes from the one it [DialectSpec.extends]. */
+    private fun parseDialect(d: JSONObject, id: String, family: String): DialectSpec {
+        require(id.matches(Regex("[a-z0-9_]+"))) { "dialect id $id: a-z 0-9 _" }
+        val live = d.optString("live").ifEmpty { null }?.also { require(it in Dialect.LIVE) { "live $it: one of ${Dialect.LIVE.joinToString()}" } }
+        val dtc = d.optJSONArray("dtc")?.strings()?.onEach { require(it in Dialect.DTC) { "dtc $it: one of ${Dialect.DTC.joinToString()}" } }
+        val format = d.optString("dtc_format").ifEmpty { null }?.also { require(it in Dialect.FORMATS) { "dtc_format $it: one of ${Dialect.FORMATS.joinToString()}" } }
+        val ident = d.optString("ident").ifEmpty { null }?.also { require(it in Dialect.IDENT) { "ident $it: one of ${Dialect.IDENT.joinToString()}" } }
+        val commands = d.optJSONArray("commands").objects().map { parseCommand(it, "db") }
+        return DialectSpec(id, family, d.optString("extends").ifEmpty { null }, d.optJSONObject("title")?.let { text(it) },
+            live, dtc, format, ident, d.optJSONArray("match").objects().map { parseMatch(it) }, commands)
+    }
+
+    /** Where a make keeps its modules: `{ "tag": "GM", "replace": true, "addresses": [{ "req": "240-25F", "rsp": "+400" }], … }`. */
+    private fun parseModules(m: JSONObject): ModuleSearch {
+        val addresses = m.optJSONArray("addresses").objects().flatMap { a ->
+            val reqs = a.optJSONArray("req")?.strings() ?: listOf(a.getString("req"))
+            val rsp = a.getString("rsp")
+            reqs.flatMap { r ->
+                val range = r.split('-').map { it.toInt(16) }.let { if (it.size == 2) it[0]..it[1] else it[0]..it[0] }
+                range.map { req ->
+                    // Any 11-bit id (GM keeps its modules on 24x → 64x) but the broadcast one.
+                    require(req in 0x001..0x7FF && req != 0x7DF) { "module %03X: an 11-bit id, not 7DF".format(req) }
+                    val resp = if (rsp.startsWith("+")) req + rsp.drop(1).toInt(16) else rsp.toInt(16)
+                    require(resp in 0x001..0x7FF) { "reply %03X: an 11-bit id".format(resp) }
+                    req to resp
+                }
+            }
+        }
+        val probes = m.optJSONArray("probes")?.strings()?.onEach { p ->
+            require(p.matches(Regex("(3E00|22[0-9A-F]{4}|1A[0-9A-F]{2}|21[0-9A-F]{2})"))) { "probe $p: 3E00 or a read (22/1A/21)" }
+        }
+        val names = m.optJSONObject("names")?.let { n -> n.keys().asSequence().associate { k -> k.toInt(16) to text(n.getJSONObject(k)) } }.orEmpty()
+        return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names)
     }
 
     /**
@@ -193,6 +321,7 @@ object CarDb {
             source = source,
             fuel = c.optJSONArray("fuel").strings().toSet(),
             engines = c.optJSONArray("engines").strings(),
+            exclusive = c.optBoolean("exclusive", false),
         )
     }
 
@@ -201,6 +330,9 @@ object CarDb {
 
     /** The only services the database may send (see [parseCommand]). */
     val READ_SERVICES = setOf("21", "22")
+
+    /** Recognising a model or a dialect may also read the KWP identification (\$1A, read only). */
+    val MATCH_SERVICES = READ_SERVICES + "1A"
 
     private fun parseSignal(s: JSONObject): ExtSignal {
         val f = s.getJSONObject("fmt")
@@ -222,7 +354,8 @@ object CarDb {
         return ExtSignal(
             id = s.getString("id"),
             name = text(s.getJSONObject("name")),
-            unit = s.optString("unit"),
+            // "°C", or a translated one: { "ru": "об/мин", "en": "rpm" }.
+            unit = s.optJSONObject("unit")?.let { text(it) } ?: s.optString("unit"),
             decimals = s.optInt("dec", if (mul / div < 1) 1 else 0),
             confidence = if (s.optString("conf") == "OK") "OK" else "?",
             group = s.optString("group", "other"),
@@ -248,6 +381,10 @@ class CarFamily(val id: String, var title: String) {
     val models = mutableListOf<CarModel>()
     val commands = mutableListOf<ExtCommand>()
     val features = mutableListOf<String>()
+    /** Where this make keeps its modules; null — the standard OBD ids only. */
+    var modules: ModuleSearch? = null
+    /** How this make's blocks talk unless a model says otherwise. */
+    val dialect: Dialect get() = CarDb.dialect(id) ?: Dialect.GENERIC
     /** Command key → index in [commands]: a linear search per added command was quadratic over ~3000 of them. */
     private val index = HashMap<String, Int>()
 
@@ -260,6 +397,8 @@ class CarFamily(val id: String, var title: String) {
             return
         }
         val old = commands[i]
+        // A request checked on a car keeps exactly its own values.
+        if (old.exclusive) return
         val extra = c.signals.filter { s -> old.signals.none { it.fmt.sameValue(s.fmt) } }
         commands[i] = old.copy(signals = old.signals + extra, models = if (old.models.isEmpty() || c.models.isEmpty()) emptySet() else old.models + c.models)
     }
@@ -329,7 +468,11 @@ data class CarChoice(val brand: String, val family: String, val model: CarModel?
     }
 }
 
-data class Engine(val code: String?, val liters: Double?, val cyl: Int?, val fuel: String?, val maf: Boolean?) {
+data class Engine(
+    val code: String?, val liters: Double?, val cyl: Int?, val fuel: String?, val maf: Boolean?,
+    /** Blocks that come with this engine (its ECU's dialect). */
+    val blocks: List<BlockSpec> = emptyList(),
+) {
     val title: String get() = listOfNotNull(code, liters?.let { "%.1f".format(it) }, cyl?.let { tr("$it цил.", "$it cyl") }, fuel?.let(::fuelName)).joinToString(" · ")
 
     private fun fuelName(f: String) = when (f) {
@@ -359,7 +502,26 @@ data class CarModel(
     val src: List<String>,
     /** Connected with this app. */
     val verified: Boolean,
+    /** Blocks whose dialect is known for this model (the rest talk the family's default). */
+    val blocks: List<BlockSpec> = emptyList(),
+    /** Answers that recognise this model without a VIN. */
+    val match: List<MatchRule> = emptyList(),
 ) {
+    /** Every block named anywhere in the model, for checks. */
+    val allBlocks: List<BlockSpec> get() = blocks + engines.flatMap { it.blocks }
+
+    /**
+     * Block address → its spec: the model's own blocks, and an engine's blocks when every engine of the
+     * model agrees on that address (or there is one engine) — with several engines the car's is unknown.
+     */
+    val knownBlocks: Map<Int, BlockSpec> by lazy {
+        val out = linkedMapOf<Int, BlockSpec>()
+        val byEngine = engines.flatMap { it.blocks }.groupBy { it.req }
+        for ((req, list) in byEngine) if (list.size == engines.size && list.map { it.dialect }.distinct().size == 1) out[req] = list.first()
+        for (b in blocks) out[b.req] = b
+        out
+    }
+
     /** Unique: one generation can be split by years (BMW E90 before/after D-CAN, RAV4 XA20 2005). */
     val id get() = "$brand|$model|${gen.orEmpty()}|${years?.first ?: ""}-${years?.last ?: ""}"
     val yearsText get() = years?.let { if (it.first == it.last) "${it.first}" else "${it.first}–${it.last}" }.orEmpty()
@@ -427,14 +589,14 @@ data class ExtCommand(
     val signals: List<ExtSignal>,
     val models: Set<String> = emptySet(),
     val years: IntRange? = null,
-    /** "db" (curated), "obdb" or "code" (GmKnown). */
+    /** "db" (curated) or "obdb". */
     val source: String = "db",
-    /** GmKnown: a formula in code instead of [ExtSignal.fmt]. */
-    val code: ((IntArray) -> Double?)? = null,
     /** Only on these fuels ("diesel"): the same DID means something else on the other ECUs. Empty = any. */
     val fuel: Set<String> = emptySet(),
     /** Known on these engines (code substrings, "EA888"); on another engine the values are marked unconfirmed ("(?)" in report.txt). */
     val engines: List<String> = emptyList(),
+    /** Checked on a car: OBDb values for the same request are not added to it. */
+    val exclusive: Boolean = false,
 ) {
     /** The same request with every value marked unverified — known on another model or engine, not on this car. */
     fun unverified() = copy(signals = signals.map { it.copy(confidence = "?") })
@@ -455,6 +617,93 @@ data class ExtCommand(
     /** The main-screen group: the most important one among its values. */
     val group get() = signals.map { it.group }.minByOrNull { listOf("main", "fuel", "other").indexOf(it).let { i -> if (i < 0) 9 else i } } ?: "other"
 
-    /** Reading key of a value: GmKnown ones keep the old "7E2:22.1940", database ones add the signal id. */
-    fun readingKey(s: ExtSignal) = if (code != null) key else "$key.${s.id}"
+    /** Reading key of a value: the request and the signal id ("7E0:22.1172.BAT"); without an id just the request ("7E2:22.1940"). */
+    fun readingKey(s: ExtSignal) = if (s.id.isEmpty()) key else "$key.${s.id}"
 }
+
+/** One block of a model: what it is, where it answers and which dialect it talks. */
+data class BlockSpec(val role: String, val req: Int, val resp: Int, val dialect: String) {
+    companion object {
+        val ROLES = setOf("engine", "gearbox", "abs", "airbag", "body", "cluster", "climate", "steering", "gateway", "other")
+    }
+}
+
+/**
+ * A read request and what its answer must look like: recognises a model (no VIN) or a block's dialect.
+ * [obd] — only when standard OBD (Mode 01) was "refused" with a negative answer or was "ok"; [protocols] —
+ * only on these ATSP numbers (empty = any CAN).
+ */
+data class MatchRule(
+    val req: Int, val resp: Int, val service: String, val did: Int,
+    val ascii: Regex?, val hex: Regex?, val obd: String?, val protocols: Set<Int>,
+) {
+    val didHex get() = if (service == "22") "%04X".format(did) else "%02X".format(did)
+    /** The same request for several rules is sent once. */
+    val key get() = "%03X:%s%s".format(req, service, didHex)
+
+    fun fits(protocol: Int, obdState: String?): Boolean =
+        (obd == null || obd == obdState) && (if (protocols.isEmpty()) protocol in 6..9 else protocol in protocols)
+
+    /** Whether an answer ([data] after the echo) is this one. */
+    fun matches(data: IntArray): Boolean {
+        val text = data.map { if (it in 0x20..0x7E) it.toChar() else '.' }.joinToString("")
+        val hexText = data.joinToString(" ") { "%02X".format(it) }
+        return (ascii == null || ascii.containsMatchIn(text)) && (hex == null || hex.containsMatchIn(hexText))
+    }
+}
+
+/** How one kind of ECU talks: services for live data, codes and identification, and its own parameters. */
+data class Dialect(
+    val id: String,
+    val family: String?,
+    val title: String?,
+    /** Standard PIDs: "01" — Mode 01 broadcast; "21" — the same PID numbers with \$21 to the block (Toyota JDM). */
+    val live: String,
+    /** How to read the block's DTC memory, tried in order until one answers: [DTC]. */
+    val dtc: List<String>,
+    /** How KWP codes are numbered: "sae" or "vag" (5-digit VAG numbers). */
+    val dtcFormat: String,
+    /** How to read the block's identification: "gm_1a" (GMLAN \$1A) or "uds_kwp" (\$22 F1xx, then KWP \$1A). */
+    val ident: String,
+    /** Answers that recognise this dialect on a block of an unknown car. */
+    val match: List<MatchRule>,
+    /** Manufacturer parameters of this dialect (a family's default dialect: the family's own). */
+    val commands: List<ExtCommand>,
+) {
+    companion object {
+        val LIVE = setOf("01", "21")
+        /** GM \$A9 81, UDS \$19 02, KWP \$18 02 FF00, KWP \$13 (readDiagnosticTroubleCodes). */
+        val DTC = setOf("gm_a9", "uds19", "kwp18", "kwp13")
+        val FORMATS = setOf("sae", "vag")
+        val IDENT = setOf("gm_1a", "uds_kwp")
+
+        /** Whatever answers on the OBD port with no make known: standard OBD, UDS / KWP. */
+        val GENERIC = Dialect("obd2", null, null, "01", listOf("uds19", "kwp18"), "sae", "uds_kwp", emptyList(), emptyList())
+    }
+}
+
+/** A dialect as written: null fields come from the dialect it extends (or its family's). */
+internal data class DialectSpec(
+    val id: String,
+    val family: String,
+    val extends: String? = null,
+    val title: String? = null,
+    val live: String? = null,
+    val dtc: List<String>? = null,
+    val dtcFormat: String? = null,
+    val ident: String? = null,
+    val match: List<MatchRule> = emptyList(),
+    val commands: List<ExtCommand> = emptyList(),
+)
+
+/**
+ * Where a make keeps its diagnostic modules: [addresses] (request → reply) to probe, after the standard
+ * OBD list or instead of it ([replace]); [probes] — what to ask each one; [names] by request id.
+ */
+data class ModuleSearch(
+    val tag: String?,
+    val replace: Boolean,
+    val addresses: List<Pair<Int, Int>>,
+    val probes: List<String>?,
+    val names: Map<Int, String>,
+)

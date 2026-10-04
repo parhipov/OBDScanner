@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.obdscanner.R
-import com.obdscanner.gm.GmModules
+import com.obdscanner.car.CarDb
 import com.obdscanner.obd.Reading
 import com.obdscanner.obd.ecuName
 
@@ -83,7 +83,7 @@ fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onDismiss
     val texts = CardHelp.help(r)?.let { stringArrayResource(it) }
     val source = when {
         r.source.startsWith("01.") -> stringResource(R.string.help_src_pid, r.source.substring(3, 5), ecuName(r.ecu))
-        r.source.matches(Regex("22\\.[0-9A-F]{4}")) -> stringResource(R.string.help_src_gm, r.source.substring(3), GmModules.name(r.ecu))
+        r.source.matches(Regex("22\\.[0-9A-F]{4}")) -> stringResource(R.string.help_src_gm, r.source.substring(3), CarDb.family("gm")?.modules?.names?.get(r.ecu) ?: "%03X".format(r.ecu))
         r.source.startsWith("22.") || r.source.startsWith("21.") ->
             stringResource(R.string.help_src_ext, r.source.substring(0, 2), r.source.substring(3).substringBefore('.'), ecuName(r.ecu + 8))
         r.source.startsWith("calc.") -> stringResource(R.string.help_src_calc)

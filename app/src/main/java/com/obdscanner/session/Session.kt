@@ -22,7 +22,7 @@ import java.util.zip.ZipOutputStream
  *   bus.csv    — passive bus listening (only if it was started)
  *   sensors.csv — phone accelerometer and gyroscope, every sample, see [PhoneSensors]
  */
-class Session(val dir: File) {
+class Session(val dir: File) : Recorder {
     /** Session start, wall clock ms: t_ms in every file counts from here. */
     val startMs = System.currentTimeMillis()
     private val t0 = startMs
@@ -50,7 +50,7 @@ class Session(val dir: File) {
         raw.write("${now()} $direction $text\n")
     }
 
-    @Synchronized fun note(text: String) {
+    @Synchronized override fun note(text: String) {
         if (closed) return
         Log.i(TAG, "# $text")
         raw.write("${now()} # $text\n")
@@ -59,7 +59,7 @@ class Session(val dir: File) {
     private val lastLogged = HashMap<String, Pair<Any?, Long>>()
 
     /** Logs a value when it changes, and unchanged values at most once per second. */
-    @Synchronized fun value(r: Reading) {
+    @Synchronized override fun value(r: Reading) {
         if (closed) return
         val v: Any? = r.value ?: r.text
         val prev = lastLogged[r.key]
@@ -69,13 +69,13 @@ class Session(val dir: File) {
         csv.write("${r.time - t0},${now()},$ecu,${q(r.source)},${q(r.name)},${r.value ?: ""},${q(r.text ?: "")},${q(r.unit)}\n")
     }
 
-    @Synchronized fun report(title: String, body: String) {
+    @Synchronized override fun report(title: String, body: String) {
         if (closed) return
         report.write("\n=== $title ===\n$body\n")
         report.flush()
     }
 
-    @Synchronized fun scanHit(req: Int, resp: Int, service: String, id: String, data: IntArray) {
+    @Synchronized override fun scanHit(req: Int, resp: Int, service: String, id: String, data: IntArray) {
         if (closed) return
         val hex = data.joinToString(" ") { "%02X".format(it) }
         val ascii = data.map { if (it in 0x20..0x7E) it.toChar() else '.' }.joinToString("")
@@ -87,7 +87,7 @@ class Session(val dir: File) {
     private var bus: BufferedWriter? = null
 
     /** Frames from one listening window. ELM gives no per-frame time, so it's spread over the window. */
-    @Synchronized fun busFrames(window: Int, frames: List<Pair<Int, IntArray>>, windowMs: Long) {
+    @Synchronized override fun busFrames(window: Int, frames: List<Pair<Int, IntArray>>, windowMs: Long) {
         if (closed) return
         val w = bus ?: writer("bus.csv").also {
             it.write("window,t_ms_approx,id,len,hex\n")
@@ -113,7 +113,7 @@ class Session(val dir: File) {
         w.append(rows)
     }
 
-    @Synchronized fun flush() {
+    @Synchronized override fun flush() {
         if (closed) return
         raw.flush(); csv.flush(); report.flush(); scan.flush(); bus?.flush(); sensors?.flush()
     }

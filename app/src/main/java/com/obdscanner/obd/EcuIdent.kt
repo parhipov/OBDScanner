@@ -1,5 +1,6 @@
 package com.obdscanner.obd
 
+import com.obdscanner.car.CarFamily
 import com.obdscanner.tr
 
 /**
@@ -41,9 +42,10 @@ object EcuIdent {
 }
 
 /**
- * Any make without its own address list: the standard OBD ids (7E0–7E7) plus the 11-bit ids where
- * Toyota and Hyundai/Kia are said to keep ABS, airbags, dash and climate (all answer on +8).
- * Unconfirmed guesses — the probe is only a tester present / VIN read, so a wrong one costs ~1 s.
+ * The standard place to look for modules: the OBD ids (7E0–7E7) plus the 11-bit ids where Toyota and
+ * Hyundai/Kia are said to keep ABS, airbags, dash and climate (all answer on +8). Unconfirmed guesses — the
+ * probe is only a tester present / VIN read, so a wrong one costs ~1 s. A make adds its own or replaces the
+ * list in its database file (`modules`, tools/cars/SCHEMA.md).
  */
 object ObdModules {
     val candidates: List<Pair<Int, Int>> =
@@ -52,53 +54,23 @@ object ObdModules {
     /** Tester present (UDS and KWP on CAN), then the UDS VIN, then the KWP VIN. */
     val PROBES = listOf("3E00", "22F190", "1A90")
 
-    /** Renault-platform modules answer the KWP identification 21 80 and don't need 3E (pyren never sends it). */
-    val PROBES_RENAULT = listOf("2180", "22F190", "3E00")
+    /** Where to look for modules, what to ask them and what to call them (module search, report, scan screen). */
+    class Addressing(val tag: String, val candidates: List<Pair<Int, Int>>, val probes: List<String>, val name: (Int) -> String)
 
     /**
-     * Extra modules per family, (request, reply). Renault platform (also Nissan and Lada Vesta/XRAY/Largus):
-     * body and chassis modules answer on +0x20 (pyren / ddt4all address tables); Haval/GWM on +0x40;
-     * the rest on +8 — addresses seen answering on real cars in openpilot's FW queries (opendbc, MIT) and OVMS.
+     * The make's own list ([com.obdscanner.car.ModuleSearch.replace]), or the standard one plus the make's
+     * extras and every module the make's database requests talk to; [blocks] — the car's named blocks.
      */
-    private val EXTRA: Map<String, List<Pair<Int, Int>>> = run {
-        val renault = listOf(0x740, 0x742, 0x743, 0x744, 0x745, 0x748, 0x752, 0x758, 0x79B, 0x707).map { it to it + 0x20 }
-        mapOf(
-            "renault" to renault,
-            "nissan" to renault,
-            "lada" to renault,
-            "toyota" to listOf(0x700, 0x701, 0x780, 0x791).map { it to it + 8 },
-            "hyundai" to listOf(0x7D4, 0x7B3, 0x7B1, 0x7B7, 0x730, 0x7C5, 0x794, 0x770).map { it to it + 8 },
-            "ford" to listOf(0x706, 0x726, 0x730, 0x732, 0x760, 0x764).map { it to it + 8 },
-            "mazda" to listOf(0x706, 0x730, 0x732, 0x760, 0x764).map { it to it + 8 },
-            "subaru" to listOf(0x7A2, 0x7A3, 0x746, 0x787).map { it to it + 8 },
-            "china" to listOf(0x763, 0x782, 0x787, 0x78B).map { it to it + 0x40 } +
-                listOf(0x710, 0x724, 0x740, 0x745, 0x750, 0x760, 0x781, 0x784, 0x785).map { it to it + 8 },
-        )
+    fun addressing(family: CarFamily?, tag: String, blocks: List<Pair<Int, Int>> = emptyList()): Addressing {
+        val m = family?.modules
+        if (m != null && m.replace) {
+            return Addressing(tag, (m.addresses + blocks).distinctBy { it.first }, m.probes ?: PROBES) { m.names[it] ?: "%03X".format(it) }
+        }
+        val fromDb = family?.commands.orEmpty().map { it.req to it.resp }.filter { it.first !in 0x7E0..0x7E7 }
+        return Addressing(tag, (candidates + m?.addresses.orEmpty() + fromDb + blocks).distinctBy { it.first }, m?.probes ?: PROBES) {
+            m?.names?.get(it) ?: name(it)
+        }
     }
-
-    /** The shared list, the family's extra modules and every module the family's database requests talk to. */
-    fun candidates(family: String?, fromDb: List<Pair<Int, Int>>): List<Pair<Int, Int>> =
-        (candidates + EXTRA[family].orEmpty() + fromDb).distinctBy { it.first }
-
-    fun probes(family: String?) = if (family in setOf("renault", "nissan", "lada")) PROBES_RENAULT else PROBES
-
-    fun name(req: Int, family: String?): String = if (family in setOf("renault", "nissan", "lada")) when (req) {
-        0x740 -> "ABS / ESP (740)"
-        0x742 -> tr("Электроусилитель руля (742)", "Power steering (742)")
-        0x743 -> tr("Приборная панель (743)", "Instrument cluster (743)")
-        0x744 -> tr("Климат (744)", "Climate (744)")
-        0x745 -> tr("Кузовной блок UCH/BCM (745)", "Body module UCH/BCM (745)")
-        0x748 -> tr("Полный привод 4WD (748)", "4WD (748)")
-        0x752 -> tr("Подушки безопасности (752)", "Airbags (752)")
-        0x758 -> tr("Давление в шинах TPMS (758)", "Tyre pressure TPMS (758)")
-        0x79B -> tr("Батарея электромобиля (79B)", "EV battery (79B)")
-        else -> name(req)
-    } else if (family == "ford") when (req) {
-        // Seen on a Ford 2017 (Vsevolozhsk): 720 answers the odometer, 760 the four wheel speeds.
-        0x720 -> tr("Приборная панель (720)", "Instrument cluster (720)")
-        0x760 -> "ABS (760)"
-        else -> name(req)
-    } else name(req)
 
     /**
      * K-line module by its ISO 14230 / SAE J2178 physical address: 10–17 engine, 18–1F transmission

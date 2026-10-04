@@ -2,7 +2,7 @@ package com.obdscanner.gm
 
 import com.obdscanner.tr
 
-/** A diagnostic module found on HS-CAN. */
+/** A diagnostic module found on the OBD port (CAN id or K-line address). */
 data class GmModule(val req: Int, val resp: Int, val name: String, val answeredTo: String) {
     val id get() = "%03X".format(req)
 }
@@ -17,30 +17,10 @@ data class ScanHit(val req: Int, val resp: Int, val service: String, val did: In
     /** GM part/software numbers are 4-byte big-endian decimals (as printed on labels). */
     val partNumber: Long? get() = if (service == "1A" && did in 0xC0..0xCC && data.size == 4)
         data.fold(0L) { acc, b -> acc * 256 + b } else null
-    val label: String? get() = if (service == "1A") Gm1A.name(did) else GmKnown.all.firstOrNull { it.did == did && it.req == req }?.name
+    /** GMLAN \$1A identifiers have names ([Gm1A]). */
+    val label: String? get() = if (service == "1A") Gm1A.name(did) else null
     override fun equals(other: Any?) = other is ScanHit && other.key == key
     override fun hashCode() = key.hashCode()
-}
-
-/** A known (decoded) GM enhanced parameter. */
-class GmDid(
-    val req: Int,
-    val service: String,
-    val did: Int,
-    val name: String,
-    val unit: String,
-    val decimals: Int,
-    /** "OK" — several sources agree, "?" — single source / conflicting formula. */
-    val confidence: String,
-    /** Which screen needs it most: "main", "fuel" or "other". */
-    val group: String,
-    /** How often to read it, see [com.obdscanner.obd.PollRate]. */
-    val periodMs: Long,
-    /** Only on engines with this many cylinders (a per-cylinder DID); null — any. */
-    val cyl: IntRange? = null,
-    val f: (IntArray) -> Double?,
-) {
-    val key get() = "%03X:%s.%04X".format(req, service, did)
 }
 
 /** GMLAN \$1A identifiers (GMW3110). */
@@ -65,24 +45,8 @@ object Gm1A {
     }
 }
 
-object GmModules {
-    /** HS-CAN diagnostic addresses to probe. Response = request + 8 (OBD) or + 0x400 (GM USDT). */
-    val candidates: List<Pair<Int, Int>> =
-        (0x7E0..0x7E7).map { it to it + 8 } + (0x240..0x25F).map { it to it + 0x400 } + listOf(0x760 to 0x768)
-
-    fun name(req: Int): String = when (req) {
-        0x7E0 -> tr("ECM (двигатель)", "ECM (engine)")
-        0x7E1 -> "7E1"
-        0x7E2 -> tr("TCM (АКПП)", "TCM (transmission)")
-        0x7E3 -> "7E3"
-        0x7E4 -> "7E4"
-        0x241 -> tr("BCM (кузов)", "BCM (body)")
-        0x243 -> "EBCM (ABS)"
-        // Escalade 2011: holds the Magnetic Ride damper codes C0585/C0590.
-        0x24E -> tr("Подвеска (Magnetic Ride)", "Suspension (Magnetic Ride)")
-        else -> "%03X".format(req)
-    }
-
+/** What the scan screen offers to scan (read requests, any make). */
+object ScanRanges {
     /** Scan ranges offered in the UI (Mode 22). */
     val ranges22 = listOf(
         tr("Классические GM (1000–1FFF)", "Classic GM (1000–1FFF)") to (0x1000..0x1FFF),

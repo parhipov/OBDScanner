@@ -31,7 +31,7 @@ import com.obdscanner.ObdManager
 import com.obdscanner.BusState
 import com.obdscanner.ScanState
 import com.obdscanner.gm.GmModule
-import com.obdscanner.gm.GmModules
+import com.obdscanner.gm.ScanRanges
 import com.obdscanner.obd.Reading
 import com.obdscanner.tr
 
@@ -77,9 +77,9 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
             }
             SectionTitle(tr("Диапазон для \$22", "Range for \$22"))
             Row(Modifier.padding(horizontal = 8.dp)) {
-                OutlinedButton(onClick = { rangeMenu = true }) { Text(GmModules.ranges22[rangeIdx].first) }
+                OutlinedButton(onClick = { rangeMenu = true }) { Text(ScanRanges.ranges22[rangeIdx].first) }
                 DropdownMenu(expanded = rangeMenu, onDismissRequest = { rangeMenu = false }) {
-                    GmModules.ranges22.forEachIndexed { i, (label, _) ->
+                    ScanRanges.ranges22.forEachIndexed { i, (label, _) ->
                         DropdownMenuItem(text = { Text(label) }, onClick = { rangeIdx = i; rangeMenu = false })
                     }
                 }
@@ -91,7 +91,7 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
             ModuleCard(mod, enabled = connected && busy == null,
                 onScan1A = { m.scanModule(mod, "1A", 0x00..0xFF) },
                 onScan21 = { m.scanModule(mod, "21", 0x00..0xFF) },
-                onScan22 = { m.scanModule(mod, "22", GmModules.ranges22[rangeIdx].second) })
+                onScan22 = { m.scanModule(mod, "22", ScanRanges.ranges22[rangeIdx].second) })
         }
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {

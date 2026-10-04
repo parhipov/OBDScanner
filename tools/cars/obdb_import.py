@@ -60,7 +60,7 @@ signal:
     unit  OBDb unit name (celsius, kilopascal, percent, ...), see UNITS below.
     map   {"<raw int>": "<text>"} (or {"description": ...}/{"value": ...}) -> our map.
   Confirmed on a known answer: OBDb Chevrolet-Traverse / Chevrolet-Camaro have
-  `7E2 22 1940 {len 8, add -40, celsius}` with no bix, and the app's GmKnown.kt (checked on a
+  `7E2 22 1940 {len 8, add -40, celsius}` with no bix, and the app's GM set (gm.json, checked on a
   CTS) reads 22 1940 as A - 40 where A is the first byte after "62 19 40". Likewise
   SAEJ1979 `01 0C {len 16, div 4}` = (256A+B)/4 with A right after "41 0C". So OBDb bix ==
   our bix, no offset.

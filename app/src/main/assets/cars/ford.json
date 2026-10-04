@@ -1,6 +1,35 @@
 {
   "family": "ford",
   "title": "Ford",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "706",
+          "726",
+          "730",
+          "732",
+          "760",
+          "764"
+        ],
+        "rsp": "+8"
+      }
+    ],
+    "names": {
+      "720": {
+        "ru": "Приборная панель (720)",
+        "en": "Instrument cluster (720)"
+      },
+      "760": {
+        "ru": "ABS (760)",
+        "en": "ABS (760)"
+      }
+    },
+    "src": [
+      "https://github.com/commaai/opendbc",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
+    ]
+  },
   "brands": [
     {
       "name": "Ford",

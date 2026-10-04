@@ -1,6 +1,65 @@
 {
   "family": "vag",
   "title": "Volkswagen / Skoda / Audi / Seat",
+  "dialect": {
+    "dtc_format": "vag"
+  },
+  "modules": {
+    "tag": "VAG",
+    "replace": true,
+    "addresses": [
+      {
+        "req": "7E0-7E7",
+        "rsp": "+8"
+      },
+      {
+        "req": "700-775",
+        "rsp": "+6A"
+      }
+    ],
+    "probes": [
+      "3E00",
+      "22F187"
+    ],
+    "names": {
+      "7E0": {
+        "ru": "01 Двигатель",
+        "en": "01 Engine"
+      },
+      "7E1": {
+        "ru": "02 КПП",
+        "en": "02 Transmission"
+      },
+      "710": {
+        "ru": "19 Шлюз",
+        "en": "19 Gateway"
+      },
+      "712": {
+        "ru": "44 Усилитель руля",
+        "en": "44 Power steering"
+      },
+      "713": {
+        "ru": "03 ABS",
+        "en": "03 ABS"
+      },
+      "714": {
+        "ru": "17 Приборка",
+        "en": "17 Instruments"
+      },
+      "715": {
+        "ru": "15 Подушки",
+        "en": "15 Airbags"
+      },
+      "70E": {
+        "ru": "09 Бортовая электроника",
+        "en": "09 Central electrics"
+      },
+      "746": {
+        "ru": "08 Климат",
+        "en": "08 Climate"
+      }
+    }
+  },
   "brands": [
     {
       "name": "Volkswagen",

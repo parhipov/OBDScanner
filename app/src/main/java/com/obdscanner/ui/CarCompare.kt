@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.obdscanner.car.CarChoice
 import com.obdscanner.car.CarDb
 import com.obdscanner.car.ExtCommand
-import com.obdscanner.gm.GmKnown
 import com.obdscanner.obd.Make
 import com.obdscanner.tr
 
@@ -33,7 +32,7 @@ private fun diagnostics(c: CarChoice): Map<String, String> {
         family == null -> emptyList()
         car != null -> family.commandsFor(car)
         else -> family.commandsOfBrand(c.brand)
-    } + if (c.family == Make.GM.id) GmKnown.commands else emptyList()
+    }
     val no = "—"
     val out = linkedMapOf<String, String>()
     out[tr("Семейство", "Family")] = family?.title ?: no

@@ -1,6 +1,24 @@
 {
   "family": "mazda",
   "title": "Mazda",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "706",
+          "730",
+          "732",
+          "760",
+          "764"
+        ],
+        "rsp": "+8"
+      }
+    ],
+    "src": [
+      "https://github.com/commaai/opendbc",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
+    ]
+  },
   "brands": [
     {
       "name": "Mazda",

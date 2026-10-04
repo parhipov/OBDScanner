@@ -58,6 +58,8 @@ class ElmQuirksTest {
         // A clone that puts the first K-line reply on the BUS INIT line.
         assertEquals(listOf("48 6B 10 41 00 BE 3F A8 13 00"), ElmReply("0100", "BUS INIT: ...OK48 6B 10 41 00 BE 3F A8 13 00", false).lines)
         assertEquals(listOf("BUS INIT: ...ERROR"), ElmReply("0100", "BUS INIT: ...ERROR", false).lines)
+        // Volvo S60 2004 with a v2.1 clone: no answer to the 5-baud / fast init.
+        assertEquals(listOf("BUS INIT:  . . .UNABLE TO CONNECT"), ElmReply("0100", "BUS INIT:  . . .UNABLE TO CONNECT", false).lines)
         // The Bluetooth module's own message.
         assertEquals(listOf("NO DATA"), ElmReply("0100", "+CONNECTING<<94:65:2D:11:22:33\rNO DATA", false).lines)
     }

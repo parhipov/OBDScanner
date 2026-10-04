@@ -191,6 +191,9 @@ object CanParser {
      */
     private val paddedEcus = java.util.concurrent.ConcurrentHashMap<Int, Boolean>()
 
+    /** Forgets what was learned about the ECUs (a new car: the replay tests run one session after another). */
+    fun forgetEcus() = paddedEcus.clear()
+
     private class Assembly(val expected: Int, val padded: Boolean = false) {
         private val buf = ArrayList<Int>(expected)
         var expectedSeq = 1

@@ -1,6 +1,27 @@
 {
   "family": "hyundai",
   "title": "Hyundai / Kia / Genesis",
+  "modules": {
+    "addresses": [
+      {
+        "req": [
+          "7D4",
+          "7B3",
+          "7B1",
+          "7B7",
+          "730",
+          "7C5",
+          "794",
+          "770"
+        ],
+        "rsp": "+8"
+      }
+    ],
+    "src": [
+      "https://github.com/commaai/opendbc",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
+    ]
+  },
   "brands": [
     {
       "name": "Hyundai",

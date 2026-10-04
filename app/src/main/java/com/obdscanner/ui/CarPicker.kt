@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.obdscanner.CarLink
 import com.obdscanner.ObdManager
 import com.obdscanner.R
 import com.obdscanner.VehicleInfo
@@ -43,7 +44,6 @@ import com.obdscanner.car.CarChoice
 import com.obdscanner.car.CarDb
 import com.obdscanner.car.CarFamily
 import com.obdscanner.car.CarModel
-import com.obdscanner.gm.GmKnown
 import com.obdscanner.obd.Make
 import com.obdscanner.tr
 import kotlinx.coroutines.delay
@@ -74,7 +74,7 @@ fun protocolName(p: Int?): String? = when (p) {
     null -> null
     1 -> "J1850 PWM"
     2 -> "J1850 VPW"
-    else -> ObdManager.PROTOCOLS[p]
+    else -> CarLink.PROTOCOLS[p]
 }
 
 /** Main-screen roles → what the card calls them (for "what is read on this make"). */
@@ -165,15 +165,12 @@ private fun CarDetails(car: CarModel) {
  * What is special about the make: what the app reads on it beyond standard OBD (from the database),
  * how many requests, and — with only a make known — how many models and where the socket usually is.
  */
-/**
- * Requests known on the model, else on the make, else the whole family (what the card describes).
- * On GM also the enhanced parameters kept in code (GmKnown, checked on the CTS).
- */
+/** Requests known on the model, else on the make, else the whole family (what the card describes). */
 private fun knownOn(family: CarFamily, brand: String?, car: CarModel?) = when {
     car != null -> family.commandsFor(car)
     brand != null -> family.commandsOfBrand(brand)
     else -> family.commands
-} + if (family.id == Make.GM.id) GmKnown.commands else emptyList()
+}
 
 @Composable
 private fun MakeReads(family: CarFamily, brand: String?, car: CarModel?) {

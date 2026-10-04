@@ -17,9 +17,9 @@ import kotlinx.coroutines.withContext
 class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
 
     suspend fun probeModules(
-        all: List<Pair<Int, Int>> = GmModules.candidates,
-        probes: List<String> = listOf("1A90", "22F190", "3E00"),
-        name: (Int) -> String = GmModules::name,
+        all: List<Pair<Int, Int>>,
+        probes: List<String>,
+        name: (Int) -> String,
         onProgress: (Float, String) -> Unit,
     ): List<GmModule> {
         val found = mutableListOf<GmModule>()

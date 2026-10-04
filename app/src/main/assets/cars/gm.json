@@ -1,6 +1,57 @@
 {
   "family": "gm",
   "title": "GM",
+  "dialect": {
+    "dtc": [
+      "gm_a9"
+    ],
+    "ident": "gm_1a"
+  },
+  "modules": {
+    "tag": "GM",
+    "replace": true,
+    "addresses": [
+      {
+        "req": "7E0-7E7",
+        "rsp": "+8"
+      },
+      {
+        "req": "240-25F",
+        "rsp": "+400"
+      },
+      {
+        "req": "760",
+        "rsp": "768"
+      }
+    ],
+    "probes": [
+      "1A90",
+      "22F190",
+      "3E00"
+    ],
+    "names": {
+      "7E0": {
+        "ru": "ECM (двигатель)",
+        "en": "ECM (engine)"
+      },
+      "7E2": {
+        "ru": "TCM (АКПП)",
+        "en": "TCM (transmission)"
+      },
+      "241": {
+        "ru": "BCM (кузов)",
+        "en": "BCM (body)"
+      },
+      "243": {
+        "ru": "EBCM (ABS)",
+        "en": "EBCM (ABS)"
+      },
+      "24E": {
+        "ru": "Подвеска (Magnetic Ride)",
+        "en": "Suspension (Magnetic Ride)"
+      }
+    }
+  },
   "brands": [
     {
       "name": "Chevrolet",
@@ -1663,6 +1714,2259 @@
     }
   ],
   "commands": [
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "1940",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Температура масла АКПП",
+            "en": "Transmission fluid temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "role": "atf_temp",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "295A",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Темп. масла АКПП (фильтр.)",
+            "en": "Trans. fluid temp (filtered)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "1991",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Проскальзывание гидротрансформатора",
+            "en": "TCC slip speed"
+          },
+          "unit": {
+            "ru": "об/мин",
+            "en": "rpm"
+          },
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 8,
+            "add": 0,
+            "signed": true
+          },
+          "conf": "OK",
+          "role": "tc_slip",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "1941",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Обороты входного вала АКПП",
+            "en": "Trans. input shaft speed"
+          },
+          "unit": {
+            "ru": "об/мин",
+            "en": "rpm"
+          },
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.125,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "role": "input_rpm",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "1942",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Обороты выходного вала АКПП",
+            "en": "Trans. output shaft speed"
+          },
+          "unit": {
+            "ru": "об/мин",
+            "en": "rpm"
+          },
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.125,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "role": "output_rpm",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "199A",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Передача АКПП",
+            "en": "Current gear"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "role": "gear",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "199E",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Ток соленоида давления (факт)",
+            "en": "Pressure control solenoid actual"
+          },
+          "unit": {
+            "ru": "А",
+            "en": "A"
+          },
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 0.0195,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "199F",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Ток соленоида давления (задан.)",
+            "en": "Pressure control solenoid desired"
+          },
+          "unit": {
+            "ru": "А",
+            "en": "A"
+          },
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 0.0195,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1154",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Температура масла двигателя",
+            "en": "Engine oil temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "OK",
+          "role": "oil_temp",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1470",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Давление масла",
+            "en": "Oil pressure"
+          },
+          "unit": {
+            "ru": "кПа",
+            "en": "kPa"
+          },
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 4,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "role": "oil_pressure",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "119F",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Остаток ресурса масла",
+            "en": "Oil life remaining"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "main",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 100,
+            "div": 255,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "role": "oil_life",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11A6",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Откат зажигания по детонации",
+            "en": "Knock retard"
+          },
+          "unit": "°",
+          "dec": 1,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 22.5,
+            "div": 256,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "125D",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Откат по детонации 2",
+            "en": "Knock retard 2"
+          },
+          "unit": "°",
+          "dec": 1,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 22.5,
+            "div": 256,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "125E",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Счётчик детонации",
+            "en": "Knock counter"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "12D9",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Суммарный откат по детонации",
+            "en": "Total knock retard"
+          },
+          "unit": "°",
+          "dec": 1,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 0.45,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "119E",
+      "rate": "fast",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Заданное соотношение воздух/топливо",
+            "en": "Desired air/fuel ratio"
+          },
+          "unit": "AFR",
+          "dec": 1,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1141",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Напряжение зажигания (IGN1)",
+            "en": "Ignition voltage (IGN1)"
+          },
+          "unit": {
+            "ru": "В",
+            "en": "V"
+          },
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 10,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1161",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Температура за бортом (ECM)",
+            "en": "Ambient air temp (ECM)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11A1",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Время работы двигателя (ECM)",
+            "en": "Engine run time (ECM)"
+          },
+          "unit": {
+            "ru": "с",
+            "en": "s"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1564",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Датчик давления кондиционера (сырое)",
+            "en": "A/C pressure sensor (raw)"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1144",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Давление кондиционера (выс. сторона)",
+            "en": "A/C high side pressure"
+          },
+          "unit": {
+            "ru": "кПа",
+            "en": "kPa"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 12.61785,
+            "div": 1,
+            "add": -103.425,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1206",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 1",
+            "en": "Misfires current, cyl 1"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1205",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 2",
+            "en": "Misfires current, cyl 2"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1207",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 3",
+            "en": "Misfires current, cyl 3"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "cyl": [
+            3,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1208",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 4",
+            "en": "Misfires current, cyl 4"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "cyl": [
+            4,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11EA",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 5",
+            "en": "Misfires current, cyl 5"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "cyl": [
+            5,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11EB",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 6",
+            "en": "Misfires current, cyl 6"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "cyl": [
+            6,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11EC",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 7",
+            "en": "Misfires current, cyl 7"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "cyl": [
+            7,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11ED",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски сейчас, цил. 8",
+            "en": "Misfires current, cyl 8"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "OK",
+          "cyl": [
+            8,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1201",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 1",
+            "en": "Misfires history, cyl 1"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1202",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 2",
+            "en": "Misfires history, cyl 2"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1203",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 3",
+            "en": "Misfires history, cyl 3"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            3,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1204",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 4",
+            "en": "Misfires history, cyl 4"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            4,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11F8",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 5",
+            "en": "Misfires history, cyl 5"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            5,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11F9",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 6",
+            "en": "Misfires history, cyl 6"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            6,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11FA",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 7",
+            "en": "Misfires history, cyl 7"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            7,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "11FB",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски история, цил. 8",
+            "en": "Misfires history, cyl 8"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            8,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1193",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 1",
+            "en": "Injector pulse width, cyl 1"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1194",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 2",
+            "en": "Injector pulse width, cyl 2"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1195",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 3",
+            "en": "Injector pulse width, cyl 3"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            3,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1196",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 4",
+            "en": "Injector pulse width, cyl 4"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            4,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1197",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 5",
+            "en": "Injector pulse width, cyl 5"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            5,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1198",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 6",
+            "en": "Injector pulse width, cyl 6"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            6,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1199",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 7",
+            "en": "Injector pulse width, cyl 7"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            7,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "129A",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Длительность впрыска, цил. 8",
+            "en": "Injector pulse width, cyl 8"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 1,
+            "div": 65.535,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            8,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "162F",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 1",
+            "en": "Cylinder balance, cyl 1"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1630",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 2",
+            "en": "Cylinder balance, cyl 2"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1631",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 3",
+            "en": "Cylinder balance, cyl 3"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            3,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1632",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 4",
+            "en": "Cylinder balance, cyl 4"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            4,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1633",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 5",
+            "en": "Cylinder balance, cyl 5"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            5,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1634",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 6",
+            "en": "Cylinder balance, cyl 6"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            6,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1635",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 7",
+            "en": "Cylinder balance, cyl 7"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            7,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1636",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Баланс цилиндра 8",
+            "en": "Cylinder balance, cyl 8"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "fuel",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015625,
+            "div": 1,
+            "add": -512,
+            "signed": false
+          },
+          "conf": "?",
+          "cyl": [
+            8,
+            16
+          ],
+          "src": [
+            "https://web.archive.org/web/20260116161712/https://gmtnation.com/forums/threads/more-pids-for-torque-app.20176/"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E2",
+      "svc": "22",
+      "did": "1B30",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Передача АКПП (OBDb)",
+            "en": "Current gear (OBDb)"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -3,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "13AF",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Вентилятор охлаждения (команда)",
+            "en": "Cooling fan commanded"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 100,
+            "div": 255,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "3812",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Вентилятор охлаждения (команда 2)",
+            "en": "Cooling fan commanded 2"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 100,
+            "div": 255,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "1200",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Пропуски всего",
+            "en": "Misfires total"
+          },
+          "unit": "",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "12C3",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Впрыск, банк 1",
+            "en": "Injector pulse width B1"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "12C4",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Впрыск, банк 2",
+            "en": "Injector pulse width B2"
+          },
+          "unit": {
+            "ru": "мс",
+            "en": "ms"
+          },
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 0.015,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "153E",
+      "rate": "medium",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Температура масла двигателя (2)",
+            "en": "Engine oil temp (2)"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": -40,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "36A7",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Ресурс воздушного фильтра",
+            "en": "Air filter life"
+          },
+          "unit": "%",
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 1,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "248E",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Давление в шине ПЛ",
+            "en": "Tire pressure FL"
+          },
+          "unit": {
+            "ru": "кПа",
+            "en": "kPa"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 6.895,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "248F",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Давление в шине ПП",
+            "en": "Tire pressure FR"
+          },
+          "unit": {
+            "ru": "кПа",
+            "en": "kPa"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 6.895,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "2490",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Давление в шине ЗП",
+            "en": "Tire pressure RR"
+          },
+          "unit": {
+            "ru": "кПа",
+            "en": "kPa"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 6.895,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
+    {
+      "hdr": "7E0",
+      "svc": "22",
+      "did": "2491",
+      "rate": "slow",
+      "exclusive": true,
+      "signals": [
+        {
+          "id": "",
+          "name": {
+            "ru": "Давление в шине ЗЛ",
+            "en": "Tire pressure RL"
+          },
+          "unit": {
+            "ru": "кПа",
+            "en": "kPa"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 6.895,
+            "div": 1,
+            "add": 0,
+            "signed": false
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Chevrolet-Traverse/blob/main/signalsets/v3/default.json"
+          ],
+          "note": "Moved from GmKnown.kt (1.27): the GM set checked on a Cadillac CTS 2.8."
+        }
+      ]
+    },
     {
       "hdr": "7E0",
       "rsp": "7E8",

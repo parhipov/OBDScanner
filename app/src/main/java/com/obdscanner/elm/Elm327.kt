@@ -25,7 +25,8 @@ class ElmReply(val command: String, val text: String, val timedOut: Boolean) {
             .map { l ->
                 when {
                     l.startsWith("SEARCHING") -> l.removePrefix("SEARCHING").trimStart('.', ' ')
-                    l.startsWith("BUS INIT") && !l.contains("ERROR") -> l.substringAfter("OK", "").trim()
+                    // "BUS INIT: ...UNABLE TO CONNECT" (no sync byte from the ECU) is an error, not chatter.
+                    l.startsWith("BUS INIT") && !l.contains("ERROR") && !l.contains("UNABLE") -> l.substringAfter("OK", "").trim()
                     else -> l
                 }
             }

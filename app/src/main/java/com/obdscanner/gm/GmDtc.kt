@@ -7,8 +7,8 @@ import com.obdscanner.tr
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 
-/** Whose status byte it is: GM \$A9, UDS \$19 (ISO 14229) or KWP2000 \$18 (ISO 14230). */
-enum class DtcScheme { GM, UDS, KWP }
+/** Whose status byte it is: GM \$A9, UDS \$19 (ISO 14229), KWP2000 \$18 (ISO 14230) or KWP2000 \$13 (no status). */
+enum class DtcScheme { GM, UDS, KWP, KWP13 }
 
 /**
  * One DTC from a module's full memory, e.g. "C0035 5A" (GM \$A9, GMW3110 8.18) or a UDS \$19 code.
@@ -25,8 +25,9 @@ data class GmDtc(val code: String, val failureType: Int, val status: Int, val sc
         DtcScheme.GM -> status and 0x02 != 0
         DtcScheme.UDS -> status and 0x01 != 0
         DtcScheme.KWP -> (status shr 5) and 3 == 3
+        DtcScheme.KWP13 -> false
     }
-    val mil get() = status and 0x80 != 0
+    val mil get() = scheme != DtcScheme.KWP13 && status and 0x80 != 0
 
     val flags: String get() = buildList {
         when (scheme) {
@@ -51,6 +52,8 @@ data class GmDtc(val code: String, val failureType: Int, val status: Int, val sc
                 2 -> add(tr("спорадическая", "intermittent"))
                 1 -> add(tr("в памяти, сейчас нет", "stored, not present now"))
             }
+            // \$13 gives the codes only.
+            DtcScheme.KWP13 -> add(tr("в памяти", "stored"))
         }
         if (mil) add("Check")
     }.joinToString(", ").ifEmpty { tr("статус %02X", "status %02X").format(status) }

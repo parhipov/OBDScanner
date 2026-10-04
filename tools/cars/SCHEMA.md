@@ -8,6 +8,31 @@ request + signal id.
 Rule (same as the help texts): only what a concrete public source says or what was seen on a car.
 Every model and every parameter has `src` (URLs). Unknown → leave the field out, never guess.
 
+## Blocks and dialects — the idea
+
+A car is a set of **blocks** (engine, gearbox, ABS…), and how a block talks is its **dialect**: whose
+diagnostic spec its ECU follows — not whose badge is on the car. A Volvo engine in a Chinese car answers
+Volvo's requests; the same Bosch box answers VW's DIDs in a VW and Hyundai's in a Hyundai. A dialect says
+how to read live data, how to read the codes, how to read the identification, which manufacturer
+parameters it has, and how to recognise it by an answer.
+
+- Every family has a **default dialect** (id = family id): the family's `commands` plus the optional
+  `dialect` object of its file. A block nothing else is known about talks it; with no make known at all —
+  standard OBD / UDS / KWP.
+- Named dialects (`dialects` of a family file) are for blocks that differ from their make's default
+  (a JDM ECU, another make's engine). A model names them per block (`blocks`, or `engines[].blocks`).
+- What a block talks, in order: the car's model names it → its own answer recognises it (`match` of a
+  dialect) → the family's default → standard OBD.
+- The parameters probed on a car: the family's, except at the blocks that talk another dialect — those get
+  their dialect's own `commands`.
+- Everything a dialect or a rule can send is a read; the loader refuses anything else (CarDbTest, DialectTest).
+- A new car is a JSON change. Code is only needed for a new **way** (a new `live` / `dtc` / `ident` value),
+  and then every dialect can use it.
+
+Checked against the recorded sessions: `ReplayTest` plays every `sessions/<car>/<session>/raw.log` (not
+in git) through the connection and compares what the app sends and finds with `replay-golden.txt`;
+`replay-main.txt` is what main does (see the test's comment).
+
 ## Family ids
 
 `gm vag toyota hyundai lada renault nissan ford mazda bmw mercedes honda mitsubishi subaru suzuki china`
@@ -22,6 +47,9 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
     { "name": "Toyota", "wmi": ["JT", "4T", "5T", "2T", "SB1", "NMT", "XW7"] },
     { "name": "Lexus",  "wmi": ["JTH", "JTJ", "2T2"] }
   ],
+  "dialect": { "dtc": ["uds19", "kwp18"] },
+  "modules": { "addresses": [{ "req": ["700", "701", "780", "791"], "rsp": "+8" }] },
+  "dialects": [ ... ],
   "models": [ ... ],
   "commands": [ ... ],
   "features": [ { "ru": "…", "en": "…" } ]
@@ -30,6 +58,73 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
 
 `wmi` — VIN prefixes (2 or 3 chars); the longest match wins across all files.
 `features` — short lines for the guide: what this app reads on this make beyond standard OBD.
+`dialect` — optional: how this make's blocks talk when they differ from standard (see Dialect; no `id`).
+
+## Modules (where the make keeps its diagnostic modules)
+
+```json
+"modules": {
+  "tag": "GM",
+  "replace": true,
+  "addresses": [{ "req": "7E0-7E7", "rsp": "+8" }, { "req": "240-25F", "rsp": "+400" }, { "req": "760", "rsp": "768" }],
+  "probes": ["1A90", "22F190", "3E00"],
+  "names": { "7E0": { "ru": "ECM (двигатель)", "en": "ECM (engine)" } },
+  "src": ["https://…"]
+}
+```
+
+- `addresses` — request ids to probe (one, a list, or a range `"240-25F"`) and the reply id: `+n` (hex)
+  or a fixed one. Any 11-bit id but the broadcast 7DF.
+- Without `replace` they are probed after the standard list (7E0–7E7 and the usual 7A0…7D2), with every
+  module the family's commands talk to; `replace: true` — only these (GM, VAG).
+- `probes` — what each one is asked until it answers (default `3E00 22F190 1A90`): `3E00` or a read
+  (`22xxxx`, `1Axx`, `21xx`).
+- `names` — by request id; without one: the standard name ("Engine (7E0)") or, with `replace`, the id.
+- `tag` — the report's section name (default: the make).
+
+## Dialect
+
+```json
+"dialects": [
+  {
+    "id": "toyota_jdm",
+    "extends": "toyota",
+    "title": { "ru": "…", "en": "…" },
+    "live": "21",
+    "dtc": ["uds19", "kwp18", "kwp13"],
+    "dtc_format": "sae",
+    "ident": "uds_kwp",
+    "match": [ … ],
+    "commands": [ … ],
+    "note": "where it was seen"
+  }
+]
+```
+
+- `id` — `a-z 0-9 _`, unique across all files (not a family id). `extends` — the dialect whatever is left
+  out comes from (default: the file's family).
+- `live` — standard PIDs: `"01"` (Mode 01 broadcast, default) or `"21"` (the same PID numbers with $21 to
+  the block, Toyota JDM: `21 0C` → `61 0C 0D F7` = 894 rpm). Only the PIDs the app knows, only when the
+  answer has the PID's length; the bitmap must be 4 bytes.
+- `dtc` — the block's full code memory, tried in order until one answers: `gm_a9` (GMLAN $A9, CAN only),
+  `uds19` ($19 02 FF), `kwp18` ($18 02 FF00), `kwp13` ($13, codes without status). Default `uds19 kwp18`.
+- `dtc_format` — `sae` (default) or `vag` (KWP codes as 5-digit VAG numbers).
+- `ident` — the identification: `uds_kwp` ($22 F1xx, then KWP $1A; default) or `gm_1a` (GMLAN $1A).
+- `commands` — this dialect's own parameters (Command format, `hdr` required).
+
+## Match (recognise a model or a dialect by an answer)
+
+```json
+"match": [{ "hdr": "7E0", "svc": "21", "did": "C1", "ascii": "^GRS18", "when": { "obd": "refused" } }]
+```
+
+- A read (`svc` `21`, `22` or `1A`) to one module; `ascii` — a regex over the answer after the echo
+  (non-printable bytes as `.`), `hex` — over its bytes as `"47 52 53"`; at least one.
+- `when.obd` — only if standard OBD answered Mode 01 (`"ok"`) or only refused it with `7F 01 xx`
+  (`"refused"`); `when.protocol` — ATSP numbers (default: any CAN).
+- On a model (`models[].match`): asked when neither the pick nor the VIN gives the model; the first model
+  whose rule fits is the car. On a dialect: asked for the OBD blocks the car doesn't name.
+- The same request is sent once for all the rules that use it; its answer goes to `scan.csv`.
 
 ## Model (one entry per generation)
 
@@ -47,6 +142,8 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
   "obd": "left_door",
   "buses": { "ru": "…", "en": "…" },
   "note":  { "ru": "…", "en": "…" },
+  "blocks": [{ "role": "engine", "addr": "7E0", "dialect": "toyota_jdm" }],
+  "match": [ … ],
   "src": ["https://…"],
   "verified": false
 }
@@ -64,7 +161,13 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
   - `left_cover`     left of/under the column behind a fuse-box or trim cover (remove it)
   - `console`        in the centre console / under the ashtray / behind a tunnel trim
   - `passenger`      passenger side / glovebox
-- `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris).
+- `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris, Crown S180).
+- `blocks` — blocks whose dialect is known: `role` (`engine gearbox abs airbag body cluster climate steering
+  gateway other`), `addr` (11-bit `7xx`, or a K-line address `xx`), `rsp` (default `addr + 8` on CAN, the
+  same on K-line), `dialect`. A block that comes with an engine goes into `engines[].blocks`: it counts when
+  every engine of the model has the same one (or there is one engine). A model naming a dialect that
+  doesn't exist is refused.
+- `match` — answers that recognise the model without a VIN (see Match).
 
 ## Command (one request, one or more values out of its answer)
 
@@ -122,4 +225,8 @@ Every model and every parameter has `src` (URLs). Unknown → leave the field ou
   sent). Unknown count — everything is sent. The OBDb importer sets it from the English name; CarDbTest
   checks that every "cylinder N" / "V8" name has it.
 - `conf`: `"OK"` — two independent sources agree or seen on a car; `"?"` — one source / conflicting.
-- Units: `°C kPa bar V A % rpm km/h km L ms ° s h` (metric; convert from psi/°F/miles in `mul/add`).
+- Units: `°C kPa bar V A % rpm km/h km L ms ° s h` (metric; convert from psi/°F/miles in `mul/add`), or a
+  translated one: `{ "ru": "об/мин", "en": "rpm" }`.
+- `id` — the reading key is `hdr:svc.did.id`; an empty id keeps just `hdr:svc.did` (the GM set from
+  GmKnown.kt: "7E2:22.1940", used by the main screen and utils).
+- `exclusive: true` (command) — checked on a car as it is: OBDb values for the same request are not added.
