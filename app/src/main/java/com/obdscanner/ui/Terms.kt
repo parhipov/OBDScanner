@@ -33,7 +33,9 @@ fun TermsScreen(onAccept: () -> Unit) {
     Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(Modifier.safeDrawingPadding().verticalScroll(rememberScrollState()).padding(16.dp)) {
             Text("OBD Scanner", style = MaterialTheme.typography.titleMedium)
-            Text(Terms.TITLE, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))
+            Text(Terms.TITLE, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(top = 12.dp))
+            Text(Terms.EDITION, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline,
+                modifier = Modifier.padding(top = 2.dp, bottom = 8.dp))
             Text(Terms.LEAD, style = MaterialTheme.typography.bodyMedium)
             Button(onClick = onAccept, modifier = Modifier.padding(top = 12.dp)) { Text(Terms.ACCEPT) }
             Text(Terms.DECLINE, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline,
@@ -56,7 +58,10 @@ fun TermsDialog(onDismiss: () -> Unit) {
                     Text(Terms.TITLE, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
                     IconButton(onClick = onDismiss) { Icon(Icons.Default.Close, DtcHelpView.CLOSE) }
                 }
-                Column(Modifier.verticalScroll(rememberScrollState()).padding(start = 16.dp, end = 16.dp, bottom = 24.dp)) { TermsText() }
+                Column(Modifier.verticalScroll(rememberScrollState()).padding(start = 16.dp, end = 16.dp, bottom = 24.dp)) {
+                    Text(Terms.EDITION, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
+                    TermsText()
+                }
             }
         }
     }

@@ -6,12 +6,16 @@ import com.obdscanner.tr
 /**
  * The terms OBD Scanner opens with, in the app and on the page alike: nothing else is shown until they are accepted
  * ([accept]), then never again until the text changes. The acceptance is kept in the front's [Store] (the app's
- * settings, the page's localStorage) as [VERSION]: raise it with any change of the text and everyone is asked again.
+ * settings, the page's localStorage) as [VERSION]: raise it with any change of the text, put the change's date into
+ * [EDITION], and everyone is asked again. The app's own version doesn't matter: an update with the same text asks nothing.
  * Info → About opens the same text later.
  */
 object Terms {
     const val VERSION = 1
     private const val KEY = "terms"
+
+    /** Shown under the title: which text the reader accepts. */
+    val EDITION = tr("Редакция $VERSION от 5 октября 2026", "Version $VERSION of 5 October 2026")
 
     fun accepted(store: Store): Boolean = store.getInt(KEY, 0) >= VERSION
 

@@ -262,9 +262,9 @@ class Scanner(appVersion: String) {
 
     fun acceptTerms() = Terms.accept(store)
 
-    /** The terms' texts: title, lead, accept, decline, questions, then heading and text of each section. */
+    /** The terms' texts: title, edition, lead, accept, decline, questions, then heading and text of each section. */
     fun terms(): Array<String> =
-        (listOf(Terms.TITLE, Terms.LEAD, Terms.ACCEPT, Terms.DECLINE, Terms.QUESTIONS) + Terms.SECTIONS.flatMap { listOf(it.first, it.second) }).toTypedArray()
+        (listOf(Terms.TITLE, Terms.EDITION, Terms.LEAD, Terms.ACCEPT, Terms.DECLINE, Terms.QUESTIONS) + Terms.SECTIONS.flatMap { listOf(it.first, it.second) }).toTypedArray()
 
     /** "Support the project" ([Support]): label, text, link (empty — no line), open, close. */
     fun support(): Array<String> = arrayOf(Support.LABEL, Support.TEXT, Support.URL, Support.OPEN, DtcHelpView.CLOSE)
