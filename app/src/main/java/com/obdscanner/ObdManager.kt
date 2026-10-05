@@ -99,8 +99,11 @@ class ObdManager(private val context: Context) {
     /** The hand pick (Guide / Connect): a make or a make and model; null = by VIN. */
     val picked: StateFlow<CarChoice?> = _picked.asStateFlow()
 
+    /** The settings as the core sees them: the connection's memory, the accepted terms. */
+    val store: Store = PrefsStore(prefs)
+
     private val link = CarLink(
-        store = PrefsStore(prefs),
+        store = store,
         pickedCar = { _picked.value },
         tab = { activeTab.value },
         onStep = { text -> (_conn.value as? ConnState.Connecting)?.let { _conn.value = it.copy(step = text) } },
@@ -394,8 +397,8 @@ class ObdManager(private val context: Context) {
         Action.READ_ALL_MODULES -> readAllModulesDtc()
         Action.RESCAN -> rediscover()
         Action.MODE06 -> refreshMode06()
-        // The screen opens it (Info → Licenses).
-        Action.LICENSES -> Unit
+        // The screen opens them (Info → Licenses, Disclaimer).
+        Action.LICENSES, Action.TERMS -> Unit
     }
 
     fun refreshDtc() = launchOp(tr("Чтение ошибок", "Reading codes")) { link.refreshDtc(it) }

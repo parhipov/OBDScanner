@@ -27,12 +27,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.obdscanner.screen.Terms
 import com.obdscanner.ui.AllScreen
 import com.obdscanner.ui.AppTheme
 import com.obdscanner.ui.ConnectScreen
@@ -44,6 +46,7 @@ import com.obdscanner.ui.Good
 import com.obdscanner.ui.InfoScreen
 import com.obdscanner.ui.MainScreen
 import com.obdscanner.ui.SessionsScreen
+import com.obdscanner.ui.TermsScreen
 import com.obdscanner.ui.Warn
 import com.obdscanner.ui.shareFile
 import com.obdscanner.ui.toast
@@ -62,7 +65,7 @@ class MainActivity : ComponentActivity() {
             Process.killProcess(Process.myPid())
             return
         }
-        setContent { AppTheme { AppRoot(m) } }
+        setContent { AppTheme { Root(m) } }
         usbIntent(intent)
     }
 
@@ -74,6 +77,16 @@ class MainActivity : ComponentActivity() {
     /** Opened by Android for a plugged-in USB adapter (usb_device_filter.xml). */
     private fun usbIntent(intent: Intent?) {
         if (intent?.action == UsbManager.ACTION_USB_DEVICE_ATTACHED) ObdApp.manager(this).usbAttached()
+    }
+}
+
+/** The terms ([Terms]) until they are accepted: the app itself isn't composed before that, so nothing opens or asks for permissions. */
+@Composable
+private fun Root(m: ObdManager) {
+    var accepted by remember { mutableStateOf(Terms.accepted(m.store)) }
+    if (accepted) AppRoot(m) else TermsScreen {
+        Terms.accept(m.store)
+        accepted = true
     }
 }
 

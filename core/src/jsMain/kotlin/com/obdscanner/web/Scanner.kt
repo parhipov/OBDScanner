@@ -32,6 +32,7 @@ import com.obdscanner.screen.Licenses
 import com.obdscanner.screen.MainScreen
 import com.obdscanner.screen.ScreenJson
 import com.obdscanner.screen.Support
+import com.obdscanner.screen.Terms
 import com.obdscanner.tr
 import com.obdscanner.transport.MockTransport
 import com.obdscanner.transport.Transport
@@ -256,6 +257,15 @@ class Scanner(appVersion: String) {
     /** The texts of the question before clearing codes: title, text, yes, no. */
     fun clearQuestion(): Array<String> = arrayOf(CodesScreen.CLEAR_TITLE, CodesScreen.CLEAR_TEXT, CodesScreen.CLEAR_YES, CodesScreen.CLEAR_NO)
 
+    /** Whether the terms ([Terms]) are accepted: until then the page shows nothing but them. */
+    fun termsAccepted(): Boolean = Terms.accepted(store)
+
+    fun acceptTerms() = Terms.accept(store)
+
+    /** The terms' texts: title, lead, accept, decline, questions, then heading and text of each section. */
+    fun terms(): Array<String> =
+        (listOf(Terms.TITLE, Terms.LEAD, Terms.ACCEPT, Terms.DECLINE, Terms.QUESTIONS) + Terms.SECTIONS.flatMap { listOf(it.first, it.second) }).toTypedArray()
+
     /** "Support the project" ([Support]): label, text, link (empty — no line), open, close. */
     fun support(): Array<String> = arrayOf(Support.LABEL, Support.TEXT, Support.URL, Support.OPEN, DtcHelpView.CLOSE)
 
@@ -268,7 +278,7 @@ class Scanner(appVersion: String) {
             Action.RESCAN -> launchOp(tr("Повторный опрос", "Rescan")) { link.rediscover(it) }
             Action.MODE06 -> launchOp("Mode 06") { link.refreshMode06(it) }
             // The page opens its own screen.
-            Action.LICENSES, null -> {}
+            Action.LICENSES, Action.TERMS, null -> {}
         }
     }
 

@@ -128,6 +128,8 @@ object InfoScreen {
         b.title(tr("О приложении", "About"))
         b.note("OBD Scanner ${AppInfo.versionName} · MIT · github.com/parhipov/OBDScanner")
         b.buttons(listOf(Button(Action.LICENSES, Licenses.TITLE, whileBusy = true)))
+        // A row of its own: next to Licenses the long label doesn't fit a narrow phone.
+        b.buttons(listOf(Button(Action.TERMS, Terms.TITLE, whileBusy = true)))
         return b.build()
     }
 }

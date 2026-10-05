@@ -51,8 +51,16 @@ fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
 @Composable
 fun InfoScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
     var licenses by remember { mutableStateOf(false) }
+    var terms by remember { mutableStateOf(false) }
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
-        blocks(InfoScreen.build(v), busy, onAction = { if (it == Action.LICENSES) licenses = true else m.run(it) }, onDtc = {})
+        blocks(InfoScreen.build(v), busy, onAction = {
+            when (it) {
+                Action.LICENSES -> licenses = true
+                Action.TERMS -> terms = true
+                else -> m.run(it)
+            }
+        }, onDtc = {})
     }
     if (licenses) LicensesDialog { licenses = false }
+    if (terms) TermsDialog { terms = false }
 }
