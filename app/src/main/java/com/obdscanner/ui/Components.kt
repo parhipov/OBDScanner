@@ -180,16 +180,20 @@ val spaced = Arrangement.spacedBy(8.dp)
 /** The project's mailbox for sessions: mail apps put it into "To", messengers ignore it. */
 const val SESSION_EMAIL = "obdscanner@internet.ru"
 
-fun shareFile(context: Context, file: File) {
-    val uri = FileProvider.getUriForFile(context, "${context.packageName}.files", file)
-    val send = Intent(Intent.ACTION_SEND).apply {
+fun shareFile(context: Context, file: File) = shareFiles(context, listOf(file))
+
+/** Session zips in one letter: one attachment as before, several as SEND_MULTIPLE. */
+fun shareFiles(context: Context, files: List<File>) {
+    val uris = files.map { FileProvider.getUriForFile(context, "${context.packageName}.files", it) }
+    val send = Intent(if (uris.size == 1) Intent.ACTION_SEND else Intent.ACTION_SEND_MULTIPLE).apply {
         type = "application/zip"
-        putExtra(Intent.EXTRA_STREAM, uri)
+        if (uris.size == 1) putExtra(Intent.EXTRA_STREAM, uris[0]) else putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
         putExtra(Intent.EXTRA_EMAIL, arrayOf(SESSION_EMAIL))
-        putExtra(Intent.EXTRA_SUBJECT, "OBD Scanner ${com.obdscanner.BuildConfig.VERSION_NAME}: ${file.nameWithoutExtension}")
+        putExtra(Intent.EXTRA_SUBJECT, "OBD Scanner ${com.obdscanner.BuildConfig.VERSION_NAME}: ${files.joinToString(", ") { it.nameWithoutExtension }}")
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    context.startActivity(Intent.createChooser(send, tr("Отправить сессию", "Send session")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    val title = if (files.size == 1) tr("Отправить сессию", "Send session") else tr("Отправить сессии", "Send sessions")
+    context.startActivity(Intent.createChooser(send, title).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 }
 
 fun toast(context: Context, text: String) = Toast.makeText(context, text, Toast.LENGTH_SHORT).show()

@@ -60,17 +60,22 @@ class SessionStore(private val root: File, private val shareDir: File) {
     fun size(dir: File) = dir.walkTopDown().filter { it.isFile }.sumOf { it.length() }
 
     /** Packs a session folder for sharing. */
-    fun zip(dir: File): File {
+    fun zip(dir: File): File = zip(listOf(dir)).single()
+
+    /** Packs session folders for sharing, a zip each (the zips of the previous share are removed). */
+    fun zip(dirs: List<File>): List<File> {
         shareDir.mkdirs()
         shareDir.listFiles()?.forEach { it.delete() }
-        val out = File(shareDir, "obd_${dir.name}.zip")
-        ZipOutputStream(FileOutputStream(out)).use { z ->
-            dir.listFiles()?.filter { it.isFile }?.forEach { f ->
-                z.putNextEntry(ZipEntry("${dir.name}/${f.name}"))
-                f.inputStream().use { it.copyTo(z) }
-                z.closeEntry()
+        return dirs.map { dir ->
+            File(shareDir, "obd_${dir.name}.zip").also { out ->
+                ZipOutputStream(FileOutputStream(out)).use { z ->
+                    dir.listFiles()?.filter { it.isFile }?.forEach { f ->
+                        z.putNextEntry(ZipEntry("${dir.name}/${f.name}"))
+                        f.inputStream().use { it.copyTo(z) }
+                        z.closeEntry()
+                    }
+                }
             }
         }
-        return out
     }
 }

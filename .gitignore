@@ -36,8 +36,6 @@ __pycache__/
 Thumbs.db
 .DS_Store
 
-utils
-
 # Личные выводы по машине (не для репозитория)
 known_issues/
 
