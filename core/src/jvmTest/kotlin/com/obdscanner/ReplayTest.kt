@@ -18,7 +18,8 @@ import java.io.File
  * compares with (or records) another set — replay-main.txt is what main does, recorded in a checkout of
  * main with this test, so the branch's differences from main show up as a diff; REPLAY_ONLY=<text> plays
  * only the sessions whose path contains it; REPLAY_SESSIONS=<dir> — another archive. What the current
- * code did always goes to core/build/replay/ for diffing by hand.
+ * code did always goes to core/build/replay/ for diffing by hand. Folders starting with "_" are skipped:
+ * sessions/_new/ is what came by mail and hasn't been looked at yet (no golden file).
  */
 class ReplayTest {
     private val root = File(System.getenv("REPLAY_SESSIONS") ?: "../sessions")
@@ -31,7 +32,7 @@ class ReplayTest {
         assumeTrue("no session archive at ${root.absolutePath}", root.isDirectory)
         CarDbTest.load()
         loadDtcDb()
-        val logs = root.walkTopDown().filter { it.name == "raw.log" }.filter { only == null || it.path.contains(only) }
+        val logs = root.walkTopDown().onEnter { it == root || !it.name.startsWith("_") }.filter { it.name == "raw.log" }.filter { only == null || it.path.contains(only) }
             .sortedBy { it.path }.toList()
         assumeTrue("no raw.log under ${root.absolutePath}", logs.isNotEmpty())
         val failed = mutableListOf<String>()

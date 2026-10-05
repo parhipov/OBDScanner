@@ -56,6 +56,6 @@ research/
 # Входящие zip-сессии от тестеров (до разбора в sessions/)
 income/
 
-# The browser page: its own private repository (parhipov/OBDScanner-web). Only the root folder:
-# a bare "web/" also hid core/src/jsMain/…/web, the core's browser side.
-/web/
+# The private part: its own repository (parhipov/OBDScanner-web) — private/web, the browser page,
+# and private/AIWorker, the mailbox. Only the root folder.
+/private/

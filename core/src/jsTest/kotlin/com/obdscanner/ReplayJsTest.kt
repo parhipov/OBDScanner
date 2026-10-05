@@ -34,7 +34,8 @@ class ReplayJsTest {
         fun walk(dir: String) {
             for (e in (fs.readdirSync(dir) as Array<String>).sorted()) {
                 val p = "$dir/$e"
-                if ((fs.statSync(p).isDirectory() as Boolean)) walk(p) else if (e == "raw.log") logs += dir
+                // "_new" and the like: sessions not looked at yet, as in ReplayTest.
+                if ((fs.statSync(p).isDirectory() as Boolean)) { if (!e.startsWith("_")) walk(p) } else if (e == "raw.log") logs += dir
             }
         }
         walk(sessions)
