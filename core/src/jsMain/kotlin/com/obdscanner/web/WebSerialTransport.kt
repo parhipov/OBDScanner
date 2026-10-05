@@ -55,7 +55,16 @@ class WebSerialTransport(
         try {
             port.open(json("baudRate" to baud)).unsafeCast<Promise<Any?>>().await()
         } catch (e: Throwable) {
-            throw IOException(e.message ?: e.toString(), e)
+            val msg = e.message ?: e.toString()
+            if (usb) throw IOException(msg, e)
+            // Chrome opens a Bluetooth port one way only, a secure SPP socket, and doesn't retry. The app also tries
+            // insecure SPP and channel 1: a clone that only takes those (seen on the CTS's adapter) can't be opened here.
+            throw IOException(tr(
+                "Chrome не смог открыть Bluetooth-соединение с адаптером ($msg). Если адаптер подключён в приложении ODBScanner, нажмите там «Стоп». " +
+                    "Не помогло — подключайтесь через приложение: оно пробует три способа подключения, Chrome только один, а некоторые адаптеры его не принимают.",
+                "Chrome could not open a Bluetooth link to the adapter ($msg). If the adapter is connected in the ODBScanner app, tap Stop there. " +
+                    "If that doesn't help, connect with the app: it tries three ways to connect, Chrome only one, and some adapters don't accept it.",
+            ), e)
         }
     }
 
