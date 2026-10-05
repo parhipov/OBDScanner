@@ -18,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # The session report is closed source: private/ is its own repository, read with a deploy key (read-only, that
-      # one repository). Without it the APK would build fine, just with no report — so fail instead.
+      # The session report sources go to private/ (read-only deploy key). Without them the APK would build fine, just
+      # with no report — so fail instead.
       - uses: actions/checkout@v4
         with:
           repository: parhipov/OBDScanner-web

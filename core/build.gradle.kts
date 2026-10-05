@@ -6,8 +6,7 @@ plugins {
     kotlin("multiplatform")
 }
 
-// Optional private sources (private/report — a separate repository, git-ignored here): compiled into the core when
-// the checkout has them. Without them everything builds as before. -PnoPrivate builds without them anyway.
+// Optional report sources (private/report, git-ignored here): compiled into the core when the checkout has them. Without them everything builds as before. -PnoPrivate builds without them anyway.
 val privateReport = rootProject.file("private/report").takeIf { it.isDirectory && !project.hasProperty("noPrivate") }
 
 kotlin {

@@ -4,7 +4,7 @@ import java.io.File
 import java.lang.reflect.InvocationTargetException
 
 /**
- * The session report, when the build has it: optional private sources (core/build.gradle.kts adds private/report)
+ * The session report, when the build has it: optional sources (core/build.gradle.kts adds private/report)
  * with com.obdscanner.report.ReportEntry. Found by reflection, so the public build compiles and runs without it —
  * then [available] is false and the app shows no report button.
  */
