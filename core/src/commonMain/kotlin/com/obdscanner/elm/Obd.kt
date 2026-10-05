@@ -12,11 +12,17 @@ class Obd(val elm: Elm327) {
     /** ELM protocol number (ATDPN) once known: 3 ISO 9141-2, 4/5 ISO 14230 (KWP2000), 6–9 CAN. */
     var protocol = 0
     /**
+     * CAN with 29-bit ids (ATSP7/9). Only the adapter's own functional header is used there (18 DB 33 F1, set by
+     * the protocol): every module address the app knows is 11-bit, and "ATSH7DF" on 29-bit sends to 18 00 07 DF,
+     * which nobody answers — a car whose two ECUs had answered 0100 went silent after it (app 2.0, 2026-10-05).
+     */
+    val can29 get() = !kline && headerChars == 8
+    /**
      * Whether single modules can be addressed. On KWP2000 (ISO 14230) a module answers its physical address
      * too (ELM327 datasheet, "SH xx yy zz"): header 81 <address> F1, the ELM inserts the length. ISO 9141-2
-     * has no physical addressing in OBD.
+     * has no physical addressing in OBD; 29-bit CAN has none here yet ([can29]).
      */
-    val canTarget get() = !kline || protocol == 4 || protocol == 5
+    val canTarget get() = if (kline) protocol == 4 || protocol == 5 else !can29
     var currentHeader: Int? = null
         private set
     var responseFilter: Int? = null
@@ -69,6 +75,12 @@ class Obd(val elm: Elm327) {
     /** Physical addressing to one module. Tolerates clones that don't know ATCRA. */
     suspend fun target(req: Int, resp: Int) {
         if (kline) return targetKline(req, resp)
+        if (can29) {
+            // The callers skip module requests on 29-bit CAN; if one gets here, the header stays functional
+            // rather than pointing at an 11-bit id that doesn't exist on this bus. The requests are reads only.
+            elm.note("29-bit CAN: no module addressing, %03X not targeted".format(req))
+            return
+        }
         lastTarget = req to resp
         if (req in 0x7E0..0x7E7 && resp == req + 8) {
             // Standard OBD ids: the default receive filter and automatic flow control already fit.
@@ -137,6 +149,8 @@ class Obd(val elm: Elm327) {
             }
             return
         }
+        // Never changed on 29-bit CAN ([target]): the protocol's default header is the functional OBD one.
+        if (can29) return
         if (customRouting) resetRouting()
         if (currentHeader == 0x7DF) return
         at("ATSH7DF")

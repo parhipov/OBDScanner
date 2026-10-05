@@ -65,6 +65,9 @@
         2004,
         2011
       ],
+      "vin": [
+        "^X9F.XXEED"
+      ],
       "engines": [
         {
           "code": "Duratec 1.4 (Sigma)",
@@ -129,9 +132,10 @@
         "https://en.wikipedia.org/wiki/Ford_Focus_(second_generation)",
         "https://en.wikipedia.org/wiki/Ford_Sigma_engine",
         "https://carwiki.de/?p=205197",
-        "https://forum.forscan.org/viewtopic.php?p=4"
+        "https://forum.forscan.org/viewtopic.php?p=4",
+        "https://auto.ru/mag/article/kak-rasshifrovat-vin-ford/"
       ],
-      "verified": false
+      "verified": true
     },
     {
       "brand": "Ford",

@@ -338,7 +338,7 @@ class ObdManager(private val context: Context) {
                 o.onAdapterReset = { link.adapterReset(o) }
                 _conn.value = ConnState.Connected(name)
                 link.opMutex.withLock { link.discover(o) }
-                if (!o.canTarget) s.note("ISO 9141-2: standard OBD only, module search and DTCs of all modules skipped")
+                if (!o.canTarget) s.note("${if (o.can29) "29-bit CAN" else "ISO 9141-2"}: standard OBD only, module search and DTCs of all modules skipped")
                 else link.opMutex.withLock { link.autoModules(o) }
                 link.pollLoop(o)
             } catch (e: CancellationException) {

@@ -88,6 +88,9 @@ class Elm327(
         transport.close()
     }
 
+    /** A line of our own in the session log ("#"), next to what the adapter said. */
+    fun note(text: String) = log('#', text)
+
     suspend fun send(cmd: String, timeoutMs: Long = 1500): ElmReply {
         val r = sendOnce(cmd, timeoutMs)
         return if (r.lines.any { it.contains("STOPPED") }) sendOnce(cmd, timeoutMs) else r

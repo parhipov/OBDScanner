@@ -172,7 +172,9 @@ class CarLink(
     suspend fun rediscover(o: Obd) = discover(o, full = true)
 
     suspend fun probeModules(o: Obd) {
-        if (!o.canTarget) _scan.update { it.copy(status = tr("На ISO 9141-2 поиск модулей недоступен", "Module search is not available on ISO 9141-2")) } else findModules(o)
+        if (!o.canTarget) _scan.update { it.copy(status =
+            if (o.can29) tr("На CAN 29 бит поиск модулей недоступен", "Module search is not available on 29-bit CAN")
+            else tr("На ISO 9141-2 поиск модулей недоступен", "Module search is not available on ISO 9141-2")) } else findModules(o)
     }
 
     suspend fun scanModule(o: Obd, module: GmModule, service: String, range: IntRange) {
@@ -379,11 +381,12 @@ class CarLink(
         readFreezeFrame(o)
         step(tr("Бортовые тесты (Mode 06)…", "On-board tests (Mode 06)…"))
         readMode06(o, onlyMisfire = false)
-        if (!o.kline) {
+        if (!o.kline && !o.can29) {
             step(tr("Параметры производителя…", "Manufacturer parameters…"))
             probeExt(o, full)
         } else {
-            session?.note("manufacturer parameters skipped: K-line")
+            // The database's requests all go to 11-bit ids.
+            session?.note("manufacturer parameters skipped: ${if (o.kline) "K-line" else "29-bit CAN"}")
         }
         step("")
     }
@@ -909,9 +912,9 @@ class CarLink(
         else -> role
     }
 
-    /** Blocks that read the standard PIDs with \$21 by their dialect (CAN only): request id → reply id. */
+    /** Blocks that read the standard PIDs with \$21 by their dialect (11-bit CAN only): request id → reply id. */
     private fun mirrorBlocks(o: Obd): Map<Int, Int> =
-        if (o.kline) emptyMap() else namedBlocks().filter { (req, _) -> req > 0xFF && dialectOf(req).live == "21" }
+        if (o.kline || o.can29) emptyMap() else namedBlocks().filter { (req, _) -> req > 0xFF && dialectOf(req).live == "21" }
 
     /**
      * Supported PIDs of the \$21 blocks: "21 00" answers the same bitmap as "01 00" would ("61 00 BF 9F A8 93"),
@@ -968,7 +971,8 @@ class CarLink(
      * or with one that doesn't say the model. Each request is sent once, whatever number of rules use it.
      */
     private suspend fun recogniseModel(o: Obd, brand: String?): CarModel? {
-        if (o.kline) return null
+        // The rules ask 11-bit ids.
+        if (o.kline || o.can29) return null
         val models = CarDb.matchable.filter { m -> brand == null || m.brand == brand }
         val rules = models.flatMap { m -> m.match.filter { it.fits(o.protocol, obdState) }.map { m to it } }
         if (rules.isEmpty()) return null
@@ -984,7 +988,7 @@ class CarLink(
      * another make in a car (an unknown Chinese car with a Volvo engine).
      */
     private suspend fun recogniseDialects(o: Obd) {
-        if (o.kline) return
+        if (o.kline || o.can29) return
         val v = _vehicle.value
         val named = v.car?.knownBlocks?.keys.orEmpty()
         val rules = CarDb.dialects.values.flatMap { d -> d.match.filter { it.fits(o.protocol, obdState) && it.req !in named }.map { d to it } }
@@ -1195,7 +1199,9 @@ class CarLink(
      */
     suspend fun readAllModulesDtc(o: Obd) {
         if (!o.canTarget) {
-            _vehicle.update { it.copy(gmDtcStatus = tr("На ISO 9141-2 доступны только стандартные ошибки OBD (вверху)", "On ISO 9141-2 only standard OBD codes are available (above)")) }
+            _vehicle.update { it.copy(gmDtcStatus =
+                if (o.can29) tr("На CAN 29 бит доступны только стандартные ошибки OBD (вверху)", "On 29-bit CAN only standard OBD codes are available (above)")
+                else tr("На ISO 9141-2 доступны только стандартные ошибки OBD (вверху)", "On ISO 9141-2 only standard OBD codes are available (above)")) }
             return
         }
         readModuleDtcs(o) { s -> _vehicle.update { it.copy(gmDtcStatus = s) } }

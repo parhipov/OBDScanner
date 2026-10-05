@@ -545,6 +545,43 @@
     },
     {
       "brand": "Toyota",
+      "model": "Passo",
+      "gen": "XC30",
+      "years": [
+        2010,
+        2016
+      ],
+      "engines": [
+        {
+          "code": "1KR-FE",
+          "liters": 1.0,
+          "cyl": 3,
+          "fuel": "petrol"
+        },
+        {
+          "code": "1NR-FE",
+          "liters": 1.33,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500, отвечает блок двигателя (7E0). Машина японского рынка: VIN в блоке не записан.",
+        "en": "CAN 11/500, the engine ECU (7E0) answers. A Japanese-market car: the ECU keeps no VIN."
+      },
+      "note": {
+        "ru": "Он же Daihatsu Boon. 1KR-FE (KGC30) — трёхцилиндровый литровый мотор, 1NR-FE (NGC30) — 1,3 л.",
+        "en": "Same car as the Daihatsu Boon. The 1KR-FE (KGC30) is a 1.0 L three-cylinder, the 1NR-FE (NGC30) a 1.3 L."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Daihatsu_Boon",
+        "https://www.amayama.com/ru/catalogs/toyota/passo/2-hatchback-right-xc30-2010-3255"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Toyota",
       "model": "Land Cruiser Prado",
       "gen": "120",
       "years": [
