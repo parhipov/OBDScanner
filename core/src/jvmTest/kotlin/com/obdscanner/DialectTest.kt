@@ -168,9 +168,9 @@ class DialectTest {
             "0100" to "7E8 06 41 00 00 10 00 00", "ATDPN" to "6", "ATSH7DF" to "OK",
             "0902" to "7E8 10 14 49 02 01 54 53 54 | 7E8 21 58 31 32 33 34 35 36 | 7E8 22 37 38 39 30 31 32 33",
             "ATSH7E0" to "OK", "221234" to "7E8 04 62 12 34 5A", "229999" to "7E8 04 62 99 99 01",
-            "3E00" to "7E8 02 7E 00", "1902FF" to "7E8 03 7F 19 11", "1802FF00" to "7E8 02 58 00",
+            "3E00" to "7E8 02 7E 00", "1902AF" to "7E8 03 7F 19 11", "1802FF00" to "7E8 02 58 00",
             "ATSH7E1" to "OK", "228888" to "7E9 04 62 88 88 82", "3E00" to "7E9 02 7E 00",
-            "1902FF" to "7E9 03 7F 19 11", "1802FF00" to "7E9 02 58 00",
+            "1902AF" to "7E9 03 7F 19 11", "1802FF00" to "7E9 02 58 00",
             "ATSH7DF" to "OK", "0100" to "7E8 06 41 00 00 10 00 00",
         ).joinToString("\n") { (c, r) -> "12:00:00.000 > $c\n12:00:00.040 < $r" }
         try {
@@ -187,9 +187,9 @@ class DialectTest {
             assertEquals(setOf("7E0:22.1234", "7E1:22.8888"), v.extActive.map { it.key }.toSet())
             assertEquals(50.0, r.link.readings.value.getValue("7E0:22.1234.OIL").value!!, 1e-9)
             // The engine's dialect reads codes with KWP \$18 only; the gearbox has the make's (UDS, then KWP).
-            assertFalse("7E0" to "1902FF" in sent)
+            assertFalse("7E0" to "1902AF" in sent)
             assertTrue("7E0" to "1802FF00" in sent)
-            assertTrue("7E1" to "1902FF" in sent && "7E1" to "1802FF00" in sent)
+            assertTrue("7E1" to "1902AF" in sent && "7E1" to "1802FF00" in sent)
             assertEquals(listOf(0x7E0, 0x7E1), v.gmDtcs.map { it.module.req })
         } finally {
             CarDbTest.load(force = true)
@@ -230,7 +230,7 @@ class DialectTest {
             "ATSH7DF" to "OK", "0100" to "7E8 06 41 00 00 10 00 00",
             "ATSH7E0" to "OK", "1A90" to "7E8 03 7F 1A 11",
             "ATCRAXE8" to "OK", "ATCAF0" to "OK", "03A9815A00000000" to "7E8 03 7F A9 11", "ATCAF1" to "OK", "ATAR" to "OK",
-            "1902FF" to "7E8 07 59 02 FF 01 71 00 09",
+            "1902AF" to "7E8 07 59 02 FF 01 71 00 09",
         ), MapStore(), 0, pick = CarDb.choice("brand:Cadillac"))
         assertNull(r.error)
         val v = r.link.vehicle.value
@@ -239,7 +239,7 @@ class DialectTest {
         assertEquals(listOf("P0171"), ecm.codes.map { it.code })
         assertTrue(ecm.result, ecm.result.contains("GM \$A9"))
         assertTrue(v.gmDtcStatus, v.gmDtcStatus.contains("7E0"))
-        assertTrue("A9 first, then 19", r.addressed.indexOf("7E0" to "03A9815A00000000") < r.addressed.indexOf("7E0" to "1902FF"))
+        assertTrue("A9 first, then 19", r.addressed.indexOf("7E0" to "03A9815A00000000") < r.addressed.indexOf("7E0" to "1902AF"))
     }
 
     /** Whatever a file says, recognising a car or probing modules only reads, and only one module at a time. */

@@ -15,6 +15,10 @@ import kotlinx.coroutines.withContext
  * Full DTC memory of one module, read only, by the ways its dialect names (com.obdscanner.car.Dialect.dtc),
  * tried in order until one answers: UDS \$19 02 (reportDTCByStatusMask), KWP2000 \$18 02 FF00
  * (readDTCByStatus, all groups), KWP2000 \$13 (readDiagnosticTroubleCodes). Nothing is cleared.
+ *
+ * UDS asks for the codes with a fault bit only ([FAULT]). Mask FF also matches bit 6 ("test not completed
+ * this cycle"), and some ECUs then list every code they monitor: a Hyundai diesel ECM gave 22 such
+ * entries, mostly with no fault at all, and the clone's buffer overflowed halfway (BUFFER FULL).
  */
 class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
 
@@ -23,8 +27,8 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
         val tried = mutableListOf<Pair<String, Int?>>()
         var result: GmDtcResult? = null
         for (way in chain) {
-            val (data, nrc) = when (way) {
-                "uds19" -> request(module, "1902FF").let { r ->
+            val (data, nrc, cut) = when (way) {
+                "uds19" -> request(module, "1902%02X".format(FAULT)).let { r ->
                     // Some ECUs refuse mask bits they don't support instead of masking them.
                     if (r.second == 0x31) request(module, "19020D") else r
                 }
@@ -35,7 +39,7 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
             tried += way to nrc
             if (data == null) continue
             result = when (way) {
-                "uds19" -> parseUds(module, data)
+                "uds19" -> parseUds(module, data, cut)
                 "kwp18" -> parseKwp(module, data, vagNumbers)
                 else -> parseKwp13(module, data)
             }
@@ -51,18 +55,30 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
 
     private fun nrcText(nrc: Int?) = if (nrc == null) tr("нет ответа", "no answer") else tr("отказ %02X", "NRC %02X").format(nrc)
 
-    /** [59 02 availMask (DTC_hi DTC_mid FTB status)*] */
-    internal fun parseUds(module: GmModule, d: IntArray): GmDtcResult {
+    /**
+     * [59 02 availMask (DTC_hi DTC_mid FTB status)*]. An entry without a fault bit (an ECU that ignores the
+     * mask: status 40/50 = only "test not completed") is not a code: counted and logged, not listed.
+     * [cut] — the reply didn't arrive whole (BUFFER FULL, an incomplete ISO-TP message).
+     */
+    internal fun parseUds(module: GmModule, d: IntArray, cut: Boolean = false): GmDtcResult {
         val codes = mutableListOf<GmDtc>()
+        val idle = mutableListOf<GmDtc>()
         var i = 3
         while (i + 3 < d.size) {
             val c = GmDtc(Dtc.decode(d[i], d[i + 1]), d[i + 2], d[i + 3], DtcScheme.UDS)
-            if (c !in codes) codes += c
+            val into = if (c.status and FAULT != 0) codes else idle
+            if (c !in into) into += c
             i += 4
         }
+        if (idle.isNotEmpty()) note("DTC %s: no fault bit, not listed: %s".format(module.id, idle.joinToString(" ") { "%s/%02X".format(it.full, it.status) }))
         val tail = (d.size - 3) % 4
         return GmDtcResult(module, codes, (if (codes.isEmpty()) tr("нет кодов", "no codes") else tr("кодов: ${codes.size}", "codes: ${codes.size}")) + " (UDS)" +
-            if (tail != 0) tr(", лишних байт в конце: $tail", ", extra bytes at end: $tail") else "", tail == 0)
+            (if (idle.isNotEmpty()) tr(", ещё ${idle.size} без сбоя (тест не завершён)", ", ${idle.size} more without a fault (test not completed)") else "") +
+            when {
+                cut -> tr(", ответ дошёл не целиком — кодов может быть больше", ", the reply came cut — there may be more codes")
+                tail != 0 -> tr(", лишних байт в конце: $tail", ", extra bytes at end: $tail")
+                else -> ""
+            }, tail == 0 && !cut)
     }
 
     /** [58 count (DTC_hi DTC_lo status)*]. VAG numbers the codes by the two bytes as a 5-digit decimal; others use SAE. */
@@ -102,8 +118,11 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
             if (!whole) tr(", блок сообщил $count", ", module reported $count") else "", whole)
     }
 
-    /** Returns (reply data, NRC); both null = silence. "7F xx 78" (wait) → ask again with a long timeout. */
-    private suspend fun request(module: GmModule, req: String): Pair<IntArray?, Int?> {
+    /**
+     * Returns (reply data, NRC, cut); data and NRC both null = silence. "7F xx 78" (wait) → ask again with a long
+     * timeout. cut — the reply came garbled or short (what arrived is still returned: whole codes are real).
+     */
+    private suspend fun request(module: GmModule, req: String): Triple<IntArray?, Int?, Boolean> {
         val service = req.substring(0, 2).toInt(16)
         var reply: CanReply = obd.request(req, 3000)
         var msg = answer(reply, module.resp, service)
@@ -120,16 +139,20 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
                 }
             }
         }
-        msg ?: return null to null
-        if (msg.isNegative) return null to msg.nrc
-        if (msg.service != service + 0x40) return null to -1
-        return msg.data to null
+        msg ?: return Triple(null, null, false)
+        if (msg.isNegative) return Triple(null, msg.nrc, false)
+        if (msg.service != service + 0x40) return Triple(null, -1, false)
+        val cut = reply.garbled || reply.errors.any { it.startsWith("ISO-TP") && it.contains("%03X".format(module.resp)) }
+        return Triple(msg.data, null, cut)
     }
 
     private fun answer(reply: CanReply, resp: Int, service: Int) =
         reply.from(resp).firstOrNull { it.nrc != 0x78 && (it.service == service + 0x40 || (it.isNegative && it.data.getOrNull(1) == service)) }
 
     companion object {
+        /** UDS status bits that mean a fault: 0 failed now, 1 this cycle, 2 pending, 3 confirmed, 5 since clear, 7 warning lamp. */
+        const val FAULT = 0xAF
+
         /** A block with no dialect of its own: UDS, then KWP \$18. */
         val DEFAULT = listOf("uds19", "kwp18")
 

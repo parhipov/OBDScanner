@@ -75,6 +75,13 @@ class MockPipelineTest {
         assertTrue(uds.codes[0].current)
         assertTrue(!uds.codes[1].current)
         assertTrue(uds.complete)
+        // Hyundai diesel ECM (2018), mask FF: entries with status 40 (only "test not completed") are not codes;
+        // P2238 status 20 (failed since clear) is. The clone's buffer overflowed: cut, 2 bytes of the next entry.
+        val hy = reader.parseUds(mod, intArrayOf(0x59, 0x02, 0xFF, 0x05, 0x46, 0x00, 0x40, 0x01, 0x91, 0x00, 0x40,
+            0x22, 0x38, 0x00, 0x20, 0x06, 0x05), cut = true)
+        assertEquals(listOf("P2238 00"), hy.codes.map { it.full })
+        assertTrue(hy.result, hy.result.contains("2 more without a fault") || hy.result.contains("ещё 2 без сбоя"))
+        assertTrue(!hy.complete)
         // KWP 58 02: 0x412C = VAG 16684 = P0300, status 0x60 = present now; 0x462D = VAG 17965, no SAE form.
         val kwp = reader.parseKwp(mod, intArrayOf(0x58, 0x02, 0x41, 0x2C, 0x60, 0x46, 0x2D, 0x20), vagNumbers = true)
         assertEquals(listOf("P0300 (VAG 16684)", "VAG 17965"), kwp.codes.map { it.full })
