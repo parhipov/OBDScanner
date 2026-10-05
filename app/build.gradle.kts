@@ -22,8 +22,8 @@ android {
         applicationId = "com.obdscanner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 42
-        versionName = "3.02"
+        versionCode = 43
+        versionName = "3.03"
     }
 
     // The car and trouble code databases belong to the core (the browser page reads them too).

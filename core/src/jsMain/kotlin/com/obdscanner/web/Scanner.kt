@@ -283,12 +283,16 @@ class Scanner(appVersion: String) {
 
     // ---------------------------------------------------------------- as ObdManager.connect on the phone
 
+    /** The phone's motion sensors through the browser, into the session's sensors.csv, as long as it runs. */
+    private val motion = WebSensors()
+
     private fun connect(make: (MemorySession) -> Transport) {
         if (mainJob?.isActive == true) return
         mainJob = scope.launch {
             val s = MemorySession(stampText(nowMs()))
             session = s
             link.session = s
+            motion.start(s)
             link.reset(picked.value?.model)
             var elm: Elm327? = null
             var failure: String? = null
@@ -348,6 +352,7 @@ class Scanner(appVersion: String) {
                 opJob?.cancel()
                 obd = null
                 elm?.close()
+                motion.stop()
                 s.report(tr("Конец сессии", "End of session"), failure ?: tr("отключено пользователем", "disconnected by user"))
                 s.close()
                 link.stopped()

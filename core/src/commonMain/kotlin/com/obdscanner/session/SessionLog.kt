@@ -16,7 +16,7 @@ import com.obdscanner.util.Synchronized
  *   report.txt — discovery results: ECUs, supported PIDs, VIN, DTCs, Mode 06, GM scan
  *   scan.csv   — GM Mode 22 / 1A scan hits
  *   bus.csv    — passive bus listening (only if it was started)
- *   sensors.csv — phone accelerometer and gyroscope, every sample
+ *   sensors.csv — phone accelerometer and gyroscope, every sample (in the browser: its devicemotion values as is)
  * A subclass creates its outputs, then calls [start].
  */
 abstract class SessionLog(val name: String) : Recorder {
@@ -106,7 +106,10 @@ abstract class SessionLog(val name: String) : Recorder {
 
     private var sensors = false
 
-    /** Ready rows `t_ms,s,x,y,z`: s — a (acceleration m/s², with gravity) or g (rotation °/s). */
+    /**
+     * Ready rows `t_ms,s,x,y,z`: s — a (acceleration m/s², with gravity) or g (rotation °/s). From the browser:
+     * a, l, r — devicemotion's accelerationIncludingGravity, acceleration and rotationRate as is (WebSensors, jsMain).
+     */
     @Synchronized fun sensors(rows: CharSequence) {
         if (closed) return
         if (!sensors) {
