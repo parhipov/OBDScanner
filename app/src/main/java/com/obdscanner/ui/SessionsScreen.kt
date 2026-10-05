@@ -19,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -32,10 +33,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.obdscanner.ObdManager
+import com.obdscanner.R
+import com.obdscanner.ReportBridge
 import com.obdscanner.tr
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -52,6 +59,36 @@ fun SessionsScreen(m: ObdManager) {
     val chosen = list.filter { it.name in picked }
     var confirm by remember { mutableStateOf(false) }
     BackHandler(enabled = chosen.isNotEmpty()) { picked = emptySet() }
+    // The report being built (when the build has the generator): session, share done 0…1, stage.
+    var making by remember { mutableStateOf<String?>(null) }
+    var done by remember { mutableStateOf(0.0) }
+    var stage by remember { mutableStateOf("") }
+    var job by remember { mutableStateOf<Job?>(null) }
+    // The report built: open it or send it (Telegram, mail…) — a browser can't pass on the page it shows.
+    var ready by remember { mutableStateOf<File?>(null) }
+
+    fun report(dir: File) {
+        if (dir == current) m.session?.flush()
+        making = dir.name; done = 0.0; stage = tr("Подготовка", "Preparing")
+        job = scope.launch {
+            try {
+                val html = withContext(Dispatchers.Default) {
+                    val work = this
+                    ReportBridge.build(dir) { d, st -> work.ensureActive(); done = d; stage = st }
+                }
+                val file = withContext(Dispatchers.IO) {
+                    File(ctx.cacheDir, "share").apply { mkdirs() }.resolve("report_${dir.name}.html").apply { writeText(html) }
+                }
+                ready = file
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Throwable) {
+                toast(ctx, tr("Отчёт не собрался: %s", "The report failed: %s").format(e.message ?: e.javaClass.simpleName))
+            } finally {
+                making = null
+            }
+        }
+    }
 
     fun send(dirs: List<File>) {
         if (current in dirs) m.session?.flush()
@@ -86,6 +123,9 @@ fun SessionsScreen(m: ObdManager) {
                         }
                         // One session's own buttons: hidden while picking, so the bar on top is the only Send / Delete.
                         if (chosen.isEmpty()) {
+                            if (ReportBridge.available) IconButton(onClick = { report(dir) }, enabled = making == null) {
+                                Icon(painterResource(R.drawable.ic_report), tr("Отчёт", "Report"))
+                            }
                             IconButton(onClick = { send(listOf(dir)) }) { Icon(Icons.Default.Share, tr("Отправить", "Send")) }
                             IconButton(onClick = {
                                 if (dir == current) toast(ctx, tr("Сессия ещё пишется", "Session is still recording")) else { m.sessions.delete(dir); refresh++ }
@@ -96,6 +136,37 @@ fun SessionsScreen(m: ObdManager) {
             }
             if (list.isEmpty()) item { Muted(tr("Сессий пока нет.", "No sessions yet.")) }
         }
+    }
+
+    making?.let { name ->
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text(tr("Отчёт", "Report")) },
+            text = {
+                Column {
+                    Text(name, style = MaterialTheme.typography.bodySmall)
+                    LinearProgressIndicator(progress = { done.toFloat() }, modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp))
+                    Text(stage, style = MaterialTheme.typography.bodyMedium)
+                }
+            },
+            confirmButton = {},
+            dismissButton = { TextButton(onClick = { job?.cancel(); making = null }) { Text(tr("Отмена", "Cancel")) } },
+        )
+    }
+
+    ready?.let { file ->
+        AlertDialog(
+            onDismissRequest = { ready = null },
+            title = { Text(tr("Отчёт готов", "The report is ready")) },
+            text = { Text(file.name, style = MaterialTheme.typography.bodySmall) },
+            confirmButton = {
+                Row {
+                    TextButton(onClick = { ready = null; shareReport(ctx, file) }) { Text(tr("Отправить", "Send")) }
+                    TextButton(onClick = { ready = null; openReport(ctx, file) }) { Text(tr("Открыть", "Open")) }
+                }
+            },
+            dismissButton = { TextButton(onClick = { ready = null }) { Text(tr("Закрыть", "Close")) } },
+        )
     }
 
     if (confirm) {

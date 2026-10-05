@@ -18,6 +18,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The session report is closed source: private/ is its own repository, read with a deploy key (read-only, that
+      # one repository). Without it the APK would build fine, just with no report — so fail instead.
+      - uses: actions/checkout@v4
+        with:
+          repository: parhipov/OBDScanner-web
+          ssh-key: ${{ secrets.PRIVATE_DEPLOY_KEY }}
+          path: private
+      - name: The report generator is there
+        run: test -f private/report/src/commonMain/kotlin/com/obdscanner/report/ReportEntry.kt
+
       # checkout turns an annotated tag into a lightweight one — fetch it again for its message.
       - name: Release notes from the tag
         run: |

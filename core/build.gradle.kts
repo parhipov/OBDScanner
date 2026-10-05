@@ -6,6 +6,10 @@ plugins {
     kotlin("multiplatform")
 }
 
+// Optional private sources (private/report — a separate repository, git-ignored here): compiled into the core when
+// the checkout has them. Without them everything builds as before. -PnoPrivate builds without them anyway.
+val privateReport = rootProject.file("private/report").takeIf { it.isDirectory && !project.hasProperty("noPrivate") }
+
 kotlin {
     // expect/actual classes (JSONObject, IOException) are still "Beta" in Kotlin 2.0.
     compilerOptions { freeCompilerArgs.add("-Xexpect-actual-classes") }
@@ -44,6 +48,12 @@ kotlin {
             implementation("junit:junit:4.13.2")
             implementation("org.json:json:20240303")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+        }
+        if (privateReport != null) {
+            commonMain { kotlin.srcDir(privateReport.resolve("src/commonMain/kotlin")) }
+            jsMain { kotlin.srcDir(privateReport.resolve("src/jsMain/kotlin")) }
+            jvmTest { kotlin.srcDir(privateReport.resolve("src/jvmTest/kotlin")) }
+            jsTest { kotlin.srcDir(privateReport.resolve("src/jsTest/kotlin")) }
         }
     }
 }

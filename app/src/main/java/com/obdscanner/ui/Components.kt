@@ -197,3 +197,26 @@ fun shareFiles(context: Context, files: List<File>) {
 }
 
 fun toast(context: Context, text: String) = Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+
+/** A session report to a messenger or mail: the HTML file opens in any browser on the other side. */
+fun shareReport(context: Context, file: File) {
+    val uri = FileProvider.getUriForFile(context, "${context.packageName}.files", file)
+    val send = Intent(Intent.ACTION_SEND).setType("text/html").putExtra(Intent.EXTRA_STREAM, uri)
+        .putExtra(Intent.EXTRA_SUBJECT, tr("Отчёт OBD Scanner: %s", "OBD Scanner report: %s").format(file.nameWithoutExtension.removePrefix("report_")))
+        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    context.startActivity(Intent.createChooser(send, tr("Отправить отчёт", "Send the report")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+}
+
+/** A session report (HTML in the share cache): open it in the browser; no browser — offer to send it. */
+fun openReport(context: Context, file: File) {
+    val uri = FileProvider.getUriForFile(context, "${context.packageName}.files", file)
+    val view = Intent(Intent.ACTION_VIEW).setDataAndType(uri, "text/html")
+        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+    try {
+        context.startActivity(view)
+    } catch (e: android.content.ActivityNotFoundException) {
+        val send = Intent(Intent.ACTION_SEND).setType("text/html").putExtra(Intent.EXTRA_STREAM, uri)
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        context.startActivity(Intent.createChooser(send, tr("Отправить отчёт", "Send the report")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    }
+}
