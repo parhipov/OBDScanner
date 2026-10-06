@@ -68,4 +68,6 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 // The tests read the sessions archive and the databases by paths relative to the module, like before.
 tasks.withType<Test>().configureEach {
     workingDir = projectDir
+    // The report goldens parse every archive session in one JVM: the default 512 MB ran out now and then.
+    maxHeapSize = "2g"
 }
