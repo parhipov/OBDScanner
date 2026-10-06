@@ -1,5 +1,6 @@
 package com.obdscanner.screen
 
+import com.obdscanner.Tab
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarDb
 import com.obdscanner.obd.Reading
@@ -107,16 +108,16 @@ object MainScreen {
             offline -> top.note(tr("Нет данных — подключитесь к адаптеру на вкладке «Связь». Нажмите на карточку, чтобы прочитать, что это за параметр.",
                 "No data — connect to the adapter on the \"Connect\" tab. Tap a card to read what it shows."))
             mil == 1.0 -> top.banner(tr("Check Engine горит · ошибок в памяти: ${dtcCount ?: "?"} — см. вкладку «Ошибки»",
-                "Check Engine is on · stored codes: ${dtcCount ?: "?"} — see the \"Codes\" tab"), Level.BAD)
+                "Check Engine is on · stored codes: ${dtcCount ?: "?"} — see the \"Codes\" tab"), Level.BAD, Tab.Dtc)
             (dtcCount ?: 0) > 0 || v.dtcs.isNotEmpty() -> top.banner(tr("Есть коды ошибок: ${v.dtcs.size} — см. вкладку «Ошибки»",
-                "Trouble codes: ${v.dtcs.size} — see the \"Codes\" tab"), Level.WARN)
+                "Trouble codes: ${v.dtcs.size} — see the \"Codes\" tab"), Level.WARN, Tab.Dtc)
             v.step.isNotEmpty() -> top.banner(tr("Опрос автомобиля: ${v.step}", "Scanning the car: ${v.step}"), Level.GOOD)
         }
         if (gmCodes.isNotEmpty()) {
             val active = gmCodes.count { it.current }
             top.banner(tr("Ошибки всех блоков: ${gmCodes.size}", "Codes in all modules: ${gmCodes.size}") +
                 (if (active > 0) tr(", активных $active", ", $active active") else "") + tr(" — см. вкладку «Ошибки»", " — see the \"Codes\" tab"),
-                if (active > 0) Level.BAD else Level.WARN)
+                if (active > 0) Level.BAD else Level.WARN, Tab.Dtc)
         }
         val sample = tr("пример · нет связи", "sample · offline")
         return MainView(offline, top.build(), sections.map { (s, tiles) ->

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.obdscanner.Tab
 import com.obdscanner.obd.Reading
 import com.obdscanner.screen.Action
 import com.obdscanner.screen.Block
@@ -39,17 +40,20 @@ fun Level.color(): Color = when (this) {
 @Composable
 private fun Level?.colorOrNull(): Color? = this?.color()
 
-/** A screen of [Block]s in a LazyColumn, one item per block; [onDoc] — a row's license ([Block.Row.doc]). */
+/** A screen of [Block]s in a LazyColumn, one item per block; [onDoc] — a row's license ([Block.Row.doc]); [onTab] — a banner's tab. */
 fun LazyListScope.blocks(list: List<Block>, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}) {
     items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc) }
 }
 
 @Composable
-fun BlockView(b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}) {
+fun BlockView(b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}, onTab: (Tab) -> Unit = {}) {
     when (b) {
         is Block.Title -> SectionTitle(b.text)
         is Block.Note -> Muted(b.text)
-        is Block.Banner -> Hint(b.text, b.level.color())
+        is Block.Banner -> {
+            val tab = b.tab
+            Hint(b.text, b.level.color(), if (tab != null) { { onTab(tab) } } else null)
+        }
         is Block.Row -> {
             val row = @Composable { ValueRow(b.name, b.value, b.unit, b.sub, b.level.colorOrNull()) }
             val dtc = b.dtc

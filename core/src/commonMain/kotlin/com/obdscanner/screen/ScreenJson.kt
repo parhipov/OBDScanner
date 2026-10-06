@@ -132,7 +132,7 @@ object ScreenJson {
         when (b) {
             is Block.Title -> { str("t", "title"); str("text", b.text) }
             is Block.Note -> { str("t", "note"); str("text", b.text) }
-            is Block.Banner -> { str("t", "banner"); str("text", b.text); level(b.level) }
+            is Block.Banner -> { str("t", "banner"); str("text", b.text); level(b.level); str("tab", b.tab?.name) }
             is Block.Row -> {
                 str("t", "row"); str("name", b.name); str("value", b.value); str("unit", b.unit); str("sub", b.sub); level(b.level)
                 b.dtc?.let { raw("dtc", dtc(it)) }

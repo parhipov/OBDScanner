@@ -1,5 +1,6 @@
 package com.obdscanner.screen
 
+import com.obdscanner.Tab
 import com.obdscanner.obd.DtcKind
 import com.obdscanner.obd.Reading
 import com.obdscanner.tr
@@ -48,8 +49,8 @@ sealed class Block(val key: String) {
     /** Small grey text. */
     class Note(key: String, val text: String) : Block(key)
 
-    /** A coloured card with a sentence: a hint or a warning. */
-    class Banner(key: String, val text: String, val level: Level) : Block(key)
+    /** A coloured card with a sentence: a hint or a warning; [tab] — a tap opens that tab. */
+    class Banner(key: String, val text: String, val level: Level, val tab: Tab? = null) : Block(key)
 
     /**
      * "name ..... value unit", [sub] under the name; [dtc] — a tap opens the code's help; [doc] — a tap opens
@@ -98,7 +99,7 @@ class Blocks {
 
     fun title(text: String) { out += Block.Title(key("t:$text"), text) }
     fun note(text: String) { out += Block.Note(key("n:$text"), text) }
-    fun banner(text: String, level: Level) { out += Block.Banner(key("b:$text"), text, level) }
+    fun banner(text: String, level: Level, tab: Tab? = null) { out += Block.Banner(key("b:$text"), text, level, tab) }
     fun row(name: String, value: String, unit: String = "", sub: String? = null, level: Level? = null, dtc: DtcRef? = null, divider: Boolean = false, key: String? = null, doc: String? = null) {
         out += Block.Row(key(key ?: "r:$name"), name, value, unit, sub, level, dtc, divider, doc)
     }

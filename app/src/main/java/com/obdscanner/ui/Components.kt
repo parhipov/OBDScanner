@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -157,9 +158,9 @@ fun trimColor(v: Double?): Color? = when (trimLevel(v)) {
 }
 
 @Composable
-fun Hint(text: String, color: Color = Warn) {
+fun Hint(text: String, color: Color = Warn, onClick: (() -> Unit)? = null) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(4.dp),
+        modifier = Modifier.fillMaxWidth().padding(4.dp).then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier),
         colors = CardDefaults.cardColors(containerColor = color.copy(alpha = 0.15f)),
     ) {
         Text(text, Modifier.padding(10.dp), style = MaterialTheme.typography.bodyMedium)
