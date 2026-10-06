@@ -49,8 +49,63 @@
       "24E": {
         "ru": "Подвеска (Magnetic Ride)",
         "en": "Suspension (Magnetic Ride)"
+      },
+      "7E5": {
+        "ru": "EBCM (тормоза)",
+        "en": "EBCM (brakes)"
+      },
+      "7E7": {
+        "ru": "Батарея ВВ (BECM)",
+        "en": "HV battery (BECM)"
+      },
+      "24D": {
+        "ru": "OnStar (телематика)",
+        "en": "OnStar (telematics)"
+      },
+      "25D": {
+        "ru": "Блок сидений",
+        "en": "Seat module"
       }
-    }
+    },
+    "diagNames": {
+      "11": {
+        "ru": "ECM (двигатель)",
+        "en": "ECM (engine)"
+      },
+      "18": {
+        "ru": "TCM (АКПП)",
+        "en": "TCM (transmission)"
+      },
+      "28": {
+        "ru": "EBCM (ABS)",
+        "en": "EBCM (ABS)"
+      },
+      "40": {
+        "ru": "BCM (кузов)",
+        "en": "BCM (body)"
+      },
+      "CB": {
+        "ru": "HPCM2 (гибрид/электро)",
+        "en": "HPCM2 (hybrid/EV)"
+      },
+      "CD": {
+        "ru": "Батарея ВВ (BECM)",
+        "en": "HV battery (BECM)"
+      }
+    },
+    "src": [
+      "https://vehicle-reverse-engineering.fandom.com/wiki/GeneralMotors",
+      "https://github.com/joukoy/UniversalPatcher/blob/master/XML/CANModules.xml",
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_voltampera/src/vehicle_voltampera.cpp",
+      "https://github.com/mr23/ChevyBoltPIDs",
+      "https://gsi.ext.gm.com/gmspo/mode6/pdf/2011/11OBDG01%20HYBRID%20Diagnostics.pdf",
+      "https://gsi.ext.gm.com/gmspo/mode6/pdf/2013/13OBDG06%20Hybrid%20Diagnostics.pdf",
+      "https://gsi.ext.gm.com/gmspo/mode6/pdf/2019/19OBDG03B%20Diagnostics.pdf",
+      "https://github.com/joukoy/UniversalPatcher/blob/master/XML/devicenames.xml",
+      "https://github.com/OBDb/Chevrolet-Silverado-1500",
+      "https://github.com/OBDb/Chevrolet-Blazer",
+      "https://www.cameraloops.ru/forums/topic/3116-ecu-address-ids-for-becm-hpcm2/"
+    ]
   },
   "brands": [
     {

@@ -1,5 +1,5 @@
 {
- "note": "Failure type byte tables, hand-written for this app (short functional labels). gm: GMLAN $A9 symptom byte, categories from vehicleservicepros.com 'Error codes explained'; 01/02/04 same article and forum threads, 03/07 from B1517 03/07 descriptions. j2012: SAE J2012-DA / ISO 14229-1 Annex D failure type byte of UDS $19 codes. *_cat: by the high digit when the exact value isn't listed.",
+ "note": "Failure type byte tables, hand-written for this app (short functional labels). gm: GMLAN $A9 symptom byte, categories from vehicleservicepros.com 'Error codes explained'; 01/02/04 same article and forum threads, 03/07 from B1517 03/07 descriptions, 29/39 from GM service information (symptom byte list; TPMS sensor codes C0750-C0765 29/39). j2012: SAE J2012-DA / ISO 14229-1 Annex D failure type byte of UDS $19 codes. *_cat: by the high digit when the exact value isn't listed.",
  "ftb": {
   "gm": {
    "00": {"en": "No additional detail", "ru": "Без уточнения"},
@@ -7,7 +7,9 @@
    "02": {"en": "Short to ground", "ru": "Замыкание на массу"},
    "03": {"en": "Voltage below threshold", "ru": "Напряжение ниже порога"},
    "04": {"en": "Open circuit", "ru": "Обрыв цепи"},
-   "07": {"en": "Voltage above threshold", "ru": "Напряжение выше порога"}
+   "07": {"en": "Voltage above threshold", "ru": "Напряжение выше порога"},
+   "29": {"en": "Too few pulses", "ru": "Слишком мало импульсов"},
+   "39": {"en": "Internal malfunction", "ru": "Внутренняя неисправность"}
   },
   "gm_cat": {
    "0": {"en": "General electrical failure", "ru": "Электрическая неисправность цепи"},

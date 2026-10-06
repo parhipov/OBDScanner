@@ -69,6 +69,7 @@ in git) through the connection and compares what the app sends and finds with `r
   "addresses": [{ "req": "7E0-7E7", "rsp": "+8" }, { "req": "240-25F", "rsp": "+400" }, { "req": "760", "rsp": "768" }],
   "probes": ["1A90", "22F190", "3E00"],
   "names": { "7E0": { "ru": "ECM (двигатель)", "en": "ECM (engine)" } },
+  "diagNames": { "28": { "ru": "EBCM (ABS)", "en": "EBCM (ABS)" } },
   "src": ["https://…"]
 }
 ```
@@ -80,6 +81,10 @@ in git) through the connection and compares what the app sends and finds with `r
 - `probes` — what each one is asked until it answers (default `3E00 22F190 1A90`): `3E00` or a read
   (`22xxxx`, `1Axx`, `21xx`).
 - `names` — by request id; without one: the standard name ("Engine (7E0)") or, with `replace`, the id.
+  GM reuses one id for different modules on different cars (242: power steering, theft deterrent or
+  keyless start), so a name goes here only when no source gives the id another module.
+- `diagNames` — by the module's own one-byte diagnostic address (GM `$1A B0`, read during identification):
+  it says what the module is on any car, so it wins over `names`. The address is in the report either way.
 - `tag` — the report's section name (default: the make).
 
 ## Dialect

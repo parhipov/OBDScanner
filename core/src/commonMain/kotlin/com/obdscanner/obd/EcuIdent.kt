@@ -56,7 +56,11 @@ object ObdModules {
     val PROBES = listOf("3E00", "22F190", "1A90")
 
     /** Where to look for modules, what to ask them and what to call them (module search, report, scan screen). */
-    class Addressing(val tag: String, val candidates: List<Pair<Int, Int>>, val probes: List<String>, val name: (Int) -> String)
+    class Addressing(
+        val tag: String, val candidates: List<Pair<Int, Int>>, val probes: List<String>, val name: (Int) -> String,
+        /** By the module's own diagnostic address (GM \$1A B0); null — not in the make's list. */
+        val diagName: (Int) -> String? = { null },
+    )
 
     /**
      * The make's own list ([com.obdscanner.car.ModuleSearch.replace]), or the standard one plus the make's
@@ -65,12 +69,11 @@ object ObdModules {
     fun addressing(family: CarFamily?, tag: String, blocks: List<Pair<Int, Int>> = emptyList()): Addressing {
         val m = family?.modules
         if (m != null && m.replace) {
-            return Addressing(tag, (m.addresses + blocks).distinctBy { it.first }, m.probes ?: PROBES) { m.names[it] ?: "%03X".format(it) }
+            return Addressing(tag, (m.addresses + blocks).distinctBy { it.first }, m.probes ?: PROBES, { m.names[it] ?: "%03X".format(it) }, { m.diagNames[it] })
         }
         val fromDb = family?.commands.orEmpty().map { it.req to it.resp }.filter { it.first !in 0x7E0..0x7E7 }
-        return Addressing(tag, (candidates + m?.addresses.orEmpty() + fromDb + blocks).distinctBy { it.first }, m?.probes ?: PROBES) {
-            m?.names?.get(it) ?: name(it)
-        }
+        return Addressing(tag, (candidates + m?.addresses.orEmpty() + fromDb + blocks).distinctBy { it.first }, m?.probes ?: PROBES,
+            { m?.names?.get(it) ?: name(it) }, { m?.diagNames?.get(it) })
     }
 
     /**

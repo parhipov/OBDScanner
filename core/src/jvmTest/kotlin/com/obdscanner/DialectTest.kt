@@ -49,6 +49,12 @@ class DialectTest {
         assertEquals(tr("ECM (двигатель)", "ECM (engine)"), gm(0x7E0))
         assertEquals("249", gm(0x249))
         assertEquals("7E1", gm(0x7E1))
+        // By the module's own diagnostic address (\$1A B0): the same on any car, whatever its CAN id.
+        val gmDiag = ObdModules.addressing(CarDb.family("gm"), "GM").diagName
+        assertEquals(tr("EBCM (ABS)", "EBCM (ABS)"), gmDiag(0x28))
+        assertEquals(tr("BCM (кузов)", "BCM (body)"), gmDiag(0x40))
+        assertEquals(null, gmDiag(0x31))
+        assertEquals(null, ObdModules.addressing(CarDb.family("vag"), "VAG").diagName(0x28))
         assertEquals(tr("02 КПП", "02 Transmission"), ObdModules.addressing(CarDb.family("vag"), "VAG").name(0x7E1))
         assertEquals(tr("17 Приборка", "17 Instruments"), ObdModules.addressing(CarDb.family("vag"), "VAG").name(0x714))
         assertEquals("ABS (760)", ObdModules.addressing(CarDb.family("ford"), "Ford").name(0x760))

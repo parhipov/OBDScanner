@@ -51,6 +51,9 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
      */
     suspend fun identify(module: GmModule, onHit: (ScanHit) -> Unit) {
         obd.target(module.req, module.resp)
+        // The module's own diagnostic address names it on any platform (a CAN id means different modules on
+        // different cars). Asked apart from the list: whatever it gets doesn't change how the list goes.
+        read(module, "1A", DIAG_ADDRESS)?.first?.let { onHit(ScanHit(module.req, module.resp, "1A", DIAG_ADDRESS, it)) }
         var silent = 0
         for (did in IDENTITY) {
             currentCoroutineContext().ensureActive()
@@ -174,5 +177,8 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         fun oneByteId(service: String) = service == "1A" || service == "21"
 
         val IDENTITY = listOf(0x97, 0x99, 0xB4, 0xC0) + (0xC1..0xC6) + listOf(0xCB, 0xCC)
+
+        /** GMLAN \$1A B0: the module's diagnostic address, one byte (GMW3110). */
+        const val DIAG_ADDRESS = 0xB0
     }
 }

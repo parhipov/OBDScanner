@@ -378,8 +378,7 @@
    {"id": "BLAZER_ATF_T_VAR_3", "name": {"en": "Transmission fluid temperature, variant 3", "ru": "Температура масла АКПП, вар. 3"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1942", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_TRANS_RPM", "name": {"en": "Transmission RPM", "ru": "Обороты КПП"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_OUTPUT_SHFT_SPD_7E1", "name": {"en": "AT output shaft speed", "ru": "Обороты выходного вала АКПП"}, "unit": "rpm", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "role": "output_rpm", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_TRANS_RPM", "name": {"en": "Transmission RPM", "ru": "Обороты КПП"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1C24", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
    {"id": "BOLT_HIGH_V_CIRCUIT_HPCM", "name": {"en": "High voltage circuit, hybrid powertrain control module", "ru": "Цепь ВВ, блок управления гибридной установкой"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Volt"]}
@@ -421,8 +420,7 @@
    {"id": "BOLT_REGEN_BRAKING_AXLE_TQ", "name": {"en": "Regen braking axle torque predicted", "ru": "Момент рекуперации на оси, прогноз"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "242C", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BRAKE_TQ", "name": {"en": "Brake torque", "ru": "Тормозной момент"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_BRAKE_TQ", "name": {"en": "Brake torque", "ru": "Тормозной момент"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BRAKE_TQ", "name": {"en": "Brake torque", "ru": "Тормозной момент"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "2434", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_AXLE_TQ_DRIVER_REQ", "name": {"en": "Axle torque driver requested", "ru": "Момент на оси, запрос водителя"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "add": -22534}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -710,8 +708,7 @@
    {"id": "BOLT_CABIN_AC_COMMAND_W", "name": {"en": "Cabin A/C power, commanded", "ru": "Мощность кондиционера салона, заданная"}, "unit": "W", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "41B2", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_CABIN_AC_MEAS_W", "name": {"en": "Cabin A/C power, measured", "ru": "Мощность кондиционера салона, измер."}, "unit": "W", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_BATT_CLT_PMP_RPM", "name": {"en": "Battery coolant pump speed", "ru": "Обороты насоса ОЖ батареи"}, "unit": "rpm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_CABIN_AC_MEAS_W", "name": {"en": "Cabin A/C power, measured", "ru": "Мощность кондиционера салона, измер."}, "unit": "W", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "41B3", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_CABIN_HEATER_COMMAND_W", "name": {"en": "Cabin heater power, commanded", "ru": "Мощность отопителя салона, заданная"}, "unit": "W", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -747,8 +744,7 @@
    {"id": "BOLT_HIGH_V_SYSTEM_INTERLOCK", "name": {"en": "High voltage system interlock circuit status", "ru": "Статус цепи блокировки ВВ (HVIL)"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4329", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BAT_CELL_MIN_V", "name": {"en": "Battery cell minimum voltage", "ru": "Мин. напряжение ячейки батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3, "div": 5000}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_MG_V_6", "name": {"en": "MG voltage 6", "ru": "Напряжение MG 6"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0592111886}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BAT_CELL_MIN_V", "name": {"en": "Battery cell minimum voltage", "ru": "Мин. напряжение ячейки батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 3, "div": 5000}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "432A", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_BAT_CELL_MIN", "name": {"en": "Lowest voltage cell number", "ru": "Ячейка с мин. напряжением"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -760,8 +756,7 @@
    {"id": "BOLT_BAT_CELL_MAX", "name": {"en": "Highest voltage cell number", "ru": "Номер ячейки с макс. напряжением"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "432D", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BAT_PACK_V_LD", "name": {"en": "Battery pack voltage LD", "ru": "Напряжение ВВБ LD"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 13, "div": 25}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_HVBAT_V", "name": {"en": "HV battery voltage", "ru": "Напряжение ВВБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.52}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BAT_PACK_V_LD", "name": {"en": "Battery pack voltage LD", "ru": "Напряжение ВВБ LD"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 13, "div": 25}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "432F", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_BAT_PACK_ST_CHG_RAW_3", "name": {"en": "Battery pack state of charge raw LD 3", "ru": "Уровень заряда ВВБ, сырое LD 3"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -791,8 +786,7 @@
    {"id": "BOLT_HVBAT_TEMP", "name": {"en": "HV battery temperature", "ru": "Температура ВВБ"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Volt"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4356", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_HIGH_V_CURRENT", "name": {"en": "High voltage current", "ru": "Ток ВВ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": -40, "div": 267, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_HIGH_V_CURRENT_HD", "name": {"en": "High voltage current HD", "ru": "Ток ВВ (HD)"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": -500, "div": 3333, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_HIGH_V_CURRENT", "name": {"en": "High voltage current", "ru": "Ток ВВ"}, "unit": "A", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": -40, "div": 267, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "4357", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_ELECTRONICS_CLT_PMP_CMD", "name": {"en": "Electronics coolant pump, commanded", "ru": "Насос ОЖ электроники, задан."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -843,8 +837,7 @@
    {"id": "VOLT_CHG_LIFETIME", "name": {"en": "Lifetime charge energy", "ru": "Энергия заряда за весь срок"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "439E", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BAT_HEATER_COMMAND", "name": {"en": "Battery heater, commanded", "ru": "Подогрев батареи, заданный"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_HEATER_BAT_PCT", "name": {"en": "Battery heater duty", "ru": "Скважность подогрева батареи"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2.55}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BAT_HEATER_COMMAND", "name": {"en": "Battery heater, commanded", "ru": "Подогрев батареи, заданный"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "43A5", "rate": "slow", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
    {"id": "BOLT_HVBAT_CHRG_CNT", "name": {"en": "HV battery charge count", "ru": "Количество зарядок ВВБ"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Volt"]}
@@ -941,8 +934,7 @@
    {"id": "BOLT_AIR_TEMP_FILTERED", "name": {"en": "Air temperature filtered", "ru": "Температура воздуха, фильтр."}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "82B2", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_CABIN_AC_LOW_SIDE_P", "name": {"en": "Cabin A/C low side sensor pressure", "ru": "Давление кондиционера салона, низкая сторона"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 13647, "div": 5000}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_VENT_T", "name": {"en": "Vent temperature", "ru": "Температура на выходе дефлектора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 8, "add": -10}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_CABIN_AC_LOW_SIDE_P", "name": {"en": "Cabin A/C low side sensor pressure", "ru": "Давление кондиционера салона, низкая сторона"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 13647, "div": 5000}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "82B3", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_CABIN_AC_LOW_SIDE_V", "name": {"en": "Cabin A/C low side sensor voltage", "ru": "Напряжение датчика кондиционера салона, низкая сторона"}, "unit": "V", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 50}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -975,12 +967,10 @@
    {"id": "BOLT_BRAKE_MOTOR_DRIVER_2", "name": {"en": "Brake motor driver temperature 2", "ru": "Температура драйвера мотора тормоза 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "40D3", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BAT_5V_REFERENCE_V_1", "name": {"en": "Battery 5V reference voltage", "ru": "Опорное напряжение батареи 5 В"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 13107, "add": 5, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_BECM_5V_REFERENCE_V_1", "name": {"en": "Battery controller 5V reference voltage", "ru": "Опорное напряжение 5 В контроллера батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65536, "add": 5, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BAT_5V_REFERENCE_V_1", "name": {"en": "Battery 5V reference voltage", "ru": "Опорное напряжение батареи 5 В"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 13107, "add": 5, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "40D4", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BAT_PACK_CURRENT_HD", "name": {"en": "Battery pack current HD", "ru": "Ток ВВБ HD"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_HVBAT_A", "name": {"en": "HV battery current", "ru": "Ток ВВБ"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": -1, "div": 20, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BAT_PACK_CURRENT_HD", "name": {"en": "Battery pack current HD", "ru": "Ток ВВБ HD"}, "unit": "A", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 20, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "40D7", "rate": "medium", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
    {"id": "BOLT_BAT_PACK_TEMP_1", "name": {"en": "Battery pack temperature 1", "ru": "Температура ВВБ 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Volt"]}
@@ -1301,8 +1291,7 @@
    {"id": "BOLT_BAT_PACK_TERMINAL_V", "name": {"en": "Battery pack terminal voltage LD", "ru": "Напряжение на клеммах ВВБ LD"}, "unit": "V", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E7", "rsp": "7EF", "svc": "22", "did": "C218", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
-   {"id": "BOLT_BAT_CELL_AVG_V", "name": {"en": "Battery cell average voltage", "ru": "Среднее напряжение ячеек батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 13107}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]},
-   {"id": "VOLT_BECM_AVG_CELL_V", "name": {"en": "Battery average cell voltage", "ru": "Среднее напряжение ячеек батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 65536}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BOLT_BAT_CELL_AVG_V", "name": {"en": "Battery cell average voltage", "ru": "Среднее напряжение ячеек батареи"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 13107}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]}
  ]
 }

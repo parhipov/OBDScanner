@@ -281,7 +281,14 @@ object CarDb {
             require(p.matches(Regex("(3E00|22[0-9A-F]{4}|1A[0-9A-F]{2}|21[0-9A-F]{2})"))) { "probe $p: 3E00 or a read (22/1A/21)" }
         }
         val names = m.optJSONObject("names")?.let { n -> n.keys().asSequence().associate { k -> k.toInt(16) to text(n.getJSONObject(k)) } }.orEmpty()
-        return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names)
+        val diagNames = m.optJSONObject("diagNames")?.let { n ->
+            n.keys().asSequence().associate { k ->
+                val a = k.toInt(16)
+                require(a in 0x00..0xFF) { "diagNames $k: a one-byte address" }
+                a to text(n.getJSONObject(k))
+            }
+        }.orEmpty()
+        return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names, diagNames)
     }
 
     /**
@@ -695,7 +702,8 @@ internal data class DialectSpec(
 
 /**
  * Where a make keeps its diagnostic modules: [addresses] (request → reply) to probe, after the standard
- * OBD list or instead of it ([replace]); [probes] — what to ask each one; [names] by request id.
+ * OBD list or instead of it ([replace]); [probes] — what to ask each one; [names] by request id;
+ * [diagNames] by the module's own diagnostic address (GM \$1A B0), which wins over the request id.
  */
 data class ModuleSearch(
     val tag: String?,
@@ -703,4 +711,5 @@ data class ModuleSearch(
     val addresses: List<Pair<Int, Int>>,
     val probes: List<String>?,
     val names: Map<Int, String>,
+    val diagNames: Map<Int, String> = emptyMap(),
 )

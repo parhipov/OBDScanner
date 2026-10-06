@@ -4,7 +4,11 @@ import com.obdscanner.util.format
 import com.obdscanner.tr
 
 /** A diagnostic module found on the OBD port (CAN id or K-line address). */
-data class GmModule(val req: Int, val resp: Int, val name: String, val answeredTo: String) {
+data class GmModule(
+    val req: Int, val resp: Int, val name: String, val answeredTo: String,
+    /** Its own diagnostic address (GM \$1A B0), once read. */
+    val diag: Int? = null,
+) {
     val id get() = "%03X".format(req)
 }
 

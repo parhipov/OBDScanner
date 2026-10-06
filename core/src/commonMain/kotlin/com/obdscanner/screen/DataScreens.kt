@@ -19,6 +19,10 @@ object AllScreen {
         val b = Blocks()
         b.note(tr("Опрашиваются все поддерживаемые PID: ${v.supported01.count { !Pids.isBitmask(it) }} шт. Всего значений: ${r.size}.",
             "Polling all supported PIDs: ${v.supported01.count { !Pids.isBitmask(it) }}. Values in total: ${r.size}."))
+        // Manufacturer requests ($21/$22): their layouts come from other models' tables and may not fit this car.
+        if (r.values.any { it.source.startsWith("21.") || it.source.startsWith("22.") })
+            b.note(tr("Ответы блоков показаны как есть, а расшифровка параметров производителя уточняется по отзывам: на вашей машине часть значений может оказаться неверной. Заметили странное — отправьте сессию.",
+                "Answers are shown as the modules send them, but the decoding of manufacturer parameters is being refined from your feedback: some values may be wrong on your car. If something looks off, send the session."))
         val groups = r.values.groupBy { it.ecu }.entries.sortedBy { if (it.key == 0) Int.MAX_VALUE else it.key }
         for ((ecu, list) in groups) {
             b.title("${ecuName(ecu)} · %03X".format(ecu))
@@ -72,7 +76,14 @@ object CodesScreen {
         if (v.gmDtcStatus.isNotEmpty()) b.note(v.gmDtcStatus)
         if (v.gmDtcTime > 0) b.note(tr("Прочитано в ${timeText(v.gmDtcTime)}", "Read at ${timeText(v.gmDtcTime)}"))
         for (m in v.gmDtcs) {
-            val where = "${m.module.name} · ${m.module.id}"
+            // An unnamed module is just its address ("7E5"), a generic name already carries it ("ЭБУ 7E5"): no "7E5 · 7E5".
+            val where = with(m.module) {
+                when {
+                    name == id -> tr("Блок $id", "Module $id")
+                    id in name -> name
+                    else -> "$name · $id"
+                }
+            }
             b.title(where)
             b.note(m.result)
             for (c in m.codes) b.row(c.full, if (c.current) tr("активна", "active") else tr("история", "history"), "", "${c.description} · ${c.flags}",

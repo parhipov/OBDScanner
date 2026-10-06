@@ -70,6 +70,10 @@ with a note); each signal whose bits, scaling and unit we can represent (not hid
 big-endian). Identical requests (same hdr/rsp/svc/did) across models of one family are merged:
 models are united (a make-wide repo = no `models`), years widened to the hull, signals
 deduplicated by (bix, len, mul, div, add, signed) keeping the first id/name and uniting src.
+A dbg signal whose bits overlap a non-dbg one of another model in the same request is dropped, and
+with it that model's other dbg signals in the request: its ECU lays the answer out differently
+(Kia Cadenza "misfire counters" on the bytes of Hyundai Elantra's rpm and idle target in 7E0 21 01),
+and the app shows every value of an answering request on any car of the make.
 Only signalsets/v3/default.json is read, not the per-year override files (e.g. 2012-2020.json).
 Roles: from `suggestedMetric` where it matches, else from the English name (NAME_ROLES); a role
 makes the signal group "main", everything else is "other" (conf is always "?": one source).
@@ -607,9 +611,10 @@ def convert_command(cmd: dict, repo: str, make_wide: bool, ru: dict, skips: Skip
     if years:
         out["years"] = years
     notes = [n for n in (note, "OBDb dbg: not confirmed by response tests" if cmd.get("dbg") else None) if n]
-    if notes:
-        for s in signals:
+    for s in signals:
+        if notes:
             s["note"] = "; ".join(notes)
+        s["_dbg"] = bool(cmd.get("dbg"))  # for merge(), not written out
     return out
 
 
@@ -618,7 +623,21 @@ def sig_key(s: dict) -> tuple:
     return f["bix"], f["len"], f.get("mul", 1), f.get("div", 1), f.get("add", 0), f.get("signed", False), f.get("le", False)
 
 
-def merge(commands: list[tuple[dict, str | None]]) -> list[dict]:
+def foreign_dbg(signals: list[dict]) -> list[dict]:
+    """dbg signals of a model whose layout of this answer clashes with another model's non-dbg one."""
+    def overlap(a: dict, b: dict) -> bool:
+        fa, fb = a["fmt"], b["fmt"]
+        return fa["bix"] < fb["bix"] + fb["len"] and fb["bix"] < fa["bix"] + fa["len"]
+
+    sure = [s for s in signals if not s["_dbg"]]
+    bad: set[str] = set()
+    for d in signals:
+        if d["_dbg"] and any(overlap(d, s) and not set(d["src"]) & set(s["src"]) for s in sure):
+            bad |= set(d["src"])
+    return [s for s in signals if s["_dbg"] and set(s["src"]) & bad]
+
+
+def merge(commands: list[tuple[dict, str | None]], skips: Skips) -> list[dict]:
     """Merge identical requests across the repos of one family (see module docstring)."""
     merged: dict[tuple, dict] = {}
     meta: dict[tuple, dict] = {}
@@ -644,6 +663,7 @@ def merge(commands: list[tuple[dict, str | None]]) -> list[dict]:
             if k in m["sigs"]:
                 old = m["sigs"][k]
                 old["src"] += [u for u in s["src"] if u not in old["src"]]
+                old["_dbg"] = old["_dbg"] and s["_dbg"]
             else:
                 m["sigs"][k] = s
                 merged[key]["signals"].append(s)
@@ -658,6 +678,14 @@ def merge(commands: list[tuple[dict, str | None]]) -> list[dict]:
             lo, hi = min(y[0] for y in m["years"]), max(y[1] for y in m["years"])
             if lo > YEAR_MIN or hi < YEAR_MAX:
                 c["years"] = [lo, hi]
+        drop = foreign_dbg(c["signals"])
+        skips.signals["dbg, another model's layout"] += len(drop)
+        c["signals"] = [s for s in c["signals"] if not any(s is d for d in drop)]
+        for s in c["signals"]:
+            del s["_dbg"]
+        if not c["signals"]:
+            skips.commands["no usable signals"] += 1
+            continue
         c["signals"].sort(key=lambda s: (s["fmt"]["bix"], s["fmt"]["len"]))
         # Fixed key order for readable diffs.
         result.append({k: c[k] for k in ("hdr", "rsp", "svc", "did", "rate", "models", "years", "signals") if k in c})
@@ -730,7 +758,7 @@ def main() -> None:
                 c = convert_command(cmd, repo, model is None, ru, skips, args.with_dbg, fam)
                 if c:
                     converted.append((c, model))
-        cmds = merge(converted)
+        cmds = merge(converted, skips)
         nsig = sum(len(c["signals"]) for c in cmds)
         names = all_names(cmds)
         untranslated |= {n for n in names if not ru_of(n, ru)}

@@ -1156,8 +1156,7 @@ class CarLink(
         fun gmlan(req: Int) = !o.kline && dialectOf(req).ident == "gm_1a"
         val found = if (o.kline) klineModules() else sc.probeModules(a.candidates, a.probes, a.name, onProbe)
         _scan.update { it.copy(modules = found, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
-        val key = modulesPrefKey()
-        if (found.isNotEmpty() && key != null) store.putString(key, found.joinToString(",") { "%03X:%03X".format(it.req, it.resp) })
+        saveModules(found)
         session?.report(tr("${a.tag}: найденные модули", "${a.tag}: modules found"), found.joinToString("\n") { "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
             .ifEmpty { tr("нет", "none") })
         val ids = mutableListOf<ScanHit>()
@@ -1178,9 +1177,15 @@ class CarLink(
             }
         }
         o.broadcast()
-        _scan.update { it.copy(running = false, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
+        // A module that told its diagnostic address gets the make's name for it, where the CAN id had none or another one.
+        val named = found.map { mod ->
+            val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0)
+            if (diag == null) mod else mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
+        }
+        if (named != found) saveModules(named)
+        _scan.update { it.copy(running = false, modules = named, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
         // No modules: the section the make's own identification would have written.
-        val gmMods = if (found.isEmpty()) emptyList() else found.filter { gmlan(it.req) }
+        val gmMods = if (named.isEmpty()) emptyList() else named.filter { gmlan(it.req) }
         val gmFamily = !o.kline && (family()?.dialect ?: Dialect.GENERIC).ident == "gm_1a"
         if (gmMods.size < found.size || found.isEmpty() && !gmFamily) {
             session?.report(tr("${a.tag}: идентификация модулей (UDS \$22 F1xx / KWP \$1A)", "${a.tag}: module identification (UDS \$22 F1xx / KWP \$1A)"), generic.joinToString("\n").ifEmpty { tr("нет модулей", "no modules") })
@@ -1190,7 +1195,13 @@ class CarLink(
                 "  1A %s %-26s %s".format(h.didHex, h.label.orEmpty(), h.partNumber?.toString() ?: if (h.looksLikeText) "«${h.ascii}»" else h.hex)
             }.ifEmpty { tr("  нет ответа", "  no answer") }
         }.ifEmpty { tr("нет модулей", "no modules") })
-        return found
+        return named
+    }
+
+    /** "7E0:7E8,24F:64F:28": request, reply and — once read — the module's diagnostic address. */
+    private fun saveModules(list: List<GmModule>) {
+        val key = modulesPrefKey() ?: return
+        if (list.isNotEmpty()) store.putString(key, list.joinToString(",") { m -> "%03X:%03X".format(m.req, m.resp) + (m.diag?.let { ":%02X".format(it) } ?: "") })
     }
 
     /**
@@ -1268,11 +1279,16 @@ class CarLink(
     }
 
     /** Modules found in an earlier session of this car — saves a minute of probing on every connect. */
-    private fun savedModules(): List<GmModule> = modulesPrefKey()?.let { store.getString(it) }.orEmpty()
-        .split(',').mapNotNull { p ->
-            val (req, resp) = p.split(':').takeIf { it.size == 2 }?.map { it.toIntOrNull(16) } ?: return@mapNotNull null
-            if (req == null || resp == null) null else GmModule(req, resp, addressing().name(req), tr("из прошлой сессии", "from an earlier session"))
+    private fun savedModules(): List<GmModule> {
+        val a = addressing()
+        return modulesPrefKey()?.let { store.getString(it) }.orEmpty().split(',').mapNotNull { p ->
+            val parts = p.split(':').takeIf { it.size in 2..3 }?.map { it.toIntOrNull(16) } ?: return@mapNotNull null
+            val req = parts[0] ?: return@mapNotNull null
+            val resp = parts[1] ?: return@mapNotNull null
+            val diag = parts.getOrNull(2)
+            GmModule(req, resp, diag?.let(a.diagName) ?: a.name(req), tr("из прошлой сессии", "from an earlier session"), diag)
         }
+    }
 
     private suspend fun readModuleDtcs(o: Obd, status: (String) -> Unit) {
         var modules = _scan.value.modules
