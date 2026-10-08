@@ -17,10 +17,7 @@ object ReplayText {
     /** Enough for every PID to come round at least once (the slow ones are due every 30 s). */
     const val POLL_CYCLES = 40
 
-    /** Session folders named by the model only. */
-    private val MODEL_FOLDERS = mapOf("Polo" to "Volkswagen", "RAV4" to "Toyota")
-
-    /** [name] — "Cadillac CTS 2/2026-09-25_19-07-12", the session's path under the archive. */
+    /** [name] — "Cadillac CTS 2/#1/2026-09-25_19-07-12", the session's path under the archive. */
     suspend fun of(rawLog: String, name: String): String {
         val log = { ReplayLog.parse(rawLog) }
         // First connection with nothing remembered, then a reconnect with what the first one saved
@@ -32,11 +29,10 @@ object ReplayText {
             (pick?.let { "\n\n######## new connection, the make picked by hand: ${it.brand}\n\n" + play(log(), MapStore(), pick = it) } ?: "")
     }
 
-    /** The make the car's owner would pick: by the session folder's name ("Cadillac CTS 2", "Polo"). */
+    /** The make the car's owner would pick: by the archive's model folder ("Cadillac CTS 2", "Volkswagen Polo 9N"). */
     fun pickFor(name: String): CarChoice? {
         val car = name.substringBefore('/')
         val brand = CarDb.brandNames.firstOrNull { car.startsWith("$it ", ignoreCase = true) || car.equals(it, ignoreCase = true) }
-            ?: MODEL_FOLDERS[car.substringBefore(' ')]
         return brand?.let { CarDb.choice(CarChoice.BRAND + it) }
     }
 

@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Every recorded session in the archive (sessions/<car>/<session>/raw.log, not in git: VINs) is played
+ * Every recorded session in the archive (sessions/<Model>/#N/<session>/raw.log, not in this repository: VINs) is played
  * back through [CarLink] — connect, discovery, modules, a few poll cycles — and what the app did is
  * compared with the golden file next to the session (replay-golden.txt): every request it sent, the
  * report, the vehicle summary and the values. A change in any of them fails the test with a diff.
