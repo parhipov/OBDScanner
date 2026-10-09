@@ -120,7 +120,10 @@ object CanParser {
                         }
                         else -> {
                             // The last frame of a message tells whether this ECU pads: a lone short one doesn't.
-                            if (a.size + bytes.size - 1 >= a.expected) paddedEcus[header] = bytes.size == 8
+                            // One the data fills to the end tells nothing: a VIN is 6 + 7 + 7 bytes, and taken
+                            // as "pads" it threw away every later reply of an ECM that doesn't (Opel Mokka 2014).
+                            val left = a.expected - a.size
+                            if (bytes.size - 1 >= left && left < 7) paddedEcus[header] = bytes.size == 8
                             a.add(bytes, 1)
                         }
                     }

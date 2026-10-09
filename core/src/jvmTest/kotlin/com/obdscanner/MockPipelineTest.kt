@@ -54,6 +54,24 @@ class MockPipelineTest {
     }
 
     @Test
+    fun fullLastFrameSaysNothingAboutPadding() {
+        // Opel Mokka 2014-10-08 19:17:55: the VIN filled its last frame, the ECM doesn't pad, and its
+        // ECU name, CVN and all of Mode 06 were thrown away as frames with lost padding.
+        CanParser.forgetEcus()
+        val vin = listOf(
+            "7E8 10 14 49 02 01 57 30 4C", "7E8 21 4A 43 37 44 35 58 45", "7E8 22 42 36 37 38 35 33 34",
+        ).joinToString("\r")
+        assertEquals("W0LJC7D5XEB678534", Mode09.decode(CanParser.parse(ElmReply("0902", vin, false), 3).messages.single().data))
+        val name = listOf(
+            "7E8 10 17 49 0A 01 45 43 4D", "7E8 21 00 2D 45 6E 67 69 6E", "7E8 22 65 43 6F 6E 74 72 6F", "7E8 23 6C 00 00",
+        ).joinToString("\r")
+        val r = CanParser.parse(ElmReply("090A", name, false), 3)
+        assertTrue(r.errors.isEmpty())
+        assertEquals(23, r.messages.single().data.size)
+        CanParser.forgetEcus()
+    }
+
+    @Test
     fun parsesMultiFrameWithHeaders() {
         val raw = listOf(
             "7E8 10 14 49 02 01 31 47 36",
