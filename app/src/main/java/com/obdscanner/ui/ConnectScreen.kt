@@ -86,6 +86,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     // While a session runs the pick is locked: it shows what is running.
     val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
     val source by m.source.collectAsStateWithLifecycle()
+    val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
     val usb by m.usb.collectAsStateWithLifecycle()
     fun pick(id: String) { if (!running) m.pickSource(id) }
     val device = devices.firstOrNull { it.address == source }
@@ -97,6 +98,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
             item { SupportLine() }
+            item { FuelWatchLine(fuelWatch, m::setFuelWatch) }
             item {
                 when (conn) {
                     is ConnState.Connecting -> Card(Modifier.fillMaxWidth().padding(4.dp)) {

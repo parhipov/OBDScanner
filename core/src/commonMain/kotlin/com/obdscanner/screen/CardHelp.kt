@@ -42,6 +42,12 @@ object CardHelp {
         "ATRV" to "help_adapter_voltage",
         "01.46" to "help_ambient",
         "01.33" to "help_baro",
+        "calc.knock" to "help_knock",
+        "22.11A6" to "help_knock",
+        "calc.knockLoad" to "help_knock_load",
+        "calc.knockLast" to "help_knock_last",
+        "calc.misfire06" to "help_misfires",
+        "calc.misfireGm" to "help_misfires",
     )
 
     /** Manufacturer parameters of any make, by their role (tools/cars/SCHEMA.md). */
@@ -54,6 +60,7 @@ object CardHelp {
         "tc_slip" to "help_tcc_slip",
         "input_rpm" to "help_input_shaft",
         "output_rpm" to "help_output_shaft",
+        "knock_retard" to "help_knock",
     )
 
     fun forSource(source: String): String? = bySource[source]

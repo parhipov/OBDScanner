@@ -25,6 +25,7 @@ import com.obdscanner.obd.DtcDb
 import com.obdscanner.obd.DtcKind
 import com.obdscanner.obd.EcuIdent
 import com.obdscanner.obd.FuelRate
+import com.obdscanner.obd.Knock
 import com.obdscanner.obd.Make
 import com.obdscanner.obd.Mode06
 import com.obdscanner.obd.Mode09
@@ -78,6 +79,15 @@ class CarLink(
     val scan: StateFlow<ScanState> = _scan.asStateFlow()
     private val _bus = MutableStateFlow(BusState())
     val bus: StateFlow<BusState> = _bus.asStateFlow()
+    private val _fuelWatch = MutableStateFlow(store.getInt(FUEL_WATCH, 0) == 1)
+    /** «Как бензин?» on Main: knock retard read every cycle, its own section on Main and first in the report. */
+    val fuelWatch: StateFlow<Boolean> = _fuelWatch.asStateFlow()
+
+    /** The «Как бензин?» checkbox; kept in the settings until unticked. */
+    fun setFuelWatch(on: Boolean) {
+        store.putInt(FUEL_WATCH, if (on) 1 else 0)
+        _fuelWatch.value = on
+    }
 
     /** Poll cycles and one-off operations never interleave (they switch CAN headers). */
     val opMutex = Mutex()
@@ -89,6 +99,9 @@ class CarLink(
         _scan.value = ScanState()
         _bus.value = BusState()
         lastPoll.clear()
+        knockHi = 0
+        knockHiRetard = 0
+        notedWatch = false
     }
 
     /** The session ended: nothing runs any more. */
@@ -748,6 +761,8 @@ class CarLink(
     private var lastFlush = 0L
     private var lastMisfire = 0L
     private var lastWatch = 0L
+    /** «Как бензин?» as raw.log last says it: the report puts its section first when it was on. */
+    private var notedWatch = false
 
     /** Polls until cancelled; one-off operations get the adapter between cycles. */
     suspend fun pollLoop(o: Obd) {
@@ -769,6 +784,11 @@ class CarLink(
     /** One poll cycle: the due Mode 01 PIDs, voltage, misfires on Fuel, manufacturer and watched values. */
     suspend fun pollCycle(o: Obd) {
         val tab = tab()
+        val watch = _fuelWatch.value
+        if (watch != notedWatch) {
+            notedWatch = watch
+            session?.note("fuel watch: ${if (watch) "on" else "off"}")
+        }
         val supported = _vehicle.value.functional01.filter { !Pids.isBitmask(it) && it != 0x02 && Pids.byPid[it]?.static != true }
         val onScreen = when (tab) {
             Tab.Main -> MAIN_PIDS
@@ -802,7 +822,8 @@ class CarLink(
                 publish(listOf(Reading(Reading.key(0, "ATRV"), 0, tr("Напряжение (адаптер)", "Voltage (adapter)"), it, null, tr("В", "V"), 1)))
             }
         }
-        if (tab == Tab.Fuel && !o.kline && now - lastMisfire > 15000) {
+        // «Как бензин?» shows the misfires on Main.
+        if ((tab == Tab.Fuel || tab == Tab.Main && watch) && !o.kline && now - lastMisfire > 15000) {
             lastMisfire = now
             readMode06(o, onlyMisfire = true)
         }
@@ -1054,14 +1075,44 @@ class CarLink(
      */
     private suspend fun pollExt(o: Obd, list: List<ExtCommand>, tab: Tab) {
         val group = when (tab) { Tab.Main -> "main"; Tab.Fuel -> "fuel"; else -> "" }
-        val batch = PollRate.due(list, lastPoll, clock(), EXT_PER_CYCLE, { it.key }) {
+        val now = clock()
+        // «Как бензин?»: knock retard every cycle (a retard lasts seconds), the rest share what is left.
+        val gm = family()?.id == "gm"
+        val knock = if (_fuelWatch.value) list.filter { Knock.isKnock(it, gm) } else emptyList()
+        knock.forEach { lastPoll[it.key] = now }
+        val batch = (knock + PollRate.due(list - knock.toSet(), lastPoll, now, (EXT_PER_CYCLE - knock.size).coerceAtLeast(1), { it.key }) {
             if (it.group == group) PollRate.onScreen(it.periodMs) else it.periodMs
-        }.sortedBy { it.req }
+        }).sortedBy { it.req }
         if (batch.isEmpty()) return
         val sc = GmScanner(o) { session?.note(it) }
         val out = batch.flatMap { c -> sc.readRaw(c.req, c.resp, c.service, c.did)?.let { extReadings(c, it) }.orEmpty() }
         o.broadcast()
         publish(out)
+        if (knock.isNotEmpty()) publishKnock(out, gm)
+    }
+
+    /** «Как бензин?»: samples at load over 85 % (as the report counts them) and those of them with a retard. */
+    private var knockHi = 0
+    private var knockHiRetard = 0
+
+    /** The retard as calc.knock (the same key on every make), its share at high load and the last one with the engine's state then. */
+    private fun publishKnock(out: List<Reading>, gm: Boolean) {
+        val k = Knock.main(out, gm) ?: return
+        val v = k.value ?: return
+        val r = _readings.value
+        val load = r.pick("01.04")?.value
+        val rpm = r.pick("01.0C")?.value
+        val res = mutableListOf(Reading(Reading.key(0, "calc.knock"), 0, tr("Откат по детонации", "Knock retard"), v, null, k.unit, k.decimals))
+        if (load != null && load > 85) {
+            knockHi++
+            if (v > 0) knockHiRetard++
+        }
+        if (knockHi > 0) res += Reading(Reading.key(0, "calc.knockLoad"), 0, tr("Откат на нагрузке > 85 %", "Retard at load > 85 %"),
+            knockHiRetard * 100.0 / knockHi, tr("$knockHiRetard из $knockHi замеров", "$knockHiRetard of $knockHi samples"), "%", 0)
+        if (v > 0) res += Reading(Reading.key(0, "calc.knockLast"), 0, tr("Последний откат", "Last retard"), v,
+            listOfNotNull(rpm?.let { tr("${Reading.fmt(it, 0)} об/мин", "${Reading.fmt(it, 0)} rpm") },
+                load?.let { tr("нагрузка ${Reading.fmt(it, 0)} %", "load ${Reading.fmt(it, 0)} %") }).joinToString(" · "), k.unit, k.decimals)
+        publish(res)
     }
 
     private suspend fun pollWatched(o: Obd, watched: Set<String>) {
@@ -1390,6 +1441,7 @@ class CarLink(
         )
         private const val POLL_TIMEOUT = 1000L
         private const val EXT_PER_CYCLE = 5
+        private const val FUEL_WATCH = "fuel_watch"
         /** Requests in a row a module may leave unanswered before the probe skips it. */
         private const val SILENT_SKIP = 3
         /** At most this many manufacturer requests are probed on connect. */

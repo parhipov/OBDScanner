@@ -112,6 +112,10 @@ class ObdManager(private val context: Context) {
     val vehicle: StateFlow<VehicleInfo> get() = link.vehicle
     val scan: StateFlow<ScanState> get() = link.scan
     val bus: StateFlow<BusState> get() = link.bus
+    /** «Как бензин?» on Main: kept in the settings until unticked. */
+    val fuelWatch: StateFlow<Boolean> get() = link.fuelWatch
+
+    fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
 
     init {
         // The database loads in the background (CarDb.init): take the saved pick once it's there.

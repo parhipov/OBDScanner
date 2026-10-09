@@ -74,7 +74,7 @@ fun SessionsScreen(m: ObdManager) {
             try {
                 val html = withContext(Dispatchers.Default) {
                     val work = this
-                    ReportBridge.build(dir) { d, st -> work.ensureActive(); done = d; stage = st }
+                    ReportBridge.build(dir, m.fuelWatch.value) { d, st -> work.ensureActive(); done = d; stage = st }
                 }
                 val file = withContext(Dispatchers.IO) {
                     File(ctx.cacheDir, "share").apply { mkdirs() }.resolve("report_${dir.name}.html").apply { writeText(html) }

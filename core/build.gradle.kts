@@ -68,6 +68,19 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 // The tests read the sessions archive and the databases by paths relative to the module, like before.
 tasks.withType<Test>().configureEach {
     workingDir = projectDir
-    // The report goldens parse every archive session in one JVM: the default 512 MB ran out now and then.
+    // Whole sessions parsed in one JVM: the default 512 MB ran out now and then.
+    maxHeapSize = "2g"
+}
+
+// A session's report on the PC (private/report): gradlew :core:report --args="<session folder or zip> [--out file.html]",
+// paths from the project root. Runs from the test classes, so nothing of it gets into the app.
+if (privateReport != null) tasks.register<JavaExec>("report") {
+    group = "application"
+    description = "Builds the HTML report of a session folder or zip"
+    val test = kotlin.jvm().compilations.getByName("test")
+    dependsOn(test.compileTaskProvider)
+    classpath = files(test.output.allOutputs, test.runtimeDependencyFiles)
+    mainClass.set("com.obdscanner.report.ReportCliKt")
+    workingDir = rootProject.projectDir
     maxHeapSize = "2g"
 }

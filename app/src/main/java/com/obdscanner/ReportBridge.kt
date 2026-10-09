@@ -16,19 +16,22 @@ object ReportBridge {
         runCatching {
             val cls = Class.forName(ENTRY)
             cls.getField("INSTANCE").get(null) to cls.getMethod("build", String::class.java, String::class.java,
-                Map::class.java, Function2::class.java)
+                Map::class.java, Boolean::class.javaPrimitiveType, Function2::class.java)
         }.getOrNull()
     }
 
     val available: Boolean get() = entry != null
 
-    /** The report page for a session folder. [progress] — (0…1, stage); throwing from it stops the build. */
-    fun build(dir: File, progress: (Double, String) -> Unit): String {
+    /**
+     * The report page for a session folder. [fuelWatch] — «Как бензин?» is ticked now (its section even for a trip
+     * made without it); [progress] — (0…1, stage), throwing from it stops the build.
+     */
+    fun build(dir: File, fuelWatch: Boolean, progress: (Double, String) -> Unit): String {
         val (obj, method) = entry ?: error("no report generator in this build")
         val texts = files.mapNotNull { f -> File(dir, f).takeIf { it.isFile }?.let { f to it.readText(Charsets.UTF_8) } }.toMap()
         val cb: (Double, String) -> Unit = progress
         try {
-            return method.invoke(obj, dir.name, "", texts, cb) as String
+            return method.invoke(obj, dir.name, "", texts, fuelWatch, cb) as String
         } catch (e: InvocationTargetException) {
             throw e.targetException
         }

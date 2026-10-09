@@ -60,4 +60,25 @@
         <item></item>
         <item>Went back to zero while driving: the engine stalled or the ECU rebooted.</item>
     </string-array>
+    <!-- «How's the fuel?» on Main. -->
+    <string-array name="help_knock">
+        <item>How many degrees the engine computer took off the ignition advance because the knock sensor heard knocking.</item>
+        <item>Usually 0. A rare short retard on hard acceleration happens on good fuel too.</item>
+        <item>Frequent retard under load means the engine is knocking: bad fuel, overheating, hot intake air, carbon deposits. Compare with trips after another fill-up.</item>
+    </string-array>
+    <string-array name="help_knock_load">
+        <item>The share of samples with knock retard among those taken at load over 85 %. Knock comes easiest under load, so compare trips by this share rather than by the number of events.</item>
+        <item></item>
+        <item>The share grew after a fill-up while the weather and the road stayed the same — looks like the fuel.</item>
+    </string-array>
+    <string-array name="help_knock_last">
+        <item>The last sample with ignition retard: how many degrees, at what rpm and load, and how long ago.</item>
+        <item></item>
+        <item>Knock comes easiest at low rpm under heavy load: a high gear, full throttle without a kickdown.</item>
+    </string-array>
+    <string-array name="help_misfires">
+        <item>Misfires added up over all cylinders. Mode 06 — for the current or the last trip, GM — the counter now.</item>
+        <item>Usually 0, a single one is normal.</item>
+        <item>Growing on all cylinders at once — look at the fuel and the ignition; on one — that cylinder\'s spark plug, coil or injector. Per cylinder — on the \"Fuel\" tab.</item>
+    </string-array>
 </resources>

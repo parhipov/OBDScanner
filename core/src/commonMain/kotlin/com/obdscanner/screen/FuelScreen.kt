@@ -102,8 +102,11 @@ object FuelScreen {
     /** A row of the per-cylinder GM table: DIDs for cylinders 1..8; [misfire] rows are highlighted when non-zero. */
     private class CylRow(val label: String, val dids: List<String>, val misfire: Boolean = false)
 
+    /** GM current misfires of cylinders 1..8 (also summed on Main under «Как бензин?»). */
+    val MISFIRE_NOW = listOf("22.1206", "22.1205", "22.1207", "22.1208", "22.11EA", "22.11EB", "22.11EC", "22.11ED")
+
     private val GM_CYL = listOf(
-        CylRow(tr("Пропуски сейчас", "Misfires now"), listOf("22.1206", "22.1205", "22.1207", "22.1208", "22.11EA", "22.11EB", "22.11EC", "22.11ED"), misfire = true),
+        CylRow(tr("Пропуски сейчас", "Misfires now"), MISFIRE_NOW, misfire = true),
         CylRow(tr("Пропуски история", "Misfire history"), listOf("22.1201", "22.1202", "22.1203", "22.1204", "22.11F8", "22.11F9", "22.11FA", "22.11FB"), misfire = true),
         CylRow(tr("Впрыск, мс", "Inj. pulse, ms"), (1..7).map { "22.%04X".format(0x1192 + it) } + "22.129A"),
         CylRow(tr("Баланс", "Balance"), (1..8).map { "22.%04X".format(0x162E + it) }),

@@ -3,9 +3,11 @@ package com.obdscanner.screen
 import com.obdscanner.Tab
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarDb
+import com.obdscanner.obd.Knock
 import com.obdscanner.obd.Reading
 import com.obdscanner.obd.pick
 import com.obdscanner.tr
+import com.obdscanner.util.nowMs
 
 /** A block of the main screen: its own accent (title) and tile background, ARGB; items — reading key → label. */
 class SectionDef(val title: String, val accent: Long, val tile: Long, val items: List<Pair<String, String>>)
@@ -13,7 +15,8 @@ class SectionDef(val title: String, val accent: Long, val tile: Long, val items:
 /** A tile: [sample] — an offline card with a typical value, [note] replacing its min/max line. */
 class Tile(val label: String, val reading: Reading, val level: Level?, val sample: Boolean, val note: String?)
 
-class MainSection(val title: String, val accent: Long, val tile: Long, val tiles: List<Tile>)
+/** [note] — a line under the section's title (no cards to show and why). */
+class MainSection(val title: String, val accent: Long, val tile: Long, val tiles: List<Tile>, val note: String? = null)
 
 /** The main screen: the lines above the cards ([Block.Note] / [Block.Banner]) and the sections of cards. */
 class MainView(val offline: Boolean, val top: List<Block>, val sections: List<MainSection>)
@@ -85,13 +88,46 @@ object MainScreen {
         )),
     )
 
-    fun build(r: Map<String, Reading>, v: VehicleInfo): MainView {
+    val WATCH_LABEL = tr("Как бензин?", "How's the fuel?")
+
+    val WATCH_HELP = tr(
+        "Включайте, когда сомневаетесь в заправке.\n\n" +
+            "На плохом бензине мотор чаще детонирует, и блок управления в ответ уменьшает угол зажигания. Пока галочка стоит, " +
+            "мы чаще обычного следим за этим откатом, показываем его сверху на главном экране и пишем первым разделом в отчёте.\n\n" +
+            "Сам бензин мы не измеряем, видим только откат зажигания. Он бывает и от жары, и от нагрузки в горку, так что " +
+            "сравнивайте поездки в похожих условиях.\n\n" +
+            "Бывает, что машина не отдаёт эти данные или старый адаптер не успевает — тогда секция останется пустой. " +
+            "Уж простите, сделали что смогли.\n\n" +
+            "Выключите — всё станет как раньше.",
+        "Turn it on when you doubt the last fill-up.\n\n" +
+            "On bad fuel the engine knocks more often, and the engine computer answers by pulling the ignition timing back. While " +
+            "this is ticked we watch that retard more often than usual, show it at the top of the main screen and put it first in the report.\n\n" +
+            "We don't measure the fuel itself, only the ignition retard. Heat and climbing a hill under load cause it too, so " +
+            "compare trips made in similar conditions.\n\n" +
+            "Some cars don't give this data, or an old adapter can't keep up — then the section stays empty. Sorry, we did what we could.\n\n" +
+            "Untick it and everything is as before.",
+    )
+
+    /** «Как бензин?»: first on Main while ticked; the Engine section keeps its own cards. */
+    private val WATCH = SectionDef(WATCH_LABEL, 0xFFFF8A65, 0xFF35201A, listOf(
+        "calc.knock" to tr("Откат по детонации", "Knock retard"),
+        "22.12D9" to tr("Суммарный откат", "Total retard"),
+        "calc.knockLoad" to tr("Откат на нагрузке", "Retard at high load"),
+        "calc.knockLast" to tr("Последний откат", "Last retard"),
+        "calc.misfire06" to tr("Пропуски за цикл", "Misfires this cycle"),
+        "calc.misfireGm" to tr("Пропуски сейчас", "Misfires now"),
+        "01.0E" to tr("Опережение", "Timing advance"),
+        "01.0F" to tr("Воздух на впуске", "Intake air"),
+    ))
+
+    fun build(readings: Map<String, Reading>, v: VehicleInfo, watch: Boolean = false): MainView {
+        // Before the first value arrives (no connection yet) show every card empty, so the help can be read offline.
+        val offline = readings.isEmpty()
+        val r = if (watch && !offline) readings + misfires(readings, v) else readings
         val mil = r.pick("01.01.MIL")?.value
         val dtcCount = r.pick("01.01.DTC")?.value?.toInt()
         val gmCodes = v.gmDtcs.flatMap { it.codes }
-        // Before the first value arrives (no connection yet) show every card empty, so the help can be read offline.
-        val offline = r.isEmpty()
-        val sections = SECTIONS.map { s ->
+        val sections = (if (watch) listOf(WATCH) + SECTIONS else SECTIONS).map { s ->
             s to if (offline) s.items.filter { !it.first.startsWith(ROLE) }.distinctBy { it.second }.map { (k, label) -> label to placeholder(k, label) }
             else s.items.mapNotNull { (k, label) ->
                 val reading = when {
@@ -102,7 +138,7 @@ object MainScreen {
                 }
                 reading?.let { label to it }
             }.distinctBy { it.second.key }
-        }.filter { it.second.isNotEmpty() }
+        }.filter { it.second.isNotEmpty() || it.first === WATCH }
         val top = Blocks()
         when {
             offline -> top.note(tr("Нет данных — подключитесь к адаптеру на вкладке «Связь». Нажмите на карточку, чтобы прочитать, что это за параметр.",
@@ -119,15 +155,51 @@ object MainScreen {
                 (if (active > 0) tr(", активных $active", ", $active active") else "") + tr(" — см. вкладку «Ошибки»", " — see the \"Codes\" tab"),
                 if (active > 0) Level.BAD else Level.WARN, Tab.Dtc)
         }
+        val knock = r.pick("calc.knock")
+        val now = knock?.value
+        if (watch && now != null && now > 0 && nowMs() - knock.time < 10_000)
+            top.banner(tr("Откат по детонации сейчас: ${knock.display()}${knock.unit}", "Knock retard now: ${knock.display()}${knock.unit}"), Level.WARN)
+        val gm = (v.car?.family ?: v.make.id) == "gm"
+        val noKnock = !offline && v.step.isEmpty() && knock == null && v.extActive.none { Knock.isKnock(it, gm) }
         val sample = tr("пример · нет связи", "sample · offline")
         return MainView(offline, top.build(), sections.map { (s, tiles) ->
             MainSection(s.title, s.accent, s.tile, tiles.map { (label, reading) ->
-                if (offline) Tile(label, reading, Level.MUTED, true, sample) else Tile(label, reading, tileLevel(reading), false, null)
-            })
+                if (offline) Tile(label, reading, Level.MUTED, true, sample) else Tile(label, reading, tileLevel(reading), false, tileNote(reading))
+            }, if (s === WATCH && noKnock) tr("Машина не отдаёт откат по детонации, или мы не знаем, где его взять. Остались опережение и пропуски.",
+                "The car doesn't give knock retard, or we don't know where to find it. Timing advance and misfires are left.") else null)
         })
     }
 
+    /** «Как бензин?» misfires: Mode 06 of the cycle (any make) and the GM current ones, each summed over the cylinders. */
+    private fun misfires(r: Map<String, Reading>, v: VehicleInfo): Map<String, Reading> {
+        val out = mutableListOf<Reading>()
+        val m06 = v.mode06.filter { it.misfireCylinder != null && it.tid == 0x0C }
+        if (m06.isNotEmpty()) out += Reading(Reading.key(0, "calc.misfire06"), 0, tr("Пропуски за цикл (Mode 06), все цилиндры",
+            "Misfires this cycle (Mode 06), all cylinders"), m06.sumOf { it.value }, null, "", 0)
+        val gm = FuelScreen.MISFIRE_NOW.mapNotNull { r.pick(it)?.value }
+        if (gm.isNotEmpty()) out += Reading(Reading.key(0, "calc.misfireGm"), 0, tr("Пропуски сейчас (GM), все цилиндры",
+            "Misfires now (GM), all cylinders"), gm.sum(), null, "", 0)
+        return out.associateBy { it.key }
+    }
+
+    /** The line under a «Как бензин?» card: how many samples, and when the last retard was. */
+    private fun tileNote(x: Reading): String? = when (x.source) {
+        "calc.knockLoad" -> x.text
+        "calc.knockLast" -> (listOfNotNull(x.text?.ifEmpty { null }) + ago(x.time)).joinToString(" · ")
+        else -> null
+    }
+
+    private fun ago(t: Long): String {
+        val s = (nowMs() - t) / 1000
+        return when {
+            s < 60 -> tr("$s с назад", "$s s ago")
+            s < 3600 -> tr("${s / 60} мин назад", "${s / 60} min ago")
+            else -> tr("${s / 3600} ч назад", "${s / 3600} h ago")
+        }
+    }
+
     private const val ROLE = "role:"
+    private val WATCH_LEVELS = setOf("calc.knock", "calc.knockLoad", "calc.misfire06", "calc.misfireGm")
 
     private val U_RPM = tr("об/мин", "rpm")
     private val U_KPA = tr("кПа", "kPa")
@@ -168,6 +240,10 @@ object MainScreen {
         "000:ATRV" to Triple(14.1, U_V, 1),
         "01.46" to Triple(20.0, "°C", 0),
         "01.33" to Triple(100.0, U_KPA, 0),
+        "calc.knock" to Triple(0.0, "°", 1),
+        "22.12D9" to Triple(0.0, "°", 1),
+        "calc.knockLoad" to Triple(0.0, "%", 0),
+        "calc.misfire06" to Triple(0.0, "", 0),
     )
 
     /** An offline card for [key] (a main-screen source or "ecu:source"), keyed like the live reading it stands in for. */
@@ -186,6 +262,8 @@ object MainScreen {
     }
 
     fun tileLevel(reading: Reading): Level? = when {
+        // «Как бензин?»: no retard, no misfires — green; any — amber (how much is too much we don't know).
+        reading.source in WATCH_LEVELS -> reading.value?.let { if (it > 0) Level.WARN else Level.GOOD }
         reading.source == "calc.trim1" || reading.source == "calc.trim2" -> trimLevel(reading.value)
         reading.source == "01.05" -> reading.value?.let { if (it > 105) Level.BAD else if (it < 70) Level.WARN else null }
         reading.source == "22.1940" || reading.role == "atf_temp" -> reading.value?.let { if (it > 110) Level.BAD else if (it > 95) Level.WARN else null }

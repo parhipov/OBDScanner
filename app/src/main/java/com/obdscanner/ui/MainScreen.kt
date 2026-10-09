@@ -31,11 +31,11 @@ import com.obdscanner.screen.MainScreen
 import com.obdscanner.screen.MainSection
 
 @Composable
-fun MainScreen(r: Map<String, Reading>, v: VehicleInfo, onTab: (Tab) -> Unit) {
+fun MainScreen(r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, onTab: (Tab) -> Unit) {
     // Card help: (label, reading) — the dialog shows the live value when there is one.
     var help by remember { mutableStateOf<Pair<String, Reading>?>(null) }
     help?.let { (label, h) -> CardHelpDialog(label, r[h.key] ?: h, sample = r[h.key] == null) { help = null } }
-    val view = MainScreen.build(r, v)
+    val view = MainScreen.build(r, v, watch)
     LazyVerticalGrid(
         columns = GridCells.Adaptive(165.dp),
         modifier = Modifier.fillMaxSize(),
@@ -44,11 +44,13 @@ fun MainScreen(r: Map<String, Reading>, v: VehicleInfo, onTab: (Tab) -> Unit) {
         items(view.top, key = { it.key }, span = { GridItemSpan(maxLineSpan) }) { BlockView(it, null, {}, {}, onTab = onTab) }
         for (s in view.sections) {
             item(key = "h:${s.title}", span = { GridItemSpan(maxLineSpan) }) { SectionHeader(s) }
-            items(s.tiles, key = { it.reading.key }) { t ->
+            s.note?.let { note -> item(key = "n:${s.title}", span = { GridItemSpan(maxLineSpan) }) { Muted(note) } }
+            // A card may sit in two sections («Как бензин?» repeats Engine's timing).
+            items(s.tiles, key = { "${s.title}:${it.reading.key}" }) { t ->
                 val container = Color(s.tile)
                 if (t.sample) ValueTile(t.label, t.reading, color = MaterialTheme.colorScheme.outline, container = container,
                     note = t.note, onClick = { help = t.label to t.reading })
-                else ValueTile(t.label, t.reading, color = t.level?.color(), container = container, onClick = { help = t.label to t.reading })
+                else ValueTile(t.label, t.reading, color = t.level?.color(), container = container, note = t.note, onClick = { help = t.label to t.reading })
             }
         }
     }

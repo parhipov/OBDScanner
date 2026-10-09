@@ -90,7 +90,7 @@ class Scanner(appVersion: String) {
 
     init {
         AppInfo.versionName = appVersion
-        for (f in listOf(link.readings, link.vehicle, link.scan, link.bus, conn, busy, picked)) scope.launch { f.collect { dirty = true } }
+        for (f in listOf(link.readings, link.vehicle, link.scan, link.bus, link.fuelWatch, conn, busy, picked)) scope.launch { f.collect { dirty = true } }
         // At most five redraws a second, whatever the poll rate.
         scope.launch {
             while (true) {
@@ -171,7 +171,15 @@ class Scanner(appVersion: String) {
         return "{" + parts.joinToString(",") + "}"
     }
 
-    fun main(): String = ScreenJson.main(MainScreen.build(link.readings.value, link.vehicle.value))
+    fun main(): String = ScreenJson.main(MainScreen.build(link.readings.value, link.vehicle.value, link.fuelWatch.value))
+
+    /** The «Как бензин?» checkbox on the first screen, kept in localStorage; it also adds its section to the report. */
+    val fuelWatch: Boolean get() = link.fuelWatch.value
+
+    fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
+
+    /** The checkbox's label and the text behind its «?». */
+    fun fuelWatchTexts(): Array<String> = arrayOf(MainScreen.WATCH_LABEL, MainScreen.WATCH_HELP)
 
     /** "Fuel", "All", "Dtc" or "Info" as JSON blocks. */
     fun screen(name: String): String {

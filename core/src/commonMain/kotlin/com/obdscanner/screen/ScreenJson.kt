@@ -17,6 +17,7 @@ object ScreenJson {
                 str("title", s.title)
                 str("accent", color(s.accent))
                 str("tile", color(s.tile))
+                str("note", s.note)
                 arr("tiles") {
                     for (t in s.tiles) obj {
                         str("label", t.label)
