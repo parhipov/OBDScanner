@@ -87,6 +87,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
     val source by m.source.collectAsStateWithLifecycle()
     val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
+    val newer by m.updates.newer.collectAsStateWithLifecycle()
     val usb by m.usb.collectAsStateWithLifecycle()
     fun pick(id: String) { if (!running) m.pickSource(id) }
     val device = devices.firstOrNull { it.address == source }
@@ -97,6 +98,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
 
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
+            item { UpdateLine(newer) }
             item { SupportLine() }
             item { FuelWatchLine(fuelWatch, m::setFuelWatch) }
             item {

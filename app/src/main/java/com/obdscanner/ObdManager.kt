@@ -102,6 +102,9 @@ class ObdManager(private val context: Context) {
     /** The settings as the core sees them: the connection's memory, the accepted terms. */
     val store: Store = PrefsStore(prefs)
 
+    /** A newer release on GitHub: the line on Connect, the check's switch on Info. */
+    val updates = Updates(prefs, scope, BuildConfig.VERSION_NAME)
+
     private val link = CarLink(
         store = store,
         pickedCar = { _picked.value },

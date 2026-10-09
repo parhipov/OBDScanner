@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.obdscanner.ObdManager
 import com.obdscanner.VehicleInfo
 import com.obdscanner.obd.Reading
@@ -52,6 +53,7 @@ fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
 fun InfoScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
     var licenses by remember { mutableStateOf(false) }
     var terms by remember { mutableStateOf(false) }
+    val updateCheck by m.updates.enabled.collectAsStateWithLifecycle()
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
         blocks(InfoScreen.build(v), busy, onAction = {
             when (it) {
@@ -60,6 +62,8 @@ fun InfoScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
                 else -> m.run(it)
             }
         }, onDtc = {})
+        // The phone's own, the page has nothing to update: the end of About.
+        item { UpdateCheckLine(updateCheck, m.updates::setEnabled) }
     }
     if (licenses) LicensesDialog { licenses = false }
     if (terms) TermsDialog { terms = false }

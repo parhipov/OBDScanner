@@ -33,6 +33,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.obdscanner.screen.Terms
 import com.obdscanner.ui.AllScreen
@@ -105,6 +107,8 @@ private fun AppRoot(m: ObdManager) {
     var tab by rememberSaveable { mutableStateOf(Tab.Connect) }
 
     LaunchedEffect(tab) { m.activeTab.value = tab }
+    // Only once the terms are accepted (Root): nothing goes out before that.
+    LifecycleEventEffect(Lifecycle.Event.ON_START) { m.updates.check() }
     LaunchedEffect(conn) { if (conn is ConnState.Connected && tab == Tab.Connect) tab = Tab.Main }
 
     Scaffold(
