@@ -48,6 +48,8 @@ kotlin {
             implementation("org.json:json:20240303")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
         }
+        // The app's door to the report: a direct call when it's there (a moved signature fails the build), a stub otherwise.
+        jvmMain { kotlin.srcDir(if (privateReport != null) "src/reportOn/kotlin" else "src/reportOff/kotlin") }
         if (privateReport != null) {
             commonMain { kotlin.srcDir(privateReport.resolve("src/commonMain/kotlin")) }
             jsMain { kotlin.srcDir(privateReport.resolve("src/jsMain/kotlin")) }
