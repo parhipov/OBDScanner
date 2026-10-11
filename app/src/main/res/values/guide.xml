@@ -50,13 +50,13 @@
         <item>Volkswagen</item>
         <item>A Polo 9N (up to about 2009) with a petrol engine is usually on K-line. Then only standard OBD is read.</item>
         <item>The first connection takes about two minutes: the app looks for the modules and reads their part numbers and codes. On cars up to about 2012 it only finds the engine and the gearbox.</item>
-        <item>If you have time, with the car parked: \"GM scan\" → \"Find modules\", then on the engine module scan \"F100–F1FF\" or \"1000–1FFF\". It takes a while.</item>
+        <item>If you have time, with the car parked: \"Module scan\" → \"Find blocks\", pick the range \"Identification F100–F1FF\" or \"Block 1000–1FFF\" and tap \"Parameters\" on the engine block. It takes a while.</item>
     </string-array>
 
     <string-array name="guide_toyota">
         <item>Toyota</item>
         <item>The RAV4 2005 doesn\'t report its VIN, so pick the car above by hand.</item>
-        <item>What\'s needed is a recording of the engine module data. Start the engine, \"GM scan\" → \"Find modules\". On \"Engine (7E0)\" tap \"$21\" (20–40 seconds), then \"Tick all with data\". Go to \"Main\" and drive for 15–20 minutes: warm-up, idle, accelerations, engine braking.</item>
+        <item>What\'s needed is a recording of the engine module data. Start the engine, \"Module scan\" → \"Find blocks\". On \"Engine (7E0)\" tap \"Block data\" (20–40 seconds), then \"Tick all with data\". Go to \"Main\" and drive for 15–20 minutes: warm-up, idle, accelerations, engine braking.</item>
         <item>The same screen has \"Sniff bus\": 1–2 minutes with the engine running.</item>
         <item>If the car is on K-line, connecting takes longer (up to half a minute) and only standard OBD is read.</item>
     </string-array>
@@ -70,7 +70,7 @@
     <string-array name="guide_hyundai">
         <item>Hyundai</item>
         <item>The Solaris is usually on CAN. If the car is from 2010 or earlier, it\'s most likely an Accent or Verna. The protocol is shown on \"Info\".</item>
-        <item>The Coupe 2003 is on K-line; the engine and the automatic transmission answer. In \"GM scan\", tap \"$21\" on each module, then \"Tick all with data\" and go for a drive. On K-line the scan takes a minute or two.</item>
+        <item>The Coupe 2003 is on K-line; the engine and the automatic transmission answer. In \"Module scan\", tap \"Block data\" on each block, then \"Tick all with data\" and go for a drive. On K-line the scan takes a minute or two.</item>
         <item>The first connection takes about 20 seconds: the app looks for the modules and reads their part numbers and codes. It doesn\'t find ABS, airbags or body modules.</item>
     </string-array>
 
@@ -78,7 +78,7 @@
         <item>Safety</item>
         <item>The app only reads. One button can change something in the car, \"Clear\" on \"Codes\", and it asks first.</item>
         <item>Clearing erases not only the codes but also the readiness monitors and the freeze frame. The codes themselves are already saved in the session by then.</item>
-        <item>Run the scans in \"GM scan\" and the bus sniffing while parked: live data isn\'t read while they run.</item>
+        <item>Run the scans in \"Module scan\" and the bus sniffing while parked: live data isn\'t read while they run.</item>
     </string-array>
 
     <string-array name="guide_files">

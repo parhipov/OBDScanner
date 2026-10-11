@@ -14,7 +14,6 @@ import com.obdscanner.screen.GmScreen
 import com.obdscanner.screen.CarPicker
 import com.obdscanner.screen.CarCompare
 import com.obdscanner.screen.CarCard
-import com.obdscanner.gm.ScanRanges
 import com.obdscanner.car.CarChoice
 import com.obdscanner.elm.Elm327
 import com.obdscanner.elm.Obd
@@ -238,16 +237,23 @@ class Scanner(appVersion: String) {
 
     fun guide(): String = ScreenJson.guide(Guide.build(link.vehicle.value, picked.value), CarCard.build(link.vehicle.value, picked.value))
 
-    fun gm(onlyWatched: Boolean): String = ScreenJson.gm(GmScreen.build(link.scan.value, link.bus.value, link.readings.value, onlyWatched))
+    fun gm(onlyWatched: Boolean): String =
+        ScreenJson.gm(GmScreen.build(link.scan.value, link.bus.value, link.readings.value, onlyWatched, link.scanContext()))
 
-    fun findModules() = launchOp(tr("Поиск модулей", "Module search")) { link.probeModules(it) }
+    fun findModules() = launchOp(tr("Поиск блоков", "Block search")) { link.probeModules(it) }
 
     /** [service] "1A", "21" or "22"; [range] — the index of the $22 range ([GmView.ranges]). */
     fun scanModule(id: String, service: String, range: Int) {
         val m = link.scan.value.modules.firstOrNull { it.id == id } ?: return
-        val r = if (service == "22") ScanRanges.ranges22.getOrElse(range) { ScanRanges.ranges22.first() }.second else 0x00..0xFF
+        val ranges = link.scanContext().ranges
+        val r = if (service == "22") ranges.getOrElse(range) { ranges.first() }.second else 0x00..0xFF
         launchOp(tr("Скан ${m.id} $service", "Scan ${m.id} $service")) { link.scanModule(it, m, service, r) }
     }
+
+    /** Saves a field of a watched block ([GmView.Field.id]) as this car's parameter. */
+    fun saveParam(hitKey: String, fieldId: String) = link.saveParam(hitKey, fieldId)
+
+    fun removeParam(key: String) = link.removeParam(key)
 
     fun sniffBus() = launchOp(tr("Прослушка шины", "Bus listening")) { link.sniffBus(it) }
 

@@ -18,7 +18,11 @@ import com.obdscanner.gm.GmDtcReader
 import com.obdscanner.gm.GmDtcResult
 import com.obdscanner.gm.GmModule
 import com.obdscanner.gm.GmScanner
+import com.obdscanner.gm.ScanDecode
 import com.obdscanner.gm.ScanHit
+import com.obdscanner.gm.ScanParam
+import com.obdscanner.gm.ScanRanges
+import com.obdscanner.screen.ScanContext
 import com.obdscanner.obd.Dtc
 import com.obdscanner.obd.DtcCode
 import com.obdscanner.obd.DtcDb
@@ -98,6 +102,9 @@ class CarLink(
         _vehicle.value = VehicleInfo(car = car)
         _scan.value = ScanState()
         _bus.value = BusState()
+        watchLog.clear()
+        decodedAt.clear()
+        paramsFor = null
         lastPoll.clear()
         knockHi = 0
         knockHiRetard = 0
@@ -761,6 +768,11 @@ class CarLink(
     private var lastFlush = 0L
     private var lastMisfire = 0L
     private var lastWatch = 0L
+    /** Each watched block's polls (by hit key) with the standard parameters of the same cycle, for [ScanDecode]. */
+    private val watchLog = HashMap<String, ArrayDeque<ScanDecode.Sample>>()
+    private val decodedAt = HashMap<String, Long>()
+    /** Whose saved fields are loaded ([carKey]). */
+    private var paramsFor: String? = null
     /** «Как бензин?» as raw.log last says it: the report puts its section first when it was on. */
     private var notedWatch = false
 
@@ -829,8 +841,14 @@ class CarLink(
         }
         val ext = _vehicle.value.extActive
         if (ext.isNotEmpty() && tab in listOf(Tab.Main, Tab.Fuel, Tab.All)) pollExt(o, ext, tab)
+        // The saved fields belong to a car: picked up once it is known (VIN or calibration read).
+        val car = carKey()
+        if (car != paramsFor) {
+            paramsFor = car
+            _scan.update { it.copy(params = loadParams()) }
+        }
         val watched = _scan.value.watched
-        if (watched.isNotEmpty() && (tab == Tab.Gm || now - lastWatch > 3000)) {
+        if ((watched.isNotEmpty() || _scan.value.params.isNotEmpty()) && (tab == Tab.Gm || now - lastWatch > 3000)) {
             lastWatch = now
             pollWatched(o, watched)
         }
@@ -1115,22 +1133,95 @@ class CarLink(
         publish(res)
     }
 
+    /**
+     * The watched blocks and the saved fields, one request per block. Each answer of a watched block is kept with
+     * the standard parameters of that cycle, and every [DECODE_EVERY_MS] the block is matched against them ([ScanDecode]).
+     */
     private suspend fun pollWatched(o: Obd, watched: Set<String>) {
         val sc = GmScanner(o) { session?.note(it) }
-        val hits = _scan.value.hits.filter { it.key in watched }
-        val out = hits.mapNotNull { h ->
-            sc.readRaw(h.req, h.resp, h.service, h.did)?.let { d ->
+        val st = _scan.value
+        val hits = st.hits.filter { it.key in watched }
+        val blocks = (hits.map { Triple(it.req, it.resp, it.service to it.did) } + st.params.map { Triple(it.req, it.resp, it.service to it.did) }).distinct()
+        val refs = _readings.value.let { r -> REF_KEYS.mapNotNull { k -> r.pick(k)?.value?.let { k to it } }.toMap() }
+        val now = clock()
+        val out = mutableListOf<Reading>()
+        val decoded = HashMap<String, ScanDecode.Result>()
+        val polls = HashMap<String, Int>()
+        for ((req, resp, sd) in blocks) {
+            val (service, did) = sd
+            val d = sc.readRaw(req, resp, service, did) ?: continue
+            val key = "%03X:%s.%04X".format(req, service, did)
+            hits.firstOrNull { it.key == key }?.let { h ->
                 val v = when {
                     d.isEmpty() -> null
                     d.size == 1 -> d[0].toDouble()
                     else -> (d[0] * 256 + d[1]).toDouble()
                 }
-                Reading(h.key, h.req, "%03X %s %s".format(h.req, h.service, h.didHex), v, Pids.hex(d), "raw", 0)
+                out += Reading(h.key, h.req, "%03X %s %s".format(h.req, h.service, h.didHex), v, Pids.hex(d), "raw", 0)
+                val log = watchLog.getOrPut(key) { ArrayDeque() }
+                log.addLast(ScanDecode.Sample(d, refs))
+                if (log.size > WATCH_LOG) log.removeFirst()
+                polls[key] = log.size
+                if (log.size >= ScanDecode.MIN_SAMPLES && now - (decodedAt[key] ?: 0L) > DECODE_EVERY_MS) {
+                    decodedAt[key] = now
+                    ScanDecode.decode(log.toList(), REF_KEYS)?.let { decoded[key] = it }
+                }
             }
+            for (p in st.params) if (p.hitKey == key) p.value(d)?.let { out += Reading(p.key, p.req, p.name, it, null, p.unit, p.decimals) }
         }
         o.broadcast()
         publish(out)
+        if (decoded.isNotEmpty() || polls.isNotEmpty()) _scan.update { it.copy(decoded = it.decoded + decoded, polls = it.polls + polls) }
     }
+
+    /** The scan screen's make-dependent parts: the \$22 ranges and which services a block is asked. */
+    fun scanContext(): ScanContext {
+        val gm = family()?.id == "gm"
+        return ScanContext(gm, ScanRanges.forMake(gm)) { m -> scanServices(m) }
+    }
+
+    /**
+     * What a block understands, by how it talks: GMLAN — \$1A identification and \$22; Toyota — \$21 data lists and
+     * \$22; K-line KWP — \$1A and \$21; anything else — UDS \$22 first, then the KWP ones.
+     */
+    private fun scanServices(m: GmModule): List<String> {
+        val d = dialectOf(m.req)
+        return when {
+            _vehicle.value.kline -> listOf("1A", "21")
+            d.ident == "gm_1a" -> listOf("1A", "22")
+            d.live == "21" || d.family == "toyota" -> listOf("21", "22")
+            else -> listOf("22", "21", "1A")
+        }
+    }
+
+    /** Saves a field the scan screen showed ([ScanDecode.Field.id]) as this car's parameter. */
+    fun saveParam(hitKey: String, fieldId: String) {
+        val st = _scan.value
+        val h = st.hits.firstOrNull { it.key == hitKey } ?: return
+        val f = st.decoded[hitKey]?.field(fieldId) ?: return
+        // Only a field that is a standard parameter takes its name, unit and scale; one that merely moves with it
+        // is kept as its raw number.
+        val ref = f.ref?.takeIf { f.same }?.let { _readings.value.pick(it) }
+        val where = "%03X %s %s".format(h.req, h.service, h.didHex)
+        val bytes = if (f.size == 1) ScanDecode.letter(f.offset) else ScanDecode.letter(f.offset) + "–" + ScanDecode.letter(f.offset + 1)
+        val name = if (ref != null) "${ref.name} · $where" else tr("%s · байт %s", "%s · byte %s").format(where, bytes)
+        val p = if (ref != null) ScanParam(h.req, h.resp, h.service, h.did, f.offset, f.size, f.signed, f.a, f.b, name, ref.unit, ref.decimals)
+            else ScanParam(h.req, h.resp, h.service, h.did, f.offset, f.size, f.signed, 1.0, 0.0, name, "", 0)
+        storeParams(st.params.filter { it.key != p.key } + p)
+        session?.note("scan field saved: ${p.encode().replace('\t', ' ')}")
+    }
+
+    fun removeParam(key: String) = storeParams(_scan.value.params.filter { it.key != key })
+
+    private fun storeParams(list: List<ScanParam>) {
+        _scan.update { it.copy(params = list) }
+        paramsKey()?.let { store.putString(it, list.joinToString("\n") { p -> p.encode() }.ifEmpty { null }) }
+    }
+
+    /** The saved fields of the car now connected (per [carKey]: VIN, recognised model or calibration). */
+    private fun loadParams(): List<ScanParam> = paramsKey()?.let { store.getString(it) }.orEmpty().lines().mapNotNull(ScanParam::decode)
+
+    private fun paramsKey() = carKey()?.let { "scan_params_$it" }
 
     private fun publishDerived() {
         val r = _readings.value
@@ -1419,6 +1510,13 @@ class CarLink(
 
     companion object {
         private const val MAX_WATCHED = 24
+        /** Polls of a watched block kept for [ScanDecode] (on the scan tab ~1 s apart: about ten minutes). */
+        private const val WATCH_LOG = 600
+        private const val DECODE_EVERY_MS = 10_000L
+        /** The standard parameters a block's fields are matched against (the ones scan_decode.py uses). */
+        val REF_KEYS = listOf("01.0C", "01.0D", "01.05", "01.0F", "01.10", "01.11", "01.45", "01.47", "01.49", "01.4A", "01.4C",
+            "01.04", "01.43", "01.0E", "01.0B", "01.06", "01.07", "01.24.L", "01.34.I", "01.44", "01.14.V", "01.15.V",
+            "01.3C", "01.3E", "01.42", "01.33", "01.1F", "01.2E", "01.2F", "01.5C")
         val PROTOCOLS = mapOf(6 to "CAN 11/500", 7 to "CAN 29/500", 8 to "CAN 11/250", 9 to "CAN 29/250",
             4 to "KWP2000 5-baud", 5 to "KWP2000 fast", 3 to "ISO 9141-2")
         /**

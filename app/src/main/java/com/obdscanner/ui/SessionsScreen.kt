@@ -19,7 +19,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -39,10 +38,7 @@ import com.obdscanner.ObdManager
 import com.obdscanner.R
 import com.obdscanner.ReportBridge
 import com.obdscanner.tr
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -57,38 +53,10 @@ fun SessionsScreen(m: ObdManager) {
     // Ticked sessions (by folder name): while any is ticked, Send and Delete act on all of them.
     var picked by remember { mutableStateOf(emptySet<String>()) }
     val chosen = list.filter { it.name in picked }
-    var confirm by remember { mutableStateOf(false) }
+    // Sessions waiting for «Удалить?»: one by its own button or the ticked ones — always asked.
+    var asked by remember { mutableStateOf<List<File>?>(null) }
     BackHandler(enabled = chosen.isNotEmpty()) { picked = emptySet() }
-    // The report being built (when the build has the generator): session, share done 0…1, stage.
-    var making by remember { mutableStateOf<String?>(null) }
-    var done by remember { mutableStateOf(0.0) }
-    var stage by remember { mutableStateOf("") }
-    var job by remember { mutableStateOf<Job?>(null) }
-    // The report built: open it or send it (Telegram, mail…) — a browser can't pass on the page it shows.
-    var ready by remember { mutableStateOf<File?>(null) }
-
-    fun report(dir: File) {
-        if (dir == current) m.session?.flush()
-        making = dir.name; done = 0.0; stage = tr("Подготовка", "Preparing")
-        job = scope.launch {
-            try {
-                val html = withContext(Dispatchers.Default) {
-                    val work = this
-                    ReportBridge.build(dir, m.fuelWatch.value) { d, st -> work.ensureActive(); done = d; stage = st }
-                }
-                val file = withContext(Dispatchers.IO) {
-                    File(ctx.cacheDir, "share").apply { mkdirs() }.resolve("report_${dir.name}.html").apply { writeText(html) }
-                }
-                ready = file
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Throwable) {
-                toast(ctx, tr("Отчёт не собрался: %s", "The report failed: %s").format(e.message ?: e.javaClass.simpleName))
-            } finally {
-                making = null
-            }
-        }
-    }
+    val report = rememberReportRun(m)
 
     fun send(dirs: List<File>) {
         if (current in dirs) m.session?.flush()
@@ -102,12 +70,12 @@ fun SessionsScreen(m: ObdManager) {
             if (chosen.size < list.size) TextButton(onClick = { picked = list.map { it.name }.toSet() }) { Text(tr("Все", "All")) }
             IconButton(onClick = { send(chosen) }) { Icon(Icons.Default.Share, tr("Отправить", "Send")) }
             IconButton(onClick = {
-                if (chosen.all { it == current }) toast(ctx, tr("Сессия ещё пишется", "Session is still recording")) else confirm = true
+                if (chosen.all { it == current }) toast(ctx, tr("Сессия ещё пишется", "Session is still recording")) else asked = chosen
             }) { Icon(Icons.Default.Delete, tr("Удалить", "Delete")) }
         }
         LazyColumn(Modifier.weight(1f).padding(horizontal = 4.dp)) {
-            item { Muted(tr("Каждое подключение — отдельная сессия: raw.log (обмен с адаптером), data.csv (все значения), report.txt (сводка), scan.csv (GM-скан).",
-                "Each connection is a separate session: raw.log (adapter traffic), data.csv (all values), report.txt (summary), scan.csv (GM scan).")) }
+            item { Muted(tr("Каждое подключение — отдельная сессия: raw.log (обмен с адаптером), data.csv (все значения), report.txt (сводка), scan.csv (скан блоков).",
+                "Each connection is a separate session: raw.log (adapter traffic), data.csv (all values), report.txt (summary), scan.csv (module scan).")) }
             item { Muted(tr("Сессию с ошибкой подключения или странными значениями пришлите на $SESSION_EMAIL — почтовое приложение подставит адрес само. В письме укажите машину и что пошло не так.",
                 "Send a session with a connection error or odd values to $SESSION_EMAIL — a mail app fills the address in. Name the car and what went wrong in the email.")) }
             items(list, key = { it.name }) { dir ->
@@ -123,12 +91,12 @@ fun SessionsScreen(m: ObdManager) {
                         }
                         // One session's own buttons: hidden while picking, so the bar on top is the only Send / Delete.
                         if (chosen.isEmpty()) {
-                            if (ReportBridge.available) IconButton(onClick = { report(dir) }, enabled = making == null) {
+                            if (ReportBridge.available) IconButton(onClick = { report.start(dir) }, enabled = report.making == null) {
                                 Icon(painterResource(R.drawable.ic_report), tr("Отчёт", "Report"))
                             }
                             IconButton(onClick = { send(listOf(dir)) }) { Icon(Icons.Default.Share, tr("Отправить", "Send")) }
                             IconButton(onClick = {
-                                if (dir == current) toast(ctx, tr("Сессия ещё пишется", "Session is still recording")) else { m.sessions.delete(dir); refresh++ }
+                                if (dir == current) toast(ctx, tr("Сессия ещё пишется", "Session is still recording")) else asked = listOf(dir)
                             }) { Icon(Icons.Default.Delete, tr("Удалить", "Delete")) }
                         }
                     }
@@ -138,50 +106,23 @@ fun SessionsScreen(m: ObdManager) {
         }
     }
 
-    making?.let { name ->
-        AlertDialog(
-            onDismissRequest = {},
-            title = { Text(tr("Отчёт", "Report")) },
-            text = {
-                Column {
-                    Text(name, style = MaterialTheme.typography.bodySmall)
-                    LinearProgressIndicator(progress = { done.toFloat() }, modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp))
-                    Text(stage, style = MaterialTheme.typography.bodyMedium)
-                }
-            },
-            confirmButton = {},
-            dismissButton = { TextButton(onClick = { job?.cancel(); making = null }) { Text(tr("Отмена", "Cancel")) } },
-        )
-    }
+    ReportDialogs(report)
 
-    ready?.let { file ->
+    asked?.let { dirs ->
+        val gone = dirs.filter { it != current }
+        val one = dirs.size == 1
         AlertDialog(
-            onDismissRequest = { ready = null },
-            title = { Text(tr("Отчёт готов", "The report is ready")) },
-            text = { Text(file.name, style = MaterialTheme.typography.bodySmall) },
-            confirmButton = {
-                Row {
-                    TextButton(onClick = { ready = null; shareReport(ctx, file) }) { Text(tr("Отправить", "Send")) }
-                    TextButton(onClick = { ready = null; openReport(ctx, file) }) { Text(tr("Открыть", "Open")) }
-                }
-            },
-            dismissButton = { TextButton(onClick = { ready = null }) { Text(tr("Закрыть", "Close")) } },
-        )
-    }
-
-    if (confirm) {
-        val gone = chosen.filter { it != current }
-        AlertDialog(
-            onDismissRequest = { confirm = false },
-            title = { Text(tr("Удалить выбранные сессии?", "Delete the selected sessions?")) },
+            onDismissRequest = { asked = null },
+            title = { Text(if (one) tr("Удалить сессию?", "Delete the session?") else tr("Удалить выбранные сессии?", "Delete the selected sessions?")) },
             text = {
-                Text(tr("Сессий: %d. Восстановить их будет нельзя.", "Sessions: %d. They can't be restored.").format(gone.size) +
-                    if (current in chosen) tr(" Сессия, которая сейчас пишется, останется.", " The session being recorded stays.") else "")
+                Text(if (one) tr("%s. Восстановить её будет нельзя.", "%s. It can't be restored.").format(dirs[0].name)
+                    else tr("Сессий: %d. Восстановить их будет нельзя.", "Sessions: %d. They can't be restored.").format(gone.size) +
+                        if (current in dirs) tr(" Сессия, которая сейчас пишется, останется.", " The session being recorded stays.") else "")
             },
             confirmButton = {
-                TextButton(onClick = { confirm = false; gone.forEach(m.sessions::delete); picked = emptySet(); refresh++ }) { Text(tr("Удалить", "Delete")) }
+                TextButton(onClick = { asked = null; gone.forEach(m.sessions::delete); picked = emptySet(); refresh++ }) { Text(tr("Удалить", "Delete")) }
             },
-            dismissButton = { TextButton(onClick = { confirm = false }) { Text(tr("Отмена", "Cancel")) } },
+            dismissButton = { TextButton(onClick = { asked = null }) { Text(tr("Отмена", "Cancel")) } },
         )
     }
 }

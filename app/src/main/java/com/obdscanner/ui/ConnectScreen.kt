@@ -25,6 +25,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -40,11 +42,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.obdscanner.ConnState
 import com.obdscanner.ObdManager
+import com.obdscanner.R
+import com.obdscanner.ReportBridge
 import com.obdscanner.SOURCE_DEMO
 import com.obdscanner.SOURCE_SENSORS
 import com.obdscanner.SOURCE_WIFI
@@ -52,6 +57,7 @@ import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarChoice
 import com.obdscanner.transport.WifiTransport
 import com.obdscanner.tr
+import java.io.File
 
 @SuppressLint("MissingPermission")
 @Composable
@@ -95,6 +101,11 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     var wifiAddress by remember { mutableStateOf(m.wifiAddress) }
     val wifiOk = wifiAddress.isBlank() || WifiTransport.parse(wifiAddress) != null
     val canStart = device != null || usbPicked != null || (source == SOURCE_WIFI && wifiOk) || source == SOURCE_DEMO || source == SOURCE_SENSORS
+    // The trip just stopped: its report in one tap right above «Старт» — few find it on «Сессии». A recording that
+    // got no data (the adapter didn't answer) has nothing to report.
+    val report = rememberReportRun(m)
+    val finished = if (running || !ReportBridge.available) null
+        else m.session?.takeIf { it.closed }?.dir?.takeIf { d -> listOf("data.csv", "sensors.csv").any { File(d, it).length() > 0 } }
 
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
@@ -186,6 +197,16 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                     selected = source == SOURCE_SENSORS, locked = running) { pick(SOURCE_SENSORS) }
             }
         }
+        finished?.let { dir ->
+            FilledTonalButton(
+                onClick = { report.start(dir) },
+                enabled = report.making == null,
+                modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, top = 8.dp).height(52.dp),
+            ) {
+                Icon(painterResource(R.drawable.ic_report), null, Modifier.padding(end = 10.dp))
+                Text(tr("Отчёт по поездке", "Trip report"), style = MaterialTheme.typography.titleMedium)
+            }
+        }
         Button(
             onClick = {
                 when {
@@ -204,6 +225,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
             Text(if (running) tr("Стоп", "Stop") else tr("Старт", "Start"), style = MaterialTheme.typography.titleMedium)
         }
     }
+    ReportDialogs(report)
 }
 
 /** One pickable source: a frame and a filled radio when picked. */

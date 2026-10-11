@@ -416,7 +416,7 @@ class ObdManager(private val context: Context) {
 
     fun rediscover() = launchOp(tr("Повторный опрос", "Rescan")) { link.rediscover(it) }
 
-    fun probeModules() = launchOp(tr("Поиск модулей", "Module search")) { link.probeModules(it) }
+    fun probeModules() = launchOp(tr("Поиск блоков", "Block search")) { link.probeModules(it) }
 
     /** Full DTC memory of every module; finds the modules first if that wasn't done yet. Read only. */
     fun readAllModulesDtc() = launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.readAllModulesDtc(it) }
@@ -435,6 +435,13 @@ class ObdManager(private val context: Context) {
     fun watchAll(hits: List<ScanHit>) = link.watchAll(hits)
 
     fun toggleWatch(hit: ScanHit) = link.toggleWatch(hit)
+
+    /** «Скан блоков»: the make's \$22 ranges and the services each block is asked. */
+    fun scanContext() = link.scanContext()
+
+    fun saveParam(hitKey: String, fieldId: String) = link.saveParam(hitKey, fieldId)
+
+    fun removeParam(key: String) = link.removeParam(key)
 }
 
 /** The app's settings as the connection's [Store]. */

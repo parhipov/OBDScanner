@@ -86,13 +86,21 @@ object ScreenJson {
         str("rangeTitle", g.rangeTitle)
         arr("ranges") { g.ranges.forEach { str(it) } }
         str("modulesTitle", g.modulesTitle); str("modulesEmpty", g.modulesEmpty)
-        arr("modules") { for (m in g.modules) obj { str("id", m.id); str("title", m.title); str("answeredTo", m.answeredTo) } }
+        arr("modules") {
+            for (m in g.modules) obj {
+                str("id", m.id); str("title", m.title); str("answeredTo", m.answeredTo)
+                arr("services") { for (s in m.services) obj { str("id", s.id); str("label", s.label) } }
+            }
+        }
         str("scanLabel", g.scanLabel); str("scanNote", g.scanNote)
+        str("paramsTitle", g.paramsTitle)
+        arr("params") { for (p in g.params) obj { str("key", p.key); str("title", p.title); str("value", p.value); str("remove", p.remove) } }
         str("hitsTitle", g.hitsTitle); str("onlyWatched", g.onlyWatched); str("tickAll", g.tickAll); str("untick", g.untick); str("hitsNote", g.hitsNote)
         arr("hits") {
             for (h in g.hits) obj {
                 str("key", h.key); str("title", h.title); str("data", h.data); str("partNumber", h.partNumber)
-                str("ascii", h.ascii); str("live", h.live); bool("watched", h.watched)
+                str("ascii", h.ascii); str("live", h.live); bool("watched", h.watched); str("decodeNote", h.decodeNote)
+                arr("fields") { for (f in h.fields) obj { str("id", f.id); str("text", f.text); bool("matched", f.matched); str("save", f.save) } }
             }
         }
     }

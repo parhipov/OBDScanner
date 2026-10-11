@@ -133,7 +133,8 @@ private fun AppRoot(m: ObdManager) {
                         if (dir == null) toast(ctx, tr("Сессий пока нет", "No sessions yet")) else shareFile(ctx, m.sessions.zip(dir))
                     }) { Icon(Icons.Default.Share, tr("Отправить сессию", "Share session")) }
                     if (conn is ConnState.Connected || conn is ConnState.Connecting || conn is ConnState.Recording) {
-                        IconButton(onClick = { m.disconnect() }) { Icon(Icons.Default.Close, tr("Отключиться", "Disconnect")) }
+                        // To «Связь»: the trip's report button waits there.
+                        IconButton(onClick = { m.disconnect(); tab = Tab.Connect }) { Icon(Icons.Default.Close, tr("Отключиться", "Disconnect")) }
                     }
                 },
             )

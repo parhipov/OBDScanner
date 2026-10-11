@@ -5,7 +5,9 @@ import com.obdscanner.car.CarModel
 import com.obdscanner.car.ExtCommand
 import com.obdscanner.gm.GmDtcResult
 import com.obdscanner.gm.GmModule
+import com.obdscanner.gm.ScanDecode
 import com.obdscanner.gm.ScanHit
+import com.obdscanner.gm.ScanParam
 import com.obdscanner.obd.DtcCode
 import com.obdscanner.obd.Make
 import com.obdscanner.obd.Monitor
@@ -29,7 +31,7 @@ enum class Tab(val title: String) {
     All(tr("Все данные", "All data")),
     Dtc(tr("Ошибки", "Codes")),
     Info(tr("Инфо", "Info")),
-    Gm(tr("GM-скан", "GM scan")),
+    Gm(tr("Скан блоков", "Module scan")),
     Sessions(tr("Сессии", "Sessions"))
 }
 
@@ -99,4 +101,10 @@ data class ScanState(
     val status: String = "",
     val hits: List<ScanHit> = emptyList(),
     val watched: Set<String> = emptySet(),
+    /** What a watched block's bytes look like (by hit key), once it was polled enough: [ScanDecode]. */
+    val decoded: Map<String, ScanDecode.Result> = emptyMap(),
+    /** How many polls each watched block has (by hit key): the screen says how far to the guess. */
+    val polls: Map<String, Int> = emptyMap(),
+    /** Fields saved as this car's parameters. */
+    val params: List<ScanParam> = emptyList(),
 )

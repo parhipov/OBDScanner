@@ -66,8 +66,16 @@ jobs:
           echo "APK: $apk"
           case "$apk" in *"_${GITHUB_REF_NAME#v}.apk") ;; *) echo "Tag ${GITHUB_REF_NAME} ≠ versionName in app/build.gradle.kts"; exit 1 ;; esac
 
+      # Beside the versioned APK the same file as OBDScanner.apk: releases/latest/download/OBDScanner.apk is then
+      # always the newest one — the site's «Скачать APK» button links there.
+      - name: APK under a name without the version
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/release/*.apk out/
+          cp app/build/outputs/apk/release/*.apk out/OBDScanner.apk
+
       - uses: softprops/action-gh-release@v2
         with:
           name: OBD Scanner ${{ github.ref_name }}
           body_path: notes.md
-          files: app/build/outputs/apk/release/*.apk
+          files: out/*.apk

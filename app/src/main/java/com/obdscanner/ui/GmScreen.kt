@@ -1,6 +1,9 @@
 package com.obdscanner.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +20,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -30,18 +34,19 @@ import androidx.compose.ui.unit.dp
 import com.obdscanner.BusState
 import com.obdscanner.ObdManager
 import com.obdscanner.ScanState
-import com.obdscanner.gm.ScanRanges
 import com.obdscanner.obd.Reading
 import com.obdscanner.screen.GmScreen
 import com.obdscanner.screen.GmView
 
-/** GM scan ([GmScreen] in the core): modules, their scans, the found IDs and the bus. */
+/** «Скан блоков» ([GmScreen] in the core): blocks, their scans, the found IDs and what their bytes look like, the bus. */
 @Composable
 fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>, busy: String?, connected: Boolean) {
     var rangeIdx by remember { mutableIntStateOf(0) }
     var rangeMenu by remember { mutableStateOf(false) }
     var onlyWatched by remember { mutableStateOf(false) }
-    val g = GmScreen.build(s, bus, r, onlyWatched)
+    val ctx = m.scanContext()
+    val range = rangeIdx.coerceIn(0, ctx.ranges.lastIndex)
+    val g = GmScreen.build(s, bus, r, onlyWatched, ctx)
     fun module(id: String) = s.modules.firstOrNull { it.id == id }
     fun hit(key: String) = s.hits.firstOrNull { it.key == key }
 
@@ -53,6 +58,18 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
                 if (busy != null) OutlinedButton(onClick = { m.stopOp() }, Modifier.padding(start = 8.dp)) { Text(g.stop) }
             }
             g.scan?.let { Progress(it) }
+            g.paramsTitle?.let { SectionTitle(it) }
+        }
+        items(g.params, key = { "p:" + it.key }) { p ->
+            Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(p.title, style = MaterialTheme.typography.bodyMedium)
+                    Text(p.value, style = MaterialTheme.typography.titleMedium)
+                }
+                TextButton(onClick = { m.removeParam(p.key) }) { Text(p.remove) }
+            }
+        }
+        item {
             SectionTitle(g.busTitle)
             Muted(g.busNote)
             Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -68,7 +85,7 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
             }
             SectionTitle(g.rangeTitle)
             Row(Modifier.padding(horizontal = 8.dp)) {
-                OutlinedButton(onClick = { rangeMenu = true }) { Text(g.ranges[rangeIdx]) }
+                OutlinedButton(onClick = { rangeMenu = true }) { Text(g.ranges[range]) }
                 DropdownMenu(expanded = rangeMenu, onDismissRequest = { rangeMenu = false }) {
                     g.ranges.forEachIndexed { i, label ->
                         DropdownMenuItem(text = { Text(label) }, onClick = { rangeIdx = i; rangeMenu = false })
@@ -79,10 +96,9 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
             g.modulesEmpty?.let { Muted(it) }
         }
         items(g.modules, key = { it.id }) { mod ->
-            ModuleCard(mod, g, enabled = connected && busy == null,
-                onScan1A = { module(mod.id)?.let { m.scanModule(it, "1A", 0x00..0xFF) } },
-                onScan21 = { module(mod.id)?.let { m.scanModule(it, "21", 0x00..0xFF) } },
-                onScan22 = { module(mod.id)?.let { m.scanModule(it, "22", ScanRanges.ranges22[rangeIdx].second) } })
+            ModuleCard(mod, g, enabled = connected && busy == null) { service ->
+                module(mod.id)?.let { m.scanModule(it, service, if (service == "22") ctx.ranges[range].second else 0x00..0xFF) }
+            }
         }
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -97,14 +113,20 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
             g.hitsNote?.let { Muted(it) }
         }
         items(g.hits, key = { it.key }) { h ->
-            Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.Top) {
                 Checkbox(checked = h.watched, onCheckedChange = { hit(h.key)?.let(m::toggleWatch) })
-                Column(Modifier.weight(1f)) {
+                Column(Modifier.weight(1f).padding(top = 12.dp)) {
                     Text(h.title, style = MaterialTheme.typography.labelLarge)
                     Text(h.data, fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall)
                     h.partNumber?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary) }
                     h.ascii?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary) }
                     h.live?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline) }
+                    h.decodeNote?.let { Text(it, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(top = 4.dp)) }
+                    for (f in h.fields) Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(f.text, Modifier.weight(1f), style = MaterialTheme.typography.bodySmall,
+                            color = if (f.matched) Good else MaterialTheme.colorScheme.onSurfaceVariant)
+                        f.save?.let { TextButton(onClick = { m.saveParam(h.key, f.id) }) { Text(it) } }
+                    }
                 }
             }
         }
@@ -117,17 +139,16 @@ private fun Progress(p: GmView.Progress) {
     Muted(p.status)
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ModuleCard(mod: GmView.Module, g: GmView, enabled: Boolean, onScan1A: () -> Unit, onScan21: () -> Unit, onScan22: () -> Unit) {
+private fun ModuleCard(mod: GmView.Module, g: GmView, enabled: Boolean, onScan: (String) -> Unit) {
     Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
         Column(Modifier.padding(10.dp)) {
             Text(mod.title, style = MaterialTheme.typography.titleSmall)
             Text(mod.answeredTo, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(g.scanLabel, style = MaterialTheme.typography.labelLarge)
-                OutlinedButton(onClick = onScan1A, enabled = enabled, modifier = Modifier.padding(start = 8.dp)) { Text("\$1A") }
-                OutlinedButton(onClick = onScan21, enabled = enabled, modifier = Modifier.padding(start = 6.dp)) { Text("\$21") }
-                OutlinedButton(onClick = onScan22, enabled = enabled, modifier = Modifier.padding(start = 6.dp)) { Text("\$22") }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.Center) {
+                Text(g.scanLabel, Modifier.align(Alignment.CenterVertically), style = MaterialTheme.typography.labelLarge)
+                for (sv in mod.services) OutlinedButton(onClick = { onScan(sv.id) }, enabled = enabled) { Text(sv.label) }
             }
             Text(g.scanNote, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
         }

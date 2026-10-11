@@ -52,13 +52,47 @@ object Gm1A {
 
 /** What the scan screen offers to scan (read requests, any make). */
 object ScanRanges {
-    /** Scan ranges offered in the UI (Mode 22). */
-    val ranges22 = listOf(
-        tr("Классические GM (1000–1FFF)", "Classic GM (1000–1FFF)") to (0x1000..0x1FFF),
-        tr("Блок 2000–2FFF", "Block 2000–2FFF") to (0x2000..0x2FFF),
-        tr("Блок 4000–4FFF", "Block 4000–4FFF") to (0x4000..0x4FFF),
-        tr("Блок 8000–8FFF", "Block 8000–8FFF") to (0x8000..0x8FFF),
-        tr("Идентификация F1xx (F100–F1FF)", "Identification F1xx (F100–F1FF)") to (0xF100..0xF1FF),
-        tr("Всё 0000–FFFF (часы!)", "All 0000–FFFF (hours!)") to (0x0000..0xFFFF),
-    )
+    private val all = tr("Всё 0000–FFFF (часы!)", "All 0000–FFFF (hours!)") to (0x0000..0xFFFF)
+    private val ident = tr("Идентификация F100–F1FF", "Identification F100–F1FF") to (0xF100..0xF1FF)
+    private fun block(from: Int) = tr("Блок %04X–%04X", "Block %04X–%04X").format(from, from + 0xFFF) to (from..from + 0xFFF)
+
+    /** The \$22 ranges offered for a GM: its own parameters live in 1000–1FFF. */
+    val gm = listOf(tr("Параметры GM 1000–1FFF", "GM parameters 1000–1FFF") to (0x1000..0x1FFF),
+        block(0x2000), block(0x4000), block(0x8000), ident, all)
+
+    /** Any other make: identification first (UDS F1xx answers on most blocks), then the blocks makers use. */
+    val other = listOf(ident, block(0x0000), block(0x1000), block(0x2000), block(0x4000), block(0xD000),
+        tr("Режим 01 через \$22 F400–F4FF", "Mode 01 over \$22 F400–F4FF") to (0xF400..0xF4FF), all)
+
+    fun forMake(gm: Boolean) = if (gm) this.gm else other
+}
+
+/**
+ * A field of a block saved as a parameter of this car (from «Скан блоков»): polled with the watched blocks,
+ * shown in «Все данные» as [name], value = [a]·x + [b] of the [size]-byte field at [offset] of the answer.
+ */
+data class ScanParam(
+    val req: Int, val resp: Int, val service: String, val did: Int,
+    val offset: Int, val size: Int, val signed: Boolean, val a: Double, val b: Double,
+    val name: String, val unit: String, val decimals: Int,
+) {
+    val hitKey get() = "%03X:%s.%04X".format(req, service, did)
+    val key get() = "$hitKey@$offset.$size${if (signed) "s" else ""}"
+
+    fun value(bytes: IntArray): Double? = ScanDecode.raw(bytes, offset, size, signed)?.let { a * it + b }
+
+    /** One line of the saved list; '\t' and '\n' can't be in a name typed nowhere (it is built by the app). */
+    fun encode() = listOf("%03X".format(req), "%03X".format(resp), service, "%04X".format(did), offset, size, if (signed) 1 else 0,
+        a, b, name, unit, decimals).joinToString("\t")
+
+    companion object {
+        fun decode(line: String): ScanParam? {
+            val p = line.split('\t')
+            if (p.size != 12) return null
+            return runCatching {
+                ScanParam(p[0].toInt(16), p[1].toInt(16), p[2], p[3].toInt(16), p[4].toInt(), p[5].toInt(), p[6] == "1",
+                    p[7].toDouble(), p[8].toDouble(), p[9], p[10], p[11].toInt())
+            }.getOrNull()
+        }
+    }
 }
