@@ -47,6 +47,7 @@ import com.obdscanner.obd.pick
 import com.obdscanner.screen.Action
 import com.obdscanner.session.PhoneSensors
 import com.obdscanner.session.Session
+import com.obdscanner.session.SessionExport
 import com.obdscanner.session.SessionStore
 import com.obdscanner.session.Store
 import com.obdscanner.transport.BluetoothTransport
@@ -105,6 +106,9 @@ class ObdManager(private val context: Context) {
     /** A newer release on GitHub: the line on Connect, the check's switch on Info. */
     val updates = Updates(prefs, scope, BuildConfig.VERSION_NAME)
 
+    /** Sessions → the folder picked on «Сессии»: a zip each, by itself when a session ends. */
+    val export = SessionExport(context, prefs, scope, sessions) { session?.takeIf { !it.closed }?.dir }
+
     private val link = CarLink(
         store = store,
         pickedCar = { _picked.value },
@@ -121,6 +125,8 @@ class ObdManager(private val context: Context) {
     fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
 
     init {
+        // A session the process was killed in, or one that ended while the folder was away.
+        export.pending()
         // The database loads in the background (CarDb.init): take the saved pick once it's there.
         scope.launch {
             CarDb.loaded.first { it }
@@ -278,6 +284,7 @@ class ObdManager(private val context: Context) {
                 phone.stop()
                 s.report(tr("Конец сессии", "End of session"), tr("остановлено пользователем", "stopped by user"))
                 s.close()
+                export.pending()
                 ObdService.stop(context)
                 _conn.value = ConnState.Idle
             }
@@ -363,6 +370,7 @@ class ObdManager(private val context: Context) {
                 elm?.close()
                 s.report(tr("Конец сессии", "End of session"), failure ?: tr("отключено пользователем", "disconnected by user"))
                 s.close()
+                export.pending()
                 ObdService.stop(context)
                 link.stopped()
                 _busy.value = null

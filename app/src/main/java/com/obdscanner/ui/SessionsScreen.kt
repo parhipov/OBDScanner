@@ -1,7 +1,11 @@
 package com.obdscanner.ui
 
+import android.net.Uri
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import com.obdscanner.ObdManager
 import com.obdscanner.R
 import com.obdscanner.ReportBridge
+import com.obdscanner.session.SessionExport
 import com.obdscanner.tr
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +54,8 @@ fun SessionsScreen(m: ObdManager) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var refresh by remember { mutableIntStateOf(0) }
-    val list = remember(refresh) { m.sessions.list() }
+    val export by m.export.state.collectAsStateWithLifecycle()
+    val list = remember(refresh, export) { m.sessions.list() }
     val current = m.session?.takeIf { !it.closed }?.dir
     // Ticked sessions (by folder name): while any is ticked, Send and Delete act on all of them.
     var picked by remember { mutableStateOf(emptySet<String>()) }
@@ -74,8 +81,8 @@ fun SessionsScreen(m: ObdManager) {
             }) { Icon(Icons.Default.Delete, tr("Удалить", "Delete")) }
         }
         LazyColumn(Modifier.weight(1f).padding(horizontal = 4.dp)) {
-            item { Muted(tr("Каждое подключение — отдельная сессия: raw.log (обмен с адаптером), data.csv (все значения), report.txt (сводка), scan.csv (скан блоков).",
-                "Each connection is a separate session: raw.log (adapter traffic), data.csv (all values), report.txt (summary), scan.csv (module scan).")) }
+            item { ExportCard(m.export, export) }
+            item { Muted(tr("Каждое подключение — отдельная сессия.", "Each connection is a separate session.")) }
             item { Muted(tr("Сессию с ошибкой подключения или странными значениями пришлите на $SESSION_EMAIL — почтовое приложение подставит адрес само. В письме укажите машину и что пошло не так.",
                 "Send a session with a connection error or odd values to $SESSION_EMAIL — a mail app fills the address in. Name the car and what went wrong in the email.")) }
             items(list, key = { it.name }) { dir ->
@@ -87,7 +94,9 @@ fun SessionsScreen(m: ObdManager) {
                         Checkbox(on, onCheckedChange = { toggle() })
                         Column(Modifier.weight(1f)) {
                             Text(dir.name + if (dir == current) tr("  · запись", "  · recording") else "", style = MaterialTheme.typography.titleSmall)
-                            Text(tr("%.1f КБ", "%.1f KB").format(m.sessions.size(dir) / 1024.0), style = MaterialTheme.typography.bodySmall)
+                            Text(tr("%.1f КБ", "%.1f KB").format(m.sessions.size(dir) / 1024.0) +
+                                if (export.folder != null && m.export.isExported(dir)) tr(" · в папке ✓", " · in the folder ✓") else "",
+                                style = MaterialTheme.typography.bodySmall)
                         }
                         // One session's own buttons: hidden while picking, so the bar on top is the only Send / Delete.
                         if (chosen.isEmpty()) {
@@ -123,6 +132,61 @@ fun SessionsScreen(m: ObdManager) {
                 TextButton(onClick = { asked = null; gone.forEach(m.sessions::delete); picked = emptySet(); refresh++ }) { Text(tr("Удалить", "Delete")) }
             },
             dismissButton = { TextButton(onClick = { asked = null }) { Text(tr("Отмена", "Cancel")) } },
+        )
+    }
+}
+
+/**
+ * On top of «Сессии»: the folder a session's zip goes to by itself — off, on, or gone.
+ * A pick with sessions already recorded asks once whether they go there too.
+ */
+@Composable
+private fun ExportCard(export: SessionExport, state: SessionExport.State) {
+    // The picker's folder waiting for «и уже записанные?», with how many those are.
+    var asked by remember { mutableStateOf<Pair<Uri, Int>?>(null) }
+    val pick = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { tree ->
+        if (tree == null) return@rememberLauncherForActivityResult
+        val old = export.notIn(tree)
+        if (old == 0) export.setFolder(tree, all = true) else asked = tree to old
+    }
+    val problem = state.problem
+    Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(
+        containerColor = if (problem != null) Bad.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant)) {
+        Column(Modifier.padding(start = 12.dp, end = 4.dp, top = 6.dp, bottom = 6.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(painterResource(R.drawable.ic_folder), null, tint = if (problem != null) Bad else MaterialTheme.colorScheme.outline)
+                Text(state.folder?.let { tr("Архивы → %s", "Zips → %s").format(it) } ?: tr("Класть архивы в папку", "Put zips into a folder"),
+                    Modifier.weight(1f).padding(start = 12.dp), style = MaterialTheme.typography.bodyLarge)
+                if (state.folder == null) TextButton(onClick = { pick.launch(null) }) { Text(tr("Выбрать", "Choose")) }
+            }
+            when {
+                problem != null -> {
+                    Text(problem, Modifier.padding(start = 36.dp, end = 8.dp, top = 4.dp), style = MaterialTheme.typography.bodySmall)
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                        TextButton(onClick = { pick.launch(null) }) { Text(tr("Выбрать заново", "Choose again")) }
+                        TextButton(onClick = { export.off() }) { Text(tr("Выкл.", "Off")) }
+                    }
+                }
+                state.folder != null -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    TextButton(onClick = { pick.launch(null) }) { Text(tr("Сменить", "Change")) }
+                    TextButton(onClick = { export.off() }) { Text(tr("Выкл.", "Off")) }
+                }
+                else -> Text(tr("После каждой сессии ZIP сам ляжет в выбранную папку.", "After each session its zip goes into the chosen folder by itself."),
+                    Modifier.padding(start = 36.dp, end = 8.dp, bottom = 4.dp), style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.outline)
+            }
+        }
+    }
+
+    asked?.let { (tree, old) ->
+        // Dismissed = only new: the folder itself was chosen in the picker.
+        val onlyNew = { asked = null; export.setFolder(tree, all = false) }
+        AlertDialog(
+            onDismissRequest = onlyNew,
+            title = { Text(tr("Уже записанные сессии", "Sessions already recorded")) },
+            text = { Text(tr("Положить туда и уже записанные сессии (%d)?", "Put the sessions already recorded there too (%d)?").format(old)) },
+            confirmButton = { TextButton(onClick = { asked = null; export.setFolder(tree, all = true) }) { Text(tr("Все", "All")) } },
+            dismissButton = { TextButton(onClick = onlyNew) { Text(tr("Только новые", "Only new")) } },
         )
     }
 }

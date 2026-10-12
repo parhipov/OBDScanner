@@ -4,6 +4,7 @@ import android.util.Log
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStream
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -67,14 +68,17 @@ class SessionStore(private val root: File, private val shareDir: File) {
         shareDir.mkdirs()
         shareDir.listFiles()?.forEach { it.delete() }
         return dirs.map { dir ->
-            File(shareDir, "obd_${dir.name}.zip").also { out ->
-                ZipOutputStream(FileOutputStream(out)).use { z ->
-                    dir.listFiles()?.filter { it.isFile }?.forEach { f ->
-                        z.putNextEntry(ZipEntry("${dir.name}/${f.name}"))
-                        f.inputStream().use { it.copyTo(z) }
-                        z.closeEntry()
-                    }
-                }
+            File(shareDir, "obd_${dir.name}.zip").also { out -> FileOutputStream(out).use { zipTo(dir, it) } }
+        }
+    }
+
+    /** A session folder as a zip into [out] (the export's marker stays out). */
+    fun zipTo(dir: File, out: OutputStream) {
+        ZipOutputStream(out).use { z ->
+            dir.listFiles()?.filter { it.isFile && it.name != SessionExport.MARKER }?.forEach { f ->
+                z.putNextEntry(ZipEntry("${dir.name}/${f.name}"))
+                f.inputStream().use { it.copyTo(z) }
+                z.closeEntry()
             }
         }
     }
