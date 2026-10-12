@@ -167,6 +167,9 @@ in git) through the connection and compares what the app sends and finds with `r
   - `console`        in the centre console / under the ashtray / behind a tunnel trim
   - `passenger`      passenger side / glovebox
 - `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris, Crown S180).
+- `names` — modules by request id on this model (`{ "24F": { "ru": …, "en": … } }`): over the family's
+  `modules.names`, under its `diagNames`. For an id GM gives different modules on different cars, named
+  for the model a source checked it on.
 - `blocks` — blocks whose dialect is known: `role` (`engine gearbox abs airbag body cluster climate steering
   gateway other`), `addr` (11-bit `7xx`, or a K-line address `xx`), `rsp` (default `addr + 8` on CAN, the
   same on K-line), `dialect`. A block that comes with an engine goes into `engines[].blocks`: it counts when

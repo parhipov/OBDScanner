@@ -1370,7 +1370,7 @@ class CarLink(
             fam == null -> tr("Блоки", "Modules")
             else -> Make.of(fam.id).title
         }
-        return ObdModules.addressing(fam, tag, namedBlocks().filterKeys { it > 0xFF }.toList())
+        return ObdModules.addressing(fam, tag, namedBlocks().filterKeys { it > 0xFF }.toList(), _vehicle.value.car?.names.orEmpty())
     }
 
     /**

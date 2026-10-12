@@ -152,12 +152,17 @@ object CarDb {
         return brands.flatMap { b -> b.wmi.filter { v.startsWith(it) }.map { it.length to b } }.maxByOrNull { it.first }?.second
     }
 
-    /** The model by the VIN: brand, a model whose `vin` pattern matches, and its years around the VIN's model year. */
+    /**
+     * The model by the VIN: a model of the brand's family whose `vin` pattern matches, and its years around the VIN's
+     * model year. A pattern pins its own WMI, so it may name another brand of the family than the WMI table: GM Korea
+     * builds Chevrolets under KLA, which the table calls Daewoo. The brand's own models come first.
+     */
     fun detect(vin: String?): CarModel? {
         val brand = brandOf(vin) ?: return null
         val v = vin!!.trim().uppercase()
         val year = modelYear(v)
-        val hits = families[brand.family]?.models.orEmpty().filter { m -> m.brand == brand.name && m.vin.any { it.containsMatchIn(v) } }
+        val hits = families[brand.family]?.models.orEmpty().filter { m -> m.vin.any { it.containsMatchIn(v) } }
+            .sortedBy { it.brand != brand.name }
         return hits.firstOrNull { year != null && m(it, year) } ?: hits.singleOrNull()
     }
 
@@ -210,6 +215,7 @@ object CarDb {
             verified = m.optBoolean("verified", false),
             blocks = m.optJSONArray("blocks").objects().map { parseBlock(it) },
             match = m.optJSONArray("match").objects().map { parseMatch(it) },
+            names = parseNames(m),
         )
     }
 
@@ -280,7 +286,7 @@ object CarDb {
         val probes = m.optJSONArray("probes")?.strings()?.onEach { p ->
             require(p.matches(Regex("(3E00|22[0-9A-F]{4}|1A[0-9A-F]{2}|21[0-9A-F]{2})"))) { "probe $p: 3E00 or a read (22/1A/21)" }
         }
-        val names = m.optJSONObject("names")?.let { n -> n.keys().asSequence().associate { k -> k.toInt(16) to text(n.getJSONObject(k)) } }.orEmpty()
+        val names = parseNames(m)
         val diagNames = m.optJSONObject("diagNames")?.let { n ->
             n.keys().asSequence().associate { k ->
                 val a = k.toInt(16)
@@ -290,6 +296,10 @@ object CarDb {
         }.orEmpty()
         return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names, diagNames)
     }
+
+    /** `"names": { "7E0": { "ru": …, "en": … } }` — by request id. */
+    private fun parseNames(o: JSONObject): Map<Int, String> =
+        o.optJSONObject("names")?.let { n -> n.keys().asSequence().associate { k -> k.toInt(16) to text(n.getJSONObject(k)) } }.orEmpty()
 
     /**
      * Safety: whatever a file says, only read requests get through — \$22 ReadDataByIdentifier and
@@ -510,6 +520,8 @@ data class CarModel(
     val blocks: List<BlockSpec> = emptyList(),
     /** Answers that recognise this model without a VIN. */
     val match: List<MatchRule> = emptyList(),
+    /** Modules by request id on this model: over the family's [ModuleSearch.names], under its diagNames. */
+    val names: Map<Int, String> = emptyMap(),
 ) {
     /** Every block named anywhere in the model, for checks. */
     val allBlocks: List<BlockSpec> get() = blocks + engines.flatMap { it.blocks }

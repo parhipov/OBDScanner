@@ -64,16 +64,18 @@ object ObdModules {
 
     /**
      * The make's own list ([com.obdscanner.car.ModuleSearch.replace]), or the standard one plus the make's
-     * extras and every module the make's database requests talk to; [blocks] — the car's named blocks.
+     * extras and every module the make's database requests talk to; [blocks] — the car's named blocks;
+     * [names] — the car's model names its modules (over the make's names by request id).
      */
-    fun addressing(family: CarFamily?, tag: String, blocks: List<Pair<Int, Int>> = emptyList()): Addressing {
+    fun addressing(family: CarFamily?, tag: String, blocks: List<Pair<Int, Int>> = emptyList(), names: Map<Int, String> = emptyMap()): Addressing {
         val m = family?.modules
         if (m != null && m.replace) {
-            return Addressing(tag, (m.addresses + blocks).distinctBy { it.first }, m.probes ?: PROBES, { m.names[it] ?: "%03X".format(it) }, { m.diagNames[it] })
+            return Addressing(tag, (m.addresses + blocks).distinctBy { it.first }, m.probes ?: PROBES,
+                { names[it] ?: m.names[it] ?: "%03X".format(it) }, { m.diagNames[it] })
         }
         val fromDb = family?.commands.orEmpty().map { it.req to it.resp }.filter { it.first !in 0x7E0..0x7E7 }
         return Addressing(tag, (candidates + m?.addresses.orEmpty() + fromDb + blocks).distinctBy { it.first }, m?.probes ?: PROBES,
-            { m?.names?.get(it) ?: name(it) }, { m?.diagNames?.get(it) })
+            { names[it] ?: m?.names?.get(it) ?: name(it) }, { m?.diagNames?.get(it) })
     }
 
     /**

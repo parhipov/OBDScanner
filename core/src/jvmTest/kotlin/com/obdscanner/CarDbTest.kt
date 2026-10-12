@@ -3,6 +3,7 @@ package com.obdscanner
 import com.obdscanner.car.CarDb
 import com.obdscanner.car.SignalFormat
 import com.obdscanner.obd.Make
+import com.obdscanner.obd.ObdModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -223,5 +224,23 @@ class CarDbTest {
         assertNotNull(car)
         assertEquals("CTS", car!!.model)
         assertEquals(6, car.protocol)
+    }
+
+    /**
+     * GM Korea's KLA is Daewoo in the WMI table, yet a model's own VIN pattern finds the Chevrolet built under it
+     * (issue #1); the model's module names go over the family's, and only on that model.
+     */
+    @Test
+    fun trailblazerByKoreanVin() {
+        val car = CarDb.detect("KLAPD56LDMB029075")
+        assertNotNull(car)
+        assertEquals("Chevrolet", car!!.brand)
+        assertEquals("Trailblazer", car.model)
+        val gm = CarDb.families.getValue("gm")
+        val a = ObdModules.addressing(gm, "GM", names = car.names)
+        assertTrue(a.name(0x24F).startsWith(tr("Задний привод", "Rear drive")))
+        assertTrue(a.name(0x252).startsWith(tr("Радио", "Radio")))
+        assertEquals(gm.modules!!.names[0x241], a.name(0x241))
+        assertEquals("24F", ObdModules.addressing(gm, "GM").name(0x24F))
     }
 }

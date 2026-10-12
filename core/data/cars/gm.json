@@ -1766,6 +1766,67 @@
         "https://github.com/ViolentPoo/gm-c1xx-wican-research"
       ],
       "verified": false
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Trailblazer",
+      "gen": "VSS-F (3rd gen)",
+      "years": [
+        2020,
+        2026
+      ],
+      "vin": [
+        "^KL[A1]P[CD]56",
+        "^KL79MR",
+        "^LSGTN84"
+      ],
+      "engines": [
+        {
+          "code": "L3T",
+          "liters": 1.3,
+          "cyl": 3,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "names": {
+        "24F": {
+          "ru": "Задний привод (муфта, K47)",
+          "en": "Rear drive (clutch, K47)"
+        },
+        "252": {
+          "ru": "Радио (A11)",
+          "en": "Radio (A11)"
+        }
+      },
+      "note": {
+        "ru": "Тот же Buick Encore GX. Названия блоков 24F и 252 — по GDS2 на машине владельца (issue #1).",
+        "en": "Same as the Buick Encore GX. Modules 24F and 252 are named by GDS2 on an owner's car (issue #1)."
+      },
+      "src": [
+        "https://github.com/parhipov/OBDScanner/issues/1"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Buick",
+      "model": "Encore GX",
+      "gen": "VSS-F",
+      "years": [
+        2020,
+        2026
+      ],
+      "vin": [
+        "^KL4MM"
+      ],
+      "note": {
+        "ru": "Тот же Chevrolet Trailblazer VSS-F.",
+        "en": "Same as the Chevrolet Trailblazer VSS-F."
+      },
+      "src": [
+        "https://github.com/parhipov/OBDScanner/issues/1"
+      ],
+      "verified": false
     }
   ],
   "commands": [
