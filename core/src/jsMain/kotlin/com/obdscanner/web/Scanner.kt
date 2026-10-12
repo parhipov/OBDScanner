@@ -20,6 +20,7 @@ import com.obdscanner.elm.Obd
 import com.obdscanner.obd.DtcDb
 import com.obdscanner.obd.DtcKind
 import com.obdscanner.screen.Action
+import com.obdscanner.screen.AboutScreen
 import com.obdscanner.screen.AllScreen
 import com.obdscanner.screen.CodesScreen
 import com.obdscanner.screen.DtcHelp
@@ -180,7 +181,7 @@ class Scanner(appVersion: String) {
     /** The checkbox's label and the text behind its «?». */
     fun fuelWatchTexts(): Array<String> = arrayOf(MainScreen.WATCH_LABEL, MainScreen.WATCH_HELP)
 
-    /** "Fuel", "All", "Dtc" or "Info" as JSON blocks. */
+    /** "Fuel", "All", "Dtc", "Info" or "About" (the end of «Справка») as JSON blocks. */
     fun screen(name: String): String {
         val r = link.readings.value
         val v = link.vehicle.value
@@ -189,6 +190,7 @@ class Scanner(appVersion: String) {
             "All" -> AllScreen.build(r, v)
             "Dtc" -> CodesScreen.build(v, busy.value)
             "Info" -> InfoScreen.build(v)
+            "About" -> AboutScreen.build()
             else -> emptyList()
         })
     }
@@ -271,6 +273,9 @@ class Scanner(appVersion: String) {
     /** The texts of the question before clearing codes: title, text, yes, no. */
     fun clearQuestion(): Array<String> = arrayOf(CodesScreen.CLEAR_TITLE, CodesScreen.CLEAR_TEXT, CodesScreen.CLEAR_YES, CodesScreen.CLEAR_NO)
 
+    /** The question before «Сбросить» on «Машина» ([CarLink.forgetCar]). */
+    fun forgetQuestion(): Array<String> = arrayOf(InfoScreen.FORGET_TITLE, InfoScreen.FORGET_TEXT, InfoScreen.FORGET_YES, InfoScreen.FORGET_NO)
+
     /** Whether the terms ([Terms]) are accepted: until then the page shows nothing but them. */
     fun termsAccepted(): Boolean = Terms.accepted(store)
 
@@ -291,6 +296,8 @@ class Scanner(appVersion: String) {
             Action.READ_ALL_MODULES -> launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.readAllModulesDtc(it) }
             Action.RESCAN -> launchOp(tr("Повторный опрос", "Rescan")) { link.rediscover(it) }
             Action.MODE06 -> launchOp("Mode 06") { link.refreshMode06(it) }
+            // After the page asked (forgetQuestion); the adapter isn't needed.
+            Action.FORGET -> link.forgetCar()
             // The page opens its own screen.
             Action.LICENSES, Action.TERMS, null -> {}
         }

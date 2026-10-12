@@ -85,6 +85,7 @@ fun GuideScreen(m: ObdManager, v: VehicleInfo, picked: CarChoice?) {
             }
         }
         for (s in g.tail) item { GuideSection(res(s, "array")) }
+        about(m)
     }
 }
 

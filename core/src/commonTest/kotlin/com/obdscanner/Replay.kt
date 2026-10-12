@@ -272,4 +272,5 @@ class MapStore : Store {
     @Suppress("UNCHECKED_CAST")
     override fun getStringSet(key: String) = m[key] as? Set<String>
     override fun putStringSet(key: String, value: Set<String>) { m[key] = value }
+    override fun remove(key: String) { m.remove(key) }
 }

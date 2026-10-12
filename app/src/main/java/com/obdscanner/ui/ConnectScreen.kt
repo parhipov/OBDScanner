@@ -53,6 +53,7 @@ import com.obdscanner.ReportBridge
 import com.obdscanner.SOURCE_DEMO
 import com.obdscanner.SOURCE_SENSORS
 import com.obdscanner.SOURCE_WIFI
+import com.obdscanner.Tab
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarChoice
 import com.obdscanner.transport.WifiTransport
@@ -61,7 +62,7 @@ import java.io.File
 
 @SuppressLint("MissingPermission")
 @Composable
-fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarChoice?) {
+fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarChoice?, onHelp: () -> Unit) {
     val ctx = LocalContext.current
     val needPerm = Build.VERSION.SDK_INT >= 31
     fun granted() = !needPerm || ContextCompat.checkSelfPermission(ctx, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
@@ -132,6 +133,12 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                 }
             }
             item { CarCard(m, v, picked) }
+            // The guide moved to the last tab: the way there for whoever connects the first time.
+            item {
+                Text(tr("Как подключиться и что смотреть — «${Tab.Guide.title}» →", "How to connect and what to look at — «${Tab.Guide.title}» →"),
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.fillMaxWidth().clickable(onClick = onHelp).padding(horizontal = 8.dp, vertical = 10.dp))
+            }
             item { SectionTitle(tr("Адаптер ELM327", "ELM327 adapter")) }
             // Only while plugged in, and on top: a plugged-in cable is the adapter meant.
             items(usb, key = { it.id }) { a ->

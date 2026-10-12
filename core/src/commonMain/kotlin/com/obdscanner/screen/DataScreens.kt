@@ -136,6 +136,41 @@ object InfoScreen {
                 if (t.notRun) tr("${t.tidName} · не выполнялся", "${t.tidName} · not run") else tr("${t.tidName} · норма ${Reading.fmt(t.min, 3)}…${Reading.fmt(t.max, 3)}", "${t.tidName} · limits ${Reading.fmt(t.min, 3)}…${Reading.fmt(t.max, 3)}"),
                 if (t.notRun) Level.MUTED else if (t.passed) Level.GOOD else Level.BAD, divider = true, key = "%03X.%02X.%02X".format(t.ecu, t.mid, t.tid))
         }
+        val mem = v.memory
+        if (!mem.isEmpty) {
+            b.title(tr("Что приложение помнит", "What the app remembers"))
+            mem.protocol?.let { b.row(tr("Протокол адаптера", "Adapter protocol"), it, sub = tr("пробуется первым", "tried first")) }
+            mem.extSaved?.let { b.row(tr("Параметры производителя", "Manufacturer parameters"), tr("$it сохранено", "$it saved"),
+                sub = tr("спрашиваются только они", "only these are asked")) }
+            if (mem.modules > 0) b.row(tr("Найденные блоки", "Modules found"), "${mem.modules}")
+            for (c in mem.skipped.sorted()) b.row(skippedName(c), tr("пропускается", "skipped"),
+                sub = tr("адаптер обрывал на нём связь", "the adapter dropped the link on it"), level = Level.WARN, key = "skip:$c")
+            b.buttons(listOf(Button(Action.FORGET, FORGET)), FORGET_NOTE)
+        }
+        return b.build()
+    }
+
+    private fun skippedName(cmd: String): String = when {
+        cmd.startsWith("09") -> Mode09.name(cmd.drop(2).toInt(16)) + " ($cmd)"
+        else -> tr("Бортовой тест", "On-board test") + " ($cmd)"
+    }
+
+    val FORGET = tr("Сбросить", "Reset")
+    val FORGET_NOTE = tr("следующее подключение найдёт всё заново", "the next connection finds it all again")
+    /** The question before [com.obdscanner.CarLink.forgetCar]. */
+    val FORGET_TITLE = tr("Забыть эту машину?", "Forget this car?")
+    val FORGET_TEXT = tr("Приложение забудет протокол адаптера, сохранённые параметры производителя, найденные блоки и пропускаемые запросы. " +
+        "Следующее подключение спросит всё заново — оно будет дольше. Параметры, сохранённые на «Скан блоков», останутся.",
+        "The app forgets the adapter's protocol, the saved manufacturer parameters, the modules found and the skipped requests. " +
+        "The next connection asks everything again and takes longer. The parameters saved on «Module scan» stay.")
+    val FORGET_YES = tr("Сбросить", "Reset")
+    val FORGET_NO = tr("Отмена", "Cancel")
+}
+
+/** «Справка»'s end: the app's version and license, the third-party licenses, the disclaimer. */
+object AboutScreen {
+    fun build(): List<Block> {
+        val b = Blocks()
         b.title(tr("О приложении", "About"))
         b.note("OBD Scanner ${AppInfo.versionName} · MIT · github.com/parhipov/OBDScanner")
         b.buttons(listOf(Button(Action.LICENSES, Licenses.TITLE, whileBusy = true)))

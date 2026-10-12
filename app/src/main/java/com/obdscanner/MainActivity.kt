@@ -147,7 +147,7 @@ private fun AppRoot(m: ObdManager) {
                 }
             }
             when (tab) {
-                Tab.Connect -> ConnectScreen(m, conn, vehicle, picked)
+                Tab.Connect -> ConnectScreen(m, conn, vehicle, picked) { tab = Tab.Guide }
                 Tab.Guide -> GuideScreen(m, vehicle, picked)
                 Tab.Main -> MainScreen(readings, vehicle, fuelWatch) { tab = it }
                 Tab.Fuel -> FuelScreen(m, readings, vehicle)

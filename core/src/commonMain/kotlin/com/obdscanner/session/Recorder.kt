@@ -20,4 +20,6 @@ interface Store {
     fun putString(key: String, value: String?)
     fun getStringSet(key: String): Set<String>?
     fun putStringSet(key: String, value: Set<String>)
+    /** Forgets [key], whatever it holds: read back, it is missing (null / the default), not empty. */
+    fun remove(key: String)
 }

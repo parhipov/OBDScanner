@@ -23,16 +23,34 @@ sealed interface ConnState {
     data class Failed(val message: String) : ConnState
 }
 
+/**
+ * In the order of the tab row: what is looked at while driving first, the guide and the app's own things last.
+ * The names stay (the page selects its tabs by them): Info is «Машина», Guide is «Справка».
+ */
 enum class Tab(val title: String) {
     Connect(tr("Связь", "Connect")),
-    Guide(tr("Как тестировать", "How to test")),
     Main(tr("Главная", "Main")),
     Fuel(tr("Топливо", "Fuel")),
-    All(tr("Все данные", "All data")),
     Dtc(tr("Ошибки", "Codes")),
-    Info(tr("Инфо", "Info")),
+    All(tr("Все данные", "All data")),
+    Info(tr("Машина", "Car")),
     Gm(tr("Скан блоков", "Module scan")),
-    Sessions(tr("Сессии", "Sessions"))
+    Sessions(tr("Сессии", "Sessions")),
+    Guide(tr("Справка", "Help")),
+}
+
+/** What the app keeps about the car on this phone; «Сбросить» on «Машина» forgets it ([CarLink.forgetCar]). */
+data class CarMemory(
+    /** The protocol this adapter worked on last ("CAN 11/500"): tried first at the next connection. */
+    val protocol: String? = null,
+    /** Manufacturer requests saved as answering (only they are asked next time); null — nothing saved. */
+    val extSaved: Int? = null,
+    /** Modules found: the codes of all modules and the block scan start from them. */
+    val modules: Int = 0,
+    /** Requests left out: the adapter dropped the link on them. */
+    val skipped: Set<String> = emptySet(),
+) {
+    val isEmpty get() = protocol == null && extSaved == null && modules == 0 && skipped.isEmpty()
 }
 
 data class EcuInfo(
@@ -79,6 +97,7 @@ data class VehicleInfo(
     val dialects: Map<Int, String> = emptyMap(),
     /** The make (and so the blocks' dialects) is only the hand pick: no VIN, no model recognised by its answers. */
     val makeByPick: Boolean = false,
+    val memory: CarMemory = CarMemory(),
 ) {
     val supported01: Set<Int> get() = ecus.values.flatMap { it.pids01 }.toSet()
     /** PIDs asked with the Mode 01 broadcast (not the \$21 ones). */

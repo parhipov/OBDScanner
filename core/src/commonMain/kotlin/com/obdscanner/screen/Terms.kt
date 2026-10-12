@@ -53,8 +53,8 @@ object Terms {
             "Марки и модели автомобилей и адаптеров названы только для указания совместимости. OBD Scanner не связан с их производителями и не одобрен ими; товарные знаки принадлежат их владельцам.",
             "Car and adapter makes and models are named only to indicate compatibility. OBD Scanner is not affiliated with or endorsed by their manufacturers; trademarks belong to their owners."),
         tr("Лицензии", "Licenses") to tr(
-            "Библиотеки и данные, из которых собран OBD Scanner, распространяются по своим лицензиям; их список — на вкладке «Инфо», кнопка «Лицензии».",
-            "The libraries and data OBD Scanner is built from come under their own licenses, listed on the Info tab under Licenses."),
+            "Библиотеки и данные, из которых собран OBD Scanner, распространяются по своим лицензиям; их список — на вкладке «Справка», кнопка «Лицензии».",
+            "The libraries and data OBD Scanner is built from come under their own licenses, listed on the Help tab under Licenses."),
         tr("Поддержка проекта", "Supporting the project") to tr(
             "Поддержка — добровольный подарок, а не оплата: все функции доступны без неё, взамен ничего не предоставляется.",
             "Support is a voluntary gift, not a payment: every feature works without it, and nothing is given in return."),

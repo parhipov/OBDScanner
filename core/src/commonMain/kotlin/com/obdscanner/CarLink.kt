@@ -22,6 +22,7 @@ import com.obdscanner.gm.ScanDecode
 import com.obdscanner.gm.ScanHit
 import com.obdscanner.gm.ScanParam
 import com.obdscanner.gm.ScanRanges
+import com.obdscanner.screen.InfoScreen
 import com.obdscanner.screen.ScanContext
 import com.obdscanner.obd.Dtc
 import com.obdscanner.obd.DtcCode
@@ -109,6 +110,7 @@ class CarLink(
         knockHi = 0
         knockHiRetard = 0
         notedWatch = false
+        skippedNow.clear()
     }
 
     /** The session ended: nothing runs any more. */
@@ -257,6 +259,80 @@ class CarLink(
         for (c in listOf("ATE0", "ATL0", "ATS1", "ATH1", "ATCAF1", "ATAT1")) o.at(c)
     }
 
+    /** The adapter of this connection ([initAdapter]): what dropped its link is remembered per adapter and car. */
+    private var adapterName = ""
+
+    private fun droppedKey(vin: String?) = "dropped_${AppInfo.versionCode}_${adapterName}_" + vin.orEmpty()
+
+    /** Requests after which this adapter dropped the link on this car (until the next app version). */
+    private fun droppedRequests(vin: String?): Set<String> = store.getStringSet(droppedKey(vin)).orEmpty()
+
+    /**
+     * A request that can take the adapter down: the next connections leave it out ([droppedRequests]) once the
+     * link closes on it. An Opel Mokka's ELM327 v1.5 clone hung on the 131-byte CALID list (0904) and the Bluetooth
+     * link closed in 14 of 26 sessions (3.13–3.17): every one of them ended there. Null when skipped.
+     * [learn] off for the requests repeated while driving: an adapter pulled out then is not the request's fault.
+     */
+    private suspend fun fragileRequest(
+        o: Obd, cmd: String, timeoutMs: Long, vin: String?, dropped: Set<String>, learn: Boolean = true,
+    ): com.obdscanner.elm.CanReply? {
+        if (cmd in dropped) {
+            session?.note("$cmd skipped: this adapter dropped the link on it before")
+            skippedNow += cmd
+            return null
+        }
+        val wasAlive = o.elm.alive
+        val r = try {
+            o.request(cmd, timeoutMs)
+        } catch (e: IOException) {
+            if (learn && wasAlive && !o.elm.alive) remember(cmd, vin)
+            throw e
+        }
+        if (learn && wasAlive && !o.elm.alive) remember(cmd, vin)
+        return r
+    }
+
+    private fun remember(cmd: String, vin: String?) {
+        store.putStringSet(droppedKey(vin), droppedRequests(vin) + cmd)
+        session?.note("adapter dropped the link on $cmd — the next connections skip it")
+        refreshMemory()
+    }
+
+    /** Left out in this connection ([fragileRequest]): a line in the report. */
+    private val skippedNow = mutableSetOf<String>()
+
+    private fun extKey(car: String?) = "ext_ok_${AppInfo.versionCode}_" + car.orEmpty()
+
+    /** [VehicleInfo.memory] from the store, after anything about the car was saved or forgotten. */
+    private fun refreshMemory() {
+        val car = carKey()
+        val memory = CarMemory(
+            protocol = store.getInt("last_protocol_$adapterName", 0).let { PROTOCOLS[it] },
+            extSaved = car?.let { store.getStringSet(extKey(it))?.size },
+            modules = if (car != null) savedModules().size else 0,
+            skipped = droppedRequests(_vehicle.value.vin),
+        )
+        _vehicle.update { it.copy(memory = memory) }
+    }
+
+    /**
+     * «Сбросить» on «Машина»: forgets the car's saved requests and modules, this adapter's protocol and the
+     * requests it dropped the link on — the next connection finds them all again. The parameters saved by hand
+     * on «Скан блоков» stay: they have their own «Убрать».
+     */
+    fun forgetCar() {
+        val car = carKey()
+        store.remove("last_protocol_$adapterName")
+        store.remove("last_protocol")
+        store.remove(droppedKey(_vehicle.value.vin))
+        if (car != null) {
+            store.remove(extKey(car))
+            modulesPrefKey()?.let { store.remove(it) }
+        }
+        session?.note("forgot the car (${car ?: "no VIN"}) and adapter $adapterName: protocol, manufacturer requests, modules, skipped requests")
+        refreshMemory()
+    }
+
     /** Protocol being tried right now — to skip it if the adapter drops the link. */
     @Volatile var probingProtocol: Int? = null
         private set
@@ -269,6 +345,7 @@ class CarLink(
      * after the fast-init and ISO 9141 attempts once and answered with the same order another time.
      */
     suspend fun initAdapter(o: Obd, name: String, skip: Set<Int> = emptySet()) {
+        adapterName = name
         step(tr("Сброс адаптера (ATZ)…", "Resetting adapter (ATZ)…"))
         o.at("ATZ", 5000)
         pause(300)
@@ -327,6 +404,7 @@ class CarLink(
         }
         val rv = o.at("ATRV").lines.firstOrNull().orEmpty()
         _vehicle.update { it.copy(adapter = ver, adapterDesc = desc, protocol = "$dp ($dpn)", multiPid = multi, kline = o.kline) }
+        refreshMemory()
         val yes = tr("да", "yes")
         val no = tr("нет", "no")
         session?.report(
@@ -401,6 +479,10 @@ class CarLink(
         readFreezeFrame(o)
         step(tr("Бортовые тесты (Mode 06)…", "On-board tests (Mode 06)…"))
         readMode06(o, onlyMisfire = false)
+        if (skippedNow.isNotEmpty()) session?.report(tr("Пропущено", "Skipped"), skippedNow.joinToString("\n") {
+            "$it — " + tr("адаптер обрывал на нём связь", "the adapter dropped the link on it") +
+                tr(" (спросить снова: ", " (to ask again: ") + "«${Tab.Info.title}» → «${InfoScreen.FORGET}»)"
+        })
         if (!o.kline && !o.can29) {
             step(tr("Параметры производителя…", "Manufacturer parameters…"))
             probeExt(o, full)
@@ -427,7 +509,10 @@ class CarLink(
         // re-init included. The ELM waits out 78 by itself only on CAN.
         val asked = listOf(0x02, 0x04, 0x06, 0x08, 0x0A, 0x0B, 0x0D).let { if (o.kline) it - 0x06 else it }
         for (t in wanted.filter { it in asked }.sorted()) {
-            val rr = o.request("09%02X".format(t), 4000)
+            // The VIN comes first (02): what dropped the link is remembered under it.
+            val vinNow = info.values.firstNotNullOfOrNull { it[0x02] }
+            val dropped = droppedRequests(vinNow)
+            val rr = fragileRequest(o, "09%02X".format(t), 4000, vinNow, dropped) ?: continue
             if (o.kline && rr.messages.any { it.nrc == 0x78 } && rr.messages.none { it.service == 0x49 }) waitKlineBusy(o, "09%02X".format(t))
             var msgs = rr.messages
             // ECM and TCM both stream long CALID lists at once and the clone overflows (BUFFER FULL,
@@ -436,8 +521,8 @@ class CarLink(
                 val heads = (types.keys + rr.messages.map { it.header }).filter { it in 0x7E8..0x7EF }.toSet()
                 msgs = heads.sorted().mapNotNull { h ->
                     o.target(h - 8, h)
-                    val p = o.request("09%02X".format(t), 4000)
-                    p.from(h).firstOrNull()?.takeIf { p.errors.isEmpty() } ?: rr.from(h).firstOrNull()
+                    val p = fragileRequest(o, "09%02X".format(t), 4000, vinNow, dropped)
+                    p?.from(h)?.firstOrNull()?.takeIf { p.errors.isEmpty() } ?: rr.from(h).firstOrNull()
                 }
                 o.broadcast()
             }
@@ -464,6 +549,7 @@ class CarLink(
             v.copy(vin = vin, make = make, ecus = ecus, car = car, brand = brand?.name, makeByPick = byPick)
         }
         syncDtcFamily()
+        refreshMemory()
         recogniseDialects(o)
         session?.report(tr("Машина", "Car"), listOf(
             tr("Марка (по VIN): ", "Make (by VIN): ") + (brand?.name ?: tr("не определена", "unknown")) + " — ${make.title}",
@@ -537,12 +623,13 @@ class CarLink(
             return
         }
         val v = _vehicle.value
+        val dropped = droppedRequests(v.vin)
         var mids = v.ecus.mapValues { it.value.mids06 }
         if (mids.values.all { it.isEmpty() }) {
             val found = mutableMapOf<Int, MutableSet<Int>>()
             var base = 0
             while (base <= 0xE0) {
-                val r = o.request("06%02X".format(base), 2000)
+                val r = fragileRequest(o, "06%02X".format(base), 2000, v.vin, dropped, learn = !onlyMisfire) ?: break
                 var more = false
                 for (m in r.messages) {
                     if (m.data.size < 6 || m.data[0] != 0x46 || m.data[1] != base) continue
@@ -565,7 +652,7 @@ class CarLink(
         if (targets.isEmpty()) return
         val results = mutableListOf<TestResult>()
         for (mid in targets) {
-            val r = o.request("06%02X".format(mid), 2000)
+            val r = fragileRequest(o, "06%02X".format(mid), 2000, v.vin, dropped, learn = !onlyMisfire) ?: continue
             for (m in r.messages) if (m.service == 0x46) results += Mode06.parse(m.data, m.header)
         }
         val now = clock()
@@ -654,7 +741,7 @@ class CarLink(
         val all = extCandidates()
         val vin = carKey()
         // Per app version too: a new build may bring new requests in the database.
-        val prefKey = "ext_ok_${AppInfo.versionCode}_" + vin.orEmpty()
+        val prefKey = extKey(vin)
         val saved = if (vin != null) store.getStringSet(prefKey) else null
         val list = if (!full && saved != null) all.filter { it.key in saved } else all
         val sc = GmScanner(o) { session?.note(it) }
@@ -686,6 +773,7 @@ class CarLink(
         }
         o.broadcast()
         if (vin != null && (full || saved == null)) store.putStringSet(prefKey, active.map { it.key }.toSet())
+        refreshMemory()
         _vehicle.update { it.copy(extActive = active) }
         val cyl = cylindersOf(_vehicle.value.car)?.let { (n, by) -> tr("Цилиндров: $n ($by)", "Cylinders: $n ($by)") }
             ?: tr("Цилиндров: неизвестно — отбора по ним нет", "Cylinders: unknown — no filtering by them")
@@ -1344,6 +1432,7 @@ class CarLink(
     private fun saveModules(list: List<GmModule>) {
         val key = modulesPrefKey() ?: return
         if (list.isNotEmpty()) store.putString(key, list.joinToString(",") { m -> "%03X:%03X".format(m.req, m.resp) + (m.diag?.let { ":%02X".format(it) } ?: "") })
+        refreshMemory()
     }
 
     /**

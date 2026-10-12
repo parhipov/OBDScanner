@@ -47,4 +47,5 @@ class LocalStore : Store {
     override fun putString(key: String, value: String?) = set(key, value)
     override fun getStringSet(key: String): Set<String>? = get(key)?.let { s -> if (s.isEmpty()) emptySet() else s.split('\n').toSet() }
     override fun putStringSet(key: String, value: Set<String>) = set(key, value.joinToString("\n"))
+    override fun remove(key: String) = set(key, null)
 }

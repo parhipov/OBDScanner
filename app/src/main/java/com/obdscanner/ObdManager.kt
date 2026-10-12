@@ -404,7 +404,9 @@ class ObdManager(private val context: Context) {
         Action.READ_ALL_MODULES -> readAllModulesDtc()
         Action.RESCAN -> rediscover()
         Action.MODE06 -> refreshMode06()
-        // The screen opens them (Info → Licenses, Disclaimer).
+        // The screen asks first (Car → «Сбросить»).
+        Action.FORGET -> link.forgetCar()
+        // The screen opens them (Help → Licenses, Disclaimer).
         Action.LICENSES, Action.TERMS -> Unit
     }
 
@@ -452,4 +454,5 @@ private class PrefsStore(private val prefs: SharedPreferences) : Store {
     override fun putString(key: String, value: String?) = prefs.edit().putString(key, value).apply()
     override fun getStringSet(key: String): Set<String>? = prefs.getStringSet(key, null)
     override fun putStringSet(key: String, value: Set<String>) = prefs.edit().putStringSet(key, value).apply()
+    override fun remove(key: String) = prefs.edit().remove(key).apply()
 }

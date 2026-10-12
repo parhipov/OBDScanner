@@ -16,7 +16,7 @@ import kotlin.math.abs
 enum class Level { GOOD, WARN, BAD, MUTED }
 
 /** A button's job; the front runs it (ObdManager on the phone). */
-enum class Action { READ_DTC, CLEAR_DTC, READ_ALL_MODULES, RESCAN, MODE06, LICENSES, TERMS }
+enum class Action { READ_DTC, CLEAR_DTC, READ_ALL_MODULES, RESCAN, MODE06, LICENSES, TERMS, FORGET }
 
 /**
  * A trouble code that opens its help on a tap ([DtcHelp]). [ftb] — failure type byte (GM \$A9 symptom /
