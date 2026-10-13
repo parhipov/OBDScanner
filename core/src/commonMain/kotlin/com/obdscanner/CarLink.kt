@@ -1384,7 +1384,17 @@ class CarLink(
         val a = addressing()
         // On K-line GMLAN \$1A / \$A9 don't apply even on a GM: KWP identification and \$18.
         fun gmlan(req: Int) = !o.kline && dialectOf(req).ident == "gm_1a"
-        val found = if (o.kline) klineModules() else sc.probeModules(a.candidates, a.probes, a.name, onProbe)
+        val gmFamily = !o.kline && (family()?.dialect ?: Dialect.GENERIC).ident == "gm_1a"
+        val probed = if (o.kline) klineModules() else sc.probeModules(a.candidates, a.probes, a.name, onProbe)
+        // GM: then one request to all modules — those behind the gateway answer it, not the probe; added after the probed.
+        val found = if (gmFamily && o.canTarget) {
+            _scan.update { it.copy(progress = 0.8f, status = tr("Запрос всем блокам…", "Asking all modules…")) }
+            progress(tr("Запрос всем блокам…", "Asking all modules…"))
+            val all = sc.functionalModules(a.name)
+            // A probed module keeps its place and takes the address it told; the rest come after.
+            probed.map { p -> all.firstOrNull { it.req == p.req }?.let { p.copy(diag = it.diag) } ?: p } +
+                all.filter { f -> probed.none { it.req == f.req } }.map { f -> f.copy(name = f.diag?.let(a.diagName) ?: f.name) }
+        } else probed
         _scan.update { it.copy(modules = found, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
         saveModules(found)
         session?.report(tr("${a.tag}: найденные модули", "${a.tag}: modules found"), found.joinToString("\n") { "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
@@ -1409,14 +1419,13 @@ class CarLink(
         o.broadcast()
         // A module that told its diagnostic address gets the make's name for it, where the CAN id had none or another one.
         val named = found.map { mod ->
-            val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0)
+            val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
             if (diag == null) mod else mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
         }
         if (named != found) saveModules(named)
         _scan.update { it.copy(running = false, modules = named, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
         // No modules: the section the make's own identification would have written.
         val gmMods = if (named.isEmpty()) emptyList() else named.filter { gmlan(it.req) }
-        val gmFamily = !o.kline && (family()?.dialect ?: Dialect.GENERIC).ident == "gm_1a"
         if (gmMods.size < found.size || found.isEmpty() && !gmFamily) {
             session?.report(tr("${a.tag}: идентификация модулей (UDS \$22 F1xx / KWP \$1A)", "${a.tag}: module identification (UDS \$22 F1xx / KWP \$1A)"), generic.joinToString("\n").ifEmpty { tr("нет модулей", "no modules") })
         }

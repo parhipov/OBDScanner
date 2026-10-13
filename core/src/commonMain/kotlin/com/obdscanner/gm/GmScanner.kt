@@ -1,6 +1,7 @@
 package com.obdscanner.gm
 
 import com.obdscanner.util.format
+import com.obdscanner.bus.BusSniffer
 import com.obdscanner.elm.CanReply
 import com.obdscanner.elm.EcuMessage
 import com.obdscanner.elm.Obd
@@ -42,6 +43,48 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
             }
         }
         obd.broadcast()
+        return found
+    }
+
+    /**
+     * GMLAN functional request to every node: CAN id 101, extended address FE (all nodes), \$1A B0. Each module that
+     * hears it — behind the gateway too, where the probe one id at a time finds nothing — answers from its own reply
+     * id 6xx with its diagnostic address ("641 03 5A B0 40"); its request id is the reply's − 400. Read only. As for
+     * \$A9 the adapter works with raw frames here (the request carries the FE byte, the replies come from many ids)
+     * and is put back after. A clone without "X" in ATCRA can't let all 6xx through: nothing is sent then.
+     */
+    suspend fun functionalModules(name: (Int) -> String): List<GmModule> {
+        obd.forgetRouting()
+        val raw = try {
+            obd.at("ATSH101")
+            if (obd.at("ATCRA6XX").isUnknown) {
+                note("GM: functional \$1A B0 skipped — the adapter has no ATCRA with X")
+                return emptyList()
+            }
+            obd.at("ATCAF0")
+            obd.at("ATAT0")
+            obd.at("ATSTFF")
+            obd.elm.send("FE021AB000000000", 5000)
+        } finally {
+            withContext(NonCancellable) {
+                runCatching { obd.at("ATST32") }
+                runCatching { obd.at(obd.adaptiveTiming) }
+                var ok = false
+                repeat(4) { if (!ok) ok = runCatching { obd.at("ATCAF1", 2000).isOk }.getOrDefault(false) }
+                if (!ok) note("GM: WARNING — ATCAF1 not confirmed")
+                runCatching { obd.at("ATAR") }
+                // The header is 101 now: the next target or broadcast sets its own.
+                obd.resetState()
+            }
+        }
+        val found = BusSniffer.parse(raw.lines)
+            .filter { f -> f.id in 0x640..0x6FF && f.data.size >= 4 && f.data[0] == 0x03 && f.data[1] == 0x5A && f.data[2] == DIAG_ADDRESS }
+            .distinctBy { it.id }
+            .map { f ->
+                val req = f.id - 0x400
+                GmModule(req, f.id, name(req), tr("1A B0 всем блокам → %02X", "1A B0 to all modules → %02X").format(f.data[3]), f.data[3])
+            }
+        note("GM: functional \$1A B0 — %d answered: %s".format(found.size, found.joinToString(" ") { "%03X=%02X".format(it.resp, it.diag ?: 0) }))
         return found
     }
 
