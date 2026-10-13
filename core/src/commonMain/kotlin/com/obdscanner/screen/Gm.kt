@@ -8,6 +8,8 @@ import com.obdscanner.obd.Reading
 import com.obdscanner.obd.pick
 import com.obdscanner.tr
 import com.obdscanner.util.format
+import com.obdscanner.vag.Tp20
+import com.obdscanner.vag.VagBlocks
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -98,8 +100,12 @@ object GmScreen {
             modulesEmpty = if (s.modules.isEmpty()) tr("Нажмите «Найти блоки»: опрос адресов, на которых у этой марки бывают блоки, около минуты.",
                 "Tap «Find blocks»: polls the addresses this make keeps its blocks on, about a minute.") else null,
             modules = s.modules.map { m ->
-                GmView.Module(m.id, "${m.name}  ·  %03X → %03X".format(m.req, m.resp), m.answeredTo,
-                    ctx.services(m).map { GmView.Service(it, SERVICE_NAMES[it] ?: "\$$it") })
+                GmView.Module(m.id, if (Tp20.isTp(m.req)) tr("${m.name}  ·  TP 2.0, адрес %02X", "${m.name}  ·  TP 2.0, address %02X").format(m.req - Tp20.BASE)
+                    else "${m.name}  ·  %03X → %03X".format(m.req, m.resp), m.answeredTo,
+                    ctx.services(m).map { s ->
+                        // On a VAG TP 2.0 module \$21 reads the measuring blocks (groups), as VCDS calls them.
+                        GmView.Service(s, if (s == "21" && Tp20.isTp(m.req)) tr("Группы измерений", "Measuring blocks") else SERVICE_NAMES[s] ?: "\$$s")
+                    })
             },
             scanLabel = tr("Скан:", "Scan:"),
             scanNote = tr("Идентификация — номера и версии блока (\$1A). Данные блока (\$21) — 256 номеров, ~20–40 с. Параметры (\$22) — выбранный диапазон.",
@@ -122,13 +128,15 @@ object GmScreen {
                 val watched = h.key in s.watched
                 val dec = s.decoded[h.key]
                 val polls = s.polls[h.key] ?: 0
+                // A VAG measuring block: its fields by their formula types, from the last poll.
+                val block = if (Tp20.isTp(h.req) && h.service == "21") VagBlocks.describe(live?.text?.let(::bytes) ?: h.data) else null
                 GmView.Hit(
                     key = h.key,
-                    title = "%03X  %s %s  (%d %s)".format(h.req, h.service, h.didHex, h.data.size, bytesWord(h.data.size)) + (h.label?.let { " · $it" } ?: ""),
+                    title = "%s  %s %s  (%d %s)".format(Tp20.label(h.req), h.service, h.didHex, h.data.size, bytesWord(h.data.size)) + (h.label?.let { " · $it" } ?: ""),
                     data = live?.text ?: h.hex,
                     partNumber = h.partNumber?.let { tr("№ $it", "P/N $it") },
                     ascii = if (h.looksLikeText) tr("«${h.ascii}»", "\"${h.ascii}\"") else null,
-                    live = if (live?.value != null) tr("A/AB = ${live.display()} (мин ${live.min?.let { Reading.fmt(it, 0) }}, макс ${live.max?.let { Reading.fmt(it, 0) }})",
+                    live = block ?: if (live?.value != null) tr("A/AB = ${live.display()} (мин ${live.min?.let { Reading.fmt(it, 0) }}, макс ${live.max?.let { Reading.fmt(it, 0) }})",
                         "A/AB = ${live.display()} (min ${live.min?.let { Reading.fmt(it, 0) }}, max ${live.max?.let { Reading.fmt(it, 0) }})") else null,
                     watched = watched,
                     decodeNote = when {
@@ -144,6 +152,10 @@ object GmScreen {
             },
         )
     }
+
+    /** "0A 3C 00" back to bytes; null — not that. */
+    private fun bytes(hex: String): IntArray? = hex.split(' ').filter { it.isNotEmpty() }.takeIf { p -> p.isNotEmpty() && p.all { it.length == 2 } }
+        ?.map { it.toIntOrNull(16) ?: return null }?.toIntArray()
 
     private fun field(hitKey: String, f: ScanDecode.Field, r: Map<String, Reading>, saved: Set<String>): GmView.Field {
         val bytes = if (f.size == 1) tr("Байт ${ScanDecode.letter(f.offset)}", "Byte ${ScanDecode.letter(f.offset)}")

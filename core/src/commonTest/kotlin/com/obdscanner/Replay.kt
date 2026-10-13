@@ -201,12 +201,16 @@ class Replayed(
  * Plays a connection through [CarLink] — connect, discovery, modules, [cycles] poll cycles — against [log];
  * with [ops], then the buttons a user presses (as ObdManager runs them: one at a time, back to broadcast after).
  */
-suspend fun replayRun(log: ReplayLog, store: Store, cycles: Int, ops: Boolean = false, pick: com.obdscanner.car.CarChoice? = null): Replayed {
+suspend fun replayRun(
+    log: ReplayLog, store: Store, cycles: Int, ops: Boolean = false, pick: com.obdscanner.car.CarChoice? = null,
+    /** Another adapter in place of the recorded one (one that answers some of it itself). */
+    transport: ((ReplayLog, VirtualClock) -> Transport)? = null,
+): Replayed {
     CanParser.forgetEcus()
     DtcDb.family = null
     val clock = VirtualClock()
     val requests = mutableListOf<String>()
-    val elm = Elm327(ReplayTransport(log, clock)) { dir, text -> if (dir == '>') requests += text }
+    val elm = Elm327(transport?.invoke(log, clock) ?: ReplayTransport(log, clock)) { dir, text -> if (dir == '>') requests += text }
     elm.open()
     val o = Obd(elm)
     val rec = TextRecorder()

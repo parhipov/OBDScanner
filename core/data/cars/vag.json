@@ -2516,8 +2516,8 @@
   ],
   "features": [
     {
-      "ru": "Поиск блоков VW. На машинах примерно до 2012 года находятся только двигатель и КПП",
-      "en": "VW module search. On cars up to about 2012 only the engine and gearbox are found"
+      "ru": "Поиск блоков VW. На машинах примерно до 2012 года блоки за шлюзом ищутся через VW TP 2.0 (на настоящей машине ещё не проверено)",
+      "en": "VW module search. On cars up to about 2012 the modules behind the gateway are found over VW TP 2.0 (not yet tried on a real car)"
     },
     {
       "ru": "Номер детали, версия ПО и ошибки каждого найденного блока",

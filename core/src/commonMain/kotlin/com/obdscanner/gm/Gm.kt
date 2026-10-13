@@ -2,14 +2,15 @@ package com.obdscanner.gm
 
 import com.obdscanner.util.format
 import com.obdscanner.tr
+import com.obdscanner.vag.Tp20
 
-/** A diagnostic module found on the OBD port (CAN id or K-line address). */
+/** A diagnostic module found on the OBD port (CAN id, K-line address or a VAG TP 2.0 module — [Tp20.BASE] + its address). */
 data class GmModule(
     val req: Int, val resp: Int, val name: String, val answeredTo: String,
-    /** Its own diagnostic address (GM \$1A B0), once read. */
+    /** Its own diagnostic address (GM \$1A B0), once read; a TP 2.0 module: its VCDS address. */
     val diag: Int? = null,
 ) {
-    val id get() = "%03X".format(req)
+    val id get() = Tp20.label(req)
 }
 
 /** A DID that answered positively during a scan. */

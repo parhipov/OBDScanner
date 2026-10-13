@@ -1,5 +1,6 @@
 package com.obdscanner.obd
 
+import com.obdscanner.vag.Tp20
 import com.obdscanner.util.roundHalfUp
 import com.obdscanner.util.nowMs
 import com.obdscanner.util.format
@@ -54,6 +55,7 @@ fun ecuName(header: Int): String = when (header) {
     0x7E9 -> tr("ЭБУ 7E9", "ECU 7E9")
     0x7EA -> tr("TCM (АКПП)", "TCM (transmission)")
     0x7EB -> tr("ЭБУ 7EB", "ECU 7EB")
+    in Tp20.BASE + 1..Tp20.BASE + 0xFF -> tr("Блок TP 2.0 %02X", "TP 2.0 module %02X").format(header - Tp20.BASE)
     else -> tr("ЭБУ %03X", "ECU %03X").format(header)
 }
 

@@ -2,6 +2,7 @@ package com.obdscanner.elm
 
 import com.obdscanner.util.format
 import com.obdscanner.tr
+import com.obdscanner.vag.Tp20
 
 /** OBD/CAN request layer on top of the raw ELM327 driver. */
 class Obd(val elm: Elm327) {
@@ -43,7 +44,13 @@ class Obd(val elm: Elm327) {
     /** Physical target of the last [target] call, null = broadcast. */
     private var lastTarget: Pair<Int, Int>? = null
 
+    /** VW TP 2.0 to the modules behind a VAG gateway ([Tp20.BASE] + logical address): its own channel, raw CAN frames. */
+    val tp = Tp20(this)
+    /** Logical address of the TP 2.0 module requests go to now; null — the usual CAN / K-line addressing. */
+    private var tpTarget: Int? = null
+
     suspend fun request(hex: String, timeoutMs: Long = 1500, expectOne: Boolean = false): CanReply {
+        tpTarget?.let { return tpRequest(it, hex) }
         val cmd = if (expectOne && countDigit) hex + "1" else hex
         var raw = elm.send(cmd, timeoutMs)
         if (raw.adapterReset && !recovering) {
@@ -54,6 +61,16 @@ class Obd(val elm: Elm327) {
         if (!first.garbled) return first
         val second = CanParser.parse(elm.send(cmd, timeoutMs), headerChars)
         return if (second.garbled && second.messages.size < first.messages.size) first else second
+    }
+
+    /** A TP 2.0 request; the adapter resetting itself on the way is recovered from as for any request, once. */
+    private suspend fun tpRequest(addr: Int, hex: String): CanReply = try {
+        tp.request(addr, hex)
+    } catch (e: Tp20.AdapterReset) {
+        elm.note("TP2.0: the adapter reset itself — recovering")
+        if (recovering) throw e
+        recover()
+        tp.request(addr, hex)
     }
 
     private suspend fun recover() {
@@ -74,6 +91,8 @@ class Obd(val elm: Elm327) {
 
     /** Physical addressing to one module. Tolerates clones that don't know ATCRA. */
     suspend fun target(req: Int, resp: Int) {
+        if (Tp20.isTp(req)) return targetTp(req, resp)
+        leaveTp()
         if (kline) return targetKline(req, resp)
         if (can29) {
             // The callers skip module requests on 29-bit CAN; if one gets here, the header stays functional
@@ -125,11 +144,35 @@ class Obd(val elm: Elm327) {
         }
     }
 
+    /**
+     * A TP 2.0 module: only remembered here, the channel opens with the first request ([Tp20]). CAN 11-bit only —
+     * the callers offer TP 2.0 modules on such a car only. Custom routing is undone first: the adapter's flow
+     * control settings must be the defaults when [Tp20.leave] hands it back.
+     */
+    private suspend fun targetTp(req: Int, resp: Int) {
+        if (kline || can29) {
+            elm.note("TP 2.0 module %s on a non-CAN-11 protocol: not targeted".format(Tp20.label(req)))
+            return
+        }
+        lastTarget = req to resp
+        // Not while in TP 2.0 already: ATAR would drop the channel's receive filter.
+        if (customRouting && !tp.active) resetRouting()
+        tpTarget = req - Tp20.BASE
+    }
+
+    /** Back from TP 2.0 to the adapter's normal mode, if it was in it. */
+    private suspend fun leaveTp() {
+        tpTarget = null
+        tp.leave()
+    }
+
     /** After ATZ the adapter is back to defaults (header 7DF, no filters). */
     fun resetState() {
         currentHeader = null
         responseFilter = null
         customRouting = false
+        tpTarget = null
+        tp.forget()
     }
 
     /** Someone changed the adapter's filters behind our back: the next target/broadcast sets everything again. */
@@ -141,6 +184,7 @@ class Obd(val elm: Elm327) {
     /** Back to functional OBD broadcast (7DF, all ECUs answer). */
     suspend fun broadcast() {
         lastTarget = null
+        leaveTp()
         if (kline) {
             // Untouched since the protocol started (null) — the ELM's own default header is still in place.
             if (currentHeader != null && currentHeader != KWP_FUNCTIONAL) {

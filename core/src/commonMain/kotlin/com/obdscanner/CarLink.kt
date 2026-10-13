@@ -45,6 +45,8 @@ import com.obdscanner.obd.ecuName
 import com.obdscanner.obd.pick
 import com.obdscanner.session.Recorder
 import com.obdscanner.session.Store
+import com.obdscanner.vag.Tp20
+import com.obdscanner.vag.VagBlocks
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -203,8 +205,13 @@ class CarLink(
         if (!o.canTarget) return
         _scan.update { it.copy(running = true, progress = 0f, status = tr("Подготовка…", "Preparing…")) }
         val sc = GmScanner(o) { session?.note(it) }
-        // The count digit is a CAN speed-up; on K-line every request waits for its answer anyway.
-        if (o.kline) o.countDigit = false else sc.detectCountDigit(module)
+        // The count digit is a CAN speed-up; on K-line every request waits for its answer anyway. TP 2.0 frames
+        // are the app's own: what the clone does with the digit is found on a CAN module.
+        when {
+            o.kline -> o.countDigit = false
+            Tp20.isTp(module.req) -> Unit
+            else -> sc.detectCountDigit(module)
+        }
         session?.note("GM scan ${module.id} service $service range %04X-%04X".format(range.first, range.last))
         var count = 0
         sc.scan(module, service, range,
@@ -789,7 +796,10 @@ class CarLink(
         val out = mutableListOf<String>()
         val skip = mutableSetOf<String>()
         val silent = mutableMapOf<String, Int>()
-        for (item in EcuIdent.ALL) {
+        // Behind a VAG gateway on TP 2.0 the modules speak KWP2000: \$1A only, VAG's own 9B (part number, software,
+        // coding) first — a refusal of another option can't skip it.
+        val tp = Tp20.isTp(mod.req)
+        for (item in if (tp) EcuIdent.ALL.filter { it.service == "1A" }.sortedBy { it.did != 0x9B } else EcuIdent.ALL) {
             if (item.service in skip) continue
             val r = sc.read(mod, item.service, item.did)
             if (r == null) {
@@ -805,8 +815,12 @@ class CarLink(
             val hit = ScanHit(mod.req, mod.resp, item.service, item.did, data)
             session?.scanHit(hit.req, hit.resp, hit.service, hit.didHex, hit.data)
             _scan.update { st -> st.copy(hits = st.hits.filter { it.key != hit.key } + hit) }
-            out += "  %s %s  %-44s %s".format(item.service, hit.didHex, item.name,
-                if (hit.looksLikeText) "«${hit.ascii.trim('·', ' ')}»  (${hit.hex})" else hit.hex)
+            val runs = if (tp && !hit.looksLikeText) VagBlocks.textRuns(data) else ""
+            out += "  %s %s  %-44s %s".format(item.service, hit.didHex, item.name, when {
+                hit.looksLikeText -> "«${hit.ascii.trim('·', ' ')}»  (${hit.hex})"
+                runs.isNotEmpty() -> "«$runs»  (${hit.hex})"
+                else -> hit.hex
+            })
         }
         return out
     }
@@ -1245,7 +1259,12 @@ class CarLink(
                     d.size == 1 -> d[0].toDouble()
                     else -> (d[0] * 256 + d[1]).toDouble()
                 }
-                out += Reading(h.key, h.req, "%03X %s %s".format(h.req, h.service, h.didHex), v, Pids.hex(d), "raw", 0)
+                out += Reading(h.key, h.req, "%s %s %s".format(Tp20.label(h.req), h.service, h.didHex), v, Pids.hex(d), "raw", 0)
+                // A VAG measuring block: each field by its formula type (the group and field number name it).
+                if (Tp20.isTp(h.req) && h.service == "21") VagBlocks.decode(d)?.forEachIndexed { i, f ->
+                    out += Reading("${h.key}#${i + 1}", h.req, tr("%s группа %s, поле %d", "%s group %s, field %d").format(Tp20.label(h.req), h.didHex, i + 1),
+                        f.value, if (f.value == null) f.text else null, f.unit, f.decimals)
+                }
                 val log = watchLog.getOrPut(key) { ArrayDeque() }
                 log.addLast(ScanDecode.Sample(d, refs))
                 if (log.size > WATCH_LOG) log.removeFirst()
@@ -1275,6 +1294,8 @@ class CarLink(
     private fun scanServices(m: GmModule): List<String> {
         val d = dialectOf(m.req)
         return when {
+            // VAG on TP 2.0: measuring blocks (groups 0–255) and KWP identification.
+            Tp20.isTp(m.req) -> listOf("21", "1A")
             _vehicle.value.kline -> listOf("1A", "21")
             d.ident == "gm_1a" -> listOf("1A", "22")
             d.live == "21" || d.family == "toyota" -> listOf("21", "22")
@@ -1290,7 +1311,7 @@ class CarLink(
         // Only a field that is a standard parameter takes its name, unit and scale; one that merely moves with it
         // is kept as its raw number.
         val ref = f.ref?.takeIf { f.same }?.let { _readings.value.pick(it) }
-        val where = "%03X %s %s".format(h.req, h.service, h.didHex)
+        val where = "%s %s %s".format(Tp20.label(h.req), h.service, h.didHex)
         val bytes = if (f.size == 1) ScanDecode.letter(f.offset) else ScanDecode.letter(f.offset) + "–" + ScanDecode.letter(f.offset + 1)
         val name = if (ref != null) "${ref.name} · $where" else tr("%s · байт %s", "%s · byte %s").format(where, bytes)
         val p = if (ref != null) ScanParam(h.req, h.resp, h.service, h.did, f.offset, f.size, f.signed, f.a, f.b, name, ref.unit, ref.decimals)
@@ -1387,7 +1408,7 @@ class CarLink(
         val gmFamily = !o.kline && (family()?.dialect ?: Dialect.GENERIC).ident == "gm_1a"
         val probed = if (o.kline) klineModules() else sc.probeModules(a.candidates, a.probes, a.name, onProbe)
         // GM: then one request to all modules — those behind the gateway answer it, not the probe; added after the probed.
-        val found = if (gmFamily && o.canTarget) {
+        val withGm = if (gmFamily && o.canTarget) {
             _scan.update { it.copy(progress = 0.8f, status = tr("Запрос всем блокам…", "Asking all modules…")) }
             progress(tr("Запрос всем блокам…", "Asking all modules…"))
             val all = sc.functionalModules(a.name)
@@ -1395,9 +1416,13 @@ class CarLink(
             probed.map { p -> all.firstOrNull { it.req == p.req }?.let { p.copy(diag = it.diag) } ?: p } +
                 all.filter { f -> probed.none { it.req == f.req } }.map { f -> f.copy(name = f.diag?.let(a.diagName) ?: f.name) }
         } else probed
+        // VAG up to ~2012: the modules behind the gateway speak TP 2.0 only.
+        val tp = if (tp20Applicable(o, probed)) tp20Modules(o, progress) else emptyList()
+        val found = withGm + tp
         _scan.update { it.copy(modules = found, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
         saveModules(found)
-        session?.report(tr("${a.tag}: найденные модули", "${a.tag}: modules found"), found.joinToString("\n") { "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
+        session?.report(tr("${a.tag}: найденные модули", "${a.tag}: modules found"), found.joinToString("\n") {
+            if (Tp20.isTp(it.req)) "  %s %s (%s)".format(it.id, it.name, it.answeredTo) else "  %03X→%03X %s (%s)".format(it.req, it.resp, it.name, it.answeredTo) }
             .ifEmpty { tr("нет", "none") })
         val ids = mutableListOf<ScanHit>()
         val generic = mutableListOf<String>()
@@ -1406,7 +1431,7 @@ class CarLink(
             _scan.update { it.copy(progress = 0.8f + 0.2f * i / found.size, status = s) }
             progress(s)
             if (!gmlan(mod.req)) {
-                generic += "${mod.name} [${mod.id}→%03X]".format(mod.resp)
+                generic += if (Tp20.isTp(mod.req)) "${mod.name} [${mod.id}]" else "${mod.name} [${mod.id}→%03X]".format(mod.resp)
                 generic += identifyGeneric(o, sc, mod).ifEmpty { listOf(tr("  нет ответа", "  no answer")) }
                 continue
             }
@@ -1436,6 +1461,27 @@ class CarLink(
         }.ifEmpty { tr("нет модулей", "no modules") })
         return named
     }
+
+    /**
+     * VW TP 2.0 is worth asking: a VAG on CAN 11-bit 500k none of whose modules answered ISO-TP on 700–7DF — a car up to
+     * about 2012, where only the engine and gearbox do. A newer one (MQB) answers there and is never sent a TP 2.0 frame.
+     */
+    private fun tp20Applicable(o: Obd, probed: List<GmModule>) =
+        family()?.id == "vag" && o.protocol == 6 && !o.kline && !o.can29 && probed.none { it.req in 0x700..0x7DF }
+
+    /** The modules behind the VAG gateway on TP 2.0 ([Tp20.findModules]); the car is marked as searched. */
+    private suspend fun tp20Modules(o: Obd, progress: (String) -> Unit): List<GmModule> {
+        val found = o.tp.findModules { p, s ->
+            _scan.update { it.copy(progress = 0.8f * p, status = s) }
+            progress(s)
+        }
+        tp20Key()?.let { store.putInt(it, 1) }
+        session?.note("TP 2.0: modules: " + found.joinToString(" ") { f -> "%02X".format(f.addr) + (f.vcds?.let { "(%02X)".format(it) } ?: "") }.ifEmpty { "none" })
+        return found.map { f -> GmModule(Tp20.BASE + f.addr, Tp20.BASE + f.addr, VagBlocks.moduleName(f.vcds, f.addr), f.how, f.vcds) }
+    }
+
+    /** Set once this car's modules were searched with TP 2.0 (found or not). */
+    private fun tp20Key() = carKey()?.let { "tp20_searched_$it" }
 
     /** "7E0:7E8,24F:64F:28": request, reply and — once read — the module's diagnostic address. */
     private fun saveModules(list: List<GmModule>) {
@@ -1526,7 +1572,8 @@ class CarLink(
             val req = parts[0] ?: return@mapNotNull null
             val resp = parts[1] ?: return@mapNotNull null
             val diag = parts.getOrNull(2)
-            GmModule(req, resp, diag?.let(a.diagName) ?: a.name(req), tr("из прошлой сессии", "from an earlier session"), diag)
+            val name = if (Tp20.isTp(req)) VagBlocks.moduleName(diag, req - Tp20.BASE) else diag?.let(a.diagName) ?: a.name(req)
+            GmModule(req, resp, name, tr("из прошлой сессии", "from an earlier session"), diag)
         }
     }
 
@@ -1539,6 +1586,11 @@ class CarLink(
                 session?.note("modules from an earlier session: ${modules.joinToString { it.id }}")
                 _scan.update { it.copy(modules = modules) }
             }
+        }
+        // Modules saved before the app knew TP 2.0: once, the search again with it.
+        if (modules.isNotEmpty() && modules.none { Tp20.isTp(it.req) } && tp20Applicable(o, modules) && tp20Key()?.let { store.getInt(it, 0) } == 0) {
+            session?.note("TP 2.0 not looked for on this car yet — searching the modules again")
+            modules = findModules(o, status)
         }
         if (modules.isEmpty()) modules = findModules(o, status)
         if (modules.isEmpty()) {
@@ -1554,14 +1606,15 @@ class CarLink(
         for ((i, mod) in modules.withIndex()) {
             status(tr("Ошибки ${mod.name} (${i + 1} из ${modules.size})…", "Codes: ${mod.name} (${i + 1} of ${modules.size})…"))
             val d = dialectOf(mod.req)
-            // GMLAN \$A9 needs CAN (raw UUDT frames); on K-line the block gets the standard ways.
-            val chain = d.dtc.filter { it != "gm_a9" || !o.kline }.ifEmpty { Dialect.GENERIC.dtc }
+            val tp = Tp20.isTp(mod.req)
+            // GMLAN \$A9 needs CAN (raw UUDT frames); on K-line the block gets the standard ways. TP 2.0 — KWP2000.
+            val chain = if (tp) listOf("kwp18") else d.dtc.filter { it != "gm_a9" || !o.kline }.ifEmpty { Dialect.GENERIC.dtc }
             // A make only picked by hand may be the wrong one: its ways first, then the standard ones.
-            val guess = _vehicle.value.makeByPick && _vehicle.value.car?.knownBlocks?.containsKey(mod.req) != true
+            val guess = !tp && _vehicle.value.makeByPick && _vehicle.value.car?.knownBlocks?.containsKey(mod.req) != true
             session?.note("DTC %s: dialect %s (%s), %s%s".format(mod.id, d.id, dialectSource(mod.req), chain.joinToString(" → "),
                 if (guess) ", then the standard ways if refused" else ""))
             used += chain.first().takeIf { it == "gm_a9" }?.let { listOf(it) } ?: chain
-            var r = if (chain.first() == "gm_a9") gmReader.read(mod) else udsReader.read(mod, chain, vagNumbers = d.dtcFormat == "vag")
+            var r = if (chain.first() == "gm_a9") gmReader.read(mod) else udsReader.read(mod, chain, vagNumbers = tp || d.dtcFormat == "vag")
             val rest = Dialect.GENERIC.dtc.filter { it !in chain }
             // Nothing read (refused or silent, no end-of-list): the block may talk another make's way.
             if (guess && r.codes.isEmpty() && !r.complete && rest.isNotEmpty()) {

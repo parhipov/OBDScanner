@@ -49,7 +49,8 @@
     <string-array name="guide_vag">
         <item>Volkswagen</item>
         <item>A Polo 9N (up to about 2009) with a petrol engine is usually on K-line. Then only standard OBD is read.</item>
-        <item>The first connection takes about two minutes: the app looks for the modules and reads their part numbers and codes. On cars up to about 2012 it only finds the engine and the gearbox.</item>
+        <item>The first connection takes about two minutes: the app looks for the modules and reads their part numbers and codes. On cars up to about 2012 the modules behind the gateway speak VW TP 2.0, and the app looks for them that way too. This is new and not yet tried on a real car: please send the session.</item>
+        <item>On a TP 2.0 module \"Measuring blocks\" reads groups 0–255 (as in VCDS). The numbers and units come from each value\'s type; what the value is, the app doesn\'t know (those names are only in VCDS files), so it shows the group and field number.</item>
         <item>If you have time, with the car parked: \"Module scan\" → \"Find blocks\", pick the range \"Identification F100–F1FF\" or \"Block 1000–1FFF\" and tap \"Parameters\" on the engine block. It takes a while.</item>
     </string-array>
 
