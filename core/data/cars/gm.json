@@ -1777,8 +1777,8 @@
       ],
       "vin": [
         "^KL[A1]P[CD]56",
-        "^KL79MR",
-        "^LSGTN84"
+        "^KL79M",
+        "^LSGTN8[34]"
       ],
       "engines": [
         {
@@ -1790,6 +1790,10 @@
       ],
       "protocol": 6,
       "names": {
+        "242": {
+          "ru": "Усилитель руля (EPS)",
+          "en": "Power steering (EPS)"
+        },
         "24F": {
           "ru": "Задний привод (муфта, K47)",
           "en": "Rear drive (clutch, K47)"
@@ -1800,8 +1804,8 @@
         }
       },
       "note": {
-        "ru": "Тот же Buick Encore GX. Названия блоков 24F и 252 — по GDS2 на машине владельца (issue #1).",
-        "en": "Same as the Buick Encore GX. Modules 24F and 252 are named by GDS2 on an owner's car (issue #1)."
+        "ru": "Тот же Buick Encore GX. Блоки 24F и 252 названы по GDS2 на машине владельца, 242 — по имени, которое блок сообщает сам («COLUMN-EPS», issue #1).",
+        "en": "Same as the Buick Encore GX. Modules 24F and 252 are named by GDS2 on an owner's car, 242 by the name the module gives itself («COLUMN-EPS», issue #1)."
       },
       "src": [
         "https://github.com/parhipov/OBDScanner/issues/1"
@@ -1817,7 +1821,8 @@
         2026
       ],
       "vin": [
-        "^KL4MM"
+        "^KL4[MA]M",
+        "^LSGTM83"
       ],
       "note": {
         "ru": "Тот же Chevrolet Trailblazer VSS-F.",
