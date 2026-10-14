@@ -59,7 +59,7 @@ object ReplayText {
                 appendLine(body.lines().filterNot { it.startsWith("Приложение: ") || it.startsWith("App: ") }.joinToString("\n"))
             }
             appendLine("\n## vehicle")
-            appendLine("protocol: ${v.protocol}, multi-PID: ${v.multiPid}, K-line: ${v.kline}")
+            appendLine("protocol: ${v.protocol}, multi-PID: ${v.pidBatch > 1}, K-line: ${v.kline}")
             appendLine("vin: ${v.vin}, brand: ${v.brand}, make: ${v.make}, car: ${v.car?.title}")
             for ((h, e) in v.ecus.entries.sortedBy { it.key }) {
                 appendLine("ecu %03X: pids01 %s; mode09 %s; mids06 %s; readiness %d".format(h,

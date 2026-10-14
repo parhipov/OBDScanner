@@ -429,7 +429,7 @@ class CarLink(
             m.data.size >= 6 && m.data[0] == 0x41 && m.data[1] == 0x0C && m.data[4] == 0x0D
         }
         val rv = o.at("ATRV").lines.firstOrNull().orEmpty()
-        _vehicle.update { it.copy(adapter = ver, adapterDesc = desc, protocol = "$dp ($dpn)", multiPid = multi, kline = o.kline) }
+        _vehicle.update { it.copy(adapter = ver, adapterDesc = desc, protocol = "$dp ($dpn)", pidBatch = if (multi) BATCHES.first() else 1, kline = o.kline) }
         refreshMemory()
         val yes = tr("да", "yes")
         val no = tr("нет", "no")
@@ -935,6 +935,8 @@ class CarLink(
 
     fun startPolling() {
         silentCycles = 0
+        silentBatches = 0
+        batchAnswered = false
         lastRv = 0L
         lastFlush = 0L
         lastMisfire = clock()
@@ -1208,15 +1210,28 @@ class CarLink(
             pause(200)
             return -1
         }
-        val multi = _vehicle.value.multiPid
-        val batchable = pids.filter { multi && (Pids.byPid[it]?.len ?: -1) > 0 }
+        val batchable = pids.filter { _vehicle.value.pidBatch > 1 && (Pids.byPid[it]?.len ?: -1) > 0 }
         val single = pids - batchable.toSet()
         val out = mutableListOf<Reading>()
-        for (chunk in batchable.chunked(6)) {
+        var rest = batchable
+        while (rest.isNotEmpty()) {
+            // The size may drop on the way (shrinkBatch): the rest of the cycle goes in the new size.
+            val chunk = rest.take(_vehicle.value.pidBatch)
+            rest = rest.drop(chunk.size)
             val r = o.request("01" + chunk.joinToString("") { "%02X".format(it) }, POLL_TIMEOUT)
+            var answered = false
             for (m in r.messages) {
                 if (m.service != 0x41) continue
+                answered = true
                 for ((pid, d) in Pids.splitMulti(m.data, chunk)) out += o.stamped(Pids.decode(m.header, "01", pid, d))
+            }
+            // Only a request too big for the next smaller size tells about this one (not the PID or two left over at
+            // the end of a cycle). A full one answered once in this connection keeps the size: later silence is the
+            // car's (ignition off), not the batch's.
+            val size = _vehicle.value.pidBatch
+            if (chunk.size > (BATCHES.firstOrNull { it < size } ?: 1)) when {
+                answered -> if (chunk.size == size) { silentBatches = 0; batchAnswered = true }
+                !batchAnswered && ++silentBatches >= 2 -> shrinkBatch(o, chunk.first())
             }
         }
         for (pid in single) {
@@ -1230,6 +1245,32 @@ class CarLink(
         val twoBanks = 0x13 in _vehicle.value.supported01
         publish(if (twoBanks) out.filterNot { it.source.matches(Regex("""01\.5[5-8]\.B""")) } else out)
         return out.size
+    }
+
+    /** Full multi-PID requests in a row that got no answer at all, see [shrinkBatch]. */
+    private var silentBatches = 0
+    /** A full request of the current size was answered in this connection: the size is kept. */
+    private var batchAnswered = false
+
+    /**
+     * Two full multi-PID requests in a row unanswered, none of that size answered before, while [pid] alone is
+     * answered: the batch is too big for this adapter or ECU — the next ones carry fewer PIDs (6 → 3 → one at a
+     * time). The connect check asks two PIDs, one CAN frame each way; six is a 7-byte request and a reply over
+     * several frames: the «ELM327 v2.1» on the Kia Sportage QL of 2026-10-14 answered two and nothing to six
+     * (81 of 81 polls). No answer to the lone PID either is a silent car, not the batch: the size stays.
+     */
+    private suspend fun shrinkBatch(o: Obd, pid: Int) {
+        silentBatches = 0
+        val alone = o.request("01%02X".format(pid), POLL_TIMEOUT)
+        if (alone.messages.none { it.service == 0x41 && it.data.getOrNull(1) == pid }) return
+        val was = _vehicle.value.pidBatch
+        val now = BATCHES.firstOrNull { it < was } ?: 1
+        _vehicle.update { it.copy(pidBatch = now) }
+        batchAnswered = false
+        session?.note("multi-PID: two requests of $was PIDs unanswered, %02X alone answered — %s from now on".format(pid, if (now > 1) "$now PIDs per request" else "one PID per request"))
+        session?.report(tr("Мульти-PID", "Multi-PID"),
+            tr("По $was PID в запросе ответа нет, по одному отвечает — дальше ${if (now > 1) "по $now PID" else "по одному PID"}",
+                "No answer to $was PIDs per request, one PID is answered — ${if (now > 1) "$now PIDs" else "one PID"} per request from now on"))
     }
 
     /** When each Mode 01 PID / GM parameter was last asked for, see [PollRate.due]. */
@@ -1838,6 +1879,8 @@ class CarLink(
             "Adapter disconnected and does not answer. Unplug it for 5 seconds, plug it back in and connect again.",
         )
         private const val POLL_TIMEOUT = 1000L
+        /** Mode 01 PIDs per request, from the most (OBD's limit) down, see [shrinkBatch]. */
+        private val BATCHES = listOf(6, 3)
         private const val EXT_PER_CYCLE = 5
         private const val FUEL_WATCH = "fuel_watch"
         /** Requests in a row a module may leave unanswered before the probe skips it. */

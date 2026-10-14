@@ -68,7 +68,8 @@ data class VehicleInfo(
     val adapter: String = "",
     val adapterDesc: String = "",
     val protocol: String = "",
-    val multiPid: Boolean = false,
+    /** Mode 01 PIDs one request may carry: up to 6, fewer after bigger ones went unanswered; 1 — one PID at a time. */
+    val pidBatch: Int = 1,
     val step: String = "",
     val ecus: Map<Int, EcuInfo> = emptyMap(),
     val vin: String? = null,

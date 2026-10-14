@@ -121,7 +121,7 @@ object InfoScreen {
         b.row(tr("Версия", "Version"), v.adapter.ifEmpty { "—" })
         b.row(tr("Описание", "Description"), v.adapterDesc.ifEmpty { "—" })
         b.row(tr("Протокол", "Protocol"), v.protocol.ifEmpty { "—" })
-        b.row(tr("Мульти-PID запросы", "Multi-PID requests"), if (v.multiPid) tr("да", "yes") else tr("нет", "no"))
+        b.row(tr("Мульти-PID запросы", "Multi-PID requests"), if (v.pidBatch > 1) tr("по ${v.pidBatch} PID", "${v.pidBatch} PIDs each") else tr("нет", "no"))
         b.title(tr("Автомобиль", "Vehicle"))
         b.row("VIN", v.vin ?: "—")
         if (v.adapter.isNotEmpty()) b.row(tr("Марка (по VIN)", "Make (from VIN)"), listOfNotNull(v.brand, v.make.title.takeIf { v.make != Make.OTHER || v.brand == null }).distinct().joinToString(" · "))
