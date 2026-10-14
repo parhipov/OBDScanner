@@ -1785,7 +1785,22 @@
           "code": "L3T",
           "liters": 1.3,
           "cyl": 3,
-          "fuel": "petrol"
+          "fuel": "petrol",
+          "vin": [
+            "^KL[A1]P.{3}L"
+          ]
+        },
+        {
+          "code": "LIH",
+          "liters": 1.2
+        },
+        {
+          "code": "LBP",
+          "liters": 1.2
+        },
+        {
+          "code": "L3Z",
+          "liters": 1.3
         }
       ],
       "protocol": 6,
@@ -1840,6 +1855,14 @@
           "ru": "Блок климата (K33)",
           "en": "HVAC module (K33)"
         },
+        "A4": {
+          "ru": "Пятая дверь (K39)",
+          "en": "Liftgate (K39)"
+        },
+        "AF": {
+          "ru": "Бесключевой доступ (K84)",
+          "en": "Keyless entry (K84)"
+        },
         "B9": {
           "ru": "Датчик слепой зоны слева (B218L)",
           "en": "Side object sensor, left (B218L)"
@@ -1873,6 +1896,20 @@
       "vin": [
         "^KL4[MA]M",
         "^LSGTM83"
+      ],
+      "engines": [
+        {
+          "code": "LIH",
+          "liters": 1.2
+        },
+        {
+          "code": "LBP",
+          "liters": 1.2
+        },
+        {
+          "code": "L3Z",
+          "liters": 1.3
+        }
       ],
       "note": {
         "ru": "Тот же Chevrolet Trailblazer VSS-F.",

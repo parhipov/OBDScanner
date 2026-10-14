@@ -155,6 +155,9 @@ in git) through the connection and compares what the app sends and finds with `r
 ```
 
 - `vin` — optional regexes over the full VIN that identify this model (only if a source gives the VDS).
+- `engines[].vin` — optional regexes over the full VIN that say it's this engine (only if a source gives the
+  engine's VIN code). A VIN that fits narrows the car to those engines (their size and cylinders then count);
+  one that fits none keeps them all.
 - `fuel`: `petrol | diesel | hybrid | electric | lpg`. `maf`: true/false, leave out if unknown.
 - `protocol` — ELM327 ATSP number of the engine ECU for this generation:
   1 J1850 PWM, 2 J1850 VPW, 3 ISO 9141-2, 4 ISO 14230 5-baud, 5 ISO 14230 fast, 6 CAN 11/500,

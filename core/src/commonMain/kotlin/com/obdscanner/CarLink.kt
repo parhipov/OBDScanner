@@ -137,7 +137,7 @@ class CarLink(
         if (forCar != null) store.putString(forCar, pick?.id)
         _vehicle.update { v ->
             val sameFamily = v.vin == null || CarDb.brandOf(v.vin)?.family.let { it == null || it == pick?.family }
-            val car = pick?.model?.takeIf { sameFamily } ?: CarDb.detect(v.vin)
+            val car = pick?.model?.takeIf { sameFamily }?.let { CarDb.forVin(it, v.vin) } ?: CarDb.detect(v.vin)
             v.copy(car = car, misfitPick = null, pickForCar = forCar != null && car != null && car == pick?.model)
         }
         syncDtcFamily()
@@ -563,7 +563,7 @@ class CarLink(
         if (misfit != null) session?.note("hand pick ${misfit.id} doesn't fit: its protocol ${misfit.protocol}, the car's ${o.protocol}")
         val picked = own ?: global.takeIf { misfit == null }
         // A hand-picked car stays while the VIN agrees with its family (or there is no VIN); otherwise the VIN wins.
-        val known = picked?.model?.takeIf { brand == null || it.family == brand.family } ?: CarDb.detect(vin)
+        val known = picked?.model?.takeIf { brand == null || it.family == brand.family }?.let { CarDb.forVin(it, vin) } ?: CarDb.detect(vin)
         // Neither: the engine ECU's own answer may still say which model it is (a JDM car has no VIN).
         val recognised = if (known == null) recogniseModel(o, brand?.name) else null
         val car = known ?: recognised

@@ -244,6 +244,11 @@ class CarDbTest {
         assertTrue(a.name(0x25E).startsWith(tr("Комбинация приборов", "Instrument cluster")))
         assertEquals(gm.modules!!.names[0x241], a.name(0x241))
         assertEquals("24F", ObdModules.addressing(gm, "GM").name(0x24F))
+        // The engine by the VIN where a source gives its code (8th character L = L3T in the owner's decode); the
+        // model keeps all its engines, a VIN without a known code gets them all.
+        assertEquals(listOf("L3T"), car.engines.map { it.code })
+        assertTrue(CarDb.models.single { it.model == "Trailblazer" }.engines.size > 1)
+        assertTrue(CarDb.detect("KL79MRSL8NB123456")!!.engines.size > 1)
         // SW-CAN modules by their diagnostic address: the model's, then the family's.
         val d = ObdModules.addressing(gm, "GM", names = car.names, diagNames = car.diagNames)
         assertTrue(d.diagName(0x62)!!.startsWith(tr("Проекция", "Head-up")))

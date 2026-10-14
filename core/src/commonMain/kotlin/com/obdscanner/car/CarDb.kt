@@ -163,7 +163,17 @@ object CarDb {
         val year = modelYear(v)
         val hits = families[brand.family]?.models.orEmpty().filter { m -> m.vin.any { it.containsMatchIn(v) } }
             .sortedBy { it.brand != brand.name }
-        return hits.firstOrNull { year != null && m(it, year) } ?: hits.singleOrNull()
+        return (hits.firstOrNull { year != null && m(it, year) } ?: hits.singleOrNull())?.let { forVin(it, v) }
+    }
+
+    /**
+     * The model with its engines narrowed by the VIN: the engines whose `vin` pattern fits are the car's (its size and
+     * cylinders then count); none fits — all of them, the car's is unknown.
+     */
+    fun forVin(model: CarModel, vin: String?): CarModel {
+        val v = vin?.trim()?.uppercase()?.ifEmpty { null } ?: return model
+        val fit = model.engines.filter { e -> e.vin.any { it.containsMatchIn(v) } }
+        return if (fit.isEmpty() || fit.size == model.engines.size) model else model.copy(engines = fit)
     }
 
     private fun m(model: CarModel, year: Int) = model.years?.let { year in it } ?: true
@@ -197,6 +207,7 @@ object CarDb {
                 e.optString("fuel").ifEmpty { null },
                 if (e.has("maf")) e.getBoolean("maf") else null,
                 blocks = e.optJSONArray("blocks").objects().map { parseBlock(it) },
+                vin = e.optJSONArray("vin").strings().mapNotNull { runCatching { Regex(it, RegexOption.IGNORE_CASE) }.getOrNull() },
             )
         }
         return CarModel(
@@ -491,6 +502,8 @@ data class Engine(
     val code: String?, val liters: Double?, val cyl: Int?, val fuel: String?, val maf: Boolean?,
     /** Blocks that come with this engine (its ECU's dialect). */
     val blocks: List<BlockSpec> = emptyList(),
+    /** Regexes over the full VIN that say it's this engine (only where a source gives the engine's VIN code). */
+    val vin: List<Regex> = emptyList(),
 ) {
     val title: String get() = listOfNotNull(code, liters?.let { "%.1f".format(it) }, cyl?.let { tr("$it цил.", "$it cyl") }, fuel?.let(::fuelName)).joinToString(" · ")
 
