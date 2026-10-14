@@ -29,6 +29,12 @@ class GmView(
     val find: String,
     val stop: String,
     val scan: GmView.Progress?,
+    /** GM: «Блоки на SW-CAN» ([com.obdscanner.CarLink.swCanModules]); null — not a GM. */
+    val swButton: String?,
+    val swNote: String?,
+    val sw: GmView.Progress?,
+    /** What it found: a module per row, its codes under it. */
+    val swRows: List<String>,
     val busTitle: String,
     val busNote: String,
     val busButton: String,
@@ -78,8 +84,8 @@ object GmScreen {
         val saved = s.params.map { it.key }.toSet()
         return GmView(
             hints = listOfNotNull(
-                if (ctx.gm) tr("Старый ELM327 видит только HS-CAN: ECM, TCM, ABS, BCM и др. Подушки, приборка, радио, климат, TPMS — на однопроводной GMLAN (пин 1), для них нужен OBDLink MX+.",
-                    "An old ELM327 sees HS-CAN only: ECM, TCM, ABS, BCM etc. Airbags, cluster, radio, climate, TPMS are on single-wire GMLAN (pin 1) and need an OBDLink MX+.") else null,
+                if (ctx.gm) tr("Старый ELM327 видит только HS-CAN: ECM, TCM, ABS, BCM и др. Часть блоков (у разных машин разные: подушки, климат, проекция, радио…) — на однопроводной GMLAN (пин 1): для них нужен адаптер с SW-CAN, кнопка «Блоки на SW-CAN» ниже.",
+                    "An old ELM327 sees HS-CAN only: ECM, TCM, ABS, BCM etc. Some modules (they differ by car: airbags, HVAC, head-up display, radio…) are on single-wire GMLAN (pin 1): they need an adapter with SW-CAN, the «SW-CAN modules» button below.") else null,
                 tr("Только чтение: блоки ничего не меняют и не стирают. Сканировать на стоящей машине: зажигание включено или двигатель на ХХ. " +
                     "Найденное пишется в scan.csv сессии. Отметьте ☑ интересное — оно будет опрашиваться, и приложение попробует понять, что это за параметр.",
                     "Read only: the blocks change and erase nothing. Scan with the car parked: ignition on or engine at idle. " +
@@ -88,6 +94,19 @@ object GmScreen {
             find = tr("Найти блоки", "Find blocks"),
             stop = tr("Стоп", "Stop"),
             scan = if (s.running || s.status.isNotEmpty()) GmView.Progress(s.running, s.progress, s.status) else null,
+            swButton = if (ctx.gm) tr("Блоки на SW-CAN", "SW-CAN modules") else null,
+            swNote = if (ctx.gm) tr("Однопроводная шина GM (пин 1): найти блоки, прочитать их номера и ошибки, потом вернуться на основную шину. Только чтение, 1–2 минуты. " +
+                "Нужен адаптер, который понимает команды OBDLink (STP 63); обычный ELM327 не умеет — тогда приложение так и скажет, ничего не меняя.",
+                "GM's single-wire bus (pin 1): find the modules, read their numbers and codes, then back to the main bus. Read only, 1–2 minutes. " +
+                    "Needs an adapter that knows OBDLink's commands (STP 63); a plain ELM327 doesn't — the app then says so and changes nothing.") else null,
+            sw = s.sw?.let { GmView.Progress(it.running, 0f, it.status) },
+            swRows = s.sw?.let { w ->
+                w.modules.map { m ->
+                    val r = w.dtcs.firstOrNull { it.module.req == m.req }
+                    "${m.name}  ·  %03X → %03X".format(m.req, m.resp) + (m.diag?.let { tr(", адрес %02X", ", address %02X").format(it) } ?: "") +
+                        (r?.let { " — ${it.result}" + it.codes.joinToString("") { c -> "\n    ${c.full}  ${c.description}" } } ?: "")
+                }
+            }.orEmpty(),
             busTitle = tr("Прослушка шины", "Bus sniffing"),
             busNote = tr("Слушает обычный обмен между блоками (ничего не отправляет в блоки). ~10 с обзор, потом по 1.5 с на каждый ID — обычно 1–2 минуты. Лучше с заведённым двигателем; можно погазовать. Пишется в bus.csv.",
                 "Listens to the normal traffic between modules (sends nothing to them). ~10 s overview, then 1.5 s per ID — usually 1–2 minutes. Best with the engine running; revving helps. Written to bus.csv."),

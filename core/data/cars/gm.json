@@ -1794,6 +1794,10 @@
           "ru": "Усилитель руля (EPS)",
           "en": "Power steering (EPS)"
         },
+        "24B": {
+          "ru": "Передняя камера (B174W)",
+          "en": "Front view camera (B174W)"
+        },
         "24F": {
           "ru": "Задний привод (муфта, K47)",
           "en": "Rear drive (clutch, K47)"
@@ -1801,11 +1805,23 @@
         "252": {
           "ru": "Радио (A11)",
           "en": "Radio (A11)"
+        },
+        "25E": {
+          "ru": "Комбинация приборов (P16)",
+          "en": "Instrument cluster (P16)"
+        },
+        "25F": {
+          "ru": "Шлюз (K56)",
+          "en": "Gateway (K56)"
         }
       },
+      "buses": {
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, тормоза, усилитель руля, кузов, передняя камера, приборы, радио, задний привод, шлюз. SW-CAN (контакт 1): проекционный дисплей, климат, подушки, бесключевой доступ, пятая дверь, парктроник, датчики слепых зон — нужен адаптер с SW-CAN.",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, brakes, power steering, body, front camera, cluster, radio, rear drive, gateway. SW-CAN (pin 1): head-up display, HVAC, airbags, keyless entry, liftgate, park assist, side blind zone sensors — needs an adapter with SW-CAN."
+      },
       "note": {
-        "ru": "Тот же Buick Encore GX. Блоки 24F и 252 названы по GDS2 на машине владельца, 242 — по имени, которое блок сообщает сам («COLUMN-EPS», issue #1).",
-        "en": "Same as the Buick Encore GX. Modules 24F and 252 are named by GDS2 on an owner's car, 242 by the name the module gives itself («COLUMN-EPS», issue #1)."
+        "ru": "Тот же Buick Encore GX. Блоки названы по GDS2 и каталогу GM по номерам деталей, которые они сообщают, на машине владельца (issue #1); 242 ещё и сам называет себя «COLUMN-EPS».",
+        "en": "Same as the Buick Encore GX. Modules are named by GDS2 and GM's parts catalogue, by the part numbers they report, on an owner's car (issue #1); 242 also calls itself «COLUMN-EPS»."
       },
       "src": [
         "https://github.com/parhipov/OBDScanner/issues/1"

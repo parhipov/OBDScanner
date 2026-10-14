@@ -126,4 +126,17 @@ data class ScanState(
     val polls: Map<String, Int> = emptyMap(),
     /** Fields saved as this car's parameters. */
     val params: List<ScanParam> = emptyList(),
+    /** GM SW-CAN (pin 1), its own button; null — not asked yet. */
+    val sw: SwCanState? = null,
+)
+
+/**
+ * What «Блоки на SW-CAN» found on GM's single-wire bus: the modules and their codes. Apart from [ScanState.modules]:
+ * they answer only while the adapter is switched there, so the polls and «Ошибки всех блоков» leave them out.
+ */
+data class SwCanState(
+    val running: Boolean = false,
+    val status: String = "",
+    val modules: List<GmModule> = emptyList(),
+    val dtcs: List<GmDtcResult> = emptyList(),
 )

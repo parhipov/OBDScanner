@@ -31,6 +31,8 @@ class ElmState {
             c == "ATZ" || c == "ATD" || c == "ATWS" -> { sp = "-"; sh = "-"; cra = "-"; caf = "1" }
             c.startsWith("ATSP") -> sp = c.removePrefix("ATSP")
             c.startsWith("ATTP") -> sp = c.removePrefix("ATTP")
+            // OBDLink's protocol presets (STP 63 — SW-CAN): another bus, its answers apart from HS-CAN's.
+            c.startsWith("STP") && c.length > 3 && c[3].isDigit() -> sp = c
             c.startsWith("ATSH") -> sh = c.removePrefix("ATSH")
             c.startsWith("ATCRA") -> cra = c.removePrefix("ATCRA").ifEmpty { "-" }
             c == "ATAR" -> cra = "-"
@@ -205,6 +207,8 @@ suspend fun replayRun(
     log: ReplayLog, store: Store, cycles: Int, ops: Boolean = false, pick: com.obdscanner.car.CarChoice? = null,
     /** Another adapter in place of the recorded one (one that answers some of it itself). */
     transport: ((ReplayLog, VirtualClock) -> Transport)? = null,
+    /** One more button after the cycles (and [ops]): a test of one operation without changing the others' goldens. */
+    after: (suspend (CarLink, Obd) -> Unit)? = null,
 ): Replayed {
     CanParser.forgetEcus()
     DtcDb.family = null
@@ -249,6 +253,7 @@ suspend fun replayRun(
                 repeat(3) { link.pollCycle(o) }
                 op("clearDtc") { link.clearDtc(o) }
             }
+            after?.let { requests += "# after"; it(link, o) }
         } catch (e: Exception) {
             error = e.message ?: e.toString()
         }

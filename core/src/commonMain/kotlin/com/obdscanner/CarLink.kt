@@ -48,6 +48,7 @@ import com.obdscanner.session.Store
 import com.obdscanner.vag.Tp20
 import com.obdscanner.vag.VagBlocks
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -55,6 +56,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import com.obdscanner.util.IOException
 
@@ -1503,6 +1505,92 @@ class CarLink(
         }
         readModuleDtcs(o) { s -> _vehicle.update { it.copy(gmDtcStatus = s) } }
         ensureAdapter(o)
+    }
+
+    /**
+     * GM's single-wire CAN (pin 1, 33.3 kbit/s: HUD, HVAC, airbags, keyless entry… on a Trailblazer, issue #1), its own
+     * button. The ELM327 command set has no such bus; OBDLink's (STN) has: STP 63 — SW-CAN, ISO 15765, 11-bit, 33.3 kbit/s
+     * (OBDLink FRPM). An adapter that refuses it, or doesn't say 63 to STPR afterwards (a clone that answers OK to
+     * anything), is left as it is. There: the request to all modules and the probe 240–25F, each module's \$1A and \$A9
+     * codes; then back to the connection's protocol on HS-CAN, checked by [ensureAdapter]. Read only.
+     */
+    suspend fun swCanModules(o: Obd) {
+        fun state(status: String, running: Boolean = true, modules: List<GmModule>? = null, dtcs: List<GmDtcResult>? = null) =
+            _scan.update { s -> val w = s.sw ?: SwCanState()
+                s.copy(sw = w.copy(running = running, status = status, modules = modules ?: w.modules, dtcs = dtcs ?: w.dtcs)) }
+        if (o.kline || o.can29 || !o.canTarget) {
+            state(tr("SW-CAN — у GM на CAN 11 бит; на этом подключении его нет", "SW-CAN is a GM thing on 11-bit CAN; not on this connection"), running = false)
+            return
+        }
+        state(tr("Переключение на SW-CAN…", "Switching to SW-CAN…"), modules = emptyList(), dtcs = emptyList())
+        val sc = GmScanner(o) { session?.note(it) }
+        val a = addressing()
+        // The HS-CAN names by request id say nothing about the modules here: by their own address or the bare id.
+        val plain = { req: Int -> "%03X".format(req) }
+        var switched = false
+        var final = ""
+        try {
+            val set = o.at("STP63")
+            val now = if (set.isOk) o.at("STPR").lines.firstOrNull { it.isNotBlank() && it != "OK" }?.trim() else null
+            if (now != "63") {
+                session?.note("SW-CAN: STP63 → ${set.lines}, STPR → $now — the adapter can't switch, nothing done")
+                if (set.isOk) switched = true
+                final = tr("Адаптер не переключается на SW-CAN: он не понимает команду OBDLink STP 63. Для этих блоков нужен адаптер с SW-CAN.",
+                    "The adapter doesn't switch to SW-CAN: it doesn't know OBDLink's STP 63. These modules need an adapter with SW-CAN.")
+                return
+            }
+            switched = true
+            o.resetState()
+            session?.note("SW-CAN: STP63 accepted, STPR 63")
+            state(tr("SW-CAN: запрос всем блокам…", "SW-CAN: asking all modules…"))
+            val all = sc.functionalModules(plain)
+            val rest = (0x240..0x25F).filter { req -> all.none { it.req == req } }.map { it to it + 0x400 }
+            val probed = sc.probeModules(rest, a.probes, plain) { _, s -> state("SW-CAN: $s") }
+            val found = (all + probed).sortedBy { it.req }
+            val ids = mutableListOf<ScanHit>()
+            for ((i, mod) in found.withIndex()) {
+                state(tr("SW-CAN: идентификация %s (%d из %d)…", "SW-CAN: identifying %s (%d of %d)…").format(mod.id, i + 1, found.size))
+                sc.identify(mod) { h -> ids += h; session?.scanHit(h.req, h.resp, h.service, h.didHex, h.data) }
+            }
+            val named = found.map { mod ->
+                val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
+                if (diag == null) mod else mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
+            }
+            state(tr("SW-CAN: найдено блоков: %d", "SW-CAN: modules found: %d").format(named.size), modules = named)
+            session?.report(tr("GM SW-CAN: найденные модули", "GM SW-CAN: modules found"), named.joinToString("\n") { m ->
+                "  %03X→%03X %s (%s)".format(m.req, m.resp, m.name, m.answeredTo) + (m.diag?.let { tr(", адрес %02X", ", address %02X").format(it) } ?: "")
+            }.ifEmpty { tr("нет", "none") })
+            if (named.isNotEmpty()) session?.report(tr("GM SW-CAN: идентификация модулей (\$1A)", "GM SW-CAN: module identification (\$1A)"), named.joinToString("\n\n") { mod ->
+                "${mod.name} [${mod.id}]\n" + ids.filter { it.req == mod.req }.joinToString("\n") { h ->
+                    "  1A %s %-26s %s".format(h.didHex, h.label.orEmpty(), h.partNumber?.toString() ?: if (h.looksLikeText) "«${h.ascii}»" else h.hex)
+                }.ifEmpty { tr("  нет ответа", "  no answer") }
+            })
+            val reader = GmDtcReader(o) { session?.note(it) }
+            val out = mutableListOf<GmDtcResult>()
+            for ((i, mod) in named.withIndex()) {
+                state(tr("SW-CAN: ошибки %s (%d из %d)…", "SW-CAN: codes of %s (%d of %d)…").format(mod.name, i + 1, named.size))
+                out += reader.read(mod)
+                state(tr("SW-CAN: ошибки %s (%d из %d)…", "SW-CAN: codes of %s (%d of %d)…").format(mod.name, i + 1, named.size), dtcs = out.toList())
+            }
+            if (named.isNotEmpty()) session?.report(tr("GM SW-CAN: ошибки (\$A9 81 %02X)", "GM SW-CAN: DTCs (\$A9 81 %02X)").format(GmDtcReader.MASK), out.joinToString("\n\n") { r ->
+                "${r.module.name} [${r.module.id}] — ${r.result}" + r.codes.joinToString("") { c ->
+                    tr("\n  %s  статус %02X (%s)  %s", "\n  %s  status %02X (%s)  %s").format(c.full, c.status, c.flags, c.description)
+                }
+            })
+            final = if (named.isEmpty()) tr("SW-CAN: адаптер переключился, но ни один блок не ответил", "SW-CAN: the adapter switched, but no module answered")
+                else tr("SW-CAN: блоков %d, кодов %d", "SW-CAN: modules %d, codes %d").format(named.size, out.sumOf { it.codes.size })
+        } finally {
+            withContext(NonCancellable) {
+                // Back to HS-CAN the way the connection opened it; ensureAdapter re-initialises if 0100 isn't answered.
+                if (switched) {
+                    runCatching { o.at(protocolCmd) }
+                    o.resetState()
+                    session?.note("SW-CAN: back to $protocolCmd")
+                }
+                state(final.ifEmpty { tr("SW-CAN: прервано", "SW-CAN: interrupted") }, running = false)
+                if (switched) ensureAdapter(o)
+            }
+        }
     }
 
     /**

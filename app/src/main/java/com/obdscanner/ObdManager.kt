@@ -428,6 +428,9 @@ class ObdManager(private val context: Context) {
 
     fun probeModules() = launchOp(tr("Поиск блоков", "Block search")) { link.probeModules(it) }
 
+    /** GM's single-wire CAN (pin 1): its modules and codes, then back to HS-CAN. Read only. */
+    fun swCanModules() = launchOp(tr("Блоки на SW-CAN", "SW-CAN modules")) { link.swCanModules(it) }
+
     /** Full DTC memory of every module; finds the modules first if that wasn't done yet. Read only. */
     fun readAllModulesDtc() = launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.readAllModulesDtc(it) }
 

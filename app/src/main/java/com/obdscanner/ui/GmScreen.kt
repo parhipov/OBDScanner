@@ -58,6 +58,18 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
                 if (busy != null) OutlinedButton(onClick = { m.stopOp() }, Modifier.padding(start = 8.dp)) { Text(g.stop) }
             }
             g.scan?.let { Progress(it) }
+            // GM's single-wire bus: its own button, what it found right under it.
+            g.swButton?.let { label ->
+                Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    OutlinedButton(onClick = { m.swCanModules() }, enabled = connected && busy == null) { Text(label) }
+                }
+                g.swNote?.let { Muted(it) }
+                g.sw?.let { p ->
+                    if (p.running) LinearProgressIndicator(Modifier.fillMaxWidth().padding(8.dp))
+                    Muted(p.status)
+                }
+                for (row in g.swRows) Text(row, Modifier.padding(horizontal = 8.dp, vertical = 2.dp), style = MaterialTheme.typography.bodySmall)
+            }
             g.paramsTitle?.let { SectionTitle(it) }
         }
         items(g.params, key = { "p:" + it.key }) { p ->

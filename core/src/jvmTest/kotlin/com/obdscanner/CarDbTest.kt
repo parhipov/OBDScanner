@@ -241,6 +241,7 @@ class CarDbTest {
         assertTrue(a.name(0x24F).startsWith(tr("Задний привод", "Rear drive")))
         assertTrue(a.name(0x252).startsWith(tr("Радио", "Radio")))
         assertTrue(a.name(0x242).startsWith(tr("Усилитель руля", "Power steering")))
+        assertTrue(a.name(0x25E).startsWith(tr("Комбинация приборов", "Instrument cluster")))
         assertEquals(gm.modules!!.names[0x241], a.name(0x241))
         assertEquals("24F", ObdModules.addressing(gm, "GM").name(0x24F))
     }
