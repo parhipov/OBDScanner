@@ -36,12 +36,14 @@ fun AllScreen(r: Map<String, Reading>, v: VehicleInfo) {
 
 @Composable
 fun DtcScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
+    // What «Блоки на SW-CAN» read on «Скан блоков»: shown here with the other modules' codes.
+    val sw = m.scan.collectAsStateWithLifecycle().value.sw
     var confirm by remember { mutableStateOf(false) }
     // Tapped code: its description dialog.
     var shown by remember { mutableStateOf<DtcRef?>(null) }
     shown?.let { DtcHelpDialog(it, v.dtcFamily) { shown = null } }
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
-        blocks(CodesScreen.build(v, busy), busy, onAction = { if (it == Action.CLEAR_DTC) confirm = true else m.run(it) }, onDtc = { shown = it })
+        blocks(CodesScreen.build(v, busy, sw), busy, onAction = { if (it == Action.CLEAR_DTC) confirm = true else m.run(it) }, onDtc = { shown = it })
     }
     if (confirm) AlertDialog(
         onDismissRequest = { confirm = false },

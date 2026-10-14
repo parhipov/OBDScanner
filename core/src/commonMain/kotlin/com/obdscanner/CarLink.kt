@@ -1430,7 +1430,7 @@ class CarLink(
             fam == null -> tr("Блоки", "Modules")
             else -> Make.of(fam.id).title
         }
-        return ObdModules.addressing(fam, tag, namedBlocks().filterKeys { it > 0xFF }.toList(), _vehicle.value.car?.names.orEmpty())
+        return ObdModules.addressing(fam, tag, namedBlocks().filterKeys { it > 0xFF }.toList(), _vehicle.value.car?.names.orEmpty(), _vehicle.value.car?.diagNames.orEmpty())
     }
 
     /**
@@ -1589,9 +1589,20 @@ class CarLink(
                 state(tr("SW-CAN: идентификация %s (%d из %d)…", "SW-CAN: identifying %s (%d of %d)…").format(mod.id, i + 1, found.size))
                 sc.identify(mod) { h -> ids += h; session?.scanHit(h.req, h.resp, h.service, h.didHex, h.data) }
             }
+            // A module telling the diagnostic address of one on HS-CAN is that module wired to both buses (on the Trailblazer
+            // the BCM, the camera, the radio, the cluster): it takes that name, and its codes are read there — here it
+            // refuses \$A9 (NRC 11), so it isn't asked.
+            val hs = _scan.value.modules.filter { it.diag != null }.associateBy { it.diag }
+            val alsoOnHs = mutableMapOf<Int, GmModule>()
             val named = found.map { mod ->
                 val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
-                if (diag == null) mod else mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
+                val same = diag?.let { hs[it] }
+                when {
+                    same != null -> mod.copy(name = tr("%s (он же %s на основной шине)", "%s (also %s on the main bus)").format(same.name, same.id), diag = diag)
+                        .also { alsoOnHs[mod.req] = same }
+                    diag == null -> mod
+                    else -> mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
+                }
             }
             state(tr("SW-CAN: найдено блоков: %d", "SW-CAN: modules found: %d").format(named.size), modules = named)
             session?.report(tr("GM SW-CAN: найденные модули", "GM SW-CAN: modules found"), named.joinToString("\n") { m ->
@@ -1606,7 +1617,10 @@ class CarLink(
             val out = mutableListOf<GmDtcResult>()
             for ((i, mod) in named.withIndex()) {
                 state(tr("SW-CAN: ошибки %s (%d из %d)…", "SW-CAN: codes of %s (%d of %d)…").format(mod.name, i + 1, named.size))
-                out += reader.read(mod)
+                out += alsoOnHs[mod.req]?.let { same ->
+                    GmDtcResult(mod, emptyList(), tr("его ошибки читаются на основной шине (%s, «Ошибки всех блоков»)",
+                        "its codes are read on the main bus (%s, «Read all modules»)").format(same.id), complete = true)
+                } ?: reader.read(mod)
                 state(tr("SW-CAN: ошибки %s (%d из %d)…", "SW-CAN: codes of %s (%d of %d)…").format(mod.name, i + 1, named.size), dtcs = out.toList())
             }
             if (named.isNotEmpty()) session?.report(tr("GM SW-CAN: ошибки (\$A9 81 %02X)", "GM SW-CAN: DTCs (\$A9 81 %02X)").format(GmDtcReader.MASK), out.joinToString("\n\n") { r ->
@@ -1615,7 +1629,8 @@ class CarLink(
                 }
             })
             final = if (named.isEmpty()) tr("SW-CAN: адаптер переключился, но ни один блок не ответил", "SW-CAN: the adapter switched, but no module answered")
-                else tr("SW-CAN: блоков %d, кодов %d", "SW-CAN: modules %d, codes %d").format(named.size, out.sumOf { it.codes.size })
+                else tr("SW-CAN: блоков %d, кодов %d", "SW-CAN: modules %d, codes %d").format(named.size, out.sumOf { it.codes.size }) +
+                    if (alsoOnHs.isEmpty()) "" else tr(" (из них %d — те же, что на основной шине)", " (%d of them the same as on the main bus)").format(alsoOnHs.size)
         } finally {
             withContext(NonCancellable) {
                 // Back to HS-CAN the way the connection opened it; ensureAdapter re-initialises if 0100 isn't answered.

@@ -216,6 +216,7 @@ object CarDb {
             blocks = m.optJSONArray("blocks").objects().map { parseBlock(it) },
             match = m.optJSONArray("match").objects().map { parseMatch(it) },
             names = parseNames(m),
+            diagNames = parseDiagNames(m),
         )
     }
 
@@ -287,19 +288,23 @@ object CarDb {
             require(p.matches(Regex("(3E00|22[0-9A-F]{4}|1A[0-9A-F]{2}|21[0-9A-F]{2})"))) { "probe $p: 3E00 or a read (22/1A/21)" }
         }
         val names = parseNames(m)
-        val diagNames = m.optJSONObject("diagNames")?.let { n ->
-            n.keys().asSequence().associate { k ->
-                val a = k.toInt(16)
-                require(a in 0x00..0xFF) { "diagNames $k: a one-byte address" }
-                a to text(n.getJSONObject(k))
-            }
-        }.orEmpty()
+        val diagNames = parseDiagNames(m)
         return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names, diagNames)
     }
 
     /** `"names": { "7E0": { "ru": …, "en": … } }` — by request id. */
     private fun parseNames(o: JSONObject): Map<Int, String> =
         o.optJSONObject("names")?.let { n -> n.keys().asSequence().associate { k -> k.toInt(16) to text(n.getJSONObject(k)) } }.orEmpty()
+
+    /** `"diagNames": { "28": { "ru": …, "en": … } }` — by the module's own one-byte diagnostic address (GM \$1A B0). */
+    private fun parseDiagNames(o: JSONObject): Map<Int, String> =
+        o.optJSONObject("diagNames")?.let { n ->
+            n.keys().asSequence().associate { k ->
+                val a = k.toInt(16)
+                require(a in 0x00..0xFF) { "diagNames $k: a one-byte address" }
+                a to text(n.getJSONObject(k))
+            }
+        }.orEmpty()
 
     /**
      * Safety: whatever a file says, only read requests get through — \$22 ReadDataByIdentifier and
@@ -522,6 +527,11 @@ data class CarModel(
     val match: List<MatchRule> = emptyList(),
     /** Modules by request id on this model: over the family's [ModuleSearch.names], under its diagNames. */
     val names: Map<Int, String> = emptyMap(),
+    /**
+     * Modules by their own diagnostic address on this model: over the family's diagNames. The one way to name a module
+     * of GM's single-wire bus, where a request id may be another module than on HS-CAN (the Trailblazer's 242, 24F).
+     */
+    val diagNames: Map<Int, String> = emptyMap(),
 ) {
     /** Every block named anywhere in the model, for checks. */
     val allBlocks: List<BlockSpec> get() = blocks + engines.flatMap { it.blocks }

@@ -188,7 +188,7 @@ class Scanner(appVersion: String) {
         return ScreenJson.blocks(when (name) {
             "Fuel" -> FuelScreen.build(r, v)
             "All" -> AllScreen.build(r, v)
-            "Dtc" -> CodesScreen.build(v, busy.value)
+            "Dtc" -> CodesScreen.build(v, busy.value, link.scan.value.sw)
             "Info" -> InfoScreen.build(v)
             "About" -> AboutScreen.build()
             else -> emptyList()

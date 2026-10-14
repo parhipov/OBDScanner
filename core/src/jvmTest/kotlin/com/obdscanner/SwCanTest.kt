@@ -81,6 +81,33 @@ class SwCanTest {
         val after = sent.drop(sent.indexOf("03A9815A00000000"))
         assertTrue(after.toString(), "ATSP6" in after && "0100" in after.drop(after.indexOf("ATSP6")))
         assertTrue(r.reports.any { it.first.startsWith("GM SW-CAN: ") && "U18B4" in it.second })
+        // «Ошибки» shows them too, under their own title (an owner looked there first, issue #1).
+        val codes = com.obdscanner.screen.ScreenJson.blocks(com.obdscanner.screen.CodesScreen.build(r.link.vehicle.value, null, sw))
+        assertTrue(codes, tr("На SW-CAN", "On SW-CAN") in codes && "U18B4" in codes)
+    }
+
+    /**
+     * A module on both buses (the Trailblazer's BCM, camera, radio, cluster: issue #1) tells the same diagnostic address
+     * on SW-CAN as on HS-CAN and refuses \$A9 there: it takes the HS module's name and isn't asked for codes on SW-CAN.
+     */
+    @Test
+    fun aModuleOnBothBusesIsTheHsOne() {
+        CarDbTest.load()
+        val both = swCan.replace("< 65A 03 5A B0 99\n", "< 641 03 5A B0 40 | 65A 03 5A B0 99\n")
+        // The BCM with its address from an earlier session on HS-CAN.
+        val store = MapStore().apply { putString("gm_modules_1G1JC5444R7252367", "241:641:40") }
+        val r = runBlocking { replayRun(ReplayLog.parse(both), store, cycles = 1, after = { link, o -> link.swCanModules(o) }) }
+        assertNull(r.error)
+        val sw = r.link.scan.value.sw!!
+        val bcm = sw.modules.single { it.req == 0x241 }
+        assertTrue(bcm.name, "241" in bcm.name && bcm.name.startsWith(r.link.scan.value.modules.single { it.req == 0x241 }.name))
+        assertTrue(sw.dtcs.single { it.module.req == 0x241 }.codes.isEmpty())
+        // On SW-CAN the codes are asked of the HUD only.
+        val sent = r.requests.map { it.uppercase().replace(" ", "") }
+        val onSw = sent.drop(sent.indexOf("STP63")).takeWhile { it != "ATSP6" }
+        var header = ""
+        val asked = onSw.mapNotNull { c -> if (c.startsWith("ATSH")) { header = c.removePrefix("ATSH"); null } else if (c.startsWith("03A981")) header else null }
+        assertEquals(listOf("25A"), asked.distinct())
     }
 
     @Test

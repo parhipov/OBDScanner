@@ -244,5 +244,10 @@ class CarDbTest {
         assertTrue(a.name(0x25E).startsWith(tr("Комбинация приборов", "Instrument cluster")))
         assertEquals(gm.modules!!.names[0x241], a.name(0x241))
         assertEquals("24F", ObdModules.addressing(gm, "GM").name(0x24F))
+        // SW-CAN modules by their diagnostic address: the model's, then the family's.
+        val d = ObdModules.addressing(gm, "GM", names = car.names, diagNames = car.diagNames)
+        assertTrue(d.diagName(0x62)!!.startsWith(tr("Проекция", "Head-up")))
+        assertEquals(gm.modules!!.diagNames[0x40], d.diagName(0x40))
+        assertNull(ObdModules.addressing(gm, "GM").diagName(0x62))
     }
 }

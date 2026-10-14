@@ -1,8 +1,10 @@
 package com.obdscanner.screen
 
 import com.obdscanner.AppInfo
+import com.obdscanner.SwCanState
 import com.obdscanner.VehicleInfo
 import com.obdscanner.gm.DtcScheme
+import com.obdscanner.gm.GmDtcResult
 import com.obdscanner.obd.DtcKind
 import com.obdscanner.obd.Make
 import com.obdscanner.obd.Mode09
@@ -34,7 +36,8 @@ object AllScreen {
 
 /** Trouble codes: Mode 03/07/0A, the freeze frame, every module's own memory. [busy] — the operation running now. */
 object CodesScreen {
-    fun build(v: VehicleInfo, busy: String?): List<Block> {
+    /** [sw] — what «Блоки на SW-CAN» read («Скан блоков»): its modules' codes here too, under their own title. */
+    fun build(v: VehicleInfo, busy: String?, sw: SwCanState? = null): List<Block> {
         val b = Blocks()
         b.buttons(listOf(Button(Action.READ_DTC, tr("Прочитать", "Read"), primary = true), Button(Action.CLEAR_DTC, tr("Сбросить…", "Clear…"))))
         if (busy != null) b.note(tr("Выполняется: $busy", "In progress: $busy"))
@@ -75,22 +78,31 @@ object CodesScreen {
         b.buttons(listOf(Button(Action.READ_ALL_MODULES, tr("Прочитать все блоки", "Read all modules"), primary = true)))
         if (v.gmDtcStatus.isNotEmpty()) b.note(v.gmDtcStatus)
         if (v.gmDtcTime > 0) b.note(tr("Прочитано в ${timeText(v.gmDtcTime)}", "Read at ${timeText(v.gmDtcTime)}"))
-        for (m in v.gmDtcs) {
-            // An unnamed module is just its address ("7E5"), a generic name already carries it ("ЭБУ 7E5"): no "7E5 · 7E5".
-            val where = with(m.module) {
-                when {
-                    name == id -> tr("Блок $id", "Module $id")
-                    id in name -> name
-                    else -> "$name · $id"
-                }
-            }
-            b.title(where)
-            b.note(m.result)
-            for (c in m.codes) b.row(c.full, if (c.current) tr("активна", "active") else tr("история", "history"), "", "${c.description} · ${c.flags}",
-                if (c.current || c.mil) Level.BAD else Level.WARN,
-                DtcRef(c.code, where, c.failureType.takeIf { it >= 0 }, c.scheme == DtcScheme.GM, c.flags, label = c.full))
+        for (m in v.gmDtcs) module(b, m)
+        // GM's single-wire bus: read by its own button (the adapter switches there and back), shown here with the rest.
+        if (sw != null && (sw.dtcs.isNotEmpty() || sw.modules.isNotEmpty())) {
+            b.title(tr("На SW-CAN (контакт 1)", "On SW-CAN (pin 1)"))
+            b.note(sw.status + tr(". Читается кнопкой «Блоки на SW-CAN» на «Скан блоков».", ". Read by the «SW-CAN modules» button on «Module scan»."))
+            for (m in sw.dtcs) module(b, m, tr("SW-CAN", "SW-CAN"))
         }
         return b.build()
+    }
+
+    /** One module's codes; [bus] — said after the address when it's not the main bus. */
+    private fun module(b: Blocks, m: GmDtcResult, bus: String? = null) {
+        // An unnamed module is just its address ("7E5"), a generic name already carries it ("ЭБУ 7E5"): no "7E5 · 7E5".
+        val where = with(m.module) {
+            when {
+                name == id -> tr("Блок $id", "Module $id")
+                id in name -> name
+                else -> "$name · $id"
+            }
+        } + (bus?.let { " · $it" } ?: "")
+        b.title(where)
+        b.note(m.result)
+        for (c in m.codes) b.row(c.full, if (c.current) tr("активна", "active") else tr("история", "history"), "", "${c.description} · ${c.flags}",
+            if (c.current || c.mil) Level.BAD else Level.WARN,
+            DtcRef(c.code, where, c.failureType.takeIf { it >= 0 }, c.scheme == DtcScheme.GM, c.flags, label = c.full))
     }
 
     /** The question before Mode 04. */

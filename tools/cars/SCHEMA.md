@@ -170,6 +170,9 @@ in git) through the connection and compares what the app sends and finds with `r
 - `names` — modules by request id on this model (`{ "24F": { "ru": …, "en": … } }`): over the family's
   `modules.names`, under its `diagNames`. For an id GM gives different modules on different cars, named
   for the model a source checked it on.
+- `diagNames` — modules by their own one-byte diagnostic address on this model (GM `$1A B0`), over the family's
+  `modules.diagNames`. The only way to name a module of GM's single-wire bus (SW-CAN), where a request id may be
+  another module than on HS-CAN.
 - `blocks` — blocks whose dialect is known: `role` (`engine gearbox abs airbag body cluster climate steering
   gateway other`), `addr` (11-bit `7xx`, or a K-line address `xx`), `rsp` (default `addr + 8` on CAN, the
   same on K-line), `dialect`. A block that comes with an engine goes into `engines[].blocks`: it counts when

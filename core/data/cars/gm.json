@@ -1815,9 +1815,43 @@
           "en": "Gateway (K56)"
         }
       },
+      "diagNames": {
+        "47": {
+          "ru": "Шлюз, процессор 2 (K56)",
+          "en": "Gateway, processor 2 (K56)"
+        },
+        "58": {
+          "ru": "Подушки безопасности (K36)",
+          "en": "Airbags (K36)"
+        },
+        "5B": {
+          "ru": "Датчик слепой зоны справа (B218R)",
+          "en": "Side object sensor, right (B218R)"
+        },
+        "62": {
+          "ru": "Проекция на стекло (K78)",
+          "en": "Head-up display (K78)"
+        },
+        "68": {
+          "ru": "Панель климата (A26)",
+          "en": "HVAC controls (A26)"
+        },
+        "99": {
+          "ru": "Блок климата (K33)",
+          "en": "HVAC module (K33)"
+        },
+        "B9": {
+          "ru": "Датчик слепой зоны слева (B218L)",
+          "en": "Side object sensor, left (B218L)"
+        },
+        "BB": {
+          "ru": "Парктроник (K182)",
+          "en": "Park assist (K182)"
+        }
+      },
       "buses": {
-        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, тормоза, усилитель руля, кузов, передняя камера, приборы, радио, задний привод, шлюз. SW-CAN (контакт 1): проекционный дисплей, климат, подушки, бесключевой доступ, пятая дверь, парктроник, датчики слепых зон — нужен адаптер с SW-CAN.",
-        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, brakes, power steering, body, front camera, cluster, radio, rear drive, gateway. SW-CAN (pin 1): head-up display, HVAC, airbags, keyless entry, liftgate, park assist, side blind zone sensors — needs an adapter with SW-CAN."
+        "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, тормоза, усилитель руля, кузов, передняя камера, приборы, радио, задний привод, шлюз. SW-CAN (контакт 1): проекционный дисплей, климат, подушки, бесключевой доступ, пятая дверь, парктроник, датчики слепых зон, вторая половина шлюза; кузов, камера, приборы и радио — на обеих шинах. Для SW-CAN нужен адаптер, который туда переключается: «Скан блоков» → «Блоки на SW-CAN».",
+        "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, brakes, power steering, body, front camera, cluster, radio, rear drive, gateway. SW-CAN (pin 1): head-up display, HVAC, airbags, keyless entry, liftgate, park assist, side blind zone sensors, the gateway's second half; body, camera, cluster and radio are on both. SW-CAN needs an adapter that switches there: «Module scan» → «SW-CAN modules»."
       },
       "note": {
         "ru": "Тот же Buick Encore GX. Блоки названы по GDS2 и каталогу GM по номерам деталей, которые они сообщают, на машине владельца (issue #1); 242 ещё и сам называет себя «COLUMN-EPS».",
