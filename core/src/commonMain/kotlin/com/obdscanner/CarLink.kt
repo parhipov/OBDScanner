@@ -22,6 +22,7 @@ import com.obdscanner.gm.ScanDecode
 import com.obdscanner.gm.ScanHit
 import com.obdscanner.gm.ScanParam
 import com.obdscanner.gm.ScanRanges
+import com.obdscanner.screen.CarText
 import com.obdscanner.screen.InfoScreen
 import com.obdscanner.screen.ScanContext
 import com.obdscanner.obd.Dtc
@@ -127,14 +128,26 @@ class CarLink(
         _scan.update { it.copy(running = false) }
     }
 
-    /** Hand pick (null = by VIN). While connected it shows at once; its parameters are probed on "Rescan". */
-    fun pickCar(pick: CarChoice?) {
+    /**
+     * Hand pick (null = by VIN). While connected it shows at once; its parameters are probed on "Rescan".
+     * Made [connected] to a car known by its VIN or calibration, it is kept for that car too and comes back by itself.
+     */
+    fun pickCar(pick: CarChoice?, connected: Boolean = false) {
+        val forCar = _vehicle.value.takeIf { connected }?.let { v -> pickKey(v.vin, v.ecus.mapValues { it.value.info09 }) }
+        if (forCar != null) store.putString(forCar, pick?.id)
         _vehicle.update { v ->
             val sameFamily = v.vin == null || CarDb.brandOf(v.vin)?.family.let { it == null || it == pick?.family }
-            v.copy(car = pick?.model?.takeIf { sameFamily } ?: CarDb.detect(v.vin))
+            val car = pick?.model?.takeIf { sameFamily } ?: CarDb.detect(v.vin)
+            v.copy(car = car, misfitPick = null, pickForCar = forCar != null && car != null && car == pick?.model)
         }
         syncDtcFamily()
     }
+
+    /** Where the hand pick of one car is kept: its VIN, else the first engine calibration id (Mode 09 04). */
+    private fun pickKey(vin: String?, info09: Map<Int, Map<Int, String>>): String? =
+        (vin?.trim()?.ifEmpty { null }
+            ?: info09.entries.sortedBy { it.key }.firstNotNullOfOrNull { it.value[0x04]?.trim()?.ifEmpty { null } }?.let { "calid:$it" })
+            ?.let { "car_pick_$it" }
 
     /** The database finished loading after the app started: the saved pick shows if nothing else is known. */
     fun pickLoaded(car: CarModel?) {
@@ -144,7 +157,7 @@ class CarLink(
 
     /** Manufacturer trouble codes are read in this make's words (DtcDb), for the report as well as the screen. */
     private fun syncDtcFamily() {
-        DtcDb.family = _vehicle.value.dtcFamily ?: pickedCar()?.family
+        DtcDb.family = _vehicle.value.let { v -> v.dtcFamily ?: pickedCar()?.family?.takeIf { v.misfitPick == null } }
     }
 
     // ---------------------------------------------------------------- blocks and their dialects
@@ -542,7 +555,13 @@ class CarLink(
         }
         val vin = info.values.firstNotNullOfOrNull { it[0x02] }
         val brand = CarDb.brandOf(vin)
-        val picked = pickedCar()
+        // The pick made on this car (by its VIN, else the engine ECU's calibration) beats the app-wide one.
+        val own = pickKey(vin, info)?.let { store.getString(it) }?.let { CarDb.choice(it) }
+        val global = pickedCar()
+        // The app-wide pick of a model on another protocol is another car: CTS picked (CAN 11/500), a Polo answered on K-line.
+        val misfit = global?.model?.takeIf { own == null && it.protocol != null && it.protocol != o.protocol }
+        if (misfit != null) session?.note("hand pick ${misfit.id} doesn't fit: its protocol ${misfit.protocol}, the car's ${o.protocol}")
+        val picked = own ?: global.takeIf { misfit == null }
         // A hand-picked car stays while the VIN agrees with its family (or there is no VIN); otherwise the VIN wins.
         val known = picked?.model?.takeIf { brand == null || it.family == brand.family } ?: CarDb.detect(vin)
         // Neither: the engine ECU's own answer may still say which model it is (a JDM car has no VIN).
@@ -555,17 +574,23 @@ class CarLink(
         _vehicle.update { v ->
             val ecus = v.ecus.toMutableMap()
             for ((h, i) in info) ecus[h] = (ecus[h] ?: EcuInfo(h)).copy(info09 = i)
-            v.copy(vin = vin, make = make, ecus = ecus, car = car, brand = brand?.name, makeByPick = byPick)
+            v.copy(vin = vin, make = make, ecus = ecus, car = car, brand = brand?.name, makeByPick = byPick,
+                misfitPick = misfit, pickForCar = own?.model != null && car == own.model)
         }
         syncDtcFamily()
         refreshMemory()
         recogniseDialects(o)
-        session?.report(tr("Машина", "Car"), listOf(
+        fun title(c: CarChoice) = c.model?.title ?: tr("${c.brand} (только марка)", "${c.brand} (make only)")
+        session?.report(tr("Машина", "Car"), listOfNotNull(
             tr("Марка (по VIN): ", "Make (by VIN): ") + (brand?.name ?: tr("не определена", "unknown")) + " — ${make.title}",
             tr("Год (по VIN): ", "Model year (by VIN): ") + (vin?.let { CarDb.modelYear(it.trim().uppercase()) }?.toString() ?: "—"),
-            tr("Выбрано вручную: ", "Picked by hand: ") + (picked?.let { it.model?.title ?: tr("${it.brand} (только марка)", "${it.brand} (make only)") } ?: tr("нет", "nothing")),
+            tr("Выбрано вручную: ", "Picked by hand: ") + (global?.let(::title) ?: tr("нет", "nothing")) +
+                (misfit?.let { tr(" — не подходит: у неё ${CarText.protocolName(it.protocol)}, машина ответила по ${CarText.protocolName(o.protocol)}",
+                    " — doesn't fit: it is on ${CarText.protocolName(it.protocol)}, the car answered on ${CarText.protocolName(o.protocol)}") } ?: ""),
+            own?.let { tr("Выбрано для этой машины: ", "Picked for this car: ") + title(it) },
             tr("Модель: ", "Model: ") + (car?.title?.let {
                 it + when (car) {
+                    own?.model -> tr(" (выбрана для этой машины)", " (picked for this car)")
                     picked?.model -> tr(" (выбрана вручную)", " (picked by hand)")
                     recognised -> tr(" (по ответу блока двигателя)", " (by the engine ECU's answer)")
                     else -> tr(" (по VIN)", " (by VIN)")

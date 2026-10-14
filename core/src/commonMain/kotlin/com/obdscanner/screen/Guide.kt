@@ -45,7 +45,8 @@ object Guide {
         Make.HYUNDAI to "guide_hyundai",
     )
 
-    fun build(v: VehicleInfo, picked: CarChoice?): GuideView {
+    fun build(v: VehicleInfo, hand: CarChoice?): GuideView {
+        val picked = hand.takeIf { v.misfitPick == null }
         val car = v.car ?: picked?.model
         val brand = v.brand ?: picked?.brand
         val make = if (v.make != Make.OTHER) v.make else Make.of(car?.family ?: picked?.family)

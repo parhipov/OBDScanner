@@ -88,11 +88,19 @@ class CarCardView(
 }
 
 object CarCard {
-    fun build(v: VehicleInfo, picked: CarChoice?): CarCardView {
+    fun build(v: VehicleInfo, hand: CarChoice?): CarCardView {
+        // The app-wide pick that doesn't fit the car connected is not this car's.
+        val picked = hand.takeIf { v.misfitPick == null }
         val car = v.car ?: picked?.model
         val brand = v.brand ?: picked?.brand
         val family = CarDb.family(car?.family ?: v.make.id.ifEmpty { null } ?: picked?.family)
         val status = when {
+            car != null && v.pickForCar && v.vin == null -> tr("выбрана для этой машины (по калибровке блока двигателя)", "picked for this car (by the engine ECU's calibration)")
+            car != null && v.pickForCar -> tr("выбрана для этой машины", "picked for this car")
+            car == null && v.misfitPick != null -> v.misfitPick.let { m ->
+                tr("Выбрана вручную ${m.title}, но она не подходит: у неё ${CarText.protocolName(m.protocol)}, а эта машина ответила по ${v.protocol.substringBeforeLast(" (")}",
+                    "${m.title} is picked by hand, but it doesn't fit: it is on ${CarText.protocolName(m.protocol)}, this car answered on ${v.protocol.substringBeforeLast(" (")}")
+            }
             car != null && car == picked?.model -> tr("выбрана вручную", "picked by hand")
             car != null -> tr("по VIN", "by VIN")
             picked != null && picked.brand == brand -> tr("выбрана марка; модель — по VIN, или выберите", "make picked; the model by the VIN, or pick it")
@@ -130,7 +138,7 @@ object CarCard {
         }
         return CarCardView(
             label = tr("Машина", "Car"),
-            title = car?.title ?: brand ?: tr("не выбрана", "not picked"),
+            title = car?.title ?: brand ?: if (v.misfitPick != null) tr("не определена", "unknown") else tr("не выбрана", "not picked"),
             status = status,
             pick = tr("Выбрать", "Pick"),
             reads = reads,

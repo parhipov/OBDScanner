@@ -232,7 +232,7 @@ class Scanner(appVersion: String) {
         val c = if (id.isEmpty()) null else CarDb.choice(id)
         store.putString("car", c?.id)
         picked.value = c
-        link.pickCar(c)
+        link.pickCar(c, conn.value is ConnState.Connected)
     }
 
     fun compare(ids: Array<String>): String = ScreenJson.compare(CarCompare.build(ids.toList()))

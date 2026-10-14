@@ -140,7 +140,7 @@ class ObdManager(private val context: Context) {
     fun pickCar(pick: CarChoice?) {
         prefs.edit().putString("car", pick?.id).apply()
         _picked.value = pick
-        link.pickCar(pick)
+        link.pickCar(pick, _conn.value is ConnState.Connected)
     }
 
     @Volatile var session: Session? = null

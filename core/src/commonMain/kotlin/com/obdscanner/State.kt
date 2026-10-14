@@ -97,6 +97,10 @@ data class VehicleInfo(
     val dialects: Map<Int, String> = emptyMap(),
     /** The make (and so the blocks' dialects) is only the hand pick: no VIN, no model recognised by its answers. */
     val makeByPick: Boolean = false,
+    /** The app-wide hand pick, not applied: its protocol isn't the one the car answered on (another car). */
+    val misfitPick: CarModel? = null,
+    /** The hand pick is the one made on this car (kept by its VIN or calibration), not the app-wide one. */
+    val pickForCar: Boolean = false,
     val memory: CarMemory = CarMemory(),
 ) {
     val supported01: Set<Int> get() = ecus.values.flatMap { it.pids01 }.toSet()
