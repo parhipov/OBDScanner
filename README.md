@@ -26,6 +26,7 @@
 
 - **A trip report in one tap.** After «Stop» the phone builds a single HTML page from the recording — no internet, no account. Open it in a browser or send it to a messenger: what to check, trip charts, fuel and knock, the chassis.
 - **The chassis, by the phone's own sensors.** Shock absorbers, wheel balance and tyres, brake discs, wheel bearings, driveshaft, engine mounts, torque converter — from the accelerometer and gyroscope. The phone doesn't need a mount: it can lie on the seat.
+- **Caught a slide?** If the car stepped out on the drive, the report shows it: when, by how many degrees, whether the wheels spun and how it was caught — from the phone's sensors and the OBD speed, no extra hardware.
 - **How's the fuel?** One checkbox, and knock retard is read every cycle: where it happened (rpm × load), how often under heavy load, how strong. Fill up somewhere else, drive the same road, compare.
 - **More than standard OBD-II.** Manufacturer parameters and the trouble codes of every module the car lets an ELM327 reach: GM ($22, $A9, GMLAN), Toyota ($21), Volkswagen up to ~2012 behind the gateway (VW TP 2.0), UDS and KWP modules of other makes.
 - **Knows your car.** 43 makes by VIN, 260+ models and generations: where the connector is, which protocol, which modules and parameters. Over 6,000 manufacturer parameters (most from the open [OBDb](https://github.com/OBDb) project, marked «(?)» until a car confirms them) and almost 12,000 trouble codes explained.
@@ -72,6 +73,9 @@ A real 30-minute drive in the developer's Cadillac CTS, the report as the phone 
     <td align="center">Chassis and vibration: a verdict for every component</td>
   </tr>
 </table>
+
+<p align="center"><img src="screenshots/en/report-7-slide.png" width="720" alt="Whoa, a slide!"></p>
+<p align="center">«Whoa, a slide!» — right under «What to check», only when there was one: the angle, the wheelspin and the moment on a chart. Another trip: a left turn with the accelerator down, the rear axle slid out by 17° and was caught with the steering</p>
 
 <img src="screenshots/en/report-3-trip.png" alt="Trip charts">
 <p align="center">Trip charts with a shared cursor: hover anywhere and every chart shows its value at that moment</p>

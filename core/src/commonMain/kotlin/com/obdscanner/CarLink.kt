@@ -853,6 +853,16 @@ class CarLink(
     }
 
     /** The values of one manufacturer answer; a value that doesn't decode shows the raw bytes. */
+    /**
+     * Readings of the last reply keep that reply's time if it timed out: such a reply is decoded only after the
+     * adapter is brought back (up to ~1.3 s), and the readings' own time would put them that much late — on a trip
+     * a speed read while braking landed 2.3 s after it was measured, in the middle of the stop.
+     */
+    private fun Obd.stamped(list: List<Reading>): List<Reading> {
+        val r = lastReply ?: return list
+        return if (r.timedOut) list.map { it.copy(time = r.atMs) } else list
+    }
+
     private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = c.signals.map { s ->
         val (v, text) = s.fmt.decode(data) ?: (null to null)
         Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role)
@@ -993,7 +1003,7 @@ class CarLink(
         val sc = GmScanner(o) { session?.note(it) }
         o.target(req, e.header)
         val out = mutableListOf<Reading>()
-        for (pid in pids) mirrorValue(sc, req, e.header, pid)?.let { out += it }
+        for (pid in pids) mirrorValue(sc, req, e.header, pid)?.let { out += o.stamped(it) }
         o.broadcast()
         publish(out)
         return out.size
@@ -1197,14 +1207,14 @@ class CarLink(
             val r = o.request("01" + chunk.joinToString("") { "%02X".format(it) }, POLL_TIMEOUT)
             for (m in r.messages) {
                 if (m.service != 0x41) continue
-                for ((pid, d) in Pids.splitMulti(m.data, chunk)) out += Pids.decode(m.header, "01", pid, d)
+                for ((pid, d) in Pids.splitMulti(m.data, chunk)) out += o.stamped(Pids.decode(m.header, "01", pid, d))
             }
         }
         for (pid in single) {
             val r = o.request("01%02X".format(pid), POLL_TIMEOUT)
             for (m in r.messages) {
                 if (m.service != 0x41 || m.data.size < 3 || m.data[1] != pid) continue
-                out += Pids.decode(m.header, "01", pid, m.data.copyOfRange(2, m.data.size))
+                out += o.stamped(Pids.decode(m.header, "01", pid, m.data.copyOfRange(2, m.data.size)))
             }
         }
         // A V6 has two banks: the "bank 3/4" halves of PIDs 55–58 are filler bytes.
@@ -1232,7 +1242,7 @@ class CarLink(
         }).sortedBy { it.req }
         if (batch.isEmpty()) return
         val sc = GmScanner(o) { session?.note(it) }
-        val out = batch.flatMap { c -> sc.readRaw(c.req, c.resp, c.service, c.did)?.let { extReadings(c, it) }.orEmpty() }
+        val out = batch.flatMap { c -> sc.readRaw(c.req, c.resp, c.service, c.did)?.let { o.stamped(extReadings(c, it)) }.orEmpty() }
         o.broadcast()
         publish(out)
         if (knock.isNotEmpty()) publishKnock(out, gm)
@@ -1279,6 +1289,7 @@ class CarLink(
         for ((req, resp, sd) in blocks) {
             val (service, did) = sd
             val d = sc.readRaw(req, resp, service, did) ?: continue
+            val got = mutableListOf<Reading>()
             val key = "%03X:%s.%04X".format(req, service, did)
             hits.firstOrNull { it.key == key }?.let { h ->
                 val v = when {
@@ -1286,10 +1297,10 @@ class CarLink(
                     d.size == 1 -> d[0].toDouble()
                     else -> (d[0] * 256 + d[1]).toDouble()
                 }
-                out += Reading(h.key, h.req, "%s %s %s".format(Tp20.label(h.req), h.service, h.didHex), v, Pids.hex(d), "raw", 0)
+                got += Reading(h.key, h.req, "%s %s %s".format(Tp20.label(h.req), h.service, h.didHex), v, Pids.hex(d), "raw", 0)
                 // A VAG measuring block: each field by its formula type (the group and field number name it).
                 if (Tp20.isTp(h.req) && h.service == "21") VagBlocks.decode(d)?.forEachIndexed { i, f ->
-                    out += Reading("${h.key}#${i + 1}", h.req, tr("%s группа %s, поле %d", "%s group %s, field %d").format(Tp20.label(h.req), h.didHex, i + 1),
+                    got += Reading("${h.key}#${i + 1}", h.req, tr("%s группа %s, поле %d", "%s group %s, field %d").format(Tp20.label(h.req), h.didHex, i + 1),
                         f.value, if (f.value == null) f.text else null, f.unit, f.decimals)
                 }
                 val log = watchLog.getOrPut(key) { ArrayDeque() }
@@ -1301,7 +1312,8 @@ class CarLink(
                     ScanDecode.decode(log.toList(), REF_KEYS)?.let { decoded[key] = it }
                 }
             }
-            for (p in st.params) if (p.hitKey == key) p.value(d)?.let { out += Reading(p.key, p.req, p.name, it, null, p.unit, p.decimals) }
+            for (p in st.params) if (p.hitKey == key) p.value(d)?.let { got += Reading(p.key, p.req, p.name, it, null, p.unit, p.decimals) }
+            out += o.stamped(got)
         }
         o.broadcast()
         publish(out)

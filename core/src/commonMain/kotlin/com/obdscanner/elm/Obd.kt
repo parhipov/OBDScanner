@@ -49,7 +49,14 @@ class Obd(val elm: Elm327) {
     /** Logical address of the TP 2.0 module requests go to now; null — the usual CAN / K-line addressing. */
     private var tpTarget: Int? = null
 
-    suspend fun request(hex: String, timeoutMs: Long = 1500, expectOne: Boolean = false): CanReply {
+    /** The reply [request] returned last: the readings decoded from it take its time ([CanReply.atMs]). */
+    var lastReply: CanReply? = null
+        private set
+
+    suspend fun request(hex: String, timeoutMs: Long = 1500, expectOne: Boolean = false): CanReply =
+        requestOnce(hex, timeoutMs, expectOne).also { lastReply = it }
+
+    private suspend fun requestOnce(hex: String, timeoutMs: Long, expectOne: Boolean): CanReply {
         tpTarget?.let { return tpRequest(it, hex) }
         val cmd = if (expectOne && countDigit) hex + "1" else hex
         var raw = elm.send(cmd, timeoutMs)

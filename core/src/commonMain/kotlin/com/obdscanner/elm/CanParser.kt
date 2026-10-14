@@ -2,6 +2,7 @@ package com.obdscanner.elm
 
 import com.obdscanner.util.concurrentMap
 import com.obdscanner.util.format
+import com.obdscanner.util.nowMs
 import com.obdscanner.tr
 
 /** One reassembled ISO-TP message from one ECU. [data] starts with the service byte (e.g. 0x41). */
@@ -12,7 +13,9 @@ class EcuMessage(val header: Int, val data: IntArray) {
     fun hex(from: Int = 0) = data.drop(from).joinToString(" ") { "%02X".format(it) }
 }
 
-class CanReply(val messages: List<EcuMessage>, val errors: List<String>, val raw: String, val timedOut: Boolean) {
+/** [atMs] — when the reply came ([ElmReply.atMs]). */
+class CanReply(val messages: List<EcuMessage>, val errors: List<String>, val raw: String, val timedOut: Boolean,
+               val atMs: Long = nowMs()) {
     /** Worth asking again: a frame was lost or the adapter choked. */
     val garbled get() = errors.any { it.startsWith(CanParser.CORRUPT) || it.contains("BUFFER FULL") || it.contains("STOPPED") || it.contains("RX ERROR") }
     val noData get() = messages.isEmpty()
@@ -143,7 +146,7 @@ object CanParser {
             if (a.size > 0) done += EcuMessage(h, a.result())
         }
         val sorted = mergeKlineInfo(done).sortedBy { order.indexOf(it.header).let { i -> if (i < 0) Int.MAX_VALUE else i } }
-        return CanReply(sorted, errors, reply.text, reply.timedOut)
+        return CanReply(sorted, errors, reply.text, reply.timedOut, reply.atMs)
     }
 
     /**

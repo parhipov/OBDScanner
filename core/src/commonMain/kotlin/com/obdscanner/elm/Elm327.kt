@@ -4,6 +4,7 @@ import com.obdscanner.tr
 import com.obdscanner.transport.Transport
 import com.obdscanner.util.IOException
 import com.obdscanner.util.ioDispatcher
+import com.obdscanner.util.nowMs
 import com.obdscanner.util.startReader
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.NonCancellable
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.concurrent.Volatile
 
-class ElmReply(val command: String, val text: String, val timedOut: Boolean) {
+/** [atMs] — when the reply's last byte came (wall clock): after a timeout the reply is used only once the adapter is back. */
+class ElmReply(val command: String, val text: String, val timedOut: Boolean, val atMs: Long = nowMs()) {
     /**
      * Non-empty lines without echo and the usual chatter. "SEARCHING..." / "BUS INIT: ...OK" are cut off
      * the front, not dropped: some clones put the first reply on the same line (AndrOBD does the same).
@@ -103,9 +105,11 @@ class Elm327(
             log('>', cmd)
             transport.write((cmd + "\r").encodeToByteArray())
             val sb = StringBuilder()
+            var lastByte = 0L
             val done = withTimeoutOrNull(timeoutMs) {
                 while (true) {
                     val b = rx.receiveCatching().getOrNull() ?: throw IOException(tr("Связь с адаптером потеряна", "Lost connection to adapter"))
+                    lastByte = nowMs()
                     val c = (b.toInt() and 0xFF).toChar()
                     if (c == '>') break
                     if (c != '\u0000') sb.append(c)
@@ -113,9 +117,10 @@ class Elm327(
                 true
             }
             val text = sb.toString()
+            val at = if (lastByte > 0) lastByte else nowMs()
             log('<', text.trim().replace("\r", " | ") + if (done == null) "  [TIMEOUT ${timeoutMs}ms]" else "")
             if (done == null) recoverPrompt()
-            ElmReply(cmd, text, done == null)
+            ElmReply(cmd, text, done == null, at)
         }
     }
 
