@@ -1,250 +1,139 @@
-# OBD Scanner
+<p align="center">
+  <img src="art/icon.png" width="112" alt="OBD Scanner icon">
+</p>
 
-Android-приложение для чтения данных из машины через ELM327 (Bluetooth, USB или Wi-Fi). Сделано под Cadillac CTS 2-го поколения (2.8 V6, АКПП 6L50), проверяется и на других машинах (см. «Машины»).
+<h1 align="center">OBD Scanner</h1>
 
-Язык — по системному: на русской системе русский, на любой другой английский (в Android 13+ можно выбрать отдельно в настройках приложения). Тексты в коде — `tr("…", "…")` из `L10n.kt`, тексты справки и гайда — ресурсы `res/values` (англ.) и `res/values-ru`. Файлы сессии пишутся на языке приложения; скрипты в `utils/` понимают оба.
+<p align="center">
+  <b>A free Android app that reads your car through a cheap ELM327 adapter —<br>
+  and turns a drive into a report: engine, fuel, knock, and even the chassis, measured by the phone on the seat.</b>
+</p>
 
-<table>
-  <tr>
-    <td><img src="screenshots/1-main.png" width="200" alt="Главная"></td>
-    <td><img src="screenshots/2-fuel-trims.png" width="200" alt="Топливо: коррекции"></td>
-    <td><img src="screenshots/3-fuel-cylinders.png" width="200" alt="Топливо: по цилиндрам"></td>
-  </tr>
-  <tr>
-    <td align="center">Главная</td>
-    <td align="center">Топливо: коррекции, подсказки</td>
-    <td align="center">Топливо: по цилиндрам, расход</td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/4-fuel-catalyst.png" width="200" alt="Топливо: катализаторы"></td>
-    <td><img src="screenshots/5-gm-scan.png" width="200" alt="Скан блоков"></td>
-    <td><img src="screenshots/0-connect.png" width="200" alt="Связь"></td>
-  </tr>
-  <tr>
-    <td align="center">Катализаторы, EVAP, ошибки</td>
-    <td align="center">Скан блоков: блоки и DID</td>
-    <td align="center">Связь: выбор источника, Старт</td>
-  </tr>
-</table>
+<p align="center">
+  <a href="https://github.com/parhipov/OBDScanner/releases/latest"><img src="https://img.shields.io/github/v/release/parhipov/OBDScanner?label=Download%20APK&logo=android&color=3ddc84" alt="Download APK"></a>
+  <img src="https://img.shields.io/badge/Android-8.0%2B-3ddc84" alt="Android 8.0+">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
+</p>
 
-## Поддержать проект
+<p align="center"><b>English</b> · <a href="README.ru.md">Русский</a></p>
 
-Приложение бесплатное и без рекламы. Поддержать разработку можно донатом по СБП из приложения любого банка или картой: [ссылка](https://pay.cloudtips.ru/p/b487c73c) или QR-код.
+<p align="center">
+  <img src="screenshots/en/app-1-main.png" width="250" alt="Main screen">
+  <img src="screenshots/en/report-2-fuel.png" width="520" alt="Trip report: how's the fuel">
+</p>
 
-<img src="art/support-qr.png" width="160" alt="QR-код для перевода">
+## Why this one
 
-## Машины
+- **A trip report in one tap.** After «Stop» the phone builds a single HTML page from the recording — no internet, no account. Open it in a browser or send it to a messenger: what to check, trip charts, fuel and knock, the chassis.
+- **The chassis, by the phone's own sensors.** Shock absorbers, wheel balance and tyres, brake discs, wheel bearings, driveshaft, engine mounts, torque converter — from the accelerometer and gyroscope. The phone doesn't need a mount: it can lie on the seat.
+- **How's the fuel?** One checkbox, and knock retard is read every cycle: where it happened (rpm × load), how often under heavy load, how strong. Fill up somewhere else, drive the same road, compare.
+- **More than standard OBD-II.** Manufacturer parameters and the trouble codes of every module the car lets an ELM327 reach: GM ($22, $A9, GMLAN), Toyota ($21), Volkswagen up to ~2012 behind the gateway (VW TP 2.0), UDS and KWP modules of other makes.
+- **Knows your car.** 43 makes by VIN, 260+ models and generations: where the connector is, which protocol, which modules and parameters. Over 6,000 manufacturer parameters (most from the open [OBDb](https://github.com/OBDb) project, marked «(?)» until a car confirms them) and almost 12,000 trouble codes explained.
+- **Reads, doesn't write.** The only thing it changes in the car is clearing trouble codes — when you ask and confirm. The app goes online for one thing: checking GitHub for a new version, and that can be turned off.
 
-В целом везде одно и то же — стандартный OBD-II: параметры, ошибки, готовность, Mode 06. Но у каждой машины свои нюансы — протокол, адреса блоков, команды производителя, место разъёма, — и мы стараемся их учитывать (см. «База машин»). Марка и модель определяются по VIN, машину можно выбрать и вручную («Связь» или «Как тестировать» → «Выбрать»: марка → модель и поколение). То, что говорит сама машина (VIN, модель по ответу блока), важнее ручного выбора. Если марка известна только по ручному выбору и блок не отвечает её способом чтения ошибок, они читаются стандартным, а на экране «Ошибки» появляется подсказка проверить марку.
-
-Проверено на машинах:
-
-- **Cadillac CTS 2008–2014 (2.8 V6)** — основная машина. CAN; сверх стандарта — GM-параметры ($22), ошибки всех блоков HS-CAN ($A9), скан блоков и прослушка шины.
-- **Volkswagen Polo** — K-line (ISO 14230, KWP 5-baud), только стандартный OBD; VIN в Mode 09 нет. На CAN-машинах VW — поиск блоков, их идентификация и ошибки.
-- **Toyota RAV4 2005 (1AZ-FE)** — CAN 11/500, VIN блок не отдаёт. Расширенные данные двигателя — скан $21 (KWP, как в Techstream) с записью в сессию для последующей расшифровки.
-- **Lada Vesta**, **Hyundai Solaris** — стандартный OBD плюс поиск блоков: идентификация (UDS $22 F1xx / KWP $1A) и ошибки (UDS $19 / KWP $18).
-- **Toyota Crown S180 (JDM, 4GR-FSE)** — CAN 11/500 без Mode 01/03 и без VIN: модель узнаётся по ответу блока двигателя (`21 C1` = «GRS18# 4GRFSE»), стандартные параметры читаются через $21 с теми же номерами PID (по записи сессии владельца).
-
-Машина — это набор блоков (двигатель, КПП, ABS…), и у каждого блока свой **диалект**: как читать данные, ошибки и идентификацию, какие у него параметры. Диалект задаётся данными в базе (модель называет диалекты своих блоков; блок можно узнать по его ответу), так что новая машина — это правка JSON, а не кода. Подробно — [tools/cars/SCHEMA.md](tools/cars/SCHEMA.md).
-
-Поиск блоков — общий список (7E0–7E7 и частые адреса), список марки (`modules` в её файле базы; у GM и VAG — свой вместо общего) и все блоки, к которым обращаются команды базы. У Renault/Nissan/Lada (платформа Renault) кузовные блоки отвечают на +0x20 (743→763 приборка, 740→760 ABS, 745→765 кузовной блок… — по таблицам pyren/ddt4all), у Haval — на +0x40; у Toyota, Hyundai/Kia, Ford/Mazda, Subaru — дополнительные адреса, отвечавшие на реальных машинах (openpilot/opendbc, OVMS).
-
-VAG примерно до 2012 года (PQ: Golf 5/6, Passat B6/B7, Octavia A5…): за шлюзом блоки отвечают только по VW TP 2.0 — своему транспорту VW поверх CAN, внутри KWP2000. Обычный ELM327 его не умеет: приложение переводит адаптер в «сырой» CAN (ATCAF0, ATCFC0, ATV1) и само ведёт канал, подтверждения и проверку связи ([Tp20.kt](core/src/commonMain/kotlin/com/obdscanner/vag/Tp20.kt)). Спрашивается, только если машина VAG на CAN 11/500 и ни один блок не ответил по ISO-TP на 700–7DF (MQB отвечает — ему кадры TP 2.0 не отправляются). Список блоков — у шлюза (логический адрес 1F, `$1A 9F`), каждый проверяется открытием канала; без списка — перебор адресов 01–7F, а если молчат и шлюз, и двигатель (01), дальше ничего не шлётся. В канале — сессия VW `10 89` (как у VCDS), идентификация `$1A 9B`, ошибки `$18` с номерами VAG, группы измерений `$21` ([VagBlocks.kt](core/src/commonMain/kotlin/com/obdscanner/vag/VagBlocks.kt): формулы — только совпавшие у blafusel.de и vag-blocks или проверенные на машине, остальные типы — как пришли; подписей полей нет, они только в файлах VCDS). На настоящей машине не проверено: по описанию [jazdw.net/tp20](https://jazdw.net/tp20), реализациям OVMS и vag-blocks и на эмуляторе в [Tp20Test.kt](core/src/jvmTest/kotlin/com/obdscanner/Tp20Test.kt).
-
-Расход ([FuelRate.kt](app/src/main/java/com/obdscanner/obd/FuelRate.kt)), по первому доступному: PID 5E, PID 9D, у дизеля — цикловая подача (A2 × цилиндры × обороты; по MAF дизель не считается — смесь бедная, вышло бы в разы больше), по MAF со стехиометрией и плотностью своего топлива (PID 51 или база), без MAF — по MAP, температуре воздуха, оборотам и объёму двигателя из базы (наполнение ≈ 0,85, помечено «оценка»).
-
-## База машин
-
-`core/data/cars/` — JSON по семействам марок (GM, VAG, Toyota/Lexus, Hyundai/Kia, Lada, Renault, Nissan, Ford, Mazda, BMW, Mercedes, Honda, Mitsubishi, Subaru, Suzuki, китайцы). Формат — [tools/cars/SCHEMA.md](tools/cars/SCHEMA.md).
-
-| Что | Сколько | Для чего |
-|---|---|---|
-| Марки с кодами VIN (WMI) | 42 | марка по VIN, семейство (какие шаги и параметры) |
-| Модели по поколениям | 256 | годы, двигатели, протокол (пробуется первым), место разъёма, шины, заметки |
-| Команды производителя, собраны вручную | 105 (171 значение) | масло АКПП/DSG/вариатора, ресурс масла, наддув, сажа DPF, BMS электромобилей, пробег… |
-| Команды из [OBDb](https://github.com/OBDb) | 3228 (5788 значений) | то же, по моделям; CC BY-SA 4.0 |
-
-- `<семейство>.json` собраны по открытым источникам (форумы, drive2, списки PID Torque, GitHub, OBDb для сверки), у каждой модели и значения — ссылки `src`. `conf: "OK"` — два независимых источника или проверено на машине, иначе в приложении «(?)».
-- `obdb/<семейство>.json` — генерируются [tools/cars/obdb_import.py](tools/cars/obdb_import.py) (`python tools/cars/obdb_import.py [--refresh] [семейство …]`), русские названия — [tools/cars/obdb_ru.json](tools/cars/obdb_ru.json). Все значения OBDb — «(?)».
-- Роль значения (`role`: `oil_temp`, `atf_temp`, `cvt_temp`…) ставит его в нужную карточку «Главной» на любой марке.
-
-Безопасность — проверяется в загрузчике ([CarDb.kt](app/src/main/java/com/obdscanner/car/CarDb.kt)), ещё раз перед отправкой и в unit-тесте на всех файлах:
-- только чтение: `$22` (ReadDataByIdentifier) и `$21` (ReadDataByLocalIdentifier); ни сессий, ни доступа, ни записи, ни процедур;
-- только физические 11-битные диагностические адреса `700–7FF`, без широковещательного `7DF`. Другие id отбрасываются: на чужой машине они могут быть обычными сообщениями шины;
-- `fuel: ["diesel"]` — запрос уходит только на машину, про которую известно, что она дизель (PID 51 или все двигатели модели): у VAG тот же DID на бензиновом блоке — пропуски, а не сажа;
-- запрос, известный на другой модели или другом двигателе, всё равно проверяется, но его значения — «(?)»;
-- при подключении — не больше 200 проверок, блок, трижды не ответивший подряд, дальше не спрашивается; в цикле опроса — не больше 5 таких запросов.
-
-Место разъёма — шесть общих картинок по местам (`left_door`, `under_column`, `right_of_column`, `left_cover`, `console`, `passenger`): [art/obd/make_obd_art.py](art/obd/make_obd_art.py) → `res/drawable-nodpi/obd_loc_*.webp`.
-
-Не поддерживается: 29-битные адреса (Honda с ~2008, часть VAG/Renault), расширенная адресация BMW (6F1), запросы базы, которым нужна диагностическая сессия (единственная сессия в приложении — VW `10 89` в канале TP 2.0, см. выше).
-
-## База кодов ошибок
-
-`core/data/dtc/` — описание по нажатию на код (стандартные коды, коды всех блоков, «Топливо»). Формат — [tools/dtc/SCHEMA.md](tools/dtc/SCHEMA.md), сборка — [tools/dtc/dtc_import.py](tools/dtc/dtc_import.py) (`--refresh` — скачать источники заново).
-
-| Что | Сколько | Источник |
-|---|---|---|
-| Общие коды SAE (P0, P2, P3, B0, C0, U0, U3): название, описание, причины, симптомы | 9533 | [OBDex](https://github.com/foerbsnavi/OBDex), CC0 |
-| Коды производителей (P1…) по семействам: GM, VAG, Ford, Toyota, Kia, Mazda, BMW, Honda, Nissan, Subaru… | 2430 | [Wal33D dtc-database](https://github.com/Wal33D/dtc-database), MIT |
-| Тип отказа (байт после кода): GM `$A9` и SAE J2012 / UDS | ~100 | написано для приложения, `ftb.json` |
-
-- Русский — названия, причины и симптомы (16 555 строк), переведены для приложения по [tools/dtc/TRANSLATION.md](tools/dtc/TRANSLATION.md), словарь [tools/dtc/dtc_ru.json](tools/dtc/dtc_ru.json). Описания — только на английском.
-- Код производителя ищется только в базе своей марки: один и тот же P1xxx у разных марок значит разное. Если своей нет — окно показывает, что говорит сам код, и что он значит у других марок, с пометкой.
-- Данные с лицензией GPL (например, русские тексты AndrOBD) не берём: приложение под MIT.
-
-## Что читает
-
-При подключении:
-- Mode 01 — все поддерживаемые PID всех ответивших блоков;
-- Mode 09 — VIN, калибровки, CVN, имена блоков, счётчики мониторов;
-- ошибки 03 / 07 / 0A, стоп-кадр (Mode 02);
-- готовность мониторов;
-- Mode 06 — все бортовые тесты, включая пропуски по цилиндрам;
-- шаги по марке (см. «Машины»): GM-шаги ($A9) — только для GM, ручной скан блоков доступен всегда;
-- параметры производителя ($21 / $22) из базы машин, на GM ещё ~45 известных GM-параметров: при первом подключении проверяются, дальше опрашиваются ответившие (запоминаются по VIN);
-- GM $A9 — ошибки всех блоков HS-CAN. Модули ищутся при первом подключении (~1 мин) и запоминаются по VIN, дальше несколько секунд на блок. После этого адаптер проверяется (`0100`), при необходимости переинициализируется.
-
-## Вкладки
-
-| Вкладка | Содержимое |
-|---|---|
-| Связь | Выбор источника (спаренный адаптер, демо-режим, датчики телефона) и кнопка «Старт / Стоп»; после «Стоп» над ней — «Отчёт по поездке»; сверху — строка о новой версии, «Как бензин?»; машина; ссылка на «Справку» |
-| Главная | Основные параметры по цветным секциям (двигатель, масло, АКПП, топливо, электрика), мин/макс за сессию |
-| Топливо | Коррекции, датчики O2, λ, зажигание, детонация, таблица по цилиндрам, расход, катализаторы, EVAP, подсказки |
-| Ошибки | Чтение, сброс (с подтверждением), стоп-кадр; полная память ошибок всех блоков GM ($A9) |
-| Все данные | Все значения всех блоков |
-| Машина | Адаптер, VIN, блоки, готовность, Mode 06; «Что приложение помнит» — протокол адаптера, параметры производителя, найденные блоки, пропускаемые запросы — и «Сбросить» (с подтверждением; сохранённое на «Скан блоков» остаётся) |
-| Скан блоков | Поиск блоков по адресам марки, их скан (идентификация, данные блока, параметры — что блок понимает), отслеживание найденного: приложение само сверяет байты с обычными параметрами («похоже на обороты = (C·256+D) × 1/4»), найденное сохраняется параметром машины и видно в «Все данные»; прослушка шины. Скан — только на стоящей машине |
-| Сессии | Список сессий, отчёт, отправка, удаление |
-| Справка | Как подключиться и тестировать (по марке), где разъём; о приложении, лицензии, условия, проверка новых версий |
-
-Новая версия: при запуске приложение одним запросом узнаёт у GitHub номер последнего релиза (переадресация `releases/latest` → `releases/tag/v…`, без API и без данных о телефоне и машине). Если он новее, сверху на «Связи» появляется строка, она ведёт на страницу релиза. Проверку выключает галочка на «Справке», временные сборки для тестеров (`1.25-kyron`) её не показывают.
-
-Касание карточки на «Главной» открывает справку: значение, мин/макс, откуда берётся, «Что это / Норма / Если не так». Тексты — в `app/src/main/res/values-ru/help_*.xml` (по файлу на секцию) и `strings.xml`, английские — те же файлы в `values/`. Правило для текстов: только проверенное (стандарт, источники, логи этой машины). Чего не знаем — так и пишем.
-
-## Сессии
-
-Каждое подключение — папка сессии, запись с первой команды. «Датчики телефона» пишут сессию без адаптера: только `report.txt` и `sensors.csv` (например, второй телефон в багажнике; записи сводятся по времени по вращению кузова).
-
-| Файл | Содержимое |
-|---|---|
-| `raw.log` | Весь обмен с адаптером с временем |
-| `data.csv` | Декодированные значения; при изменении, иначе не чаще 1 раза/с |
-| `report.txt` | Сводка: версия, адаптер, протокол, PID, VIN, ошибки, Mode 06, GM, модули |
-| `scan.csv` | Находки скана блоков |
-| `bus.csv` | Кадры прослушки шины |
-| `sensors.csv` | Акселерометр (`a`, м/с², с гравитацией) и гироскоп (`g`, °/с) телефона: каждый отсчёт, до 400 Гц; оси телефона |
-
-⇪ в заголовке — zip текущей (или последней) сессии и «Поделиться». Для старых — вкладка «Сессии». Если отправлять почтой, адрес разработчика `obdscanner@internet.ru` подставится сам.
-
-## Отчёт
-
-После «Стоп» на «Связи» появляется кнопка «Отчёт по поездке», для старых записей — кнопка «Отчёт» у каждой сессии на «Сессиях»: телефон сам, без интернета, собирает из записи страницу. Её можно открыть в браузере или отправить в мессенджер или почтой: это один HTML-файл, он откроется на любом устройстве.
+## The app
 
 <table>
   <tr>
-    <td valign="top"><img src="screenshots/report-1-check.png" width="420" alt="Отчёт: что проверить"></td>
-    <td valign="top">
-      <img src="screenshots/report-3-chassis.png" width="420" alt="Отчёт: ходовая и вибрации"><br>
-      <img src="screenshots/report-4-spectrogram.png" width="420" alt="Отчёт: спектрограмма поездки">
-    </td>
+    <td><img src="screenshots/en/app-1-main.png" width="250" alt="Main"></td>
+    <td><img src="screenshots/en/app-2-help.png" width="250" alt="What a value means"></td>
+    <td><img src="screenshots/en/app-3-fuel.png" width="250" alt="Fuel"></td>
   </tr>
   <tr>
-    <td align="center">Что проверить: замечания со ссылками на подробности</td>
-    <td align="center">Ходовая и вибрации по датчикам телефона</td>
+    <td align="center">Main: the key values by section, min/max for the trip; «How's the fuel?» on top</td>
+    <td align="center">Tap any card: what it is, what's normal, what to do if it isn't</td>
+    <td align="center">Fuel: trims by bank, O2 sensors, misfires, hints</td>
   </tr>
   <tr>
-    <td colspan="2"><img src="screenshots/report-2-trip.png" width="860" alt="Отчёт: графики поездки"></td>
+    <td><img src="screenshots/en/app-4-code.png" width="250" alt="Trouble code"></td>
+    <td><img src="screenshots/en/app-5-car.png" width="250" alt="Car"></td>
+    <td><img src="screenshots/en/app-6-scan.png" width="250" alt="Module scan"></td>
   </tr>
   <tr>
-    <td colspan="2" align="center">Графики поездки</td>
+    <td align="center">Codes: tap one — details, causes, symptoms, what the number itself says</td>
+    <td align="center">Car: adapter, protocol, VIN, model, modules, readiness, Mode 06</td>
+    <td align="center">Module scan: the app compares an unknown value with the standard ones</td>
   </tr>
 </table>
 
-| Раздел | Что в нём |
+Screenshots are from the demo mode — an ELM327 emulator with a Cadillac CTS behind it, built into the app. Try it without a car: «Connect» → «Demo mode» → «Start».
+
+## The trip report
+
+A real 30-minute drive in the developer's Cadillac CTS, the report as the phone built it. The report is in the app's language (English or Russian).
+
+<table>
+  <tr>
+    <td valign="top" width="50%"><img src="screenshots/en/report-1-check.png" alt="What to check"></td>
+    <td valign="top" width="50%"><img src="screenshots/en/report-4-chassis.png" alt="Chassis and vibration"></td>
+  </tr>
+  <tr>
+    <td align="center">«What to check»: every finding on top, each with a link to its details</td>
+    <td align="center">Chassis and vibration: a verdict for every component</td>
+  </tr>
+</table>
+
+<img src="screenshots/en/report-3-trip.png" alt="Trip charts">
+<p align="center">Trip charts with a shared cursor: hover anywhere and every chart shows its value at that moment</p>
+
+<img src="screenshots/en/report-5-spectrogram.jpg" alt="Trip spectrogram">
+<p align="center">The trip's spectrogram: each rotating part shakes at its own frequency — the coloured lines show where the wheel, the driveshaft and the engine should be</p>
+
+<img src="screenshots/en/report-6-campbell.jpg" alt="Campbell diagram">
+<p align="center">Campbell diagram: the same vibration by speed — a wheel or shaft problem is a bright spot on its ray</p>
+
+What else is in it: the trip's fingerprint (idle, cruise, load — to compare trips with each other), the automatic checks (fuel and lambda, O2 sensors, catalysts, readiness, lubrication, ignition and knock, idle and air, throttle and pedal, transmission, electrics, trouble codes) and the data quality (how many adapter replies came broken). The thresholds are heuristics, not factory limits, and the report says so.
+
+## Real cars, real cases
+
+- **Toyota Crown S180 (Japanese market).** No Mode 01 and no VIN — a standard scanner sees nothing. The app recognises the car by the engine module's own answer (`21 C1` → «GRS18# 4GRFSE») and reads the standard parameters through Toyota's `$21` with the same PID numbers. Worked out from the owner's recording.
+- **Chevrolet Trailblazer, GM Korea ([issue #1](https://github.com/parhipov/OBDScanner/issues/1)).** Not in the database at first. From the owner's recordings and their GDS2 notes it now is: recognised by VIN, the modules behind the gateway found with one GMLAN request to all of them, each named as GDS2 names it (power steering, ABS, BCM, radio…).
+- **An unknown parameter.** «Module scan» reads what a module answers; tick a value, and after 20 polls the app compares its bytes with the standard PIDs of the same cycle: «looks like RPM = (B·256+C) × 1/4» — or at least what it moves with. Save it, and it is read with everything else, kept by VIN.
+- **Volkswagen up to ~2012** (Golf 5/6, Passat B6/B7, Octavia A5…). Behind the gateway the modules speak only VW TP 2.0, which a plain ELM327 can't. The app switches the adapter to raw CAN and runs the channel itself: identification, trouble codes with VAG numbers, measuring blocks. Built from the protocol's description and other implementations and tested on an emulator — **not yet confirmed on a real car**. A recording from one would help a lot.
+
+## Cars
+
+Tested on:
+
+| Car | What works |
 |---|---|
-| Что проверить | Все замечания сверху, у каждого ссылка на подробности. Нет замечаний — так и написано |
-| Поездка | Графики того, что отдала машина: обороты, скорость, температуры, O2, коррекции, зажигание, давление масла. Курсор общий |
-| Ходовая и вибрации | По акселерометру и гироскопу телефона: амортизаторы, колёса и шины, тормозные диски, ступичные подшипники, кардан, опоры двигателя, гидротрансформатор. Спектрограмма, диаграмма Кэмпбелла, спектры |
-| Отпечаток поездки | Сводка по режимам (ХХ, круиз, нагрузка), чтобы сравнивать поездки между собой |
-| Автоматические проверки | Топливо и лямбда, датчики O2, катализаторы, готовность мониторов, смазка, зажигание и детонация, ХХ и воздух, дроссель и педаль, АКПП, электрика, коды ошибок |
-| Качество данных | Сколько ответов адаптера пришло с повреждёнными кадрами и какие именно |
+| **Cadillac CTS 2008–2014, 2.8 V6** | the developer's car: everything above, every day — GM parameters, the codes of all HS-CAN modules, module scan, bus listening |
+| **Toyota Crown S180 (JDM, 4GR-FSE)** | recognised by the engine module's answer, standard parameters through `$21` |
+| **Toyota RAV4 2005 (1AZ-FE)** | standard OBD; the engine module's `$21` data (as in Techstream) scanned and recorded for decoding |
+| **Volkswagen Polo 9N** | K-line (ISO 14230, 5-baud), standard OBD |
+| **Lada Vesta, Hyundai Solaris** | standard OBD plus module search: identification and codes |
 
-Телефон крепить не нужно: он может лежать на сиденье или на полу. Выводы о ходовой делаются сравнением режимов внутри одной поездки (торможение и накат на одной скорости, повороты и прямая), поэтому место телефона на них почти не влияет. Пороги — эвристики, а не заводские допуски.
+Recordings also came from: Cadillac Escalade, Chevrolet Niva, Chevrolet Trailblazer, Ford Focus 2, Hyundai Tiburon, a 2018 Hyundai diesel van, Lada Kalina, Lada Priora, Opel Mokka, Renault Laguna 3, Renault Logan, SsangYong Kyron, Toyota Caldina, Toyota Passo, Volvo S60. Each one is read through, and the app learns from it.
 
-## Адаптер и машина
+Limits worth knowing:
 
-Нужен адаптер ELM327, дешёвые клоны тоже подходят.
+- On GM, airbags, cluster, radio, climate and tyre pressure sit on single-wire GMLAN (pin 1). An ELM327 can't reach them; that needs an OBDLink MX+.
+- Bus listening works on CAN only.
+- Standard OBD works on any protocol the adapter speaks; the manufacturer features need a car the database knows or a module that answers the standard way.
 
-- Bluetooth: классический, не BLE. Спарьте адаптер в настройках Android, PIN обычно `1234` или `0000`.
-- USB: через OTG-переходник. Вставленный адаптер приложение находит само.
-- Wi-Fi: подключите телефон к сети адаптера (`WiFi_OBDII`, `VLINK` и т. п.). Адрес вводить не нужно.
+## Get started
 
-Протокол и скорость порта подбираются сами. На CAN работает всё. На K-line (ISO 9141, KWP2000) только стандартный OBD: без поиска блоков, GM-параметров и прослушки шины.
+1. **Download** the APK from [Releases](https://github.com/parhipov/OBDScanner/releases/latest) and install it (Android will ask to allow installing from this source).
+2. **An ELM327 adapter** — cheap clones are fine:
+   - Bluetooth: the classic kind, not BLE. Pair it in Android's settings, the PIN is usually `1234` or `0000`;
+   - USB: through an OTG adapter, the app finds it by itself;
+   - Wi-Fi: join the adapter's network (`WiFi_OBDII`, `VLINK`…), no address to type.
+3. **Ignition on**, «Connect» → pick the adapter → «Start». The protocol and the port speed are found automatically; make and model come from the VIN (or pick them by hand). Where the connector is — «Help», for each make.
 
-## Сборка
+## Help the project
 
-Нужны Android SDK (в скриптах `E:\Android\Sdk`), JDK 17, телефон с отладкой по USB.
+- **Send a recording from your car**, especially one the app doesn't know yet. Every connection is recorded; «Sessions» → «Send» makes a zip, the developer's address is filled in. That's how new cars get supported. The recording holds the VIN; the report shows it with the last six characters hidden.
+- **Open an [issue](https://github.com/parhipov/OBDScanner/issues)**: what car, what you expected, what you got.
 
-VS Code (Ctrl+Shift+P → Tasks: Run Task):
+## For developers
 
-| Задача | Действие |
-|---|---|
-| OBD: Run on Phone (Ctrl+Shift+B) | Сборка, установка, запуск. Выбирает физический телефон; другое устройство — `-Serial` |
-| OBD: Logcat (OBD) | Лог обмена с адаптером (тег `OBD`) и падений |
-| OBD: Unit tests | Тесты |
-
-Консоль:
-
-```
-gradlew assembleDebug                        # APK: app/build/outputs/apk/debug/OBDScanner_PavelArkhipov_<версия>.apk
-gradlew installDebug                         # сборка и установка
-gradlew :core:jvmTest testDebugUnitTest      # тесты: ядро (логика, проигрывание сессий) и приложение (USB, Wi-Fi)
-gradlew :core:jsBrowserProductionLibraryDistribution   # ядро для браузера: core/build/dist/js/productionLibrary
-```
-
-Записанные сессии (`sessions/<машина>/<сессия>/raw.log`, не в git) проигрываются тестом `ReplayTest`: приложение подключается к «адаптеру», который отвечает записанными ответами, и всё, что оно отправило и нашло (запросы, `report.txt`, значения), сравнивается с `replay-golden.txt` рядом с сессией. `REPLAY_RECORD=1` — записать эталоны текущим кодом, `REPLAY_GOLDEN=replay-main.txt` — сравнить с поведением ветки main.
-
-Версия — в заголовке приложения и в `report.txt`. Поднимать `versionName` и `versionCode` в [app/build.gradle.kts](app/build.gradle.kts) с каждой сборкой: `versionName` на 0.01 (1.0 → 1.01 → 1.02 …), `versionCode` на 1.
-
-## Демо-режим
-
-Вкладка «Связь» → «Демо-режим»: эмулятор ELM327 v1.5 + CTS 2.8 ([MockTransport.kt](core/src/commonMain/kotlin/com/obdscanner/transport/MockTransport.kt)). Двигатель, АКПП, BCM, многокадровые ответы, ошибки, Mode 06, GM-параметры, трафик для прослушки. На нём же unit-тесты.
-
-## Код
-
-Два модуля. `core` — вся логика без Android, на Kotlin Multiplatform: собирается для JVM (приложение, тесты) и в JavaScript (страница в браузере, Web Serial). `app` — Android: адаптеры, сервис, сессии на диске, экраны на Compose. Экраны только рисуют: что показать (карточки «Главной», подсказки «Топлива», строки «Ошибок» и «Машины», тексты, пороги, цвета-уровни) собирает ядро ([core/…/screen](core/src/commonMain/kotlin/com/obdscanner/screen/)), так что телефон и страница показывают одно и то же.
+Kotlin. `core/` — all the logic, Kotlin Multiplatform (JVM for the app and the tests, JavaScript for the browser); `app/` — Android: adapters, a background service, Compose screens that only draw what the core prepared.
 
 ```
-core/src/commonMain/kotlin/com/obdscanner/
-├── CarLink.kt       подключение к машине: поиск протокола, опрос, блоки, ошибки, цикл чтения
-├── State.kt         состояние подключения и машины (VehicleInfo, ScanState, Tab…)
-├── transport/       Transport (read/write) и эмулятор демо-режима
-├── elm/             драйвер ELM327, разбор CAN/ISO-TP и K-line, адресация
-├── obd/             PID и формулы, ошибки (Mode 03, UDS $19 / KWP $18 / $13), Mode 06, Mode 09, готовность, общий список блоков
-├── car/             база машин: семейства, модели, блоки и диалекты, опознание (VIN, ответ блока), декодер значений
-├── gm/              поиск и скан блоков (любая марка), GMLAN $1A и $A9
-├── bus/             прослушка шины
-├── session/         Recorder / Store — то, что CarLink пишет и помнит
-├── screen/          что показывают экраны: блоки (заголовок, строка, плашка, банк коррекций…), уровни, кнопки
-└── util/            что нужно от платформы (String.format, время, JSON, поток чтения): jvmMain — как раньше, jsMain — браузер
-core/data/           базы машин (cars/) и кодов ошибок (dtc/)
-core/src/jvmTest/    ReplayTest (проигрывание sessions/ через CarLink, сравнение с эталоном), ReplayTransport,
-                     DialectTest, DemoTest, JavaFormatTest (браузерный String.format против Java) и др.
-
-app/src/main/java/com/obdscanner/
-├── ObdManager.kt    Android-обвязка: адаптеры (BT/USB/Wi-Fi), сессии, датчики, кнопки → CarLink
-├── ObdService.kt    фоновый сервис (запись при выключенном экране)
-├── MainActivity.kt  заголовок, вкладки
-├── transport/       Bluetooth SPP, USB, Wi-Fi (StreamTransport — блокирующие потоки)
-├── session/         запись сессий на диск, zip, датчики телефона
-└── ui/              Compose: рисует блоки ядра (Blocks.kt), справку, выбор машины, связь, скан блоков
-app/src/test/        USB и Wi-Fi транспорты
+gradlew assembleDebug                    # APK: app/build/outputs/apk/debug/
+gradlew :core:jvmTest testDebugUnitTest  # tests
 ```
 
-Как читается машина ([CarLink.kt](app/src/main/java/com/obdscanner/CarLink.kt)): протокол → PID Mode 01 → VIN и калибровки (Mode 09) → какая это машина (ручной выбор, VIN, ответ блока двигателя) → у каждого блока его диалект (назван моделью, узнан по ответу, по умолчанию для марки) → данные через $21, если так требует диалект → ошибки, стоп-кадр, Mode 06 → параметры производителя (марки и диалектов блоков) → поиск блоков и их ошибки способами их диалектов → цикл чтения. Что выбрано и почему — в `report.txt`, раздел «Блоки и диалекты». Особенности машины — данные в базе, а не условия в коде: новая машина обычно — правка JSON ([tools/cars/SCHEMA.md](tools/cars/SCHEMA.md)), новый код нужен только для нового способа чтения.
+JDK 17 and the Android SDK. The trip report generator is closed source; without it everything builds and works, there's just no «Report» button.
 
-Лицензии: приложение — MIT ([LICENSE](LICENSE)); данные и библиотеки других авторов, их лицензии и тексты — [core/data/licenses](core/data/licenses/licenses.json), в приложении — «Справка» → «Лицензии». Новую библиотеку или источник данных — сразу туда.
-
-Исходник иконки: [art/icon.png](art/icon.png). Базы: `core/data/` (в APK — assets), инструменты и форматы — `tools/cars/`, `tools/dtc/`.
+A new car is usually a JSON edit, not code: [tools/cars/SCHEMA.md](tools/cars/SCHEMA.md); trouble codes — [tools/dtc/SCHEMA.md](tools/dtc/SCHEMA.md). The app is MIT ([LICENSE](LICENSE)); third-party data and their licenses — [core/data/licenses](core/data/licenses/licenses.json), in the app under «Help» → «Licenses».
