@@ -35,8 +35,8 @@ class PickTest {
         assertEquals(cts, v.misfitPick)
         assertFalse(v.makeByPick)
         val card = CarCard.build(v, CarDb.choice(cts.id))
-        assertEquals("не определена", card.title)
-        assertTrue(card.status.contains("не подходит") && card.status.contains("CAN 11/500"), card.status)
+        assertEquals(tr("не определена", "unknown"), card.title)        // the CI runs in English
+        assertTrue(card.status.contains(tr("не подходит", "doesn't fit")) && card.status.contains("CAN 11/500"), card.status)
     }
 
     /** Polo 9N picked while connected to it: the next connection to the same car takes it by its CALID. */
@@ -53,7 +53,7 @@ class PickTest {
         assertEquals(polo9n, v.car)
         assertTrue(v.pickForCar)
         assertNull(v.misfitPick)
-        assertTrue(CarCard.build(v, CarDb.choice(cts.id)).status.startsWith("выбрана для этой машины"))
+        assertTrue(CarCard.build(v, CarDb.choice(cts.id)).status.startsWith(tr("выбрана для этой машины", "picked for this car")))
     }
 
     /** A pick made with no car connected stays app-wide only: nothing is kept for the last car seen. */
