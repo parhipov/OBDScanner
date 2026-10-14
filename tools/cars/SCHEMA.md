@@ -125,6 +125,9 @@ in git) through the connection and compares what the app sends and finds with `r
 
 - A read (`svc` `21`, `22` or `1A`) to one module; `ascii` — a regex over the answer after the echo
   (non-printable bytes as `.`), `hex` — over its bytes as `"47 52 53"`; at least one.
+- On a model also `svc` `09`: the module's Mode 09 item `did` (`04` — calibration ids) as the connection already
+  read it, nothing sent; `ascii` only, over the text the app shows («TQL4N20YS1»). The Kia Sportage QL: its
+  gearbox's CALID starts with `TQL` (`{ "hdr": "7E1", "svc": "09", "did": "04", "ascii": "^TQL" }`).
 - `when.obd` — only if standard OBD answered Mode 01 (`"ok"`) or only refused it with `7F 01 xx`
   (`"refused"`); `when.protocol` — ATSP numbers (default: any CAN).
 - On a model (`models[].match`): asked when neither the pick nor the VIN gives the model; the first model
@@ -169,7 +172,8 @@ in git) through the connection and compares what the app sends and finds with `r
   - `left_cover`     left of/under the column behind a fuse-box or trim cover (remove it)
   - `console`        in the centre console / under the ashtray / behind a tunnel trim
   - `passenger`      passenger side / glovebox
-- `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris, Crown S180).
+- `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris, Crown S180,
+  Sportage QL 2.0).
 - `names` — modules by request id on this model (`{ "24F": { "ru": …, "en": … } }`): over the family's
   `modules.names`, under its `diagNames`. For an id GM gives different modules on different cars, named
   for the model a source checked it on.

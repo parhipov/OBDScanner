@@ -43,7 +43,8 @@ object CanParser {
         val done = mutableListOf<EcuMessage>()
         val corrupted = mutableSetOf<Int>()
 
-        for (line in reply.lines) {
+        for (raw in reply.lines) {
+            val line = frameOnly(raw, headerChars)
             val compact = line.replace(" ", "")
             if (compact.isEmpty()) continue
             if (!compact.all { it.isHexDigitChar() }) {
@@ -182,6 +183,24 @@ object CanParser {
     }
 
     /** With spaces on (ATS1) every byte is exactly two digits; the 11-bit header is three. */
+    /**
+     * A CAN frame has 8 bytes at most, and the ELM prints them as upper-case pairs: a tail after them with no such
+     * pair isn't the car's. The Kia Sportage QL's «ELM327 v2.1» (2026-10-14) puts " d" after the last frame of a
+     * long reply (21 19, 68 bytes) and a binary copy of the first frame on the next line; read as part of the frame,
+     * it spoiled the whole reply and every 21 19 was asked twice. A tail with byte pairs is another frame run into
+     * this one (the CTS's v1.5 drops a CR: "7E8 21 30 0F 31 01 45 E8 22 05 …") — left as it is, so it stays corrupt
+     * and is asked again. Only 11-bit lines "7E8 xx ×8 …": K-line ones start with a 2-digit byte.
+     */
+    private val BYTE = Regex("[0-9A-F]{2}")
+
+    private fun frameOnly(line: String, headerChars: Int): String {
+        if (headerChars != 3) return line
+        val t = line.trim().split(' ').filter { it.isNotEmpty() }
+        if (t.size <= 9 || t[0].length != 3 || !t[0].all { it.isHexDigitChar() }) return line
+        if (!t.subList(1, 9).all { BYTE.matches(it) } || t.drop(9).any { BYTE.matches(it) }) return line
+        return t.take(9).joinToString(" ")
+    }
+
     private fun wellSpaced(line: String, headerChars: Int): Boolean {
         val t = line.trim().split(' ').filter { it.isNotEmpty() }
         if (t.size < 2) return true

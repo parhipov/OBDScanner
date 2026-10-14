@@ -85,6 +85,8 @@ data class VehicleInfo(
     val mode06Time: Long = 0,
     /** Manufacturer requests that answered (the car database), polled with standard PIDs. */
     val extActive: List<ExtCommand> = emptyList(),
+    /** Of those, the ones whose knock retard can't be real on this car (CarLink.knockChecked): not used as knock. */
+    val knockRejected: Set<String> = emptySet(),
     /** The car: picked by hand or found by the VIN in [CarDb]. */
     val car: CarModel? = null,
     /** Brand by the VIN ("Cadillac"), null before the VIN or when unknown. */

@@ -225,7 +225,7 @@ object CarDb {
             src = m.optJSONArray("src").strings(),
             verified = m.optBoolean("verified", false),
             blocks = m.optJSONArray("blocks").objects().map { parseBlock(it) },
-            match = m.optJSONArray("match").objects().map { parseMatch(it) },
+            match = m.optJSONArray("match").objects().map { parseMatch(it, model = true) },
             names = parseNames(m),
             diagNames = parseDiagNames(m),
         )
@@ -249,18 +249,19 @@ object CarDb {
      * A read request whose answer recognises a model or a dialect: `{ "hdr": "7E0", "svc": "21", "did": "C1",
      * "ascii": "^GRS18" }`. Same safety as the parameters: a read service to one module's physical id.
      */
-    private fun parseMatch(r: JSONObject): MatchRule {
+    private fun parseMatch(r: JSONObject, model: Boolean = false): MatchRule {
         val hdr = r.getString("hdr")
         require(hdr.matches(Regex("7[0-9A-Fa-f]{2}"))) { "hdr $hdr: 11-bit 700–7FF only" }
         val req = hdr.toInt(16)
         require(req != 0x7DF) { "7DF is the broadcast id" }
         val service = r.getString("svc")
-        require(service in MATCH_SERVICES) { "service $service: only ${MATCH_SERVICES.joinToString("/")} (read)" }
+        require(service in MATCH_SERVICES || model && service == "09") { "service $service: only ${MATCH_SERVICES.joinToString("/")} (read)${if (model) " or 09" else ""}" }
         val didText = r.getString("did")
         require(didText.matches(Regex(if (service == "22") "[0-9A-Fa-f]{4}" else "[0-9A-Fa-f]{2}"))) { "did $didText doesn't fit service $service" }
         val ascii = r.optString("ascii").ifEmpty { null }?.let { Regex(it) }
         val hex = r.optString("hex").ifEmpty { null }?.let { Regex(it, RegexOption.IGNORE_CASE) }
         require(ascii != null || hex != null) { "match needs \"ascii\" or \"hex\"" }
+        require(service != "09" || hex == null) { "a Mode 09 match is over its text: \"ascii\" only" }
         val w = r.optJSONObject("when")
         val obd = w?.optString("obd")?.ifEmpty { null }?.also { require(it in setOf("refused", "ok")) { "when.obd $it: refused / ok" } }
         val protocols = w?.optJSONArray("protocol")?.let { a -> (0 until a.length()).map { a.getInt(it) }.toSet() }.orEmpty()
@@ -682,6 +683,9 @@ data class MatchRule(
 
     fun fits(protocol: Int, obdState: String?): Boolean =
         (obd == null || obd == obdState) && (if (protocols.isEmpty()) protocol in 6..9 else protocol in protocols)
+
+    /** Mode 09 (`svc` 09): answered from what the connection already read — [text] as Mode09 decodes it, e.g. a CALID. */
+    fun matchesText(text: String): Boolean = ascii?.containsMatchIn(text) == true
 
     /** Whether an answer ([data] after the echo) is this one. */
     fun matches(data: IntArray): Boolean {

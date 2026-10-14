@@ -17,6 +17,7 @@ import com.obdscanner.transport.MockTransport
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -34,6 +35,24 @@ class MockPipelineTest {
         val raw = listOf("7EA 10 43 49 04 04 32 34 32", "7EA 2", "7", "BUFFER FULL").joinToString("\r")
         val r = CanParser.parse(ElmReply("0904", raw, false), 3)
         assertTrue(r.garbled)
+    }
+
+    @Test
+    fun cloneJunkAfterAFullFrameIsDropped() {
+        // Kia Sportage QL 2026-10-14 18:02:10, «ELM327 v2.1»: " d" after the last frame of 21 19 and a binary copy of
+        // the first frame on the next line — the reply was called garbled and every 21 19 was asked twice.
+        val raw = listOf(
+            "7E8 10 44 61 19 E7 E1 E1 61", "7E8 21 01 97 FF 74 FF 00 00", "7E8 22 00 00 FF FF FF FF 00",
+            "7E8 23 00 00 00 FF FF FF FF", "7E8 24 00 00 00 00 17 19 18", "7E8 25 19 00 00 00 00 6A FF",
+            "7E8 26 35 00 00 00 7E 00 00", "7E8 27 00 00 00 9F 00 7D 00", "7E8 28 6E 11 C7 F0 72 FC DA",
+            "7E8 29 F4 D3 2B DC 30 00 AA d\n\n\n\u0007è\u0010Da\u0019\n",
+        ).joinToString("\r")
+        val r = CanParser.parse(ElmReply("2119", raw, false), 3)
+        assertFalse(r.errors.toString(), r.garbled)
+        val m = r.messages.single()
+        assertEquals(0x44, m.data.size)
+        assertEquals(listOf(0x61, 0x19, 0xE7), m.data.take(3))
+        assertEquals(listOf(0xDC, 0x30, 0x00), m.data.takeLast(3))
     }
 
     @Test

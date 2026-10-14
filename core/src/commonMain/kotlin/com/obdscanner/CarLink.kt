@@ -113,6 +113,7 @@ class CarLink(
         paramsFor = null
         lastPoll.clear()
         knockHi = 0
+        knockAtIdle.clear()
         knockHiRetard = 0
         notedWatch = false
         skippedNow.clear()
@@ -573,7 +574,7 @@ class CarLink(
         // A hand-picked car stays while the VIN agrees with its family (or there is no VIN); otherwise the VIN wins.
         val known = picked?.model?.takeIf { brand == null || it.family == brand.family }?.let { CarDb.forVin(it, vin) } ?: CarDb.detect(vin)
         // Neither: the engine ECU's own answer may still say which model it is (a JDM car has no VIN).
-        val recognised = if (known == null) recogniseModel(o, brand?.name) else null
+        val (recognised, recognisedBy) = if (known == null) recogniseModel(o, brand?.name, info) else null to null
         val car = known ?: recognised
         // What the car says beats the hand pick: the VIN, then a model recognised by the engine ECU's answer.
         val vinMake = Make.fromVin(vin).takeIf { it != Make.OTHER }
@@ -601,7 +602,10 @@ class CarLink(
                 it + when (car) {
                     own?.model -> tr(" (выбрана для этой машины)", " (picked for this car)")
                     picked?.model -> tr(" (выбрана вручную)", " (picked by hand)")
-                    recognised -> tr(" (по ответу блока двигателя)", " (by the engine ECU's answer)")
+                    recognised -> when {
+                        recognisedBy?.service == "09" -> tr(" (по калибровке блока %03X)", " (by the calibration of module %03X)").format(recognisedBy.resp)
+                        else -> tr(" (по ответу блока двигателя)", " (by the engine ECU's answer)")
+                    }
                     else -> tr(" (по VIN)", " (by VIN)")
                 }
             } ?: tr("не определена", "unknown")),
@@ -872,9 +876,40 @@ class CarLink(
         return if (r.timedOut) list.map { it.copy(time = r.atMs) } else list
     }
 
-    private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = c.signals.map { s ->
+    private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = knockChecked(c, c.signals.map { s ->
         val (v, text) = s.fmt.decode(data) ?: (null to null)
         Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role)
+    })
+
+    /** Idle samples with a big retard, per request, see [knockChecked]. */
+    private val knockAtIdle = HashMap<String, Int>()
+
+    /**
+     * Knock retard from a layout not checked on a car (OBDb's, of another model) counts — on Main, as calc.knock, in
+     * «Как бензин?» — only while it can be real: decoded, within ±[Knock.MAX_DEG] on every cylinder, not a big retard
+     * at idle 3 times. A request that fails is no knock for the rest of the connection: its values stay, without the
+     * role. The Kia Sportage QL of 2026-10-14 read with the Elantra's 21 16 showed 11–12° all along, cylinder 4 up to 172°.
+     */
+    private fun knockChecked(c: ExtCommand, out: List<Reading>): List<Reading> {
+        if (c.signals.none { it.role == Knock.ROLE && it.confidence != "OK" }) return out
+        var rejected = c.key in _vehicle.value.knockRejected
+        if (!rejected) {
+            val why = Knock.implausible(out)?.let { "${it.name} = ${it.display()}" } ?: run {
+                val r = _readings.value
+                val rpm = r.pick("01.0C")?.value
+                val load = r.pick("01.04")?.value
+                val idle = Knock.atIdle(out, rpm, load) ?: return@run null
+                val n = (knockAtIdle[c.key] ?: 0) + 1
+                knockAtIdle[c.key] = n
+                if (n >= 3) "${idle.name} = ${idle.display()} at idle, ${n} times (%.0f rpm, load %.0f %%)".format(rpm, load) else null
+            }
+            if (why != null) {
+                rejected = true
+                _vehicle.update { it.copy(knockRejected = it.knockRejected + c.key) }
+                session?.note("knock: ${c.key} isn't knock retard on this car — $why")
+            }
+        }
+        return if (rejected) out.map { if (it.role == Knock.ROLE) it.copy(role = null) else it } else out
     }
 
     // ---------------------------------------------------------------- polling
@@ -1159,17 +1194,20 @@ class CarLink(
      * A model whose rules the engine ECU's answers fit ([CarModel.match]): for a car without a VIN (JDM)
      * or with one that doesn't say the model. Each request is sent once, whatever number of rules use it.
      */
-    private suspend fun recogniseModel(o: Obd, brand: String?): CarModel? {
+    private suspend fun recogniseModel(o: Obd, brand: String?, info: Map<Int, Map<Int, String>>): Pair<CarModel?, MatchRule?> {
         // The rules ask 11-bit ids.
-        if (o.kline || o.can29) return null
+        if (o.kline || o.can29) return null to null
         val models = CarDb.matchable.filter { m -> brand == null || m.brand == brand }
         val rules = models.flatMap { m -> m.match.filter { it.fits(o.protocol, obdState) }.map { m to it } }
-        if (rules.isEmpty()) return null
-        val answers = ask(o, rules.map { it.second })
-        val hit = rules.firstOrNull { (_, r) -> answers[r.key]?.let(r::matches) == true }?.first
-        session?.note(if (hit != null) "model recognised: ${hit.title}"
+        if (rules.isEmpty()) return null to null
+        // Mode 09 ones (a calibration id) are answered from what was just read: nothing is sent for them.
+        val answers = ask(o, rules.map { it.second }.filter { it.service != "09" })
+        val hit = rules.firstOrNull { (_, r) ->
+            if (r.service == "09") info[r.resp]?.get(r.did)?.let(r::matchesText) == true else answers[r.key]?.let(r::matches) == true
+        }
+        session?.note(if (hit != null) "model recognised: ${hit.first.title} (${hit.second.key})"
             else "model not recognised: ${rules.size} rules of ${rules.map { it.first.title }.distinct().size} models, answers ${answers.keys}")
-        return hit
+        return hit?.first to hit?.second
     }
 
     /**
@@ -1285,7 +1323,8 @@ class CarLink(
         val now = clock()
         // «Как бензин?»: knock retard every cycle (a retard lasts seconds), the rest share what is left.
         val gm = family()?.id == "gm"
-        val knock = if (_fuelWatch.value) list.filter { Knock.isKnock(it, gm) } else emptyList()
+        val rejected = _vehicle.value.knockRejected
+        val knock = if (_fuelWatch.value) list.filter { Knock.isKnock(it, gm) && it.key !in rejected } else emptyList()
         knock.forEach { lastPoll[it.key] = now }
         val batch = (knock + PollRate.due(list - knock.toSet(), lastPoll, now, (EXT_PER_CYCLE - knock.size).coerceAtLeast(1), { it.key }) {
             if (it.group == group) PollRate.onScreen(it.periodMs) else it.periodMs

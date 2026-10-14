@@ -680,13 +680,21 @@
         "ru": "Диагностика по CAN 500 кбит/с, 11-битные адреса: ЭБУ двигателя 7E0/7E8, АКПП 7E1/7E9, приборная панель 7C6/7CE.",
         "en": "Diagnostics over CAN 500 kbit/s, 11-bit ids: engine ECU 7E0/7E8, TCU 7E1/7E9, instrument cluster 7C6/7CE."
       },
+      "match": [
+        {
+          "hdr": "7E1",
+          "svc": "09",
+          "did": "04",
+          "ascii": "^TQL"
+        }
+      ],
       "src": [
         "https://en.wikipedia.org/wiki/Kia_Sportage",
         "https://en.wikipedia.org/wiki/Hyundai_Nu_engine",
         "https://en.wikipedia.org/wiki/Hyundai_Gamma_engine",
         "https://en.wikipedia.org/wiki/Hyundai_R_engine"
       ],
-      "verified": false
+      "verified": true
     },
     {
       "brand": "Kia",

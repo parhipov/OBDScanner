@@ -123,6 +123,28 @@ class DialectTest {
         assertEquals("toyota_jdm", crown.knownBlocks.getValue(0x7E0).dialect)
     }
 
+    /** The Kia Sportage QL (2026-10-14): no VIN pattern known, its gearbox's calibration id (Mode 09 04 of 7E9) says it. */
+    @Test
+    fun sportageByTheGearboxCalibration() {
+        CarDbTest.load()
+        val ql = CarDb.models.single { it.model == "Sportage" && it.gen == "QL" }
+        val rule = ql.match.single()
+        assertEquals(0x7E9, rule.resp)
+        assertTrue(rule.matchesText("TQL4N20YS1"))
+        assertFalse(rule.matchesText("TGK0D20NF5"))   // the Tiburon's
+        val r = replay(log(
+            "ATZ" to "ELM327 v2.1", "ATSP6" to "OK", "0100" to "7E9 06 41 00 80 00 00 01 AA | 7E8 06 41 00 BE 3E A8 13 AA",
+            "ATDPN" to "6", "ATSH7DF" to "OK", "0100" to "7E9 06 41 00 80 00 00 01 AA | 7E8 06 41 00 BE 3E A8 13 AA",
+            "0900" to "7E9 06 49 00 14 40 00 00 AA | 7E8 06 49 00 55 00 00 00 AA",
+            "0902" to "7E8 10 14 49 02 01 58 57 45 | 7E8 21 50 48 38 31 41 44 48 | 7E8 22 30 30 31 32 35 39 36",
+            "0904" to "7E8 10 13 49 04 01 51 48 37 | 7E8 21 35 52 32 41 53 32 48 | 7E8 22 33 42 00 00 00 00 AA | " +
+                "7E9 10 13 49 04 01 54 51 4C | 7E9 21 34 4E 32 30 59 53 31 | 7E9 22 00 00 00 00 00 00 AA",
+        ), MapStore(), 0)
+        assertEquals(ql, r.link.vehicle.value.car)
+        val car = r.reports.single { it.first == tr("Машина", "Car") }.second
+        assertTrue(car, car.contains(tr("по калибровке блока 7E9", "by the calibration of module 7E9")))
+    }
+
     /** An engine's block counts only when every engine of the model has the same one. */
     @Test
     fun engineBlocksOnlyWhenTheEnginesAgree() {

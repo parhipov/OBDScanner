@@ -160,7 +160,7 @@ object MainScreen {
         if (watch && now != null && now > 0 && nowMs() - knock.time < 10_000)
             top.banner(tr("Откат по детонации сейчас: ${knock.display()}${knock.unit}", "Knock retard now: ${knock.display()}${knock.unit}"), Level.WARN)
         val gm = (v.car?.family ?: v.make.id) == "gm"
-        val noKnock = !offline && v.step.isEmpty() && knock == null && v.extActive.none { Knock.isKnock(it, gm) }
+        val noKnock = !offline && v.step.isEmpty() && knock == null && v.extActive.none { Knock.isKnock(it, gm) && it.key !in v.knockRejected }
         val sample = tr("пример · нет связи", "sample · offline")
         return MainView(offline, top.build(), sections.map { (s, tiles) ->
             MainSection(s.title, s.accent, s.tile, tiles.map { (label, reading) ->
