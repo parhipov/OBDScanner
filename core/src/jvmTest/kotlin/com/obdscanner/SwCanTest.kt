@@ -110,6 +110,18 @@ class SwCanTest {
         assertEquals(listOf("25A"), asked.distinct())
     }
 
+    /** «Скан блоков» shows each module's part number once read — the one on its label (an owner asked, issue #1). */
+    @Test
+    fun partNumbersOnTheScanScreen() {
+        val bcm = com.obdscanner.gm.GmModule(0x241, 0x641, "BCM", "1A90 → OK", 0x40, partNumber = 13535989)
+        val hud = com.obdscanner.gm.GmModule(0x24A, 0x64A, "HUD", "1A B0", 0x62, partNumber = 60005023)
+        val s = ScanState(modules = listOf(bcm), sw = SwCanState(modules = listOf(hud)))
+        val g = com.obdscanner.screen.GmScreen.build(s, BusState(), emptyMap(), false,
+            com.obdscanner.screen.ScanContext(true, listOf("" to 0..0)) { listOf("1A") })
+        assertTrue(g.modules.single().answeredTo, "13535989" in g.modules.single().answeredTo)
+        assertTrue(g.swRows.single(), "60005023" in g.swRows.single())
+    }
+
     @Test
     fun anAdapterWithoutStpIsLeftAlone() {
         CarDbTest.load()

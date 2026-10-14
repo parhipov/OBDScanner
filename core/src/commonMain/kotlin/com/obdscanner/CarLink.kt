@@ -1573,7 +1573,8 @@ class CarLink(
         // A module that told its diagnostic address gets the make's name for it, where the CAN id had none or another one.
         val named = found.map { mod ->
             val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
-            if (diag == null) mod else mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
+            val part = partNumber(ids, mod)
+            (if (diag == null) mod else mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)).copy(partNumber = part ?: mod.partNumber)
         }
         if (named != found) saveModules(named)
         _scan.update { it.copy(running = false, modules = named, status = tr("Найдено модулей: ${found.size}", "Modules found: ${found.size}")) }
@@ -1610,6 +1611,10 @@ class CarLink(
 
     /** Set once this car's modules were searched with TP 2.0 (found or not). */
     private fun tp20Key() = carKey()?.let { "tp20_searched_$it" }
+
+    /** The module's part number from its identification (GM \$1A CB, end model); null — not read. */
+    private fun partNumber(ids: List<ScanHit>, mod: GmModule): Long? =
+        ids.firstOrNull { it.req == mod.req && it.service == "1A" && it.did == 0xCB }?.partNumber
 
     /** "7E0:7E8,24F:64F:28": request, reply and — once read — the module's diagnostic address. */
     private fun saveModules(list: List<GmModule>) {
@@ -1691,7 +1696,7 @@ class CarLink(
                         .also { alsoOnHs[mod.req] = same }
                     diag == null -> mod
                     else -> mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
-                }
+                }.copy(partNumber = partNumber(ids, mod))
             }
             state(tr("SW-CAN: найдено блоков: %d", "SW-CAN: modules found: %d").format(named.size), modules = named)
             session?.report(tr("GM SW-CAN: найденные модули", "GM SW-CAN: modules found"), named.joinToString("\n") { m ->

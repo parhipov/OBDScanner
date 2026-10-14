@@ -104,6 +104,7 @@ object GmScreen {
                 w.modules.map { m ->
                     val r = w.dtcs.firstOrNull { it.module.req == m.req }
                     "${m.name}  ·  %03X → %03X".format(m.req, m.resp) + (m.diag?.let { tr(", адрес %02X", ", address %02X").format(it) } ?: "") +
+                        (m.partNumber?.let { tr(", номер детали ", ", part number ") + it } ?: "") +
                         (r?.let { " — ${it.result}" + it.codes.joinToString("") { c -> "\n    ${c.full}  ${c.description}" } } ?: "")
                 }
             }.orEmpty(),
@@ -120,7 +121,10 @@ object GmScreen {
                 "Tap «Find blocks»: polls the addresses this make keeps its blocks on, about a minute.") else null,
             modules = s.modules.map { m ->
                 GmView.Module(m.id, if (Tp20.isTp(m.req)) tr("${m.name}  ·  TP 2.0, адрес %02X", "${m.name}  ·  TP 2.0, address %02X").format(m.req - Tp20.BASE)
-                    else "${m.name}  ·  %03X → %03X".format(m.req, m.resp), m.answeredTo,
+                    else "${m.name}  ·  %03X → %03X".format(m.req, m.resp),
+                    // The part number on the module's label, once read (identification, \$1A CB).
+                    m.answeredTo + ((m.partNumber ?: s.hits.firstOrNull { it.req == m.req && it.service == "1A" && it.did == 0xCB }?.partNumber)
+                        ?.let { tr("  ·  номер детали ", "  ·  part number ") + it } ?: ""),
                     ctx.services(m).map { s ->
                         // On a VAG TP 2.0 module \$21 reads the measuring blocks (groups), as VCDS calls them.
                         GmView.Service(s, if (s == "21" && Tp20.isTp(m.req)) tr("Группы измерений", "Measuring blocks") else SERVICE_NAMES[s] ?: "\$$s")

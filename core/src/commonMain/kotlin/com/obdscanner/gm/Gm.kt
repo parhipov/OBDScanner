@@ -9,6 +9,11 @@ data class GmModule(
     val req: Int, val resp: Int, val name: String, val answeredTo: String,
     /** Its own diagnostic address (GM \$1A B0), once read; a TP 2.0 module: its VCDS address. */
     val diag: Int? = null,
+    /**
+     * Its part number (GM \$1A CB, end model), once read: the one on the module's label — a catalogue by the VIN may
+     * give another, more common one (an owner checked two modules, issue #1).
+     */
+    val partNumber: Long? = null,
 ) {
     val id get() = Tp20.label(req)
 }
