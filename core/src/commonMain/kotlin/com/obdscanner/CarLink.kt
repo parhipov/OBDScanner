@@ -133,12 +133,16 @@ class CarLink(
      * Made [connected] to a car known by its VIN or calibration, it is kept for that car too and comes back by itself.
      */
     fun pickCar(pick: CarChoice?, connected: Boolean = false) {
-        val forCar = _vehicle.value.takeIf { connected }?.let { v -> pickKey(v.vin, v.ecus.mapValues { it.value.info09 }) }
+        // Another make than the VIN's is another car: not kept for this one, and while connected the card says why.
+        val vinBrand = CarDb.brandOf(_vehicle.value.vin)
+        val otherMake = pick?.takeIf { vinBrand != null && it.family != vinBrand.family }
+        val forCar = _vehicle.value.takeIf { connected && otherMake == null }?.let { v -> pickKey(v.vin, v.ecus.mapValues { it.value.info09 }) }
         if (forCar != null) store.putString(forCar, pick?.id)
         _vehicle.update { v ->
-            val sameFamily = v.vin == null || CarDb.brandOf(v.vin)?.family.let { it == null || it == pick?.family }
-            val car = pick?.model?.takeIf { sameFamily }?.let { CarDb.forVin(it, v.vin) } ?: CarDb.detect(v.vin)
-            v.copy(car = car, misfitPick = null, pickForCar = forCar != null && car != null && car == pick?.model)
+            val car = pick?.model?.takeIf { otherMake == null }?.let { CarDb.forVin(it, v.vin) } ?: CarDb.detect(v.vin)
+            val misfit = otherMake?.takeIf { connected }
+            v.copy(car = car, misfitPick = misfit, misfitMake = misfit?.let { vinBrand?.name },
+                pickForCar = forCar != null && car != null && car == pick?.model)
         }
         syncDtcFamily()
     }
@@ -558,9 +562,13 @@ class CarLink(
         // The pick made on this car (by its VIN, else the engine ECU's calibration) beats the app-wide one.
         val own = pickKey(vin, info)?.let { store.getString(it) }?.let { CarDb.choice(it) }
         val global = pickedCar()
-        // The app-wide pick of a model on another protocol is another car: CTS picked (CAN 11/500), a Polo answered on K-line.
-        val misfit = global?.model?.takeIf { own == null && it.protocol != null && it.protocol != o.protocol }
-        if (misfit != null) session?.note("hand pick ${misfit.id} doesn't fit: its protocol ${misfit.protocol}, the car's ${o.protocol}")
+        // The app-wide pick is another car when it's a model on another protocol (CTS picked, CAN 11/500 — a Polo
+        // answered on K-line) or another make than the VIN's (CTS picked, a Kia's VIN).
+        val otherProtocol = global?.model?.takeIf { own == null && it.protocol != null && it.protocol != o.protocol }
+        val otherMake = global?.takeIf { own == null && otherProtocol == null && brand != null && it.family != brand.family }
+        val misfit = if (otherProtocol != null) global else otherMake
+        if (otherProtocol != null) session?.note("hand pick ${otherProtocol.id} doesn't fit: its protocol ${otherProtocol.protocol}, the car's ${o.protocol}")
+        if (otherMake != null) session?.note("hand pick ${otherMake.id} doesn't fit: the VIN is ${brand?.name}'s")
         val picked = own ?: global.takeIf { misfit == null }
         // A hand-picked car stays while the VIN agrees with its family (or there is no VIN); otherwise the VIN wins.
         val known = picked?.model?.takeIf { brand == null || it.family == brand.family }?.let { CarDb.forVin(it, vin) } ?: CarDb.detect(vin)
@@ -575,7 +583,7 @@ class CarLink(
             val ecus = v.ecus.toMutableMap()
             for ((h, i) in info) ecus[h] = (ecus[h] ?: EcuInfo(h)).copy(info09 = i)
             v.copy(vin = vin, make = make, ecus = ecus, car = car, brand = brand?.name, makeByPick = byPick,
-                misfitPick = misfit, pickForCar = own?.model != null && car == own.model)
+                misfitPick = misfit, misfitMake = otherMake?.let { brand?.name }, pickForCar = own?.model != null && car == own.model)
         }
         syncDtcFamily()
         refreshMemory()
@@ -585,8 +593,9 @@ class CarLink(
             tr("Марка (по VIN): ", "Make (by VIN): ") + (brand?.name ?: tr("не определена", "unknown")) + " — ${make.title}",
             tr("Год (по VIN): ", "Model year (by VIN): ") + (vin?.let { CarDb.modelYear(it.trim().uppercase()) }?.toString() ?: "—"),
             tr("Выбрано вручную: ", "Picked by hand: ") + (global?.let(::title) ?: tr("нет", "nothing")) +
-                (misfit?.let { tr(" — не подходит: у неё ${CarText.protocolName(it.protocol)}, машина ответила по ${CarText.protocolName(o.protocol)}",
-                    " — doesn't fit: it is on ${CarText.protocolName(it.protocol)}, the car answered on ${CarText.protocolName(o.protocol)}") } ?: ""),
+                (otherProtocol?.let { tr(" — не подходит: у неё ${CarText.protocolName(it.protocol)}, машина ответила по ${CarText.protocolName(o.protocol)}",
+                    " — doesn't fit: it is on ${CarText.protocolName(it.protocol)}, the car answered on ${CarText.protocolName(o.protocol)}") }
+                    ?: otherMake?.let { tr(" — не подходит: по VIN это ${brand?.name}", " — doesn't fit: the VIN says ${brand?.name}") } ?: ""),
             own?.let { tr("Выбрано для этой машины: ", "Picked for this car: ") + title(it) },
             tr("Модель: ", "Model: ") + (car?.title?.let {
                 it + when (car) {

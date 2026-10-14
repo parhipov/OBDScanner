@@ -98,8 +98,11 @@ object CarCard {
             car != null && v.pickForCar && v.vin == null -> tr("выбрана для этой машины (по калибровке блока двигателя)", "picked for this car (by the engine ECU's calibration)")
             car != null && v.pickForCar -> tr("выбрана для этой машины", "picked for this car")
             car == null && v.misfitPick != null -> v.misfitPick.let { m ->
-                tr("Выбрана вручную ${m.title}, но она не подходит: у неё ${CarText.protocolName(m.protocol)}, а эта машина ответила по ${v.protocol.substringBeforeLast(" (")}",
-                    "${m.title} is picked by hand, but it doesn't fit: it is on ${CarText.protocolName(m.protocol)}, this car answered on ${v.protocol.substringBeforeLast(" (")}")
+                val name = m.model?.title ?: m.brand
+                if (v.misfitMake != null) tr("Выбрана вручную $name, но по VIN это ${v.misfitMake} — выбор не применён",
+                    "$name is picked by hand, but the VIN says ${v.misfitMake} — the pick isn't applied")
+                else tr("Выбрана вручную $name, но она не подходит: у неё ${CarText.protocolName(m.model?.protocol)}, а эта машина ответила по ${v.protocol.substringBeforeLast(" (")}",
+                    "$name is picked by hand, but it doesn't fit: it is on ${CarText.protocolName(m.model?.protocol)}, this car answered on ${v.protocol.substringBeforeLast(" (")}")
             }
             car != null && car == picked?.model -> tr("выбрана вручную", "picked by hand")
             car != null -> tr("по VIN", "by VIN")

@@ -1,6 +1,7 @@
 package com.obdscanner
 
 import com.obdscanner.bus.BusId
+import com.obdscanner.car.CarChoice
 import com.obdscanner.car.CarModel
 import com.obdscanner.car.ExtCommand
 import com.obdscanner.gm.GmDtcResult
@@ -97,8 +98,10 @@ data class VehicleInfo(
     val dialects: Map<Int, String> = emptyMap(),
     /** The make (and so the blocks' dialects) is only the hand pick: no VIN, no model recognised by its answers. */
     val makeByPick: Boolean = false,
-    /** The app-wide hand pick, not applied: its protocol isn't the one the car answered on (another car). */
-    val misfitPick: CarModel? = null,
+    /** The app-wide hand pick, not applied — another car: its protocol isn't the one the car answered on, or the VIN is another make's. */
+    val misfitPick: CarChoice? = null,
+    /** The make by the VIN when that is why [misfitPick] doesn't fit; null — the protocol is. */
+    val misfitMake: String? = null,
     /** The hand pick is the one made on this car (kept by its VIN or calibration), not the app-wide one. */
     val pickForCar: Boolean = false,
     val memory: CarMemory = CarMemory(),
