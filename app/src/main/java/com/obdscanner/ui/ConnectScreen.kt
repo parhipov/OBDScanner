@@ -24,6 +24,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -94,6 +95,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
     val source by m.source.collectAsStateWithLifecycle()
     val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
+    val sensorsWithAdapter by m.sensorsWithAdapter.collectAsStateWithLifecycle()
     val newer by m.updates.newer.collectAsStateWithLifecycle()
     val usb by m.usb.collectAsStateWithLifecycle()
     fun pick(id: String) { if (!running) m.pickSource(id) }
@@ -202,6 +204,14 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                     tr("Только акселерометр и гироскоп. Например, второй телефон в багажнике во время обычной сессии: записи сводятся по времени.",
                         "Accelerometer and gyroscope only. For example, a second phone in the boot during a normal session: the recordings are lined up by time."),
                     selected = source == SOURCE_SENSORS, locked = running) { pick(SOURCE_SENSORS) }
+                Row(Modifier.fillMaxWidth().clickable(enabled = !running) { m.setSensorsWithAdapter(!sensorsWithAdapter) },
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = sensorsWithAdapter, onCheckedChange = { m.setSensorsWithAdapter(it) }, enabled = !running)
+                    Text(tr("Писать датчики телефона и в сессиях с адаптером", "Record phone sensors in adapter sessions too"),
+                        style = MaterialTheme.typography.bodyLarge)
+                }
+                Muted(tr("Около 30 МБ на час поездки в zip. Без них в отчёте нет раздела «Ходовая и вибрации» и не видно заносов.",
+                    "About 30 MB per hour of driving, zipped. Without them the report has no «Chassis and vibration» section and shows no slides."))
             }
         }
         finished?.let { dir ->

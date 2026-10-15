@@ -163,6 +163,16 @@ class ObdManager(private val context: Context) {
         _source.value = id
     }
 
+    private val _sensorsWithAdapter = MutableStateFlow(prefs.getBoolean("sensors_with_adapter", true))
+    /** Phone sensors into sensors.csv in adapter sessions too (on by default); a sensors-only session records them anyway. */
+    val sensorsWithAdapter: StateFlow<Boolean> = _sensorsWithAdapter.asStateFlow()
+
+    fun setSensorsWithAdapter(on: Boolean) {
+        if (mainJob?.isActive == true) return
+        prefs.edit().putBoolean("sensors_with_adapter", on).apply()
+        _sensorsWithAdapter.value = on
+    }
+
     private val usbManager = context.getSystemService(UsbManager::class.java)
     private val _usb = MutableStateFlow(UsbAdapters.list(usbManager))
     /** Plugged-in USB adapters, kept up to date on plug and unplug. */
@@ -303,7 +313,8 @@ class ObdManager(private val context: Context) {
             val s = sessions.create()
             session = s
             link.session = s
-            phone.start(s)
+            if (_sensorsWithAdapter.value) phone.start(s)
+            else s.report(tr("Датчики телефона", "Phone sensors"), tr("не записывались: выключено на «Связи»", "not recorded: turned off on «Connect»"))
             link.reset(_picked.value?.model)
             var elm: Elm327? = null
             var failure: String? = null
