@@ -241,8 +241,19 @@ class CarDbTest {
         // model keeps all its engines, a VIN without a known code gets them all.
         assertEquals(listOf("L3T"), car.engines.map { it.code })
         assertTrue(CarDb.models.single { it.model == "Trailblazer" }.engines.size > 1)
-        assertTrue(CarDb.detect("KL79MRSL8NB123456")!!.engines.size > 1)
-        // US/Canada, model years 2025–2026 (S, T), by GM's VIN standard: L3T, LIH, LBP; the Encore GX the same way.
+        assertTrue(CarDb.detect("KL79MRSX8NB123456")!!.engines.size > 1)
+        // US/Canada, model years 2020–2026 (L…T), by GM's VIN standard (MY25–26; the same codes since 2020 per the
+        // owner and parts catalogues): L3T, LIH, LBP; the Encore GX the same way. A year past the standards isn't assumed.
+        assertEquals(listOf("L3T"), CarDb.detect("KL79MRSL8NB123456")!!.engines.map { it.code })
+        assertEquals(listOf("LIH"), CarDb.detect("KL4MMDS28LB123456")!!.engines.map { it.code })
+        assertTrue(CarDb.detect("KL79MLSL3VB123456")!!.engines.size > 1)
+        // GM's standards beyond the VSS-F: the XT5 of 2025 only (earlier years' coding isn't in them), and the Enclave
+        // of 2025–2026 — a new generation, while the C1XX's VINs start the same.
+        assertEquals(listOf("LGX"), CarDb.detect("1GYKNDRS5SZ123456")!!.engines.map { it.code })
+        assertEquals(listOf("LSY"), CarDb.detect("1GYFNAR45SZ123456")!!.engines.map { it.code })
+        assertNull(CarDb.detect("1GYKNCRS5KZ123456"))
+        CarDb.detect("5GAEVBKS2TJ123456")!!.let { assertEquals("3rd gen", it.gen); assertEquals(listOf("LK0"), it.engines.map { e -> e.code }) }
+        assertNull(CarDb.detect("5GAEVAKW5JJ123456"))
         assertEquals(listOf("L3T"), CarDb.detect("KL79MLSL3SB123456")!!.engines.map { it.code })
         assertEquals(listOf("LIH"), CarDb.detect("KL79MMS23TB123456")!!.engines.map { it.code })
         assertEquals(listOf("LBP"), CarDb.detect("KL4AMBSPXTB123456")!!.engines.map { it.code })

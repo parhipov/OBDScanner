@@ -706,18 +706,27 @@
         2017,
         2025
       ],
+      "vin": [
+        "^1GY[FK]N[A-H9]...S"
+      ],
       "engines": [
         {
           "code": "LGX",
           "liters": 3.6,
           "cyl": 6,
-          "fuel": "petrol"
+          "fuel": "petrol",
+          "vin": [
+            "^1GY[FK]N..S.S"
+          ]
         },
         {
           "code": "LSY",
           "liters": 2.0,
           "cyl": 4,
-          "fuel": "petrol"
+          "fuel": "petrol",
+          "vin": [
+            "^1GY[FK]N..4.S"
+          ]
         }
       ],
       "protocol": 6,
@@ -725,9 +734,14 @@
         "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, ABS and some other modules. GMLAN SW-CAN 33.3 kbit/s (pin 1): body, cluster, HVAC, radio — needs an adapter with SW-CAN."
       },
+      "note": {
+        "ru": "По VIN (модель и мотор) узнаётся только 2025 модельный год из США и Канады — по стандарту GM; для более ранних кодировку в документах не нашли.",
+        "en": "By VIN (model and engine) only model year 2025 from the US and Canada is recognised — by GM's standard; earlier years' coding wasn't found in the documents."
+      },
       "src": [
         "https://en.wikipedia.org/wiki/Cadillac_XT5",
-        "https://en.wikipedia.org/wiki/On-board_diagnostics"
+        "https://en.wikipedia.org/wiki/On-board_diagnostics",
+        "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf"
       ],
       "verified": false
     },
@@ -1768,6 +1782,35 @@
       "verified": false
     },
     {
+      "brand": "Buick",
+      "model": "Enclave",
+      "gen": "3rd gen",
+      "years": [
+        2025,
+        2026
+      ],
+      "vin": [
+        "^5GAE[RV][ABC7]...[ST]"
+      ],
+      "engines": [
+        {
+          "code": "LK0",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Новое поколение с 2025 модельного года, мотор 2.5 турбо. По VIN узнаётся по стандарту GM для США и Канады 2025–2026 модельных лет (у предыдущего поколения VIN начинается так же, поэтому шаблон — только на эти годы).",
+        "en": "The new generation from model year 2025, 2.5 turbo. Recognised by VIN per GM's US/Canada standard for model years 2025–2026 (the previous generation's VINs start the same, so the pattern covers only these years)."
+      },
+      "src": [
+        "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf"
+      ],
+      "verified": false
+    },
+    {
       "brand": "Chevrolet",
       "model": "Trailblazer",
       "gen": "VSS-F (3rd gen)",
@@ -1788,7 +1831,7 @@
           "fuel": "petrol",
           "vin": [
             "^KL[A1]P.{3}L",
-            "^KL79M..L.[ST]"
+            "^KL79M..L.[LMNPRST]"
           ]
         },
         {
@@ -1797,7 +1840,7 @@
           "cyl": 3,
           "fuel": "petrol",
           "vin": [
-            "^KL79M..2.[ST]"
+            "^KL79M..2.[LMNPRST]"
           ]
         },
         {
@@ -1806,7 +1849,7 @@
           "cyl": 3,
           "fuel": "petrol",
           "vin": [
-            "^KL79M..P.[ST]"
+            "^KL79M..P.[LMNPRST]"
           ]
         },
         {
@@ -1886,8 +1929,8 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, brakes, power steering, body, front camera, cluster, radio, rear drive, gateway. SW-CAN (pin 1): head-up display, HVAC, airbags, keyless entry, liftgate, park assist, side blind zone sensors, the gateway's second half; body, camera, cluster and radio are on both. SW-CAN needs an adapter that switches there: «Module scan» → «SW-CAN modules»."
       },
       "note": {
-        "ru": "Тот же Buick Encore GX. Блоки названы по диагностическому адресу, который каждый сообщает о себе, — по GDS2 и каталогу GM на машине владельца (issue #1); задний привод есть только у полноприводных. Мотор по VIN: по стандарту GM для США и Канады 2025–2026 модельного года и по расшифровке корейского VIN владельца.",
-        "en": "Same as the Buick Encore GX. Modules are named by the diagnostic address each one reports — by GDS2 and GM's parts catalogue on an owner's car (issue #1); only the AWD ones have the rear drive. The engine by VIN: GM's US/Canada standard for model years 2025–2026 and the owner's decode of the Korean VIN."
+        "ru": "Тот же Buick Encore GX. Блоки названы по диагностическому адресу, который каждый сообщает о себе, — по GDS2 и каталогу GM на машине владельца (issue #1); задний привод есть только у полноприводных. Мотор по VIN: по стандарту GM для США и Канады, 2020–2026 модельные годы (стандарты 2025–2026, коды те же с 2020 — по владельцу и каталогам запчастей) и по расшифровке корейского VIN владельца.",
+        "en": "Same as the Buick Encore GX. Modules are named by the diagnostic address each one reports — by GDS2 and GM's parts catalogue on an owner's car (issue #1); only the AWD ones have the rear drive. The engine by VIN: GM's US/Canada standard, model years 2020–2026 (the 2025–2026 standards; the same codes since 2020 per the owner and parts catalogues) and the owner's decode of the Korean VIN."
       },
       "src": [
         "https://github.com/parhipov/OBDScanner/issues/1",
@@ -1915,7 +1958,7 @@
           "cyl": 3,
           "fuel": "petrol",
           "vin": [
-            "^KL4[MA]M..L.[ST]"
+            "^KL4[MA]M..L.[LMNPRST]"
           ]
         },
         {
@@ -1924,7 +1967,7 @@
           "cyl": 3,
           "fuel": "petrol",
           "vin": [
-            "^KL4[MA]M..2.[ST]"
+            "^KL4[MA]M..2.[LMNPRST]"
           ]
         },
         {
@@ -1933,7 +1976,7 @@
           "cyl": 3,
           "fuel": "petrol",
           "vin": [
-            "^KL4[MA]M..P.[ST]"
+            "^KL4[MA]M..P.[LMNPRST]"
           ]
         },
         {
