@@ -237,22 +237,23 @@ class CarDbTest {
         assertEquals("Chevrolet", car!!.brand)
         assertEquals("Trailblazer", car.model)
         val gm = CarDb.families.getValue("gm")
-        val a = ObdModules.addressing(gm, "GM", names = car.names)
-        assertTrue(a.name(0x24F).startsWith(tr("Задний привод", "Rear drive")))
-        assertTrue(a.name(0x252).startsWith(tr("Радио", "Radio")))
-        assertTrue(a.name(0x242).startsWith(tr("Усилитель руля", "Power steering")))
-        assertTrue(a.name(0x25E).startsWith(tr("Комбинация приборов", "Instrument cluster")))
-        assertEquals(gm.modules!!.names[0x241], a.name(0x241))
-        assertEquals("24F", ObdModules.addressing(gm, "GM").name(0x24F))
         // The engine by the VIN where a source gives its code (8th character L = L3T in the owner's decode); the
         // model keeps all its engines, a VIN without a known code gets them all.
         assertEquals(listOf("L3T"), car.engines.map { it.code })
         assertTrue(CarDb.models.single { it.model == "Trailblazer" }.engines.size > 1)
         assertTrue(CarDb.detect("KL79MRSL8NB123456")!!.engines.size > 1)
-        // SW-CAN modules by their diagnostic address: the model's, then the family's.
+        // US/Canada, model years 2025–2026 (S, T), by GM's VIN standard: L3T, LIH, LBP; the Encore GX the same way.
+        assertEquals(listOf("L3T"), CarDb.detect("KL79MLSL3SB123456")!!.engines.map { it.code })
+        assertEquals(listOf("LIH"), CarDb.detect("KL79MMS23TB123456")!!.engines.map { it.code })
+        assertEquals(listOf("LBP"), CarDb.detect("KL4AMBSPXTB123456")!!.engines.map { it.code })
+        // Modules by their own diagnostic address: the model's, then the family's — another trim may keep another
+        // module at a CAN id (a front-wheel drive one has no rear drive at 24F), so the model names none by the id.
         val d = ObdModules.addressing(gm, "GM", names = car.names, diagNames = car.diagNames)
         assertTrue(d.diagName(0x62)!!.startsWith(tr("Проекция", "Head-up")))
+        assertTrue(d.diagName(0x1B)!!.startsWith(tr("Задний привод", "Rear drive")))
+        assertTrue(d.diagName(0x80)!!.startsWith(tr("Радио", "Radio")))
         assertEquals(gm.modules!!.diagNames[0x40], d.diagName(0x40))
+        assertEquals("24F", d.name(0x24F))
         assertNull(ObdModules.addressing(gm, "GM").diagName(0x62))
     }
 }

@@ -1787,16 +1787,27 @@
           "cyl": 3,
           "fuel": "petrol",
           "vin": [
-            "^KL[A1]P.{3}L"
+            "^KL[A1]P.{3}L",
+            "^KL79M..L.[ST]"
           ]
         },
         {
           "code": "LIH",
-          "liters": 1.2
+          "liters": 1.2,
+          "cyl": 3,
+          "fuel": "petrol",
+          "vin": [
+            "^KL79M..2.[ST]"
+          ]
         },
         {
           "code": "LBP",
-          "liters": 1.2
+          "liters": 1.2,
+          "cyl": 3,
+          "fuel": "petrol",
+          "vin": [
+            "^KL79M..P.[ST]"
+          ]
         },
         {
           "code": "L3Z",
@@ -1804,33 +1815,19 @@
         }
       ],
       "protocol": 6,
-      "names": {
-        "242": {
-          "ru": "Усилитель руля (EPS)",
-          "en": "Power steering (EPS)"
-        },
-        "24B": {
-          "ru": "Передняя камера (B174W)",
-          "en": "Front view camera (B174W)"
-        },
-        "24F": {
+      "diagNames": {
+        "1B": {
           "ru": "Задний привод (муфта, K47)",
           "en": "Rear drive (clutch, K47)"
         },
-        "252": {
-          "ru": "Радио (A11)",
-          "en": "Radio (A11)"
+        "31": {
+          "ru": "Усилитель руля (EPS)",
+          "en": "Power steering (EPS)"
         },
-        "25E": {
-          "ru": "Комбинация приборов (P16)",
-          "en": "Instrument cluster (P16)"
-        },
-        "25F": {
+        "45": {
           "ru": "Шлюз (K56)",
           "en": "Gateway (K56)"
-        }
-      },
-      "diagNames": {
+        },
         "47": {
           "ru": "Шлюз, процессор 2 (K56)",
           "en": "Gateway, processor 2 (K56)"
@@ -1843,6 +1840,10 @@
           "ru": "Датчик слепой зоны справа (B218R)",
           "en": "Side object sensor, right (B218R)"
         },
+        "60": {
+          "ru": "Комбинация приборов (P16)",
+          "en": "Instrument cluster (P16)"
+        },
         "62": {
           "ru": "Проекция на стекло (K78)",
           "en": "Head-up display (K78)"
@@ -1850,6 +1851,10 @@
         "68": {
           "ru": "Панель климата (A26)",
           "en": "HVAC controls (A26)"
+        },
+        "80": {
+          "ru": "Радио (A11)",
+          "en": "Radio (A11)"
         },
         "99": {
           "ru": "Блок климата (K33)",
@@ -1870,6 +1875,10 @@
         "BB": {
           "ru": "Парктроник (K182)",
           "en": "Park assist (K182)"
+        },
+        "BC": {
+          "ru": "Передняя камера (B174W)",
+          "en": "Front view camera (B174W)"
         }
       },
       "buses": {
@@ -1877,11 +1886,13 @@
         "en": "HS-CAN 500 kbit/s (pins 6/14): engine, transmission, brakes, power steering, body, front camera, cluster, radio, rear drive, gateway. SW-CAN (pin 1): head-up display, HVAC, airbags, keyless entry, liftgate, park assist, side blind zone sensors, the gateway's second half; body, camera, cluster and radio are on both. SW-CAN needs an adapter that switches there: «Module scan» → «SW-CAN modules»."
       },
       "note": {
-        "ru": "Тот же Buick Encore GX. Блоки названы по GDS2 и каталогу GM по номерам деталей, которые они сообщают, на машине владельца (issue #1); 242 ещё и сам называет себя «COLUMN-EPS».",
-        "en": "Same as the Buick Encore GX. Modules are named by GDS2 and GM's parts catalogue, by the part numbers they report, on an owner's car (issue #1); 242 also calls itself «COLUMN-EPS»."
+        "ru": "Тот же Buick Encore GX. Блоки названы по диагностическому адресу, который каждый сообщает о себе, — по GDS2 и каталогу GM на машине владельца (issue #1); задний привод есть только у полноприводных. Мотор по VIN: по стандарту GM для США и Канады 2025–2026 модельного года и по расшифровке корейского VIN владельца.",
+        "en": "Same as the Buick Encore GX. Modules are named by the diagnostic address each one reports — by GDS2 and GM's parts catalogue on an owner's car (issue #1); only the AWD ones have the rear drive. The engine by VIN: GM's US/Canada standard for model years 2025–2026 and the owner's decode of the Korean VIN."
       },
       "src": [
-        "https://github.com/parhipov/OBDScanner/issues/1"
+        "https://github.com/parhipov/OBDScanner/issues/1",
+        "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf"
       ],
       "verified": false
     },
@@ -1899,12 +1910,31 @@
       ],
       "engines": [
         {
+          "code": "L3T",
+          "liters": 1.3,
+          "cyl": 3,
+          "fuel": "petrol",
+          "vin": [
+            "^KL4[MA]M..L.[ST]"
+          ]
+        },
+        {
           "code": "LIH",
-          "liters": 1.2
+          "liters": 1.2,
+          "cyl": 3,
+          "fuel": "petrol",
+          "vin": [
+            "^KL4[MA]M..2.[ST]"
+          ]
         },
         {
           "code": "LBP",
-          "liters": 1.2
+          "liters": 1.2,
+          "cyl": 3,
+          "fuel": "petrol",
+          "vin": [
+            "^KL4[MA]M..P.[ST]"
+          ]
         },
         {
           "code": "L3Z",
@@ -1916,7 +1946,9 @@
         "en": "Same as the Chevrolet Trailblazer VSS-F."
       },
       "src": [
-        "https://github.com/parhipov/OBDScanner/issues/1"
+        "https://github.com/parhipov/OBDScanner/issues/1",
+        "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf"
       ],
       "verified": false
     }
