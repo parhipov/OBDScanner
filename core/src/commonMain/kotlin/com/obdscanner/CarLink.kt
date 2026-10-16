@@ -282,9 +282,8 @@ class CarLink(
         o.at(protocolCmd)
     }
 
-    private suspend fun baseSetup(o: Obd) {
-        for (c in listOf("ATE0", "ATL0", "ATS1", "ATH1", "ATCAF1", "ATAT1")) o.at(c)
-    }
+    private suspend fun baseSetup(o: Obd): List<com.obdscanner.elm.ElmReply> =
+        listOf("ATE0", "ATL0", "ATS1", "ATH1", "ATCAF1", "ATAT1").map { o.at(it) }
 
     /** The adapter of this connection ([initAdapter]): what dropped its link is remembered per adapter and car. */
     private var adapterName = ""
@@ -374,11 +373,25 @@ class CarLink(
     suspend fun initAdapter(o: Obd, name: String, skip: Set<Int> = emptySet()) {
         adapterName = name
         step(tr("Сброс адаптера (ATZ)…", "Resetting adapter (ATZ)…"))
-        o.at("ATZ", 5000)
+        val atz = o.at("ATZ", 5000)
         pause(300)
-        baseSetup(o)
-        val ver = o.at("ATI").lines.lastOrNull().orEmpty()
-        val desc = o.at("AT@1").lines.firstOrNull().orEmpty()
+        val setup = baseSetup(o)
+        val ati = o.at("ATI")
+        val at1 = o.at("AT@1")
+        val ver = ati.lines.lastOrNull().orEmpty()
+        val desc = at1.lines.firstOrNull().orEmpty()
+        val replies = listOf(atz) + setup + ati + at1
+        // Not one prompt to nine AT commands: no ELM327 there. A Jaguar's own Bluetooth (2026-10-16) answered each
+        // line with C0 03, a Lada Kalina's adapter (2026-10-04) echoed each line back; both then went through all
+        // ten protocols for 7 minutes to "ECU not responding … ignition on?". None of 98 sessions in the archive
+        // that started like this ever connected. Not after a reconnect ([skip]): a clone may still be rebooting.
+        if (skip.isEmpty() && replies.all { it.timedOut }) {
+            val got = replies.map { r -> r.text.filter { it >= ' ' }.trim() }.firstOrNull { it.isNotEmpty() }?.take(20)
+            throw IOException(
+                tr("Адаптер не отвечает на команды ELM327${got?.let { " (пришло: $it)" }.orEmpty()}. Выбран OBD-адаптер? Если да — выньте его из разъёма на 5 секунд, вставьте и подключитесь снова.",
+                    "The adapter does not answer ELM327 commands${got?.let { " (got: $it)" }.orEmpty()}. Is an OBD adapter selected? If so, unplug it for 5 seconds, plug it back in and connect again."),
+            )
+        }
         val saved = store.getInt("last_protocol_$name", store.getInt("last_protocol", 0)).takeIf { it in PROTOCOLS }
         // The picked car's protocol goes first: no probing of the others (the Polo's clone drops the link on some).
         val carProto = pickedCar()?.model?.protocol?.takeIf { it in PROTOCOLS }
