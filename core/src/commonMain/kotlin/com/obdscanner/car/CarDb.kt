@@ -282,7 +282,33 @@ object CarDb {
 
     /** Where a make keeps its modules: `{ "tag": "GM", "replace": true, "addresses": [{ "req": "240-25F", "rsp": "+400" }], … }`. */
     private fun parseModules(m: JSONObject): ModuleSearch {
-        val addresses = m.optJSONArray("addresses").objects().flatMap { a ->
+        val addresses = parseAddresses(m.optJSONArray("addresses"))
+        val probes = m.optJSONArray("probes")?.strings()?.onEach { p ->
+            require(p.matches(Regex("(3E00|22[0-9A-F]{4}|1A[0-9A-F]{2}|21[0-9A-F]{2})"))) { "probe $p: 3E00 or a read (22/1A/21)" }
+        }
+        val names = parseNames(m)
+        val diagNames = parseDiagNames(m)
+        val buses = m.optJSONArray("buses").objects().map { parseBus(it) }
+        return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names, diagNames, buses)
+    }
+
+    /**
+     * Another bus on the OBD socket (GM's single-wire CAN on pin 1): `{ "id": "swcan", "pins": { "ru": "контакт 1", … },
+     * "protocol": "63", "addresses": [{ "req": "240-25F", "rsp": "+400" }], "functional": true }`. Only an OBDLink protocol
+     * number (STP nn) switches the adapter there; nothing else can come from the database.
+     */
+    private fun parseBus(b: JSONObject): ExtraBus {
+        val id = b.getString("id")
+        require(id.matches(Regex("[a-z0-9]+"))) { "bus $id: lowercase letters and digits" }
+        val protocol = b.getString("protocol")
+        require(protocol.matches(Regex("[0-9]{2}"))) { "bus $id protocol $protocol: an OBDLink protocol number (STP nn)" }
+        return ExtraBus(id, b.optString("tag").ifEmpty { id.uppercase() }, text(b.getJSONObject("pins")), protocol,
+            parseAddresses(b.optJSONArray("addresses")), b.optBoolean("functional", false))
+    }
+
+    /** `[{ "req": "7E0-7E7", "rsp": "+8" }, …]`: request → reply, 11-bit, never the broadcast 7DF. */
+    private fun parseAddresses(arr: JSONArray?): List<Pair<Int, Int>> {
+        val addresses = arr.objects().flatMap { a ->
             val reqs = a.optJSONArray("req")?.strings() ?: listOf(a.getString("req"))
             val rsp = a.getString("rsp")
             reqs.flatMap { r ->
@@ -296,12 +322,7 @@ object CarDb {
                 }
             }
         }
-        val probes = m.optJSONArray("probes")?.strings()?.onEach { p ->
-            require(p.matches(Regex("(3E00|22[0-9A-F]{4}|1A[0-9A-F]{2}|21[0-9A-F]{2})"))) { "probe $p: 3E00 or a read (22/1A/21)" }
-        }
-        val names = parseNames(m)
-        val diagNames = parseDiagNames(m)
-        return ModuleSearch(m.optString("tag").ifEmpty { null }, m.optBoolean("replace", false), addresses, probes, names, diagNames)
+        return addresses
     }
 
     /** `"names": { "7E0": { "ru": …, "en": … } }` — by request id. */
@@ -751,4 +772,20 @@ data class ModuleSearch(
     val probes: List<String>?,
     val names: Map<Int, String>,
     val diagNames: Map<Int, String> = emptyMap(),
+    /** Buses on other pins of the socket, each with its own modules (GM's single-wire CAN). */
+    val buses: List<ExtraBus> = emptyList(),
+)
+
+/**
+ * A bus on other pins of the OBD socket: an adapter that knows OBDLink's commands switches there with STP [protocol]
+ * (and says it back to STPR); a plain ELM327 can't. [pins] — how the screens call it («контакт 1»), [tag] — the
+ * report's («SW-CAN»); [addresses] are probed, [functional] — GMLAN's request to all modules is asked first.
+ */
+data class ExtraBus(
+    val id: String,
+    val tag: String,
+    val pins: String,
+    val protocol: String,
+    val addresses: List<Pair<Int, Int>>,
+    val functional: Boolean,
 )

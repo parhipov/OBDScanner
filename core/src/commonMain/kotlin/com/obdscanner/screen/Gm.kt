@@ -33,7 +33,7 @@ class GmView(
     val swButton: String?,
     val swNote: String?,
     val sw: GmView.Progress?,
-    /** What it found: a module per row, its codes under it. */
+    /** What it found: a module per row (its codes are on «Ошибки»). */
     val swRows: List<String>,
     val busTitle: String,
     val busNote: String,
@@ -84,8 +84,8 @@ object GmScreen {
         val saved = s.params.map { it.key }.toSet()
         return GmView(
             hints = listOfNotNull(
-                if (ctx.gm) tr("Старый ELM327 видит только HS-CAN: ECM, TCM, ABS, BCM и др. Часть блоков (у разных машин разные: подушки, климат, проекция, радио…) — на однопроводной GMLAN (пин 1): для них нужен адаптер с SW-CAN, кнопка «Блоки на SW-CAN» ниже.",
-                    "An old ELM327 sees HS-CAN only: ECM, TCM, ABS, BCM etc. Some modules (they differ by car: airbags, HVAC, head-up display, radio…) are on single-wire GMLAN (pin 1): they need an adapter with SW-CAN, the «SW-CAN modules» button below.") else null,
+                if (ctx.gm) tr("Обычный ELM327 видит только основную шину: двигатель, АКПП, ABS, кузов и др. Часть блоков (у разных машин разные: подушки, климат, проекция, радио…) — на отдельном проводе GM, контакт 1: для них нужен адаптер с его поддержкой, кнопка «Блоки на SW-CAN» ниже.",
+                    "A plain ELM327 sees the main bus only: engine, transmission, ABS, body etc. Some modules (they differ by car: airbags, HVAC, head-up display, radio…) are on GM's separate wire, pin 1: they need an adapter that supports it, the «SW-CAN modules» button below.") else null,
                 tr("Только чтение: блоки ничего не меняют и не стирают. Сканировать на стоящей машине: зажигание включено или двигатель на ХХ. " +
                     "Найденное пишется в scan.csv сессии. Отметьте ☑ интересное — оно будет опрашиваться, и приложение попробует понять, что это за параметр.",
                     "Read only: the blocks change and erase nothing. Scan with the car parked: ignition on or engine at idle. " +
@@ -95,17 +95,15 @@ object GmScreen {
             stop = tr("Стоп", "Stop"),
             scan = if (s.running || s.status.isNotEmpty()) GmView.Progress(s.running, s.progress, s.status) else null,
             swButton = if (ctx.gm) tr("Блоки на SW-CAN", "SW-CAN modules") else null,
-            swNote = if (ctx.gm) tr("Однопроводная шина GM (пин 1): найти блоки, прочитать их номера и ошибки, потом вернуться на основную шину. Только чтение, 1–2 минуты. " +
-                "Нужен адаптер, который понимает команды OBDLink (STP 63); обычный ELM327 не умеет — тогда приложение так и скажет, ничего не меняя.",
-                "GM's single-wire bus (pin 1): find the modules, read their numbers and codes, then back to the main bus. Read only, 1–2 minutes. " +
-                    "Needs an adapter that knows OBDLink's commands (STP 63); a plain ELM327 doesn't — the app then says so and changes nothing.") else null,
+            swNote = if (ctx.gm) tr("Отдельный провод GM (контакт 1): найти блоки заново и прочитать их номера, потом вернуться на основную шину. Только чтение, 1–2 минуты. " +
+                "Их ошибки читает «Проверить ошибки» на «Ошибках». Нужен адаптер с поддержкой этого провода (например, OBDLink или vLinker MC+); с обычным ELM327 приложение так и скажет, ничего не меняя.",
+                "GM's separate wire (pin 1): find the modules afresh and read their numbers, then back to the main bus. Read only, 1–2 minutes. " +
+                    "Their codes are read by «Check codes» on «Codes». Needs an adapter that supports this wire (an OBDLink or a vLinker MC+, say); with a plain ELM327 the app says so and changes nothing.") else null,
             sw = s.sw?.let { GmView.Progress(it.running, 0f, it.status) },
             swRows = s.sw?.let { w ->
                 w.modules.map { m ->
-                    val r = w.dtcs.firstOrNull { it.module.req == m.req }
                     "${m.name}  ·  %03X → %03X".format(m.req, m.resp) + (m.diag?.let { tr(", адрес %02X", ", address %02X").format(it) } ?: "") +
-                        (m.partNumber?.let { tr(", номер детали ", ", part number ") + it } ?: "") +
-                        (r?.let { " — ${it.result}" + it.codes.joinToString("") { c -> "\n    ${c.full}  ${c.description}" } } ?: "")
+                        (m.partNumber?.let { tr(", номер детали ", ", part number ") + it } ?: "")
                 }
             }.orEmpty(),
             busTitle = tr("Прослушка шины", "Bus sniffing"),
@@ -131,8 +129,8 @@ object GmScreen {
                     })
             },
             scanLabel = tr("Скан:", "Scan:"),
-            scanNote = tr("Идентификация — номера и версии блока (\$1A). Данные блока (\$21) — 256 номеров, ~20–40 с. Параметры (\$22) — выбранный диапазон.",
-                "Identification: the block's numbers and versions (\$1A). Block data (\$21): 256 IDs, ~20–40 s. Parameters (\$22): the selected range."),
+            scanNote = tr("Идентификация — номера и версии блока. Данные блока — 256 номеров, ~20–40 с. Параметры — выбранный диапазон.",
+                "Identification: the block's numbers and versions. Block data: 256 IDs, ~20–40 s. Parameters: the selected range."),
             paramsTitle = if (s.params.isNotEmpty()) tr("Сохранённые параметры (${s.params.size})", "Saved parameters (${s.params.size})") else null,
             params = s.params.map { p ->
                 val v = r[p.key]

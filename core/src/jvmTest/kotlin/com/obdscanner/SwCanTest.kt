@@ -9,9 +9,10 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * «Блоки на SW-CAN»: an adapter that knows OBDLink's STP 63 goes to GM's single-wire bus, finds the modules there, reads
- * their codes and comes back to HS-CAN; one that refuses it is left alone. The logs are written by hand: a GM VIN, and
- * on SW-CAN a head-up display on 25A (address 99) with U18B4 (the Trailblazer's, issue #1).
+ * GM's single-wire bus (pin 1, the family's «buses» in gm.json): an adapter that knows OBDLink's STP 63 goes there, finds
+ * the modules, and «Проверить ошибки» reads their codes with the main bus's ones, then comes back to HS-CAN; one that
+ * refuses it is left alone, and asked once. The logs are written by hand: a GM VIN, and on SW-CAN a head-up display
+ * on 25A (address 99) with U18B4 (the Trailblazer's, issue #1).
  */
 class SwCanTest {
     private val connect = """
@@ -62,28 +63,51 @@ class SwCanTest {
         12:00:06.000 < 55A 81 D8 B4 00 09 00 00 00 | 55A 81 00 00 00 FF 00 00 00
     """.trimIndent()
 
+    /** The engine found at an earlier connection (address 11): the check reads the main bus, then the single-wire one. */
+    private fun engineKnown() = MapStore().apply { putString("gm_modules_1G1JC5444R7252367", "7E0:7E8:11") }
+
+    private fun sent(r: Replayed) = r.requests.map { it.uppercase().replace(" ", "") }
+
     @Test
-    fun modulesOnTheSingleWireBusAndBack() {
+    fun theCheckReadsTheSingleWireBusAndComesBack() {
+        CarDbTest.load()
+        val r = runBlocking { replayRun(ReplayLog.parse(swCan), engineKnown(), cycles = 1, after = { link, o -> link.readAllModulesDtc(o) }) }
+        assertNull(r.error)
+        val hud = r.link.vehicle.value.gmDtcs.single { it.module.bus == "swcan" }
+        assertEquals(0x25A, hud.module.req)
+        assertEquals(listOf("U18B4"), hud.codes.map { it.code })
+        // Kept apart: the main bus's list doesn't get it, the scan screen's single-wire one does.
+        assertTrue(r.link.scan.value.modules.none { it.req == 0x25A })
+        assertEquals(listOf(0x25A), r.link.scan.value.sw?.modules?.map { it.req })
+        val s = sent(r)
+        // Found once (on connecting), then the modules kept for the car are asked straight away.
+        assertEquals(s.toString(), 1, s.count { it == "FE021AB000000000" })
+        assertEquals(2, s.count { it == "STP63" })
+        // Back on HS-CAN the connection's way after each visit, and the engine answers there.
+        val last = s.drop(s.lastIndexOf("03A9815A00000000"))
+        assertTrue(last.toString(), "ATSP6" in last && "0100" in last.drop(last.indexOf("ATSP6")))
+        assertTrue(r.reports.any { it.first.startsWith("GM SW-CAN: " + tr("ошибки всех блоков", "DTCs of all modules")) && "U18B4" in it.second })
+        // «Ошибки» shows it with the rest, the wire's pins after its name.
+        val codes = com.obdscanner.screen.ScreenJson.blocks(com.obdscanner.screen.CodesScreen.build(r.link.vehicle.value, null))
+        assertTrue(codes, "U18B4" in codes && tr("контакт 1", "pin 1") in codes)
+    }
+
+    /** «Блоки на SW-CAN» on «Скан блоков» finds and identifies the modules afresh, no codes: those are «Ошибки»'s. */
+    @Test
+    fun theScanButtonFindsTheModules() {
         CarDbTest.load()
         val r = runBlocking { replayRun(ReplayLog.parse(swCan), MapStore(), cycles = 1, after = { link, o -> link.swCanModules(o) }) }
         assertNull(r.error)
         val sw = r.link.scan.value.sw
-        assertNotNull(r.requests.takeLast(60).toString(), sw)
+        assertNotNull(sw)
         assertFalse(sw.toString(), sw!!.running)
         val hud = sw.modules.single()
         assertEquals(0x25A, hud.req)
         assertEquals(0x99, hud.diag)
-        assertEquals(listOf("U18B4"), sw.dtcs.single().codes.map { it.code })
-        // Kept apart: the HS-CAN list doesn't get it.
-        assertTrue(r.link.scan.value.modules.none { it.req == 0x25A })
-        // Back on HS-CAN the connection's way, and the engine answers there.
-        val sent = r.requests.map { it.uppercase().replace(" ", "") }
-        val after = sent.drop(sent.indexOf("03A9815A00000000"))
+        val s = sent(r)
+        val after = s.drop(s.indexOf("#AFTER"))
+        assertFalse(after.toString(), "03A9815A00000000" in after)
         assertTrue(after.toString(), "ATSP6" in after && "0100" in after.drop(after.indexOf("ATSP6")))
-        assertTrue(r.reports.any { it.first.startsWith("GM SW-CAN: ") && "U18B4" in it.second })
-        // «Ошибки» shows them too, under their own title (an owner looked there first, issue #1).
-        val codes = com.obdscanner.screen.ScreenJson.blocks(com.obdscanner.screen.CodesScreen.build(r.link.vehicle.value, null, sw))
-        assertTrue(codes, tr("На SW-CAN", "On SW-CAN") in codes && "U18B4" in codes)
     }
 
     /**
@@ -96,15 +120,15 @@ class SwCanTest {
         val both = swCan.replace("< 65A 03 5A B0 99\n", "< 641 03 5A B0 40 | 65A 03 5A B0 99\n")
         // The BCM with its address from an earlier session on HS-CAN.
         val store = MapStore().apply { putString("gm_modules_1G1JC5444R7252367", "241:641:40") }
-        val r = runBlocking { replayRun(ReplayLog.parse(both), store, cycles = 1, after = { link, o -> link.swCanModules(o) }) }
+        val r = runBlocking { replayRun(ReplayLog.parse(both), store, cycles = 1) }
         assertNull(r.error)
         val sw = r.link.scan.value.sw!!
         val bcm = sw.modules.single { it.req == 0x241 }
         assertTrue(bcm.name, "241" in bcm.name && bcm.name.startsWith(r.link.scan.value.modules.single { it.req == 0x241 }.name))
-        assertTrue(sw.dtcs.single { it.module.req == 0x241 }.codes.isEmpty())
+        assertTrue(r.link.vehicle.value.gmDtcs.none { it.module.key == "swcan/241" })
         // On SW-CAN the codes are asked of the HUD only.
-        val sent = r.requests.map { it.uppercase().replace(" ", "") }
-        val onSw = sent.drop(sent.indexOf("STP63")).takeWhile { it != "ATSP6" }
+        val s = sent(r)
+        val onSw = s.drop(s.indexOf("STP63")).takeWhile { it != "ATSP6" }
         var header = ""
         val asked = onSw.mapNotNull { c -> if (c.startsWith("ATSH")) { header = c.removePrefix("ATSH"); null } else if (c.startsWith("03A981")) header else null }
         assertEquals(listOf("25A"), asked.distinct())
@@ -122,19 +146,30 @@ class SwCanTest {
         assertTrue(g.swRows.single(), "60005023" in g.swRows.single())
     }
 
+    private val refuses = connect + "\n" + """
+        12:00:02.000 > STP63
+        12:00:02.010 < ?
+    """.trimIndent()
+
     @Test
     fun anAdapterWithoutStpIsLeftAlone() {
         CarDbTest.load()
-        val refuses = connect + "\n" + """
-            12:00:02.000 > STP63
-            12:00:02.010 < ?
-        """.trimIndent()
         val r = runBlocking { replayRun(ReplayLog.parse(refuses), MapStore(), cycles = 1, after = { link, o -> link.swCanModules(o) }) }
         assertNull(r.error)
-        val sent = r.requests.map { it.uppercase().replace(" ", "") }
-        val after = sent.drop(sent.indexOf("STP63") + 1)
+        val s = sent(r)
+        val after = s.drop(s.indexOf("STP63") + 1)
         assertEquals(after.toString(), emptyList<String>(), after.filter { it != "STPR" })
         val sw = r.link.scan.value.sw!!
         assertTrue(sw.status, sw.modules.isEmpty() && "STP 63" in sw.status)
+    }
+
+    /** The check asks a plain ELM327 once: it refused, so the next checks leave the wire out and «Ошибки» says why. */
+    @Test
+    fun anAdapterThatCantIsAskedOnce() {
+        CarDbTest.load()
+        val r = runBlocking { replayRun(ReplayLog.parse(refuses), engineKnown(), cycles = 1, after = { link, o -> link.readAllModulesDtc(o) }) }
+        assertNull(r.error)
+        assertEquals(1, sent(r).count { it == "STP63" })
+        assertEquals(listOf(tr("контакт 1", "pin 1")), r.link.vehicle.value.busesOut)
     }
 }

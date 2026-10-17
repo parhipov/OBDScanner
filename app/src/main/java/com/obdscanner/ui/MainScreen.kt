@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,20 +26,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.obdscanner.ObdManager
 import com.obdscanner.Tab
 import com.obdscanner.VehicleInfo
 import com.obdscanner.obd.Reading
+import com.obdscanner.screen.Action
 import com.obdscanner.screen.MainScreen
 import com.obdscanner.screen.MainSection
+import com.obdscanner.screen.Tile
 
 @Composable
-fun MainScreen(r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, onTab: (Tab) -> Unit) {
+fun MainScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, onTab: (Tab) -> Unit) {
+    val pins by m.pins.collectAsStateWithLifecycle()
+    val hidden by m.hidden.collectAsStateWithLifecycle()
     // Card help: (label, reading) — the dialog shows the live value when there is one.
     var help by remember { mutableStateOf<Pair<String, Reading>?>(null) }
-    help?.let { (label, h) -> CardHelpDialog(label, r[h.key] ?: h, sample = r[h.key] == null) { help = null } }
-    val view = MainScreen.build(r, v, watch)
+    help?.let { (label, h) ->
+        val live = r[h.key]
+        CardHelpDialog(label, live ?: h, sample = live == null, onRemove = if (live == null) null else { { m.hideTile(h.key) } }) { help = null }
+    }
+    val view = MainScreen.build(r, v, watch, pins, hidden)
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(165.dp),
+        // Three in a row on a phone (360–412 dp), more on a tablet.
+        columns = GridCells.Adaptive(108.dp),
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(4.dp),
     ) {
@@ -47,11 +59,24 @@ fun MainScreen(r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, onTab: (
             s.note?.let { note -> item(key = "n:${s.title}", span = { GridItemSpan(maxLineSpan) }) { Muted(note) } }
             // A card may sit in two sections («Как бензин?» repeats Engine's timing).
             items(s.tiles, key = { "${s.title}:${it.reading.key}" }) { t ->
-                val container = Color(s.tile)
-                if (t.sample) ValueTile(t.label, t.reading, color = MaterialTheme.colorScheme.outline, container = container,
-                    note = t.note, onClick = { help = t.label to t.reading })
-                else ValueTile(t.label, t.reading, color = t.level?.color(), container = container, note = t.note, onClick = { help = t.label to t.reading })
+                MainTile(t, Color(s.tile), onHelp = { help = t.label to t.reading }, onRemove = { m.hideTile(t.reading.key) })
             }
+        }
+        items(view.bottom, key = { it.key }, span = { GridItemSpan(maxLineSpan) }) { b ->
+            BlockView(b, null, onAction = { if (it == Action.RESTORE_MAIN) m.restoreMain() }, onDtc = {})
+        }
+    }
+}
+
+/** A card: a tap opens its help, a long press offers to take it off Main (not an offline sample). */
+@Composable
+private fun MainTile(t: Tile, container: Color, onHelp: () -> Unit, onRemove: () -> Unit) {
+    var menu by remember { mutableStateOf(false) }
+    Box {
+        if (t.sample) ValueTile(t.label, t.reading, color = MaterialTheme.colorScheme.outline, container = container, note = t.note, onClick = onHelp)
+        else ValueTile(t.label, t.reading, color = t.level?.color(), container = container, note = t.note, onClick = onHelp, onLongClick = { menu = true })
+        DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+            DropdownMenuItem(text = { Text(MainScreen.REMOVE) }, onClick = { menu = false; onRemove() })
         }
     }
 }

@@ -34,8 +34,9 @@ private fun helpArray(r: Reading): Int? {
     return ctx.resources.getIdentifier(name, "array", ctx.packageName).takeIf { it != 0 }
 }
 
+/** [onRemove] — «Убрать с главной» under the help (a card on Main with a live value); null — no such button. */
 @Composable
-fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onDismiss: () -> Unit) {
+fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onRemove: (() -> Unit)? = null, onDismiss: () -> Unit) {
     val texts = helpArray(r)?.let { stringArrayResource(it) }
     val (res, args) = com.obdscanner.screen.CardHelp.source(r)
     val source = when (res) {
@@ -49,6 +50,7 @@ fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onDismiss
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } },
+        dismissButton = onRemove?.let { remove -> { TextButton(onClick = { onDismiss(); remove() }) { Text(com.obdscanner.screen.MainScreen.REMOVE) } } },
         title = { Text(label) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {

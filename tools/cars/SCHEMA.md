@@ -86,6 +86,12 @@ in git) through the connection and compares what the app sends and finds with `r
 - `diagNames` — by the module's own one-byte diagnostic address (GM `$1A B0`, read during identification):
   it says what the module is on any car, so it wins over `names`. The address is in the report either way.
 - `tag` — the report's section name (default: the make).
+- `buses` — buses on other pins of the socket, each with its own modules: `{ "id": "swcan", "tag": "SW-CAN",
+  "pins": { "ru": "контакт 1", "en": "pin 1" }, "protocol": "63", "addresses": [{ "req": "240-25F", "rsp": "+400" }],
+  "functional": true }`. An adapter that knows OBDLink's commands switches there with `STP <protocol>` (checked
+  with `STPR`), a plain ELM327 can't and is left alone. «Ошибки» reads them with the rest when the adapter can;
+  `functional` — GMLAN's request to all modules first, then the `addresses` probe. `pins` is how the screens
+  call the bus, `tag` — the report.
 
 ## Dialect
 

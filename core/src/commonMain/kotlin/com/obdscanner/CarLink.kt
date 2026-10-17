@@ -12,6 +12,7 @@ import com.obdscanner.car.CarFamily
 import com.obdscanner.car.CarModel
 import com.obdscanner.car.Dialect
 import com.obdscanner.car.ExtCommand
+import com.obdscanner.car.ExtraBus
 import com.obdscanner.car.MatchRule
 import com.obdscanner.elm.Obd
 import com.obdscanner.gm.GmDtcReader
@@ -23,6 +24,8 @@ import com.obdscanner.gm.ScanHit
 import com.obdscanner.gm.ScanParam
 import com.obdscanner.gm.ScanRanges
 import com.obdscanner.screen.CarText
+import com.obdscanner.screen.CodesScreen
+import com.obdscanner.screen.ModuleNames
 import com.obdscanner.screen.InfoScreen
 import com.obdscanner.screen.ScanContext
 import com.obdscanner.obd.Dtc
@@ -35,6 +38,7 @@ import com.obdscanner.obd.Knock
 import com.obdscanner.obd.Make
 import com.obdscanner.obd.Mode06
 import com.obdscanner.obd.Mode09
+import com.obdscanner.obd.ModuleClear
 import com.obdscanner.obd.ObdModules
 import com.obdscanner.obd.Pids
 import com.obdscanner.obd.PollRate
@@ -99,6 +103,50 @@ class CarLink(
         _fuelWatch.value = on
     }
 
+    private val _pins = MutableStateFlow(store.getString(MAIN_PINS)?.split('\n')?.filter { it.isNotEmpty() }.orEmpty())
+    /** Values put on Main from «Все данные» (reading keys, in the order added): «Избранное», polled at Main's pace. */
+    val pins: StateFlow<List<String>> = _pins.asStateFlow()
+    private val _hidden = MutableStateFlow(store.getStringSet(MAIN_HIDDEN).orEmpty())
+    /** Main's own cards taken off it (reading keys) until «Вернуть карточки». */
+    val hidden: StateFlow<Set<String>> = _hidden.asStateFlow()
+
+    /** ☆ on «Все данные»: the value on Main or off it. */
+    fun togglePin(key: String) {
+        val now = _pins.value.let { if (key in it) it - key else it + key }
+        store.putString(MAIN_PINS, now.joinToString("\n").ifEmpty { null })
+        _pins.value = now
+    }
+
+    /** «Убрать с главной»: a pinned value is unpinned, one of Main's own cards hidden. */
+    fun hideTile(key: String) {
+        if (key in _pins.value) return togglePin(key)
+        val now = _hidden.value + key
+        store.putStringSet(MAIN_HIDDEN, now)
+        _hidden.value = now
+    }
+
+    /** Main's own cards back; the pinned ones stay. */
+    fun restoreMain() {
+        store.remove(MAIN_HIDDEN)
+        _hidden.value = emptySet()
+    }
+
+    /**
+     * What «Все данные» calls a block: the modules found (by request id; their reply ids lead there too), then the
+     * make's names for the blocks the polled manufacturer requests talk to.
+     */
+    fun moduleNames(): ModuleNames {
+        val a = addressing()
+        val mods = _scan.value.modules.filter { !Tp20.isTp(it.req) }
+        val byReq = mods.associate { it.req to it.name }.toMutableMap()
+        val respToReq = mods.associate { it.resp to it.req }.toMutableMap()
+        for (c in _vehicle.value.extActive) {
+            byReq.putIfMissing(c.req, a.name(c.req))
+            respToReq.putIfMissing(c.resp, c.req)
+        }
+        return ModuleNames(byReq, respToReq)
+    }
+
     /** Poll cycles and one-off operations never interleave (they switch CAN headers). */
     val opMutex = Mutex()
 
@@ -117,6 +165,7 @@ class CarLink(
         knockHiRetard = 0
         notedWatch = false
         skippedNow.clear()
+        prevLoaded = false
     }
 
     /** The session ended: nothing runs any more. */
@@ -199,14 +248,6 @@ class CarLink(
     // ---------------------------------------------------------------- one-off operations
 
     suspend fun refreshDtc(o: Obd) {
-        readDtcs(o)
-        readFreezeFrame(o)
-    }
-
-    suspend fun clearDtc(o: Obd) {
-        session?.note("USER: clear DTC (mode 04)")
-        o.request("04", 5000)
-        pause(500)
         readDtcs(o)
         readFreezeFrame(o)
     }
@@ -355,6 +396,11 @@ class CarLink(
             store.remove(extKey(car))
             modulesPrefKey()?.let { store.remove(it) }
         }
+        // The other buses: their modules on this car, whether this adapter goes there.
+        for (bus in family()?.modules?.buses.orEmpty()) {
+            busModulesKey(bus)?.let { store.remove(it) }
+            store.remove(busKey(bus))
+        }
         session?.note("forgot the car (${car ?: "no VIN"}) and adapter $adapterName: protocol, manufacturer requests, modules, skipped requests")
         refreshMemory()
     }
@@ -459,6 +505,7 @@ class CarLink(
     // ---------------------------------------------------------------- discovery
 
     suspend fun discover(o: Obd, full: Boolean = false) {
+        _vehicle.update { it.copy(moduleAccess = o.canTarget) }
         step(tr("Поддерживаемые PID Mode 01…", "Supported PIDs (Mode 01)…"))
         val pids = mutableMapOf<Int, MutableSet<Int>>()
         var base = 0
@@ -1001,7 +1048,7 @@ class CarLink(
         }
         val supported = _vehicle.value.functional01.filter { !Pids.isBitmask(it) && it != 0x02 && Pids.byPid[it]?.static != true }
         val onScreen = when (tab) {
-            Tab.Main -> MAIN_PIDS
+            Tab.Main -> MAIN_PIDS + pinnedPids()
             Tab.Fuel -> FUEL_PIDS
             else -> emptyList()
         }
@@ -1324,6 +1371,11 @@ class CarLink(
                 "No answer to $was PIDs per request, one PID is answered — ${if (now > 1) "$now PIDs" else "one PID"} per request from now on"))
     }
 
+    /** The Mode 01 PIDs of the values pinned to Main ("7E8:01.0C" → 0C). */
+    private fun pinnedPids(): List<Int> = _pins.value.mapNotNull { k ->
+        k.substringAfter(':').split('.').takeIf { it.size >= 2 && it[0] == "01" }?.get(1)?.toIntOrNull(16)
+    }
+
     /** When each Mode 01 PID / GM parameter was last asked for, see [PollRate.due]. */
     private val lastPoll = mutableMapOf<String, Long>()
 
@@ -1339,8 +1391,10 @@ class CarLink(
         val rejected = _vehicle.value.knockRejected
         val knock = if (_fuelWatch.value) list.filter { Knock.isKnock(it, gm) && it.key !in rejected } else emptyList()
         knock.forEach { lastPoll[it.key] = now }
+        // The ones put on Main from «Все данные» are Main's own there.
+        val pinned = if (tab == Tab.Main) _pins.value.toSet() else emptySet()
         val batch = (knock + PollRate.due(list - knock.toSet(), lastPoll, now, (EXT_PER_CYCLE - knock.size).coerceAtLeast(1), { it.key }) {
-            if (it.group == group) PollRate.onScreen(it.periodMs) else it.periodMs
+            if (it.group == group || it.signals.any { s -> it.readingKey(s) in pinned }) PollRate.onScreen(it.periodMs) else it.periodMs
         }).sortedBy { it.req }
         if (batch.isEmpty()) return
         val sc = GmScanner(o) { session?.note(it) }
@@ -1637,118 +1691,283 @@ class CarLink(
     }
 
     /**
-     * Full DTC memory of every module: GM \$A9, everyone else UDS \$19 / KWP \$18. Finds the modules
-     * first if that wasn't done yet. Read only — nothing is cleared.
+     * Full DTC memory of every module: GM \$A9, everyone else UDS \$19 / KWP \$18 — on the main bus and on the family's
+     * other buses the adapter reaches ([ExtraBus]). Finds the modules first if that wasn't done yet. Read only.
      */
     suspend fun readAllModulesDtc(o: Obd) {
         if (!o.canTarget) {
             _vehicle.update { it.copy(gmDtcStatus =
-                if (o.can29) tr("На CAN 29 бит доступны только стандартные ошибки OBD (вверху)", "On 29-bit CAN only standard OBD codes are available (above)")
-                else tr("На ISO 9141-2 доступны только стандартные ошибки OBD (вверху)", "On ISO 9141-2 only standard OBD codes are available (above)")) }
+                if (o.can29) tr("На CAN 29 бит читаются только стандартные коды OBD", "On 29-bit CAN only the standard OBD codes are read")
+                else tr("На ISO 9141-2 читаются только стандартные коды OBD", "On ISO 9141-2 only the standard OBD codes are read")) }
             return
         }
-        readModuleDtcs(o) { s -> _vehicle.update { it.copy(gmDtcStatus = s) } }
+        try {
+            readModuleDtcs(o) { s -> _vehicle.update { it.copy(gmDtcStatus = s) } }
+        } catch (e: CancellationException) {
+            _vehicle.update { it.copy(gmDtcStatus = STOPPED) }
+            throw e
+        }
         ensureAdapter(o)
     }
 
+    /** «Проверить ошибки»: the standard codes and the freeze frame, then every module's memory. Read only. */
+    suspend fun checkCodes(o: Obd) {
+        _vehicle.update { it.copy(gmDtcStatus = tr("Коды Check Engine…", "Check Engine codes…"), clearResult = emptyList()) }
+        refreshDtc(o)
+        readAllModulesDtc(o)
+    }
+
     /**
-     * GM's single-wire CAN (pin 1, 33.3 kbit/s: HUD, HVAC, airbags, keyless entry… on a Trailblazer, issue #1), its own
-     * button. The ELM327 command set has no such bus; OBDLink's (STN) has: STP 63 — SW-CAN, ISO 15765, 11-bit, 33.3 kbit/s
-     * (OBDLink FRPM). An adapter that refuses it, or doesn't say 63 to STPR afterwards (a clone that answers OK to
-     * anything), is left as it is. There: the request to all modules and the probe 240–25F, each module's \$1A and \$A9
-     * codes; then back to the connection's protocol on HS-CAN, checked by [ensureAdapter]. Read only.
+     * «Сбросить» on «Ошибки»: Mode 04 — the Check Engine codes, the freeze frame and the readiness of the engine and
+     * gearbox; the other modules' memory stays. Then everything is checked again and [VehicleInfo.clearResult] says
+     * what went and what came back at once (a fault present now).
      */
-    suspend fun swCanModules(o: Obd) {
-        fun state(status: String, running: Boolean = true, modules: List<GmModule>? = null, dtcs: List<GmDtcResult>? = null) =
-            _scan.update { s -> val w = s.sw ?: SwCanState()
-                s.copy(sw = w.copy(running = running, status = status, modules = modules ?: w.modules, dtcs = dtcs ?: w.dtcs)) }
-        if (o.kline || o.can29 || !o.canTarget) {
-            state(tr("SW-CAN — у GM на CAN 11 бит; на этом подключении его нет", "SW-CAN is a GM thing on 11-bit CAN; not on this connection"), running = false)
-            return
+    suspend fun clearDtc(o: Obd) {
+        val before = _vehicle.value.dtcs
+        session?.note("USER: clear DTC (mode 04)")
+        o.request("04", 5000)
+        pause(500)
+        checkCodes(o)
+        val v = _vehicle.value
+        val was = before.filter { it.kind != DtcKind.PERMANENT }.map { it.code }.toSet()
+        val now = v.dtcs.filter { it.kind != DtcKind.PERMANENT }.map { it.code }.toSet()
+        val back = was.intersect(now)
+        val permanent = v.dtcs.filter { it.kind == DtcKind.PERMANENT }.map { it.code }.distinct()
+        val lines = buildList {
+            add(if (was.isEmpty()) tr("Кодов Check Engine не было: сброшены стоп-кадр и готовность мониторов",
+                "There were no Check Engine codes: the freeze frame and the monitors' readiness are reset")
+            else tr("Стёрто кодов Check Engine: ${(was - now).size}", "Check Engine codes cleared: ${(was - now).size}"))
+            if (back.isNotEmpty()) add(tr("Сразу вернулись: ${back.joinToString()} — неисправность есть сейчас",
+                "Back at once: ${back.joinToString()} — the fault is there now"))
+            if (permanent.isNotEmpty()) add(tr("Постоянные (${permanent.joinToString()}) уходят сами, когда блок проверит систему без сбоя",
+                "Permanent ones (${permanent.joinToString()}) go by themselves once the module checks the system without a fault"))
+            val left = v.gmDtcs.sumOf { it.codes.size }
+            if (left > 0) add(tr("В памяти блоков кодов: $left — их стирает «${CodesScreen.CLEAR_MODULES}» внизу",
+                "Codes in the modules' memory: $left — «${CodesScreen.CLEAR_MODULES}» below clears them"))
         }
-        state(tr("Переключение на SW-CAN…", "Switching to SW-CAN…"), modules = emptyList(), dtcs = emptyList())
-        val sc = GmScanner(o) { session?.note(it) }
-        val a = addressing()
-        // The HS-CAN names by request id say nothing about the modules here: by their own address or the bare id.
-        val plain = { req: Int -> "%03X".format(req) }
-        var switched = false
-        var final = ""
+        _vehicle.update { it.copy(clearResult = lines) }
+        session?.report(tr("Сброс кодов (Mode 04)", "Clearing codes (Mode 04)"), lines.joinToString("\n"))
+    }
+
+    /**
+     * «Стереть ошибки в блоках»: the modules ticked ([GmModule.key]) are cleared one by one, the way each gave its codes
+     * ([ModuleClear]), and read again at once — what comes back is a fault present now. A module on another bus is
+     * cleared there, the adapter switched and back. Only what the user ticked; the codes are in the session already.
+     */
+    suspend fun clearModules(o: Obd, keys: Collection<String>) {
+        val targets = _vehicle.value.gmDtcs.filter { it.module.key in keys && it.codes.isNotEmpty() }
+        if (targets.isEmpty() || !o.canTarget) return
+        session?.note("USER: clear module DTCs: ${targets.joinToString(" ") { it.module.key }}")
+        val clear = ModuleClear(o) { session?.note(it) }
+        val reader = ModuleReader(o)
+        val done = mutableMapOf<String, GmDtcResult>()
+        val lines = mutableListOf<String>()
+        var n = 0
+        suspend fun one(r: GmDtcResult) {
+            val name = CodesScreen.moduleTitle(r.module)
+            n++
+            _vehicle.update { it.copy(gmDtcStatus = tr("Стирание: $name ($n из ${targets.size})…", "Clearing: $name ($n of ${targets.size})…")) }
+            val res = clear.clear(r.module, r.codes.first().scheme)
+            if (res.ok) pause(500)
+            val again = reader.read(r.module)
+            done[r.module.key] = again
+            lines += "$name: " + when {
+                !res.ok -> res.text
+                again.codes.isEmpty() -> res.text
+                else -> tr("стёрто, сразу вернулись: ${again.codes.joinToString { it.full }} — неисправность есть сейчас",
+                    "cleared, back at once: ${again.codes.joinToString { it.full }} — the fault is there now")
+            }
+        }
         try {
-            val set = o.at("STP63")
-            val now = if (set.isOk) o.at("STPR").lines.firstOrNull { it.isNotBlank() && it != "OK" }?.trim() else null
-            if (now != "63") {
-                session?.note("SW-CAN: STP63 → ${set.lines}, STPR → $now — the adapter can't switch, nothing done")
-                if (set.isOk) switched = true
-                final = tr("Адаптер не переключается на SW-CAN: он не понимает команду OBDLink STP 63. Для этих блоков нужен адаптер с SW-CAN.",
-                    "The adapter doesn't switch to SW-CAN: it doesn't know OBDLink's STP 63. These modules need an adapter with SW-CAN.")
-                return
+            for (r in targets.filter { it.module.bus == null }) one(r)
+            o.broadcast()
+            for ((busId, list) in targets.filter { it.module.bus != null }.groupBy { it.module.bus }) {
+                val bus = buses(o).firstOrNull { it.id == busId }
+                val ran = bus?.let { b -> onBus(o, b) { for (r in list) one(r) } }
+                if (ran == null) for (r in list) lines += CodesScreen.moduleTitle(r.module) + ": " +
+                    tr("адаптер не переключился на этот провод", "the adapter didn't switch to this wire")
             }
-            switched = true
-            o.resetState()
-            session?.note("SW-CAN: STP63 accepted, STPR 63")
-            state(tr("SW-CAN: запрос всем блокам…", "SW-CAN: asking all modules…"))
-            val all = sc.functionalModules(plain)
-            val rest = (0x240..0x25F).filter { req -> all.none { it.req == req } }.map { it to it + 0x400 }
-            val probed = sc.probeModules(rest, a.probes, plain) { _, s -> state("SW-CAN: $s") }
-            val found = (all + probed).sortedBy { it.req }
-            val ids = mutableListOf<ScanHit>()
-            for ((i, mod) in found.withIndex()) {
-                state(tr("SW-CAN: идентификация %s (%d из %d)…", "SW-CAN: identifying %s (%d of %d)…").format(mod.id, i + 1, found.size))
-                sc.identify(mod) { h -> ids += h; session?.scanHit(h.req, h.resp, h.service, h.didHex, h.data) }
-            }
-            // A module telling the diagnostic address of one on HS-CAN is that module wired to both buses (on the Trailblazer
-            // the BCM, the camera, the radio, the cluster): it takes that name, and its codes are read there — here it
-            // refuses \$A9 (NRC 11), so it isn't asked.
-            val hs = _scan.value.modules.filter { it.diag != null }.associateBy { it.diag }
-            val alsoOnHs = mutableMapOf<Int, GmModule>()
-            val named = found.map { mod ->
-                val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
-                val same = diag?.let { hs[it] }
-                when {
-                    same != null -> mod.copy(name = tr("%s (он же %s на основной шине)", "%s (also %s on the main bus)").format(same.name, same.id), diag = diag)
-                        .also { alsoOnHs[mod.req] = same }
-                    diag == null -> mod
-                    else -> mod.copy(name = a.diagName(diag) ?: mod.name, diag = diag)
-                }.copy(partNumber = partNumber(ids, mod))
-            }
-            state(tr("SW-CAN: найдено блоков: %d", "SW-CAN: modules found: %d").format(named.size), modules = named)
-            session?.report(tr("GM SW-CAN: найденные модули", "GM SW-CAN: modules found"), named.joinToString("\n") { m ->
-                "  %03X→%03X %s (%s)".format(m.req, m.resp, m.name, m.answeredTo) + (m.diag?.let { tr(", адрес %02X", ", address %02X").format(it) } ?: "")
-            }.ifEmpty { tr("нет", "none") })
-            if (named.isNotEmpty()) session?.report(tr("GM SW-CAN: идентификация модулей (\$1A)", "GM SW-CAN: module identification (\$1A)"), named.joinToString("\n\n") { mod ->
-                "${mod.name} [${mod.id}]\n" + ids.filter { it.req == mod.req }.joinToString("\n") { h ->
-                    "  1A %s %-26s %s".format(h.didHex, h.label.orEmpty(), h.partNumber?.toString() ?: if (h.looksLikeText) "«${h.ascii}»" else h.hex)
-                }.ifEmpty { tr("  нет ответа", "  no answer") }
-            })
-            val reader = GmDtcReader(o) { session?.note(it) }
-            val out = mutableListOf<GmDtcResult>()
-            for ((i, mod) in named.withIndex()) {
-                state(tr("SW-CAN: ошибки %s (%d из %d)…", "SW-CAN: codes of %s (%d of %d)…").format(mod.name, i + 1, named.size))
-                out += alsoOnHs[mod.req]?.let { same ->
-                    GmDtcResult(mod, emptyList(), tr("его ошибки читаются на основной шине (%s, «Ошибки всех блоков»)",
-                        "its codes are read on the main bus (%s, «Read all modules»)").format(same.id), complete = true)
-                } ?: reader.read(mod)
-                state(tr("SW-CAN: ошибки %s (%d из %d)…", "SW-CAN: codes of %s (%d of %d)…").format(mod.name, i + 1, named.size), dtcs = out.toList())
-            }
-            if (named.isNotEmpty()) session?.report(tr("GM SW-CAN: ошибки (\$A9 81 %02X)", "GM SW-CAN: DTCs (\$A9 81 %02X)").format(GmDtcReader.MASK), out.joinToString("\n\n") { r ->
-                "${r.module.name} [${r.module.id}] — ${r.result}" + r.codes.joinToString("") { c ->
-                    tr("\n  %s  статус %02X (%s)  %s", "\n  %s  status %02X (%s)  %s").format(c.full, c.status, c.flags, c.description)
-                }
-            })
-            final = if (named.isEmpty()) tr("SW-CAN: адаптер переключился, но ни один блок не ответил", "SW-CAN: the adapter switched, but no module answered")
-                else tr("SW-CAN: блоков %d, кодов %d", "SW-CAN: modules %d, codes %d").format(named.size, out.sumOf { it.codes.size }) +
-                    if (alsoOnHs.isEmpty()) "" else tr(" (из них %d — те же, что на основной шине)", " (%d of them the same as on the main bus)").format(alsoOnHs.size)
         } finally {
             withContext(NonCancellable) {
-                // Back to HS-CAN the way the connection opened it; ensureAdapter re-initialises if 0100 isn't answered.
-                if (switched) {
-                    runCatching { o.at(protocolCmd) }
-                    o.resetState()
-                    session?.note("SW-CAN: back to $protocolCmd")
-                }
-                state(final.ifEmpty { tr("SW-CAN: прервано", "SW-CAN: interrupted") }, running = false)
-                if (switched) ensureAdapter(o)
+                val all = _vehicle.value.gmDtcs.map { done[it.module.key] ?: it }
+                _vehicle.update { it.copy(gmDtcs = all, gmDtcTime = clock(), clearResult = lines.toList(), gmDtcStatus = summary(all, emptyList())) }
+                rememberCodes(all)
+                session?.report(tr("Стирание ошибок в блоках", "Clearing module codes"), lines.joinToString("\n").ifEmpty { tr("прервано", "interrupted") })
             }
+        }
+        ensureAdapter(o)
+    }
+
+    /** «Блоков: 10, кодов: 6» and, after a hand-picked make, the modules that answered only the standard way. */
+    private fun summary(out: List<GmDtcResult>, otherWay: List<GmModule>) =
+        tr("Блоков: ${out.size}, кодов: ${out.sumOf { it.codes.size }}", "Modules: ${out.size}, codes: ${out.sumOf { it.codes.size }}") +
+            if (otherWay.isEmpty()) "" else tr(
+                ". Марка выбрана вручную, но ${otherWay.joinToString { it.id }} ответили только стандартным способом — проверьте марку («Связь» → «Выбрать»)",
+                ". The make is picked by hand, but ${otherWay.joinToString { it.id }} answered only the standard way — check the make (Connect → Pick)")
+
+    // ---------------------------------------------------------------- the codes of the last check
+
+    private fun prevKey() = carKey()?.let { "dtc_prev_$it" }
+
+    /** [VehicleInfo.dtcPrev] is read once a connection, at its first check: «новая» is against the last connection. */
+    private var prevLoaded = false
+
+    /**
+     * Keeps what this check found for the car's next connection; the first check of a connection first takes what the
+     * last one kept. Only modules that answered whole count: one that didn't would look as if its codes went.
+     */
+    private fun rememberCodes(results: List<GmDtcResult>) {
+        val key = prevKey() ?: return
+        if (!prevLoaded) {
+            prevLoaded = true
+            val prev = store.getString(key)?.lines()?.let { l ->
+                val time = l.firstOrNull()?.toLongOrNull() ?: return@let null
+                PrevCodes(time, l.drop(1).mapNotNull { it.split('\t').takeIf { p -> p.size == 2 } }.associate { (k, v) -> k to v })
+            }
+            _vehicle.update { it.copy(dtcPrev = prev) }
+        }
+        if (results.none { it.complete || it.codes.isNotEmpty() }) return
+        val codes = CodesScreen.codeKeys(results)
+        store.putString(key, (listOf(clock().toString()) + codes.map { (k, v) -> "$k\t$v" }).joinToString("\n"))
+    }
+
+    // ---------------------------------------------------------------- buses on other pins (GM's single-wire CAN)
+
+    /** The family's other buses ([ExtraBus]); none where modules can't be addressed or on K-line and 29-bit CAN. */
+    private fun buses(o: Obd): List<ExtraBus> = if (o.kline || o.can29 || !o.canTarget) emptyList() else family()?.modules?.buses.orEmpty()
+
+    /** Whether this adapter switched to the bus: 1 — it does, 2 — it can't (asked once, then left alone). */
+    private fun busKey(bus: ExtraBus) = "bus_${bus.id}_$adapterName"
+
+    /**
+     * [block] with the adapter switched to [bus] (STP <protocol>, said back by STPR), then back to the connection's
+     * protocol on the main bus, checked by [ensureAdapter], whatever happens. Null — the adapter can't go there: it
+     * refused STP, or a clone answered OK to anything and STPR didn't say the protocol; remembered for the adapter.
+     */
+    private suspend fun <T> onBus(o: Obd, bus: ExtraBus, block: suspend () -> T): T? {
+        var switched = false
+        try {
+            val set = o.at("STP${bus.protocol}")
+            val now = if (set.isOk) o.at("STPR").lines.firstOrNull { it.isNotBlank() && it != "OK" }?.trim() else null
+            if (now != bus.protocol) {
+                session?.note("${bus.tag}: STP${bus.protocol} → ${set.lines}, STPR → $now — the adapter can't switch, nothing done")
+                if (set.isOk) switched = true
+                store.putInt(busKey(bus), 2)
+                return null
+            }
+            store.putInt(busKey(bus), 1)
+            switched = true
+            o.resetState()
+            session?.note("${bus.tag}: STP${bus.protocol} accepted, STPR ${bus.protocol}")
+            return block()
+        } finally {
+            if (switched) withContext(NonCancellable) {
+                runCatching { o.at(protocolCmd) }
+                o.resetState()
+                session?.note("${bus.tag}: back to $protocolCmd")
+                ensureAdapter(o)
+            }
+        }
+    }
+
+    private fun busModulesKey(bus: ExtraBus) = carKey()?.let { "bus_modules_${bus.id}_$it" }
+
+    /** The bus's modules found at an earlier connection; empty — searched, none answered; null — not searched yet. */
+    private fun savedBusModules(bus: ExtraBus): List<GmModule>? {
+        val s = busModulesKey(bus)?.let { store.getString(it) } ?: return null
+        if (s == "-") return emptyList()
+        return s.split(',').mapNotNull { p ->
+            val parts = p.split(':').takeIf { it.size in 2..3 }?.map { it.toIntOrNull(16) } ?: return@mapNotNull null
+            val req = parts[0] ?: return@mapNotNull null
+            val resp = parts[1] ?: return@mapNotNull null
+            GmModule(req, resp, "%03X".format(req), tr("из прошлой сессии", "from an earlier session"), parts.getOrNull(2), bus = bus.id)
+        }
+    }
+
+    private fun saveBusModules(bus: ExtraBus, list: List<GmModule>) {
+        val key = busModulesKey(bus) ?: return
+        store.putString(key, list.joinToString(",") { m -> "%03X:%03X".format(m.req, m.resp) + (m.diag?.let { ":%02X".format(it) } ?: "") }.ifEmpty { "-" })
+    }
+
+    /** The same module as one on the main bus (wired to both: it tells the same diagnostic address): its codes are read there. */
+    private fun alsoOnMain(mod: GmModule, main: List<GmModule>): GmModule? = mod.diag?.let { d -> main.firstOrNull { it.diag == d } }
+
+    /** A module of another bus named by the address it told: as its twin on the main bus, by the make's list, or its id. */
+    private fun busNamed(mod: GmModule, main: List<GmModule>): GmModule {
+        val same = alsoOnMain(mod, main)
+        return when {
+            same != null -> mod.copy(name = tr("%s (он же %s на основной шине)", "%s (also %s on the main bus)").format(same.name, same.id))
+            mod.diag != null -> mod.copy(name = addressing().diagName(mod.diag) ?: "%03X".format(mod.req))
+            else -> mod.copy(name = "%03X".format(mod.req))
+        }
+    }
+
+    /** «Контакт 1» at the start of a line. */
+    private fun ExtraBus.title() = pins.replaceFirstChar { it.uppercaseChar() }
+
+    /**
+     * With the adapter on [bus]: GMLAN's request to all modules ([ExtraBus.functional]), the probe of its addresses,
+     * each module identified (\$1A: its address and part number). Named against the main bus's [main] modules.
+     */
+    private suspend fun findBusModules(o: Obd, bus: ExtraBus, main: List<GmModule>, status: (String) -> Unit): List<GmModule> {
+        val sc = GmScanner(o) { session?.note(it) }
+        val a = addressing()
+        // The main bus's names by request id say nothing about the modules here: by their own address or the bare id.
+        val plain = { req: Int -> "%03X".format(req) }
+        status(tr("${bus.title()}: запрос всем блокам…", "${bus.title()}: asking all modules…"))
+        val all = if (bus.functional) sc.functionalModules(plain) else emptyList()
+        val rest = bus.addresses.filter { (req, _) -> all.none { it.req == req } }
+        val probed = sc.probeModules(rest, a.probes, plain) { _, s -> status("${bus.title()}: $s") }
+        val found = (all + probed).sortedBy { it.req }
+        val ids = mutableListOf<ScanHit>()
+        for ((i, mod) in found.withIndex()) {
+            status(tr("${bus.title()}: идентификация %s (%d из %d)…", "${bus.title()}: identifying %s (%d of %d)…").format(mod.id, i + 1, found.size))
+            sc.identify(mod) { h -> ids += h; session?.scanHit(h.req, h.resp, h.service, h.didHex, h.data) }
+        }
+        val named = found.map { mod ->
+            val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
+            busNamed(mod.copy(diag = diag, bus = bus.id), main).copy(partNumber = partNumber(ids, mod))
+        }
+        session?.report(tr("${a.tag} ${bus.tag}: найденные модули", "${a.tag} ${bus.tag}: modules found"), named.joinToString("\n") { m ->
+            "  %03X→%03X %s (%s)".format(m.req, m.resp, m.name, m.answeredTo) + (m.diag?.let { tr(", адрес %02X", ", address %02X").format(it) } ?: "")
+        }.ifEmpty { tr("нет", "none") })
+        if (named.isNotEmpty()) session?.report(tr("${a.tag} ${bus.tag}: идентификация модулей (\$1A)", "${a.tag} ${bus.tag}: module identification (\$1A)"), named.joinToString("\n\n") { mod ->
+            "${mod.name} [${mod.id}]\n" + ids.filter { it.req == mod.req }.joinToString("\n") { h ->
+                "  1A %s %-26s %s".format(h.didHex, h.label.orEmpty(), h.partNumber?.toString() ?: if (h.looksLikeText) "«${h.ascii}»" else h.hex)
+            }.ifEmpty { tr("  нет ответа", "  no answer") }
+        })
+        return named
+    }
+
+    /**
+     * «Блоки на SW-CAN» on «Скан блоков»: the family's other bus searched afresh — GMLAN's request to all, the probe, each
+     * module identified, the list kept for the car. Their codes are read by «Проверить ошибки». An adapter that can't
+     * switch is left as it is, and the line says so.
+     */
+    suspend fun swCanModules(o: Obd) {
+        fun state(status: String, running: Boolean = true, modules: List<GmModule>? = null) =
+            _scan.update { s -> val w = s.sw ?: SwCanState(); s.copy(sw = w.copy(running = running, status = status, modules = modules ?: w.modules)) }
+        val bus = buses(o).firstOrNull()
+        if (bus == null) {
+            state(tr("Отдельного провода с блоками на этом подключении нет", "No separate wire with modules on this connection"), running = false)
+            return
+        }
+        state(tr("${bus.title()}: переключение…", "${bus.title()}: switching…"), modules = emptyList())
+        var final = ""
+        try {
+            val found = onBus(o, bus) { findBusModules(o, bus, _scan.value.modules) { state(it) } }
+            final = when {
+                found == null -> tr("Адаптер не переключается на ${bus.pins} (команда OBDLink STP ${bus.protocol}): для этих блоков нужен адаптер с поддержкой отдельного провода GM",
+                    "The adapter doesn't switch to ${bus.pins} (OBDLink's STP ${bus.protocol}): these modules need an adapter that supports GM's separate wire")
+                found.isEmpty() -> tr("${bus.title()}: адаптер переключился, но ни один блок не ответил", "${bus.title()}: the adapter switched, but no module answered")
+                else -> tr("${bus.title()}: блоков ${found.size}, их ошибки — на «Ошибках»", "${bus.title()}: ${found.size} modules, their codes are on «Codes»")
+            }
+            if (found != null) {
+                saveBusModules(bus, found)
+                state(final, modules = found)
+            }
+        } finally {
+            withContext(NonCancellable) { state(final.ifEmpty { tr("${bus.title()}: прервано", "${bus.title()}: interrupted") }, running = false) }
         }
     }
 
@@ -1760,6 +1979,7 @@ class CarLink(
         try {
             readModuleDtcs(o) { s -> step(s); _vehicle.update { it.copy(gmDtcStatus = s) } }
         } catch (e: CancellationException) {
+            _vehicle.update { it.copy(gmDtcStatus = STOPPED) }
             throw e
         } catch (e: Exception) {
             session?.note("module DTC (auto) failed: ${e.stackTraceToString()}")
@@ -1824,6 +2044,57 @@ class CarLink(
         }
     }
 
+    /**
+     * One module's memory, the way its dialect names; a make picked by hand may be the wrong one: its ways first,
+     * then the standard ones. [used] — the ways asked (the report's title), [otherWay] — the modules that answered only
+     * the standard way.
+     */
+    private inner class ModuleReader(private val o: Obd, private val status: (String) -> Unit = {}) {
+        private val gmReader = GmDtcReader(o) { session?.note(it) }
+        private val udsReader = UdsDtcReader(o) { session?.note(it) }
+        val used = mutableSetOf<String>()
+        val otherWay = mutableListOf<GmModule>()
+
+        suspend fun read(mod: GmModule): GmDtcResult {
+            val d = dialectOf(mod.req)
+            val tp = Tp20.isTp(mod.req)
+            // GMLAN \$A9 needs CAN (raw UUDT frames); on K-line the block gets the standard ways. TP 2.0 — KWP2000.
+            val chain = if (tp) listOf("kwp18") else d.dtc.filter { it != "gm_a9" || !o.kline }.ifEmpty { Dialect.GENERIC.dtc }
+            val guess = !tp && _vehicle.value.makeByPick && _vehicle.value.car?.knownBlocks?.containsKey(mod.req) != true
+            session?.note("DTC %s: dialect %s (%s), %s%s".format(mod.key, d.id, dialectSource(mod.req), chain.joinToString(" → "),
+                if (guess) ", then the standard ways if refused" else ""))
+            used += chain.first().takeIf { it == "gm_a9" }?.let { listOf(it) } ?: chain
+            var r = if (chain.first() == "gm_a9") gmReader.read(mod) else udsReader.read(mod, chain, vagNumbers = tp || d.dtcFormat == "vag")
+            val rest = Dialect.GENERIC.dtc.filter { it !in chain }
+            // Nothing read (refused or silent, no end-of-list): the block may talk another make's way.
+            if (guess && r.codes.isEmpty() && !r.complete && rest.isNotEmpty()) {
+                session?.note("DTC %s: %s gave nothing — trying %s".format(mod.id, chain.joinToString("/"), rest.joinToString("/")))
+                status(tr("Ошибки ${mod.name}: способ выбранной марки не сработал, стандартный…", "Codes: ${mod.name}: the picked make's way didn't work, the standard one…"))
+                val again = udsReader.read(mod, rest)
+                used += rest
+                val picked = UdsDtcReader.title(chain.toSet())
+                r = if (again.codes.isNotEmpty() || again.complete) {
+                    otherWay += mod
+                    session?.note("DTC %s: answered the standard way (%s) — the picked make may be wrong".format(mod.id, again.result))
+                    again.copy(result = again.result + tr(". Способом выбранной марки ($picked) блок не ответил — прочитано стандартным",
+                        ". The block didn't answer the picked make's way ($picked) — read the standard way"))
+                } else again.copy(result = r.result + "; " + tr("стандартные способы: ", "standard ways: ") + again.result)
+            }
+            return r
+        }
+
+        /** "GM: ошибки всех блоков (\$A9 81 5A)" — the report's title for what [used] says. */
+        fun title(prefix: String): String = if (used == setOf("gm_a9")) tr("$prefix: ошибки всех блоков (\$A9 81 %02X)", "$prefix: DTCs of all modules (\$A9 81 %02X)").format(GmDtcReader.MASK)
+            else tr("$prefix: ошибки всех блоков (${UdsDtcReader.title(used)})", "$prefix: DTCs of all modules (${UdsDtcReader.title(used)})")
+    }
+
+    /** A module report section's body: each module, its result and codes (the lines the session tools read). */
+    private fun moduleReport(out: List<GmDtcResult>): String = out.joinToString("\n\n") { r ->
+        "${r.module.name} [${r.module.id}] — ${r.result}" + r.codes.joinToString("") { c ->
+            tr("\n  %s  статус %02X (%s)  %s", "\n  %s  status %02X (%s)  %s").format(c.full, c.status, c.flags, c.description)
+        }
+    }
+
     private suspend fun readModuleDtcs(o: Obd, status: (String) -> Unit) {
         var modules = _scan.value.modules
         // K-line: the modules are known from the OBD answers, identification is a few seconds — always fresh.
@@ -1844,57 +2115,48 @@ class CarLink(
             status(tr("Модули не найдены", "No modules found"))
             return
         }
-        val gmReader = GmDtcReader(o) { session?.note(it) }
-        val udsReader = UdsDtcReader(o) { session?.note(it) }
+        val reader = ModuleReader(o, status)
         val out = mutableListOf<GmDtcResult>()
-        val used = mutableSetOf<String>()
-        // Modules that didn't answer the hand-picked make's way but did a standard one: the pick may be wrong.
-        val otherWay = mutableListOf<GmModule>()
         for ((i, mod) in modules.withIndex()) {
             status(tr("Ошибки ${mod.name} (${i + 1} из ${modules.size})…", "Codes: ${mod.name} (${i + 1} of ${modules.size})…"))
-            val d = dialectOf(mod.req)
-            val tp = Tp20.isTp(mod.req)
-            // GMLAN \$A9 needs CAN (raw UUDT frames); on K-line the block gets the standard ways. TP 2.0 — KWP2000.
-            val chain = if (tp) listOf("kwp18") else d.dtc.filter { it != "gm_a9" || !o.kline }.ifEmpty { Dialect.GENERIC.dtc }
-            // A make only picked by hand may be the wrong one: its ways first, then the standard ones.
-            val guess = !tp && _vehicle.value.makeByPick && _vehicle.value.car?.knownBlocks?.containsKey(mod.req) != true
-            session?.note("DTC %s: dialect %s (%s), %s%s".format(mod.id, d.id, dialectSource(mod.req), chain.joinToString(" → "),
-                if (guess) ", then the standard ways if refused" else ""))
-            used += chain.first().takeIf { it == "gm_a9" }?.let { listOf(it) } ?: chain
-            var r = if (chain.first() == "gm_a9") gmReader.read(mod) else udsReader.read(mod, chain, vagNumbers = tp || d.dtcFormat == "vag")
-            val rest = Dialect.GENERIC.dtc.filter { it !in chain }
-            // Nothing read (refused or silent, no end-of-list): the block may talk another make's way.
-            if (guess && r.codes.isEmpty() && !r.complete && rest.isNotEmpty()) {
-                session?.note("DTC %s: %s gave nothing — trying %s".format(mod.id, chain.joinToString("/"), rest.joinToString("/")))
-                status(tr("Ошибки ${mod.name}: способ выбранной марки не сработал, стандартный…", "Codes: ${mod.name}: the picked make's way didn't work, the standard one…"))
-                val again = udsReader.read(mod, rest)
-                used += rest
-                val picked = UdsDtcReader.title(chain.toSet())
-                r = if (again.codes.isNotEmpty() || again.complete) {
-                    otherWay += mod
-                    session?.note("DTC %s: answered the standard way (%s) — the picked make may be wrong".format(mod.id, again.result))
-                    again.copy(result = again.result + tr(". Способом выбранной марки ($picked) блок не ответил — прочитано стандартным",
-                        ". The block didn't answer the picked make's way ($picked) — read the standard way"))
-                } else again.copy(result = r.result + "; " + tr("стандартные способы: ", "standard ways: ") + again.result)
-            }
-            out += r
+            out += reader.read(mod)
             _vehicle.update { it.copy(gmDtcs = out.toList()) }
         }
-        val gm = used == setOf("gm_a9")
         o.broadcast()
-        val total = out.sumOf { it.codes.size }
-        val summary = tr("Блоков: ${out.size}, кодов: $total", "Modules: ${out.size}, codes: $total") + if (otherWay.isEmpty()) "" else tr(
-            ". Марка выбрана вручную, но ${otherWay.joinToString { it.id }} ответили только стандартным способом — проверьте марку («Связь» → «Выбрать»)",
-            ". The make is picked by hand, but ${otherWay.joinToString { it.id }} answered only the standard way — check the make (Connect → Pick)")
-        if (otherWay.isNotEmpty()) session?.note("picked make doubtful: ${otherWay.joinToString { it.id }} answered only the standard way")
-        _vehicle.update { it.copy(gmDtcs = out, gmDtcTime = clock(), gmDtcStatus = summary) }
-        val title = if (gm) tr("GM: ошибки всех блоков (\$A9 81 %02X)", "GM: DTCs of all modules (\$A9 81 %02X)").format(GmDtcReader.MASK)
-            else tr("${if (o.kline) "K-line" else addressing().tag}: ошибки всех блоков (${UdsDtcReader.title(used)})", "${addressing().tag}: DTCs of all modules (${UdsDtcReader.title(used)})")
-        session?.report(title, out.joinToString("\n\n") { r ->
-            "${r.module.name} [${r.module.id}] — ${r.result}" + r.codes.joinToString("") { c ->
-                tr("\n  %s  статус %02X (%s)  %s", "\n  %s  status %02X (%s)  %s").format(c.full, c.status, c.flags, c.description)
+        val tag = if (o.kline) "K-line" else addressing().tag
+        if (reader.otherWay.isNotEmpty()) session?.note("picked make doubtful: ${reader.otherWay.joinToString { it.id }} answered only the standard way")
+        session?.report(reader.title(tag), moduleReport(out))
+        // The other buses the adapter reaches: their modules found once (then kept for the car), their codes with the rest.
+        val unreachable = mutableListOf<String>()
+        for (bus in buses(o)) {
+            if (store.getInt(busKey(bus), 0) == 2) {
+                unreachable += bus.pins
+                continue
             }
-        })
+            val saved = savedBusModules(bus)
+            if (saved != null && saved.isEmpty()) continue
+            status(tr("${bus.title()}: переключение…", "${bus.title()}: switching…"))
+            val busReader = ModuleReader(o, status)
+            val got = onBus(o, bus) {
+                val mods = saved?.map { busNamed(it, modules) } ?: findBusModules(o, bus, modules, status).also { saveBusModules(bus, it) }
+                _scan.update { s -> s.copy(sw = (s.sw ?: SwCanState()).copy(modules = mods)) }
+                val res = mutableListOf<GmDtcResult>()
+                val ask = mods.filter { alsoOnMain(it, modules) == null }
+                for ((i, mod) in ask.withIndex()) {
+                    status(tr("${bus.title()}: ошибки ${mod.name} (${i + 1} из ${ask.size})…", "${bus.title()}: codes of ${mod.name} (${i + 1} of ${ask.size})…"))
+                    res += busReader.read(mod)
+                    _vehicle.update { it.copy(gmDtcs = out + res) }
+                }
+                val twins = mods.filter { alsoOnMain(it, modules) != null }
+                session?.report(busReader.title("$tag ${bus.tag}"), (listOf(moduleReport(res)) + twins.map { m ->
+                    tr("${m.name} [${m.id}] — его ошибки читаются на основной шине", "${m.name} [${m.id}] — its codes are read on the main bus")
+                }).filter { it.isNotEmpty() }.joinToString("\n\n").ifEmpty { tr("нет блоков", "no modules") })
+                res
+            }
+            if (got == null) unreachable += bus.pins else out += got
+        }
+        _vehicle.update { it.copy(gmDtcs = out.toList(), gmDtcTime = clock(), gmDtcStatus = summary(out, reader.otherWay), busesOut = unreachable) }
+        rememberCodes(out)
     }
 
     /** Watches every hit that carries data (at most [MAX_WATCHED], so polling keeps its pace); empty list clears. */
@@ -1940,6 +2202,10 @@ class CarLink(
         private val BATCHES = listOf(6, 3)
         private const val EXT_PER_CYCLE = 5
         private const val FUEL_WATCH = "fuel_watch"
+        private const val MAIN_PINS = "main_pins"
+        private const val MAIN_HIDDEN = "main_hidden"
+        /** «Ошибки» while a check was stopped halfway. */
+        val STOPPED = tr("Проверка остановлена, показано прочитанное до остановки", "The check was stopped: what was read before is shown")
         /** Requests in a row a module may leave unanswered before the probe skips it. */
         private const val SILENT_SKIP = 3
         /** At most this many manufacturer requests are probed on connect. */

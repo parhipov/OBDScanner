@@ -3,8 +3,10 @@ package com.obdscanner.ui
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +37,7 @@ import androidx.core.content.FileProvider
 import com.obdscanner.obd.Reading
 import com.obdscanner.screen.Level
 import com.obdscanner.screen.rowSub
-import com.obdscanner.screen.tileRange
+import com.obdscanner.screen.tileSpan
 import com.obdscanner.screen.trimLevel
 import com.obdscanner.tr
 import java.io.File
@@ -59,34 +61,39 @@ fun AppTheme(content: @Composable () -> Unit) {
     )
 }
 
-/** Big dashboard tile. [note] replaces the min/max line (e.g. to mark a sample value). */
+/**
+ * Dashboard tile, narrow enough for three in a row on a phone. [note] replaces the min…max line (e.g. to mark a sample
+ * value); [onLongClick] — a long press.
+ */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ValueTile(label: String, r: Reading?, modifier: Modifier = Modifier, color: Color? = null, container: Color? = null,
-              note: String? = null, onClick: () -> Unit = {}) {
+              note: String? = null, onClick: () -> Unit = {}, onLongClick: (() -> Unit)? = null) {
     Card(
-        onClick = onClick,
-        modifier = modifier.padding(4.dp),
+        modifier = modifier.padding(4.dp).then(if (onLongClick != null) Modifier.combinedClickable(onClick = onClick, onLongClick = onLongClick)
+            else Modifier.clickable(onClick = onClick)),
         colors = CardDefaults.cardColors(containerColor = container ?: MaterialTheme.colorScheme.surfaceVariant),
     ) {
-        Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
+        Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp)) {
             Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary,
                 maxLines = 1, overflow = TextOverflow.Ellipsis)
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     r?.display() ?: "—",
-                    fontSize = if ((r?.display()?.length ?: 1) > 8) 18.sp else 30.sp,
+                    fontSize = if ((r?.display()?.length ?: 1) > 6) 15.sp else 22.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = color ?: MaterialTheme.colorScheme.onSurface,
                     maxLines = 2,
                 )
                 if (r?.value != null && r.unit.isNotEmpty()) {
-                    Spacer(Modifier.width(4.dp))
-                    Text(r.unit, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 5.dp))
+                    Spacer(Modifier.width(3.dp))
+                    Text(r.unit, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(bottom = 3.dp))
                 }
             }
-            // Always reserve the min/max line so tiles in a grid row keep the same height.
-            val range = note ?: r?.tileRange() ?: " "
-            Text(range, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline, maxLines = 1)
+            // Always reserve the min…max line so tiles in a grid row keep the same height.
+            val range = note ?: r?.tileSpan() ?: " "
+            Text(range, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
 }

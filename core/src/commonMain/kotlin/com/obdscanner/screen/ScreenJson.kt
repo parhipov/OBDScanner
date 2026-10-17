@@ -32,6 +32,14 @@ object ScreenJson {
                 }
             }
         }
+        arr("bottom") { v.bottom.forEach { b -> raw(block(b)) } }
+        str("remove", MainScreen.REMOVE)
+    }
+
+    /** The question before «Стереть ошибки в блоках»: the modules (key, label, codes, ticked) and the texts. */
+    fun clearModules(c: CodesScreen.ClearModulesView): String = obj {
+        str("title", c.title); str("text", c.text); str("yes", c.yes); str("no", c.no)
+        arr("items") { for (i in c.items) obj { str("key", i.key); str("label", i.label); num("count", i.count.toDouble()); bool("checked", i.checked) } }
     }
 
     fun blocks(list: List<Block>): String = arr { list.forEach { raw(block(it)) } }
@@ -152,7 +160,9 @@ object ScreenJson {
                 val r = b.reading
                 str("t", "row"); str("name", r.name); str("value", r.display()); str("unit", if (r.value != null) r.unit else "")
                 str("sub", r.rowSub()); level(b.level)
+                b.pin?.let { bool("pin", it); str("pinKey", r.key) }
             }
+            is Block.Fold -> { str("t", "fold"); str("id", b.id); str("text", b.text); bool("open", b.open); str("count", b.count) }
             is Block.Bank -> {
                 str("t", "bank"); str("title", b.title)
                 arr("cells") {

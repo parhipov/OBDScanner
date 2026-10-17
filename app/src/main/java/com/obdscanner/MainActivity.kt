@@ -149,10 +149,10 @@ private fun AppRoot(m: ObdManager) {
             when (tab) {
                 Tab.Connect -> ConnectScreen(m, conn, vehicle, picked) { tab = Tab.Guide }
                 Tab.Guide -> GuideScreen(m, vehicle, picked)
-                Tab.Main -> MainScreen(readings, vehicle, fuelWatch) { tab = it }
+                Tab.Main -> MainScreen(m, readings, vehicle, fuelWatch) { tab = it }
                 Tab.Fuel -> FuelScreen(m, readings, vehicle)
-                Tab.All -> AllScreen(readings, vehicle)
-                Tab.Dtc -> DtcScreen(m, vehicle, busy)
+                Tab.All -> AllScreen(m, readings, vehicle)
+                Tab.Dtc -> DtcScreen(m, readings, vehicle, busy)
                 Tab.Info -> InfoScreen(m, vehicle, busy)
                 Tab.Gm -> GmScreen(m, scan, bus, readings, busy, conn is ConnState.Connected)
                 Tab.Sessions -> SessionsScreen(m)

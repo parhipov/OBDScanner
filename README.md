@@ -28,9 +28,9 @@
 - **The chassis, by the phone's own sensors.** Shock absorbers, wheel balance and tyres, brake discs, wheel bearings, driveshaft, engine mounts, torque converter — from the accelerometer and gyroscope. The phone doesn't need a mount: it can lie on the seat.
 - **Caught a slide?** If the car stepped out on the drive, the report shows it: when, by how many degrees, how much throttle, whether the wheels spun and how it was caught — from the phone's sensors and the OBD speed, no extra hardware.
 - **How's the fuel?** One checkbox, and knock retard is read every cycle: where it happened (rpm × load), how often under heavy load, how strong. Fill up somewhere else, drive the same road, compare.
-- **More than standard OBD-II.** Manufacturer parameters and the trouble codes of every module the car lets an ELM327 reach: GM ($22, $A9, GMLAN), Toyota ($21), Volkswagen up to ~2012 behind the gateway (VW TP 2.0), UDS and KWP modules of other makes.
+- **More than standard OBD-II.** Manufacturer parameters and the trouble codes of every module the car lets an ELM327 reach: GM ($22, $A9, GMLAN; with an adapter that knows OBDLink's commands, also the modules on the single-wire bus, pin 1), Toyota ($21), Volkswagen up to ~2012 behind the gateway (VW TP 2.0), UDS and KWP modules of other makes.
 - **Knows your car.** 43 makes by VIN, 260+ models and generations: where the connector is, which protocol, which modules and parameters. Over 6,000 manufacturer parameters (most from the open [OBDb](https://github.com/OBDb) project, marked «(?)» until a car confirms them) and almost 12,000 trouble codes explained.
-- **Reads, doesn't write.** The only thing it changes in the car is clearing trouble codes — when you ask and confirm. The app goes online for one thing: checking GitHub for a new version, and that can be turned off.
+- **Reads, doesn't write.** The only thing it changes in the car is clearing trouble codes (Check Engine and, with a button of its own, the modules' memory) — when you ask and confirm. The app goes online for one thing: checking GitHub for a new version, and that can be turned off.
 
 ## The app
 

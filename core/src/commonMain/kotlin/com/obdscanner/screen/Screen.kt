@@ -15,8 +15,11 @@ import kotlin.math.abs
 /** How a value or a line is coloured; each front has its palette (green / amber / red / grey). */
 enum class Level { GOOD, WARN, BAD, MUTED }
 
-/** A button's job; the front runs it (ObdManager on the phone). */
-enum class Action { READ_DTC, CLEAR_DTC, READ_ALL_MODULES, RESCAN, MODE06, LICENSES, TERMS, FORGET }
+/**
+ * A button's job; the front runs it (ObdManager on the phone). CLEAR_DTC, CLEAR_MODULES and FORGET ask first; COPY_DTC
+ * puts [CodesScreen.text] on the clipboard; STOP stops the operation running.
+ */
+enum class Action { READ_DTC, CLEAR_DTC, READ_ALL_MODULES, CLEAR_MODULES, COPY_DTC, STOP, RESCAN, MODE06, RESTORE_MAIN, LICENSES, TERMS, FORGET }
 
 /**
  * A trouble code that opens its help on a tap ([DtcHelp]). [ftb] — failure type byte (GM \$A9 symptom /
@@ -61,8 +64,17 @@ sealed class Block(val key: String) {
         val level: Level? = null, val dtc: DtcRef? = null, val divider: Boolean = false, val doc: String? = null,
     ) : Block(key)
 
-    /** A live value as a row: under the name its source and the session's min…max. */
-    class Value(key: String, val reading: Reading, val level: Level? = null) : Block(key)
+    /**
+     * A live value as a row: under the name its source and the session's min…max; [pin] — the ☆ that puts it on Main
+     * (true — it is there), null — no ☆.
+     */
+    class Value(key: String, val reading: Reading, val level: Level? = null, val pin: Boolean? = null) : Block(key)
+
+    /**
+     * A heading that opens and closes what follows it: [id] is what the front sends back on a tap ([Blocks.fold]),
+     * [count] — beside the heading (how many values or codes are under it).
+     */
+    class Fold(key: String, val id: String, val text: String, val open: Boolean, val count: String? = null) : Block(key)
 
     /** A fuel trim bank: short, long and total ([trimLevel] colours them), the total as a bar around zero. */
     class Bank(key: String, val title: String, val short: Reading?, val long: Reading?, val total: Reading?, val longRange: String?) : Block(key) {
@@ -103,7 +115,17 @@ class Blocks {
     fun row(name: String, value: String, unit: String = "", sub: String? = null, level: Level? = null, dtc: DtcRef? = null, divider: Boolean = false, key: String? = null, doc: String? = null) {
         out += Block.Row(key(key ?: "r:$name"), name, value, unit, sub, level, dtc, divider, doc)
     }
-    fun value(r: Reading, level: Level? = null) { out += Block.Value(key("v:${r.key}"), r, level) }
+    fun value(r: Reading, level: Level? = null, pin: Boolean? = null) { out += Block.Value(key("v:${r.key}"), r, level, pin) }
+
+    /**
+     * A [Block.Fold]: open when [open] by default and not [toggled] by the user, or closed by default and toggled.
+     * Returns whether it is open — the caller adds what is under it only then.
+     */
+    fun fold(id: String, text: String, open: Boolean, toggled: Set<String>, count: String? = null): Boolean {
+        val now = open != (id in toggled)
+        out += Block.Fold(key("f:$id"), id, text, now, count)
+        return now
+    }
     fun bank(title: String, short: Reading?, long: Reading?, total: Reading?, longRange: String?) { out += Block.Bank(key("bank:$title"), title, short, long, total, longRange) }
     fun misfires(cylinders: List<Cylinder>) { out += Block.Misfires(key("misfires"), cylinders) }
     fun table(name: String, header: List<String>, rows: List<TableRow>) { out += Block.Table(key("table:$name"), header, rows) }
@@ -126,6 +148,13 @@ fun Reading.tileRange(): String {
     val hi = max
     return if (value != null && lo != null && hi != null && lo != hi)
         tr("мин ${Reading.fmt(lo, decimals)} · макс ${Reading.fmt(hi, decimals)}", "min ${Reading.fmt(lo, decimals)} · max ${Reading.fmt(hi, decimals)}") else " "
+}
+
+/** [tileRange] for a narrow tile (three in a row on a phone): "690…3200"; " " until the value has moved. */
+fun Reading.tileSpan(): String {
+    val lo = min
+    val hi = max
+    return if (value != null && lo != null && hi != null && lo != hi) "${Reading.fmt(lo, decimals)}…${Reading.fmt(hi, decimals)}" else " "
 }
 
 /** Fuel trim colour: within ±8 % fine, ±15 % worth a look, beyond that wrong. */

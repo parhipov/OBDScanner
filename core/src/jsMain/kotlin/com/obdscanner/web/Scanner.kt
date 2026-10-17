@@ -19,6 +19,7 @@ import com.obdscanner.elm.Elm327
 import com.obdscanner.elm.Obd
 import com.obdscanner.obd.DtcDb
 import com.obdscanner.obd.DtcKind
+import com.obdscanner.obd.pick
 import com.obdscanner.screen.Action
 import com.obdscanner.screen.AboutScreen
 import com.obdscanner.screen.AllScreen
@@ -67,6 +68,11 @@ class Scanner(appVersion: String) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val conn = MutableStateFlow<ConnState>(ConnState.Idle)
     private val busy = MutableStateFlow<String?>(null)
+    /** The operation running can be stopped: a button's or the module check after connecting, not the discovery. */
+    private val canStop = MutableStateFlow(false)
+    /** The headings opened or closed on the screens ([com.obdscanner.screen.Blocks.fold]) and «Все данные»'s search. */
+    private val folds = MutableStateFlow<Set<String>>(emptySet())
+    private val filter = MutableStateFlow("")
     private var tab = Tab.Main
     private var listener: (() -> Unit)? = null
     private var dirty = false
@@ -90,7 +96,8 @@ class Scanner(appVersion: String) {
 
     init {
         AppInfo.versionName = appVersion
-        for (f in listOf(link.readings, link.vehicle, link.scan, link.bus, link.fuelWatch, conn, busy, picked)) scope.launch { f.collect { dirty = true } }
+        for (f in listOf(link.readings, link.vehicle, link.scan, link.bus, link.fuelWatch, link.pins, link.hidden, conn, busy, canStop, folds, filter, picked))
+            scope.launch { f.collect { dirty = true } }
         // At most five redraws a second, whatever the poll rate.
         scope.launch {
             while (true) {
@@ -167,11 +174,39 @@ class Scanner(appVersion: String) {
         device?.let { parts += "\"device\":${quote(it)}" }
         text?.let { parts += "\"text\":${quote(it)}" }
         busy.value?.let { parts += "\"busy\":${quote(it)}" }
+        if (canStop.value) parts += "\"stop\":true"
         session?.let { parts += "\"session\":${quote(it.name)}" }
         return "{" + parts.joinToString(",") + "}"
     }
 
-    fun main(): String = ScreenJson.main(MainScreen.build(link.readings.value, link.vehicle.value, link.fuelWatch.value))
+    fun main(): String = ScreenJson.main(MainScreen.build(link.readings.value, link.vehicle.value, link.fuelWatch.value, link.pins.value, link.hidden.value))
+
+    /** ☆ on «Все данные»: the value onto Main or off it (its reading key), kept in localStorage. */
+    fun togglePin(key: String) = link.togglePin(key)
+
+    /** «Убрать с главной» in a card's help. */
+    fun hideTile(key: String) = link.hideTile(key)
+
+    /** A heading of a screen tapped ([com.obdscanner.screen.Block.Fold]'s id). */
+    fun toggleFold(id: String) {
+        folds.value = folds.value.let { if (id in it) it - id else it + id }
+    }
+
+    /** «Все данные»'s search. */
+    fun setFilter(text: String) {
+        filter.value = text
+    }
+
+    private fun mil(): Boolean? = link.readings.value.pick("01.01.MIL")?.value?.let { it == 1.0 }
+
+    /** The question before «Стереть ошибки в блоках» as JSON ([ScreenJson.clearModules]). */
+    fun clearModulesQuestion(): String = ScreenJson.clearModules(CodesScreen.clearModules(link.vehicle.value))
+
+    /** «Стереть ошибки в блоках», after the page asked: the modules ticked. */
+    fun clearModules(keys: Array<String>) = launchOp(tr("Стирание ошибок в блоках", "Clearing module codes")) { link.clearModules(it, keys.toList()) }
+
+    /** «Скопировать список»: the codes as text. */
+    fun codesText(): String = CodesScreen.text(link.vehicle.value, mil())
 
     /** The «Как бензин?» checkbox on the first screen, kept in localStorage; it also adds its section to the report. */
     val fuelWatch: Boolean get() = link.fuelWatch.value
@@ -187,9 +222,9 @@ class Scanner(appVersion: String) {
         val v = link.vehicle.value
         return ScreenJson.blocks(when (name) {
             "Fuel" -> FuelScreen.build(r, v)
-            "All" -> AllScreen.build(r, v)
-            "Dtc" -> CodesScreen.build(v, busy.value, link.scan.value.sw)
-            "Info" -> InfoScreen.build(v)
+            "All" -> AllScreen.build(r, v, link.moduleNames(), link.pins.value, filter.value, folds.value)
+            "Dtc" -> CodesScreen.build(v, busy.value, canStop.value, mil(), folds.value)
+            "Info" -> InfoScreen.build(v, link.scan.value.let { it.modules + it.sw?.modules.orEmpty() }, folds.value)
             "About" -> AboutScreen.build()
             else -> emptyList()
         })
@@ -288,18 +323,20 @@ class Scanner(appVersion: String) {
     /** "Support the project" ([Support]): label, text, link (empty — no line), open, close. */
     fun support(): Array<String> = arrayOf(Support.LABEL, Support.TEXT, Support.URL, Support.OPEN, DtcHelpView.CLOSE)
 
-    /** A screen's button ("READ_DTC", "CLEAR_DTC" — after the page asked —, "READ_ALL_MODULES", "RESCAN", "MODE06"). */
+    /** A screen's button ("READ_DTC", "CLEAR_DTC" — after the page asked —, "READ_ALL_MODULES", "RESCAN", "MODE06", "STOP"…). */
     fun action(name: String) {
         when (Action.entries.firstOrNull { it.name == name }) {
-            Action.READ_DTC -> launchOp(tr("Чтение ошибок", "Reading codes")) { link.refreshDtc(it) }
+            Action.READ_DTC -> launchOp(tr("Проверка ошибок", "Checking codes")) { link.checkCodes(it) }
             Action.CLEAR_DTC -> launchOp(tr("Сброс ошибок", "Clearing codes")) { link.clearDtc(it) }
             Action.READ_ALL_MODULES -> launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.readAllModulesDtc(it) }
             Action.RESCAN -> launchOp(tr("Повторный опрос", "Rescan")) { link.rediscover(it) }
             Action.MODE06 -> launchOp("Mode 06") { link.refreshMode06(it) }
             // After the page asked (forgetQuestion); the adapter isn't needed.
             Action.FORGET -> link.forgetCar()
-            // The page opens its own screen.
-            Action.LICENSES, Action.TERMS, null -> {}
+            Action.STOP -> stopOp()
+            Action.RESTORE_MAIN -> link.restoreMain()
+            // The page opens its own screen, asks (clearModulesQuestion) or copies (codesText).
+            Action.LICENSES, Action.TERMS, Action.CLEAR_MODULES, Action.COPY_DTC, null -> {}
         }
     }
 
@@ -370,9 +407,19 @@ class Scanner(appVersion: String) {
                 obd = o
                 o.onAdapterReset = { link.adapterReset(o) }
                 conn.value = ConnState.Connected(name)
-                link.opMutex.withLock { link.discover(o) }
+                // Busy while the car is asked: the buttons wait instead of queueing behind it.
+                busy.value = tr("Опрос машины", "Scanning the car")
+                try {
+                    link.opMutex.withLock { link.discover(o) }
+                } finally {
+                    busy.value = null
+                }
                 if (!o.canTarget) s.note("${if (o.can29) "29-bit CAN" else "ISO 9141-2"}: standard OBD only, module search and DTCs of all modules skipped")
-                else link.opMutex.withLock { link.autoModules(o) }
+                else {
+                    // Every module's codes, by itself: an operation like the button's, shown and with «Стоп»; polling after it.
+                    launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.autoModules(it) }
+                    opJob?.join()
+                }
                 link.pollLoop(o)
             } catch (e: CancellationException) {
                 s.note("disconnect requested")
@@ -398,6 +445,7 @@ class Scanner(appVersion: String) {
         if (opJob?.isActive == true) return
         opJob = scope.launch {
             busy.value = title
+            canStop.value = true
             try {
                 link.opMutex.withLock {
                     try {
@@ -412,6 +460,7 @@ class Scanner(appVersion: String) {
                 session?.note("op '$title' failed: ${e.stackTraceToString()}")
             } finally {
                 busy.value = null
+                canStop.value = false
                 link.opFinished()
             }
         }

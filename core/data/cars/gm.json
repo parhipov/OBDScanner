@@ -24,6 +24,24 @@
         "rsp": "768"
       }
     ],
+    "buses": [
+      {
+        "id": "swcan",
+        "tag": "SW-CAN",
+        "pins": {
+          "ru": "контакт 1",
+          "en": "pin 1"
+        },
+        "protocol": "63",
+        "addresses": [
+          {
+            "req": "240-25F",
+            "rsp": "+400"
+          }
+        ],
+        "functional": true
+      }
+    ],
     "probes": [
       "1A90",
       "22F190",

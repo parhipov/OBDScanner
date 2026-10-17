@@ -14,8 +14,12 @@ data class GmModule(
      * give another, more common one (an owner checked two modules, issue #1).
      */
     val partNumber: Long? = null,
+    /** The bus it is on when not the main one ([com.obdscanner.car.ExtraBus.id]); null — the main bus. */
+    val bus: String? = null,
 ) {
     val id get() = Tp20.label(req)
+    /** Unique over the buses: a request id may be taken on both ("swcan/24B"). */
+    val key get() = bus?.let { "$it/$id" } ?: id
 }
 
 /** A DID that answered positively during a scan. */

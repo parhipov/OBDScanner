@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.obdscanner.BusState
 import com.obdscanner.ObdManager
 import com.obdscanner.ScanState
@@ -47,6 +48,7 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
     val ctx = m.scanContext()
     val range = rangeIdx.coerceIn(0, ctx.ranges.lastIndex)
     val g = GmScreen.build(s, bus, r, onlyWatched, ctx)
+    val canStop by m.canStop.collectAsStateWithLifecycle()
     fun module(id: String) = s.modules.firstOrNull { it.id == id }
     fun hit(key: String) = s.hits.firstOrNull { it.key == key }
 
@@ -55,7 +57,7 @@ fun GmScreen(m: ObdManager, s: ScanState, bus: BusState, r: Map<String, Reading>
             for (h in g.hints) Hint(h, Warn)
             Row(Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Button(onClick = { m.probeModules() }, enabled = connected && busy == null) { Text(g.find) }
-                if (busy != null) OutlinedButton(onClick = { m.stopOp() }, Modifier.padding(start = 8.dp)) { Text(g.stop) }
+                if (busy != null && canStop) OutlinedButton(onClick = { m.stopOp() }, Modifier.padding(start = 8.dp)) { Text(g.stop) }
             }
             g.scan?.let { Progress(it) }
             // GM's single-wire bus: its own button, what it found right under it.

@@ -18,8 +18,11 @@ class Tile(val label: String, val reading: Reading, val level: Level?, val sampl
 /** [note] — a line under the section's title (no cards to show and why). */
 class MainSection(val title: String, val accent: Long, val tile: Long, val tiles: List<Tile>, val note: String? = null)
 
-/** The main screen: the lines above the cards ([Block.Note] / [Block.Banner]) and the sections of cards. */
-class MainView(val offline: Boolean, val top: List<Block>, val sections: List<MainSection>)
+/**
+ * The main screen: the lines above the cards ([Block.Note] / [Block.Banner]), the sections of cards, [bottom] — what
+ * comes after them (the hidden cards back).
+ */
+class MainView(val offline: Boolean, val top: List<Block>, val sections: List<MainSection>, val bottom: List<Block> = emptyList())
 
 object MainScreen {
     val SECTIONS = listOf(
@@ -93,18 +96,17 @@ object MainScreen {
     val WATCH_HELP = tr(
         "Включайте, когда сомневаетесь в заправке.\n\n" +
             "На плохом бензине мотор чаще детонирует, и блок управления в ответ уменьшает угол зажигания. Пока галочка стоит, " +
-            "мы чаще обычного следим за этим откатом, показываем его сверху на главном экране и пишем первым разделом в отчёте.\n\n" +
-            "Сам бензин мы не измеряем, видим только откат зажигания. Он бывает и от жары, и от нагрузки в горку, так что " +
+            "приложение чаще обычного следит за этим откатом, показывает его сверху на главном экране и пишет первым разделом в отчёте.\n\n" +
+            "Сам бензин не измеряется, виден только откат зажигания. Он бывает и от жары, и от нагрузки в горку, так что " +
             "сравнивайте поездки в похожих условиях.\n\n" +
-            "Бывает, что машина не отдаёт эти данные или старый адаптер не успевает — тогда секция останется пустой. " +
-            "Уж простите, сделали что смогли.\n\n" +
+            "Бывает, что машина не отдаёт эти данные или старый адаптер не успевает — тогда секция останется пустой.\n\n" +
             "Выключите — всё станет как раньше.",
         "Turn it on when you doubt the last fill-up.\n\n" +
             "On bad fuel the engine knocks more often, and the engine computer answers by pulling the ignition timing back. While " +
-            "this is ticked we watch that retard more often than usual, show it at the top of the main screen and put it first in the report.\n\n" +
-            "We don't measure the fuel itself, only the ignition retard. Heat and climbing a hill under load cause it too, so " +
+            "this is ticked the app watches that retard more often than usual, shows it at the top of the main screen and puts it first in the report.\n\n" +
+            "The fuel itself isn't measured, only the ignition retard. Heat and climbing a hill under load cause it too, so " +
             "compare trips made in similar conditions.\n\n" +
-            "Some cars don't give this data, or an old adapter can't keep up — then the section stays empty. Sorry, we did what we could.\n\n" +
+            "Some cars don't give this data, or an old adapter can't keep up — then the section stays empty.\n\n" +
             "Untick it and everything is as before.",
     )
 
@@ -120,7 +122,13 @@ object MainScreen {
         "01.0F" to tr("Воздух на впуске", "Intake air"),
     ))
 
-    fun build(readings: Map<String, Reading>, v: VehicleInfo, watch: Boolean = false): MainView {
+    /** «Избранное»: the values put on Main from «Все данные», first. */
+    val PINNED = tr("Избранное", "Favourites")
+    /** In a card's help: off Main (a pinned one unpinned, one of Main's own hidden). */
+    val REMOVE = tr("Убрать с главной", "Remove from Main")
+
+    /** [pins] — reading keys put on Main from «Все данные», [hidden] — Main's own cards taken off it. */
+    fun build(readings: Map<String, Reading>, v: VehicleInfo, watch: Boolean = false, pins: List<String> = emptyList(), hidden: Set<String> = emptySet()): MainView {
         // Before the first value arrives (no connection yet) show every card empty, so the help can be read offline.
         val offline = readings.isEmpty()
         val r = if (watch && !offline) readings + misfires(readings, v) else readings
@@ -136,22 +144,25 @@ object MainScreen {
                     k.contains(':') -> r[k]
                     else -> r.pick(k)
                 }
-                reading?.let { label to it }
+                reading?.takeIf { it.key !in hidden && it.key !in pins }?.let { label to it }
             }.distinctBy { it.second.key }
         }.filter { it.second.isNotEmpty() || it.first === WATCH }
+        val pinned = if (offline) emptyList() else pins.mapNotNull { r[it] }.map { it.name to it }
         val top = Blocks()
+        // What the app is doing right now (finding the modules, reading their codes): above everything, it can take a minute.
+        if (!offline && v.step.isNotEmpty()) top.banner(tr("Опрос машины: ${v.step}", "Scanning the car: ${v.step}"), Level.GOOD, Tab.Dtc)
         when {
             offline -> top.note(tr("Нет данных — подключитесь к адаптеру на вкладке «Связь». Нажмите на карточку, чтобы прочитать, что это за параметр.",
                 "No data — connect to the adapter on the \"Connect\" tab. Tap a card to read what it shows."))
             mil == 1.0 -> top.banner(tr("Check Engine горит · ошибок в памяти: ${dtcCount ?: "?"} — см. вкладку «Ошибки»",
                 "Check Engine is on · stored codes: ${dtcCount ?: "?"} — see the \"Codes\" tab"), Level.BAD, Tab.Dtc)
-            (dtcCount ?: 0) > 0 || v.dtcs.isNotEmpty() -> top.banner(tr("Есть коды ошибок: ${v.dtcs.size} — см. вкладку «Ошибки»",
+            gmCodes.isEmpty() && ((dtcCount ?: 0) > 0 || v.dtcs.isNotEmpty()) -> top.banner(tr("Есть коды ошибок: ${v.dtcs.size} — см. вкладку «Ошибки»",
                 "Trouble codes: ${v.dtcs.size} — see the \"Codes\" tab"), Level.WARN, Tab.Dtc)
-            v.step.isNotEmpty() -> top.banner(tr("Опрос автомобиля: ${v.step}", "Scanning the car: ${v.step}"), Level.GOOD)
         }
         if (gmCodes.isNotEmpty()) {
             val active = gmCodes.count { it.current }
-            top.banner(tr("Ошибки всех блоков: ${gmCodes.size}", "Codes in all modules: ${gmCodes.size}") +
+            val modules = v.gmDtcs.count { it.codes.isNotEmpty() }
+            top.banner(tr("Ошибки в блоках: ${gmCodes.size} (блоков: $modules)", "Codes in the modules: ${gmCodes.size} ($modules modules)") +
                 (if (active > 0) tr(", активных $active", ", $active active") else "") + tr(" — см. вкладку «Ошибки»", " — see the \"Codes\" tab"),
                 if (active > 0) Level.BAD else Level.WARN, Tab.Dtc)
         }
@@ -162,12 +173,18 @@ object MainScreen {
         val gm = (v.car?.family ?: v.make.id) == "gm"
         val noKnock = !offline && v.step.isEmpty() && knock == null && v.extActive.none { Knock.isKnock(it, gm) && it.key !in v.knockRejected }
         val sample = tr("пример · нет связи", "sample · offline")
-        return MainView(offline, top.build(), sections.map { (s, tiles) ->
+        val bottom = Blocks()
+        if (!offline && hidden.isNotEmpty()) bottom.buttons(listOf(Button(Action.RESTORE_MAIN,
+            tr("Вернуть скрытые карточки (${hidden.size})", "Bring back the hidden cards (${hidden.size})"), whileBusy = true)))
+        val own = sections.map { (s, tiles) ->
             MainSection(s.title, s.accent, s.tile, tiles.map { (label, reading) ->
                 if (offline) Tile(label, reading, Level.MUTED, true, sample) else Tile(label, reading, tileLevel(reading), false, tileNote(reading))
-            }, if (s === WATCH && noKnock) tr("Машина не отдаёт откат по детонации, или мы не знаем, где его взять. Остались опережение и пропуски.",
-                "The car doesn't give knock retard, or we don't know where to find it. Timing advance and misfires are left.") else null)
-        })
+            }, if (s === WATCH && noKnock) tr("Машина не отдаёт откат по детонации. Остались опережение и пропуски.",
+                "The car doesn't give knock retard. Timing advance and misfires are left.") else null)
+        }
+        val fav = if (pinned.isEmpty()) emptyList() else listOf(MainSection(PINNED, 0xFFFF8FB1, 0xFF2E1824,
+            pinned.map { (label, reading) -> Tile(label, reading, tileLevel(reading), false, tileNote(reading)) }))
+        return MainView(offline, top.build(), fav + own, bottom.build())
     }
 
     /** «Как бензин?» misfires: Mode 06 of the cycle (any make) and the GM current ones, each summed over the cylinders. */

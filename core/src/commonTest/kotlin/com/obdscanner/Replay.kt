@@ -45,6 +45,13 @@ class ElmState {
         val c = cmd.uppercase().replace(" ", "")
         return if (c.startsWith("AT")) c else "$sp|$sh|$cra|$caf|$c"
     }
+
+    /** What [apply] changed, put back: an OBDLink command the recorded adapter never got is refused, nothing switches. */
+    fun copy() = ElmState().also { it.sp = sp; it.sh = sh; it.cra = cra; it.caf = caf }
+
+    fun restore(s: ElmState) {
+        sp = s.sp; sh = s.sh; cra = s.cra; caf = s.caf
+    }
 }
 
 /** A recorded raw.log as request → answers, in the order they were heard. */
@@ -156,9 +163,13 @@ class ReplayTransport(private val log: ReplayLog, private val clock: VirtualCloc
                 val line = cmd.toString().trim()
                 cmd.clear()
                 if (line.isEmpty()) continue
+                val before = state.copy()
                 state.apply(line)
                 val hit = log.answer(state.key(line))
-                val text = hit?.first ?: if (line.uppercase().startsWith("AT")) "OK" else "NO DATA"
+                // An OBDLink command (STP 63…) never recorded: what a plain ELM327 says to it, and it stays where it was.
+                val stn = hit == null && line.uppercase().startsWith("ST")
+                if (stn) state.restore(before)
+                val text = hit?.first ?: if (line.uppercase().startsWith("AT")) "OK" else if (stn) "?" else "NO DATA"
                 clock.now += hit?.second ?: 50
                 for (ch in text + CR + CR + ">") queue.trySend(ch.code)
             } else if (c != LF) {

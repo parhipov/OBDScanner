@@ -94,6 +94,17 @@ class ObdManager(private val context: Context) {
     private val _busy = MutableStateFlow<String?>(null)
     /** Name of the running one-off operation (DTC read, scan...), null when idle. */
     val busy: StateFlow<String?> = _busy.asStateFlow()
+    private val _canStop = MutableStateFlow(false)
+    /** The operation running can be stopped («Стоп»): a button's or the module check after connecting, not the discovery. */
+    val canStop: StateFlow<Boolean> = _canStop.asStateFlow()
+    private val _folds = MutableStateFlow<Set<String>>(emptySet())
+    /** The headings the user opened or closed ([com.obdscanner.screen.Blocks.fold]): kept while the app runs. */
+    val folds: StateFlow<Set<String>> = _folds.asStateFlow()
+
+    fun toggleFold(id: String) = _folds.update { if (id in it) it - id else it + id }
+
+    /** Busy while the connection asks the car (not stoppable). */
+    private val SCANNING = tr("Опрос машины", "Scanning the car")
     val activeTab = MutableStateFlow(Tab.Connect)
 
     private val _picked = MutableStateFlow(CarDb.choice(prefs.getString("car", null)))
@@ -123,6 +134,19 @@ class ObdManager(private val context: Context) {
     val fuelWatch: StateFlow<Boolean> get() = link.fuelWatch
 
     fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
+
+    /** Values put on Main from «Все данные» and Main's own cards taken off it, see [CarLink.pins]. */
+    val pins: StateFlow<List<String>> get() = link.pins
+    val hidden: StateFlow<Set<String>> get() = link.hidden
+
+    fun togglePin(key: String) = link.togglePin(key)
+
+    fun hideTile(key: String) = link.hideTile(key)
+
+    fun restoreMain() = link.restoreMain()
+
+    /** What «Все данные» calls the blocks. */
+    fun moduleNames() = link.moduleNames()
 
     init {
         // A session the process was killed in, or one that ended while the folder was away.
@@ -365,9 +389,19 @@ class ObdManager(private val context: Context) {
                 // defaults and protocol auto — the search that dropped the Polo's clone. Put our settings back.
                 o.onAdapterReset = { link.adapterReset(o) }
                 _conn.value = ConnState.Connected(name)
-                link.opMutex.withLock { link.discover(o) }
+                // Busy while the car is asked: the buttons wait instead of queueing behind it.
+                _busy.value = SCANNING
+                try {
+                    link.opMutex.withLock { link.discover(o) }
+                } finally {
+                    _busy.value = null
+                }
                 if (!o.canTarget) s.note("${if (o.can29) "29-bit CAN" else "ISO 9141-2"}: standard OBD only, module search and DTCs of all modules skipped")
-                else link.opMutex.withLock { link.autoModules(o) }
+                else {
+                    // Every module's codes, by itself: an operation like the button's, shown and with «Стоп»; polling after it.
+                    launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.autoModules(it) }
+                    opJob?.join()
+                }
                 link.pollLoop(o)
             } catch (e: CancellationException) {
                 s.note("disconnect requested")
@@ -397,6 +431,7 @@ class ObdManager(private val context: Context) {
         if (opJob?.isActive == true) return
         opJob = scope.launch {
             _busy.value = title
+            _canStop.value = true
             try {
                 link.opMutex.withLock {
                     try {
@@ -411,6 +446,7 @@ class ObdManager(private val context: Context) {
                 session?.note("op '$title' failed: ${e.stackTraceToString()}")
             } finally {
                 _busy.value = null
+                _canStop.value = false
                 link.opFinished()
             }
         }
@@ -418,20 +454,28 @@ class ObdManager(private val context: Context) {
 
     /** A screen's button ([com.obdscanner.screen.Block.Buttons]); the Codes screen asks before clearing. */
     fun run(a: Action) = when (a) {
-        Action.READ_DTC -> refreshDtc()
+        Action.READ_DTC -> checkCodes()
         Action.CLEAR_DTC -> clearDtc()
         Action.READ_ALL_MODULES -> readAllModulesDtc()
         Action.RESCAN -> rediscover()
         Action.MODE06 -> refreshMode06()
+        Action.STOP -> stopOp()
+        Action.RESTORE_MAIN -> restoreMain()
         // The screen asks first (Car → «Сбросить»).
         Action.FORGET -> link.forgetCar()
-        // The screen opens them (Help → Licenses, Disclaimer).
-        Action.LICENSES, Action.TERMS -> Unit
+        // The screen opens them (Help → Licenses, Disclaimer; the question before clearing the modules) or copies the list.
+        Action.LICENSES, Action.TERMS, Action.CLEAR_MODULES, Action.COPY_DTC -> Unit
     }
+
+    /** «Проверить ошибки»: the standard codes, then every module's memory. Read only. */
+    fun checkCodes() = launchOp(tr("Проверка ошибок", "Checking codes")) { link.checkCodes(it) }
 
     fun refreshDtc() = launchOp(tr("Чтение ошибок", "Reading codes")) { link.refreshDtc(it) }
 
     fun clearDtc() = launchOp(tr("Сброс ошибок", "Clearing codes")) { link.clearDtc(it) }
+
+    /** «Стереть ошибки в блоках»: the modules ticked ([com.obdscanner.gm.GmModule.key]), after the screen asked. */
+    fun clearModules(keys: Collection<String>) = launchOp(tr("Стирание ошибок в блоках", "Clearing module codes")) { link.clearModules(it, keys) }
 
     fun refreshMode06() = launchOp("Mode 06") { link.refreshMode06(it) }
 

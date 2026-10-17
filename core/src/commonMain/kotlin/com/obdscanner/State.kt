@@ -91,12 +91,20 @@ data class VehicleInfo(
     val car: CarModel? = null,
     /** Brand by the VIN ("Cadillac"), null before the VIN or when unknown. */
     val brand: String? = null,
-    /** \$A9 DTCs of every GM module found on HS-CAN. */
+    /** The full memory of every module found, on the main bus and the others the adapter reaches (GM \$A9, UDS, KWP). */
     val gmDtcs: List<GmDtcResult> = emptyList(),
     val gmDtcTime: Long = 0,
     val gmDtcStatus: String = "",
+    /** The modules' codes at this car's check before this connection: «новая» / «пропали» on «Ошибки»; null — none kept. */
+    val dtcPrev: PrevCodes? = null,
+    /** What the last clearing did ([CarLink.clearDtc], [CarLink.clearModules]): a line per module or one for Mode 04. */
+    val clearResult: List<String> = emptyList(),
+    /** Another bus the adapter can't reach on this car (its pins, «контакт 1»): one line on «Ошибки». */
+    val busesOut: List<String> = emptyList(),
     /** ISO 9141-2 / ISO 14230: standard OBD only. */
     val kline: Boolean = false,
+    /** Single modules can be asked on this connection (not ISO 9141-2, not 29-bit CAN): their memory on «Ошибки». */
+    val moduleAccess: Boolean = true,
     /** Blocks whose dialect was recognised by their answers (request id → dialect id), see [com.obdscanner.car.Dialect]. */
     val dialects: Map<Int, String> = emptyMap(),
     /** The make (and so the blocks' dialects) is only the hand pick: no VIN, no model recognised by its answers. */
@@ -115,6 +123,9 @@ data class VehicleInfo(
     /** Car database family for manufacturer trouble codes (DtcDb). */
     val dtcFamily: String? get() = car?.family ?: make.id.ifEmpty { null }
 }
+
+/** The codes a check found ([com.obdscanner.gm.GmModule.key] + code → how «Ошибки» names it), [time] — when. */
+data class PrevCodes(val time: Long, val codes: Map<String, String>)
 
 data class BusState(
     val running: Boolean = false,
@@ -136,17 +147,16 @@ data class ScanState(
     val polls: Map<String, Int> = emptyMap(),
     /** Fields saved as this car's parameters. */
     val params: List<ScanParam> = emptyList(),
-    /** GM SW-CAN (pin 1), its own button; null — not asked yet. */
+    /** GM SW-CAN (pin 1): «Блоки на SW-CAN» and «Проверить ошибки»; null — not asked yet. */
     val sw: SwCanState? = null,
 )
 
 /**
- * What «Блоки на SW-CAN» found on GM's single-wire bus: the modules and their codes. Apart from [ScanState.modules]:
- * they answer only while the adapter is switched there, so the polls and «Ошибки всех блоков» leave them out.
+ * The modules of GM's single-wire bus (pin 1). Apart from [ScanState.modules]: they answer only while the adapter is
+ * switched there, so the polls and the scans leave them out; their codes are read with the others («Ошибки»).
  */
 data class SwCanState(
     val running: Boolean = false,
     val status: String = "",
     val modules: List<GmModule> = emptyList(),
-    val dtcs: List<GmDtcResult> = emptyList(),
 )

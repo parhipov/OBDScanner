@@ -24,7 +24,7 @@
         <item>2. Wait until \"Scanning the car…\" disappears on \"Main\". The first time takes a few minutes.</item>
         <item>3. Start the engine, idle for 5–10 minutes.</item>
         <item>4. Drive 20–40 minutes: city, steady 60 and 90 km/h, accelerations, one full-throttle run.</item>
-        <item>5. At idle: \"Codes\" → \"Read\", \"Car\" → \"Mode 06\".</item>
+        <item>5. At idle: \"Codes\" → \"Check codes\", \"Car\" → \"Refresh the tests\".</item>
         <item>6. Stop the engine, tap ✕ at the top, ⇪ to send the session.</item>
         <item>Don\'t touch the phone while driving. Don\'t clear codes.</item>
     </string-array>
@@ -35,7 +35,7 @@
         <item>Starting from a cold engine is better: you see it warm up and the idle come down.</item>
         <item>The open tab is polled more often. While driving, keep \"Main\" or \"Fuel\" open. \"All data\" cycles through everything, so each value updates slowly there.</item>
         <item>If something odd happens on the road (a jerk, a stumble), note the time.</item>
-        <item>After the drive, tap \"Rescan\" on \"Car\" and \"Read all modules\" on \"Codes\": new codes and test results may show up.</item>
+        <item>After the drive, tap \"Rescan\" on \"Car\" and \"Check codes\" on \"Codes\": new codes and test results may show up.</item>
         <item>You can turn the screen off; recording goes on in the background.</item>
     </string-array>
 
@@ -77,7 +77,7 @@
 
     <string-array name="guide_safety">
         <item>Safety</item>
-        <item>The app only reads. One button can change something in the car, \"Clear\" on \"Codes\", and it asks first.</item>
+        <item>The app only reads. Two buttons on \"Codes\" can change something in the car, \"Clear\" and \"Clear module codes\", and both ask first.</item>
         <item>Clearing erases not only the codes but also the readiness monitors and the freeze frame. The codes themselves are already saved in the session by then.</item>
         <item>Run the scans in \"Module scan\" and the bus sniffing while parked: live data isn\'t read while they run.</item>
     </string-array>

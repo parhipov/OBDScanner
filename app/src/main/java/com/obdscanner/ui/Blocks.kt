@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.obdscanner.Tab
 import com.obdscanner.obd.Reading
 import com.obdscanner.screen.Action
@@ -40,15 +42,30 @@ fun Level.color(): Color = when (this) {
 @Composable
 private fun Level?.colorOrNull(): Color? = this?.color()
 
-/** A screen of [Block]s in a LazyColumn, one item per block; [onDoc] — a row's license ([Block.Row.doc]); [onTab] — a banner's tab. */
-fun LazyListScope.blocks(list: List<Block>, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}) {
-    items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc) }
+/**
+ * A screen of [Block]s in a LazyColumn, one item per block; [onDoc] — a row's license ([Block.Row.doc]); [onFold] — a
+ * [Block.Fold] tapped; [onPin] — a value's ☆ (its reading key).
+ */
+fun LazyListScope.blocks(
+    list: List<Block>, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {},
+    onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {},
+) {
+    items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc, onFold = onFold, onPin = onPin) }
 }
 
 @Composable
-fun BlockView(b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}, onTab: (Tab) -> Unit = {}) {
+fun BlockView(
+    b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}, onTab: (Tab) -> Unit = {},
+    onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {},
+) {
     when (b) {
         is Block.Title -> SectionTitle(b.text)
+        is Block.Fold -> Row(Modifier.fillMaxWidth().clickable { onFold(b.id) }.padding(start = 8.dp, end = 12.dp, top = 14.dp, bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            Text(if (b.open) "▾" else "▸", color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(end = 6.dp))
+            Text(b.text, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.weight(1f))
+            b.count?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.outline) }
+        }
         is Block.Note -> Muted(b.text)
         is Block.Banner -> {
             val tab = b.tab
@@ -65,7 +82,16 @@ fun BlockView(b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRe
             }
             if (b.divider) HorizontalDivider()
         }
-        is Block.Value -> ReadingRow(b.reading, b.level.colorOrNull())
+        is Block.Value -> {
+            val pin = b.pin
+            if (pin == null) ReadingRow(b.reading, b.level.colorOrNull())
+            else Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.weight(1f)) { ReadingRow(b.reading, b.level.colorOrNull()) }
+                // ☆ — onto Main, ★ — it is there (a tap takes it off).
+                Text(if (pin) "★" else "☆", fontSize = 22.sp, color = if (pin) Warn else MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.clickable { onPin(b.reading.key) }.padding(horizontal = 10.dp, vertical = 6.dp))
+            }
+        }
         is Block.Bank -> BankCard(b)
         is Block.Misfires -> Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
             Row(Modifier.fillMaxWidth().padding(8.dp)) {
