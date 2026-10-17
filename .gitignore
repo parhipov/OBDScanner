@@ -57,3 +57,6 @@ income/
 # The private part: its own repository (parhipov/OBDScanner-web) — private/web, the browser page,
 # and private/AIWorker, the mailbox. Only the root folder.
 /private/
+
+# Выдача прототипов и картинок для просмотра
+out/
