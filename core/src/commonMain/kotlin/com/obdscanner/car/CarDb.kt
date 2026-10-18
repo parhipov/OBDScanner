@@ -123,6 +123,10 @@ object CarDb {
 
     fun family(id: String?): CarFamily? = id?.let { families[it] }
 
+    /** The reading keys ("7E0:22.115C.BLAZER_EOP_2") of every value that is [role], over all makes. */
+    fun keysWithRole(role: String): Set<String> =
+        families.values.flatMap { f -> f.commands.flatMap { c -> c.signals.filter { it.role == role }.map { c.readingKey(it) } } }.toSet()
+
     fun dialect(id: String?): Dialect? = id?.let { dialects[it] }
 
     /** Models that can be recognised by an ECU's answer (no VIN, or a VIN that doesn't say the model). */

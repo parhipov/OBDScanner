@@ -139,6 +139,9 @@ object MainScreen {
             s to if (offline) s.items.filter { !it.first.startsWith(ROLE) }.distinctBy { it.second }.map { (k, label) -> label to placeholder(k, label) }
             else s.items.mapNotNull { (k, label) ->
                 val reading = when {
+                    // One oil pressure card: the CTS's 22.1470 or another make's (or OBDb's) value, whichever moves.
+                    k == "22.1470" -> oilPressure(r)
+                    k == ROLE + "oil_pressure" -> null
                     // Manufacturer parameter of any make; GM ones are also listed by their DID above.
                     k.startsWith(ROLE) -> k.removePrefix(ROLE).let { role -> r.values.filter { it.role == role }.minByOrNull { it.key } }
                     k.contains(':') -> r[k]
@@ -177,6 +180,8 @@ object MainScreen {
         val noKnock = !offline && v.step.isEmpty() && knock == null && v.extActive.none { Knock.isKnock(it, gm) && it.key !in v.knockRejected }
         val sample = tr("пример · нет связи", "sample · offline")
         val bottom = Blocks()
+        if (pins.isEmpty()) bottom.note(tr("Свои показатели можно вынести на главную, в «Избранное»: ☆ у значения на вкладке «Все данные».",
+            "Your own values can go on the main screen, into «Favourites»: ☆ next to a value on the «All data» tab."))
         if (!offline && hidden.isNotEmpty()) bottom.buttons(listOf(Button(Action.RESTORE_MAIN,
             tr("Вернуть скрытые карточки (${hidden.size})", "Bring back the hidden cards (${hidden.size})"), whileBusy = true)))
         val own = sections.map { (s, tiles) ->
@@ -188,6 +193,18 @@ object MainScreen {
         val fav = if (pinned.isEmpty()) emptyList() else listOf(MainSection(PINNED, 0xFFFF8FB1, 0xFF2E1824,
             pinned.map { (label, reading) -> Tile(label, reading, tileLevel(reading), false, tileNote(reading)) }))
         return MainView(offline, top.build(), fav + own, bottom.build())
+    }
+
+    /**
+     * The oil pressure card's value: the CTS's 22.1470 while it moves, else any oil pressure value (any make, OBDb's
+     * too) that does — on a Trailblazer 22.1470 stays at 0 and an OBDb request carries the pressure (issue #4); before
+     * the engine runs, 22.1470 or the first of them. "Moves": the session's min…max spans 20 kPa or more.
+     */
+    private fun oilPressure(r: Map<String, Reading>): Reading? {
+        val cts = r.pick("22.1470")
+        val all = r.values.filter { it.role == "oil_pressure" && it.value != null && (it.unit.endsWith("Па") || it.unit.endsWith("Pa")) }
+        fun moves(x: Reading) = (x.max ?: 0.0) - (x.min ?: 0.0) >= 20
+        return cts?.takeIf(::moves) ?: all.filter(::moves).maxByOrNull { it.max ?: 0.0 } ?: cts ?: all.minByOrNull { it.key }
     }
 
     /** «Как бензин?» misfires: Mode 06 of the cycle (any make) and the GM current ones, each summed over the cylinders. */
