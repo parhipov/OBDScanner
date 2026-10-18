@@ -82,7 +82,11 @@ object AllScreen {
  */
 object CodesScreen {
     val CHECK = tr("Проверить ошибки", "Check codes")
-    val CLEAR_MODULES = tr("Стереть ошибки в блоках…", "Clear module codes…")
+    val CLEAR = tr("Стереть ошибки…", "Clear codes…")
+    /** The first item of «Стереть ошибки?»: the standard OBD clear (Mode 04). */
+    val CHECK_ENGINE = tr("Двигатель и АКПП (Check Engine)", "Engine and transmission (Check Engine)")
+    /** [ClearModulesView.Item.key] of [CHECK_ENGINE]. */
+    const val OBD = "obd"
 
     private class Row(val label: String, val state: String, val text: String, val level: Level, val ref: DtcRef, val code: String) {
         val tags = mutableListOf<String>()
@@ -94,7 +98,7 @@ object CodesScreen {
 
     fun build(v: VehicleInfo, busy: String?, canStop: Boolean = false, mil: Boolean? = null, toggled: Set<String> = emptySet()): List<Block> {
         val b = Blocks()
-        b.buttons(listOfNotNull(Button(Action.READ_DTC, CHECK, primary = true), Button(Action.CLEAR_DTC, tr("Сбросить…", "Clear…")),
+        b.buttons(listOfNotNull(Button(Action.READ_DTC, CHECK, primary = true), Button(Action.CLEAR_DTC, CLEAR),
             Button(Action.STOP, tr("Стоп", "Stop"), whileBusy = true).takeIf { canStop }))
         if (busy != null) {
             // What is asked right now: the connection's step, a module's codes («Ошибки BCM (3 из 10)…»).
@@ -102,7 +106,8 @@ object CodesScreen {
             b.banner(tr("Выполняется: $busy", "In progress: $busy") + (now?.let { "\n$it" } ?: ""), Level.GOOD)
         } else if (v.clearResult.isNotEmpty()) b.banner(v.clearResult.joinToString("\n"), Level.GOOD)
 
-        val groups = groups(v)
+        val titles = titles(v)
+        val groups = groups(v, titles)
         val checked = v.gmDtcTime > 0
         val rows = groups.flatMap { it.rows }
         val active = rows.count { it.level == Level.BAD }
@@ -153,15 +158,15 @@ object CodesScreen {
                 b.note(if (v.dtcNoAnswer) tr("Коды Check Engine: блок двигателя не ответил", "Check Engine codes: the engine module didn't answer")
                     else tr("Кодов Check Engine нет", "No Check Engine codes"))
         }
-        if (clean.isNotEmpty()) b.note(tr("Без ошибок: ", "No codes: ") + clean.joinToString { moduleTitle(it.module, pins(v, it.module)) })
-        if (silent.isNotEmpty()) b.note(tr("Не ответили: ", "Didn't answer: ") + silent.joinToString { moduleTitle(it.module, pins(v, it.module)) })
+        if (clean.isNotEmpty()) b.note(tr("Без ошибок: ", "No codes: ") + clean.joinToString { titles.getValue(it.module.key) })
+        if (silent.isNotEmpty()) b.note(tr("Не ответили: ", "Didn't answer: ") + silent.joinToString { titles.getValue(it.module.key) })
         for (p in v.busesOut) b.note(tr("Часть блоков этой машины — на отдельном проводе ($p): этому адаптеру он недоступен, нужен адаптер с его поддержкой.",
             "Some of this car's modules are on a separate wire ($p): this adapter can't reach it, it takes one that supports it."))
         when {
             !v.moduleAccess -> b.note(tr("На этом подключении читаются только коды Check Engine: память отдельных блоков недоступна.",
                 "On this connection only the Check Engine codes are read: the modules' own memory is out of reach."))
             !checked && busy == null && v.gmDtcStatus.isNotEmpty() -> b.note(v.gmDtcStatus)
-            !checked && busy == null && v.dtcTime > 0 -> b.note(tr("Память блоков ещё не прочитана: «$CHECK».", "The modules' memory isn't read yet: «$CHECK»."))
+            !checked && busy == null && v.dtcTime > 0 -> b.note(NOT_CHECKED)
         }
 
         if (b.fold("dtc:more", tr("Подробнее", "More"), false, toggled)) {
@@ -169,11 +174,12 @@ object CodesScreen {
                 "включая коды без Check и историю. Первый раз блоки ищутся около минуты, дальше несколько секунд на блок. Зажигание включено, машина стоит.",
                 "«$CHECK» reads the Check Engine codes (standard OBD) and every module's full memory: engine, transmission, ABS, body etc., " +
                     "including codes without Check Engine and the history. The first time the modules are searched for about a minute, then a few seconds per module. Ignition on, car parked."))
-            b.note(tr("«Сбросить…» — стандартный сброс OBD: коды Check Engine, стоп-кадр и готовность мониторов двигателя и АКПП. Память остальных блоков стирает «$CLEAR_MODULES».",
-                "«Clear…» is the standard OBD clear: the Check Engine codes, the freeze frame and the readiness of the engine and transmission. «$CLEAR_MODULES» clears the other modules' memory."))
-            for (r in v.gmDtcs) b.row(moduleTitle(r.module, pins(v, r.module)), "", sub = r.result, key = "res:${r.module.key}")
+            b.note(tr("«$CLEAR» стирает отмеченное в списке: двигатель и АКПП — стандартным сбросом OBD (с ним уходят стоп-кадр и готовность мониторов), " +
+                "остальные блоки — каждый своим запросом. Потом всё проверяется заново.",
+                "«$CLEAR» clears what is ticked: the engine and transmission with the standard OBD clear (the freeze frame and the monitors' readiness go with it), " +
+                    "the other modules each with its own request. Then everything is checked again."))
+            for (r in v.gmDtcs) b.row(moduleTitle(r.module, pins(v, r.module), withId = true), "", sub = r.result, key = "res:${r.module.key}")
         }
-        if (v.moduleAccess && v.gmDtcs.any { it.codes.isNotEmpty() }) b.buttons(listOf(Button(Action.CLEAR_MODULES, CLEAR_MODULES)))
         if (rows.isNotEmpty()) b.buttons(listOf(Button(Action.COPY_DTC, tr("Скопировать список", "Copy the list"), whileBusy = true)))
         return b.build()
     }
@@ -185,12 +191,28 @@ object CodesScreen {
             for (f in v.freeze) b.value(f)
     }
 
+    /** «Память блоков ещё не проверена»: the line on «Ошибки» until the modules are read. */
+    val NOT_CHECKED = tr("Память блоков (ABS, кузов, подушки, климат и др.) ещё не проверена: «$CHECK». Первый раз около 1–2 минут, дальше несколько секунд на блок.",
+        "The modules' memory (ABS, body, airbags, climate etc.) isn't checked yet: «$CHECK». The first time about 1–2 minutes, then a few seconds per module.")
+
+    /**
+     * Each module's heading on this car by its key: the name alone; the id (and the wire) only where two modules
+     * would read the same.
+     */
+    private fun titles(v: VehicleInfo): Map<String, String> {
+        val plain = v.gmDtcs.associate { it.module.key to moduleTitle(it.module) }
+        val twice = plain.values.groupingBy { it }.eachCount().filterValues { it > 1 }.keys
+        return v.gmDtcs.associate { r ->
+            r.module.key to if (plain.getValue(r.module.key) in twice) moduleTitle(r.module, pins(v, r.module), withId = true) else plain.getValue(r.module.key)
+        }
+    }
+
     /** The modules with their codes, the Check Engine codes on the module that sent them (one row when both have it). */
-    private fun groups(v: VehicleInfo): List<Group> {
+    private fun groups(v: VehicleInfo, titles: Map<String, String> = titles(v)): List<Group> {
         val prev = v.dtcPrev?.codes?.keys
         val out = mutableListOf<Group>()
         for (m in v.gmDtcs) {
-            val where = moduleTitle(m.module, pins(v, m.module))
+            val where = titles.getValue(m.module.key)
             val g = Group(m.module.key, where, m)
             for (c in m.codes) g.rows += Row(c.full, if (c.current) tr("активна", "active") else tr("история", "history"), "${c.description} · ${c.flags}",
                 if (c.current || c.mil) Level.BAD else Level.WARN,
@@ -232,14 +254,24 @@ object CodesScreen {
         CarDb.family(v.car?.family ?: v.make.id)?.modules?.buses?.firstOrNull { it.id == id }?.pins ?: id
     }
 
-    /** A module's heading: its name and id once ("Блок 24F", "ЭБУ 7E5", "BCM (кузов) · 241"), the bus's pins when not the main one. */
-    fun moduleTitle(m: GmModule, pins: String? = null): String = with(m) {
+    /**
+     * A module's heading: its name ("BCM (кузов)"), the id only for one without a name ("Блок 24F", "ЭБУ 7E5"); [withId] —
+     * with its id and the bus's [pins] when not the main one ("BCM (кузов) · 241", for «Подробнее» and namesakes).
+     */
+    fun moduleTitle(m: GmModule, pins: String? = null, withId: Boolean = false): String = with(m) {
         when {
             name == id -> tr("Блок $id", "Module $id")
-            id in name -> name
+            id in name || !withId -> name
             else -> "$name · $id"
         }
-    } + (pins?.let { " · $it" } ?: "")
+    } + (pins?.takeIf { withId }?.let { " · $it" } ?: "")
+
+    /** The engine and gearbox: the blocks that answer the standard OBD requests (Mode 04 is theirs). */
+    fun isObdBlock(v: VehicleInfo, m: GmModule) = m.bus == null && (m.resp in v.ecus.keys || m.req in v.ecus.keys)
+
+    /** The codes [CHECK_ENGINE] stands for: the Check Engine ones (not the permanent) and the engine's and gearbox's own memory. */
+    fun checkEngineCodes(v: VehicleInfo): Set<String> =
+        v.dtcs.filter { it.kind != DtcKind.PERMANENT }.map { it.code }.toSet() + v.gmDtcs.filter { isObdBlock(v, it.module) }.flatMap { r -> r.codes.map { it.code } }
 
     /** Each code of the modules' memory: [GmModule.key]:code → how a line names it ("B1517 (BCM (кузов) · 241)"). */
     fun codeKeys(results: List<GmDtcResult>): Map<String, String> = results.flatMap { r ->
@@ -257,7 +289,8 @@ object CodesScreen {
             false -> appendLine(tr("Check Engine не горит", "Check Engine is off"))
             null -> {}
         }
-        for (g in groups(v).filter { it.rows.isNotEmpty() }) {
+        val titles = titles(v)
+        for (g in groups(v, titles).filter { it.rows.isNotEmpty() }) {
             appendLine()
             appendLine(g.title + ":")
             for (r in g.rows) appendLine("  ${r.label} — ${r.state}" + (listOf(r.text) + r.tags).filter { it.isNotEmpty() }.joinToString(" · ").let { if (it.isEmpty()) "" else " · $it" })
@@ -265,11 +298,11 @@ object CodesScreen {
         val clean = v.gmDtcs.filter { it.codes.isEmpty() && it.complete }
         if (clean.isNotEmpty()) {
             appendLine()
-            appendLine(tr("Без ошибок: ", "No codes: ") + clean.joinToString { moduleTitle(it.module, pins(v, it.module)) })
+            appendLine(tr("Без ошибок: ", "No codes: ") + clean.joinToString { titles.getValue(it.module.key) })
         }
     }.trimEnd()
 
-    /** The question before «Стереть ошибки в блоках»: the modules with codes, each ticked or not. */
+    /** «Стереть ошибки?»: the engine and gearbox ([OBD]), then the other modules with codes, each ticked or not. */
     class ClearModulesView(val title: String, val text: String, val items: List<Item>, val yes: String, val no: String) {
         class Item(val key: String, val label: String, val count: Int, val checked: Boolean)
     }
@@ -277,36 +310,30 @@ object CodesScreen {
     private val AIRBAG = Regex("подуш|airbag|SRS|SDM", RegexOption.IGNORE_CASE)
 
     /**
-     * Ticked: every module with codes but the airbags and the engine and gearbox (their Mode 01 blocks): clearing those
-     * resets the monitors' readiness, and «Сбросить» does them anyway.
+     * Ticked: the engine and gearbox (the standard clear) and every other module with codes but the airbags. The engine
+     * and gearbox aren't listed again: Mode 04 is theirs.
      */
     fun clearModules(v: VehicleInfo): ClearModulesView {
-        val items = v.gmDtcs.filter { it.codes.isNotEmpty() }.map { r ->
+        val titles = titles(v)
+        val modules = if (!v.moduleAccess) emptyList() else v.gmDtcs.filter { it.codes.isNotEmpty() && !isObdBlock(v, it.module) }.map { r ->
             val m = r.module
             val role = if (m.bus == null) v.car?.knownBlocks?.get(m.req)?.role else null
-            val obd = m.bus == null && (m.resp in v.ecus.keys || m.req in v.ecus.keys)
-            val keep = obd || role in setOf("airbag", "engine", "gearbox") || AIRBAG.containsMatchIn(m.name)
-            ClearModulesView.Item(m.key, moduleTitle(m, pins(v, m)), r.codes.size, !keep)
+            val airbag = role == "airbag" || AIRBAG.containsMatchIn(m.name)
+            ClearModulesView.Item(m.key, titles.getValue(m.key), r.codes.size, !airbag)
         }
+        val items = listOf(ClearModulesView.Item(OBD, CHECK_ENGINE, checkEngineCodes(v).size, true)) + modules
         return ClearModulesView(
-            tr("Стереть ошибки в блоках?", "Clear the modules' codes?"),
-            tr("В отмеченных блоках стираются все коды, потом блоки читаются снова: активная неисправность вернётся сразу. " +
-                "Зажигание включено, двигатель заглушен, машина стоит. Подушки, двигатель и АКПП не отмечены: у двигателя и АКПП сбросится готовность мониторов, " +
-                "для них обычно хватает «Сбросить…». Все коды уже записаны в сессию.",
-                "Every code in the ticked modules is cleared, then the modules are read again: a fault present now comes back at once. " +
-                    "Ignition on, engine off, car parked. Airbags, engine and transmission aren't ticked: the engine and transmission lose the monitors' readiness, " +
-                    "and «Clear…» is usually enough for them. All codes are already saved to the session."),
+            tr("Стереть ошибки?", "Clear the codes?"),
+            tr("Отмеченное стирается, потом всё проверяется заново: активная неисправность вернётся сразу. " +
+                "У двигателя и АКПП вместе с кодами сбрасываются стоп-кадр и готовность мониторов. Подушки не отмечены. " +
+                "Зажигание включено, двигатель заглушен, машина стоит. Все коды уже записаны в сессию.",
+                "What is ticked is cleared, then everything is checked again: a fault present now comes back at once. " +
+                    "The engine and transmission lose the freeze frame and the monitors' readiness with their codes. Airbags aren't ticked. " +
+                    "Ignition on, engine off, car parked. All codes are already saved to the session.") +
+                if (v.moduleAccess && v.gmDtcTime == 0L) tr(" Память остальных блоков ещё не прочитана: они появятся здесь после «$CHECK».",
+                    " The other modules' memory isn't read yet: they show here after «$CHECK».") else "",
             items, tr("Стереть", "Clear"), tr("Отмена", "Cancel"))
     }
-
-    /** The question before Mode 04. */
-    val CLEAR_TITLE = tr("Сбросить ошибки?", "Clear trouble codes?")
-    val CLEAR_TEXT = tr("Будут стёрты коды Check Engine, стоп-кадр и готовность мониторов двигателя и АКПП (стандартный сброс OBD). " +
-        "Память остальных блоков не трогается. Зажигание включено, двигатель заглушен. Все коды уже записаны в сессию, после сброса всё проверится заново.",
-        "The Check Engine codes, the freeze frame and the engine and transmission monitors' readiness will be erased (the standard OBD clear). " +
-            "The other modules' memory stays. Ignition on, engine off. All codes are already saved to the session, everything is checked again after the clear.")
-    val CLEAR_YES = tr("Сбросить", "Clear")
-    val CLEAR_NO = tr("Отмена", "Cancel")
 }
 
 /**
@@ -355,10 +382,12 @@ object InfoScreen {
             if (v.adapter.isNotEmpty()) b.buttons(listOf(Button(Action.MODE06, tr("Обновить тесты", "Refresh the tests"))))
         }
 
+        val buses = CarDb.family(v.car?.family ?: v.make.id)?.modules?.buses.orEmpty()
+        fun pins(m: GmModule) = m.bus?.let { id -> buses.firstOrNull { it.id == id }?.pins ?: id }
         if (modules.isNotEmpty()) {
             b.title(tr("Блоки (${modules.size})", "Modules (${modules.size})"))
-            val buses = CarDb.family(v.car?.family ?: v.make.id)?.modules?.buses.orEmpty()
-            for (m in modules) b.row(CodesScreen.moduleTitle(m, m.bus?.let { id -> buses.firstOrNull { it.id == id }?.pins ?: id }),
+            val plain = modules.map { CodesScreen.moduleTitle(it) }
+            for ((m, title) in modules.zip(plain)) b.row(if (plain.count { it == title } > 1) CodesScreen.moduleTitle(m, pins(m), withId = true) else title,
                 m.partNumber?.toString() ?: "", sub = m.partNumber?.let { tr("номер детали", "part number") }, key = "mod:${m.key}")
         }
 
@@ -369,6 +398,11 @@ object InfoScreen {
             b.row(tr("Протокол", "Protocol"), v.protocol.ifEmpty { "—" })
             b.row(tr("Мульти-PID запросы", "Multi-PID requests"), if (v.pidBatch > 1) tr("по ${v.pidBatch} PID", "${v.pidBatch} PIDs each") else tr("нет", "no"))
             if (v.adapter.isNotEmpty()) b.row(tr("Параметры производителя", "Manufacturer parameters"), tr("ответили ${v.extActive.size}", "${v.extActive.size} answered"))
+            if (modules.isNotEmpty()) {
+                b.title(tr("Адреса блоков", "Module addresses"))
+                for (m in modules) b.row(CodesScreen.moduleTitle(m), if (Tp20.isTp(m.req)) m.id else "%03X → %03X".format(m.req, m.resp),
+                    sub = listOfNotNull(pins(m), m.diag?.let { tr("адрес %02X", "address %02X").format(it) }).joinToString(" · ").ifEmpty { null }, key = "addr:${m.key}")
+            }
             for (e in v.ecus.values.sortedBy { it.header }) {
                 b.title("${ecuName(e.header)} · %03X".format(e.header))
                 b.row("PID Mode 01", "${e.pids01.count { !Pids.isBitmask(it) }}", key = "pids:${e.header}")

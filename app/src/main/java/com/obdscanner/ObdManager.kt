@@ -197,6 +197,16 @@ class ObdManager(private val context: Context) {
         _sensorsWithAdapter.value = on
     }
 
+    private val _modulesOnConnect = MutableStateFlow(prefs.getBoolean("modules_on_connect", true))
+    /** Every module's codes read right after connecting (on by default); off — by «Проверить ошибки» on «Ошибки». */
+    val modulesOnConnect: StateFlow<Boolean> = _modulesOnConnect.asStateFlow()
+
+    fun setModulesOnConnect(on: Boolean) {
+        if (mainJob?.isActive == true) return
+        prefs.edit().putBoolean("modules_on_connect", on).apply()
+        _modulesOnConnect.value = on
+    }
+
     private val usbManager = context.getSystemService(UsbManager::class.java)
     private val _usb = MutableStateFlow(UsbAdapters.list(usbManager))
     /** Plugged-in USB adapters, kept up to date on plug and unplug. */
@@ -397,6 +407,8 @@ class ObdManager(private val context: Context) {
                     _busy.value = null
                 }
                 if (!o.canTarget) s.note("${if (o.can29) "29-bit CAN" else "ISO 9141-2"}: standard OBD only, module search and DTCs of all modules skipped")
+                else if (!_modulesOnConnect.value) s.report(tr("Память блоков", "Module memory"),
+                    tr("не проверялась при подключении: выключено на «Связи»", "not checked on connecting: turned off on «Connect»"))
                 else {
                     // Every module's codes, by itself: an operation like the button's, shown and with «Стоп»; polling after it.
                     launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.autoModules(it) }
@@ -455,7 +467,8 @@ class ObdManager(private val context: Context) {
     /** A screen's button ([com.obdscanner.screen.Block.Buttons]); the Codes screen asks before clearing. */
     fun run(a: Action) = when (a) {
         Action.READ_DTC -> checkCodes()
-        Action.CLEAR_DTC -> clearDtc()
+        // The screen asks first what to clear (clearCodes).
+        Action.CLEAR_DTC -> Unit
         Action.READ_ALL_MODULES -> readAllModulesDtc()
         Action.RESCAN -> rediscover()
         Action.MODE06 -> refreshMode06()
@@ -464,7 +477,7 @@ class ObdManager(private val context: Context) {
         // The screen asks first (Car → «Сбросить»).
         Action.FORGET -> link.forgetCar()
         // The screen opens them (Help → Licenses, Disclaimer; the question before clearing the modules) or copies the list.
-        Action.LICENSES, Action.TERMS, Action.CLEAR_MODULES, Action.COPY_DTC -> Unit
+        Action.LICENSES, Action.TERMS, Action.COPY_DTC -> Unit
     }
 
     /** «Проверить ошибки»: the standard codes, then every module's memory. Read only. */
@@ -472,10 +485,8 @@ class ObdManager(private val context: Context) {
 
     fun refreshDtc() = launchOp(tr("Чтение ошибок", "Reading codes")) { link.refreshDtc(it) }
 
-    fun clearDtc() = launchOp(tr("Сброс ошибок", "Clearing codes")) { link.clearDtc(it) }
-
-    /** «Стереть ошибки в блоках»: the modules ticked ([com.obdscanner.gm.GmModule.key]), after the screen asked. */
-    fun clearModules(keys: Collection<String>) = launchOp(tr("Стирание ошибок в блоках", "Clearing module codes")) { link.clearModules(it, keys) }
+    /** «Стереть ошибки», what was ticked after the screen asked: [obd] — the engine and gearbox (Mode 04), [keys] — the other modules. */
+    fun clearCodes(obd: Boolean, keys: Collection<String>) = launchOp(tr("Стирание ошибок", "Clearing codes")) { link.clearCodes(it, obd, keys) }
 
     fun refreshMode06() = launchOp("Mode 06") { link.refreshMode06(it) }
 

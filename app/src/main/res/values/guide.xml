@@ -77,7 +77,7 @@
 
     <string-array name="guide_safety">
         <item>Safety</item>
-        <item>The app only reads. Two buttons on \"Codes\" can change something in the car, \"Clear\" and \"Clear module codes\", and both ask first.</item>
+        <item>The app only reads. One button can change something in the car, \"Clear codes…\" on \"Codes\", and it asks first what to clear.</item>
         <item>Clearing erases not only the codes but also the readiness monitors and the freeze frame. The codes themselves are already saved in the session by then.</item>
         <item>Run the scans in \"Module scan\" and the bus sniffing while parked: live data isn\'t read while they run.</item>
     </string-array>

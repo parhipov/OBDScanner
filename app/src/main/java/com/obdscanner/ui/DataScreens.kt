@@ -65,16 +65,14 @@ fun DtcScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, busy: Stri
     val canStop by m.canStop.collectAsStateWithLifecycle()
     val folds by m.folds.collectAsStateWithLifecycle()
     val mil = r.pick("01.01.MIL")?.value?.let { it == 1.0 }
-    var confirm by remember { mutableStateOf(false) }
-    var clearModules by remember { mutableStateOf<CodesScreen.ClearModulesView?>(null) }
+    var clear by remember { mutableStateOf<CodesScreen.ClearModulesView?>(null) }
     // Tapped code: its description dialog.
     var shown by remember { mutableStateOf<DtcRef?>(null) }
     shown?.let { DtcHelpDialog(it, v.dtcFamily) { shown = null } }
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
         blocks(CodesScreen.build(v, busy, canStop, mil, folds), busy, onAction = {
             when (it) {
-                Action.CLEAR_DTC -> confirm = true
-                Action.CLEAR_MODULES -> clearModules = CodesScreen.clearModules(v)
+                Action.CLEAR_DTC -> clear = CodesScreen.clearModules(v)
                 Action.COPY_DTC -> {
                     ctx.getSystemService(ClipboardManager::class.java)?.setPrimaryClip(ClipData.newPlainText("OBD Scanner", CodesScreen.text(v, mil)))
                     toast(ctx, tr("Список скопирован", "The list is copied"))
@@ -83,17 +81,10 @@ fun DtcScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, busy: Stri
             }
         }, onDtc = { shown = it }, onFold = m::toggleFold)
     }
-    if (confirm) AlertDialog(
-        onDismissRequest = { confirm = false },
-        title = { Text(CodesScreen.CLEAR_TITLE) },
-        text = { Text(CodesScreen.CLEAR_TEXT) },
-        confirmButton = { TextButton(onClick = { confirm = false; m.clearDtc() }) { Text(CodesScreen.CLEAR_YES) } },
-        dismissButton = { TextButton(onClick = { confirm = false }) { Text(CodesScreen.CLEAR_NO) } },
-    )
-    clearModules?.let { view -> ClearModulesDialog(view, { clearModules = null }) { keys -> m.clearModules(keys) } }
+    clear?.let { view -> ClearModulesDialog(view, { clear = null }) { keys -> m.clearCodes(CodesScreen.OBD in keys, keys - CodesScreen.OBD) } }
 }
 
-/** «Стереть ошибки в блоках?»: the modules with codes, each with its tick; [onClear] gets the ticked ones. */
+/** «Стереть ошибки?»: the engine and gearbox, then the modules with codes, each with its tick; [onClear] gets the ticked ones. */
 @Composable
 private fun ClearModulesDialog(view: CodesScreen.ClearModulesView, onDismiss: () -> Unit, onClear: (List<String>) -> Unit) {
     val ticked = remember(view) { mutableStateMapOf<String, Boolean>().apply { view.items.forEach { put(it.key, it.checked) } } }

@@ -16,10 +16,11 @@ import kotlin.math.abs
 enum class Level { GOOD, WARN, BAD, MUTED }
 
 /**
- * A button's job; the front runs it (ObdManager on the phone). CLEAR_DTC, CLEAR_MODULES and FORGET ask first; COPY_DTC
- * puts [CodesScreen.text] on the clipboard; STOP stops the operation running.
+ * A button's job; the front runs it (ObdManager on the phone). CLEAR_DTC asks first what to clear
+ * ([CodesScreen.clearModules]), FORGET asks too; COPY_DTC puts [CodesScreen.text] on the clipboard; STOP stops the
+ * operation running.
  */
-enum class Action { READ_DTC, CLEAR_DTC, READ_ALL_MODULES, CLEAR_MODULES, COPY_DTC, STOP, RESCAN, MODE06, RESTORE_MAIN, LICENSES, TERMS, FORGET }
+enum class Action { READ_DTC, CLEAR_DTC, READ_ALL_MODULES, COPY_DTC, STOP, RESCAN, MODE06, RESTORE_MAIN, LICENSES, TERMS, FORGET }
 
 /**
  * A trouble code that opens its help on a tap ([DtcHelp]). [ftb] — failure type byte (GM \$A9 symptom /

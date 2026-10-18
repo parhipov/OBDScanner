@@ -166,6 +166,7 @@ class CarLink(
         notedWatch = false
         skippedNow.clear()
         prevLoaded = false
+        partAsked.clear()
     }
 
     /** The session ended: nothing runs any more. */
@@ -1637,6 +1638,7 @@ class CarLink(
             }
         }
         o.broadcast()
+        found.forEach { partAsked += it.key }
         // A module that told its diagnostic address gets the make's name for it, where the CAN id had none or another one.
         val named = found.map { mod ->
             val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
@@ -1683,11 +1685,46 @@ class CarLink(
     private fun partNumber(ids: List<ScanHit>, mod: GmModule): Long? =
         ids.firstOrNull { it.req == mod.req && it.service == "1A" && it.did == 0xCB }?.partNumber
 
-    /** "7E0:7E8,24F:64F:28": request, reply and — once read — the module's diagnostic address. */
+    /** "7E0:7E8,24F:64F:28,241:641:40:13535989": request, reply and — once read — the diagnostic address and the part number. */
     private fun saveModules(list: List<GmModule>) {
         val key = modulesPrefKey() ?: return
-        if (list.isNotEmpty()) store.putString(key, list.joinToString(",") { m -> "%03X:%03X".format(m.req, m.resp) + (m.diag?.let { ":%02X".format(it) } ?: "") })
+        if (list.isNotEmpty()) store.putString(key, list.joinToString(",") { moduleText(it) })
         refreshMemory()
+    }
+
+    /** One saved module: "241:641", "241:641:40", "241:641:40:13535989" (no address: "241:641::13535989"). */
+    private fun moduleText(m: GmModule) = "%03X:%03X".format(m.req, m.resp) + when {
+        m.partNumber != null -> ":" + (m.diag?.let { "%02X".format(it) } ?: "") + ":" + m.partNumber
+        m.diag != null -> ":%02X".format(m.diag)
+        else -> ""
+    }
+
+    /** [moduleText] back, named by its id until the caller names it; null — not that. */
+    private fun parseModule(p: String, bus: String? = null): GmModule? {
+        val parts = p.split(':').takeIf { it.size in 2..4 } ?: return null
+        val req = parts[0].toIntOrNull(16) ?: return null
+        val resp = parts[1].toIntOrNull(16) ?: return null
+        val diag = parts.getOrNull(2)?.ifEmpty { null }?.let { it.toIntOrNull(16) ?: return null }
+        val part = parts.getOrNull(3)?.let { it.toLongOrNull() ?: return null }
+        return GmModule(req, resp, "%03X".format(req), tr("из прошлой сессии", "from an earlier session"), diag, part, bus)
+    }
+
+    /** Modules whose part number was asked in this connection: once, even when one doesn't give it. */
+    private val partAsked = mutableSetOf<String>()
+
+    /**
+     * A GM module without its part number yet (saved before it was kept, or never told): \$1A CB, end model — the
+     * number on its label — asked once a connection. Read only, one short request.
+     */
+    private suspend fun withPartNumber(o: Obd, mod: GmModule): GmModule {
+        if (mod.partNumber != null || o.kline || Tp20.isTp(mod.req) || dialectOf(mod.req).ident != "gm_1a" || !partAsked.add(mod.key)) return mod
+        o.target(mod.req, mod.resp)
+        val data = GmScanner(o) { session?.note(it) }.read(mod, "1A", 0xCB)?.first ?: return mod
+        val hit = ScanHit(mod.req, mod.resp, "1A", 0xCB, data)
+        session?.scanHit(hit.req, hit.resp, hit.service, hit.didHex, hit.data)
+        // The scan screen lists the main bus's identification; another bus's ids may be the same numbers.
+        if (mod.bus == null) _scan.update { st -> st.copy(hits = st.hits.filter { it.key != hit.key } + hit) }
+        return hit.partNumber?.let { mod.copy(partNumber = it) } ?: mod
     }
 
     /**
@@ -1718,84 +1755,95 @@ class CarLink(
     }
 
     /**
-     * «Сбросить» on «Ошибки»: Mode 04 — the Check Engine codes, the freeze frame and the readiness of the engine and
-     * gearbox; the other modules' memory stays. Then everything is checked again and [VehicleInfo.clearResult] says
-     * what went and what came back at once (a fault present now).
+     * «Стереть ошибки» on «Ошибки», what the user ticked: [obd] — the engine and gearbox, Mode 04 (the Check Engine codes,
+     * the freeze frame, the monitors' readiness); [keys] — the other modules ([GmModule.key]), each cleared the way it gave
+     * its codes ([ModuleClear]), one on another bus with the adapter switched there and back. Then everything is checked
+     * again, and [VehicleInfo.clearResult] says per item what went and what came back at once — a fault present now.
+     * The codes are in the session's report already.
      */
-    suspend fun clearDtc(o: Obd) {
-        val before = _vehicle.value.dtcs
-        session?.note("USER: clear DTC (mode 04)")
-        o.request("04", 5000)
-        pause(500)
-        checkCodes(o)
-        val v = _vehicle.value
-        val was = before.filter { it.kind != DtcKind.PERMANENT }.map { it.code }.toSet()
-        val now = v.dtcs.filter { it.kind != DtcKind.PERMANENT }.map { it.code }.toSet()
-        val back = was.intersect(now)
-        val permanent = v.dtcs.filter { it.kind == DtcKind.PERMANENT }.map { it.code }.distinct()
-        val lines = buildList {
-            add(if (was.isEmpty()) tr("Кодов Check Engine не было: сброшены стоп-кадр и готовность мониторов",
-                "There were no Check Engine codes: the freeze frame and the monitors' readiness are reset")
-            else tr("Стёрто кодов Check Engine: ${(was - now).size}", "Check Engine codes cleared: ${(was - now).size}"))
-            if (back.isNotEmpty()) add(tr("Сразу вернулись: ${back.joinToString()} — неисправность есть сейчас",
-                "Back at once: ${back.joinToString()} — the fault is there now"))
-            if (permanent.isNotEmpty()) add(tr("Постоянные (${permanent.joinToString()}) уходят сами, когда блок проверит систему без сбоя",
-                "Permanent ones (${permanent.joinToString()}) go by themselves once the module checks the system without a fault"))
-            val left = v.gmDtcs.sumOf { it.codes.size }
-            if (left > 0) add(tr("В памяти блоков кодов: $left — их стирает «${CodesScreen.CLEAR_MODULES}» внизу",
-                "Codes in the modules' memory: $left — «${CodesScreen.CLEAR_MODULES}» below clears them"))
-        }
-        _vehicle.update { it.copy(clearResult = lines) }
-        session?.report(tr("Сброс кодов (Mode 04)", "Clearing codes (Mode 04)"), lines.joinToString("\n"))
-    }
-
-    /**
-     * «Стереть ошибки в блоках»: the modules ticked ([GmModule.key]) are cleared one by one, the way each gave its codes
-     * ([ModuleClear]), and read again at once — what comes back is a fault present now. A module on another bus is
-     * cleared there, the adapter switched and back. Only what the user ticked; the codes are in the session already.
-     */
-    suspend fun clearModules(o: Obd, keys: Collection<String>) {
-        val targets = _vehicle.value.gmDtcs.filter { it.module.key in keys && it.codes.isNotEmpty() }
-        if (targets.isEmpty() || !o.canTarget) return
-        session?.note("USER: clear module DTCs: ${targets.joinToString(" ") { it.module.key }}")
-        val clear = ModuleClear(o) { session?.note(it) }
-        val reader = ModuleReader(o)
-        val done = mutableMapOf<String, GmDtcResult>()
-        val lines = mutableListOf<String>()
-        var n = 0
-        suspend fun one(r: GmDtcResult) {
-            val name = CodesScreen.moduleTitle(r.module)
-            n++
-            _vehicle.update { it.copy(gmDtcStatus = tr("Стирание: $name ($n из ${targets.size})…", "Clearing: $name ($n of ${targets.size})…")) }
-            val res = clear.clear(r.module, r.codes.first().scheme)
-            if (res.ok) pause(500)
-            val again = reader.read(r.module)
-            done[r.module.key] = again
-            lines += "$name: " + when {
-                !res.ok -> res.text
-                again.codes.isEmpty() -> res.text
-                else -> tr("стёрто, сразу вернулись: ${again.codes.joinToString { it.full }} — неисправность есть сейчас",
-                    "cleared, back at once: ${again.codes.joinToString { it.full }} — the fault is there now")
-            }
-        }
+    suspend fun clearCodes(o: Obd, obd: Boolean, keys: Collection<String>) {
+        val before = _vehicle.value
+        val targets = if (o.canTarget) before.gmDtcs.filter { it.module.key in keys && it.codes.isNotEmpty() } else emptyList()
+        session?.note("USER: clear codes:" + (if (obd) " mode 04" else "") + targets.joinToString("") { " " + it.module.key })
+        val results = linkedMapOf<String, ModuleClear.Result>()
+        var obdResult: ModuleClear.Result? = null
+        var checked = false
         try {
-            for (r in targets.filter { it.module.bus == null }) one(r)
-            o.broadcast()
-            for ((busId, list) in targets.filter { it.module.bus != null }.groupBy { it.module.bus }) {
-                val bus = buses(o).firstOrNull { it.id == busId }
-                val ran = bus?.let { b -> onBus(o, b) { for (r in list) one(r) } }
-                if (ran == null) for (r in list) lines += CodesScreen.moduleTitle(r.module) + ": " +
-                    tr("адаптер не переключился на этот провод", "the adapter didn't switch to this wire")
+            if (obd) {
+                _vehicle.update { it.copy(gmDtcStatus = tr("Стирание: Check Engine…", "Clearing: Check Engine…")) }
+                val reply = o.request("04", 5000)
+                obdResult = when {
+                    reply.messages.any { it.service == 0x44 } -> ModuleClear.Result(true, tr("стёрто", "cleared"))
+                    reply.messages.any { it.isNegative } -> ModuleClear.Result(false, ModuleClear.refusal(reply.messages.first { it.isNegative }.nrc))
+                    else -> ModuleClear.Result(false, tr("блоки не подтвердили сброс", "the modules didn't confirm the clear"))
+                }
+                pause(500)
             }
+            if (targets.isNotEmpty()) {
+                val clear = ModuleClear(o) { session?.note(it) }
+                var n = 0
+                suspend fun one(r: GmDtcResult) {
+                    n++
+                    _vehicle.update { it.copy(gmDtcStatus = tr("Стирание: ${CodesScreen.moduleTitle(r.module)} ($n из ${targets.size})…",
+                        "Clearing: ${CodesScreen.moduleTitle(r.module)} ($n of ${targets.size})…")) }
+                    results[r.module.key] = clear.clear(r.module, r.codes.first().scheme)
+                }
+                for (r in targets.filter { it.module.bus == null }) one(r)
+                o.broadcast()
+                for ((busId, list) in targets.filter { it.module.bus != null }.groupBy { it.module.bus }) {
+                    buses(o).firstOrNull { it.id == busId }?.let { b -> onBus(o, b) { for (r in list) one(r) } }
+                }
+                if (results.values.any { it.ok }) pause(500)
+            }
+            checkCodes(o)
+            checked = true
         } finally {
             withContext(NonCancellable) {
-                val all = _vehicle.value.gmDtcs.map { done[it.module.key] ?: it }
-                _vehicle.update { it.copy(gmDtcs = all, gmDtcTime = clock(), clearResult = lines.toList(), gmDtcStatus = summary(all, emptyList())) }
-                rememberCodes(all)
-                session?.report(tr("Стирание ошибок в блоках", "Clearing module codes"), lines.joinToString("\n").ifEmpty { tr("прервано", "interrupted") })
+                val lines = clearLines(before, _vehicle.value, obdResult, targets, results, checked)
+                _vehicle.update { it.copy(clearResult = lines) }
+                session?.report(tr("Стирание ошибок", "Clearing codes"), lines.joinToString("\n"))
             }
         }
-        ensureAdapter(o)
+    }
+
+    /** The standard OBD clear alone: the replays' «Сбросить». */
+    suspend fun clearDtc(o: Obd) = clearCodes(o, obd = true, keys = emptyList())
+
+    /** What [clearCodes] did, a line per item: cleared, refused (in words), back at once; the unticked modules with codes. */
+    private fun clearLines(
+        before: VehicleInfo, after: VehicleInfo, obdResult: ModuleClear.Result?, targets: List<GmDtcResult>,
+        results: Map<String, ModuleClear.Result>, checked: Boolean,
+    ): List<String> = buildList {
+        val obd = obdResult != null
+        if (obdResult != null) {
+            val was = CodesScreen.checkEngineCodes(before)
+            val now = CodesScreen.checkEngineCodes(after)
+            val back = was.intersect(now)
+            add("${CodesScreen.CHECK_ENGINE}: " + when {
+                !obdResult.ok -> obdResult.text
+                !checked -> obdResult.text
+                was.isEmpty() -> tr("кодов не было, сброшены стоп-кадр и готовность мониторов", "there were no codes; the freeze frame and the monitors' readiness are reset")
+                back.isEmpty() -> tr("стёрто", "cleared")
+                else -> tr("стёрто, сразу вернулись: ${back.joinToString()} — неисправность есть сейчас", "cleared, back at once: ${back.joinToString()} — the fault is there now")
+            })
+            val permanent = after.dtcs.filter { it.kind == DtcKind.PERMANENT }.map { it.code }.distinct()
+            if (checked && permanent.isNotEmpty()) add(tr("Постоянные (${permanent.joinToString()}) уходят сами, когда блок проверит систему без сбоя",
+                "Permanent ones (${permanent.joinToString()}) go by themselves once the module checks the system without a fault"))
+        }
+        for (r in targets) {
+            val res = results[r.module.key]
+            val back = after.gmDtcs.firstOrNull { it.module.key == r.module.key }?.codes.orEmpty()
+            add(CodesScreen.moduleTitle(r.module) + ": " + when {
+                res == null -> tr("адаптер не переключился на этот провод", "the adapter didn't switch to this wire")
+                !res.ok -> res.text
+                !checked || back.isEmpty() -> res.text
+                else -> tr("стёрто, сразу вернулись: ${back.joinToString { it.full }} — неисправность есть сейчас",
+                    "cleared, back at once: ${back.joinToString { it.full }} — the fault is there now")
+            })
+        }
+        if (!checked) add(tr("Проверка после стирания остановлена", "The check after clearing was stopped"))
+        val left = after.gmDtcs.filter { r -> r.codes.isNotEmpty() && targets.none { it.module.key == r.module.key } && !(obd && CodesScreen.isObdBlock(after, r.module)) }
+        if (checked && left.isNotEmpty()) add(tr("Не отмечены, коды остались: ", "Not ticked, the codes stay: ") + left.joinToString { CodesScreen.moduleTitle(it.module) })
     }
 
     /** «Блоков: 10, кодов: 6» and, after a hand-picked make, the modules that answered only the standard way. */
@@ -1876,17 +1924,12 @@ class CarLink(
     private fun savedBusModules(bus: ExtraBus): List<GmModule>? {
         val s = busModulesKey(bus)?.let { store.getString(it) } ?: return null
         if (s == "-") return emptyList()
-        return s.split(',').mapNotNull { p ->
-            val parts = p.split(':').takeIf { it.size in 2..3 }?.map { it.toIntOrNull(16) } ?: return@mapNotNull null
-            val req = parts[0] ?: return@mapNotNull null
-            val resp = parts[1] ?: return@mapNotNull null
-            GmModule(req, resp, "%03X".format(req), tr("из прошлой сессии", "from an earlier session"), parts.getOrNull(2), bus = bus.id)
-        }
+        return s.split(',').mapNotNull { parseModule(it, bus.id) }
     }
 
     private fun saveBusModules(bus: ExtraBus, list: List<GmModule>) {
         val key = busModulesKey(bus) ?: return
-        store.putString(key, list.joinToString(",") { m -> "%03X:%03X".format(m.req, m.resp) + (m.diag?.let { ":%02X".format(it) } ?: "") }.ifEmpty { "-" })
+        store.putString(key, list.joinToString(",") { moduleText(it) }.ifEmpty { "-" })
     }
 
     /** The same module as one on the main bus (wired to both: it tells the same diagnostic address): its codes are read there. */
@@ -1923,6 +1966,7 @@ class CarLink(
         for ((i, mod) in found.withIndex()) {
             status(tr("${bus.title()}: идентификация %s (%d из %d)…", "${bus.title()}: identifying %s (%d of %d)…").format(mod.id, i + 1, found.size))
             sc.identify(mod) { h -> ids += h; session?.scanHit(h.req, h.resp, h.service, h.didHex, h.data) }
+            partAsked += GmModule(mod.req, mod.resp, "", "", bus = bus.id).key
         }
         val named = found.map { mod ->
             val diag = ids.firstOrNull { it.req == mod.req && it.did == GmScanner.DIAG_ADDRESS && it.data.size == 1 }?.data?.get(0) ?: mod.diag
@@ -2035,12 +2079,8 @@ class CarLink(
     private fun savedModules(): List<GmModule> {
         val a = addressing()
         return modulesPrefKey()?.let { store.getString(it) }.orEmpty().split(',').mapNotNull { p ->
-            val parts = p.split(':').takeIf { it.size in 2..3 }?.map { it.toIntOrNull(16) } ?: return@mapNotNull null
-            val req = parts[0] ?: return@mapNotNull null
-            val resp = parts[1] ?: return@mapNotNull null
-            val diag = parts.getOrNull(2)
-            val name = if (Tp20.isTp(req)) VagBlocks.moduleName(diag, req - Tp20.BASE) else diag?.let(a.diagName) ?: a.name(req)
-            GmModule(req, resp, name, tr("из прошлой сессии", "from an earlier session"), diag)
+            val m = parseModule(p) ?: return@mapNotNull null
+            m.copy(name = if (Tp20.isTp(m.req)) VagBlocks.moduleName(m.diag, m.req - Tp20.BASE) else m.diag?.let(a.diagName) ?: a.name(m.req))
         }
     }
 
@@ -2117,10 +2157,18 @@ class CarLink(
         }
         val reader = ModuleReader(o, status)
         val out = mutableListOf<GmDtcResult>()
-        for ((i, mod) in modules.withIndex()) {
-            status(tr("Ошибки ${mod.name} (${i + 1} из ${modules.size})…", "Codes: ${mod.name} (${i + 1} of ${modules.size})…"))
+        for ((i, found) in modules.withIndex()) {
+            status(tr("Ошибки ${found.name} (${i + 1} из ${modules.size})…", "Codes: ${found.name} (${i + 1} of ${modules.size})…"))
+            val mod = withPartNumber(o, found)
             out += reader.read(mod)
             _vehicle.update { it.copy(gmDtcs = out.toList()) }
+        }
+        // Part numbers read on the way: on «Машина» and «Скан блоков», kept for the next connections.
+        val numbered = out.map { it.module }
+        if (numbered != modules) {
+            modules = numbered
+            _scan.update { it.copy(modules = numbered) }
+            saveModules(numbered)
         }
         o.broadcast()
         val tag = if (o.kline) "K-line" else addressing().tag
@@ -2138,7 +2186,8 @@ class CarLink(
             status(tr("${bus.title()}: переключение…", "${bus.title()}: switching…"))
             val busReader = ModuleReader(o, status)
             val got = onBus(o, bus) {
-                val mods = saved?.map { busNamed(it, modules) } ?: findBusModules(o, bus, modules, status).also { saveBusModules(bus, it) }
+                val mods = (saved?.map { busNamed(it, modules) } ?: findBusModules(o, bus, modules, status)).map { withPartNumber(o, it) }
+                saveBusModules(bus, mods)
                 _scan.update { s -> s.copy(sw = (s.sw ?: SwCanState()).copy(modules = mods)) }
                 val res = mutableListOf<GmDtcResult>()
                 val ask = mods.filter { alsoOnMain(it, modules) == null }

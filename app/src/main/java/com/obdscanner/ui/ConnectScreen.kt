@@ -96,6 +96,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     val source by m.source.collectAsStateWithLifecycle()
     val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
     val sensorsWithAdapter by m.sensorsWithAdapter.collectAsStateWithLifecycle()
+    val modulesOnConnect by m.modulesOnConnect.collectAsStateWithLifecycle()
     val newer by m.updates.newer.collectAsStateWithLifecycle()
     val usb by m.usb.collectAsStateWithLifecycle()
     fun pick(id: String) { if (!running) m.pickSource(id) }
@@ -196,6 +197,13 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
                 }
                 Muted(tr("Старые клоны ELM327 работают по классическому Bluetooth, USB-адаптеры — через переходник OTG, Wi-Fi-адаптеры — через свою сеть Wi-Fi. Включите зажигание перед подключением.",
                     "Old ELM327 clones work over classic Bluetooth, USB adapters through an OTG adapter, Wi-Fi adapters through their own Wi-Fi network. Turn the ignition on before connecting."))
+                Row(Modifier.fillMaxWidth().clickable(enabled = !running) { m.setModulesOnConnect(!modulesOnConnect) },
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = modulesOnConnect, onCheckedChange = { m.setModulesOnConnect(it) }, enabled = !running)
+                    Text(tr("Проверять все блоки при подключении", "Check every module on connecting"), style = MaterialTheme.typography.bodyLarge)
+                }
+                Muted(tr("Коды ошибок ABS, кузова, подушек и других блоков. Первый раз 1–2 минуты, дальше секунды; живые данные идут после. Без галочки — кнопкой «Проверить ошибки» на «Ошибках».",
+                    "The trouble codes of ABS, body, airbags and the other modules. The first time 1–2 minutes, then seconds; live data follows. Unticked — with «Check codes» on «Codes»."))
                 SectionTitle(tr("Без адаптера", "No adapter"))
                 SourceCard(tr("Демо-режим", "Demo mode"),
                     tr("Эмулятор ELM327 + CTS 2.8: ECM, TCM, ошибки, Mode 06, GM-модули", "ELM327 emulator + CTS 2.8: ECM, TCM, codes, Mode 06, GM modules"),

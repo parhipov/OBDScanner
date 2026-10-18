@@ -199,11 +199,11 @@ class Scanner(appVersion: String) {
 
     private fun mil(): Boolean? = link.readings.value.pick("01.01.MIL")?.value?.let { it == 1.0 }
 
-    /** The question before «Стереть ошибки в блоках» as JSON ([ScreenJson.clearModules]). */
-    fun clearModulesQuestion(): String = ScreenJson.clearModules(CodesScreen.clearModules(link.vehicle.value))
+    /** The question before «Стереть ошибки» as JSON ([ScreenJson.clearModules]): the engine and gearbox, then the modules. */
+    fun clearQuestion(): String = ScreenJson.clearModules(CodesScreen.clearModules(link.vehicle.value))
 
-    /** «Стереть ошибки в блоках», after the page asked: the modules ticked. */
-    fun clearModules(keys: Array<String>) = launchOp(tr("Стирание ошибок в блоках", "Clearing module codes")) { link.clearModules(it, keys.toList()) }
+    /** «Стереть ошибки», after the page asked: the keys ticked ([CodesScreen.OBD] — the engine and gearbox, Mode 04). */
+    fun clearCodes(keys: Array<String>) = launchOp(tr("Стирание ошибок", "Clearing codes")) { link.clearCodes(it, CodesScreen.OBD in keys, keys.toList() - CodesScreen.OBD) }
 
     /** «Скопировать список»: the codes as text. */
     fun codesText(): String = CodesScreen.text(link.vehicle.value, mil())
@@ -305,9 +305,6 @@ class Scanner(appVersion: String) {
         link.scan.value.hits.firstOrNull { it.key == key }?.let(link::toggleWatch)
     }
 
-    /** The texts of the question before clearing codes: title, text, yes, no. */
-    fun clearQuestion(): Array<String> = arrayOf(CodesScreen.CLEAR_TITLE, CodesScreen.CLEAR_TEXT, CodesScreen.CLEAR_YES, CodesScreen.CLEAR_NO)
-
     /** The question before «Сбросить» on «Машина» ([CarLink.forgetCar]). */
     fun forgetQuestion(): Array<String> = arrayOf(InfoScreen.FORGET_TITLE, InfoScreen.FORGET_TEXT, InfoScreen.FORGET_YES, InfoScreen.FORGET_NO)
 
@@ -323,11 +320,10 @@ class Scanner(appVersion: String) {
     /** "Support the project" ([Support]): label, text, link (empty — no line), open, close. */
     fun support(): Array<String> = arrayOf(Support.LABEL, Support.TEXT, Support.URL, Support.OPEN, DtcHelpView.CLOSE)
 
-    /** A screen's button ("READ_DTC", "CLEAR_DTC" — after the page asked —, "READ_ALL_MODULES", "RESCAN", "MODE06", "STOP"…). */
+    /** A screen's button ("READ_DTC", "READ_ALL_MODULES", "RESCAN", "MODE06", "STOP"…); «Стереть ошибки» is [clearCodes]. */
     fun action(name: String) {
         when (Action.entries.firstOrNull { it.name == name }) {
             Action.READ_DTC -> launchOp(tr("Проверка ошибок", "Checking codes")) { link.checkCodes(it) }
-            Action.CLEAR_DTC -> launchOp(tr("Сброс ошибок", "Clearing codes")) { link.clearDtc(it) }
             Action.READ_ALL_MODULES -> launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.readAllModulesDtc(it) }
             Action.RESCAN -> launchOp(tr("Повторный опрос", "Rescan")) { link.rediscover(it) }
             Action.MODE06 -> launchOp("Mode 06") { link.refreshMode06(it) }
@@ -335,8 +331,8 @@ class Scanner(appVersion: String) {
             Action.FORGET -> link.forgetCar()
             Action.STOP -> stopOp()
             Action.RESTORE_MAIN -> link.restoreMain()
-            // The page opens its own screen, asks (clearModulesQuestion) or copies (codesText).
-            Action.LICENSES, Action.TERMS, Action.CLEAR_MODULES, Action.COPY_DTC, null -> {}
+            // The page opens its own screen, asks (clearQuestion, then clearCodes) or copies (codesText).
+            Action.LICENSES, Action.TERMS, Action.CLEAR_DTC, Action.COPY_DTC, null -> {}
         }
     }
 

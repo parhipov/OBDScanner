@@ -52,14 +52,17 @@ class CodesTest {
         // The pending one only Mode 07 has: a row of its own under the engine.
         assertTrue(rows.any { it.dtc!!.code == "P0171" && it.dtc!!.kind == DtcKind.PENDING })
         assertEquals(setOf("P0420", "P0171", "B1517", "U0140"), rows.map { it.dtc!!.code }.toSet())
+        // The modules by name, no ids (issue #4: «излишне»).
         val folds = blocks.filterIsInstance<Block.Fold>().map { it.text }
-        assertTrue(folds.toString(), folds.any { it.startsWith("ECM") } && folds.any { it.startsWith("BCM") })
+        assertTrue(folds.toString(), "ECM (двигатель)" in folds && "BCM (кузов)" in folds && folds.none { "·" in it })
         // The engine's group first, the module without codes and the silent one in a line each.
         val notes = blocks.filterIsInstance<Block.Note>().map { it.text }
         assertTrue(notes.toString(), notes.any { it.startsWith(tr("Без ошибок: ", "No codes: ")) && "TCM" in it })
         assertTrue(notes.toString(), notes.any { it.startsWith(tr("Не ответили: ", "Didn't answer: ")) && "252" in it })
         assertTrue(blocks.any { it is Block.Banner && it.text == tr("Check Engine горит", "Check Engine is on") })
-        assertTrue(blocks.filterIsInstance<Block.Buttons>().any { b -> b.buttons.any { it.action == com.obdscanner.screen.Action.CLEAR_MODULES } })
+        // One button clears, at the top, next to «Проверить ошибки».
+        val first = blocks.filterIsInstance<Block.Buttons>().first().buttons
+        assertEquals(listOf(CodesScreen.CHECK, CodesScreen.CLEAR), first.map { it.label })
     }
 
     @Test
@@ -75,10 +78,14 @@ class CodesTest {
         assertTrue(gone, "B0000" in gone && "U0100" !in gone)
     }
 
+    /** «Стереть ошибки?»: the engine and gearbox first (the standard clear, their own memory counted in), then the other modules. */
     @Test
-    fun theClearQuestionLeavesTheEngineOut() {
+    fun theClearQuestion() {
         val q = CodesScreen.clearModules(v)
-        assertEquals(listOf("7E0" to false, "241" to true), q.items.map { it.key to it.checked })
+        assertEquals(listOf(CodesScreen.OBD to true, "241" to true), q.items.map { it.key to it.checked })
+        assertEquals(2, q.items.first().count)
+        val airbag = v.copy(gmDtcs = v.gmDtcs + GmDtcResult(GmModule(0x24C, 0x64C, "Подушки (SDM)", ""), listOf(GmDtc("B0001", 0, 0x10)), "кодов: 1", true))
+        assertEquals(false, CodesScreen.clearModules(airbag).items.single { it.key == "24C" }.checked)
         val text = CodesScreen.text(v, mil = true)
         assertTrue(text, "B1517 03" in text && "P0171" in text && "VIN" !in text)
     }
@@ -146,7 +153,7 @@ class CodesTest {
         val store = MapStore().apply { putString("gm_modules_1G1JC5444R7252367", "241:641:40") }
         val r = runBlocking { replayRun(ReplayLog.parse(bcmLog), store, cycles = 1, after = { link, o ->
             assertEquals(listOf("B1517"), link.vehicle.value.gmDtcs.single().codes.map { it.code })
-            link.clearModules(o, listOf("241"))
+            link.clearCodes(o, obd = false, keys = listOf("241"))
         }) }
         assertNull(r.error)
         val v = r.link.vehicle.value
@@ -154,7 +161,33 @@ class CodesTest {
         assertEquals(1, v.clearResult.size)
         assertTrue(v.clearResult.single(), tr("стёрто", "cleared") in v.clearResult.single())
         assertTrue(r.addressed.toString(), "241" to "04" in r.addressed)
-        assertTrue(r.reports.any { it.first == tr("Стирание ошибок в блоках", "Clearing module codes") })
+        assertTrue(r.reports.any { it.first == tr("Стирание ошибок", "Clearing codes") })
+        // Not the standard clear: it wasn't ticked.
+        assertFalse(r.addressed.toString(), "7DF" to "04" in r.addressed)
+    }
+
+    /** Part numbers are kept with the modules (issue #4: the main bus's were missing on «Машина»), and a missing one is asked once. */
+    @Test
+    fun partNumbersStayWithTheModules() {
+        CarDbTest.load()
+        val kept = MapStore().apply { putString("gm_modules_1G1JC5444R7252367", "241:641:40:13535989") }
+        val r = runBlocking { replayRun(ReplayLog.parse(bcmLog), kept, cycles = 1) }
+        assertEquals(13535989L, r.link.scan.value.modules.single().partNumber)
+        assertFalse("1ACB" in r.requests.map { it.uppercase() })
+        val none = MapStore().apply { putString("gm_modules_1G1JC5444R7252367", "241:641:40") }
+        val again = runBlocking { replayRun(ReplayLog.parse(bcmLog), none, cycles = 1, after = { link, o -> link.readAllModulesDtc(o) }) }
+        assertEquals(1, again.requests.count { it.uppercase() == "1ACB" })
+    }
+
+    /** Two modules of one name: their ids tell them apart. */
+    @Test
+    fun namesakesGetTheirIds() {
+        val twins = VehicleInfo(gmDtcs = listOf(
+            GmDtcResult(GmModule(0x24A, 0x64A, "HUD", ""), listOf(GmDtc("U0100", 0, 0x10)), "кодов: 1", true),
+            GmDtcResult(GmModule(0x25A, 0x65A, "HUD", "", bus = "swcan"), listOf(GmDtc("U0101", 0, 0x10)), "кодов: 1", true),
+        ), gmDtcTime = 1)
+        val folds = CodesScreen.build(twins, null).filterIsInstance<Block.Fold>().map { it.text }
+        assertTrue(folds.toString(), "HUD · 24A" in folds && folds.any { it.startsWith("HUD · 25A") })
     }
 
     @Test

@@ -159,6 +159,9 @@ object MainScreen {
             gmCodes.isEmpty() && ((dtcCount ?: 0) > 0 || v.dtcs.isNotEmpty()) -> top.banner(tr("Есть коды ошибок: ${v.dtcs.size} — см. вкладку «Ошибки»",
                 "Trouble codes: ${v.dtcs.size} — see the \"Codes\" tab"), Level.WARN, Tab.Dtc)
         }
+        // The modules' memory isn't read on connecting when «Связь» says so (or the check was stopped): where to read it.
+        if (!offline && v.moduleAccess && v.gmDtcTime == 0L && v.dtcTime > 0 && v.step.isEmpty())
+            top.banner(tr("Память блоков не проверена — вкладка «Ошибки»", "The modules' memory isn't checked — the \"Codes\" tab"), Level.MUTED, Tab.Dtc)
         if (gmCodes.isNotEmpty()) {
             val active = gmCodes.count { it.current }
             val modules = v.gmDtcs.count { it.codes.isNotEmpty() }

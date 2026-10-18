@@ -87,9 +87,9 @@ class SwCanTest {
         val last = s.drop(s.lastIndexOf("03A9815A00000000"))
         assertTrue(last.toString(), "ATSP6" in last && "0100" in last.drop(last.indexOf("ATSP6")))
         assertTrue(r.reports.any { it.first.startsWith("GM SW-CAN: " + tr("ошибки всех блоков", "DTCs of all modules")) && "U18B4" in it.second })
-        // «Ошибки» shows it with the rest, the wire's pins after its name.
+        // «Ошибки» shows it with the rest, by its name alone: no other module reads the same, so no id and no wire.
         val codes = com.obdscanner.screen.ScreenJson.blocks(com.obdscanner.screen.CodesScreen.build(r.link.vehicle.value, null))
-        assertTrue(codes, "U18B4" in codes && tr("контакт 1", "pin 1") in codes)
+        assertTrue(codes, "U18B4" in codes && tr("Блок 25A", "Module 25A") in codes && tr("контакт 1", "pin 1") !in codes)
     }
 
     /** «Блоки на SW-CAN» on «Скан блоков» finds and identifies the modules afresh, no codes: those are «Ошибки»'s. */
