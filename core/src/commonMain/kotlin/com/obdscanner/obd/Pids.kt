@@ -260,7 +260,9 @@ object Pids {
         }
         val out = mutableListOf<Reading>()
         for (o in def.outs) {
-            val v = runCatching { o.f(d) }.getOrNull()
+            // A byte the reply doesn't have: the JVM throws, the browser reads undefined and gets NaN
+            // (the CTS ECM's one-byte 56/58: no «B3 = NaN» on the page).
+            val v = runCatching { o.f(d) }.getOrNull()?.takeUnless { it.isNaN() }
             if (v == null && def.outs.size > 1) continue
             val src = if (o.suffix.isEmpty()) base else "$base.${o.suffix}"
             out += Reading(Reading.key(ecu, src), ecu, o.name, v, if (v == null) hex(d) else null, o.unit, o.decimals)
