@@ -109,6 +109,11 @@ class CarDbTest {
         assertEquals("Outlander PHEV", CarDb.detect("JMBXDGG2WGZ000000")?.model)
         // A petrol Outlander III (GF2W) isn't the PHEV; the GF has no VIN pattern of its own yet.
         assertTrue(CarDb.detect("JMBXTGF2WFZ000000")?.model != "Outlander PHEV")
+        // Pontiac Vibe: a Toyota Matrix built by NUMMI under its own WMI, the generation by the model year.
+        assertEquals(Make.TOYOTA, Make.fromVin("5Y2SP678X9Z410428"))
+        assertEquals("Pontiac", CarDb.brandOf("5Y2SP678X9Z410428")?.name)
+        assertEquals("E140", CarDb.detect("5Y2SP678X9Z410428")?.gen)
+        assertEquals("E130", CarDb.detect("5Y2SL62875Z000000")?.gen)
     }
 
     @Test

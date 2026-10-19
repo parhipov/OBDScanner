@@ -56,6 +56,12 @@
         "JTJ",
         "2T2"
       ]
+    },
+    {
+      "name": "Pontiac",
+      "wmi": [
+        "5Y2"
+      ]
     }
   ],
   "models": [
@@ -451,6 +457,81 @@
         "https://www.klavkarr.com/location-plug-connector-obd/Toyota-corolla-e140"
       ],
       "verified": false
+    },
+    {
+      "brand": "Pontiac",
+      "model": "Vibe",
+      "gen": "E130",
+      "years": [
+        2003,
+        2008
+      ],
+      "vin": [
+        "^5Y2"
+      ],
+      "engines": [
+        {
+          "code": "1ZZ-FE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2ZZ-GE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "note": {
+        "ru": "Toyota Matrix под маркой Pontiac, собирала NUMMI (WMI 5Y2).",
+        "en": "A Toyota Matrix badged Pontiac, built by NUMMI (WMI 5Y2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Pontiac_Vibe",
+        "https://en.wikibooks.org/wiki/Vehicle_Identification_Numbers_(VIN_codes)/World_Manufacturer_Identifier_(WMI)"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Pontiac",
+      "model": "Vibe",
+      "gen": "E140",
+      "years": [
+        2009,
+        2010
+      ],
+      "vin": [
+        "^5Y2"
+      ],
+      "engines": [
+        {
+          "code": "2ZR-FE",
+          "liters": 1.8,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "2AZ-FE",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500: отвечают двигатель (7E0) и блоки 7A1, 7B0, 7C0, 7C4.",
+        "en": "CAN 11/500: the engine (7E0) and the modules 7A1, 7B0, 7C0, 7C4 answer."
+      },
+      "note": {
+        "ru": "Toyota Matrix под маркой Pontiac, собирала NUMMI (WMI 5Y2).",
+        "en": "A Toyota Matrix badged Pontiac, built by NUMMI (WMI 5Y2)."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Pontiac_Vibe",
+        "https://en.wikibooks.org/wiki/Vehicle_Identification_Numbers_(VIN_codes)/World_Manufacturer_Identifier_(WMI)"
+      ],
+      "verified": true
     },
     {
       "brand": "Toyota",
