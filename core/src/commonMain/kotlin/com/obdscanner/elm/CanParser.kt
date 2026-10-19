@@ -27,10 +27,11 @@ class CanReply(val messages: List<EcuMessage>, val errors: List<String>, val raw
  *   7E8 06 41 00 BE 3F A8 13          single frame
  *   7E8 10 14 49 02 01 31 47 36       first frame
  *   7E8 21 44 50 35 37 37 58 38       consecutive frame
- * K-line (ISO 9141-2, ISO 14230) lines are whole messages: 3–4 header bytes, data, checksum:
+ * K-line (ISO 9141-2, ISO 14230) and J1850 lines are whole messages: 3–4 header bytes, data, a check byte:
  *   48 6B 10 41 00 BE 3E B8 11 C9     ISO 9141-2, ECU 10
  *   83 F1 10 41 0D 00 D2              ISO 14230, length in the format byte
- * The header of a K-line message is the ECU's source address (10 = engine).
+ *   48 6B 10 41 0C 0B 54 xx           J1850 VPW (41 6B 10 … on PWM), the check byte a CRC-8
+ * The header of such a message is the ECU's source address (10 = engine).
  */
 object CanParser {
     private val STATUS = listOf("NO DATA", "CAN ERROR", "BUFFER FULL", "STOPPED", "UNABLE TO CONNECT",
@@ -151,9 +152,10 @@ object CanParser {
     }
 
     /**
-     * One K-line message: (source address, data from the service byte) or null if the line isn't one.
-     * A CAN frame without headers starts with its PCI (0x..3F), so 48 6B / 8x F1 can't be mistaken for it.
-     * The trailing checksum (sum of all bytes) is dropped; a line where it doesn't add up is not K-line.
+     * One K-line or J1850 message: (source address, data from the service byte) or null if the line isn't one.
+     * A CAN frame without headers starts with its PCI (0x..3F), so 48 6B / 41 6B / 8x F1 can't be mistaken for it.
+     * The check byte is dropped: K-line's is the sum of all bytes, J1850's the CRC-8 of SAE J1850 (VPW shares
+     * the 48 6B header with ISO 9141-2). A line where neither adds up is not one.
      */
     private fun kline(line: String): Pair<Int, IntArray>? {
         val t = line.trim().split(' ').filter { it.isNotEmpty() }
@@ -161,11 +163,23 @@ object CanParser {
         val b = t.map { it.toIntOrNull(16) ?: return null }
         val head = when {
             b[0] == 0x48 && b[1] == 0x6B -> 3
+            b[0] == 0x41 && b[1] == 0x6B -> 3
             b[0] and 0x80 != 0 && b[1] == 0xF1 -> if (b[0] and 0x3F == 0) 4 else 3
             else -> return null
         }
-        if (b.dropLast(1).sum() and 0xFF != b.last()) return null
+        val body = b.dropLast(1)
+        if (body.sum() and 0xFF != b.last() && (b[1] != 0x6B || j1850Crc(body) != b.last())) return null
         return b[2] to b.subList(head, b.size - 1).toIntArray()
+    }
+
+    /** SAE J1850 CRC-8: polynomial 1D, initial FF, the result inverted. */
+    fun j1850Crc(bytes: List<Int>): Int {
+        var crc = 0xFF
+        for (x in bytes) {
+            crc = crc xor x
+            repeat(8) { crc = if (crc and 0x80 != 0) (crc shl 1 xor 0x1D) and 0xFF else (crc shl 1) and 0xFF }
+        }
+        return crc xor 0xFF
     }
 
     /**

@@ -44,6 +44,7 @@
         <item>The first connection takes about a minute: the app looks for the modules and reads their codes.</item>
         <item>Airbags, cluster, radio, climate and TPMS are on a separate bus (pin 1); a plain ELM327 can\'t see them.</item>
         <item>If the engine is tuned to run open loop or without O2 sensors, the fuel trims sit at zero and the O2 readings don\'t move.</item>
+        <item>Older cars on J1850 VPW (in the car base: Tahoe 2000–2006, Escalade 2002–2006, DeVille, Seville): pick the car at the top and this protocol is tried first, otherwise last. Only standard OBD is read. This is new and not yet tried on a real car: please send a session.</item>
     </string-array>
 
     <string-array name="guide_vag">

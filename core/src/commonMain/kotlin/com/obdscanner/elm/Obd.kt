@@ -8,10 +8,17 @@ import com.obdscanner.vag.Tp20
 class Obd(val elm: Elm327) {
     /** 3 for 11-bit CAN, 8 for 29-bit. */
     var headerChars = 3
-    /** ISO 9141-2 / ISO 14230: no CAN headers or filters; physical addressing only on KWP (see [canTarget]). */
+    /**
+     * Not CAN: ISO 9141-2 / ISO 14230 on K-line, or J1850 ([j1850]) — whole messages with a 3-byte header, no CAN
+     * headers or filters; physical addressing only on KWP (see [canTarget]).
+     */
     var kline = false
-    /** ELM protocol number (ATDPN) once known: 3 ISO 9141-2, 4/5 ISO 14230 (KWP2000), 6–9 CAN. */
+    /** ELM protocol number (ATDPN) once known: 1/2 J1850 PWM/VPW, 3 ISO 9141-2, 4/5 ISO 14230 (KWP2000), 6–9 CAN. */
     var protocol = 0
+    /** J1850 PWM or VPW (old US cars): no bus init, OBD requests to the functional header only. */
+    val j1850 get() = protocol == 1 || protocol == 2
+    /** The name of a non-CAN protocol without module addressing, for the messages that say so. */
+    val untargetedBus get() = when (protocol) { 1 -> "J1850 PWM"; 2 -> "J1850 VPW"; else -> "ISO 9141-2" }
     /**
      * CAN with 29-bit ids (ATSP7/9). Only the adapter's own functional header is used there (18 DB 33 F1, set by
      * the protocol): every module address the app knows is 11-bit, and "ATSH7DF" on 29-bit sends to 18 00 07 DF,
@@ -141,7 +148,7 @@ class Obd(val elm: Elm327) {
      * functional header they got when the protocol started (datasheet), only requests go to the module.
      */
     private suspend fun targetKline(req: Int, resp: Int) {
-        check(canTarget) { tr("на ISO 9141-2 адресации блоков нет", "ISO 9141-2 has no module addressing") }
+        check(canTarget) { tr("на $untargetedBus адресации блоков нет", "$untargetedBus has no module addressing") }
         // Only a real module address: never the functional OBD one (33), the tester (F1) or a CAN id.
         check(req == resp && req in 0x01..0xEF && req != KWP_FUNCTIONAL) { "bad K-line address %X".format(req) }
         lastTarget = req to resp
@@ -194,7 +201,8 @@ class Obd(val elm: Elm327) {
         leaveTp()
         if (kline) {
             // Untouched since the protocol started (null) — the ELM's own default header is still in place.
-            if (currentHeader != null && currentHeader != KWP_FUNCTIONAL) {
+            // J1850 has no module addressing here ([canTarget]), so its header is never changed.
+            if (!j1850 && currentHeader != null && currentHeader != KWP_FUNCTIONAL) {
                 at("ATSHC133F1")
                 currentHeader = KWP_FUNCTIONAL
             }

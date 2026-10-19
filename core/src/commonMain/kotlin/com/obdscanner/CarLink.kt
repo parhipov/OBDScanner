@@ -261,7 +261,7 @@ class CarLink(
     suspend fun probeModules(o: Obd) {
         if (!o.canTarget) _scan.update { it.copy(status =
             if (o.can29) tr("На CAN 29 бит поиск модулей недоступен", "Module search is not available on 29-bit CAN")
-            else tr("На ISO 9141-2 поиск модулей недоступен", "Module search is not available on ISO 9141-2")) } else findModules(o)
+            else tr("На ${o.untargetedBus} поиск модулей недоступен", "Module search is not available on ${o.untargetedBus}")) } else findModules(o)
     }
 
     suspend fun scanModule(o: Obd, module: GmModule, service: String, range: IntRange) {
@@ -478,14 +478,15 @@ class CarLink(
         val dpn = o.at("ATDPN").lines.firstOrNull().orEmpty()
         val proto = dpn.trimStart('A', 'a').toIntOrNull(16) ?: 0
         o.headerChars = if (proto == 7 || proto == 9) 8 else 3
-        o.kline = proto in 3..5
+        o.kline = proto in 1..5
         o.protocol = proto
         if (proto != 0) {
             protocolCmd = "ATSP%X".format(proto)
             store.putInt("last_protocol_$name", proto)
         }
         val dp = o.at("ATDP").lines.firstOrNull().orEmpty()
-        if (proto !in 3..9) session?.note("WARNING: protocol $dpn is neither CAN nor K-line — parsing may fail")
+        if (proto !in 1..9) session?.note("WARNING: protocol $dpn is neither CAN, K-line nor J1850 — parsing may fail")
+        if (o.j1850) session?.note("J1850: standard OBD only — no module addressing, no manufacturer parameters")
         val aggressive = o.at("ATAT2").isOk
         if (aggressive) o.adaptiveTiming = "ATAT2"
         o.broadcast()
@@ -580,7 +581,7 @@ class CarLink(
             probeExt(o, full)
         } else {
             // The database's requests all go to 11-bit ids.
-            session?.note("manufacturer parameters skipped: ${if (o.kline) "K-line" else "29-bit CAN"}")
+            session?.note("manufacturer parameters skipped: ${if (o.j1850) "J1850" else if (o.kline) "K-line" else "29-bit CAN"}")
         }
         step("")
     }
@@ -1739,7 +1740,7 @@ class CarLink(
         if (!o.canTarget) {
             _vehicle.update { it.copy(gmDtcStatus =
                 if (o.can29) tr("На CAN 29 бит читаются только стандартные коды OBD", "On 29-bit CAN only the standard OBD codes are read")
-                else tr("На ISO 9141-2 читаются только стандартные коды OBD", "On ISO 9141-2 only the standard OBD codes are read")) }
+                else tr("На ${o.untargetedBus} читаются только стандартные коды OBD", "On ${o.untargetedBus} only the standard OBD codes are read")) }
             return
         }
         try {
@@ -2231,12 +2232,14 @@ class CarLink(
             "01.04", "01.43", "01.0E", "01.0B", "01.06", "01.07", "01.24.L", "01.34.I", "01.44", "01.14.V", "01.15.V",
             "01.3C", "01.3E", "01.42", "01.33", "01.1F", "01.2E", "01.2F", "01.5C")
         val PROTOCOLS = mapOf(6 to "CAN 11/500", 7 to "CAN 29/500", 8 to "CAN 11/250", 9 to "CAN 29/250",
-            4 to "KWP2000 5-baud", 5 to "KWP2000 fast", 3 to "ISO 9141-2")
+            4 to "KWP2000 5-baud", 5 to "KWP2000 fast", 3 to "ISO 9141-2", 2 to "J1850 VPW", 1 to "J1850 PWM")
         /**
-         * CAN first (answers or fails at once), then K-line with its slow bus init, then CAN 250k.
-         * No J1850 (old US Ford/GM only): nothing to gain on these cars, and a suspect for the clone's crash in ATSP0.
+         * CAN first (answers or fails at once), then K-line with its slow bus init, then CAN 250k, J1850 last
+         * (old US GM/Chrysler on VPW, Ford on PWM): out of the order since the switch from ATSP0 (2026-09-26), as a
+         * suspect for the Polo clone dropping the link in that search — never confirmed, and at the end it can only
+         * cut short a search that has failed already. A picked car's protocol still goes first.
          */
-        private val PROTOCOL_ORDER = listOf(6, 7, 4, 5, 3, 8, 9)
+        private val PROTOCOL_ORDER = listOf(6, 7, 4, 5, 3, 8, 9, 2, 1)
         /** Second round for K-line only. */
         private val KLINE_RETRY = listOf(4, 3, 5)
         private const val KLINE_GAP = 3000L
