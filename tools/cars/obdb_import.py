@@ -222,15 +222,21 @@ METRIC_ROLES = {
     "stateOfHealth": "hv_soh",
 }
 # A name matching this is a target/limit/model value, not the measured one: no role by name.
-NOT_ACTUAL = (r"\b(target|desired|commanded|setpoint|specified|requested|limit|limitation|model|"
-              r"modeled|estimated|maximum|minimum|max|min|threshold|offset|adaptation|correction)\b")
-# (regex on the lowercase English name, required unit or None, role). First match wins.
-NAME_ROLES: list[tuple[str, str | None, str]] = [
+NOT_ACTUAL = (r"\b(target|desired|commanded|setpoint|specified|requested|request|limit|limitation|model|"
+              r"modeled|estimated|critical|maximum|minimum|max|min|threshold|offset|adaptation|correction)\b")
+# A name matching this is not the quantity but something about it — a switch, a valve and its command, a lamp, a
+# counter, the sensor's raw code: no role by name («Oil pressure switch for low pressure» and «Engine oil pressure
+# control solenoid valve command» were the main screen's oil pressure).
+NOT_QUANTITY = r"\b(switch|valve|solenoid|command|cmd|raw|status|light|lamp|indicator|counter|count|demand|index|flag)\b"
+# (regex on the lowercase English name, required unit — one, several or None, role). First match wins. A pressure
+# is a pressure only in a pressure unit: a valve's current in A or an unknown unit isn't one.
+PRESSURE = ("kPa", "bar")
+NAME_ROLES: list[tuple[str, str | tuple[str, ...] | None, str]] = [
     (r"\bcvt\b.*\b(fluid|oil)\b.*temp", "°C", "cvt_temp"),
     (r"\b(transmission|trans\.?|atf|gearbox)\b.*\b(fluid|oil)\b.*temp|\batf\b.*temp", "°C", "atf_temp"),
     (r"\bclutch\b.*\btemp", "°C", "clutch_temp"),
     (r"^(engine )?oil temp|\bengine oil temp", "°C", "oil_temp"),
-    (r"^(engine )?oil pressure|\bengine oil pressure", None, "oil_pressure"),
+    (r"^(engine )?oil pressure|\bengine oil pressure", PRESSURE, "oil_pressure"),
     (r"\boil life\b", "%", "oil_life"),
     (r"^(engine )?oil level|\bengine oil level", None, "oil_level"),
     (r"\bcvt\b.*(deterioration|wear|degradation)", None, "cvt_wear"),
@@ -243,7 +249,7 @@ NAME_ROLES: list[tuple[str, str | None, str]] = [
     (r"\b(12 ?v|auxiliary|starter) battery state of charge", "%", "battery_soc"),
     (r"\b(12 ?v|auxiliary|starter) battery temp", "°C", "battery_temp"),
     (r"\bknock retard", None, "knock_retard"),
-    (r"\bboost pressure\b", None, "boost"),
+    (r"\bboost pressure\b", PRESSURE, "boost"),
     (r"\bsoot\b", None, "dpf_soot"),
     (r"\b(distance|km|kilometers|miles) (to|until) (next )?(service|oil change)|\bservice distance", "km", "service_km"),
     (r"\b(days|time) (to|until) (next )?(service|oil change)", None, "service_days"),
@@ -449,10 +455,11 @@ def role_of(sig: dict, name: str, unit: str) -> str | None:
             return None
         return role
     low = name.lower()
-    if re.search(NOT_ACTUAL, low):
+    if re.search(NOT_ACTUAL, low) or re.search(NOT_QUANTITY, low):
         return None
     for rx, need_unit, role in NAME_ROLES:
-        if (need_unit is None or need_unit == unit) and re.search(rx, low):
+        fits = need_unit is None or unit == need_unit or (isinstance(need_unit, tuple) and unit in need_unit)
+        if fits and re.search(rx, low):
             return role
     return None
 

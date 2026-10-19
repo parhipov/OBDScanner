@@ -5,6 +5,7 @@ import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarDb
 import com.obdscanner.obd.Knock
 import com.obdscanner.obd.Reading
+import com.obdscanner.obd.RoleValues
 import com.obdscanner.obd.pick
 import com.obdscanner.tr
 import com.obdscanner.util.nowMs
@@ -144,9 +145,7 @@ object MainScreen {
                     k == ROLE + "oil_pressure" -> null
                     // Manufacturer parameter of any make; GM ones are also listed by their DID above. The app's own
                     // (checked) value before an OBDb one of the same role: the Elantra's 21 A0 byte 33 isn't the Kia's ATF.
-                    k.startsWith(ROLE) -> k.removePrefix(ROLE).let { role ->
-                        r.values.filter { it.role == role }.sortedWith(compareByDescending<Reading> { it.curated }.thenBy { it.key }).firstOrNull()
-                    }
+                    k.startsWith(ROLE) -> k.removePrefix(ROLE).let { role -> first(r.values.filter { it.role == role }) }
                     k.contains(':') -> r[k]
                     else -> r.pick(k)
                 }
@@ -199,15 +198,16 @@ object MainScreen {
     }
 
     /**
-     * The oil pressure card's value: the CTS's 22.1470 while it moves, else any oil pressure value (any make, OBDb's
-     * too) that does — on a Trailblazer 22.1470 stays at 0 and an OBDb request carries the pressure (issue #4); before
-     * the engine runs, 22.1470 or the first of them. "Moves": the session's min…max spans 20 kPa or more.
+     * The oil pressure card's value: a pressure (not the valve command of the same role), [RoleValues]' first — the
+     * CTS's 22.1470 while it moves; on a Trailblazer it stays at 0 and an OBDb request carries the pressure (issue #4).
      */
-    private fun oilPressure(r: Map<String, Reading>): Reading? {
-        val cts = r.pick("22.1470")
-        val all = r.values.filter { it.role == "oil_pressure" && it.value != null && (it.unit.endsWith("Па") || it.unit.endsWith("Pa")) }
-        fun moves(x: Reading) = (x.max ?: 0.0) - (x.min ?: 0.0) >= 20
-        return cts?.takeIf(::moves) ?: all.filter(::moves).maxByOrNull { it.max ?: 0.0 } ?: cts ?: all.minByOrNull { it.key }
+    private fun oilPressure(r: Map<String, Reading>): Reading? =
+        first(r.values.filter { it.role == "oil_pressure" && (it.unit.endsWith("Па") || it.unit.endsWith("Pa")) })
+
+    /** A card's value among the readings of one role: [RoleValues.order]'s first. */
+    private fun first(rs: List<Reading>): Reading? {
+        val by = rs.associateBy { it.key }
+        return RoleValues.order(rs.map { RoleValues.Value(it.key, it.name, it.curated, it.min ?: 0.0, it.max ?: 0.0) }).firstOrNull()?.let { by[it.key] }
     }
 
     /** «Как бензин?» misfires: Mode 06 of the cycle (any make) and the GM current ones, each summed over the cylinders. */

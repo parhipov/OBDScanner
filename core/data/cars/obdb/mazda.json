@@ -838,7 +838,7 @@
    {"id": "MAZDA3_BAT_ACCUMULATED_AMP", "name": {"en": "Battery accumulated amp hours", "ru": "Накопленные А·ч батареи"}, "unit": "Ah", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 200, "add": -100}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DA01", "rate": "fast", "models": ["3"], "signals": [
-   {"id": "MAZDA3_OIL_P_SOLENOID_VLV", "name": {"en": "Oil pressure solenoid valve, open", "ru": "Клапан давления масла открыт"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "oil_pressure"}
+   {"id": "MAZDA3_OIL_P_SOLENOID_VLV", "name": {"en": "Oil pressure solenoid valve, open", "ru": "Клапан давления масла открыт"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 6, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "DA9D", "rate": "fast", "models": ["3"], "signals": [
    {"id": "MAZDA3_BAT_INTERNAL_RES", "name": {"en": "Battery internal resistance", "ru": "Внутреннее сопротивление батареи"}, "unit": "Ω", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
@@ -896,7 +896,7 @@
    {"id": "MAZDA3_ENG_LOAD_ACT", "name": {"en": "Engine load, actual", "ru": "Нагрузка двигателя, факт."}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F45C", "rate": "fast", "models": ["3"], "signals": [
-   {"id": "MAZDA3_EOP_ALT", "name": {"en": "Engine oil pressure", "ru": "Давление масла ДВС"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "oil_pressure", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "MAZDA3_EOP_ALT", "name": {"en": "Engine oil pressure", "ru": "Давление масла ДВС"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F462", "rate": "fast", "models": ["3"], "signals": [
    {"id": "MAZDA3_PCM_ACT_ENG_PCT_TRQ", "name": {"en": "Actual engine percent torque", "ru": "Крутящий момент ДВС, факт., %"}, "unit": "%", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -125}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}

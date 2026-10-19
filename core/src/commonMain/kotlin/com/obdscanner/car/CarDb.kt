@@ -124,8 +124,11 @@ object CarDb {
     fun family(id: String?): CarFamily? = id?.let { families[it] }
 
     /** The reading keys ("7E0:22.115C.BLAZER_EOP_2") of every value that is [role], over all makes. */
-    fun keysWithRole(role: String): Set<String> =
-        families.values.flatMap { f -> f.commands.flatMap { c -> c.signals.filter { it.role == role }.map { c.readingKey(it) } } }.toSet()
+    fun keysWithRole(role: String): Set<String> = signalsWithRole(role).keys
+
+    /** The values of [role] over all makes, by reading key. */
+    fun signalsWithRole(role: String): Map<String, ExtSignal> =
+        families.values.flatMap { f -> f.commands.flatMap { c -> c.signals.filter { it.role == role }.map { c.readingKey(it) to it } } }.toMap()
 
     fun dialect(id: String?): Dialect? = id?.let { dialects[it] }
 
