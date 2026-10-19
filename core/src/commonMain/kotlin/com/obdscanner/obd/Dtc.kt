@@ -16,7 +16,8 @@ data class DtcCode(val code: String, val ecu: Int, val kind: DtcKind) {
 object Dtc {
     fun decode(a: Int, b: Int): String {
         val letter = "PCBU"[(a shr 6) and 3]
-        return "%c%d%X%02X".format(letter, (a shr 4) and 3, a and 0x0F, b)
+        // No %d: Java localises its digits (fa-IR, ar-EG), and the code is a key into the database.
+        return "$letter${(a shr 4) and 3}" + "%X%02X".format(a and 0x0F, b)
     }
 
     /** Mode 03/07/0A reply payload on CAN: [43, count, A, B, A, B, ...]. */

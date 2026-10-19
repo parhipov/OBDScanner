@@ -142,8 +142,11 @@ object MainScreen {
                     // One oil pressure card: the CTS's 22.1470 or another make's (or OBDb's) value, whichever moves.
                     k == "22.1470" -> oilPressure(r)
                     k == ROLE + "oil_pressure" -> null
-                    // Manufacturer parameter of any make; GM ones are also listed by their DID above.
-                    k.startsWith(ROLE) -> k.removePrefix(ROLE).let { role -> r.values.filter { it.role == role }.minByOrNull { it.key } }
+                    // Manufacturer parameter of any make; GM ones are also listed by their DID above. The app's own
+                    // (checked) value before an OBDb one of the same role: the Elantra's 21 A0 byte 33 isn't the Kia's ATF.
+                    k.startsWith(ROLE) -> k.removePrefix(ROLE).let { role ->
+                        r.values.filter { it.role == role }.sortedWith(compareByDescending<Reading> { it.curated }.thenBy { it.key }).firstOrNull()
+                    }
                     k.contains(':') -> r[k]
                     else -> r.pick(k)
                 }

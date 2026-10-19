@@ -435,9 +435,6 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "091A", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
    {"id": "ESCAPE_ETC_ANG_DES", "name": {"en": "Throttle angle, desired", "ru": "Угол дросселя, задан."}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "092C", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
-   {"id": "FOCUS_ATF_T_VAR_6", "name": {"en": "Transmission fluid temperature, variant 6", "ru": "Температура масла АКПП, вар. 6"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "093C", "rate": "fast", "models": ["Escape", "F-150", "Focus", "Taurus"], "signals": [
    {"id": "ESCAPE_ETC_ANG_ACT", "name": {"en": "Throttle angle, actual", "ru": "Угол дросселя, факт."}, "unit": "°", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 512}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Escape", "https://github.com/OBDb/Ford-F-150", "https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}
   ]},
@@ -549,9 +546,6 @@
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1672", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
    {"id": "FOCUS_FUEL_PMP_DUTY", "name": {"en": "Fuel pump duty cycle", "ru": "Скважность топливного насоса"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 25, "div": 32}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1674", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
-   {"id": "FOCUS_ATF_T_VAR_1", "name": {"en": "Transmission fluid temperature, variant 1", "ru": "Температура масла АКПП, вар. 1"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "div": 8, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1685", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
    {"id": "FOCUS_CYL_HEAD_T_ALT", "name": {"en": "Cylinder head temperature, alternate", "ru": "Температура ГБЦ, альтернативная"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 156.1111111, "div": 1000, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -670,15 +664,6 @@
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "11B3", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
    {"id": "FOCUS_TRANS_GEAR_7E1", "name": {"en": "Transmission gear", "ru": "Передача КПП"}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "163A", "rate": "fast", "models": ["Focus", "Taurus"], "signals": [
-   {"id": "FOCUS_TQ_INTO_TQ_CONV_VAR_2", "name": {"en": "Torque into torque converter, variant 2", "ru": "Момент на входе ГТД, вар. 2"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.2711635897}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1674", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
-   {"id": "FOCUS_ATF_T_VAR_2", "name": {"en": "Transmission fluid temperature, variant 2", "ru": "Температура масла АКПП, вар. 2"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.5555555556, "add": -17.77777778}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1E3F", "rate": "medium", "models": ["Focus", "Taurus"], "signals": [
-   {"id": "FOCUS_ATF_T_VAR_5", "name": {"en": "Transmission fluid temperature, variant 5", "ru": "Температура масла АКПП, вар. 5"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "DD01", "rate": "slow", "models": ["Focus", "Taurus"], "signals": [
    {"id": "FOCUS_TRANS_ODO", "name": {"en": "Transmission odometer", "ru": "Пробег КПП"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Ford-Focus", "https://github.com/OBDb/Ford-Taurus"]}

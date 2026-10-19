@@ -222,8 +222,8 @@ METRIC_ROLES = {
     "stateOfHealth": "hv_soh",
 }
 # A name matching this is a target/limit/model value, not the measured one: no role by name.
-NOT_ACTUAL = (r"(target|desired|commanded|setpoint|specified|requested|limit|limitation|model|"
-              r"modeled|estimated|maximum|minimum|max|min|threshold|offset|adaptation|correction)")
+NOT_ACTUAL = (r"\b(target|desired|commanded|setpoint|specified|requested|limit|limitation|model|"
+              r"modeled|estimated|maximum|minimum|max|min|threshold|offset|adaptation|correction)\b")
 # (regex on the lowercase English name, required unit or None, role). First match wins.
 NAME_ROLES: list[tuple[str, str | None, str]] = [
     (r"\bcvt\b.*\b(fluid|oil)\b.*temp", "°C", "cvt_temp"),
@@ -574,7 +574,7 @@ def convert_command(cmd: dict, repo: str, make_wide: bool, ru: dict, skips: Skip
     elif cmd.get("dbg") and make_wide and not with_dbg:
         reason = "dbg in make-wide repo"
     elif cmd.get("dbg") and not with_dbg and any(
-            re.search(r"variant", s.get("name", ""), re.I) for s in cmd.get("signals", [])):
+            re.search(r"\bvariant\b", s.get("name", ""), re.I) for s in cmd.get("signals", [])):
         reason = "dbg variant probe"
     elif not ("22" in svc_did or "21" in svc_did):
         reason = f"service {'/'.join(svc_did) or '?'}"

@@ -182,13 +182,19 @@ object CarDb {
 
     private fun m(model: CarModel, year: Int) = model.years?.let { year in it } ?: true
 
+    /** WMIs whose VIN carries the model year in the 11th character, not the 10th ([modelYear]). */
+    private val EU_FORD = listOf("WF0", "WF1", "VS6", "SFA", "X9F")
+
     /**
      * Model year from the 10th VIN character (ISO 3779 / NHTSA): letters repeat every 30 years, the
      * later cycle is taken unless it is in the future. Null when the character isn't a year code.
      */
     fun modelYear(vin: String): Int? {
-        if (vin.length < 10) return null
-        val c = vin[9].uppercaseChar()
+        // Ford's European plants (Saarlouis WF0, Valencia VS6, Dagenham SFA, Vsevolozhsk X9F) keep the year in the 11th
+        // character; the 10th is their own code and often a valid year letter (a 2010 Focus II read as 2017).
+        val at = if (EU_FORD.any { vin.startsWith(it, ignoreCase = true) }) 10 else 9
+        if (vin.length <= at) return null
+        val c = vin[at].uppercaseChar()
         val digits = "123456789"
         val letters = "ABCDEFGHJKLMNPRSTVWXY"
         val now = currentYear()
@@ -363,7 +369,7 @@ object CarDb {
             "slow" -> PollRate.SLOW
             else -> PollRate.MEDIUM
         }
-        val signals = c.getJSONArray("signals").objects().map { parseSignal(it) }
+        val signals = c.getJSONArray("signals").objects().map { parseSignal(it, source == "db") }
         require(signals.isNotEmpty()) { "no signals" }
         return ExtCommand(
             req = req,
@@ -390,7 +396,7 @@ object CarDb {
     /** Recognising a model or a dialect may also read the KWP identification (\$1A, read only). */
     val MATCH_SERVICES = READ_SERVICES + "1A"
 
-    private fun parseSignal(s: JSONObject): ExtSignal {
+    private fun parseSignal(s: JSONObject, curated: Boolean): ExtSignal {
         val f = s.getJSONObject("fmt")
         val bix = f.optInt("bix", 0)
         val len = f.optInt("len", 8)
@@ -419,6 +425,7 @@ object CarDb {
             fmt = SignalFormat(bix, len, mul, div, add, signed, map, le, poly),
             src = s.optJSONArray("src").strings(),
             cyl = cyl,
+            curated = curated,
         )
     }
 
@@ -444,7 +451,12 @@ class CarFamily(val id: String, var title: String) {
     /** Command key → index in [commands]: a linear search per added command was quadratic over ~3000 of them. */
     private val index = HashMap<String, Int>()
 
-    /** Same request from another file: add only the signals it doesn't have yet (same bits and scaling). */
+    /**
+     * Same request from another file: add only the signals it doesn't have yet (same bits and scaling). An OBDb value
+     * on bits a curated one already describes is left out (the VAG DSG 22 2104 came as 16-bit LE and as OBDb's 8-bit
+     * −40 of the same bytes: 52 °C shown as 12), and an OBDb value doesn't bring a main-screen role the curated
+     * request already has — the card is the checked value's.
+     */
     fun addCommand(c: ExtCommand) {
         val i = index[c.key]
         if (i == null) {
@@ -456,6 +468,8 @@ class CarFamily(val id: String, var title: String) {
         // A request checked on a car keeps exactly its own values.
         if (old.exclusive) return
         val extra = c.signals.filter { s -> old.signals.none { it.fmt.sameValue(s.fmt) } }
+            .filter { s -> s.curated || old.signals.none { it.curated && it.fmt.overlaps(s.fmt) } }
+            .map { s -> if (!s.curated && s.role != null && old.signals.any { it.curated && it.role == s.role }) s.copy(role = null) else s }
         commands[i] = old.copy(signals = old.signals + extra, models = if (old.models.isEmpty() || c.models.isEmpty()) emptySet() else old.models + c.models)
     }
 
@@ -606,6 +620,9 @@ data class SignalFormat(
 ) {
     fun sameValue(o: SignalFormat) = bix == o.bix && len == o.len && mul == o.mul && div == o.div && add == o.add && signed == o.signed && le == o.le && poly == o.poly
 
+    /** Shares at least one bit of the answer with [o]. */
+    fun overlaps(o: SignalFormat) = bix < o.bix + o.len && o.bix < bix + len
+
     /** Raw bits: [len] bits from bit [bix] of [data], big-endian, bit 0 = MSB of the first byte. Null when the answer is too short. */
     fun raw(data: IntArray): Long? {
         if (bix < 0 || (bix + len + 7) / 8 > data.size) return null
@@ -641,6 +658,8 @@ data class ExtSignal(
     val src: List<String> = emptyList(),
     /** Engines with this many cylinders have it ("cylinder 7" = 7..16, "V8" = 8..8); null — any. */
     val cyl: IntRange? = null,
+    /** From the app's own files (checked or chosen by hand), not an OBDb import: wins a main-screen card over an OBDb value of the same role. */
+    val curated: Boolean = true,
 ) {
 }
 

@@ -791,7 +791,7 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10E4", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_PQ35_REG_FACTOR", "name": {"en": "Regulation factor total", "ru": "Общий коэффициент регулирования"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10E5", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10E5", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_IGNITION_TIMING_ANGLE_RETARD_C4", "name": {"en": "Ignition timing angle retard, cylinder 4", "ru": "Откат УОЗ, цилиндр 4"}, "unit": "°", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 75, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "10EA", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
@@ -937,7 +937,7 @@
    {"id": "IBIZA_MISFIRES_1000REV_C3", "name": {"en": "Misfires / 1000 revolutions, cylinder 3", "ru": "Пропуски / 1000 об., цилиндр 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"], "cyl": [3, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1149", "rate": "fast", "models": ["Ibiza", "Jetta", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_BOOST_P_CMD", "name": {"en": "Boost pressure commanded", "ru": "Давление наддува, заданное"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"},
+   {"id": "Q3_PQ35_BOOST_P_CMD", "name": {"en": "Boost pressure commanded", "ru": "Давление наддува, заданное"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Volkswagen-Tiguan"]},
    {"id": "IBIZA_MISFIRES_1000REV_C4", "name": {"en": "Misfires / 1000 revolutions, cylinder 4", "ru": "Пропуски / 1000 об., цилиндр 4"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta"], "cyl": [4, 16]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "114A", "rate": "fast", "models": ["Ibiza", "Jetta", "Tiguan"], "signals": [
@@ -1052,8 +1052,8 @@
    {"id": "TIGUAN_INLET_FLAPS_REQ", "name": {"en": "Inlet flaps - requested value", "ru": "Впускные заслонки, заданное"}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 20, "div": 13107}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11A3", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EA888B_BOOST_P_CMD", "name": {"en": "Ea888b boost pressure regulator, commanded", "ru": "Ea888b регулятор наддува, заданное"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "role": "boost"},
-   {"id": "TIGUAN_EA888B_BOOST_P_CMD", "name": {"en": "Ea888b boost pressure regulator, commanded", "ru": "Ea888b регулятор наддува, заданное"}, "unit": "%", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"}
+   {"id": "IBIZA_EA888B_BOOST_P_CMD", "name": {"en": "Ea888b boost pressure regulator, commanded", "ru": "Ea888b регулятор наддува, заданное"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 100, "div": 255}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
+   {"id": "TIGUAN_EA888B_BOOST_P_CMD", "name": {"en": "Ea888b boost pressure regulator, commanded", "ru": "Ea888b регулятор наддува, заданное"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11A4", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_FUEL_PMP_CMD_DUTY", "name": {"en": "Fuel pump, commanded duty", "ru": "Скважность топливного насоса, задан."}, "unit": "%", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0015258743}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -1091,7 +1091,7 @@
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BD", "rate": "fast", "models": ["Ibiza", "Jetta", "Q3", "SQ7", "Tiguan"], "signals": [
    {"id": "Q3_PQ35_OIL_LVL_CRIT", "name": {"en": "Critical engine oil level", "ru": "Критический уровень масла ДВС"}, "unit": "mm", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 250, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_level"},
-   {"id": "SQ7_OIL_LEVEL_WARN", "name": {"en": "Oil level warning threshold", "ru": "Порог предупреждения по уровню масла"}, "unit": "cm", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 2500}, "conf": "?", "src": ["https://github.com/OBDb/Audi-SQ7", "https://github.com/OBDb/Volkswagen-Jetta"], "role": "oil_level"},
+   {"id": "SQ7_OIL_LEVEL_WARN", "name": {"en": "Oil level warning threshold", "ru": "Порог предупреждения по уровню масла"}, "unit": "cm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2500}, "conf": "?", "src": ["https://github.com/OBDb/Audi-SQ7", "https://github.com/OBDb/Volkswagen-Jetta"]},
    {"id": "IBIZA_EOT_ECM", "name": {"en": "Engine oil temperature, engine control module", "ru": "Температура масла ДВС (ЭБУ двигателя)"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273.1}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"], "role": "oil_temp"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BE", "rate": "fast", "models": ["Ibiza", "Q3", "SQ7", "Tiguan"], "signals": [
@@ -1105,10 +1105,10 @@
    {"id": "Q3_PQ35_DPF_FIELD_REGEN_LOCK", "name": {"en": "Diesel particulate filter field regeneration lock status", "ru": "DPF, статус блокировки штатной регенерации"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11C4", "rate": "slow", "models": ["A4", "A6", "Amarok", "Golf", "Ibiza", "Polo", "RS-3", "SQ5", "Tiguan"], "signals": [
-   {"id": "A4_OIL_MAX", "name": {"en": "Oil level (max)", "ru": "Уровень масла (макс.)"}, "unit": "cm", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Audi-A4", "https://github.com/OBDb/Audi-A6", "https://github.com/OBDb/Audi-RS-3", "https://github.com/OBDb/Audi-SQ5", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Amarok", "https://github.com/OBDb/Volkswagen-Golf", "https://github.com/OBDb/Volkswagen-Polo", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_level"}
+   {"id": "A4_OIL_MAX", "name": {"en": "Oil level (max)", "ru": "Уровень масла (макс.)"}, "unit": "cm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Audi-A4", "https://github.com/OBDb/Audi-A6", "https://github.com/OBDb/Audi-RS-3", "https://github.com/OBDb/Audi-SQ5", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Amarok", "https://github.com/OBDb/Volkswagen-Golf", "https://github.com/OBDb/Volkswagen-Polo", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11C5", "rate": "slow", "models": ["A4", "A6", "Amarok", "Golf", "Ibiza", "Polo", "RS-3", "SQ5", "Tiguan"], "signals": [
-   {"id": "A4_OIL_MIN", "name": {"en": "Oil level (min)", "ru": "Уровень масла (мин.)"}, "unit": "cm", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Audi-A4", "https://github.com/OBDb/Audi-A6", "https://github.com/OBDb/Audi-RS-3", "https://github.com/OBDb/Audi-SQ5", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Amarok", "https://github.com/OBDb/Volkswagen-Golf", "https://github.com/OBDb/Volkswagen-Polo", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_level"}
+   {"id": "A4_OIL_MIN", "name": {"en": "Oil level (min)", "ru": "Уровень масла (мин.)"}, "unit": "cm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 250}, "conf": "?", "src": ["https://github.com/OBDb/Audi-A4", "https://github.com/OBDb/Audi-A6", "https://github.com/OBDb/Audi-RS-3", "https://github.com/OBDb/Audi-SQ5", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Amarok", "https://github.com/OBDb/Volkswagen-Golf", "https://github.com/OBDb/Volkswagen-Polo", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11C8", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_LOW_FUEL_P_ACT", "name": {"en": "Low fuel pressure, actual", "ru": "Низкое давление топлива, факт."}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -1187,16 +1187,16 @@
    {"id": "Q3_PQ35_POST_INJ_1_START", "name": {"en": "Post-injection 1 start position", "ru": "Пост-впрыск 1, начало (положение)"}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11FF", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EA888B_BOOST_P_CTRL_0", "name": {"en": "Ea888b boost pressure control, adaptation value 0", "ru": "Ea888b регулировка наддува, значение адаптации 0"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"}
+   {"id": "IBIZA_EA888B_BOOST_P_CTRL_0", "name": {"en": "Ea888b boost pressure control, adaptation value 0", "ru": "Ea888b регулировка наддува, значение адаптации 0"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1200", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EA888B_BOOST_P_CTRL_1", "name": {"en": "Ea888b boost pressure control, adaptation value 1", "ru": "Ea888b регулировка наддува, значение адаптации 1"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"}
+   {"id": "IBIZA_EA888B_BOOST_P_CTRL_1", "name": {"en": "Ea888b boost pressure control, adaptation value 1", "ru": "Ea888b регулировка наддува, значение адаптации 1"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1201", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EA888B_BOOST_P_CTRL_2", "name": {"en": "Ea888b boost pressure control, adaptation value 2", "ru": "Ea888b регулировка наддува, значение адаптации 2"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"}
+   {"id": "IBIZA_EA888B_BOOST_P_CTRL_2", "name": {"en": "Ea888b boost pressure control, adaptation value 2", "ru": "Ea888b регулировка наддува, значение адаптации 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1202", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EA888B_BOOST_P_CTRL_3", "name": {"en": "Ea888b boost pressure control, adaptation value 3", "ru": "Ea888b регулировка наддува, значение адаптации 3"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"}
+   {"id": "IBIZA_EA888B_BOOST_P_CTRL_3", "name": {"en": "Ea888b boost pressure control, adaptation value 3", "ru": "Ea888b регулировка наддува, значение адаптации 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 281, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "120E", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_KNOCK_SENS_CYL_1", "name": {"en": "Knock sensor, cylinder 1", "ru": "Датчик детонации, цилиндр 1"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0048489933}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza"]},
@@ -1671,7 +1671,7 @@
    {"id": "IBIZA_CHG_P_REGULATOR_HI", "name": {"en": "Charge pressure regulator, upper threshold adaptation", "ru": "Регулятор наддува, адаптация верхнего порога"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.001, "div": 5, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16EE", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_BOOST_P_ACTUATOR_CMD", "name": {"en": "Boost pressure actuator, commanded duty", "ru": "Актуатор наддува, заданная скважность"}, "unit": "%", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.0122068184, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "boost"}
+   {"id": "IBIZA_BOOST_P_ACTUATOR_CMD", "name": {"en": "Boost pressure actuator, commanded duty", "ru": "Актуатор наддува, заданная скважность"}, "unit": "%", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.0122068184, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "16F3", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_RPM", "name": {"en": "Engine RPM", "ru": "Обороты двигателя"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 2}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -1869,8 +1869,8 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2002", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_ENG_TQ", "name": {"en": "Engine torque", "ru": "Крутящий момент двигателя"}, "unit": "Nm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2003", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_AVG_INJ_TIME_VAR_2", "name": {"en": "Avg. injection time, variant 2", "ru": "Ср. время впрыска, вариант 2"}, "unit": "ms", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2003", "rate": "fast", "models": ["Tiguan"], "signals": [
+   {"id": "TIGUAN_AVG_INJ_TIME_7E0", "name": {"en": "Avg. injection time", "ru": "Ср. время впрыска"}, "unit": "ms", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2004", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_IGN_ANG_CURRENT_CYL_ACT", "name": {"en": "Ignition angle current cylinder, actual value", "ru": "УОЗ текущего цилиндра, факт."}, "unit": "°", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -1941,8 +1941,8 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "202E", "rate": "medium", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_ECT_DIFF_ENG", "name": {"en": "Coolant temperature difference between engine and radiator", "ru": "Разница температур ОЖ двигателя и радиатора"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "202F", "rate": "medium", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EOT_VAR_3", "name": {"en": "Engine oil temperature, variant 3", "ru": "Температура масла ДВС, вариант 3"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273.1}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "202F", "rate": "medium", "models": ["Tiguan"], "signals": [
+   {"id": "TIGUAN_EOT", "name": {"en": "Engine oil temperature", "ru": "Температура масла ДВС"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273.1}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_temp"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2032", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_MEAN_ENG_AIR_MASS", "name": {"en": "Mean engine air mass", "ru": "Средняя масса воздуха ДВС"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2075,7 +2075,7 @@
    {"id": "IBIZA_GPF_HIGH_LEVEL_SOOT", "name": {"en": "Gasoline particulate filter high level of soot build-up", "ru": "GPF: высокое накопление сажи"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "dpf_soot", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "24B4", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_GPF_MAX_SOOT_BUILD", "name": {"en": "Gasoline particulate filter maximum soot build-up reached", "ru": "GPF: достигнут макс. уровень сажи"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "dpf_soot", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_GPF_MAX_SOOT_BUILD", "name": {"en": "Gasoline particulate filter maximum soot build-up reached", "ru": "GPF: достигнут макс. уровень сажи"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "24B5", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_GPF_MAX_ASH_BUILD_UP", "name": {"en": "Gasoline particulate filter maximum ash build-up reached", "ru": "GPF: достигнут макс. уровень золы"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 2}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2148,8 +2148,8 @@
    {"id": "A4_ODO", "name": {"en": "Odometer", "ru": "Пробег"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Audi-A4", "https://github.com/OBDb/Audi-TT", "https://github.com/OBDb/Volkswagen-Amarok", "https://github.com/OBDb/Volkswagen-Golf", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "odometer"},
    {"id": "A6_ODO_2", "name": {"en": "Odometer (alternative)", "ru": "Пробег (альтернативный)"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 32}, "conf": "?", "src": ["https://github.com/OBDb/Audi-A6", "https://github.com/OBDb/Audi-RS-3", "https://github.com/OBDb/Audi-SQ5", "https://github.com/OBDb/Volkswagen-Polo"], "role": "odometer"}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "295B", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_ODO_ECU_INSTALLED_2", "name": {"en": "Odometer with ECU installed, variant 2", "ru": "Пробег с установленным ЭБУ, вариант 2"}, "unit": "m", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "295B", "rate": "slow", "models": ["Tiguan"], "signals": [
+   {"id": "TIGUAN_ODO_ECU_INSTALLED", "name": {"en": "Odometer with ECU installed", "ru": "Пробег с установки ЭБУ"}, "unit": "m", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 24}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "2966", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_MIS_VAR_2_1", "name": {"en": "Misfires, cylinder 1,, variant 2", "ru": "Пропуски, цилиндр 1, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -2348,8 +2348,8 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "406C", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_GPF_OIL_ASH_MASS", "name": {"en": "Gasoline particulate filter oil ash mass", "ru": "Масса масляной золы в GPF"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "40D5", "rate": "medium", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_EOT_VAR_4", "name": {"en": "Engine oil temperature, variant 4", "ru": "Температура масла ДВС, вариант 4"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "40D5", "rate": "medium", "models": ["Tiguan"], "signals": [
+   {"id": "TIGUAN_EOT_SENS_2", "name": {"en": "Engine oil temperature sensor 2", "ru": "Температура масла двигателя, датчик 2"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "40E2", "rate": "medium", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_T_SENS_ENG_T_TGT", "name": {"en": "Temperature sensor for engine temperature management, target value", "ru": "Датчик температуры терморегулирования ДВС, заданное"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -2498,11 +2498,8 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4E53", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_OIL_LEVEL_TEST_3", "name": {"en": "Oil level test method 3", "ru": "Метод проверки уровня масла 3"}, "unit": "%", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_level"}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4E70", "rate": "fast", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_KNOCK_SENSORS_AVG_V_1_2", "name": {"en": "Knock sensors average voltage bank 1,, variant 2", "ru": "Среднее напряжение датчиков детонации, банк 1, вариант 2"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4F70", "rate": "fast", "models": ["Tiguan"], "signals": [
-   {"id": "TIGUAN_OIL_P_TGT", "name": {"en": "Oil pressure target", "ru": "Давление масла, заданное"}, "unit": "kPa", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_pressure"}
+   {"id": "TIGUAN_OIL_P_TGT", "name": {"en": "Oil pressure target", "ru": "Давление масла, заданное"}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "4FBE", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_OIL_P_SENS_RAW", "name": {"en": "Oil pressure sensor raw value", "ru": "Датчик давления масла, сырое значение"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "oil_pressure"}
@@ -2709,7 +2706,7 @@
    {"id": "Q3_PQ35_CLUTCH_1_CHAR_CURVE_SHIFT", "name": {"en": "Clutch 1 characteristic curve shift", "ru": "Смещение характеристики сцепления 1"}, "unit": "mm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 9.8, "div": 10000, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1064", "rate": "medium", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_ANALYSIS_CLU_1_MAX_T", "name": {"en": "Analysis, clutch 1, maximum temperature", "ru": "Статистика: макс. температура сцепления 1"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "clutch_temp"}
+   {"id": "IBIZA_ANALYSIS_CLU_1_MAX_T", "name": {"en": "Analysis, clutch 1, maximum temperature", "ru": "Статистика: макс. температура сцепления 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1065", "rate": "medium", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_CLU_1_T_TIME_RANGE_0", "name": {"en": "Clutch 1 temperature time in range 0", "ru": "Время сцепления 1 в диапазоне температур 0"}, "unit": "s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -2763,7 +2760,7 @@
    {"id": "Q3_PQ35_CLUTCH_2_CHAR_CURVE_SHIFT", "name": {"en": "Clutch 2 characteristic curve shift", "ru": "Смещение характеристики сцепления 2"}, "unit": "mm", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 9.8, "div": 10000, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1079", "rate": "medium", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_ANALYSIS_CLU_2_MAX_T", "name": {"en": "Analysis, clutch 2, maximum temperature", "ru": "Статистика: макс. температура сцепления 2"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "clutch_temp"}
+   {"id": "IBIZA_ANALYSIS_CLU_2_MAX_T", "name": {"en": "Analysis, clutch 2, maximum temperature", "ru": "Статистика: макс. температура сцепления 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "107A", "rate": "medium", "models": ["Ibiza", "Tiguan"], "signals": [
    {"id": "IBIZA_ANALYSIS_CLU_2_T_0", "name": {"en": "Analysis, clutch 2 temperature time in range 0", "ru": "Статистика: время сцепления 2 в диапазоне температур 0"}, "unit": "s", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 50, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -2888,8 +2885,8 @@
    {"id": "Q3_PQ35_REACHED_MAXIMUM_T", "name": {"en": "Reached maximum temperature", "ru": "Достигнутая макс. температура"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1118", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
-   {"id": "Q3_PQ35_CLUTCH_1_MAXIMUM_T", "name": {"en": "Clutch #1 maximum temperature", "ru": "Макс. температура сцепления 1"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "clutch_temp"},
-   {"id": "Q3_PQ35_CLUTCH_2_MAXIMUM_T", "name": {"en": "Clutch #2 maximum temperature", "ru": "Макс. температура сцепления 2"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 16, "len": 16, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "clutch_temp"}
+   {"id": "Q3_PQ35_CLUTCH_1_MAXIMUM_T", "name": {"en": "Clutch #1 maximum temperature", "ru": "Макс. температура сцепления 1"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]},
+   {"id": "Q3_PQ35_CLUTCH_2_MAXIMUM_T", "name": {"en": "Clutch #2 maximum temperature", "ru": "Макс. температура сцепления 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 16, "len": 16, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1130", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_MQB_DQ250_I_LOWER_P_POINT_CLUTCH_1_FROM_I_TO_P_ADAPT", "name": {"en": "Current lower pressure point clutch 1 from current to pressure adaptation", "ru": "Сцепление 1, нижняя точка давления (адаптация ток-давление)"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 0.005}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
@@ -3297,9 +3294,6 @@
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "38ED", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_PQ35_CLUTCH_2_CMD_P", "name": {"en": "Clutch 2 commanded pressure", "ru": "Давление сцепления 2, заданное"}, "unit": "bar", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "38F1", "rate": "slow", "models": ["Ibiza", "Tiguan"], "signals": [
-   {"id": "IBIZA_LAUNCH_CTRL_CNT_VAR_2", "name": {"en": "Launch control counter, variant 2", "ru": "Счётчик Launch Control, вариант 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "38FA", "rate": "fast", "models": ["Ibiza", "Q3", "Tiguan"], "signals": [
    {"id": "Q3_MQB_DQ200_CLUTCH_2_ADAPT_BASIC_CHARS_POINT_0_POS", "name": {"en": "Clutch 2 adaptation basic characteristics point 0 position", "ru": "Адаптация сцепления 2: базовая характеристика, точка 0, положение"}, "unit": "mm", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 100, "signed": true, "le": true}, "conf": "?", "src": ["https://github.com/OBDb/Audi-Q3", "https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
@@ -3328,13 +3322,13 @@
    {"id": "TIGUAN_ATF_T_CALCULATED", "name": {"en": "Transmission fluid temperature, calculated", "ru": "Температура масла АКПП, расчётная"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "atf_temp"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "704F", "rate": "fast", "models": ["Ibiza", "Jetta", "Tiguan"], "signals": [
-   {"id": "IBIZA_ATF_MAX", "name": {"en": "Automatic transmission fluid temperature, lifetime max", "ru": "Температура масла АКПП, макс. за всё время"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "IBIZA_ATF_MAX", "name": {"en": "Automatic transmission fluid temperature, lifetime max", "ru": "Температура масла АКПП, макс. за всё время"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -50}, "conf": "?", "src": ["https://github.com/OBDb/Seat-Ibiza", "https://github.com/OBDb/Volkswagen-Jetta", "https://github.com/OBDb/Volkswagen-Tiguan"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "7050", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_SELECTED_GEAR", "name": {"en": "Selected gear", "ru": "Выбранная передача"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -2}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "7051", "rate": "slow", "models": ["Tiguan"], "signals": [
-   {"id": "TIGUAN_ATF_T_MODELED_MAX_REACHED", "name": {"en": "Transmission fluid temperature, modeled maximum reached", "ru": "Температура масла АКПП, достигнутый расчётный макс."}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"], "role": "atf_temp"}
+   {"id": "TIGUAN_ATF_T_MODELED_MAX_REACHED", "name": {"en": "Transmission fluid temperature, modeled maximum reached", "ru": "Температура масла АКПП, достигнутый расчётный макс."}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -55}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "7053", "rate": "fast", "models": ["Tiguan"], "signals": [
    {"id": "TIGUAN_TORQUE_CONVERTER_TORQUE_LOSS", "name": {"en": "Torque converter: torque loss", "ru": "ГТД: потеря момента"}, "unit": "Nm", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Volkswagen-Tiguan"]}

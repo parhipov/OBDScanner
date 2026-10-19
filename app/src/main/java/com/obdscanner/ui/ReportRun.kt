@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,6 +25,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -69,13 +69,23 @@ class ReportRun(private val m: ObdManager, private val ctx: Context, private val
     }
 
     fun cancel() { job?.cancel(); making = null }
+
+    companion object {
+        private var shared: ReportRun? = null
+
+        /**
+         * One for the process, on its own scope: a build takes minutes, and in a composable's scope a rotation, a theme
+         * or language change recreated the activity, cancelled the job and left nothing — no report, no message.
+         */
+        fun of(m: ObdManager, ctx: Context): ReportRun =
+            shared ?: ReportRun(m, ctx.applicationContext, CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)).also { shared = it }
+    }
 }
 
 @Composable
 fun rememberReportRun(m: ObdManager): ReportRun {
     val ctx = LocalContext.current
-    val scope = rememberCoroutineScope()
-    return remember(m) { ReportRun(m, ctx, scope) }
+    return remember(m) { ReportRun.of(m, ctx) }
 }
 
 @Composable

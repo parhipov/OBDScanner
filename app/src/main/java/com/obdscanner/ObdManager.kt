@@ -245,9 +245,12 @@ class ObdManager(private val context: Context) {
     }
 
     @Volatile private var usbAsking = false
+    @Volatile private var usbAskedAt = 0L
 
     /** USB adapter [id] from [usb]. Without access yet, Android asks first and the connect goes on once allowed. */
     fun connectUsb(id: String) {
+        // The permission dialog's answer never came (dismissed by a recreation, the adapter unplugged): ask again after a minute.
+        if (usbAsking && System.currentTimeMillis() - usbAskedAt > 60_000) usbAsking = false
         if (mainJob?.isActive == true || usbAsking) return
         val um = usbManager
         val a = UsbAdapters.list(um).firstOrNull { it.id == id }
@@ -275,6 +278,7 @@ class ObdManager(private val context: Context) {
 
     private fun askUsb(um: UsbManager, device: UsbDevice, done: (Boolean) -> Unit) {
         usbAsking = true
+        usbAskedAt = System.currentTimeMillis()
         val action = context.packageName + ".USB_PERMISSION"
         ContextCompat.registerReceiver(context, object : BroadcastReceiver() {
             override fun onReceive(c: Context, i: Intent) {
@@ -362,6 +366,9 @@ class ObdManager(private val context: Context) {
                     val transport = make(s)
                     name = transport.name
                     _conn.value = ConnState.Connecting(name, if (skip.isEmpty()) tr("Подключение к адаптеру…", "Connecting to adapter…") else CarLink.REBOOTING)
+                    // Foreground before the socket, not after: Bluetooth may take 10–40 s, and once the screen is off Android 12+
+                    // refuses to start a foreground service — the session then lived as a background process and was frozen.
+                    ObdService.start(context, name, usb = transport is UsbTransport, wifi = transport is WifiTransport)
                     s.note("connect: $name")
                     val e = Elm327(transport) { d, t -> s.raw(d, t) }
                     elm = e
@@ -378,7 +385,6 @@ class ObdManager(private val context: Context) {
                             delay(2000)
                         }
                     }
-                    ObdService.start(context, name, usb = transport is UsbTransport, wifi = transport is WifiTransport)
                     // Clones miss the first command sent right after the link comes up (AndrOBD #233: Car Scanner waits ~500 ms).
                     delay(500)
                     try {

@@ -437,12 +437,20 @@
           "fuel": "petrol"
         }
       ],
+      "protocol": 5,
+      "buses": {
+        "ru": "ЭБУ Bosch ME17.9.71 отвечает по K-line (контакт 7, KWP2000 fast init). Контакты CAN в разъёме ведут к блоку ЭРА-ГЛОНАСС, по CAN двигатель молчит — адаптер должен уметь K-line (у дешёвых «v2.1» его часто нет).",
+        "en": "The Bosch ME17.9.71 ECU answers on K-line (pin 7, KWP2000 fast init). The socket's CAN pins go to the ERA-GLONASS unit, the engine is silent on CAN — the adapter must do K-line (cheap \"v2.1\" clones often don't)."
+      },
       "note": {
         "ru": "Бывшая Chevrolet Niva. Её VIN может начинаться не с XTA (выпуск бывшего СП GM-АвтоВАЗ) — тогда марка по VIN не определится.",
         "en": "The former Chevrolet Niva. Its VIN may not start with XTA (built at the former GM-AvtoVAZ plant) — then the make is not detected from the VIN."
       },
       "src": [
-        "https://en.wikipedia.org/wiki/Lada_Niva_Travel"
+        "https://en.wikipedia.org/wiki/Lada_Niva_Travel",
+        "https://xn----7sbbagpx1an.xn--p1ai/n/viewtopic.php?t=59461",
+        "https://www.drive2.ru/l/670489063639228629/",
+        "https://www.drive2.ru/l/654275115420238283/"
       ],
       "verified": false
     },

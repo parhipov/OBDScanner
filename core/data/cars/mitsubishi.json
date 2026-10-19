@@ -408,6 +408,47 @@
         "https://en.wikipedia.org/wiki/Mitsubishi_4N1_engine"
       ],
       "verified": false
+    },
+    {
+      "brand": "Mitsubishi",
+      "model": "Outlander PHEV",
+      "gen": "GG2W",
+      "years": [
+        2013,
+        2021
+      ],
+      "vin": [
+        "^JMB..GG[23]W"
+      ],
+      "engines": [
+        {
+          "code": "4B11",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "hybrid"
+        },
+        {
+          "code": "4B12",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "hybrid"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500: двигатель 7E0, блок батареи (BMU) 761 → 762, зарядное устройство 765 → 766, инверторы 753/755 → 754/756, блок гибрида 7E2.",
+        "en": "CAN 11/500: engine 7E0, battery management (BMU) 761 → 762, on-board charger 765 → 766, inverters 753/755 → 754/756, EV control 7E2."
+      },
+      "note": {
+        "ru": "Подключаемый гибрид: 2.0 (до 2018) или 2.4 (с 2019), батарея 12 кВт·ч на 80 ячеек, с 2019 — 13,8 кВт·ч. Код модели GG2W/GG3W стоит в VIN. Ёмкость батареи в А·ч и напряжения крайних ячеек читаются из блока BMU.",
+        "en": "Plug-in hybrid: 2.0 (to 2018) or 2.4 (from 2019), a 12 kWh battery of 80 cells, 13.8 kWh from 2019. The model code GG2W/GG3W is in the VIN. The battery's capacity in Ah and the extreme cell voltages are read from the BMU."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Mitsubishi_Outlander_PHEV",
+        "https://www.myoutlanderphev.com/threads/extracting-useful-data-from-your-obdii-port.1796/",
+        "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+      ],
+      "verified": false
     }
   ],
   "commands": [
@@ -692,6 +733,178 @@
             "https://www.drive2.ru/l/502591713932477721/"
           ],
           "note": "Bytes AB..AD (AB*65536+AC*256+AD, OUT3.csv / shlyahten 'test'); shlyahten default and OBDb read only AC*256+AD (16 bit, bix 224). Owners report values like 89000 (>65535), so 24 bit is used. Counter grows with time at high fluid temperature; reset needs MUT/cvtz50, not done here."
+        }
+      ]
+    },
+    {
+      "hdr": "761",
+      "rsp": "762",
+      "svc": "21",
+      "did": "01",
+      "rate": "medium",
+      "models": [
+        "Outlander PHEV"
+      ],
+      "signals": [
+        {
+          "id": "OUT_PHEV_SOC",
+          "name": {
+            "ru": "Заряд батареи (BMS)",
+            "en": "Battery charge (BMS)"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "role": "hv_soc",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "div": 2,
+            "add": -5
+          },
+          "conf": "?",
+          "src": [
+            "https://www.myoutlanderphev.com/threads/extracting-useful-data-from-your-obdii-port.1796/"
+          ],
+          "note": "Forum (2015): byte 0 / 2 − 5. Not in OBDb's set — one source."
+        },
+        {
+          "id": "OUT_PHEV_CELL_MAX_V",
+          "name": {
+            "ru": "Макс. напряжение ячейки",
+            "en": "Highest cell voltage"
+          },
+          "unit": "V",
+          "dec": 3,
+          "group": "other",
+          "fmt": {
+            "bix": 16,
+            "len": 16,
+            "div": 1000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+          ]
+        },
+        {
+          "id": "OUT_PHEV_CELL_MIN_V",
+          "name": {
+            "ru": "Мин. напряжение ячейки",
+            "en": "Lowest cell voltage"
+          },
+          "unit": "V",
+          "dec": 3,
+          "group": "other",
+          "fmt": {
+            "bix": 40,
+            "len": 16,
+            "div": 1000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+          ]
+        },
+        {
+          "id": "OUT_PHEV_PACK_V",
+          "name": {
+            "ru": "Напряжение батареи",
+            "en": "Battery pack voltage"
+          },
+          "unit": "V",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 64,
+            "len": 16,
+            "div": 10
+          },
+          "conf": "?",
+          "src": [
+            "https://www.myoutlanderphev.com/threads/extracting-useful-data-from-your-obdii-port.1796/"
+          ],
+          "note": "Forum: bytes 8–9 / 10."
+        },
+        {
+          "id": "OUT_PHEV_CAP_AH",
+          "name": {
+            "ru": "Ёмкость батареи (макс.)",
+            "en": "Battery capacity (max)"
+          },
+          "unit": "Ah",
+          "dec": 1,
+          "group": "main",
+          "fmt": {
+            "bix": 216,
+            "len": 16,
+            "div": 10
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.myoutlanderphev.com/threads/extracting-useful-data-from-your-obdii-port.1796/",
+            "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+          ],
+          "note": "Forum and OBDb agree: bytes 27–28 / 10 Ah (0x154 → 34.0 Ah); a new 12 kWh pack ≈ 38–40 Ah. The owners' \"battery health\" number."
+        },
+        {
+          "id": "OUT_PHEV_REMAIN_AH",
+          "name": {
+            "ru": "Остаток в батарее",
+            "en": "Charge remaining"
+          },
+          "unit": "Ah",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 232,
+            "len": 16,
+            "div": 10
+          },
+          "conf": "OK",
+          "src": [
+            "https://www.myoutlanderphev.com/threads/extracting-useful-data-from-your-obdii-port.1796/",
+            "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+          ],
+          "note": "Bytes 29–30 / 10 Ah."
+        },
+        {
+          "id": "OUT_PHEV_MAX_CHG_KW",
+          "name": {
+            "ru": "Допустимая мощность заряда",
+            "en": "Charge power limit"
+          },
+          "unit": "kW",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 248,
+            "len": 8,
+            "div": 4
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+          ]
+        },
+        {
+          "id": "OUT_PHEV_MAX_DIS_KW",
+          "name": {
+            "ru": "Допустимая мощность разряда",
+            "en": "Discharge power limit"
+          },
+          "unit": "kW",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 256,
+            "len": 8,
+            "div": 4
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Mitsubishi-Outlander-PHEV/pull/21"
+          ]
         }
       ]
     }

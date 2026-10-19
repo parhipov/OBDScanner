@@ -60,7 +60,11 @@ object CarText {
 
     /** Requests known on the model, else on the make, else the whole family (what the card describes). */
     fun knownOn(family: CarFamily, brand: String?, car: CarModel?): List<ExtCommand> = when {
-        car != null -> family.commandsFor(car)
+        // Only the model's fuel (no «сажа DPF» on a petrol Golf); the fuel unknown — the requests for any fuel, as the probe does.
+        car != null -> {
+            val fuel = car.engines.mapNotNull { it.fuel }.distinct().singleOrNull()?.takeIf { car.engines.all { e -> e.fuel != null } }
+            family.commandsFor(car).filter { it.fuel.isEmpty() || fuel != null && fuel in it.fuel }
+        }
         brand != null -> family.commandsOfBrand(brand)
         else -> family.commands
     }

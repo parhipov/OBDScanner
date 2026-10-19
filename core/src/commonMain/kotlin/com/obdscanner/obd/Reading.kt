@@ -23,6 +23,8 @@ data class Reading(
     val time: Long = nowMs(),
     /** What the value is ("oil_temp", "atf_temp"…, tools/cars/SCHEMA.md), for manufacturer parameters of any make. */
     val role: String? = null,
+    /** A manufacturer value from the app's own car files, not an OBDb import (CarDb.ExtSignal.curated). */
+    val curated: Boolean = true,
 ) {
     val source get() = key.substringAfter(':')
 

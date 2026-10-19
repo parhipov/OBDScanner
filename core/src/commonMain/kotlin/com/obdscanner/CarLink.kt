@@ -192,8 +192,9 @@ class CarLink(
         _vehicle.update { v ->
             val car = pick?.model?.takeIf { otherMake == null }?.let { CarDb.forVin(it, v.vin) } ?: CarDb.detect(v.vin)
             val misfit = otherMake?.takeIf { connected }
+            // By id: forVin() narrows the model's engines, so the car is a copy of the picked model, not equal to it.
             v.copy(car = car, misfitPick = misfit, misfitMake = misfit?.let { vinBrand?.name },
-                pickForCar = forCar != null && car != null && car == pick?.model)
+                pickForCar = forCar != null && car != null && car.id == pick?.model?.id)
         }
         syncDtcFamily()
     }
@@ -361,6 +362,9 @@ class CarLink(
     }
 
     private fun remember(cmd: String, vin: String?) {
+        // Before the VIN is known (0902 itself, a car without one) nothing is kept: a key without a VIN would skip
+        // the request on every car this adapter meets, and the VIN request is the one everything else hangs on.
+        if (vin.isNullOrEmpty()) { session?.note("adapter dropped the link on $cmd — not remembered, no VIN yet"); return }
         store.putStringSet(droppedKey(vin), droppedRequests(vin) + cmd)
         session?.note("adapter dropped the link on $cmd — the next connections skip it")
         refreshMemory()
@@ -645,7 +649,7 @@ class CarLink(
             val ecus = v.ecus.toMutableMap()
             for ((h, i) in info) ecus[h] = (ecus[h] ?: EcuInfo(h)).copy(info09 = i)
             v.copy(vin = vin, make = make, ecus = ecus, car = car, brand = brand?.name, makeByPick = byPick,
-                misfitPick = misfit, misfitMake = otherMake?.let { brand?.name }, pickForCar = own?.model != null && car == own.model)
+                misfitPick = misfit, misfitMake = otherMake?.let { brand?.name }, pickForCar = own?.model != null && car?.id == own.model.id)
         }
         syncDtcFamily()
         refreshMemory()
@@ -660,10 +664,10 @@ class CarLink(
                     ?: otherMake?.let { tr(" — не подходит: по VIN это ${brand?.name}", " — doesn't fit: the VIN says ${brand?.name}") } ?: ""),
             own?.let { tr("Выбрано для этой машины: ", "Picked for this car: ") + title(it) },
             tr("Модель: ", "Model: ") + (car?.title?.let {
-                it + when (car) {
-                    own?.model -> tr(" (выбрана для этой машины)", " (picked for this car)")
-                    picked?.model -> tr(" (выбрана вручную)", " (picked by hand)")
-                    recognised -> when {
+                it + when {
+                    car.id == own?.model?.id -> tr(" (выбрана для этой машины)", " (picked for this car)")
+                    car.id == picked?.model?.id -> tr(" (выбрана вручную)", " (picked by hand)")
+                    car === recognised -> when {
                         recognisedBy?.service == "09" -> tr(" (по калибровке блока %03X)", " (by the calibration of module %03X)").format(recognisedBy.resp)
                         else -> tr(" (по ответу блока двигателя)", " (by the engine ECU's answer)")
                     }
@@ -939,7 +943,7 @@ class CarLink(
 
     private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = knockChecked(c, c.signals.map { s ->
         val (v, text) = s.fmt.decode(data) ?: (null to null)
-        Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role)
+        Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role, curated = s.curated)
     })
 
     /** Idle samples with a big retard, per request, see [knockChecked]. */

@@ -222,8 +222,8 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1636", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_BALANCE_RATE_CYL_8", "name": {"en": "Balance rate, cylinder 8", "ru": "Баланс цилиндра 8"}, "unit": "", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 64, "add": -512}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "cyl": [8, 16], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1940", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_ATF_T_VAR_1", "name": {"en": "Transmission fluid temperature, variant 1", "ru": "Температура масла АКПП, вар. 1"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1940", "rate": "medium", "models": ["Traverse", "Volt"], "signals": [
+   {"id": "TRAVERSE_ATF_T_VAR_1", "name": {"en": "Transmission fluid temperature, variant 1", "ru": "Температура масла АКПП, вар. 1"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1991", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_TQ_CONV_CLU_SLIP_SPD", "name": {"en": "Torque converter clutch slip speed", "ru": "Скорость проскальзывания муфты ГТД"}, "unit": "rpm", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 8, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "tc_slip", "note": "OBDb dbg: not confirmed by response tests"}
@@ -332,14 +332,14 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "30AE", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_CHARGE_AIR_COOLER_T_SNS_2", "name": {"en": "Charge air cooler temperature sensor 2", "ru": "Температура интеркулера, датчик 2"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3201", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_CURRENT_GEAR_VAR_3", "name": {"en": "Current gear, variant 3", "ru": "Текущая передача, вар. 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3201", "rate": "fast", "models": ["Traverse"], "signals": [
+   {"id": "TRAVERSE_CURRENT_GEAR_VAR_3", "name": {"en": "Current gear, variant 3", "ru": "Текущая передача, вар. 3"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Traverse"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3218", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_FUEL_T", "name": {"en": "Fuel temperature", "ru": "Температура топлива"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 50, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "328A", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_BP_DES", "name": {"en": "Boost pressure: desired", "ru": "Давление наддува, заданное"}, "unit": "kPa", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "boost", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "BLAZER_BP_DES", "name": {"en": "Boost pressure: desired", "ru": "Давление наддува, заданное"}, "unit": "kPa", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 100, "div": 10000}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "3318", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_EOP_CTRL_SOLENOID_VALVE_CMD", "name": {"en": "Engine oil pressure control solenoid valve command", "ru": "Клапан регулирования давления масла, команда"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 1, "map": {"0": {"en": "Off", "ru": "Выкл"}, "1": {"en": "On", "ru": "Вкл"}}}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "oil_pressure"}
@@ -374,8 +374,8 @@
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1141", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_IGN_V", "name": {"en": "Ignition voltage", "ru": "Напряжение зажигания"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1940", "rate": "medium", "models": ["Blazer", "Bolt EUV", "Bolt EV", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_ATF_T_VAR_3", "name": {"en": "Transmission fluid temperature, variant 3", "ru": "Температура масла АКПП, вар. 3"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1940", "rate": "medium", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
+   {"id": "BOLT_ATF_T", "name": {"en": "Transmission fluid temperature", "ru": "Температура масла АКПП"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "1942", "rate": "fast", "models": ["Bolt EUV", "Bolt EV", "Volt"], "signals": [
    {"id": "BOLT_TRANS_RPM", "name": {"en": "Transmission RPM", "ru": "Обороты КПП"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -451,9 +451,6 @@
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "2493", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_CONTACTOR_OPEN_8", "name": {"en": "Contactor open reason history 8", "ru": "История причин размыкания контактора 8"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
-  ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "280D", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_ATF_T_VAR_8", "name": {"en": "Transmission fluid temperature, variant 8", "ru": "Температура масла АКПП, вар. 8"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "2810", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_THROTTLE_POS_CALC", "name": {"en": "Throttle position calculated", "ru": "Положение дроссельной заслонки, расчётное"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
@@ -596,17 +593,14 @@
   {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "1991", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_TC_SLIP_VSS", "name": {"en": "Torque converter clutch slip speed", "ru": "Скорость проскальзывания муфты ГТД"}, "unit": "rpm", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 1250, "div": 10000, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "tc_slip", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
-  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "199A", "rate": "fast", "models": ["Blazer", "Camaro", "Silverado 1500", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_CURRENT_GEAR_VAR_2", "name": {"en": "Current gear, variant 2", "ru": "Текущая передача, вар. 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Silverado-1500", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
+  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "199A", "rate": "fast", "models": ["Silverado 1500", "Traverse"], "signals": [
+   {"id": "SILVERADO1500_CURRENT_GEAR_VAR_2", "name": {"en": "Current gear", "ru": "Текущая передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Silverado-1500", "https://github.com/OBDb/Chevrolet-Traverse"], "role": "gear"}
   ]},
   {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "19D4", "rate": "fast", "models": ["Blazer", "Volt"], "signals": [
    {"id": "BLAZER_CLU_SLIP_C3_RING", "name": {"en": "Clutch slip, AT C3, ring", "ru": "Проскальзывание фрикциона C3 АКПП, кольцо"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "1B30", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_CURRENT_GEAR", "name": {"en": "Current gear", "ru": "Текущая передача"}, "unit": "", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -3}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "gear", "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
-  {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "280D", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_ATF_T_VAR_6", "name": {"en": "Transmission fluid temperature, variant 6", "ru": "Температура масла АКПП, вар. 6"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E2", "rsp": "7EA", "svc": "22", "did": "2851", "rate": "fast", "models": ["Blazer", "Volt"], "signals": [
    {"id": "BLAZER_CLU_SLIP_C1_RING", "name": {"en": "Clutch slip, AT C1, ring", "ru": "Проскальзывание фрикциона C1 АКПП, кольцо"}, "unit": "rpm", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 4, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -653,17 +647,11 @@
   {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "1B26", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_TRANS_SHIFT_2", "name": {"en": "Transmission shift interlock switch 2", "ru": "Выключатель блокировки селектора 2"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
-  {"hdr": "7E3", "rsp": "7EB", "svc": "22", "did": "280D", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_ATF_T_VAR_7", "name": {"en": "Transmission fluid temperature, variant 7", "ru": "Температура масла АКПП, вар. 7"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "13AF", "rate": "fast", "models": ["Bolt EUV", "Bolt EV"], "signals": [
    {"id": "BOLT_COOLING_FAN_RADIATOR_CMD", "name": {"en": "Cooling fan, radiator motor, commanded", "ru": "Мотор вентилятора радиатора, заданное"}, "unit": "%", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 20, "div": 51}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Bolt-EUV", "https://github.com/OBDb/Chevrolet-Bolt-EV"]}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "1563", "rate": "fast", "models": ["Volt"], "signals": [
    {"id": "VOLT_AC_LOW_SIDE", "name": {"en": "A/C low side pressure", "ru": "Давление кондиционера, низкая сторона"}, "unit": "kPa", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Volt"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
-  {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "1940", "rate": "medium", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
-   {"id": "BLAZER_ATF_T_VAR_5", "name": {"en": "Transmission fluid temperature, variant 5", "ru": "Температура масла АКПП, вар. 5"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "atf_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E4", "rsp": "7EC", "svc": "22", "did": "1941", "rate": "fast", "models": ["Blazer", "Camaro", "Traverse", "Volt"], "signals": [
    {"id": "BLAZER_TRANS_INPUT_SHFT_SPD", "name": {"en": "Transmission input shaft speed", "ru": "Обороты входного вала КПП"}, "unit": "rpm", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Chevrolet-Blazer", "https://github.com/OBDb/Chevrolet-Camaro", "https://github.com/OBDb/Chevrolet-Traverse", "https://github.com/OBDb/Chevrolet-Volt"], "role": "input_rpm", "note": "OBDb dbg: not confirmed by response tests"}

@@ -587,6 +587,100 @@
         "https://en.wikipedia.org/wiki/Datsun_mi-Do"
       ],
       "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Leaf",
+      "gen": "ZE0 / AZE0",
+      "years": [
+        2010,
+        2017
+      ],
+      "vin": [
+        "^(JN1AZ0C|1N4AZ0C|SJNFAAZE0)"
+      ],
+      "engines": [
+        {
+          "code": "EM61 / EM57",
+          "fuel": "electric"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500. Батарея (BMS) отвечает на 79B → 7BB по $21 (группы 01, 02, 04), зарядный блок и VCM — 797 → 79A. Стандартный Mode 01 даёт мало: машина электрическая.",
+        "en": "CAN 11/500. The battery (BMS) answers on 79B → 7BB with $21 (groups 01, 02, 04), the charger and VCM on 797 → 79A. Standard Mode 01 gives little: the car is electric."
+      },
+      "note": {
+        "ru": "Самый массовый электромобиль в России, в основном праворульный из Японии: VIN в блоках нет, модель узнаётся по ответу батарейного блока 79B. Батарея 24 кВт·ч (2010–2017) или 30 кВт·ч (2016–2017). Hx и ёмкость в А·ч — в «Все данные».",
+        "en": "Russia's most common EV, mostly right-hand-drive imports from Japan: no VIN in the modules, the model is recognised by the battery module's answer on 79B. 24 kWh (2010–2017) or 30 kWh (2016–2017) battery. Hx and the capacity in Ah are under \"All data\"."
+      },
+      "match": [
+        {
+          "hdr": "79B",
+          "rsp": "7BB",
+          "svc": "21",
+          "did": "01",
+          "hex": "^([0-9A-F]{2} ){35,43}[0-9A-F]{2}$"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Leaf",
+        "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+        "https://docs.openvehicles.com/en/latest/components/vehicle_nissanleaf/docs/index.html",
+        "https://github.com/OBDb/Nissan-Leaf"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Nissan",
+      "model": "Leaf",
+      "gen": "ZE1",
+      "years": [
+        2018,
+        2025
+      ],
+      "vin": [
+        "^(1N4[AB]Z1C|SJNFAAZE1)"
+      ],
+      "engines": [
+        {
+          "code": "EM57",
+          "fuel": "electric"
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500. Батарея (BMS) отвечает на 79B → 7BB по $21 (группы 01, 02, 04), зарядный блок и VCM — 797 → 79A. Стандартный Mode 01 даёт мало: машина электрическая.",
+        "en": "CAN 11/500. The battery (BMS) answers on 79B → 7BB with $21 (groups 01, 02, 04), the charger and VCM on 797 → 79A. Standard Mode 01 gives little: the car is electric."
+      },
+      "note": {
+        "ru": "Батарея 40 кВт·ч, e+ — 62 кВт·ч. Группа 01 батарейного блока длиннее, чем у ZE0 (51 байт), поэтому раскладка своя; состояние батареи (SOH) блок отдаёт отдельной группой 61.",
+        "en": "40 kWh battery, 62 kWh on the e+. The battery module's group 01 is longer than the ZE0's (51 bytes), so it has its own layout; the battery health (SOH) comes as a separate group 61."
+      },
+      "blocks": [
+        {
+          "role": "other",
+          "addr": "79B",
+          "rsp": "7BB",
+          "dialect": "leaf_ze1"
+        }
+      ],
+      "match": [
+        {
+          "hdr": "79B",
+          "rsp": "7BB",
+          "svc": "21",
+          "did": "01",
+          "hex": "^([0-9A-F]{2} ){47,}[0-9A-F]{2}$"
+        }
+      ],
+      "src": [
+        "https://en.wikipedia.org/wiki/Nissan_Leaf",
+        "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+        "https://docs.openvehicles.com/en/latest/components/vehicle_nissanleaf/docs/index.html",
+        "https://github.com/OBDb/Nissan-Leaf"
+      ],
+      "verified": false
     }
   ],
   "commands": [
@@ -912,6 +1006,85 @@
           "note": "Renault-type R9M diesel ECU on the X-Trail T32 1.6 dCi (drive2 Torque list). Petrol ECUs will refuse."
         }
       ]
+    },
+    {
+      "hdr": "79B",
+      "rsp": "7BB",
+      "svc": "21",
+      "did": "01",
+      "rate": "medium",
+      "models": [
+        "Leaf"
+      ],
+      "years": [
+        2010,
+        2017
+      ],
+      "signals": [
+        {
+          "id": "LEAF_SOC",
+          "name": {
+            "ru": "Заряд батареи (BMS)",
+            "en": "Battery charge (BMS)"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "main",
+          "role": "hv_soc",
+          "fmt": {
+            "bix": 232,
+            "len": 24,
+            "div": 10000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Nissan-Leaf"
+          ],
+          "note": "OBDb's pre-2018 layout (b29-31/10000); OVMS reads the ZE0's SOC from the broadcast frame instead, so one source."
+        },
+        {
+          "id": "LEAF_HX",
+          "name": {
+            "ru": "Hx — здоровье батареи по сопротивлению",
+            "en": "Hx — battery health by resistance"
+          },
+          "unit": "%",
+          "dec": 2,
+          "group": "main",
+          "role": "hv_soh",
+          "fmt": {
+            "bix": 208,
+            "len": 16,
+            "div": 100
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp"
+          ],
+          "note": "OVMS: (b26<<8|b27)/100 on the 39/41-byte reply (ZE0/AZE0). New ≈ 100, falls with age; the LeafSpy's \"SOH\" is another number, from the broadcast frame."
+        },
+        {
+          "id": "LEAF_AHR",
+          "name": {
+            "ru": "Ёмкость батареи (AHr)",
+            "en": "Battery capacity (AHr)"
+          },
+          "unit": "Ah",
+          "dec": 2,
+          "group": "main",
+          "fmt": {
+            "bix": 264,
+            "len": 24,
+            "div": 10000
+          },
+          "conf": "OK",
+          "src": [
+            "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+            "https://github.com/OBDb/Nissan-Leaf"
+          ],
+          "note": "OVMS and OBDb agree: (b33<<16|b34<<8|b35)/10000 Ah; a new 24 kWh pack ≈ 66 Ah, 30 kWh ≈ 80 Ah."
+        }
+      ]
     }
   ],
   "features": [
@@ -930,6 +1103,220 @@
     {
       "ru": "Almera G15 и Terrano D10 — машины Renault (моторы K4M/F4R/H4M).",
       "en": "The Almera G15 and Terrano D10 are Renault-based (K4M/F4R/H4M engines)."
+    }
+  ],
+  "dialects": [
+    {
+      "id": "leaf_ze1",
+      "title": {
+        "ru": "Nissan Leaf ZE1 — батарейный блок",
+        "en": "Nissan Leaf ZE1 battery module"
+      },
+      "note": "Layout of the 51-byte group 01 and group 61 from OVMS vehicle_nissanleaf.cpp (MIT): Hx = b28-29/102.4, SOC = b31-33/10000, AHr = b35-37/10000, SOH = 21 61 b2-3/100. Not seen on a car yet.",
+      "commands": [
+        {
+          "hdr": "79B",
+          "rsp": "7BB",
+          "svc": "21",
+          "did": "01",
+          "rate": "medium",
+          "signals": [
+            {
+              "id": "LEAF_ZE1_SOC",
+              "name": {
+                "ru": "Заряд батареи (BMS)",
+                "en": "Battery charge (BMS)"
+              },
+              "unit": "%",
+              "dec": 1,
+              "group": "main",
+              "role": "hv_soc",
+              "fmt": {
+                "bix": 248,
+                "len": 24,
+                "div": 10000
+              },
+              "conf": "?",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp"
+              ],
+              "note": "OVMS: (b31<<16|b32<<8|b33)/10000 for the 51-byte reply. OBDb gives the same bytes as /8190 − 17 — one source each, OVMS's form kept."
+            },
+            {
+              "id": "LEAF_ZE1_HX",
+              "name": {
+                "ru": "Hx — здоровье батареи по сопротивлению",
+                "en": "Hx — battery health by resistance"
+              },
+              "unit": "%",
+              "dec": 2,
+              "group": "main",
+              "fmt": {
+                "bix": 224,
+                "len": 16,
+                "mul": 10,
+                "div": 1024
+              },
+              "conf": "?",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp"
+              ],
+              "note": "OVMS: (b28<<8|b29)/102.4 on ZE1."
+            },
+            {
+              "id": "LEAF_ZE1_AHR",
+              "name": {
+                "ru": "Ёмкость батареи (AHr)",
+                "en": "Battery capacity (AHr)"
+              },
+              "unit": "Ah",
+              "dec": 2,
+              "group": "main",
+              "fmt": {
+                "bix": 280,
+                "len": 24,
+                "div": 10000
+              },
+              "conf": "OK",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+                "https://github.com/OBDb/Nissan-Leaf"
+              ],
+              "note": "OVMS and OBDb agree: (b35<<16|b36<<8|b37)/10000 Ah; new 40 kWh ≈ 115 Ah, 62 kWh ≈ 176 Ah."
+            }
+          ]
+        },
+        {
+          "hdr": "79B",
+          "rsp": "7BB",
+          "svc": "21",
+          "did": "61",
+          "rate": "slow",
+          "signals": [
+            {
+              "id": "LEAF_ZE1_SOH",
+              "name": {
+                "ru": "Состояние батареи (SOH)",
+                "en": "Battery health (SOH)"
+              },
+              "unit": "%",
+              "dec": 2,
+              "group": "main",
+              "role": "hv_soh",
+              "fmt": {
+                "bix": 16,
+                "len": 16,
+                "div": 100
+              },
+              "conf": "OK",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+                "https://github.com/OBDb/Nissan-Leaf"
+              ],
+              "note": "OVMS and OBDb: (b2<<8|b3)/100 of the 329-byte group 61 (ZE1 only)."
+            }
+          ]
+        },
+        {
+          "hdr": "79B",
+          "rsp": "7BB",
+          "svc": "21",
+          "did": "02",
+          "rate": "slow",
+          "signals": [
+            {
+              "id": "LEAF_ZE1_PACK_V",
+              "name": {
+                "ru": "Напряжение батареи",
+                "en": "Battery pack voltage"
+              },
+              "unit": "V",
+              "dec": 1,
+              "group": "other",
+              "fmt": {
+                "bix": 1536,
+                "len": 16,
+                "div": 100
+              },
+              "conf": "?",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp"
+              ],
+              "note": "Bytes 192–193 after the 96 cell voltages (2 bytes each, mV): /100 V."
+            }
+          ]
+        },
+        {
+          "hdr": "79B",
+          "rsp": "7BB",
+          "svc": "21",
+          "did": "04",
+          "rate": "slow",
+          "signals": [
+            {
+              "id": "LEAF_ZE1_T1",
+              "name": {
+                "ru": "Температура батареи, пакет 1",
+                "en": "Battery temperature, pack 1"
+              },
+              "unit": "°C",
+              "dec": 0,
+              "group": "other",
+              "fmt": {
+                "bix": 16,
+                "len": 8,
+                "signed": true
+              },
+              "conf": "?",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+                "https://github.com/OBDb/Nissan-Leaf"
+              ],
+              "note": "Byte 3 of each 3-byte thermistor record is the module's own °C; pack 3 (bytes 6–8) is often FF and left out."
+            },
+            {
+              "id": "LEAF_ZE1_T2",
+              "name": {
+                "ru": "Температура батареи, пакет 2",
+                "en": "Battery temperature, pack 2"
+              },
+              "unit": "°C",
+              "dec": 0,
+              "group": "other",
+              "fmt": {
+                "bix": 40,
+                "len": 8,
+                "signed": true
+              },
+              "conf": "?",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+                "https://github.com/OBDb/Nissan-Leaf"
+              ]
+            },
+            {
+              "id": "LEAF_ZE1_T4",
+              "name": {
+                "ru": "Температура батареи, пакет 4",
+                "en": "Battery temperature, pack 4"
+              },
+              "unit": "°C",
+              "dec": 0,
+              "group": "other",
+              "fmt": {
+                "bix": 88,
+                "len": 8,
+                "signed": true
+              },
+              "conf": "?",
+              "src": [
+                "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/blob/master/vehicle/OVMS.V3/components/vehicle_nissanleaf/src/vehicle_nissanleaf.cpp",
+                "https://github.com/OBDb/Nissan-Leaf"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

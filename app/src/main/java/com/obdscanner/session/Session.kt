@@ -63,10 +63,14 @@ class SessionStore(private val root: File, private val shareDir: File) {
     /** Packs a session folder for sharing. */
     fun zip(dir: File): File = zip(listOf(dir)).single()
 
-    /** Packs session folders for sharing, a zip each (the zips of the previous share are removed). */
+    /**
+     * Packs session folders for sharing, a zip each. Leftovers of earlier shares go (reports too), but not what another
+     * app may still be reading — a mail client attaches lazily, a browser shows the report: only files older than an hour.
+     */
     fun zip(dirs: List<File>): List<File> {
         shareDir.mkdirs()
-        shareDir.listFiles()?.forEach { it.delete() }
+        val old = System.currentTimeMillis() - 3_600_000
+        shareDir.listFiles()?.filter { it.lastModified() < old }?.forEach { it.delete() }
         return dirs.map { dir ->
             File(shareDir, "obd_${dir.name}.zip").also { out -> FileOutputStream(out).use { zipTo(dir, it) } }
         }

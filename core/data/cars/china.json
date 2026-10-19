@@ -794,6 +794,66 @@
         "https://www.kolesa.ru/news/krossover-changan-uni-k-gotovitsya-k-startu-prodazh-v-rossii-odin-motor-est-polnyy-privod"
       ],
       "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "H6",
+      "gen": "III",
+      "years": [
+        2021,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "GW4B15A",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        },
+        {
+          "code": "GW4N20",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "note": {
+        "ru": "Третье поколение (платформа L.E.M.O.N.): 1.5 турбо 150 л.с. или 2.0 турбо 192 л.с., 7-ступенчатый робот 7DCT. Сборка в Туле. Те же двигатель и коробка, что у Jolion и F7, поэтому их запросы пробуются и здесь, с пометкой «?».",
+        "en": "Third generation (L.E.M.O.N. platform): 1.5 turbo 150 hp or 2.0 turbo 192 hp, 7-speed 7DCT dual-clutch. Built in Tula. The same engine and gearbox as the Jolion and F7, so their requests are probed here too, marked \"?\"."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Haval_H6",
+        "https://en.wikipedia.org/wiki/Haval_H6"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Haval",
+      "model": "M6",
+      "gen": "I",
+      "years": [
+        2021,
+        2026
+      ],
+      "engines": [
+        {
+          "code": "GW4G15F",
+          "liters": 1.5,
+          "cyl": 4,
+          "fuel": "petrol"
+        }
+      ],
+      "protocol": 6,
+      "note": {
+        "ru": "Бюджетный кроссовер на базе H6 первого поколения: 1.5 турбо 143 л.с., 7-ступенчатый робот 7DCT. Сборка в Туле. Запросы Jolion пробуются с пометкой «?».",
+        "en": "Budget crossover on the first-generation H6 base: 1.5 turbo 143 hp, 7-speed 7DCT dual-clutch. Built in Tula. The Jolion's requests are probed, marked \"?\"."
+      },
+      "src": [
+        "https://ru.wikipedia.org/wiki/Haval_M6",
+        "https://en.wikipedia.org/wiki/Haval_M6"
+      ],
+      "verified": false
     }
   ],
   "commands": [],

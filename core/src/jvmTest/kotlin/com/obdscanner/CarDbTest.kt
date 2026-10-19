@@ -102,6 +102,13 @@ class CarDbTest {
         val coupe = CarDb.detect("KMHHxxxDx3Uxxxxxx")
         assertEquals("Coupe / Tiburon", coupe?.model)
         assertEquals(2003..2003, coupe?.years)
+        // Leaf by generation (US/UK VINs; a JDM one has none and is recognised by the battery module's answer), Outlander PHEV by its model code.
+        assertEquals("ZE0 / AZE0", CarDb.detect("JN1AZ0CP8BT000000")?.gen)
+        assertEquals("ZE1", CarDb.detect("1N4AZ1CP0KC000000")?.gen)
+        assertEquals("leaf_ze1", CarDb.detect("SJNFAAZE1U0000000")?.knownBlocks?.get(0x79B)?.dialect)
+        assertEquals("Outlander PHEV", CarDb.detect("JMBXDGG2WGZ000000")?.model)
+        // A petrol Outlander III (GF2W) isn't the PHEV; the GF has no VIN pattern of its own yet.
+        assertTrue(CarDb.detect("JMBXTGF2WFZ000000")?.model != "Outlander PHEV")
     }
 
     @Test
@@ -110,6 +117,29 @@ class CarDbTest {
         assertEquals(2011, CarDb.modelYear("XW8ZZZ61ZBG000000"))
         assertEquals(2016, CarDb.modelYear("XTAGFK330GY000000"))
         assertNull(CarDb.modelYear("123"))
+        // European Fords keep the year in the 11th character: the Focus II of 2010 (10th = H would say 2017) and of 2009.
+        assertEquals(2010, CarDb.modelYear("X9FHXXEEDHAB14494"))
+        assertEquals(2009, CarDb.modelYear("X9FGXXEEDG9M23538"))
+        assertNull(CarDb.modelYear("X9FHXXEEDH"))
+    }
+
+    /** OBDb values merged into a curated request: not on its bits, and not with a main-screen role it already has. */
+    @Test
+    fun obdbMergeKeepsCuratedValues() {
+        fun sig(id: String, bix: Int, len: Int, add: Double, role: String?, curated: Boolean, le: Boolean = false) =
+            com.obdscanner.car.ExtSignal(id, id, "°C", 0, "?", "main", role, SignalFormat(bix, len, 1.0, 1.0, add, false, null, le), curated = curated)
+        fun cmd(vararg s: com.obdscanner.car.ExtSignal, source: String) =
+            com.obdscanner.car.ExtCommand(0x7E1, 0x7E9, "22", 0x2104, 1000, s.toList(), source = source)
+        val f = com.obdscanner.car.CarFamily("t", "t")
+        f.addCommand(cmd(sig("DSG_OIL", 0, 16, 0.0, "atf_temp", true, le = true), source = "db"))
+        f.addCommand(cmd(
+            sig("SQ7_ATF", 0, 8, -40.0, "atf_temp", false),      // the same bytes, another scaling: left out
+            sig("OTHER_ATF", 24, 8, -40.0, "atf_temp", false),   // other bytes: kept, but the card stays the curated value's
+            sig("SLIP", 32, 16, 0.0, "tc_slip", false),          // a new role: kept with it
+            source = "obdb"))
+        val got = f.commands.single().signals
+        assertEquals(listOf("DSG_OIL", "OTHER_ATF", "SLIP"), got.map { it.id })
+        assertEquals(listOf("atf_temp", null, "tc_slip"), got.map { it.role })
     }
 
     @Test

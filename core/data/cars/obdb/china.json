@@ -230,7 +230,7 @@
    {"id": "JOLION_FUEL_LEVEL_LITERS", "name": {"en": "Fuel level, liters", "ru": "Уровень топлива, л"}, "unit": "L", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "fuel_level_l"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0107", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_OIL_T", "name": {"en": "Oil temperature, model", "ru": "Температура масла, расчётная"}, "unit": "°C", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273.15}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"], "role": "oil_temp"},
+   {"id": "JOLION_OIL_T", "name": {"en": "Oil temperature, model", "ru": "Температура масла, расчётная"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 10, "add": -273.15}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion"]},
    {"id": "JOLIONHEV_OIL_T", "name": {"en": "Oil temperature", "ru": "Температура масла"}, "unit": "°C", "dec": 2, "group": "main", "fmt": {"bix": 0, "len": 16, "mul": 0.023437, "add": -273.15}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion-HEV"], "role": "oil_temp"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "010F", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
@@ -240,7 +240,7 @@
    {"id": "JOLION_FUEL_FLOW", "name": {"en": "Fuel flow", "ru": "Расход топлива"}, "unit": "L", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 0.00429156}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0112", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_BP_TARGET", "name": {"en": "Boost pressure, target", "ru": "Давление наддува, заданное"}, "unit": "kPa", "dec": 3, "group": "main", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "boost"}
+   {"id": "JOLION_BP_TARGET", "name": {"en": "Boost pressure, target", "ru": "Давление наддува, заданное"}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0113", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_PRESSURE_BEFORE_TURBOCHARGER", "name": {"en": "Turbocharger inlet pressure, model", "ru": "Давление на входе турбокомпрессора, расчётное"}, "unit": "kPa", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 128}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"]}
@@ -356,7 +356,7 @@
    {"id": "JOLION_EOT", "name": {"en": "Oil temperature", "ru": "Температура масла"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "oil_temp", "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1603", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
-   {"id": "JOLION_OT_VCPC_MIN", "name": {"en": "Variable clutch pressure control, min oil temperature", "ru": "Регулирование давления сцепления, мин. температура масла"}, "unit": "°C", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "role": "clutch_temp", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "JOLION_OT_VCPC_MIN", "name": {"en": "Variable clutch pressure control, min oil temperature", "ru": "Регулирование давления сцепления, мин. температура масла"}, "unit": "°C", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 8, "add": -40}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1702", "rate": "fast", "models": ["Jolion", "Jolion HEV"], "signals": [
    {"id": "JOLION_BATTERY_VOLTAGE", "name": {"en": "Battery voltage", "ru": "Напряжение АКБ"}, "unit": "V", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 12.5, "div": 100}, "conf": "?", "src": ["https://github.com/OBDb/Haval-Jolion", "https://github.com/OBDb/Haval-Jolion-HEV"], "note": "OBDb dbg: not confirmed by response tests"}

@@ -575,7 +575,7 @@
    {"id": "MAZDA3_EMISSION_FAILURE_MIS", "name": {"en": "Emission failure misfires total during this trip", "ru": "Пропуски зажигания (токсичность), всего за поездку"}, "unit": "", "dec": 0, "group": "other", "fmt": {"bix": 176, "len": 8}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0542", "rate": "slow", "models": ["3"], "signals": [
-   {"id": "MAZDA3_OIL_CHANGE_DIST_MAX", "name": {"en": "Max distance to oil change", "ru": "Макс. пробег до замены масла"}, "unit": "km", "dec": 0, "group": "main", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "service_km", "note": "OBDb dbg: not confirmed by response tests"}
+   {"id": "MAZDA3_OIL_CHANGE_DIST_MAX", "name": {"en": "Max distance to oil change", "ru": "Макс. пробег до замены масла"}, "unit": "km", "dec": 0, "group": "other", "fmt": {"bix": 0, "len": 16}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "0548", "rate": "fast", "models": ["3"], "signals": [
    {"id": "MAZDA3_LPFP_ACT", "name": {"en": "Fuel pressure, low actual", "ru": "Низкое давление топлива, факт."}, "unit": "kPa", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 68947.57, "div": 137892, "signed": true}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
@@ -703,9 +703,6 @@
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1177", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
    {"id": "MAZDA3_MAF_V", "name": {"en": "Mass air-flow voltage", "ru": "Напряжение ДМРВ"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "div": 1000}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
   ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "11BD", "rate": "medium", "models": ["3"], "signals": [
-   {"id": "MAZDA3_TRANS_T_VAR_5", "name": {"en": "Transmission temperature, variant 5", "ru": "Температура КПП, вар. 5"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 80}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
-  ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "1279", "rate": "fast", "models": ["3"], "signals": [
    {"id": "MAZDA3_IAT_SENS_V", "name": {"en": "Intake temperature sensor voltage", "ru": "Напряжение датчика температуры впуска"}, "unit": "V", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 1023}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
   ]},
@@ -773,9 +770,6 @@
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "174F", "rate": "fast", "models": ["3"], "signals": [
    {"id": "MAZDA3_AIR_FUEL_RAT_ACT", "name": {"en": "Air/fuel ratio, actual", "ru": "Состав смеси (AFR), факт."}, "unit": "", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 287, "div": 2500}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"]}
-  ]},
-  {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17B3", "rate": "medium", "models": ["3"], "signals": [
-   {"id": "MAZDA3_TRANS_T_VAR_1", "name": {"en": "Transmission temperature, variant 1", "ru": "Температура КПП, вар. 1"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 23.33333333, "div": 25, "add": -49.44444444}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "17F4", "rate": "fast", "models": ["3", "CX-5", "MX-5"], "signals": [
    {"id": "MAZDA3_LDP_MON_CURRENT", "name": {"en": "EVAP LDP monitoring current", "ru": "EVAP LDP: ток контроля"}, "unit": "A", "dec": 3, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5.61e-07}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-CX-5", "https://github.com/OBDb/Mazda-MX-5"]}
@@ -934,9 +928,6 @@
   ]},
   {"hdr": "7E0", "rsp": "7E8", "svc": "22", "did": "F4A6", "rate": "slow", "models": ["3"], "signals": [
    {"id": "MAZDA3_PCM_VEH_ODO", "name": {"en": "Vehicle odometer", "ru": "Пробег"}, "unit": "km", "dec": 1, "group": "main", "fmt": {"bix": 0, "len": 32, "div": 10}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "role": "odometer"}
-  ]},
-  {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "11BD", "rate": "medium", "models": ["3"], "signals": [
-   {"id": "MAZDA3_TRANS_T_VAR_6", "name": {"en": "Transmission temperature, variant 6", "ru": "Температура КПП, вар. 6"}, "unit": "°C", "dec": 2, "group": "other", "fmt": {"bix": 0, "len": 16, "mul": 5, "div": 80}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3"], "note": "OBDb dbg: not confirmed by response tests"}
   ]},
   {"hdr": "7E1", "rsp": "7E9", "svc": "22", "did": "17B3", "rate": "fast", "models": ["3", "MX-5"], "signals": [
    {"id": "MAZDA3_TRANS_T_V5", "name": {"en": "Transmission temperature v5", "ru": "Температура КПП, вар. 5"}, "unit": "°C", "dec": 1, "group": "other", "fmt": {"bix": 0, "len": 8, "mul": 23.33333333, "div": 25, "add": -49.44444444}, "conf": "?", "src": ["https://github.com/OBDb/Mazda-3", "https://github.com/OBDb/Mazda-MX-5"], "note": "OBDb dbg: not confirmed by response tests"}

@@ -1237,8 +1237,8 @@
       ],
       "protocol": 5,
       "buses": {
-        "ru": "K-line (контакт 7, KWP2000 fast init). ЭБУ — семейства ВАЗ (Bosch / «Январь»), не GM: функции GM $22/$A9 не применимы, работает стандартный OBD.",
-        "en": "K-line (pin 7, KWP2000 fast init). The ECU is from the Lada family (Bosch / Yanvar), not GM: the GM $22/$A9 functions don't apply, standard OBD works."
+        "ru": "K-line (контакт 7, KWP2000 fast init). ЭБУ — семейства ВАЗ (Bosch / «Январь»), не GM: функции GM $22/$A9 не применимы, работает стандартный OBD. С конца 2015 года (Евро-5) ЭБУ Bosch ME17.9.71 — тоже K-line на контакте 7: контакты CAN в разъёме ведут к ЭРА-ГЛОНАСС, по CAN двигатель молчит.",
+        "en": "K-line (pin 7, KWP2000 fast init). The ECU is from the Lada family (Bosch / Yanvar), not GM: the GM $22/$A9 functions don't apply, standard OBD works. From late 2015 (Euro 5) the Bosch ME17.9.71 ECU is on K-line pin 7 as well: the socket's CAN pins go to the ERA-GLONASS unit, the engine is silent on CAN."
       },
       "note": {
         "ru": "Выпускалась СП GM-АвтоВАЗ, позже как Lada Niva. K-line (KWP fast).",
@@ -1246,7 +1246,10 @@
       },
       "src": [
         "https://ru.wikipedia.org/wiki/Chevrolet_Niva",
-        "https://www.klavkarr.com/compatible/chevrolet-niva-8000209"
+        "https://www.klavkarr.com/compatible/chevrolet-niva-8000209",
+        "https://xn----7sbbagpx1an.xn--p1ai/n/viewtopic.php?t=59461",
+        "https://www.drive2.ru/l/670489063639228629/",
+        "https://www.drive2.ru/l/654275115420238283/"
       ],
       "verified": false
     },

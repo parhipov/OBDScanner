@@ -89,7 +89,7 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
             val c = if (vagNumbers) {
                 val n = d[i] * 256 + d[i + 1]
                 // VAG 16384 + N is SAE P0N (16684 = P0300, 16555 = P0171); other VAG numbers have no SAE form.
-                val code = if (n in 16384..17383) "P%04d".format(n - 16384) else "%05d".format(n)
+                val code = if (n in 16384..17383) "P" + (n - 16384).toString().padStart(4, '0') else n.toString().padStart(5, '0')
                 GmDtc(code, -1, d[i + 2], DtcScheme.KWP, vag = n)
             } else GmDtc(Dtc.decode(d[i], d[i + 1]), -1, d[i + 2], DtcScheme.KWP)
             if (c !in codes) codes += c

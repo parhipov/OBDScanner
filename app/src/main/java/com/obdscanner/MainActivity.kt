@@ -28,6 +28,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -52,6 +53,9 @@ import com.obdscanner.ui.TermsScreen
 import com.obdscanner.ui.Warn
 import com.obdscanner.ui.shareFile
 import com.obdscanner.ui.toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,6 +109,7 @@ private fun AppRoot(m: ObdManager) {
     val picked by m.picked.collectAsStateWithLifecycle()
     val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
     var tab by rememberSaveable { mutableStateOf(Tab.Connect) }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(tab) { m.activeTab.value = tab }
     // Only once the terms are accepted (Root): nothing goes out before that.
@@ -130,7 +135,9 @@ private fun AppRoot(m: ObdManager) {
                 actions = {
                     IconButton(onClick = {
                         val dir = m.session?.also { it.flush() }?.dir ?: m.sessions.list().firstOrNull()
-                        if (dir == null) toast(ctx, tr("Сессий пока нет", "No sessions yet")) else shareFile(ctx, m.sessions.zip(dir))
+                        // Zipping an hour's sensors.csv takes seconds: off the UI thread, as on «Сессии».
+                        if (dir == null) toast(ctx, tr("Сессий пока нет", "No sessions yet"))
+                        else scope.launch { shareFile(ctx, withContext(Dispatchers.IO) { m.sessions.zip(dir) }) }
                     }) { Icon(Icons.Default.Share, tr("Отправить сессию", "Share session")) }
                     if (conn is ConnState.Connected || conn is ConnState.Connecting || conn is ConnState.Recording) {
                         // To «Связь»: the trip's report button waits there.
