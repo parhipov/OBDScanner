@@ -30,7 +30,9 @@ class DialectTest {
         assertEquals((0x7E0..0x7E7).map { it to it + 8 } + (0x700..0x775).map { it to it + 0x6A }, cands("vag"))
         val renault = listOf(0x740, 0x742, 0x743, 0x744, 0x745, 0x748, 0x752, 0x758, 0x79B, 0x707).map { it to it + 0x20 }
         for (f in listOf("renault", "nissan", "lada")) assertEquals(std(renault, f), cands(f))
-        assertEquals(std(listOf(0x700, 0x701, 0x780, 0x791).map { it to it + 8 }, "toyota"), cands("toyota"))
+        assertEquals(std(listOf(0x700, 0x701, 0x780, 0x791, 0x784, 0x7B3).map { it to it + 8 }, "toyota"), cands("toyota"))
+        // openpilot's Toyota ECU list: a Vibe's 7A1, which changed with the wheel turned (2026-10-19), is the EPS.
+        assertEquals(tr("Усилитель руля (EPS)", "Power steering (EPS)"), ObdModules.addressing(CarDb.family("toyota"), "Toyota").name(0x7A1))
         assertEquals(std(listOf(0x7D4, 0x7B3, 0x7B1, 0x7B7, 0x730, 0x7C5, 0x794, 0x770).map { it to it + 8 }, "hyundai"), cands("hyundai"))
         assertEquals(std(listOf(0x706, 0x726, 0x730, 0x732, 0x760, 0x764).map { it to it + 8 }, "ford"), cands("ford"))
         assertEquals(std(listOf(0x706, 0x730, 0x732, 0x760, 0x764).map { it to it + 8 }, "mazda"), cands("mazda"))

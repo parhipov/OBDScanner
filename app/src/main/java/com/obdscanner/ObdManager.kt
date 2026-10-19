@@ -83,6 +83,8 @@ import java.io.IOException
 const val SOURCE_DEMO = "demo"
 const val SOURCE_SENSORS = "sensors"
 const val SOURCE_WIFI = "wifi"
+/** How long a session tries to get its link back after it closed mid-session ([ObdManager.reconnect]). */
+private const val RECONNECT_MS = 60_000L
 
 class ObdManager(private val context: Context) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -412,7 +414,7 @@ class ObdManager(private val context: Context) {
                 } finally {
                     _busy.value = null
                 }
-                if (!o.canTarget) s.note("${if (o.can29) "29-bit CAN" else "ISO 9141-2"}: standard OBD only, module search and DTCs of all modules skipped")
+                if (!o.canTarget) s.note("${if (o.can29) "29-bit CAN" else o.untargetedBus}: standard OBD only, module search and DTCs of all modules skipped")
                 else if (!_modulesOnConnect.value) s.report(tr("Память блоков", "Module memory"),
                     tr("не проверялась при подключении: выключено на «Связи»", "not checked on connecting: turned off on «Connect»"))
                 else {
@@ -420,7 +422,24 @@ class ObdManager(private val context: Context) {
                     launchOp(tr("Ошибки всех блоков", "Codes in all modules")) { link.autoModules(it) }
                     opJob?.join()
                 }
-                link.pollLoop(o)
+                while (true) {
+                    try {
+                        link.pollLoop(o)
+                    } catch (ex: IOException) {
+                        // The link closed while driving (a Vibe's V-LINK, 2026-10-19: twice in a row, the owner connected
+                        // again by hand): the same session goes on over a new link, the car isn't asked everything again.
+                        if (o.elm.alive) throw ex
+                        val lost = System.currentTimeMillis()
+                        s.note("link lost while polling: ${ex.message} — reconnecting")
+                        val back = reconnect(make, s, name, o) ?: throw ex
+                        o = back
+                        elm = back.elm
+                        obd = back
+                        s.report(tr("Связь восстановлена", "Link restored"),
+                            tr("оборвалась, восстановлена через ${(System.currentTimeMillis() - lost) / 1000} с",
+                                "dropped, restored after ${(System.currentTimeMillis() - lost) / 1000} s"))
+                    }
+                }
             } catch (e: CancellationException) {
                 s.note("disconnect requested")
             } catch (e: Exception) {
@@ -440,6 +459,38 @@ class ObdManager(private val context: Context) {
                 _conn.value = if (failure != null) ConnState.Failed(failure) else ConnState.Idle
             }
         }
+    }
+
+    /**
+     * A new link after the old one closed mid-session: tries for [RECONNECT_MS], on the protocol that worked only (a car
+     * that stopped answering it is switched off — no half-minute search through the others). Null — gave up.
+     */
+    private suspend fun reconnect(make: (Session) -> Transport, s: Session, name: String, old: Obd): Obd? {
+        old.elm.close()
+        val skip = if (old.protocol in CarLink.PROTOCOLS) CarLink.PROTOCOLS.keys - old.protocol else emptySet()
+        val until = System.currentTimeMillis() + RECONNECT_MS
+        var n = 0
+        while (System.currentTimeMillis() < until) {
+            n++
+            _conn.value = ConnState.Connecting(name, CarLink.RECONNECTING)
+            // A clone that dropped the link is often rebooting: a moment before the first try, more between the next ones.
+            delay(if (n == 1) 1000 else 3000)
+            val e = Elm327(make(s)) { d, t -> s.raw(d, t) }
+            val o = Obd(e)
+            try {
+                e.open()
+                delay(500)
+                link.initAdapter(o, name, skip)
+                o.onAdapterReset = { link.adapterReset(o) }
+                _conn.value = ConnState.Connected(name)
+                s.note("reconnected (try $n)")
+                return o
+            } catch (ex: IOException) {
+                s.note("reconnect $n failed: ${ex.message}")
+                e.close()
+            }
+        }
+        return null
     }
 
     // ---------------------------------------------------------------- user actions

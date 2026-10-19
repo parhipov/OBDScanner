@@ -10,7 +10,8 @@ import com.obdscanner.tr
  * is skipped, so a UDS ECU costs one \$1A request and vice versa.
  */
 object EcuIdent {
-    class Item(val service: String, val did: Int, val name: String)
+    /** [option] — one more request byte after [did]; [family] — asked only of that make's modules. */
+    class Item(val service: String, val did: Int, val name: String, val option: Int? = null, val family: String? = null)
 
     val ALL = listOf(
         Item("22", 0xF187, tr("Номер детали (VW)", "Part number (VW)")),
@@ -39,6 +40,9 @@ object EcuIdent {
         Item("1A", 0x99, tr("Дата программирования", "Programming date")),
         Item("1A", 0x9B, tr("Идентификация VAG (номер, ПО, кодирование)", "VAG identification (part no., SW, coding)")),
         Item("1A", 0x86, tr("Идентификация производителя", "Manufacturer identification")),
+        // openpilot's Toyota firmware query to the KWP modules (EPS, steering angle sensor, 2nd airbag, gateway): 1A 88 01.
+        // A Vibe's EPS (7A1) refused every two-byte 1A xx with NRC 12, invalid format (2026-10-19).
+        Item("1A", 0x88, tr("Номера ПО (Toyota)", "Software numbers (Toyota)"), option = 0x01, family = "toyota"),
     )
 }
 

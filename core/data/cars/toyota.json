@@ -8,15 +8,57 @@
           "700",
           "701",
           "780",
-          "791"
+          "791",
+          "784",
+          "7B3"
         ],
         "rsp": "+8"
       }
     ],
     "src": [
       "https://github.com/commaai/opendbc",
-      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
-    ]
+      "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3",
+      "https://github.com/commaai/opendbc/blob/master/opendbc/car/toyota/values.py",
+      "https://github.com/commaai/opendbc/blob/master/opendbc/car/toyota/fingerprints.py"
+    ],
+    "names": {
+      "7A0": {
+        "ru": "Усилитель руля (EPS)",
+        "en": "Power steering (EPS)"
+      },
+      "7A1": {
+        "ru": "Усилитель руля (EPS)",
+        "en": "Power steering (EPS)"
+      },
+      "7B0": {
+        "ru": "ABS/VSC",
+        "en": "ABS/VSC"
+      },
+      "7B3": {
+        "ru": "Датчик угла руля",
+        "en": "Steering angle sensor"
+      },
+      "780": {
+        "ru": "Подушки (SRS)",
+        "en": "Airbags (SRS)"
+      },
+      "784": {
+        "ru": "Подушки, второй блок",
+        "en": "Airbags, 2nd module"
+      },
+      "7C0": {
+        "ru": "Приборная панель",
+        "en": "Instrument cluster"
+      },
+      "7C4": {
+        "ru": "Климат",
+        "en": "Climate"
+      },
+      "701": {
+        "ru": "АКПП",
+        "en": "Transmission"
+      }
+    }
   },
   "dialects": [
     {

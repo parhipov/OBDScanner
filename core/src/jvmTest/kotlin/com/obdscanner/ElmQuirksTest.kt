@@ -126,6 +126,30 @@ class ElmQuirksTest {
         elm.close()
     }
 
+    /**
+     * Toyota's KWP modules on CAN answer identification only as 1A 88 01 (openpilot's firmware query): a Vibe's EPS (7A1)
+     * refused every 1A xx with NRC 12 (2026-10-19). The option byte is echoed back and is not part of the data.
+     */
+    @Test
+    fun readWithOptionByte() = runBlocking {
+        val t = ScriptTransport { cmd ->
+            when {
+                cmd == "1A8801" -> "7A9 07 5A 88 01 01 41 42 43"
+                cmd == "1A88" -> "7A9 03 7F 1A 12"
+                cmd.startsWith("AT") -> "OK"
+                else -> "NO DATA"
+            }
+        }
+        val elm = Elm327(t) { _, _ -> }
+        elm.open()
+        val sc = com.obdscanner.gm.GmScanner(Obd(elm)) {}
+        val eps = com.obdscanner.gm.GmModule(0x7A1, 0x7A9, "EPS", "")
+        assertEquals(0x12, sc.read(eps, "1A", 0x88)?.second)
+        assertEquals(listOf(0x01, 0x41, 0x42, 0x43), sc.read(eps, "1A", 0x88, 0x01)?.first?.toList())
+        assertTrue(t.sent.toString(), "1A8801" in t.sent)
+        elm.close()
+    }
+
     /** KWP2000 on K-line (Hyundai Coupe 2003): a module by its physical address, then back to functional. */
     @Test
     fun klineKwpPhysicalAddressing() = runBlocking {

@@ -160,9 +160,12 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         onProgress(1f, tr("Готово", "Done"))
     }
 
-    /** Returns (data after the DID echo, NRC) or null when nobody answered. */
-    suspend fun read(module: GmModule, service: String, did: Int): Pair<IntArray?, Int>? {
-        val req = service + fmtDid(service, did)
+    /**
+     * Returns (data after the DID echo, NRC) or null when nobody answered. [option] — one more request byte some makes
+     * want after the identifier (Toyota's KWP modules: 1A 88 01), echoed back and dropped from the data like it.
+     */
+    suspend fun read(module: GmModule, service: String, did: Int, option: Int? = null): Pair<IntArray?, Int>? {
+        val req = service + fmtDid(service, did) + (option?.let { "%02X".format(it) } ?: "")
         // K-line: 10.4 kbit/s and P2 up to 50 ms per message — a long answer takes a few hundred ms.
         var reply: CanReply = obd.request(req, timeoutMs = if (obd.kline) 1500 else 600, expectOne = true)
         var msg = answer(reply, module.resp, service, did)
@@ -188,7 +191,8 @@ class GmScanner(private val obd: Obd, private val note: (String) -> Unit) {
         }
         msg ?: return null
         if (msg.isNegative) return null to msg.nrc
-        return msg.data.copyOfRange(if (oneByteId(service)) 2 else 3, msg.data.size) to 0
+        val from = (if (oneByteId(service)) 2 else 3) + (if (option != null && msg.data.getOrNull(2) == option) 1 else 0)
+        return msg.data.copyOfRange(minOf(from, msg.data.size), msg.data.size) to 0
     }
 
     /** First real answer: "7F xx 78" only means "wait", the reply may follow in the same read. */

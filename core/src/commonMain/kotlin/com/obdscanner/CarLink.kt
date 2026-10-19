@@ -905,9 +905,12 @@ class CarLink(
         // Behind a VAG gateway on TP 2.0 the modules speak KWP2000: \$1A only, VAG's own 9B (part number, software,
         // coding) first — a refusal of another option can't skip it.
         val tp = Tp20.isTp(mod.req)
-        for (item in if (tp) EcuIdent.ALL.filter { it.service == "1A" }.sortedBy { it.did != 0x9B } else EcuIdent.ALL) {
+        // A make's own item (Toyota's 1A 88 01) first too: its modules refuse the plain options.
+        val family = dialectOf(mod.req).family
+        val items = EcuIdent.ALL.filter { it.family == null || it.family == family }.sortedBy { it.family == null }
+        for (item in if (tp) items.filter { it.service == "1A" }.sortedBy { it.did != 0x9B } else items) {
             if (item.service in skip) continue
-            val r = sc.read(mod, item.service, item.did)
+            val r = sc.read(mod, item.service, item.did, item.option)
             if (r == null) {
                 if (silent.addTo(item.service, 1) >= 3) skip += item.service
                 continue
@@ -921,7 +924,8 @@ class CarLink(
             val hit = ScanHit(mod.req, mod.resp, item.service, item.did, data)
             session?.scanHit(hit.req, hit.resp, hit.service, hit.didHex, hit.data)
             _scan.update { st -> st.copy(hits = st.hits.filter { it.key != hit.key } + hit) }
-            val runs = if (tp && !hit.looksLikeText) VagBlocks.textRuns(data) else ""
+            // VAG's 9B and Toyota's 88 01 put text after a count or a length byte: its runs, then the bytes.
+            val runs = if ((tp || item.option != null) && !hit.looksLikeText) VagBlocks.textRuns(data) else ""
             out += "  %s %s  %-44s %s".format(item.service, hit.didHex, item.name, when {
                 hit.looksLikeText -> "«${hit.ascii.trim('·', ' ')}»  (${hit.hex})"
                 runs.isNotEmpty() -> "«$runs»  (${hit.hex})"
@@ -2248,6 +2252,10 @@ class CarLink(
         val REBOOTING = tr(
             "Адаптер перезагрузился, переподключаюсь… Если долго — выньте его из разъёма на 5 секунд и вставьте снова.",
             "Adapter rebooted, reconnecting… If it takes long, unplug it for 5 seconds and plug it back in.",
+        )
+        val RECONNECTING = tr(
+            "Связь с адаптером оборвалась, переподключаюсь… Запись продолжается.",
+            "The link to the adapter dropped, reconnecting… The recording goes on.",
         )
         val REPLUG = tr(
             "Адаптер отключился и не отвечает. Выньте его из разъёма на 5 секунд, вставьте и подключитесь снова.",
