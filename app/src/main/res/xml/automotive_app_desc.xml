@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android Auto: the app draws its car screen with the host's templates (auto/CarService) -->
+<automotiveApp>
+    <uses name="template" />
+</automotiveApp>

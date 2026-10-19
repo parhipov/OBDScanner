@@ -11,6 +11,9 @@ import android.content.SharedPreferences
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import android.os.Build
+import android.Manifest
+import android.bluetooth.BluetoothManager
+import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import com.obdscanner.bus.BusId
 import com.obdscanner.bus.BusSniffer
@@ -142,6 +145,20 @@ class ObdManager(private val context: Context) {
     val hidden: StateFlow<Set<String>> get() = link.hidden
 
     fun togglePin(key: String) = link.togglePin(key)
+
+    /** The car's screen (Android Auto): its values, whether it has ever run here, the car icon's toggle and the arrows. */
+    val carPins: StateFlow<List<String>> get() = link.carPins
+    val carScreen: StateFlow<Boolean> get() = link.carScreen
+
+    fun toggleCarPin(key: String) = link.toggleCarPin(key)
+
+    fun movePin(key: String, up: Boolean, car: Boolean) = link.movePin(key, up, car)
+
+    /** The car's screen came up or went away: its values polled like Main's while it is up; remembered for «Все данные». */
+    fun carScreenOn(on: Boolean) {
+        link.carScreenOn = on
+        if (on) link.carScreenStarted()
+    }
 
     fun hideTile(key: String) = link.hideTile(key)
 
@@ -317,6 +334,25 @@ class ObdManager(private val context: Context) {
     }
 
     fun connectDemo() = connect { MockTransport() }
+
+    /**
+     * The adapter used last time, from the car's screen (Android Auto): Wi-Fi, a USB adapter that is plugged in, or a
+     * Bluetooth adapter by its address. False when there is none to connect to (the phone's «Связь» tab then).
+     */
+    fun connectLast(): Boolean {
+        val id = lastDevice ?: return false
+        when {
+            id == SOURCE_WIFI -> connectWifi()
+            UsbAdapters.list(usbManager).any { it.id == id } -> connectUsb(id)
+            else -> {
+                if (Build.VERSION.SDK_INT >= 31 && context.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) return false
+                val adapter = context.getSystemService(BluetoothManager::class.java)?.adapter?.takeIf { it.isEnabled } ?: return false
+                val device = runCatching { adapter.getRemoteDevice(id) }.getOrNull() ?: return false
+                connectBluetooth(device)
+            }
+        }
+        return true
+    }
 
     /** Phone sensors only, no adapter: a second phone elsewhere in the car, or a car without an adapter. */
     fun recordSensors() {

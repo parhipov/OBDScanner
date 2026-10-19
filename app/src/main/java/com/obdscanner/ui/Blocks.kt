@@ -6,26 +6,35 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.obdscanner.R
 import com.obdscanner.Tab
 import com.obdscanner.obd.Reading
 import com.obdscanner.screen.Action
 import com.obdscanner.screen.Block
+import com.obdscanner.screen.CarScreen
 import com.obdscanner.screen.DtcRef
 import com.obdscanner.screen.Level
 import com.obdscanner.screen.trimLevel
@@ -44,19 +53,20 @@ private fun Level?.colorOrNull(): Color? = this?.color()
 
 /**
  * A screen of [Block]s in a LazyColumn, one item per block; [onDoc] — a row's license ([Block.Row.doc]); [onFold] — a
- * [Block.Fold] tapped; [onPin] — a value's ☆ (its reading key).
+ * [Block.Fold] tapped; [onPin] — a value's ☆ (its reading key); [onCar] — its car icon; [onMove] — its arrow
+ * (key, up, the car group).
  */
 fun LazyListScope.blocks(
     list: List<Block>, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {},
-    onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {},
+    onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {}, onCar: (String) -> Unit = {}, onMove: (String, Boolean, Boolean) -> Unit = { _, _, _ -> },
 ) {
-    items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc, onFold = onFold, onPin = onPin) }
+    items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc, onFold = onFold, onPin = onPin, onCar = onCar, onMove = onMove) }
 }
 
 @Composable
 fun BlockView(
     b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}, onTab: (Tab) -> Unit = {},
-    onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {},
+    onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {}, onCar: (String) -> Unit = {}, onMove: (String, Boolean, Boolean) -> Unit = { _, _, _ -> },
 ) {
     when (b) {
         is Block.Title -> SectionTitle(b.text)
@@ -84,13 +94,25 @@ fun BlockView(
         }
         is Block.Value -> {
             val pin = b.pin
-            if (pin == null) ReadingRow(b.reading, b.level.colorOrNull())
+            val car = b.car
+            val order = b.order
+            val key = b.reading.key
+            if (pin == null && car == null) ReadingRow(b.reading, b.level.colorOrNull())
             else Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.weight(1f)) { ReadingRow(b.reading, b.level.colorOrNull()) }
+                // In a chosen group: the row one place up or down its list.
+                if (order != null) Column {
+                    OrderArrow(Icons.Default.KeyboardArrowUp, enabled = !order.first) { onMove(key, true, order.car) }
+                    OrderArrow(Icons.Default.KeyboardArrowDown, enabled = !order.last) { onMove(key, false, order.car) }
+                }
                 // ☆ — onto Main, ★ — it is there (a tap takes it off).
-                Text(if (pin) "★" else "☆", fontSize = 22.sp, color = if (pin) Warn else MaterialTheme.colorScheme.outline,
-                    modifier = Modifier.clickable { onPin(b.reading.key) }.padding(horizontal = 10.dp, vertical = 6.dp))
+                if (pin != null) Text(if (pin) "★" else "☆", fontSize = 22.sp, color = if (pin) Warn else MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.clickable { onPin(key) }.padding(horizontal = 8.dp, vertical = 6.dp))
+                // The car: onto the car's screen (Android Auto) or off it.
+                if (car != null) Icon(painterResource(R.drawable.ic_car), CarScreen.TITLE, tint = if (car) CarTint else MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.clickable { onCar(key) }.padding(horizontal = 8.dp, vertical = 6.dp).size(24.dp))
             }
+            if (b.divider) HorizontalDivider(Modifier.padding(horizontal = 8.dp), color = CarTint.copy(alpha = 0.5f))
         }
         is Block.Bank -> BankCard(b)
         is Block.Misfires -> Card(Modifier.fillMaxWidth().padding(4.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
@@ -132,6 +154,16 @@ fun BlockView(
         is Block.Gap -> Gap()
     }
 }
+
+/** An arrow of a chosen group's row; a dim one at the list's end does nothing. */
+@Composable
+private fun OrderArrow(icon: ImageVector, enabled: Boolean, onClick: () -> Unit) {
+    Icon(icon, null, tint = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+        modifier = Modifier.then(if (enabled) Modifier.clickable(onClick = onClick) else Modifier).padding(horizontal = 4.dp).size(22.dp))
+}
+
+/** The car icon's colour when the value is on the car's screen. */
+private val CarTint = Color(0xFF5ED1D9)
 
 @Composable
 private fun BankCard(b: Block.Bank) {

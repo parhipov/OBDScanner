@@ -48,6 +48,8 @@ fun AllScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo) {
     var filter by rememberSaveable { mutableStateOf("") }
     val folds by m.folds.collectAsStateWithLifecycle()
     val pins by m.pins.collectAsStateWithLifecycle()
+    val carPins by m.carPins.collectAsStateWithLifecycle()
+    val carScreen by m.carScreen.collectAsStateWithLifecycle()
     val modules = m.scan.collectAsStateWithLifecycle().value.modules
     val names = remember(modules, v.extActive) { m.moduleNames() }
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
@@ -55,7 +57,8 @@ fun AllScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo) {
             OutlinedTextField(filter, { filter = it }, Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
                 placeholder = { Text(tr("Поиск: обороты, масло, 22.1940…", "Search: rpm, oil, 22.1940…")) }, singleLine = true)
         }
-        blocks(AllScreen.build(r, v, names, pins, filter, folds), busy = null, onAction = {}, onDtc = {}, onFold = m::toggleFold, onPin = m::togglePin)
+        blocks(AllScreen.build(r, v, names, pins, filter, folds, carPins, carScreen), busy = null, onAction = {}, onDtc = {},
+            onFold = m::toggleFold, onPin = m::togglePin, onCar = m::toggleCarPin, onMove = m::movePin)
     }
 }
 

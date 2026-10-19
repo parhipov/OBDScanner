@@ -10,6 +10,7 @@ import com.obdscanner.obd.Reading
 import com.obdscanner.screen.AllScreen
 import com.obdscanner.screen.Block
 import com.obdscanner.screen.CodesScreen
+import com.obdscanner.screen.MainScreen
 import com.obdscanner.screen.ModuleNames
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -101,9 +102,10 @@ class CodesTest {
         val names = ModuleNames(mapOf(0x7E0 to "ECM (двигатель)", 0x241 to "BCM (кузов)"), mapOf(0x7E8 to 0x7E0, 0x641 to 0x241))
         val blocks = AllScreen.build(r, VehicleInfo(), names, pins = listOf(Reading.key(0x7E8, "01.0C")))
         val folds = blocks.filterIsInstance<Block.Fold>()
-        assertEquals(listOf("ECM (двигатель) · 7E0", "BCM (кузов) · 241"), folds.map { it.text })
-        assertEquals("2", folds.first().count)
-        assertEquals(true, blocks.filterIsInstance<Block.Value>().single { it.reading.source == "01.0C" }.pin)
+        // The favourites group first (the pinned value), then the modules.
+        assertEquals(listOf(MainScreen.PINNED, "ECM (двигатель) · 7E0", "BCM (кузов) · 241"), folds.map { it.text })
+        assertEquals("2", folds[1].count)
+        assertTrue(blocks.filterIsInstance<Block.Value>().filter { it.reading.source == "01.0C" }.all { it.pin == true })
         // A folded group keeps its heading only; a search opens it again.
         val folded = AllScreen.build(r, VehicleInfo(), names, toggled = setOf("all:7E0"))
         assertTrue(folded.filterIsInstance<Block.Value>().none { it.reading.ecu == 0x7E0 || it.reading.ecu == 0x7E8 })

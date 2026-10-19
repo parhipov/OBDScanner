@@ -67,9 +67,16 @@ sealed class Block(val key: String) {
 
     /**
      * A live value as a row: under the name its source and the session's min…max; [pin] — the ☆ that puts it on Main
-     * (true — it is there), null — no ☆.
+     * (true — it is there), null — no ☆; [car] — the car icon that puts it on the car's screen (Android Auto), the
+     * same way; [order] — in a chosen group, the row moves up and down its list; [divider] — a line under it.
      */
-    class Value(key: String, val reading: Reading, val level: Level? = null, val pin: Boolean? = null) : Block(key)
+    class Value(
+        key: String, val reading: Reading, val level: Level? = null, val pin: Boolean? = null, val car: Boolean? = null,
+        val order: Order? = null, val divider: Boolean = false,
+    ) : Block(key)
+
+    /** A chosen value's place in its list ([car] — the car screen's, else Main's): the arrows the front shows. */
+    class Order(val car: Boolean, val first: Boolean, val last: Boolean)
 
     /**
      * A heading that opens and closes what follows it: [id] is what the front sends back on a tap ([Blocks.fold]),
@@ -116,7 +123,9 @@ class Blocks {
     fun row(name: String, value: String, unit: String = "", sub: String? = null, level: Level? = null, dtc: DtcRef? = null, divider: Boolean = false, key: String? = null, doc: String? = null) {
         out += Block.Row(key(key ?: "r:$name"), name, value, unit, sub, level, dtc, divider, doc)
     }
-    fun value(r: Reading, level: Level? = null, pin: Boolean? = null) { out += Block.Value(key("v:${r.key}"), r, level, pin) }
+    fun value(r: Reading, level: Level? = null, pin: Boolean? = null, car: Boolean? = null, order: Block.Order? = null, divider: Boolean = false) {
+        out += Block.Value(key("v:${r.key}"), r, level, pin, car, order, divider)
+    }
 
     /**
      * A [Block.Fold]: open when [open] by default and not [toggled] by the user, or closed by default and toggled.

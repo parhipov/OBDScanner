@@ -110,11 +110,44 @@ class CarLink(
     /** Main's own cards taken off it (reading keys) until «Вернуть карточки». */
     val hidden: StateFlow<Set<String>> = _hidden.asStateFlow()
 
+    private val _carPins = MutableStateFlow(store.getString(CAR_PINS)?.split('\n')?.filter { it.isNotEmpty() }.orEmpty())
+    /** Values put on the car's screen (Android Auto) from «Все данные», in order: its tiles, polled at Main's pace while it is up. */
+    val carPins: StateFlow<List<String>> = _carPins.asStateFlow()
+    private val _carScreen = MutableStateFlow(store.getInt(CAR_SCREEN, 0) == 1)
+    /** The car's screen has run on this phone at least once: only then «Все данные» shows the car icon and its group. */
+    val carScreen: StateFlow<Boolean> = _carScreen.asStateFlow()
+    /** The car's screen is up right now (set by the front): its values are polled like Main's. */
+    var carScreenOn: Boolean = false
+
+    /** The car's screen started: remembered for good, see [carScreen]. */
+    fun carScreenStarted() {
+        if (_carScreen.value) return
+        store.putInt(CAR_SCREEN, 1)
+        _carScreen.value = true
+    }
+
     /** ☆ on «Все данные»: the value on Main or off it. */
-    fun togglePin(key: String) {
-        val now = _pins.value.let { if (key in it) it - key else it + key }
-        store.putString(MAIN_PINS, now.joinToString("\n").ifEmpty { null })
-        _pins.value = now
+    fun togglePin(key: String) = toggle(_pins, MAIN_PINS, key)
+
+    /** The car icon on «Все данные»: the value on the car's screen or off it. */
+    fun toggleCarPin(key: String) = toggle(_carPins, CAR_PINS, key)
+
+    private fun toggle(flow: MutableStateFlow<List<String>>, storeKey: String, key: String) {
+        val now = flow.value.let { if (key in it) it - key else it + key }
+        store.putString(storeKey, now.joinToString("\n").ifEmpty { null })
+        flow.value = now
+    }
+
+    /** «Выше» / «Ниже» in a chosen group on «Все данные»: the value one place up or down its list ([car] — the car screen's). */
+    fun movePin(key: String, up: Boolean, car: Boolean) {
+        val flow = if (car) _carPins else _pins
+        val list = flow.value.toMutableList()
+        val i = list.indexOf(key)
+        val j = if (up) i - 1 else i + 1
+        if (i < 0 || j !in list.indices) return
+        list[i] = list[j].also { list[j] = list[i] }
+        store.putString(if (car) CAR_PINS else MAIN_PINS, list.joinToString("\n"))
+        flow.value = list
     }
 
     /** «Убрать с главной»: a pinned value is unpinned, one of Main's own cards hidden. */
@@ -1058,10 +1091,10 @@ class CarLink(
         }
         val supported = _vehicle.value.functional01.filter { !Pids.isBitmask(it) && it != 0x02 && Pids.byPid[it]?.static != true }
         val onScreen = when (tab) {
-            Tab.Main -> MAIN_PIDS + pinnedPids()
+            Tab.Main -> MAIN_PIDS + pinnedPids(_pins.value)
             Tab.Fuel -> FUEL_PIDS
             else -> emptyList()
-        }
+        } + if (carScreenOn) MAIN_PIDS + pinnedPids(_carPins.value) else emptyList()
         val pids = PollRate.due(supported, lastPoll, clock(), Int.MAX_VALUE, { "01.%02X".format(it) }) {
             PollRate.of01(it).let { p -> if (it in onScreen) PollRate.onScreen(p) else p }
         }
@@ -1381,8 +1414,8 @@ class CarLink(
                 "No answer to $was PIDs per request, one PID is answered — ${if (now > 1) "$now PIDs" else "one PID"} per request from now on"))
     }
 
-    /** The Mode 01 PIDs of the values pinned to Main ("7E8:01.0C" → 0C). */
-    private fun pinnedPids(): List<Int> = _pins.value.mapNotNull { k ->
+    /** The Mode 01 PIDs of the values pinned to Main or the car's screen ("7E8:01.0C" → 0C). */
+    private fun pinnedPids(keys: List<String>): List<Int> = keys.mapNotNull { k ->
         k.substringAfter(':').split('.').takeIf { it.size >= 2 && it[0] == "01" }?.get(1)?.toIntOrNull(16)
     }
 
@@ -1401,8 +1434,8 @@ class CarLink(
         val rejected = _vehicle.value.knockRejected
         val knock = if (_fuelWatch.value) list.filter { Knock.isKnock(it, gm) && it.key !in rejected } else emptyList()
         knock.forEach { lastPoll[it.key] = now }
-        // The ones put on Main from «Все данные» are Main's own there.
-        val pinned = if (tab == Tab.Main) _pins.value.toSet() else emptySet()
+        // The ones put on Main from «Все данные» are Main's own there; the car screen's likewise while it is up.
+        val pinned = (if (tab == Tab.Main) _pins.value else emptyList()).toSet() + (if (carScreenOn) _carPins.value else emptyList())
         val batch = (knock + PollRate.due(list - knock.toSet(), lastPoll, now, (EXT_PER_CYCLE - knock.size).coerceAtLeast(1), { it.key }) {
             if (it.group == group || it.signals.any { s -> it.readingKey(s) in pinned }) PollRate.onScreen(it.periodMs) else it.periodMs
         }).sortedBy { it.req }
@@ -2268,6 +2301,8 @@ class CarLink(
         private const val FUEL_WATCH = "fuel_watch"
         private const val MAIN_PINS = "main_pins"
         private const val MAIN_HIDDEN = "main_hidden"
+        private const val CAR_PINS = "car_pins"
+        private const val CAR_SCREEN = "car_screen"
         /** «Ошибки» while a check was stopped halfway. */
         val STOPPED = tr("Проверка остановлена, показано прочитанное до остановки", "The check was stopped: what was read before is shown")
         /** Requests in a row a module may leave unanswered before the probe skips it. */

@@ -58,6 +58,22 @@
                 android:value="Records the phone accelerometer and gyroscope during a drive, without an OBD adapter" />
         </service>
 
+        <!-- Android Auto: the car's screen with the chosen values (auto/CarService); the host starts it, nothing else does -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1" />
+        <service
+            android:name=".auto.CarService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.IOT" />
+            </intent-filter>
+        </service>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.files"

@@ -161,6 +161,9 @@ object ScreenJson {
                 str("t", "row"); str("name", r.name); str("value", r.display()); str("unit", if (r.value != null) r.unit else "")
                 str("sub", r.rowSub()); level(b.level)
                 b.pin?.let { bool("pin", it); str("pinKey", r.key) }
+                b.car?.let { bool("car", it); str("pinKey", r.key) }
+                b.order?.let { obj("order") { bool("car", it.car); bool("first", it.first); bool("last", it.last) } }
+                bool("divider", b.divider)
             }
             is Block.Fold -> { str("t", "fold"); str("id", b.id); str("text", b.text); bool("open", b.open); str("count", b.count) }
             is Block.Bank -> {

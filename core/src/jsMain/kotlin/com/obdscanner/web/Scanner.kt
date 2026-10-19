@@ -184,6 +184,9 @@ class Scanner(appVersion: String) {
     /** ☆ on «Все данные»: the value onto Main or off it (its reading key), kept in localStorage. */
     fun togglePin(key: String) = link.togglePin(key)
 
+    /** «Выше» / «Ниже» in the «Избранное» group on «Все данные». */
+    fun movePin(key: String, up: Boolean) = link.movePin(key, up, car = false)
+
     /** «Убрать с главной» in a card's help. */
     fun hideTile(key: String) = link.hideTile(key)
 

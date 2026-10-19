@@ -41,22 +41,39 @@ class ModuleNames(val byReq: Map<Int, String> = emptyMap(), val respToReq: Map<I
     }
 }
 
-/** Every live value, grouped by block (the computed ones last); ☆ puts one on Main, a heading folds its group. */
+/**
+ * Every live value, grouped by block (the computed ones last); ☆ puts one on Main, the car icon on the car's screen
+ * (Android Auto, shown once that screen has run — [carScreen]), a heading folds its group. The chosen ones come first,
+ * a group each, in their order with «Выше» / «Ниже»; the car group has a line after every page of tiles.
+ */
 object AllScreen {
     fun build(
         r: Map<String, Reading>, v: VehicleInfo, names: ModuleNames = ModuleNames(), pins: Collection<String> = emptyList(),
-        filter: String = "", toggled: Set<String> = emptySet(),
+        filter: String = "", toggled: Set<String> = emptySet(), carPins: Collection<String> = emptyList(), carScreen: Boolean = false,
     ): List<Block> {
         val b = Blocks()
         val q = filter.trim()
         val shown = if (q.isEmpty()) r.values.toList() else r.values.filter { it.name.contains(q, ignoreCase = true) || it.source.contains(q, ignoreCase = true) }
         b.note(tr("Опрашиваются все поддерживаемые PID: ${v.supported01.count { !Pids.isBitmask(it) }} шт. Всего значений: ${r.size}. ☆ — показать на главной.",
-            "Polling all supported PIDs: ${v.supported01.count { !Pids.isBitmask(it) }}. Values in total: ${r.size}. ☆ — show on Main."))
+            "Polling all supported PIDs: ${v.supported01.count { !Pids.isBitmask(it) }}. Values in total: ${r.size}. ☆ — show on Main.") +
+            if (carScreen) tr(" Значок машины — на экран машины (Android Auto).", " The car icon — onto the car's screen (Android Auto).") else "")
         // Manufacturer requests ($21/$22): their layouts come from other models' tables and may not fit this car.
         if (r.values.any { it.source.startsWith("21.") || it.source.startsWith("22.") })
             b.note(tr("Часть параметров производителя расшифрована по таблицам других моделей: на вашей машине значение может оказаться неверным. Заметили странное — отправьте сессию.",
                 "Some manufacturer parameters are decoded with other models' tables: a value may be wrong on your car. If something looks off, send the session."))
         if (q.isNotEmpty()) b.note(if (shown.isEmpty()) tr("Ничего не найдено", "Nothing found") else tr("Найдено: ${shown.size}", "Found: ${shown.size}"))
+        if (q.isEmpty()) {
+            // The chosen values first, in their order; only the live ones (another car's picks wait for that car).
+            fun group(id: String, title: String, keys: Collection<String>, car: Boolean) {
+                val live = keys.mapNotNull { r[it] }
+                if (live.isEmpty()) return
+                if (!b.fold(id, title, true, toggled, "${live.size}")) return
+                for ((i, x) in live.withIndex()) b.value(x, pin = x.key in pins, car = if (carScreen) x.key in carPins else null,
+                    order = Block.Order(car, i == 0, i == live.lastIndex), divider = car && (i + 1) % CarScreen.PAGE == 0 && i != live.lastIndex)
+            }
+            group("all:pins", MainScreen.PINNED, pins, false)
+            if (carScreen) group("all:car", CarScreen.TITLE, carPins, true)
+        }
         // Standard OBD blocks first (engine, gearbox), then the rest by id, the computed values last.
         val groups = shown.groupBy { names.group(it.ecu) }.entries.sortedBy { (g, _) ->
             when {
@@ -69,7 +86,7 @@ object AllScreen {
         val folds = if (q.isEmpty()) toggled else emptySet()
         for ((g, list) in groups) {
             if (!b.fold("all:%X".format(g), names.title(g), true, folds, "${list.size}")) continue
-            for (x in list.sortedBy { it.source }) b.value(x, pin = x.key in pins)
+            for (x in list.sortedBy { it.source }) b.value(x, pin = x.key in pins, car = if (carScreen) x.key in carPins else null)
         }
         return b.build()
     }
