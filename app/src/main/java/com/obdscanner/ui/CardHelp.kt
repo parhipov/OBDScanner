@@ -1,8 +1,10 @@
 package com.obdscanner.ui
 
 import androidx.annotation.ArrayRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -51,15 +53,6 @@ fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onRemove:
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } },
-        // «Убрать с главной» and «Пороги» side by side (the dialog has one slot for them); each closes the help and opens its own dialog.
-        dismissButton = if (onRemove == null && onLimits == null) null else {
-            {
-                Row {
-                    if (onRemove != null) TextButton(onClick = { onDismiss(); onRemove() }) { Text(com.obdscanner.screen.MainScreen.REMOVE) }
-                    if (onLimits != null) TextButton(onClick = { onDismiss(); onLimits() }) { Text(com.obdscanner.screen.Limits.TITLE) }
-                }
-            }
-        },
         title = { Text(label) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -83,6 +76,11 @@ fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onRemove:
                             color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 12.dp, bottom = 2.dp))
                         Text(t, style = MaterialTheme.typography.bodyMedium)
                     }
+                }
+                // «Убрать с главной» and «Пороги» in a row of their own above «Закрыть»; each closes the help and opens its own dialog.
+                if (onRemove != null || onLimits != null) Row(Modifier.fillMaxWidth().padding(top = 16.dp), horizontalArrangement = Arrangement.End) {
+                    if (onRemove != null) TextButton(onClick = { onDismiss(); onRemove() }) { Text(com.obdscanner.screen.MainScreen.REMOVE) }
+                    if (onLimits != null) TextButton(onClick = { onDismiss(); onLimits() }) { Text(com.obdscanner.screen.Limits.TITLE) }
                 }
             }
         },
