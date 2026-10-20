@@ -7,6 +7,7 @@ import com.obdscanner.elm.Obd
 import com.obdscanner.obd.Reading
 import com.obdscanner.session.Recorder
 import com.obdscanner.transport.MockTransport
+import com.obdscanner.transport.Transport
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -64,6 +65,28 @@ class WheelWatchTest {
         elm.close()
         assertEquals(WheelWatch.State.OFF, w.state)
         assertTrue(notes.toString(), notes.any { "off" in it && "0AA" in it })
+    }
+
+    /** The link drops in a window (the CTS's clone dropped Bluetooth in a long ATMA): off for the connection, the error goes on to the reconnect. */
+    @Test
+    fun aLinkThatDropsWhileListeningStopsIt() {
+        val frames = gm()
+        val inner = MockTransport()
+        val dropping = object : Transport by inner {
+            override suspend fun write(data: ByteArray) {
+                if (data.decodeToString().startsWith("ATMA")) inner.close() else inner.write(data)
+            }
+        }
+        val elm = Elm327(dropping) { _, _ -> }
+        runBlocking { elm.open() }
+        val o = Obd(elm)
+        val notes = mutableListOf<String>()
+        val w = WheelWatch(frames, known = true) { notes += it }
+        val failed = runCatching { runBlocking { w.listen(o, 600) } }.exceptionOrNull()
+        assertTrue(failed.toString(), failed is java.io.IOException)
+        assertEquals(WheelWatch.State.OFF, w.state)
+        assertTrue(notes.toString(), notes.any { "link dropped" in it })
+        assertTrue(runBlocking { w.listen(o, 600) }.isEmpty())
     }
 
     private fun wheel(t: Long, v: Double) = Reading(Reading.key(0x348, "bus.FL"), 0x348, "FL", v, null, "km/h", 1, time = t, role = "wheel_fl")

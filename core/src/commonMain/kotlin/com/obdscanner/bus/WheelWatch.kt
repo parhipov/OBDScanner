@@ -4,6 +4,7 @@ import com.obdscanner.car.BusFrameSpec
 import com.obdscanner.elm.Obd
 import com.obdscanner.obd.Reading
 import com.obdscanner.tr
+import com.obdscanner.util.IOException
 import com.obdscanner.util.format
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
@@ -47,6 +48,11 @@ class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private
         val heard = try {
             val set = listOf("ATCAF0", "ATCF%03X".format(filter), "ATCM%03X".format(mask)).map { o.at(it) }
             if (set.all { it.isOk }) o.elm.listen("ATMA", ms) else null
+        } catch (e: IOException) {
+            // The link dropped while listening: the session reconnects and goes on (this watch stays, CarLink isn't
+            // reset), so not again on this connection — else every window could take the link down once more.
+            off("the link dropped while listening (${e.message})")
+            throw e
         } finally {
             withContext(NonCancellable) { restore(o) }
         }
