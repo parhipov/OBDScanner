@@ -814,6 +814,115 @@
     },
     {
       "brand": "Cadillac",
+      "model": "CT5",
+      "gen": "Alpha",
+      "years": [
+        2020,
+        2026
+      ],
+      "vin": [
+        "^1G6D[MNPRSTUVWX238]5"
+      ],
+      "engines": [
+        {
+          "code": "LSY",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "vin": [
+            "^1G6D[MNPRSTUVWX238]5.K"
+          ]
+        },
+        {
+          "code": "LGY",
+          "liters": 3.0,
+          "cyl": 6,
+          "fuel": "petrol",
+          "vin": [
+            "^1G6D[MNPRSTUVWX238]5.W"
+          ]
+        },
+        {
+          "code": "LT4",
+          "liters": 6.2,
+          "cyl": 8,
+          "fuel": "petrol",
+          "vin": [
+            "^1G6D[MNPRSTUVWX238]5.6"
+          ]
+        }
+      ],
+      "protocol": 7,
+      "buses": {
+        "ru": "CAN 29 бит/500 кбит/с (контакты 6/14): на стандартный OBD отвечают двигатель (ECM), АКПП (TCM), тормоза (BSCM) и кузов (BCM). Что на других шинах и как спрашивать блоки по-своему — не знаем.",
+        "en": "29-bit CAN 500 kbit/s (pins 6/14): the engine (ECM), transmission (TCM), brakes (BSCM) and body (BCM) answer standard OBD. What is on the other buses and how to ask the modules in GM's own way we don't know."
+      },
+      "note": {
+        "ru": "VIN по стандарту GM для США и Канады (книга D: CT4 и CT5 различаются 5-м знаком, мотор — 8-й: K = LSY 2.0 турбо, W = LGY 3.0 битурбо V6, 6 = LT4 6.2 компрессор CT5-V Blackwing). Коды M и T 5-го знака в стандарте 2025 уже убраны, но у машины 2021 года T = Premium Luxury AWD (расшифровка NHTSA). Шина и блоки — по записи владельца (2021, LGY, vLinker MS). Завод 0 = Лансинг.",
+        "en": "VIN by GM's US/Canada standard (book D: CT4 and CT5 differ in the 5th character, the engine is the 8th: K = LSY 2.0 turbo, W = LGY 3.0 twin-turbo V6, 6 = LT4 6.2 supercharged CT5-V Blackwing). Codes M and T of the 5th character are gone from the 2025 standard, but on a 2021 car T = Premium Luxury AWD (NHTSA decode). Bus and modules from an owner's recording (2021, LGY, vLinker MS). Plant 0 = Lansing."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_CT5",
+        "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf",
+        "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/1G6DT5RWXM0113735?format=json",
+        "https://gmauthority.com/blog/gm/gm-engines/lgy"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
+      "model": "CT4",
+      "gen": "Alpha",
+      "years": [
+        2020,
+        2026
+      ],
+      "vin": [
+        "^1G6D[A-HJK679]5"
+      ],
+      "engines": [
+        {
+          "code": "LSY",
+          "liters": 2.0,
+          "cyl": 4,
+          "fuel": "petrol",
+          "vin": [
+            "^1G6D[A-HJK679]5.K"
+          ]
+        },
+        {
+          "code": "L3B",
+          "liters": 2.7,
+          "cyl": 4,
+          "fuel": "petrol",
+          "vin": [
+            "^1G6D[A-HJK679]5.L"
+          ]
+        },
+        {
+          "code": "LF4",
+          "liters": 3.6,
+          "cyl": 6,
+          "fuel": "petrol",
+          "vin": [
+            "^1G6D[A-HJK679]5.P"
+          ]
+        }
+      ],
+      "note": {
+        "ru": "VIN по стандарту GM для США и Канады 2025–2026 (книга D вместе с CT5: 5-й знак A–K, 6, 7, 9 — CT4; мотор — 8-й: K = LSY 2.0 турбо, L = L3B 2.7 турбо, P = LF4 3.6 битурбо CT4-V Blackwing). Коды более ранних лет и протокол на машине не проверяли.",
+        "en": "VIN by GM's US/Canada standard 2025–2026 (book D shared with the CT5: 5th character A–K, 6, 7, 9 is a CT4; the engine is the 8th: K = LSY 2.0 turbo, L = L3B 2.7 turbo, P = LF4 3.6 twin-turbo CT4-V Blackwing). Earlier years' codes and the protocol weren't checked on a car."
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Cadillac_CT4",
+        "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf"
+      ],
+      "verified": false
+    },
+    {
+      "brand": "Cadillac",
       "model": "DTS",
       "gen": "G-body",
       "years": [

@@ -114,6 +114,13 @@ class CarDbTest {
         assertEquals("Pontiac", CarDb.brandOf("5Y2SP678X9Z410428")?.name)
         assertEquals("E140", CarDb.detect("5Y2SP678X9Z410428")?.gen)
         assertEquals("E130", CarDb.detect("5Y2SL62875Z000000")?.gen)
+        // Book D of GM's standard is shared by the CTS, CT5 and CT4: the model year tells a 2021 CT5 from a 2008 CTS,
+        // the 5th character a CT4 from a CT5, the 8th narrows the engine (owner's 2021 CT5: T = Premium Luxury AWD, W = LGY).
+        val ct5 = CarDb.detect("1G6DT5RWXM0113735")
+        assertEquals("CT5", ct5?.model)
+        assertEquals(listOf("LGY"), ct5?.engines?.map { it.code })
+        assertEquals("2nd gen", CarDb.detect("1G6DM577980123456")?.gen)
+        assertEquals("CT4", CarDb.detect("1G6DA5RL0S0000000")?.model)
     }
 
     @Test
