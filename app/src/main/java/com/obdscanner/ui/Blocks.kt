@@ -98,19 +98,19 @@ fun BlockView(
             val order = b.order
             val key = b.reading.key
             if (pin == null && car == null) ReadingRow(b.reading, b.level.colorOrNull())
+            // The toggles on the left, before the name, where the eye starts: ☆ — onto Main, ★ — it is there (a tap takes
+            // it off); the car — onto the car's screen (Android Auto) or off it. The arrows stay on the right.
             else Row(verticalAlignment = Alignment.CenterVertically) {
+                if (pin != null) Text(if (pin) "★" else "☆", fontSize = 22.sp, color = if (pin) Warn else MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.clickable { onPin(key) }.padding(horizontal = 8.dp, vertical = 6.dp))
+                if (car != null) Icon(painterResource(R.drawable.ic_car), CarScreen.TITLE, tint = if (car) CarTint else MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.clickable { onCar(key) }.padding(horizontal = 8.dp, vertical = 6.dp).size(24.dp))
                 Box(Modifier.weight(1f)) { ReadingRow(b.reading, b.level.colorOrNull()) }
                 // In a chosen group: the row one place up or down its list.
                 if (order != null) Column {
                     OrderArrow(Icons.Default.KeyboardArrowUp, enabled = !order.first) { onMove(key, true, order.car) }
                     OrderArrow(Icons.Default.KeyboardArrowDown, enabled = !order.last) { onMove(key, false, order.car) }
                 }
-                // ☆ — onto Main, ★ — it is there (a tap takes it off).
-                if (pin != null) Text(if (pin) "★" else "☆", fontSize = 22.sp, color = if (pin) Warn else MaterialTheme.colorScheme.outline,
-                    modifier = Modifier.clickable { onPin(key) }.padding(horizontal = 8.dp, vertical = 6.dp))
-                // The car: onto the car's screen (Android Auto) or off it.
-                if (car != null) Icon(painterResource(R.drawable.ic_car), CarScreen.TITLE, tint = if (car) CarTint else MaterialTheme.colorScheme.outline,
-                    modifier = Modifier.clickable { onCar(key) }.padding(horizontal = 8.dp, vertical = 6.dp).size(24.dp))
             }
             if (b.divider) HorizontalDivider(Modifier.padding(horizontal = 8.dp), color = CarTint.copy(alpha = 0.5f))
         }
