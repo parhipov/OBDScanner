@@ -24,6 +24,10 @@ object CarScreen {
     val NEXT = tr("Дальше", "Next")
     val CONNECT = tr("Подключиться", "Connect")
     val PAGE_OF = tr("Страница %d из %d", "Page %d of %d")
+    /** A tab's title when the pages are tabs (2–4 of them). */
+    val TAB = tr("Стр. %d", "Page %d")
+    /** The most pages the host shows as tabs; more go back to «Дальше». */
+    const val TABS = 4
 
     /** A fixed tile: the reading's key, the title it keeps and the unit under it (both stay as the value changes). */
     class Slot(val key: String, val label: String, val unit: String)
@@ -44,4 +48,24 @@ object CarScreen {
 
     /** The pages of [slots], [PAGE] each. */
     fun pages(slots: List<Slot>): List<List<Slot>> = slots.chunked(PAGE)
+
+    /**
+     * The line under a tile's title: the value's span over this drive, «650 … 3200», once it has moved; a blank (the
+     * host keeps the line) while it hasn't, or when the reading is a text or not live now.
+     */
+    fun range(r: Reading?): String {
+        val lo = r?.min
+        val hi = r?.max
+        if (r?.value == null || lo == null || hi == null || lo >= hi) return " "
+        return "${Reading.fmt(lo, r.decimals)} … ${Reading.fmt(hi, r.decimals)}"
+    }
+
+    /** Where the value sits in the drive's span, 0 at the lowest seen to 1 at the highest; null until it has moved. */
+    fun position(r: Reading?): Double? {
+        val v = r?.value ?: return null
+        val lo = r.min ?: return null
+        val hi = r.max ?: return null
+        if (lo >= hi) return null
+        return ((v - lo) / (hi - lo)).coerceIn(0.0, 1.0)
+    }
 }
