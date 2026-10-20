@@ -19,9 +19,9 @@ kotlin {
         // The page imports it as "obdscanner-core": ES modules with TypeScript declarations (core/build/dist/js/productionLibrary).
         moduleName = "obdscanner-core"
         browser()
-        // Node runs the core's tests in the browser build (the session replays against the JVM's goldens: ~5 min).
+        // Node runs the core's tests in the browser build (the session replays against the JVM's goldens: over 20 min for ~120 sessions).
         nodejs {
-            testTask { useMocha { timeout = "20m" } }
+            testTask { useMocha { timeout = "45m" } }
         }
         binaries.library()
         useEsModules()

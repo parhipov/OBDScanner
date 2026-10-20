@@ -25,7 +25,14 @@ data class Limits(val warnBelow: Double? = null, val warnAbove: Double? = null, 
         user.warnBelow ?: warnBelow, user.warnAbove ?: warnAbove, user.badBelow ?: badBelow, user.badAbove ?: badAbove)
 
     /** One stored line: the source and the four sides, «01.05;;100;;105». */
-    fun serialize(source: String) = listOf(source, warnBelow, warnAbove, badBelow, badAbove).joinToString(";") { it?.toString() ?: "" }
+    /** "01.05;;100;;": a whole number without ".0" — the JVM writes 100.0 and JS 100, now both the same (either reads back). */
+    fun serialize(source: String) = (listOf(source) + listOf(warnBelow, warnAbove, badBelow, badAbove).map { v ->
+        when {
+            v == null -> ""
+            v == kotlin.math.floor(v) && kotlin.math.abs(v) < 1e15 -> v.toLong().toString()
+            else -> v.toString()
+        }
+    }).joinToString(";")
 
     companion object {
         val TITLE = tr("Пороги", "Thresholds")

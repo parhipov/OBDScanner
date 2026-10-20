@@ -34,13 +34,14 @@ object CarScreen {
 
     /**
      * The tiles for a first live snapshot: the chosen values that are live, else every card of Main (favourites and
-     * «Как бензин?» first, as on the phone). Empty while nothing is live yet.
+     * «Как бензин?» or «Контроль безопасности движения» first, as on the phone). Empty while nothing is live yet.
      */
-    fun slots(r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, carPins: List<String>, pins: List<String>, hidden: Set<String>): List<Slot> {
+    fun slots(r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, carPins: List<String>, pins: List<String>, hidden: Set<String>,
+              safety: Boolean = false): List<Slot> {
         if (r.isEmpty()) return emptyList()
         val chosen = carPins.mapNotNull { k -> r[k]?.let { Slot(k, it.name, it.unit) } }
         if (chosen.isNotEmpty()) return chosen
-        return MainScreen.build(r, v, watch, pins, hidden).sections.flatMap { s -> s.tiles.map { Slot(it.reading.key, it.label, it.reading.unit) } }.distinctBy { it.key }
+        return MainScreen.build(r, v, watch, pins, hidden, safety = safety).sections.flatMap { s -> s.tiles.map { Slot(it.reading.key, it.label, it.reading.unit) } }.distinctBy { it.key }
     }
 
     /** The slot's tile now: its value when the reading is live, else the label alone (the front writes a dash); [limits] — the owner's thresholds. */

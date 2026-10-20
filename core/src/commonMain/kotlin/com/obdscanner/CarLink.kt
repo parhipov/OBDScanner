@@ -6,6 +6,7 @@ import kotlin.concurrent.Volatile
 import com.obdscanner.util.nowMs
 import com.obdscanner.util.format
 import com.obdscanner.bus.BusSniffer
+import com.obdscanner.bus.WheelWatch
 import com.obdscanner.car.CarChoice
 import com.obdscanner.car.CarDb
 import com.obdscanner.car.CarFamily
@@ -98,10 +99,31 @@ class CarLink(
     /** «Как бензин?» on Main: knock retard read every cycle, its own section on Main and first in the report. */
     val fuelWatch: StateFlow<Boolean> = _fuelWatch.asStateFlow()
 
-    /** The «Как бензин?» checkbox; kept in the settings until unticked. */
+    /** The «Как бензин?» checkbox; kept in the settings until unticked. It and [safetyWatch] are one or the other. */
     fun setFuelWatch(on: Boolean) {
         store.putInt(FUEL_WATCH, if (on) 1 else 0)
         _fuelWatch.value = on
+        if (on && _safetyWatch.value) {
+            store.putInt(SAFETY_WATCH, 0)
+            _safetyWatch.value = false
+        }
+    }
+
+    private val _safetyWatch = MutableStateFlow(store.getInt(SAFETY_WATCH, 0) == 1 && !_fuelWatch.value)
+    /**
+     * «Контроль безопасности движения»: its own short set (rpm, speed, throttle, pedal) every cycle, the wheels' own
+     * speeds heard on the bus between ([WheelWatch]), everything else rarely; no manufacturer, knock or misfire reads.
+     */
+    val safetyWatch: StateFlow<Boolean> = _safetyWatch.asStateFlow()
+
+    /** The «Контроль безопасности движения» checkbox; unticks «Как бензин?». */
+    fun setSafetyWatch(on: Boolean) {
+        store.putInt(SAFETY_WATCH, if (on) 1 else 0)
+        _safetyWatch.value = on
+        if (on && _fuelWatch.value) {
+            store.putInt(FUEL_WATCH, 0)
+            _fuelWatch.value = false
+        }
     }
 
     private val _pins = MutableStateFlow(store.getString(MAIN_PINS)?.split('\n')?.filter { it.isNotEmpty() }.orEmpty())
@@ -225,6 +247,8 @@ class CarLink(
         knockAtIdle.clear()
         knockHiRetard = 0
         notedWatch = false
+        notedSafety = false
+        wheels = null
         skippedNow.clear()
         prevLoaded = false
         partAsked.clear()
@@ -1089,6 +1113,11 @@ class CarLink(
     private var paramsFor: String? = null
     /** «Как бензин?» as raw.log last says it: the report puts its section first when it was on. */
     private var notedWatch = false
+    /** «Контроль безопасности движения» as raw.log last says it. */
+    private var notedSafety = false
+    /** The wheels heard in «Контроль безопасности движения» on this connection; made with the first such cycle of a car whose make has `frames`. */
+    private var wheels: WheelWatch? = null
+    private var wheelsFor: String? = null
 
     /** Polls until cancelled; one-off operations get the adapter between cycles. */
     suspend fun pollLoop(o: Obd) {
@@ -1117,6 +1146,12 @@ class CarLink(
             notedWatch = watch
             session?.note("fuel watch: ${if (watch) "on" else "off"}")
         }
+        val safety = _safetyWatch.value
+        if (safety != notedSafety) {
+            notedSafety = safety
+            session?.note("safety watch: ${if (safety) "on" else "off"}")
+        }
+        if (safety) return safetyCycle(o)
         val supported = _vehicle.value.functional01.filter { !Pids.isBitmask(it) && it != 0x02 && Pids.byPid[it]?.static != true }
         val onScreen = when (tab) {
             Tab.Main -> MAIN_PIDS + pinnedPids(_pins.value)
@@ -1172,6 +1207,69 @@ class CarLink(
             lastFlush = now
             session?.flush()
         }
+    }
+
+    /**
+     * One cycle of «Контроль безопасности движения»: [DRIVE_PIDS] in one request every cycle, then a window of the
+     * wheels heard on the bus ([WheelWatch], CAN 11-bit, a make with `frames`), the rest of Mode 01 at a tenth of its
+     * pace, the voltage every [SAFETY_RV_MS]. A cycle with the wheels is ~0.9 s (the request ~0.15 s, the window
+     * [WHEEL_WINDOW_MS], the adapter's settings around it ~0.2 s); without them the set alone, ~6 times a second.
+     */
+    private suspend fun safetyCycle(o: Obd) {
+        val v = _vehicle.value
+        val supported = v.functional01.filter { !Pids.isBitmask(it) && it != 0x02 && Pids.byPid[it]?.static != true }
+        val drive = DRIVE_PIDS.filter { it in supported }
+        val now = clock()
+        for (p in drive) lastPoll["01.%02X".format(p)] = now
+        val rest = PollRate.due(supported - drive.toSet(), lastPoll, now, maxOf(1, v.pidBatch - drive.size), { "01.%02X".format(it) }) {
+            maxOf(PollRate.of01(it) * 10, PollRate.FAST * 10)
+        }
+        val answers = pollPids(o, drive + rest)
+        silentCycles = if (answers == 0) silentCycles + 1 else 0
+        if (o.kline && silentCycles >= 3) {
+            reinitKline(o)
+            silentCycles = 0
+        }
+        publishDerived()
+        val w = wheelWatch(o)
+        if (w != null && w.state != WheelWatch.State.OFF) {
+            val heard = w.listen(o, WHEEL_WINDOW_MS)
+            val changed = w.check(heard, _readings.value.pick("01.0D"))
+            if (changed && w.state == WheelWatch.State.OK) carKey()?.let { store.putInt(WHEELS_OK + it, 1) }
+            if (changed && w.state == WheelWatch.State.OFF) {
+                carKey()?.let { store.remove(WHEELS_OK + it) }
+                _readings.update { m -> m.filterKeys { !it.contains(":" + WheelWatch.SOURCE) && it != Reading.key(0, "calc.axleSlip") } }
+            }
+            // Not checked on this car yet: into the session only (the report can check it over the whole drive), not on screen.
+            if (w.state == WheelWatch.State.OK) publish(heard + listOfNotNull(WheelWatch.axleSlip(heard)))
+            else session?.let { s -> heard.forEach(s::value) }
+        }
+        if (now - lastRv > SAFETY_RV_MS) {
+            lastRv = now
+            val t = o.at("ATRV").lines.firstOrNull().orEmpty()
+            t.trimEnd('V', 'v').toDoubleOrNull()?.let {
+                publish(listOf(Reading(Reading.key(0, "ATRV"), 0, tr("Напряжение (адаптер)", "Voltage (adapter)"), it, null, tr("В", "V"), 1)))
+            }
+        }
+        if (now - lastFlush > 2000) {
+            lastFlush = now
+            session?.flush()
+        }
+    }
+
+    /** The wheels to listen to: the make's `frames`, on 11-bit CAN; made once per car of the connection. */
+    private fun wheelWatch(o: Obd): WheelWatch? {
+        if (o.kline || o.can29 || o.j1850) return null
+        val frames = family()?.frames.orEmpty()
+        if (frames.isEmpty()) return null
+        val car = carKey() ?: family()?.id
+        if (wheels == null || wheelsFor != car) {
+            wheelsFor = car
+            val known = carKey()?.let { store.getInt(WHEELS_OK + it, 0) == 1 } ?: false
+            wheels = WheelWatch(frames, known) { session?.note(it) }
+            session?.note("wheels: listening to ${frames.joinToString("/") { "%03X".format(it.id) }}${if (known) ", agreed on an earlier drive" else ", to be checked against the OBD speed"}")
+        }
+        return wheels
     }
 
     /** Asks [pids] of a \$21 block ([EcuInfo.pidReq]); returns how many answered. */
@@ -2327,6 +2425,14 @@ class CarLink(
         private val BATCHES = listOf(6, 3)
         private const val EXT_PER_CYCLE = 5
         private const val FUEL_WATCH = "fuel_watch"
+        private const val SAFETY_WATCH = "safety_watch"
+        /** + the car's key: its wheels heard on the bus agreed with the OBD speed on an earlier drive ([WheelWatch]). */
+        private const val WHEELS_OK = "wheels_ok_"
+        /** «Контроль безопасности движения»: rpm, speed, throttle, pedal — every cycle. */
+        val DRIVE_PIDS = listOf(0x0C, 0x0D, 0x11, 0x49)
+        /** A window of the wheels heard between two requests of [DRIVE_PIDS]. */
+        private const val WHEEL_WINDOW_MS = 600L
+        private const val SAFETY_RV_MS = 15_000L
         private const val MAIN_PINS = "main_pins"
         private const val MAIN_HIDDEN = "main_hidden"
         private const val CAR_PINS = "car_pins"

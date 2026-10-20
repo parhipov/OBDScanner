@@ -42,6 +42,7 @@ import com.obdscanner.screen.Tile
 fun MainScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, onTab: (Tab) -> Unit) {
     val pins by m.pins.collectAsStateWithLifecycle()
     val hidden by m.hidden.collectAsStateWithLifecycle()
+    val safety by m.safetyWatch.collectAsStateWithLifecycle()
     val limitsTick by m.limitsTick.collectAsStateWithLifecycle()
     val limits = remember(limitsTick, v) { m.limits() }
     // Card help: (label, reading) — the dialog shows the live value when there is one.
@@ -68,7 +69,7 @@ fun MainScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, watch: Bo
     editing?.let { (label, t) ->
         LimitsDialog(label, t, MainScreen.builtIn(t), limits[t.source], onSave = { m.setLimits(t.source, it) }) { editing = null }
     }
-    val view = MainScreen.build(r, v, watch, pins, hidden, limits)
+    val view = MainScreen.build(r, v, watch, pins, hidden, limits, safety)
     LazyVerticalGrid(
         // Three in a row on a phone (360–412 dp), more on a tablet.
         columns = GridCells.Adaptive(108.dp),

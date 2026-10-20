@@ -57,7 +57,7 @@ class ValuesScreen(ctx: CarContext, private val m: ObdManager, private val sessi
 
     private fun template(): Template {
         val r = m.readings.value
-        val slots = session.slots ?: CarScreen.slots(r, m.vehicle.value, m.fuelWatch.value, m.carPins.value, m.pins.value, m.hidden.value)
+        val slots = session.slots ?: CarScreen.slots(r, m.vehicle.value, m.fuelWatch.value, m.carPins.value, m.pins.value, m.hidden.value, m.safetyWatch.value)
             .takeIf { it.isNotEmpty() }?.also { session.slots = it; logHost() }
         if (slots == null) return waiting()
         val pages = CarScreen.pages(slots)

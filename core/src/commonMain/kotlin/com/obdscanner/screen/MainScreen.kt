@@ -96,7 +96,7 @@ object MainScreen {
 
     val WATCH_HELP = tr(
         "Включайте, когда сомневаетесь в заправке.\n\n" +
-            "На плохом бензине мотор чаще детонирует, и блок управления в ответ уменьшает угол зажигания. Пока галочка стоит, " +
+            "На плохом бензине мотор чаще детонирует, и блок управления в ответ уменьшает угол зажигания. Пока режим включён, " +
             "приложение чаще обычного следит за этим откатом, показывает его сверху на главном экране и пишет первым разделом в отчёте.\n\n" +
             "Сам бензин не измеряется, виден только откат зажигания. Он бывает и от жары, и от нагрузки в горку, так что " +
             "сравнивайте поездки в похожих условиях.\n\n" +
@@ -104,11 +104,11 @@ object MainScreen {
             "Выключите — всё станет как раньше.",
         "Turn it on when you doubt the last fill-up.\n\n" +
             "On bad fuel the engine knocks more often, and the engine computer answers by pulling the ignition timing back. While " +
-            "this is ticked the app watches that retard more often than usual, shows it at the top of the main screen and puts it first in the report.\n\n" +
+            "the mode is on the app watches that retard more often than usual, shows it at the top of the main screen and puts it first in the report.\n\n" +
             "The fuel itself isn't measured, only the ignition retard. Heat and climbing a hill under load cause it too, so " +
             "compare trips made in similar conditions.\n\n" +
             "Some cars don't give this data, or an old adapter can't keep up — then the section stays empty.\n\n" +
-            "Untick it and everything is as before.",
+            "Turn it off and everything is as before.",
     )
 
     /** «Как бензин?»: first on Main while ticked; the Engine section keeps its own cards. */
@@ -121,6 +121,43 @@ object MainScreen {
         "calc.misfireGm" to tr("Пропуски сейчас", "Misfires now"),
         "01.0E" to tr("Опережение", "Timing advance"),
         "01.0F" to tr("Воздух на впуске", "Intake air"),
+    ))
+
+    /** The trip's mode on the first screen: one of the two or neither, kept in the settings. */
+    val MODE_LABEL = tr("Режим", "Mode")
+    val FUEL_MODE = tr("Топливо", "Fuel")
+    val SAFETY_MODE = tr("Безопасность", "Safety")
+
+    val SAFETY_LABEL = tr("Контроль безопасности движения", "Driving safety check")
+
+    val SAFETY_HELP = tr(
+        "Включайте на поездку, где важна динамика: разгоны, повороты, заносы.\n\n" +
+            "Приложение опрашивает только обороты, скорость, дроссель и педаль — в несколько раз чаще обычного, остальное редко. " +
+            "Если блок ABS сам передаёт скорости колёс по шине, приложение их слушает (машине ничего не отправляется) и сначала " +
+            "сверяет со скоростью по OBD. Совпали — скорости колёс видны сверху на главном экране, а по разнице передних и задних " +
+            "видна пробуксовка. Не совпали или машина их не передаёт — остаётся частый опрос.\n\n" +
+            "Датчики телефона пишутся как обычно: по ним отчёт находит заносы.\n\n" +
+            "Коррекции, детонация и параметры производителя в этом режиме почти не читаются. Выключите — всё станет как раньше.",
+        "Turn it on for a trip where the dynamics matter: launches, corners, slides.\n\n" +
+            "The app polls only rpm, speed, throttle and pedal — several times more often than usual, the rest rarely. " +
+            "If the ABS module sends the wheel speeds on the bus by itself, the app listens to them (nothing is sent to the car) " +
+            "and first checks them against the OBD speed. If they agree, the wheel speeds show at the top of the main screen, and " +
+            "the difference between front and rear shows wheelspin. If they don't, or the car doesn't send them, the fast polling stays.\n\n" +
+            "The phone's sensors are recorded as usual: the report finds slides from them.\n\n" +
+            "Fuel trims, knock and manufacturer parameters are hardly read in this mode. Turn it off and everything is as before.",
+    )
+
+    /** «Контроль безопасности движения»: first on Main while on; the wheels only once they agreed with the OBD speed. */
+    private val SAFETY = SectionDef(SAFETY_LABEL, 0xFF80CBC4, 0xFF142A28, listOf(
+        "01.0D" to tr("Скорость", "Speed"),
+        "01.0C" to tr("Обороты", "RPM"),
+        "01.11" to tr("Дроссель", "Throttle"),
+        "01.49" to tr("Педаль газа", "Accelerator pedal"),
+        "role:wheel_fl" to tr("Колесо ПЛ", "Wheel FL"),
+        "role:wheel_fr" to tr("Колесо ПП", "Wheel FR"),
+        "role:wheel_rl" to tr("Колесо ЗЛ", "Wheel RL"),
+        "role:wheel_rr" to tr("Колесо ЗП", "Wheel RR"),
+        "calc.axleSlip" to tr("Задние быстрее передних", "Rear faster than front"),
     ))
 
     /** «Избранное»: the values put on Main from «Все данные», first. */
@@ -141,14 +178,14 @@ object MainScreen {
      * owner's thresholds for this car by source.
      */
     fun build(readings: Map<String, Reading>, v: VehicleInfo, watch: Boolean = false, pins: List<String> = emptyList(), hidden: Set<String> = emptySet(),
-              limits: Map<String, Limits> = emptyMap()): MainView {
+              limits: Map<String, Limits> = emptyMap(), safety: Boolean = false): MainView {
         // Before the first value arrives (no connection yet) show every card empty, so the help can be read offline.
         val offline = readings.isEmpty()
         val r = if (watch && !offline) readings + misfires(readings, v) else readings
         val mil = r.pick("01.01.MIL")?.value
         val dtcCount = r.pick("01.01.DTC")?.value?.toInt()
         val gmCodes = v.gmDtcs.flatMap { it.codes }
-        val sections = (if (watch) listOf(WATCH) + SECTIONS else SECTIONS).map { s ->
+        val sections = (when { safety -> listOf(SAFETY) + SECTIONS; watch -> listOf(WATCH) + SECTIONS; else -> SECTIONS }).map { s ->
             s to if (offline) s.items.filter { !it.first.startsWith(ROLE) }.distinctBy { it.second }.map { (k, label) -> label to placeholder(k, label) }
             else s.items.mapNotNull { (k, label) ->
                 val reading = when {
@@ -163,7 +200,7 @@ object MainScreen {
                 }
                 reading?.takeIf { it.key !in hidden && it.key !in pins }?.let { label to it }
             }.distinctBy { it.second.key }
-        }.filter { it.second.isNotEmpty() || it.first === WATCH }
+        }.filter { it.second.isNotEmpty() || it.first === WATCH || it.first === SAFETY }
         val pinned = if (offline) emptyList() else pins.mapNotNull { r[it] }.map { it.name to it }
         val top = Blocks()
         // What the app is doing right now (finding the modules, reading their codes): above everything, it can take a minute.

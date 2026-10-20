@@ -39,7 +39,9 @@ class LimitsTest {
     fun storeRoundTrip() {
         val all = mapOf("01.05" to Limits(warnAbove = 100.0), "01.0C" to Limits(warnAbove = 4500.0, badAbove = 5500.0))
         assertEquals(all, Limits.parse(Limits.serialize(all)))
-        assertEquals(setOf("01.05;;100.0;;"), Limits.serialize(mapOf("01.05" to Limits(warnAbove = 100.0))))
+        assertEquals(setOf("01.05;;100;;"), Limits.serialize(mapOf("01.05" to Limits(warnAbove = 100.0))))
+        // What 4.12–4.13 wrote on the phone reads back the same.
+        assertEquals(mapOf("01.05" to Limits(warnAbove = 100.0)), Limits.parse(setOf("01.05;;100.0;;")))
         assertEquals(emptyMap(), Limits.parse(setOf("garbage", "01.05;;;;", "01.05;x;;;")))
     }
 }

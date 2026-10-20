@@ -35,16 +35,27 @@ class MockTransport : Transport {
         return n
     }
 
+    /** ATMA with a mask: the frames went out, the chip keeps listening until any character comes (it is used up). */
+    private var monitoring = false
+
     override suspend fun write(data: ByteArray) {
         for (b in data) {
             val c = b.toInt().toChar()
+            if (monitoring) {
+                monitoring = false
+                for (ch in "\r>") queue.send(ch.code)
+                continue
+            }
             if (c == '\r') {
                 val line = cmd.toString()
                 cmd.clear()
                 if (line.isBlank()) continue
                 val (text, delay) = car.handle(line)
                 delay(delay)
-                for (ch in text + "\r\r>") queue.send(ch.code)
+                if (text.endsWith(MockCar.LISTENING)) {
+                    for (ch in text.removeSuffix(MockCar.LISTENING)) queue.send(ch.code)
+                    monitoring = true
+                } else for (ch in text + "\r\r>") queue.send(ch.code)
             } else if (c != '\n') {
                 cmd.append(c)
             }
@@ -69,17 +80,26 @@ class MockCar {
     private var pending = mutableListOf(0x0174)
     private var protocolKnown = false
     private var rxFilter: Int? = null
+    /** ATCF / ATCM: a filter and mask over the ids (ATAR clears them, like ATCRA). */
+    private var cf: Int? = null
+    private var cm: Int? = null
     /** Like a real ELM: with auto-formatting off, OBD requests go out without PCI and nobody answers. */
     private var caf = true
 
-    /** Periodic module traffic: id to period in ms. */
-    private val busIds = mapOf(0x0C9 to 12, 0x0F1 to 25, 0x1E9 to 20, 0x1F5 to 25, 0x3E9 to 100, 0x4C1 to 500, 0x4D1 to 500, 0x52A to 1000)
+    /** Periodic module traffic: id to period in ms; 348 / 34A — the ABS module's wheel speeds (front, rear). */
+    private val busIds = mapOf(0x0C9 to 12, 0x0F1 to 25, 0x1E9 to 20, 0x1F5 to 25, 0x348 to 25, 0x34A to 25, 0x3E9 to 100, 0x4C1 to 500,
+        0x4D1 to 500, 0x52A to 1000)
 
     private fun busFrame(id: Int): String {
         // A burst is generated within a millisecond: jitter keeps the rpm bytes moving like on a car.
         val rpm = (jitter(rpm()) * 4).toInt()
+        // The wheels at the OBD speed (1/32 km/h); the rear ones a little faster while the throttle is open.
+        val front = (speed() * 32).toInt()
+        val rear = (speed() * (1 + 0.04 * wave(18.0)) * 32).toInt()
         val d = when (id) {
             0x0C9 -> listOf(0x80, rpm shr 8, rpm and 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00)
+            0x348 -> listOf(front shr 8, front and 0xFF, front shr 8, front and 0xFF)
+            0x34A -> listOf(rear shr 8, rear and 0xFF, rear shr 8, rear and 0xFF)
             0x3E9 -> List(8) { if (it < 2) Random.nextInt(0, 3) else 0 }
             0x4C1 -> listOf(0x00, (coolant() + 40).toInt(), 0x00, 0x00)
             else -> List(8) { if (it == 7) Random.nextInt(0, 256) else it * 0x11 }
@@ -87,8 +107,18 @@ class MockCar {
         return "%03X ".format(id) + d.joinToString(" ") { "%02X".format(it) }
     }
 
-    /** Like a clone: unfiltered traffic overflows it quickly, a filtered id streams fine. */
+    /**
+     * Like a clone: unfiltered traffic overflows it quickly, a filtered id streams fine. With a mask (ATCF / ATCM) it
+     * listens until a character comes, as a real chip does: the frames of [LISTEN_MS] go out, then [LISTENING].
+     */
     private fun monitor(): Pair<String, Long> {
+        val mf = cf
+        val mm = cm
+        if (rxFilter == null && mf != null && mm != null) {
+            val ids = busIds.filterKeys { it and mm == mf and mm }
+            val lines = ids.flatMap { (id, period) -> List((LISTEN_MS / period).toInt()) { busFrame(id) } }
+            return lines.joinToString("\r", postfix = "\r") + LISTENING to 5L
+        }
         val f = rxFilter
         if (f != null) {
             val period = busIds[f] ?: return "" to 1500L
@@ -164,7 +194,9 @@ class MockCar {
         c == "DP" -> "AUTO, ISO 15765-4 (CAN 11/500)"
         c.startsWith("SH") -> { header = c.substring(2).toInt(16); "OK" }
         c.startsWith("CRA") -> { rxFilter = c.substring(3).toIntOrNull(16); "OK" }
-        c == "AR" -> { rxFilter = null; "OK" }
+        c.startsWith("CF") && c.length == 5 -> { cf = c.substring(2).toIntOrNull(16); "OK" }
+        c.startsWith("CM") && c.length == 5 -> { cm = c.substring(2).toIntOrNull(16); "OK" }
+        c == "AR" -> { rxFilter = null; cf = null; cm = null; "OK" }
         c == "CAF0" -> { caf = false; "OK" }
         c == "CAF1" -> { caf = true; "OK" }
         c == "H1" -> { headers = true; "OK" }
@@ -231,6 +263,7 @@ class MockCar {
     }
 
     private fun rpm() = 700 + 2600 * wave(18.0)
+    private fun speed() = 90 * wave(60.0)
     private fun coolant() = minOf(92.0, 45 + t() * 0.8)
 
     private fun pid01(pid: Int): List<Int> {
@@ -249,7 +282,7 @@ class MockCar {
             0x09 -> listOf(u8(109.4 * 1.28))
             0x0B -> listOf(u8(30 + 60 * wave(18.0)))
             0x0C -> u16(jitter(rpm) * 4)
-            0x0D -> listOf(u8(90 * wave(60.0)))
+            0x0D -> listOf(u8(speed()))
             0x0E -> listOf(u8((12 + 20 * wave(18.0, 1.0) + 64) * 2))
             0x0F -> listOf(u8(28 + 40.0))
             0x10 -> u16(jitter(3 + rpm / 3300 * 60) * 100)
@@ -349,5 +382,12 @@ class MockCar {
             ecu == 0x641 && did == 0x4001 -> ok(0x0C, 0x7B)
             else -> intArrayOf(0x7F, 0x22, 0x31)
         }
+    }
+
+    companion object {
+        /** The end of an ATMA reply that keeps listening (no prompt until a character comes), see [MockTransport.write]. */
+        const val LISTENING = "\u0001"
+        /** How much traffic one masked ATMA reply carries. */
+        const val LISTEN_MS = 600L
     }
 }

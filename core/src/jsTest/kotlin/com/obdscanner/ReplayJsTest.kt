@@ -16,7 +16,8 @@ import kotlin.time.Duration.Companion.minutes
  */
 class ReplayJsTest {
     @Test
-    fun sessionsPlayBackAsOnTheJvm() = runTest(timeout = 20.minutes) {
+    // ~120 sessions (2026-10-20) take over 20 min; mocha has 45 (core/build.gradle.kts).
+    fun sessionsPlayBackAsOnTheJvm() = runTest(timeout = 44.minutes) {
         val fs: dynamic = js("import('node:fs')").unsafeCast<Promise<dynamic>>().await()
         val root = repoRoot(fs) ?: return@runTest
         val sessions = "$root/sessions"

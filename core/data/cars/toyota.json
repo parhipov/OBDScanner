@@ -2188,5 +2188,17 @@
       "ru": "Prius 20: заряд, ток, напряжения 14 блоков и температуры высоковольтной батареи",
       "en": "Prius 20: HV battery SOC, current, 14 block voltages and temperatures"
     }
+  ],
+  "frames": [
+    {
+      "id": "0AA",
+      "src": ["https://github.com/commaai/opendbc/blob/master/opendbc/dbc/toyota_iQ_2009_can.dbc", "https://github.com/commaai/opendbc/blob/master/opendbc/dbc/toyota_prius_2010_pt.dbc"],
+      "signals": [
+        { "id": "FR", "name": { "ru": "Колесо ПП", "en": "Wheel FR" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_fr", "fmt": { "bix": 0, "len": 16, "div": 100, "add": -67.67 } },
+        { "id": "FL", "name": { "ru": "Колесо ПЛ", "en": "Wheel FL" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_fl", "fmt": { "bix": 16, "len": 16, "div": 100, "add": -67.67 } },
+        { "id": "RR", "name": { "ru": "Колесо ЗП", "en": "Wheel RR" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_rr", "fmt": { "bix": 32, "len": 16, "div": 100, "add": -67.67 } },
+        { "id": "RL", "name": { "ru": "Колесо ЗЛ", "en": "Wheel RL" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_rl", "fmt": { "bix": 48, "len": 16, "div": 100, "add": -67.67 } }
+      ]
+    }
   ]
 }

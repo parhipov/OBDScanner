@@ -96,7 +96,7 @@ class Scanner(appVersion: String) {
 
     init {
         AppInfo.versionName = appVersion
-        for (f in listOf(link.readings, link.vehicle, link.scan, link.bus, link.fuelWatch, link.pins, link.hidden, conn, busy, canStop, folds, filter, picked))
+        for (f in listOf(link.readings, link.vehicle, link.scan, link.bus, link.fuelWatch, link.safetyWatch, link.pins, link.hidden, conn, busy, canStop, folds, filter, picked))
             scope.launch { f.collect { dirty = true } }
         // At most five redraws a second, whatever the poll rate.
         scope.launch {
@@ -179,7 +179,8 @@ class Scanner(appVersion: String) {
         return "{" + parts.joinToString(",") + "}"
     }
 
-    fun main(): String = ScreenJson.main(MainScreen.build(link.readings.value, link.vehicle.value, link.fuelWatch.value, link.pins.value, link.hidden.value))
+    fun main(): String = ScreenJson.main(MainScreen.build(link.readings.value, link.vehicle.value, link.fuelWatch.value, link.pins.value, link.hidden.value,
+        safety = link.safetyWatch.value))
 
     /** ☆ on «Все данные»: the value onto Main or off it (its reading key), kept in localStorage. */
     fun togglePin(key: String) = link.togglePin(key)
@@ -218,6 +219,17 @@ class Scanner(appVersion: String) {
 
     /** The checkbox's label and the text behind its «?». */
     fun fuelWatchTexts(): Array<String> = arrayOf(MainScreen.WATCH_LABEL, MainScreen.WATCH_HELP)
+
+    /** «Контроль безопасности движения», kept in localStorage; one of it and [fuelWatch] or neither. */
+    val safetyWatch: Boolean get() = link.safetyWatch.value
+
+    fun setSafetyWatch(on: Boolean) = link.setSafetyWatch(on)
+
+    /** The mode's label, its short name and the text behind its «?». */
+    fun safetyWatchTexts(): Array<String> = arrayOf(MainScreen.SAFETY_LABEL, MainScreen.SAFETY_MODE, MainScreen.SAFETY_HELP)
+
+    /** The line on the first screen: «Режим», then the two modes' short names («Топливо», «Безопасность»). */
+    fun modeTexts(): Array<String> = arrayOf(MainScreen.MODE_LABEL, MainScreen.FUEL_MODE, MainScreen.SAFETY_MODE)
 
     /** "Fuel", "All", "Dtc", "Info" or "About" (the end of «Справка») as JSON blocks. */
     fun screen(name: String): String {

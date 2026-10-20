@@ -95,6 +95,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
     val source by m.source.collectAsStateWithLifecycle()
     val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
+    val safetyWatch by m.safetyWatch.collectAsStateWithLifecycle()
     val sensorsWithAdapter by m.sensorsWithAdapter.collectAsStateWithLifecycle()
     val modulesOnConnect by m.modulesOnConnect.collectAsStateWithLifecycle()
     val newer by m.updates.newer.collectAsStateWithLifecycle()
@@ -115,7 +116,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
             item { UpdateLine(newer) }
             item { SupportLine() }
-            item { FuelWatchLine(fuelWatch, m::setFuelWatch) }
+            item { ModeLine(fuelWatch, safetyWatch, m::setFuelWatch, m::setSafetyWatch) }
             item {
                 when (conn) {
                     is ConnState.Connecting -> Card(Modifier.fillMaxWidth().padding(4.dp)) {

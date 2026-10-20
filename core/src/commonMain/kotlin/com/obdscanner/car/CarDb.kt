@@ -85,6 +85,7 @@ object CarDb {
             }
             val source = if (j.has("brands")) "db" else "obdb"
             j.optJSONArray("commands")?.objects()?.forEach { c -> tryParse("$file ${c.optString("hdr")} ${c.optString("svc")} ${c.optString("did")}") { parseCommand(c, source) }?.let { f.addCommand(it) } }
+            j.optJSONArray("frames")?.objects()?.forEach { fr -> tryParse("$file frame ${fr.optString("id")}") { parseFrame(fr) }?.let { f.frames += it } }
         }
         // Every family has a default dialect (the family's own requests); the named ones inherit from theirs.
         for (id in out.keys) specs.getOrPut(id) { DialectSpec(id, id) }
@@ -432,6 +433,17 @@ object CarDb {
         )
     }
 
+    /** A frame a module sends by itself: 11-bit id, the values in its data bytes (the same `fmt` as a request's answer). */
+    private fun parseFrame(j: JSONObject): BusFrameSpec {
+        val id = j.getString("id").toInt(16)
+        require(id in 0..0x7FF) { "id: 11-bit, 000–7FF" }
+        val signals = j.getJSONArray("signals").objects().map { parseSignal(it, curated = true) }
+        require(signals.isNotEmpty()) { "no signals" }
+        for (s in signals) require(s.fmt.bix + s.fmt.len <= 64) { "${s.id}: beyond 8 bytes" }
+        require(signals.map { it.id }.distinct().size == signals.size) { "signal ids repeat" }
+        return BusFrameSpec(id, signals, j.optJSONArray("src").strings())
+    }
+
     private fun text(o: JSONObject): String {
         val ru = o.optString("ru")
         val en = o.optString("en")
@@ -449,6 +461,8 @@ class CarFamily(val id: String, var title: String) {
     val features = mutableListOf<String>()
     /** Where this make keeps its modules; null — the standard OBD ids only. */
     var modules: ModuleSearch? = null
+    /** Frames its modules send by themselves (the wheels' speeds), heard in «Контроль безопасности движения». */
+    val frames = mutableListOf<BusFrameSpec>()
     /** How this make's blocks talk unless a model says otherwise. */
     val dialect: Dialect get() = CarDb.dialect(id) ?: Dialect.GENERIC
     /** Command key → index in [commands]: a linear search per added command was quadratic over ~3000 of them. */
@@ -665,6 +679,12 @@ data class ExtSignal(
     val curated: Boolean = true,
 ) {
 }
+
+/**
+ * A frame a module sends on the bus by itself, without a request (SCHEMA.md `frames`): heard by listening, nothing is
+ * sent to the car. A signal's `role` says what it is (`wheel_fl` … `wheel_rr`).
+ */
+data class BusFrameSpec(val id: Int, val signals: List<ExtSignal>, val src: List<String> = emptyList())
 
 /** One manufacturer request (\$21 / \$22) and the values in its answer. */
 data class ExtCommand(

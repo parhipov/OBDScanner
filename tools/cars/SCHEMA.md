@@ -52,7 +52,8 @@ in git) through the connection and compares what the app sends and finds with `r
   "dialects": [ ... ],
   "models": [ ... ],
   "commands": [ ... ],
-  "features": [ { "ru": "…", "en": "…" } ]
+  "features": [ { "ru": "…", "en": "…" } ],
+  "frames": [ ... ]
 }
 ```
 
@@ -192,6 +193,26 @@ in git) through the connection and compares what the app sends and finds with `r
   every engine of the model has the same one (or there is one engine). A model naming a dialect that
   doesn't exist is refused.
 - `match` — answers that recognise the model without a VIN (see Match).
+
+## Frames (what the make's modules send by themselves)
+
+Heard in «Контроль безопасности движения» (`bus/WheelWatch.kt`) by listening — a filter and mask over the
+ids, `ATMA` for a window between polls; nothing is sent to the car. CAN 11-bit only.
+
+```json
+{ "id": "348", "src": ["https://github.com/commaai/opendbc/…"], "signals": [
+  { "id": "FL", "name": { "ru": "Колесо ПЛ", "en": "Wheel FL" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1,
+    "role": "wheel_fl", "fmt": { "bix": 0, "len": 16, "div": 32 } } ] }
+```
+
+- `id` — the frame's 11-bit id (hex). `signals` — the values in its data bytes, the Command's `fmt` (`bix` from
+  the first data byte, within 8 bytes); `id` unique in the frame (the reading key is `<frame id>:bus.<id>`).
+- `role` — `wheel_fl`, `wheel_fr`, `wheel_rl`, `wheel_rr` (km/h): the mode shows them and «Задние быстрее передних».
+- A family's frames are tried on every car of it: the same id is another thing on another make and many cars don't
+  let this traffic out to the socket, so the car checks itself — the wheels' mean against the OBD speed (20 pairs over
+  15 s at 20 km/h and more, the median within 8 %). Until then the values only go to the session; not matching, or
+  nothing heard in 3 windows, listening stops for the drive. A layout from one source is fine for this reason, but the
+  frame must exist on the make (heard on a car or in a public DBC); `src` says where it comes from.
 
 ## Command (one request, one or more values out of its answer)
 

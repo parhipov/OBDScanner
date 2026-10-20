@@ -4670,5 +4670,23 @@
       "ru": "Машины до ~2007 г. на Class 2 (J1850 VPW) и Daewoo на K-line — только стандартный OBD",
       "en": "Pre-~2007 Class 2 (J1850 VPW) cars and K-line Daewoos get standard OBD only"
     }
+  ],
+  "frames": [
+    {
+      "id": "348",
+      "src": ["https://github.com/commaai/opendbc/blob/master/opendbc/dbc/generator/gm/gm_global_a_powertrain.dbc", "https://ls1tech.com/forums/pcm-diagnostics-tuning/1967248-looking-gm-can-broadcast-message-information.html"],
+      "signals": [
+        { "id": "FL", "name": { "ru": "Колесо ПЛ", "en": "Wheel FL" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_fl", "fmt": { "bix": 0, "len": 16, "div": 32 } },
+        { "id": "FR", "name": { "ru": "Колесо ПП", "en": "Wheel FR" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_fr", "fmt": { "bix": 16, "len": 16, "div": 32 } }
+      ]
+    },
+    {
+      "id": "34A",
+      "src": ["https://github.com/commaai/opendbc/blob/master/opendbc/dbc/generator/gm/gm_global_a_powertrain.dbc", "https://ls1tech.com/forums/pcm-diagnostics-tuning/1967248-looking-gm-can-broadcast-message-information.html"],
+      "signals": [
+        { "id": "RL", "name": { "ru": "Колесо ЗЛ", "en": "Wheel RL" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_rl", "fmt": { "bix": 0, "len": 16, "div": 32 } },
+        { "id": "RR", "name": { "ru": "Колесо ЗП", "en": "Wheel RR" }, "unit": { "ru": "км/ч", "en": "km/h" }, "dec": 1, "role": "wheel_rr", "fmt": { "bix": 16, "len": 16, "div": 32 } }
+      ]
+    }
   ]
 }

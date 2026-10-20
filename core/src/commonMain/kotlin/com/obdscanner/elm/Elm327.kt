@@ -157,6 +157,64 @@ class Elm327(
         }
     }
 
+    /** A line heard while listening and when it came in (wall clock, the line's end). */
+    class Heard(val line: String, val atMs: Long)
+
+    /**
+     * Listening between polls ([cmd] — ATMA with a filter set): every line with the time it came, for [durationMs], then
+     * stopped at once with a character. [monitor] waits for a prompt first — fine once, too slow between polls. [ended]
+     * — the chip stopped by itself ("BUFFER FULL"). The first command after it may get "?": a chip that stopped by
+     * itself just before the character came keeps it in its line buffer — the caller repeats that command.
+     */
+    class Listened(val lines: List<Heard>, val ended: Boolean)
+
+    suspend fun listen(cmd: String, durationMs: Long): Listened = mutex.withLock {
+        withContext(ioDispatcher) {
+            if (!alive) throw IOException(tr("Адаптер отключён", "Adapter disconnected"))
+            drain()
+            log('>', cmd)
+            transport.write((cmd + "\r").encodeToByteArray())
+            val out = ArrayList<Heard>()
+            val sb = StringBuilder()
+            var chars = 0
+            fun line() {
+                val l = sb.toString().trim()
+                if (l.isNotEmpty() && l != cmd) out += Heard(l, nowMs())
+                sb.clear()
+            }
+            // Reads until the prompt; false — the time ran out first.
+            suspend fun collect(ms: Long): Boolean = withTimeoutOrNull(ms) {
+                while (true) {
+                    val b = rx.receiveCatching().getOrNull() ?: throw IOException(tr("Связь с адаптером потеряна", "Lost connection to adapter"))
+                    val c = (b.toInt() and 0xFF).toChar()
+                    chars++
+                    when (c) {
+                        '>' -> break
+                        '\r', '\n' -> line()
+                        '\u0000' -> {}
+                        else -> sb.append(c)
+                    }
+                }
+                line()
+                true
+            } ?: false
+            var ended = false
+            var stopped = false
+            try {
+                ended = collect(durationMs)
+                if (!ended) {
+                    write("X")
+                    stopped = collect(500)
+                }
+            } finally {
+                if (!ended && !stopped) withContext(NonCancellable) { recoverPrompt() }
+            }
+            val stop = if (ended) tr(", адаптер остановился сам: ", ", adapter stopped by itself: ") + out.lastOrNull()?.line else ""
+            log('<', tr("[прослушка: ${out.size} строк, $chars символов$stop]", "[listen: ${out.size} lines, $chars chars$stop]"))
+            Listened(out, ended)
+        }
+    }
+
     /**
      * After a timeout the chip may still be busy. A bare CR is not safe: if the prompt is just
      * late, the chip takes it as "repeat last command" and every later reply is shifted by one

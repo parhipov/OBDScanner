@@ -140,6 +140,11 @@ class ObdManager(private val context: Context) {
 
     fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
 
+    /** «Контроль безопасности движения»: kept in the settings; one of it and [fuelWatch] or neither. */
+    val safetyWatch: StateFlow<Boolean> get() = link.safetyWatch
+
+    fun setSafetyWatch(on: Boolean) = link.setSafetyWatch(on)
+
     /** Values put on Main from «Все данные» and Main's own cards taken off it, see [CarLink.pins]. */
     val pins: StateFlow<List<String>> get() = link.pins
     val hidden: StateFlow<Set<String>> get() = link.hidden

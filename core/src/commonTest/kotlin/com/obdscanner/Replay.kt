@@ -109,7 +109,8 @@ class ReplayLog private constructor(
                         val (cmd, sent) = pending ?: return@forEach
                         pending = null
                         // The log keeps a reply on one line, " | " where the adapter sent a CR.
-                        val reply = if (text.startsWith("[monitor:")) "" else
+                        // Listening (BusSniffer's monitor, WheelWatch's listen) logs a summary, not the frames.
+                        val reply = if (text.startsWith("[monitor:") || text.startsWith("[listen:") || text.startsWith("[прослушка:")) "" else
                             text.replace(TIMEOUT, "").split('|').joinToString(CR.toString()) { it.trim() }
                         val key = state.key(cmd)
                         val took = (t - sent).coerceIn(0, 60_000)
