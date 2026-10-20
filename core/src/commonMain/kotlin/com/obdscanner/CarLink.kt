@@ -27,6 +27,7 @@ import com.obdscanner.screen.CarText
 import com.obdscanner.screen.CodesScreen
 import com.obdscanner.screen.ModuleNames
 import com.obdscanner.screen.InfoScreen
+import com.obdscanner.screen.Limits
 import com.obdscanner.screen.ScanContext
 import com.obdscanner.obd.Dtc
 import com.obdscanner.obd.DtcCode
@@ -163,6 +164,33 @@ class CarLink(
         store.remove(MAIN_HIDDEN)
         _hidden.value = emptySet()
     }
+
+    private val _limitsTick = MutableStateFlow(0)
+    /** Bumps when the owner's thresholds change: the fronts rebuild their cards. */
+    val limitsTick: StateFlow<Int> = _limitsTick.asStateFlow()
+    private var limitsCache: Pair<String, Map<String, Limits>>? = null
+
+    /** The owner's thresholds for the car connected now (by the value's source), see [Limits]; empty until the car is known. */
+    fun limits(): Map<String, Limits> {
+        val k = limitsKey()
+        limitsCache?.takeIf { it.first == k }?.let { return it.second }
+        val m = Limits.parse(store.getStringSet(k))
+        limitsCache = k to m
+        return m
+    }
+
+    /** «Пороги» saved for a value of this car; null or empty forgets them. */
+    fun setLimits(source: String, l: Limits?) {
+        val k = limitsKey()
+        val now = limits().toMutableMap()
+        if (l == null || l.isEmpty) now.remove(source) else now[source] = l
+        if (now.isEmpty()) store.remove(k) else store.putStringSet(k, Limits.serialize(now))
+        limitsCache = k to now
+        _limitsTick.update { it + 1 }
+    }
+
+    /** The car's thresholds live under its key (VIN, else the model, else the calibration id); a car with none shares one slot. */
+    private fun limitsKey() = "limits_${carKey() ?: "unknown"}"
 
     /**
      * What «Все данные» calls a block: the modules found (by request id; their reply ids lead there too), then the

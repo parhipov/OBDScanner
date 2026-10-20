@@ -127,9 +127,21 @@ object MainScreen {
     val PINNED = tr("Избранное", "Favourites")
     /** In a card's help: off Main (a pinned one unpinned, one of Main's own hidden). */
     val REMOVE = tr("Убрать с главной", "Remove from Main")
+    /** The question before it, with the card's name, and how the card comes back (its own / a pinned one). */
+    val REMOVE_ASK = tr("Убрать «%s» с Главной?", "Remove «%s» from Main?")
+    val REMOVE_BACK_OWN = tr("Вернуть можно кнопкой «Вернуть скрытые карточки» внизу Главной.",
+        "It comes back with «Bring back the hidden cards» at the bottom of Main.")
+    val REMOVE_BACK_PIN = tr("Это карточка из избранного: вернуть можно звёздочкой ☆ у значения во «Все данные».",
+        "This is a favourite: it comes back with the ☆ next to the value in «All data».")
+    val REMOVE_YES = tr("Убрать", "Remove")
+    val CANCEL = tr("Отмена", "Cancel")
 
-    /** [pins] — reading keys put on Main from «Все данные», [hidden] — Main's own cards taken off it. */
-    fun build(readings: Map<String, Reading>, v: VehicleInfo, watch: Boolean = false, pins: List<String> = emptyList(), hidden: Set<String> = emptySet()): MainView {
+    /**
+     * [pins] — reading keys put on Main from «Все данные», [hidden] — Main's own cards taken off it, [limits] — the
+     * owner's thresholds for this car by source.
+     */
+    fun build(readings: Map<String, Reading>, v: VehicleInfo, watch: Boolean = false, pins: List<String> = emptyList(), hidden: Set<String> = emptySet(),
+              limits: Map<String, Limits> = emptyMap()): MainView {
         // Before the first value arrives (no connection yet) show every card empty, so the help can be read offline.
         val offline = readings.isEmpty()
         val r = if (watch && !offline) readings + misfires(readings, v) else readings
@@ -188,12 +200,12 @@ object MainScreen {
             tr("Вернуть скрытые карточки (${hidden.size})", "Bring back the hidden cards (${hidden.size})"), whileBusy = true)))
         val own = sections.map { (s, tiles) ->
             MainSection(s.title, s.accent, s.tile, tiles.map { (label, reading) ->
-                if (offline) Tile(label, reading, Level.MUTED, true, sample) else Tile(label, reading, tileLevel(reading), false, tileNote(reading))
+                if (offline) Tile(label, reading, Level.MUTED, true, sample) else Tile(label, reading, tileLevel(reading, limits), false, tileNote(reading))
             }, if (s === WATCH && noKnock) tr("Машина не отдаёт откат по детонации. Остались опережение и пропуски.",
                 "The car doesn't give knock retard. Timing advance and misfires are left.") else null)
         }
         val fav = if (pinned.isEmpty()) emptyList() else listOf(MainSection(PINNED, 0xFFFF8FB1, 0xFF2E1824,
-            pinned.map { (label, reading) -> Tile(label, reading, tileLevel(reading), false, tileNote(reading)) }))
+            pinned.map { (label, reading) -> Tile(label, reading, tileLevel(reading, limits), false, tileNote(reading)) }))
         return MainView(offline, top.build(), fav + own, bottom.build())
     }
 
@@ -301,14 +313,28 @@ object MainScreen {
             sample?.second ?: "", sample?.third ?: 1)
     }
 
-    fun tileLevel(reading: Reading): Level? = when {
-        // «Как бензин?»: no retard, no misfires — green; any — amber (how much is too much we don't know).
-        reading.source in WATCH_LEVELS -> reading.value?.let { if (it > 0) Level.WARN else Level.GOOD }
-        reading.source == "calc.trim1" || reading.source == "calc.trim2" -> trimLevel(reading.value)
-        reading.source == "01.05" -> reading.value?.let { if (it > 105) Level.BAD else if (it < 70) Level.WARN else null }
-        reading.source == "22.1940" || reading.role == "atf_temp" -> reading.value?.let { if (it > 110) Level.BAD else if (it > 95) Level.WARN else null }
-        reading.source == "22.1154" || reading.role == "oil_temp" -> reading.value?.let { if (it > 135) Level.BAD else if (it > 120) Level.WARN else null }
-        reading.source == "22.119F" || reading.role == "oil_life" -> reading.value?.let { if (it < 10) Level.BAD else if (it < 25) Level.WARN else null }
+    /** The app's own thresholds for a value, the ones the owner's [Limits] go over; null for a value without any. */
+    fun builtIn(reading: Reading): Limits? = when {
+        reading.source == "01.05" -> Limits(warnBelow = 70.0, badAbove = 105.0)
+        reading.source == "22.1940" || reading.role == "atf_temp" -> Limits(warnAbove = 95.0, badAbove = 110.0)
+        reading.source == "22.1154" || reading.role == "oil_temp" -> Limits(warnAbove = 120.0, badAbove = 135.0)
+        reading.source == "22.119F" || reading.role == "oil_life" -> Limits(warnBelow = 25.0, badBelow = 10.0)
         else -> null
+    }
+
+    /**
+     * The card's colour: the owner's thresholds for this car ([limits], by source) over the built-in ones; a value
+     * with neither falls to the special rules («Как бензин?», trims) or none.
+     */
+    fun tileLevel(reading: Reading, limits: Map<String, Limits> = emptyMap()): Level? {
+        val user = limits[reading.source]
+        val rule = builtIn(reading)?.over(user) ?: user
+        if (rule != null && !rule.isEmpty) return reading.value?.let(rule::level)
+        return when {
+            // «Как бензин?»: no retard, no misfires — green; any — amber (how much is too much we don't know).
+            reading.source in WATCH_LEVELS -> reading.value?.let { if (it > 0) Level.WARN else Level.GOOD }
+            reading.source == "calc.trim1" || reading.source == "calc.trim2" -> trimLevel(reading.value)
+            else -> null
+        }
     }
 }

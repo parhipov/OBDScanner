@@ -42,7 +42,7 @@
   </tr>
   <tr>
     <td align="center">Main: the key values by section, min/max for the trip; «How's the fuel?» on top</td>
-    <td align="center">Tap any card: what it is, what's normal, what to do if it isn't</td>
+    <td align="center">Tap any card: what it is, what's normal, what to do if it isn't; «Thresholds» sets your own amber and red for this car</td>
     <td align="center">Fuel: trims by bank, O2 sensors, misfires, hints</td>
   </tr>
   <tr>

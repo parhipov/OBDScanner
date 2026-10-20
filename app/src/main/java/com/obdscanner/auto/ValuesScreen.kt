@@ -83,11 +83,12 @@ class ValuesScreen(ctx: CarContext, private val m: ObdManager, private val sessi
         // The host allows one titled action in the strip: the hint goes behind the car icon.
         if (page == 0) strip.addAction(Action.Builder().setIcon(CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_car)).build())
             .setOnClickListener { screenManager.push(HintScreen(carContext)) }.build())
-        return grid(shown, r)
+        val b = grid(shown, r)
             .setTitle(if (pages.size > 1) CarScreen.PAGE_OF.format(page + 1, pages.size) else APP)
             .setHeaderAction(if (page == 0) Action.APP_ICON else Action.BACK)
-            .setActionStrip(strip.build())
-            .build()
+        // The last page beyond the first has no actions, and an empty strip is refused (a CT5 owner read the refusal on the screen).
+        if (page == 0 || page + 1 < pages.size) b.setActionStrip(strip.build())
+        return b.build()
     }
 
     /** A page's tiles; large cells where the host knows them (Car API 8), the default size elsewhere. */
@@ -112,7 +113,7 @@ class ValuesScreen(ctx: CarContext, private val m: ObdManager, private val sessi
 
     /** A tile: the fixed title, the drive's span under it, the value card as the picture; a tap opens the hint. */
     private fun item(slot: CarScreen.Slot, r: Map<String, Reading>): GridItem {
-        val tile = CarScreen.tile(slot, r)
+        val tile = CarScreen.tile(slot, r, m.limits())
         val reading = tile?.reading
         return GridItem.Builder()
             .setTitle(slot.label)
@@ -123,7 +124,8 @@ class ValuesScreen(ctx: CarContext, private val m: ObdManager, private val sessi
     }
 
     /**
-     * The value as a picture: a rounded card in the level's colour (slate when the level is none), the value in white
+     * The value as a picture: a rounded card in the level's colour (a calm dark green when the level is none, as the
+     * CT5's owner asked: nothing to catch the eye until a threshold is crossed), the value in white
      * condensed bold scaled to the card's width, the unit under it, and along the bottom a bar with the value's place in
      * the drive's span (the track alone until the value has moved). Readable on the host's day and night themes alike.
      */
@@ -132,7 +134,7 @@ class ValuesScreen(ctx: CarContext, private val m: ObdManager, private val sessi
         val bmp = Bitmap.createBitmap(SIZE, SIZE, Bitmap.Config.ARGB_8888)
         val c = Canvas(bmp)
         val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = when (level) { Level.GOOD -> GOOD; Level.WARN -> WARN; Level.BAD -> BAD; else -> SLATE }
+            color = when (level) { Level.GOOD -> GOOD; Level.WARN -> WARN; Level.BAD -> BAD; else -> CALM }
         }
         c.drawRoundRect(RectF(INSET, INSET, s - INSET, s - INSET), RADIUS, RADIUS, fill)
         val digits = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -200,7 +202,8 @@ class ValuesScreen(ctx: CarContext, private val m: ObdManager, private val sessi
         const val GOOD = 0xFF2E7D32.toInt()
         const val WARN = 0xFFEF6C00.toInt()
         const val BAD = 0xFFC62828.toInt()
-        const val SLATE = 0xFF37474F.toInt()
+        /** No rule crossed: dark green, darker than [GOOD] so a checked-and-fine value still reads as such. */
+        const val CALM = 0xFF1B4D2B.toInt()
         const val WHITE = 0xFFFFFFFF.toInt()
         const val WHITE_DIM = 0xCCFFFFFF.toInt()
         const val WHITE_TRACK = 0x40FFFFFF.toInt()

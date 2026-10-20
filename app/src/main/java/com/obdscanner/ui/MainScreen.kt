@@ -13,10 +13,12 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,13 +42,33 @@ import com.obdscanner.screen.Tile
 fun MainScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, watch: Boolean, onTab: (Tab) -> Unit) {
     val pins by m.pins.collectAsStateWithLifecycle()
     val hidden by m.hidden.collectAsStateWithLifecycle()
+    val limitsTick by m.limitsTick.collectAsStateWithLifecycle()
+    val limits = remember(limitsTick, v) { m.limits() }
     // Card help: (label, reading) — the dialog shows the live value when there is one.
     var help by remember { mutableStateOf<Pair<String, Reading>?>(null) }
+    // «Убрать с главной» asks first and says how the card comes back; «Пороги» opens the thresholds of the value.
+    var removing by remember { mutableStateOf<Pair<String, Reading>?>(null) }
+    var editing by remember { mutableStateOf<Pair<String, Reading>?>(null) }
     help?.let { (label, h) ->
         val live = r[h.key]
-        CardHelpDialog(label, live ?: h, sample = live == null, onRemove = if (live == null) null else { { m.hideTile(h.key) } }) { help = null }
+        val numeric = live?.value != null
+        CardHelpDialog(label, live ?: h, sample = live == null,
+            onRemove = if (live == null) null else { { removing = label to live } },
+            onLimits = if (!numeric) null else { { editing = label to live } }) { help = null }
     }
-    val view = MainScreen.build(r, v, watch, pins, hidden)
+    removing?.let { (label, t) ->
+        AlertDialog(
+            onDismissRequest = { removing = null },
+            title = { Text(MainScreen.REMOVE_ASK.format(label)) },
+            text = { Text(if (t.key in pins) MainScreen.REMOVE_BACK_PIN else MainScreen.REMOVE_BACK_OWN) },
+            confirmButton = { TextButton(onClick = { removing = null; m.hideTile(t.key) }) { Text(MainScreen.REMOVE_YES) } },
+            dismissButton = { TextButton(onClick = { removing = null }) { Text(MainScreen.CANCEL) } },
+        )
+    }
+    editing?.let { (label, t) ->
+        LimitsDialog(label, t, MainScreen.builtIn(t), limits[t.source], onSave = { m.setLimits(t.source, it) }) { editing = null }
+    }
+    val view = MainScreen.build(r, v, watch, pins, hidden, limits)
     LazyVerticalGrid(
         // Three in a row on a phone (360–412 dp), more on a tablet.
         columns = GridCells.Adaptive(108.dp),
@@ -59,7 +81,7 @@ fun MainScreen(m: ObdManager, r: Map<String, Reading>, v: VehicleInfo, watch: Bo
             s.note?.let { note -> item(key = "n:${s.title}", span = { GridItemSpan(maxLineSpan) }) { Muted(note) } }
             // A card may sit in two sections («Как бензин?» repeats Engine's timing).
             items(s.tiles, key = { "${s.title}:${it.reading.key}" }) { t ->
-                MainTile(t, Color(s.tile), onHelp = { help = t.label to t.reading }, onRemove = { m.hideTile(t.reading.key) })
+                MainTile(t, Color(s.tile), onHelp = { help = t.label to t.reading }, onRemove = { removing = t.label to t.reading })
             }
         }
         items(view.bottom, key = { it.key }, span = { GridItemSpan(maxLineSpan) }) { b ->

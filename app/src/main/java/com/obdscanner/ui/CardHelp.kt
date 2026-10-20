@@ -2,6 +2,7 @@ package com.obdscanner.ui
 
 import androidx.annotation.ArrayRes
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -36,7 +37,7 @@ private fun helpArray(r: Reading): Int? {
 
 /** [onRemove] — «Убрать с главной» under the help (a card on Main with a live value); null — no such button. */
 @Composable
-fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onRemove: (() -> Unit)? = null, onDismiss: () -> Unit) {
+fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onRemove: (() -> Unit)? = null, onLimits: (() -> Unit)? = null, onDismiss: () -> Unit) {
     val texts = helpArray(r)?.let { stringArrayResource(it) }
     val (res, args) = com.obdscanner.screen.CardHelp.source(r)
     val source = when (res) {
@@ -50,7 +51,15 @@ fun CardHelpDialog(label: String, r: Reading, sample: Boolean = false, onRemove:
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } },
-        dismissButton = onRemove?.let { remove -> { TextButton(onClick = { onDismiss(); remove() }) { Text(com.obdscanner.screen.MainScreen.REMOVE) } } },
+        // «Убрать с главной» and «Пороги» side by side (the dialog has one slot for them); each closes the help and opens its own dialog.
+        dismissButton = if (onRemove == null && onLimits == null) null else {
+            {
+                Row {
+                    if (onRemove != null) TextButton(onClick = { onDismiss(); onRemove() }) { Text(com.obdscanner.screen.MainScreen.REMOVE) }
+                    if (onLimits != null) TextButton(onClick = { onDismiss(); onLimits() }) { Text(com.obdscanner.screen.Limits.TITLE) }
+                }
+            }
+        },
         title = { Text(label) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {

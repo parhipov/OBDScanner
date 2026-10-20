@@ -164,6 +164,11 @@ class ObdManager(private val context: Context) {
 
     fun restoreMain() = link.restoreMain()
 
+    /** The owner's thresholds for this car («Пороги» in a card's help), see [CarLink.limits]. */
+    val limitsTick: StateFlow<Int> get() = link.limitsTick
+    fun limits() = link.limits()
+    fun setLimits(source: String, l: com.obdscanner.screen.Limits?) = link.setLimits(source, l)
+
     /** What «Все данные» calls the blocks. */
     fun moduleNames() = link.moduleNames()
 

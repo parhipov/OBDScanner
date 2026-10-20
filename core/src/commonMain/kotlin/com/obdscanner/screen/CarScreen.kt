@@ -43,8 +43,9 @@ object CarScreen {
         return MainScreen.build(r, v, watch, pins, hidden).sections.flatMap { s -> s.tiles.map { Slot(it.reading.key, it.label, it.reading.unit) } }.distinctBy { it.key }
     }
 
-    /** The slot's tile now: its value when the reading is live, else the label alone (the front writes a dash). */
-    fun tile(slot: Slot, r: Map<String, Reading>): Tile? = r[slot.key]?.let { Tile(slot.label, it, MainScreen.tileLevel(it), false, null) }
+    /** The slot's tile now: its value when the reading is live, else the label alone (the front writes a dash); [limits] — the owner's thresholds. */
+    fun tile(slot: Slot, r: Map<String, Reading>, limits: Map<String, Limits> = emptyMap()): Tile? =
+        r[slot.key]?.let { Tile(slot.label, it, MainScreen.tileLevel(it, limits), false, null) }
 
     /** The pages of [slots], [PAGE] each. */
     fun pages(slots: List<Slot>): List<List<Slot>> = slots.chunked(PAGE)
