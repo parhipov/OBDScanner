@@ -112,6 +112,12 @@ class CarDbTest {
         // Mazda CX-5 KE by its model code: a European VIN (no model year) connected with the app, a US one decoded by stat.vin.
         assertEquals("KE", CarDb.detect("JMZKE897800247874")?.takeIf { it.model == "CX-5" }?.gen)
         assertEquals("KE", CarDb.detect("JM3KE2CE3D0123804")?.takeIf { it.model == "CX-5" }?.gen)
+        // A European KF may still say KE: the CX-5 of issue #3 is a 2018 KF (its owner; its modules' serials) with JMZKE…;
+        // the 7th character tells them apart (W on every European KF seen, 9 on the KE). The US KF says KF.
+        assertEquals("KF", CarDb.detect("JMZKEEW7A00703498")?.takeIf { it.model == "CX-5" }?.gen)
+        assertEquals("KF", CarDb.detect("JMZKFGW1A90272013")?.takeIf { it.model == "CX-5" }?.gen)
+        assertEquals("KF", CarDb.detect("JMZKF6WEA90360718")?.takeIf { it.model == "CX-5" }?.gen)
+        assertEquals("KF", CarDb.detect("JM3KFBCM3J0427327")?.takeIf { it.model == "CX-5" }?.gen)
         // Pontiac Vibe: a Toyota Matrix built by NUMMI under its own WMI, the generation by the model year.
         assertEquals(Make.TOYOTA, Make.fromVin("5Y2SP678X9Z410428"))
         assertEquals("Pontiac", CarDb.brandOf("5Y2SP678X9Z410428")?.name)
@@ -136,6 +142,10 @@ class CarDbTest {
         assertEquals(2010, CarDb.modelYear("X9FHXXEEDHAB14494"))
         assertEquals(2009, CarDb.modelYear("X9FGXXEEDG9M23538"))
         assertNull(CarDb.modelYear("X9FHXXEEDH"))
+        // Mazda's export VINs have no year: a 2023 CX-5 KF has «9» in the 10th place, not 2009. The US ones do.
+        assertNull(CarDb.modelYear("JMZKF6WEA90360718"))
+        assertNull(CarDb.modelYear("JMZKEEW7A00703498"))
+        assertEquals(2018, CarDb.modelYear("JM3KFBCM3J0427327"))
     }
 
     /** OBDb values merged into a curated request: not on its bits, and not with a main-screen role it already has. */

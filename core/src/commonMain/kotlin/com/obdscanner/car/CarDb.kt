@@ -190,10 +190,17 @@ object CarDb {
     private val EU_FORD = listOf("WF0", "WF1", "VS6", "SFA", "X9F")
 
     /**
+     * WMIs whose VIN carries no model year: Mazda's for Europe and the rest of the world (not North America) — the 10th
+     * character of a CX-5 KF is «9» on the 2021–2023 ones and «0» on a 2018 one, «0» on a 2013 KE.
+     */
+    private val NO_YEAR = listOf("JMZ")
+
+    /**
      * Model year from the 10th VIN character (ISO 3779 / NHTSA): letters repeat every 30 years, the
      * later cycle is taken unless it is in the future. Null when the character isn't a year code.
      */
     fun modelYear(vin: String): Int? {
+        if (NO_YEAR.any { vin.startsWith(it, ignoreCase = true) }) return null
         // Ford's European plants (Saarlouis WF0, Valencia VS6, Dagenham SFA, Vsevolozhsk X9F) keep the year in the 11th
         // character; the 10th is their own code and often a valid year letter (a 2010 Focus II read as 2017).
         val at = if (EU_FORD.any { vin.startsWith(it, ignoreCase = true) }) 10 else 9
