@@ -164,9 +164,10 @@ class Elm327(
      * Listening between polls ([cmd] — ATMA with a filter set): every line with the time it came, for [durationMs], then
      * stopped at once with a character. [monitor] waits for a prompt first — fine once, too slow between polls. [ended]
      * — the chip stopped by itself ("BUFFER FULL"). The first command after it may get "?": a chip that stopped by
-     * itself just before the character came keeps it in its line buffer — the caller repeats that command.
+     * itself just before the character came keeps it in its line buffer — the caller repeats that command. [stuck] — no
+     * prompt after the character either: the chip didn't come back to commands.
      */
-    class Listened(val lines: List<Heard>, val ended: Boolean)
+    class Listened(val lines: List<Heard>, val ended: Boolean, val stuck: Boolean = false)
 
     suspend fun listen(cmd: String, durationMs: Long): Listened = mutex.withLock {
         withContext(ioDispatcher) {
@@ -211,7 +212,7 @@ class Elm327(
             }
             val stop = if (ended) tr(", адаптер остановился сам: ", ", adapter stopped by itself: ") + out.lastOrNull()?.line else ""
             log('<', tr("[прослушка: ${out.size} строк, $chars символов$stop]", "[listen: ${out.size} lines, $chars chars$stop]"))
-            Listened(out, ended)
+            Listened(out, ended, stuck = !ended && !stopped)
         }
     }
 

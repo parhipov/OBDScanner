@@ -89,6 +89,31 @@ class WheelWatchTest {
         assertTrue(runBlocking { w.listen(o, 600) }.isEmpty())
     }
 
+    /** The chip hangs in a window (the CTS's clone, 2026-10-21): frames, then silence — off before the link drops. */
+    @Test
+    fun anAdapterThatHangsInAWindowStopsIt() {
+        val frames = gm()
+        val inner = MockTransport()
+        var hung = false
+        val hanging = object : Transport by inner {
+            override suspend fun write(data: ByteArray) {
+                if (!hung) inner.write(data)
+                if (data.decodeToString().startsWith("ATMA")) hung = true
+            }
+        }
+        val elm = Elm327(hanging) { _, _ -> }
+        runBlocking { elm.open() }
+        val o = Obd(elm)
+        val notes = mutableListOf<String>()
+        val w = WheelWatch(frames, known = true) { notes += it }
+        val heard = runBlocking { w.listen(o, 600) }
+        assertTrue(notes.toString(), heard.isNotEmpty())
+        assertEquals(WheelWatch.State.OFF, w.state)
+        assertTrue(notes.toString(), notes.any { "didn't come back" in it })
+        assertTrue(runBlocking { w.listen(o, 600) }.isEmpty())
+        elm.close()
+    }
+
     private fun wheel(t: Long, v: Double) = Reading(Reading.key(0x348, "bus.FL"), 0x348, "FL", v, null, "km/h", 1, time = t, role = "wheel_fl")
     private fun obd(t: Long, v: Double) = Reading(Reading.key(0x7E8, "01.0D"), 0x7E8, "Speed", v, null, "km/h", 0, time = t)
 

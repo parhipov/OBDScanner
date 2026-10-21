@@ -45,6 +45,7 @@ class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private
         if (state == State.OFF) return emptyList()
         // Unfiltered the whole bus comes: the CTS's clone overflowed every ~0.1 s and dropped the link in a 9 s ATMA
         // (2026-10-05) — no filter, no listening.
+        var back = true
         val heard = try {
             val set = listOf("ATCAF0", "ATCF%03X".format(filter), "ATCM%03X".format(mask)).map { o.at(it) }
             if (set.all { it.isOk }) o.elm.listen("ATMA", ms) else null
@@ -54,9 +55,17 @@ class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private
             off("the link dropped while listening (${e.message})")
             throw e
         } finally {
-            withContext(NonCancellable) { restore(o) }
+            withContext(NonCancellable) { back = restore(o) }
         }
         heard ?: return off("the adapter refused the filter (ATCAF0 / ATCF / ATCM)")
+        // The CTS's clone hung in a window after 176 good ones (2026-10-21): no prompt after the stop character, no
+        // answer to ATCAF1, Bluetooth dropped 10 s later and it wasn't back in a minute. The window itself ends without
+        // an error, so the drop comes later, in a poll — the same as a drop in the window: not again on this connection.
+        val hung = when {
+            heard.stuck -> "the adapter didn't come back after a window (no prompt after the stop character)"
+            !back -> "the adapter didn't confirm ATCAF1 after a window"
+            else -> null
+        }
         windows++
         if (heard.lines.any { it.line == "?" }) return off("the adapter can't listen (ATMA: ?)")
         if (heard.ended) {
@@ -70,6 +79,10 @@ class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private
                 val v = s.fmt.decode(f.data)?.first ?: continue
                 out += Reading(Reading.key(f.id, SOURCE + s.id), f.id, s.name, v, null, s.unit, s.decimals, time = h.atMs, role = s.role)
             }
+        }
+        if (hung != null) {
+            off(hung)
+            return out
         }
         if (out.isNotEmpty()) heardAny = true
         else if (!heardAny && windows >= SILENT_WINDOWS) return off("no $idsText in $windows windows")
@@ -119,14 +132,15 @@ class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private
      * Back to OBD: auto-formatting on and the automatic receive filter (ATAR clears ATCF / ATCM: the Focus II of
      * 2026-10-04 answered 7E8 right after one). A "?" to ATCAF1 — the stop character was left in the chip's line
      * buffer ([com.obdscanner.elm.Elm327.listen]): once more. Our filter is unknown to [Obd]: the next module
-     * request sets its own again.
+     * request sets its own again. False — ATCAF1 not confirmed.
      */
-    private suspend fun restore(o: Obd) {
+    private suspend fun restore(o: Obd): Boolean {
         var ok = false
         repeat(3) { if (!ok) ok = runCatching { o.at("ATCAF1").isOk }.getOrDefault(false) }
         runCatching { o.at("ATAR") }
         o.forgetRouting()
         if (!ok) note("wheels: WARNING — ATCAF1 not confirmed")
+        return ok
     }
 
     companion object {
