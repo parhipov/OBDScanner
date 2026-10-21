@@ -8,6 +8,7 @@ import com.obdscanner.obd.UdsDtcReader
 import com.obdscanner.transport.MockTransport
 import com.obdscanner.elm.Elm327
 import com.obdscanner.elm.Obd
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -312,5 +313,36 @@ class DialectTest {
         assertFalse(odd.complete)
         assertEquals("UDS \$19 02 / KWP \$18 02", UdsDtcReader.title(setOf("uds19", "kwp18")))
         assertEquals("UDS \$19 02 / KWP \$18 02 / KWP \$13", UdsDtcReader.title(setOf("uds19", "kwp18", "kwp13")))
+    }
+
+    /** Pontiac Vibe 2009: \$19 and \$18 refused, Techstream gets the codes with 13 81; a refused plain 13 falls back to it. */
+    @Test
+    fun toyotaKwp13WithParameter() {
+        CarDbTest.load()
+        assertEquals(listOf("uds19", "kwp18", "kwp13"), CarDb.family("toyota")!!.dialect.dtc)
+        val log = ReplayLog.parse(
+            """
+            08:59:59.900 > ATSH7E0
+            08:59:59.950 < OK
+            09:00:00.000 > 1902AF
+            09:00:00.050 < 7E8 03 7F 19 11
+            09:00:00.100 > 1802FF00
+            09:00:00.150 < 7E8 03 7F 18 11
+            09:00:00.200 > 13
+            09:00:00.250 < 7E8 03 7F 13 12
+            09:00:00.300 > 1381
+            09:00:00.350 < 7E8 02 53 00
+            """.trimIndent(),
+        )
+        val sent = mutableListOf<String>()
+        val r = runBlocking {
+            val elm = Elm327(ReplayTransport(log, VirtualClock())) { dir, text -> if (dir == '>') sent += text }
+            elm.open()
+            UdsDtcReader(Obd(elm)) { }.read(GmModule(0x7E0, 0x7E8, "7E0", ""), CarDb.family("toyota")!!.dialect.dtc)
+        }
+        assertTrue(sent.toString(), sent.containsAll(listOf("13", "1381")))
+        assertTrue(r.codes.isEmpty())
+        assertTrue(r.result, r.result.contains("KWP \$13"))
+        assertTrue(r.complete)
     }
 }

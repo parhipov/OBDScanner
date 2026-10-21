@@ -33,7 +33,8 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
                     if (r.second == 0x31) request(module, "19020D") else r
                 }
                 "kwp18" -> request(module, "1802FF00")
-                "kwp13" -> request(module, "13")
+                // Techstream asks Toyota's blocks on CAN with a parameter, 13 81 (Vibe 2009); whether a plain 13 works there is unknown.
+                "kwp13" -> request(module, "13").let { r -> if (r.second != null) request(module, "1381") else r }
                 else -> continue
             }
             tried += way to nrc

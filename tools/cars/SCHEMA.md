@@ -47,7 +47,7 @@ in git) through the connection and compares what the app sends and finds with `r
     { "name": "Toyota", "wmi": ["JT", "4T", "5T", "2T", "SB1", "NMT", "XW7"] },
     { "name": "Lexus",  "wmi": ["JTH", "JTJ", "2T2"] }
   ],
-  "dialect": { "dtc": ["uds19", "kwp18"] },
+  "dialect": { "dtc": ["uds19", "kwp18", "kwp13"] },
   "modules": { "addresses": [{ "req": ["700", "701", "780", "791"], "rsp": "+8" }] },
   "dialects": [ ... ],
   "models": [ ... ],
@@ -119,7 +119,7 @@ in git) through the connection and compares what the app sends and finds with `r
   the block, Toyota JDM: `21 0C` → `61 0C 0D F7` = 894 rpm). Only the PIDs the app knows, only when the
   answer has the PID's length; the bitmap must be 4 bytes.
 - `dtc` — the block's full code memory, tried in order until one answers: `gm_a9` (GMLAN $A9, CAN only),
-  `uds19` ($19 02 FF), `kwp18` ($18 02 FF00), `kwp13` ($13, codes without status). Default `uds19 kwp18`.
+  `uds19` ($19 02 FF), `kwp18` ($18 02 FF00), `kwp13` ($13, codes without status; refused — `13 81`, as Techstream asks a Toyota on CAN). Default `uds19 kwp18`.
 - `dtc_format` — `sae` (default) or `vag` (KWP codes as 5-digit VAG numbers).
 - `ident` — the identification: `uds_kwp` ($22 F1xx, then KWP $1A; default) or `gm_1a` (GMLAN $1A).
 - `commands` — this dialect's own parameters (Command format, `hdr` required).

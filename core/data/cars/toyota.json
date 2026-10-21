@@ -1,6 +1,14 @@
 {
   "family": "toyota",
   "title": "Toyota / Lexus",
+  "dialect": {
+    "dtc": [
+      "uds19",
+      "kwp18",
+      "kwp13"
+    ],
+    "note": "Pontiac Vibe 2009 (2ZR-FE): 7E0, 7A1, 7B0, 7C0 refuse $19 and $18 (NRC 11); Techstream reads the codes with $13 — 13 80 / 13 B0 to 7E0, 13 81 to 7A1 → 53 00 (owner's Openport capture, 2026-10-20). Toyota Passo 2026-10-05: 7E0, 7B0, 7C0 refuse $19 and $18 too."
+  },
   "modules": {
     "addresses": [
       {
