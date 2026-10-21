@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.obdscanner.R
 import com.obdscanner.Tab
+import com.obdscanner.TripMode
 import com.obdscanner.obd.Reading
 import com.obdscanner.screen.Action
 import com.obdscanner.screen.Block
@@ -54,19 +55,21 @@ private fun Level?.colorOrNull(): Color? = this?.color()
 /**
  * A screen of [Block]s in a LazyColumn, one item per block; [onDoc] — a row's license ([Block.Row.doc]); [onFold] — a
  * [Block.Fold] tapped; [onPin] — a value's ☆ (its reading key); [onCar] — its car icon; [onMove] — its arrow
- * (key, up, the car group).
+ * (key, up, the car group); [onMode] — a mode's card of [Block.Modes] tapped (the mode, on).
  */
 fun LazyListScope.blocks(
     list: List<Block>, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {},
     onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {}, onCar: (String) -> Unit = {}, onMove: (String, Boolean, Boolean) -> Unit = { _, _, _ -> },
+    onMode: (TripMode, Boolean) -> Unit = { _, _ -> },
 ) {
-    items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc, onFold = onFold, onPin = onPin, onCar = onCar, onMove = onMove) }
+    items(list, key = { it.key }) { BlockView(it, busy, onAction, onDtc, onDoc, onFold = onFold, onPin = onPin, onCar = onCar, onMove = onMove, onMode = onMode) }
 }
 
 @Composable
 fun BlockView(
     b: Block, busy: String?, onAction: (Action) -> Unit, onDtc: (DtcRef) -> Unit, onDoc: (String) -> Unit = {}, onTab: (Tab) -> Unit = {},
     onFold: (String) -> Unit = {}, onPin: (String) -> Unit = {}, onCar: (String) -> Unit = {}, onMove: (String, Boolean, Boolean) -> Unit = { _, _, _ -> },
+    onMode: (TripMode, Boolean) -> Unit = { _, _ -> },
 ) {
     when (b) {
         is Block.Title -> SectionTitle(b.text)
@@ -151,6 +154,7 @@ fun BlockView(
                 }
             }
         }
+        is Block.Modes -> ModeLine(b.modes, b.on, onMode, label = null, where = false)
         is Block.Gap -> Gap()
     }
 }

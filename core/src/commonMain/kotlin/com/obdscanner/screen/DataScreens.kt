@@ -1,6 +1,7 @@
 package com.obdscanner.screen
 
 import com.obdscanner.AppInfo
+import com.obdscanner.TripMode
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarDb
 import com.obdscanner.gm.DtcScheme
@@ -355,16 +356,23 @@ object CodesScreen {
 
 /**
  * «Машина»: the car, its readiness and on-board tests in a line each (the details folded), its modules with their part
- * numbers; the adapter, the ECUs' Mode 09 data and what the app remembers — folded, for specialists.
+ * numbers; the adapter, the ECUs' Mode 09 data and what the app remembers — folded, for specialists. [tests] — the
+ * test modes ([TripMode.test]) after the car, cards as on the first screen ([Block.Modes]); [mode] — the one on.
  */
 object InfoScreen {
-    fun build(v: VehicleInfo, modules: List<GmModule> = emptyList(), toggled: Set<String> = emptySet()): List<Block> {
+    fun build(v: VehicleInfo, modules: List<GmModule> = emptyList(), toggled: Set<String> = emptySet(),
+              mode: TripMode? = null, tests: Boolean = false): List<Block> {
         val b = Blocks()
         b.title(tr("Автомобиль", "Vehicle"))
         b.row("VIN", v.vin ?: "—")
         if (v.adapter.isNotEmpty()) b.row(tr("Марка (по VIN)", "Make (from VIN)"), listOfNotNull(v.brand, v.make.title.takeIf { v.make != Make.OTHER || v.brand == null }).distinct().joinToString(" · "))
         v.car?.let { b.row(tr("Модель", "Model"), it.title, sub = it.engines.joinToString("; ") { e -> e.title }.ifEmpty { null }) }
         if (v.adapter.isNotEmpty()) b.buttons(listOf(Button(Action.RESCAN, tr("Опросить заново", "Rescan"))))
+
+        if (tests && TripMode.tests.isNotEmpty()) {
+            b.title(MainScreen.TEST_MODES)
+            b.modes(TripMode.tests, mode)
+        }
 
         // Readiness: what the engine module has checked since the last clear (the same monitor of several ECUs once).
         val monitors = v.ecus.values.sortedBy { it.header }.flatMap { e -> e.readiness.filter { it.available }.map { e.header to it } }

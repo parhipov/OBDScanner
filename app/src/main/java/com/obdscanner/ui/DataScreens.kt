@@ -116,10 +116,12 @@ private fun ClearModulesDialog(view: CodesScreen.ClearModulesView, onDismiss: ()
 fun InfoScreen(m: ObdManager, v: VehicleInfo, busy: String?) {
     var forget by remember { mutableStateOf(false) }
     val folds by m.folds.collectAsStateWithLifecycle()
+    val mode by m.mode.collectAsStateWithLifecycle()
     val scan = m.scan.collectAsStateWithLifecycle().value
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
-        blocks(InfoScreen.build(v, scan.modules + scan.sw?.modules.orEmpty(), folds), busy,
-            onAction = { if (it == Action.FORGET) forget = true else m.run(it) }, onDtc = {}, onFold = m::toggleFold)
+        blocks(InfoScreen.build(v, scan.modules + scan.sw?.modules.orEmpty(), folds, mode, tests = true), busy,
+            onAction = { if (it == Action.FORGET) forget = true else m.run(it) }, onDtc = {}, onFold = m::toggleFold,
+            onMode = m::setMode)
     }
     if (forget) AlertDialog(
         onDismissRequest = { forget = false },

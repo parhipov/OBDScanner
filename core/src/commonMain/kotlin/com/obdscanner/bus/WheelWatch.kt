@@ -11,7 +11,8 @@ import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
 /**
- * The wheels' own speeds in «Контроль безопасности движения». The ABS module sends them on the bus by itself (the
+ * The wheels' own speeds in «Безопасность+» ([com.obdscanner.TripMode.wheels], a test mode: cheap clones hang in a
+ * window — 2026-10-21, see [com.obdscanner.TripMode.SAFETY_PLUS]). The ABS module sends them on the bus by itself (the
  * make's `frames`, [BusFrameSpec]); the app only listens: a filter that passes those frames, ATMA for a window
  * between polls, then the adapter back to OBD. Nothing is sent to the car.
  *

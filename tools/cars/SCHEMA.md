@@ -196,7 +196,8 @@ in git) through the connection and compares what the app sends and finds with `r
 
 ## Frames (what the make's modules send by themselves)
 
-Heard in «Контроль безопасности движения» (`bus/WheelWatch.kt`) by listening — a filter and mask over the
+Heard in the test mode «Безопасность+» (`TripMode.SAFETY_PLUS`, `bus/WheelWatch.kt`; plain «Безопасность» doesn't
+listen since 4.18 — cheap clones hang in a window) by listening — a filter and mask over the
 ids, `ATMA` for a window between polls; nothing is sent to the car. CAN 11-bit only.
 
 ```json

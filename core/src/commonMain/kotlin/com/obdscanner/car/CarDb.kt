@@ -462,7 +462,7 @@ class CarFamily(val id: String, var title: String) {
     val features = mutableListOf<String>()
     /** Where this make keeps its modules; null — the standard OBD ids only. */
     var modules: ModuleSearch? = null
-    /** Frames its modules send by themselves (the wheels' speeds), heard in «Контроль безопасности движения». */
+    /** Frames its modules send by themselves (the wheels' speeds), heard in «Безопасность+» ([com.obdscanner.TripMode.wheels]). */
     val frames = mutableListOf<BusFrameSpec>()
     /** How this make's blocks talk unless a model says otherwise. */
     val dialect: Dialect get() = CarDb.dialect(id) ?: Dialect.GENERIC

@@ -123,7 +123,7 @@ object MainScreen {
         "01.0F" to tr("Воздух на впуске", "Intake air"),
     ))
 
-    /** The trip's mode on the first screen: one of the two or neither, kept in the settings. */
+    /** The trip's mode on the first screen ([com.obdscanner.TripMode]): one or none, kept in the settings. */
     val MODE_LABEL = tr("Режим", "Mode")
     val FUEL_MODE = tr("Топливо", "Fuel")
     val SAFETY_MODE = tr("Безопасность", "Safety")
@@ -132,22 +132,36 @@ object MainScreen {
 
     val SAFETY_HELP = tr(
         "Включайте на поездку, где важна динамика: разгоны, повороты, заносы.\n\n" +
-            "Приложение опрашивает только обороты, скорость, дроссель и педаль — в несколько раз чаще обычного, остальное редко. " +
-            "Если блок ABS сам передаёт скорости колёс по шине, приложение их слушает (машине ничего не отправляется) и сначала " +
-            "сверяет со скоростью по OBD. Совпали — скорости колёс видны сверху на главном экране, а по разнице передних и задних " +
-            "видна пробуксовка. Не совпали или машина их не передаёт — остаётся частый опрос.\n\n" +
+            "Приложение опрашивает только обороты, скорость, дроссель и педаль — в несколько раз чаще обычного, остальное редко.\n\n" +
             "Датчики телефона пишутся как обычно: по ним отчёт находит заносы.\n\n" +
             "Коррекции, детонация и параметры производителя в этом режиме почти не читаются. Выключите — всё станет как раньше.",
         "Turn it on for a trip where the dynamics matter: launches, corners, slides.\n\n" +
-            "The app polls only rpm, speed, throttle and pedal — several times more often than usual, the rest rarely. " +
-            "If the ABS module sends the wheel speeds on the bus by itself, the app listens to them (nothing is sent to the car) " +
-            "and first checks them against the OBD speed. If they agree, the wheel speeds show at the top of the main screen, and " +
-            "the difference between front and rear shows wheelspin. If they don't, or the car doesn't send them, the fast polling stays.\n\n" +
+            "The app polls only rpm, speed, throttle and pedal — several times more often than usual, the rest rarely.\n\n" +
             "The phone's sensors are recorded as usual: the report finds slides from them.\n\n" +
             "Fuel trims, knock and manufacturer parameters are hardly read in this mode. Turn it off and everything is as before.",
     )
 
-    /** «Контроль безопасности движения»: first on Main while on; the wheels only once they agreed with the OBD speed. */
+    /** «Безопасность+» ([com.obdscanner.TripMode.SAFETY_PLUS]): «Безопасность» with the wheels heard on the bus, a test mode. */
+    val SAFETY_PLUS_MODE = tr("Безопасность+", "Safety+")
+    val SAFETY_PLUS_LABEL = tr("Безопасность+: скорости колёс с шины", "Safety+: wheel speeds from the bus")
+    val SAFETY_PLUS_HELP = tr(
+        "Режим «Безопасность», и ещё между опросами приложение слушает скорости колёс, которые блок ABS сам передаёт по шине " +
+            "(GM, Toyota; машине ничего не отправляется), и сверяет их со скоростью по OBD. Совпали — они видны на главном экране, " +
+            "а по разнице передних и задних видна пробуксовка.\n\n" +
+            "Дешёвые клоны ELM327 на этом зависают посреди поездки: связь возвращается, только если вынуть адаптер и вставить обратно.",
+        "The «Safety» mode, and between the polls the app also listens to the wheel speeds the ABS module sends on the bus by " +
+            "itself (GM, Toyota; nothing is sent to the car) and checks them against the OBD speed. If they agree, they show on the " +
+            "main screen, and the difference between front and rear shows wheelspin.\n\n" +
+            "Cheap ELM327 clones hang on it in the middle of a drive: the link comes back only when the adapter is unplugged and plugged back in.",
+    )
+
+    /** «Машина»: the test modes' section ([com.obdscanner.TripMode.test]). */
+    val TEST_MODES = tr("Тестовые режимы", "Test modes")
+    /** Under a test mode's help on the first screen: where it is turned on. */
+    val TEST_MODE_NOTE = tr("Тестовый режим: включается на вкладке «Машина», в разделе «Тестовые режимы».",
+        "A test mode: turned on on the «Car» tab, under «Test modes».")
+
+    /** «Контроль безопасности движения»: first on Main while on; the wheels (in «Безопасность+») only once they agreed with the OBD speed. */
     private val SAFETY = SectionDef(SAFETY_LABEL, 0xFF80CBC4, 0xFF142A28, listOf(
         "01.0D" to tr("Скорость", "Speed"),
         "01.0C" to tr("Обороты", "RPM"),

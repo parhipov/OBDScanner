@@ -7,6 +7,7 @@ import com.obdscanner.CarLink
 import com.obdscanner.ConnState
 import com.obdscanner.L10n
 import com.obdscanner.Tab
+import com.obdscanner.TripMode
 import com.obdscanner.car.CarDb
 import com.obdscanner.screen.Guide
 import com.obdscanner.screen.GmView
@@ -215,7 +216,7 @@ class Scanner(appVersion: String) {
     /** The «Как бензин?» checkbox on the first screen, kept in localStorage; it also adds its section to the report. */
     val fuelWatch: Boolean get() = link.fuelWatch.value
 
-    fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
+    fun setFuelWatch(on: Boolean) = link.setMode(TripMode.FUEL, on)
 
     /** The checkbox's label and the text behind its «?». */
     fun fuelWatchTexts(): Array<String> = arrayOf(MainScreen.WATCH_LABEL, MainScreen.WATCH_HELP)
@@ -223,7 +224,7 @@ class Scanner(appVersion: String) {
     /** «Контроль безопасности движения», kept in localStorage; one of it and [fuelWatch] or neither. */
     val safetyWatch: Boolean get() = link.safetyWatch.value
 
-    fun setSafetyWatch(on: Boolean) = link.setSafetyWatch(on)
+    fun setSafetyWatch(on: Boolean) = link.setMode(TripMode.SAFETY, on)
 
     /** The mode's label, its short name and the text behind its «?». */
     fun safetyWatchTexts(): Array<String> = arrayOf(MainScreen.SAFETY_LABEL, MainScreen.SAFETY_MODE, MainScreen.SAFETY_HELP)

@@ -135,15 +135,16 @@ class ObdManager(private val context: Context) {
     val vehicle: StateFlow<VehicleInfo> get() = link.vehicle
     val scan: StateFlow<ScanState> get() = link.scan
     val bus: StateFlow<BusState> get() = link.bus
-    /** «Как бензин?» on Main: kept in the settings until unticked. */
+    /** The trip's mode ([TripMode]) or none, kept in the settings. */
+    val mode: StateFlow<TripMode?> get() = link.mode
+
+    fun setMode(m: TripMode, on: Boolean) = link.setMode(m, on)
+
+    /** «Как бензин?» on Main: [mode] is one with [TripMode.fuel]. */
     val fuelWatch: StateFlow<Boolean> get() = link.fuelWatch
 
-    fun setFuelWatch(on: Boolean) = link.setFuelWatch(on)
-
-    /** «Контроль безопасности движения»: kept in the settings; one of it and [fuelWatch] or neither. */
+    /** «Контроль безопасности движения»: [mode] is one with [TripMode.safety]. */
     val safetyWatch: StateFlow<Boolean> get() = link.safetyWatch
-
-    fun setSafetyWatch(on: Boolean) = link.setSafetyWatch(on)
 
     /** Values put on Main from «Все данные» and Main's own cards taken off it, see [CarLink.pins]. */
     val pins: StateFlow<List<String>> get() = link.pins

@@ -196,6 +196,11 @@ object ScreenJson {
                 arr("buttons") { for (x in b.buttons) obj { str("action", x.action.name); str("label", x.label); bool("primary", x.primary); bool("whileBusy", x.whileBusy) } }
                 str("note", b.note)
             }
+            is Block.Modes -> {
+                str("t", "modes")
+                arr("modes") { for (m in b.modes) obj { str("id", m.id); str("title", m.title); str("label", m.label); str("help", m.help); bool("test", m.test) } }
+                str("on", b.on?.id)
+            }
             is Block.Gap -> str("t", "gap")
         }
     }

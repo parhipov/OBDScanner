@@ -55,6 +55,7 @@ import com.obdscanner.SOURCE_DEMO
 import com.obdscanner.SOURCE_SENSORS
 import com.obdscanner.SOURCE_WIFI
 import com.obdscanner.Tab
+import com.obdscanner.TripMode
 import com.obdscanner.VehicleInfo
 import com.obdscanner.car.CarChoice
 import com.obdscanner.transport.WifiTransport
@@ -94,8 +95,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
     // While a session runs the pick is locked: it shows what is running.
     val running = conn is ConnState.Connecting || conn is ConnState.Connected || conn is ConnState.Recording
     val source by m.source.collectAsStateWithLifecycle()
-    val fuelWatch by m.fuelWatch.collectAsStateWithLifecycle()
-    val safetyWatch by m.safetyWatch.collectAsStateWithLifecycle()
+    val mode by m.mode.collectAsStateWithLifecycle()
     val sensorsWithAdapter by m.sensorsWithAdapter.collectAsStateWithLifecycle()
     val modulesOnConnect by m.modulesOnConnect.collectAsStateWithLifecycle()
     val newer by m.updates.newer.collectAsStateWithLifecycle()
@@ -116,7 +116,7 @@ fun ConnectScreen(m: ObdManager, conn: ConnState, v: VehicleInfo, picked: CarCho
         LazyColumn(Modifier.weight(1f).padding(horizontal = 8.dp)) {
             item { UpdateLine(newer) }
             item { SupportLine() }
-            item { ModeLine(fuelWatch, safetyWatch, m::setFuelWatch, m::setSafetyWatch) }
+            item { ModeLine(TripMode.shown(mode), mode, m::setMode) }
             item {
                 when (conn) {
                     is ConnState.Connecting -> Card(Modifier.fillMaxWidth().padding(4.dp)) {

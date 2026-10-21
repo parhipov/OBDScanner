@@ -5,8 +5,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,17 +29,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.obdscanner.R
+import com.obdscanner.TripMode
 import com.obdscanner.screen.MainScreen
 
 /**
- * The trip's mode under «Поддержать проект» on the first screen: «Топливо» («Как бензин?») or «Безопасность»
- * («Контроль безопасности движения») or neither — a tap on the chosen one turns it off. Kept in the settings; each
- * «?» opens what the mode does.
+ * Trip modes as cards: on the first screen under «Поддержать проект» ([TripMode.shown]: the main ones, and a test one
+ * while it is on, after «Режим»), and the test ones on «Машина» ([com.obdscanner.screen.Block.Modes], no [label]).
+ * One at a time or none — a tap on the chosen one turns it off. Kept in the settings; each «?» opens what the mode
+ * does, a test mode's [where] it is turned on too. The cards are as wide as their names and go on to the next line
+ * when the row is full: an equal share broke «Безопасность» in the middle of the word.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ModeLine(fuel: Boolean, safety: Boolean, onFuel: (Boolean) -> Unit, onSafety: (Boolean) -> Unit) {
+fun ModeLine(modes: List<TripMode>, mode: TripMode?, onMode: (TripMode, Boolean) -> Unit, label: String? = MainScreen.MODE_LABEL, where: Boolean = true) {
     var help by remember { mutableStateOf<Pair<String, String>?>(null) }
     help?.let { (title, text) ->
         AlertDialog(
@@ -48,24 +54,28 @@ fun ModeLine(fuel: Boolean, safety: Boolean, onFuel: (Boolean) -> Unit, onSafety
             text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(text) } },
         )
     }
-    Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(MainScreen.MODE_LABEL, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(start = 8.dp, end = 4.dp))
-        ModeCard(MainScreen.FUEL_MODE, fuel, { onFuel(!fuel) }) { help = MainScreen.WATCH_LABEL to MainScreen.WATCH_HELP }
-        ModeCard(MainScreen.SAFETY_MODE, safety, { onSafety(!safety) }) { help = MainScreen.SAFETY_LABEL to MainScreen.SAFETY_HELP }
+    FlowRow(Modifier.fillMaxWidth().padding(horizontal = 4.dp)) {
+        label?.let {
+            Text(it, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.align(Alignment.CenterVertically).padding(start = 8.dp, end = 4.dp))
+        }
+        for (m in modes) ModeCard(m.title, mode == m, { onMode(m, mode != m) }) {
+            help = m.label to if (m.test && where) m.help + "\n\n" + MainScreen.TEST_MODE_NOTE else m.help
+        }
     }
 }
 
 /** A mode: on — filled and framed in the theme's colour, as a picked source on this screen ([SourceCard]); «?» — what it does. */
 @Composable
-private fun RowScope.ModeCard(title: String, on: Boolean, onClick: () -> Unit, onHelp: () -> Unit) {
+private fun ModeCard(title: String, on: Boolean, onClick: () -> Unit, onHelp: () -> Unit) {
     Card(
-        Modifier.weight(1f).padding(4.dp).clickable(onClick = onClick),
+        Modifier.padding(4.dp).clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = if (on) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant),
         border = if (on) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null,
     ) {
         Row(Modifier.padding(start = 14.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+            Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f, fill = false))
             HelpMark(onHelp)
         }
     }

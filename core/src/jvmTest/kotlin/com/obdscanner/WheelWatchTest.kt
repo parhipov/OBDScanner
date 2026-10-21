@@ -15,7 +15,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.abs
 
-/** «Контроль безопасности движения»: the wheels heard on the bus ([WheelWatch]), on the demo CTS and in the check's logic. */
+/** «Безопасность+»: the wheels heard on the bus ([WheelWatch]), on the demo CTS and in the check's logic; the modes ([TripMode]). */
 class WheelWatchTest {
     private fun open(): Pair<Elm327, Obd> {
         val elm = Elm327(MockTransport()) { _, _ -> }
@@ -163,35 +163,66 @@ class WheelWatchTest {
     }
 
     /** The mode through CarLink on the demo CTS: its own set polled, the wheels recorded but not shown until they agree. */
-    @Test
-    fun theModeOnTheDemoCar() {
+    private class Rec : Recorder {
+        val notes = mutableListOf<String>()
+        val values = mutableListOf<Reading>()
+        override fun note(text: String) { notes += text }
+        override fun report(title: String, body: String) {}
+        override fun value(r: Reading) { values += r }
+        override fun scanHit(req: Int, resp: Int, service: String, id: String, data: IntArray) {}
+        override fun busFrames(window: Int, frames: List<Pair<Int, IntArray>>, windowMs: Long) {}
+        override fun flush() {}
+    }
+
+    /** Three cycles of [mode] on the demo CTS; then [after] picked and one cycle more. */
+    private fun drive(mode: TripMode, store: MapStore = MapStore(), after: TripMode? = null): Pair<CarLink, Rec> {
         CarDbTest.load()
         val (elm, o) = open()
-        val store = MapStore()
         val link = CarLink(store, pause = {})
-        val rec = object : Recorder {
-            val notes = mutableListOf<String>()
-            val values = mutableListOf<Reading>()
-            override fun note(text: String) { notes += text }
-            override fun report(title: String, body: String) {}
-            override fun value(r: Reading) { values += r }
-            override fun scanHit(req: Int, resp: Int, service: String, id: String, data: IntArray) {}
-            override fun busFrames(window: Int, frames: List<Pair<Int, IntArray>>, windowMs: Long) {}
-            override fun flush() {}
-        }
+        val rec = Rec()
         link.session = rec
         link.reset(null)
-        link.setFuelWatch(true)
-        link.setSafetyWatch(true)
-        assertFalse("one mode or the other", link.fuelWatch.value)
+        link.setMode(TripMode.FUEL, true)
+        link.setMode(mode, true)
+        assertEquals("one mode at a time", mode.fuel, link.fuelWatch.value)
         runBlocking {
             link.initAdapter(o, "demo")
             link.discover(o)
             link.startPolling()
             repeat(3) { link.pollCycle(o) }
+            if (after != null) {
+                link.setMode(after, true)
+                link.pollCycle(o)
+            }
         }
         elm.close()
-        assertTrue(rec.notes.toString(), "safety watch: on" in rec.notes)
+        return link to rec
+    }
+
+    /** From «Безопасность+» to a mode that doesn't listen, mid-drive: the watch goes, said in raw.log. */
+    @Test
+    fun anotherModeMidDriveStopsTheWheels() {
+        val (link, rec) = drive(TripMode.SAFETY_PLUS, after = TripMode.FUEL)
+        assertTrue(rec.notes.toString(), "wheels: off — the mode doesn't listen to them" in rec.notes)
+        assertTrue(rec.notes.toString(), "trip mode: fuel" in rec.notes)
+        assertFalse(link.readings.value.keys.toString(), link.readings.value.keys.any { "bus." in it })
+    }
+
+    /** «Безопасность» itself doesn't listen (the CTS's clone hung in a window on each drive of 2026-10-21): its set alone. */
+    @Test
+    fun safetyAloneDoesNotListen() {
+        val (link, rec) = drive(TripMode.SAFETY)
+        assertTrue(rec.notes.toString(), "safety watch: on" in rec.notes && "trip mode: safety" in rec.notes)
+        assertFalse(rec.notes.toString(), rec.notes.any { it.startsWith("wheels:") })
+        assertFalse(rec.values.any { "bus." in it.key })
+        assertTrue(link.readings.value.keys.toString(), "7E8:01.0D" in link.readings.value)
+    }
+
+    @Test
+    fun theWheelsInSafetyPlus() {
+        val store = MapStore()
+        val (link, rec) = drive(TripMode.SAFETY_PLUS, store)
+        assertTrue(rec.notes.toString(), "safety watch: on" in rec.notes && "trip mode: safety_plus" in rec.notes)
         assertTrue(rec.notes.toString(), rec.notes.any { it.startsWith("wheels: listening to 348/34A") })
         val r = link.readings.value
         assertTrue(r.keys.toString(), "7E8:01.0C" in r && "7E8:01.0D" in r)
@@ -203,6 +234,42 @@ class WheelWatchTest {
         val sp = r.getValue("7E8:01.0D").value!!
         assertTrue("$fl vs $sp", abs(fl - sp) < 3)
         // Remembered: a new link reads the mode back.
+        assertEquals(TripMode.SAFETY_PLUS, CarLink(store, pause = {}).mode.value)
         assertTrue(CarLink(store, pause = {}).safetyWatch.value)
+    }
+
+    /** Before 4.18 the modes were two ticks: read once into the one mode, then forgotten. */
+    @Test
+    fun theOldTicksBecomeTheMode() {
+        for ((key, mode) in listOf("fuel_watch" to TripMode.FUEL, "safety_watch" to TripMode.SAFETY)) {
+            val store = MapStore().apply { putInt(key, 1) }
+            assertEquals(mode, CarLink(store, pause = {}).mode.value)
+            assertEquals(0, store.getInt(key, 0))
+            assertEquals(mode, CarLink(store, pause = {}).mode.value)
+        }
+        val store = MapStore()
+        val link = CarLink(store, pause = {})
+        assertEquals(null, link.mode.value)
+        link.setMode(TripMode.SAFETY, true)
+        link.setMode(TripMode.FUEL, false)    // another mode's card off: this one stays
+        assertEquals(TripMode.SAFETY, link.mode.value)
+        link.setMode(TripMode.SAFETY, false)
+        assertEquals(null, CarLink(store, pause = {}).mode.value)
+    }
+
+    /** «Машина»: the test modes after the car, as cards; the first screen shows a test mode only while it is on. */
+    @Test
+    fun theTestModesOnTheCarTab() {
+        val v = VehicleInfo()
+        val blocks = com.obdscanner.screen.InfoScreen.build(v, mode = TripMode.SAFETY_PLUS, tests = true)
+        val modes = blocks.filterIsInstance<com.obdscanner.screen.Block.Modes>().single()
+        assertEquals(listOf(TripMode.SAFETY_PLUS), modes.modes)
+        assertEquals(TripMode.SAFETY_PLUS, modes.on)
+        // Right after «Автомобиль»: its title is the first block, the test modes' title comes before any other section.
+        val titles = blocks.filterIsInstance<com.obdscanner.screen.Block.Title>().map { it.text }
+        assertEquals(com.obdscanner.screen.MainScreen.TEST_MODES, titles[1])
+        assertTrue(com.obdscanner.screen.InfoScreen.build(v).none { it is com.obdscanner.screen.Block.Modes })
+        assertEquals(listOf(TripMode.FUEL, TripMode.SAFETY), TripMode.shown(TripMode.SAFETY))
+        assertEquals(listOf(TripMode.FUEL, TripMode.SAFETY, TripMode.SAFETY_PLUS), TripMode.shown(TripMode.SAFETY_PLUS))
     }
 }

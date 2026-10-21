@@ -102,6 +102,9 @@ sealed class Block(val key: String) {
     /** Buttons in a row, then [note] beside them; disabled while an operation runs unless [Button.whileBusy]. */
     class Buttons(key: String, val buttons: List<Button>, val note: String? = null) : Block(key)
 
+    /** Trip modes as on the first screen: a card each, [on] filled and framed, its help behind «?»; a tap turns one on or off. */
+    class Modes(key: String, val modes: List<com.obdscanner.TripMode>, val on: com.obdscanner.TripMode?) : Block(key)
+
     /** Some space at the end. */
     class Gap(key: String) : Block(key)
 }
@@ -140,6 +143,7 @@ class Blocks {
     fun misfires(cylinders: List<Cylinder>) { out += Block.Misfires(key("misfires"), cylinders) }
     fun table(name: String, header: List<String>, rows: List<TableRow>) { out += Block.Table(key("table:$name"), header, rows) }
     fun buttons(buttons: List<Button>, note: String? = null) { out += Block.Buttons(key("buttons:" + buttons.joinToString { it.action.name }), buttons, note) }
+    fun modes(modes: List<com.obdscanner.TripMode>, on: com.obdscanner.TripMode?) { out += Block.Modes(key("modes:" + modes.joinToString { it.id }), modes, on) }
     fun gap() { out += Block.Gap(key("gap")) }
 
     fun build(): List<Block> = out.toList()

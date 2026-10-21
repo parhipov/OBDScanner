@@ -95,35 +95,42 @@ class CarLink(
     val scan: StateFlow<ScanState> = _scan.asStateFlow()
     private val _bus = MutableStateFlow(BusState())
     val bus: StateFlow<BusState> = _bus.asStateFlow()
-    private val _fuelWatch = MutableStateFlow(store.getInt(FUEL_WATCH, 0) == 1)
-    /** «Как бензин?» on Main: knock retard read every cycle, its own section on Main and first in the report. */
+    private val _mode = MutableStateFlow(storedMode())
+    /** The trip's mode ([TripMode]) or none: one at a time, kept in the settings until turned off. */
+    val mode: StateFlow<TripMode?> = _mode.asStateFlow()
+
+    private val _fuelWatch = MutableStateFlow(_mode.value?.fuel == true)
+    /** «Как бензин?» on Main ([TripMode.fuel]): knock retard read every cycle, its own section on Main and first in the report. */
     val fuelWatch: StateFlow<Boolean> = _fuelWatch.asStateFlow()
 
-    /** The «Как бензин?» checkbox; kept in the settings until unticked. It and [safetyWatch] are one or the other. */
-    fun setFuelWatch(on: Boolean) {
-        store.putInt(FUEL_WATCH, if (on) 1 else 0)
-        _fuelWatch.value = on
-        if (on && _safetyWatch.value) {
-            store.putInt(SAFETY_WATCH, 0)
-            _safetyWatch.value = false
-        }
-    }
-
-    private val _safetyWatch = MutableStateFlow(store.getInt(SAFETY_WATCH, 0) == 1 && !_fuelWatch.value)
+    private val _safetyWatch = MutableStateFlow(_mode.value?.safety == true)
     /**
-     * «Контроль безопасности движения»: its own short set (rpm, speed, throttle, pedal) every cycle, the wheels' own
-     * speeds heard on the bus between ([WheelWatch]), everything else rarely; no manufacturer, knock or misfire reads.
+     * «Контроль безопасности движения» ([TripMode.safety]): its own short set (rpm, speed, throttle, pedal) every cycle,
+     * everything else rarely; no manufacturer, knock or misfire reads. The wheels heard between — [TripMode.wheels].
      */
     val safetyWatch: StateFlow<Boolean> = _safetyWatch.asStateFlow()
 
-    /** The «Контроль безопасности движения» checkbox; unticks «Как бензин?». */
-    fun setSafetyWatch(on: Boolean) {
-        store.putInt(SAFETY_WATCH, if (on) 1 else 0)
-        _safetyWatch.value = on
-        if (on && _fuelWatch.value) {
-            store.putInt(FUEL_WATCH, 0)
-            _fuelWatch.value = false
+    /** A mode's card or tick: on — this mode (whichever was on is off), off — none, if it was this one. */
+    fun setMode(m: TripMode, on: Boolean) {
+        val now = if (on) m else _mode.value.takeIf { it != m }
+        store.putString(TRIP_MODE, now?.id ?: "")
+        _mode.value = now
+        _fuelWatch.value = now?.fuel == true
+        _safetyWatch.value = now?.safety == true
+    }
+
+    /** The mode in the settings; before 4.18 two ticks ("fuel_watch", "safety_watch") — read once, then forgotten. */
+    private fun storedMode(): TripMode? {
+        store.getString(TRIP_MODE)?.let { return TripMode.byId(it) }
+        val old = when {
+            store.getInt(OLD_FUEL_WATCH, 0) == 1 -> TripMode.FUEL
+            store.getInt(OLD_SAFETY_WATCH, 0) == 1 -> TripMode.SAFETY
+            else -> null
         }
+        store.putString(TRIP_MODE, old?.id ?: "")
+        store.remove(OLD_FUEL_WATCH)
+        store.remove(OLD_SAFETY_WATCH)
+        return old
     }
 
     private val _pins = MutableStateFlow(store.getString(MAIN_PINS)?.split('\n')?.filter { it.isNotEmpty() }.orEmpty())
@@ -248,6 +255,7 @@ class CarLink(
         knockHiRetard = 0
         notedWatch = false
         notedSafety = false
+        notedMode = null
         wheels = null
         skippedNow.clear()
         prevLoaded = false
@@ -1115,7 +1123,9 @@ class CarLink(
     private var notedWatch = false
     /** «Контроль безопасности движения» as raw.log last says it. */
     private var notedSafety = false
-    /** The wheels heard in «Контроль безопасности движения» on this connection; made with the first such cycle of a car whose make has `frames`. */
+    /** The mode as raw.log last says it ([TripMode.id], "none"); null — not said yet on this connection. */
+    private var notedMode: String? = null
+    /** The wheels heard in [TripMode.wheels] on this connection; made with the first such cycle of a car whose make has `frames`. */
     private var wheels: WheelWatch? = null
     private var wheelsFor: String? = null
 
@@ -1141,6 +1151,18 @@ class CarLink(
     /** One poll cycle: the due Mode 01 PIDs, voltage, misfires on Fuel, manufacturer and watched values. */
     suspend fun pollCycle(o: Obd) {
         val tab = tab()
+        val mode = _mode.value?.id ?: "none"
+        if (mode != notedMode) {
+            notedMode = mode
+            session?.note("trip mode: $mode")
+        }
+        // A mode without the wheels picked mid-drive: they go off the screen; back in one with them — a new watch, checked afresh.
+        if (_mode.value?.wheels != true && wheels != null) {
+            wheels = null
+            wheelsFor = null
+            session?.note("wheels: off — the mode doesn't listen to them")
+            dropWheels()
+        }
         val watch = _fuelWatch.value
         if (watch != notedWatch) {
             notedWatch = watch
@@ -1210,10 +1232,11 @@ class CarLink(
     }
 
     /**
-     * One cycle of «Контроль безопасности движения»: [DRIVE_PIDS] in one request every cycle, then a window of the
-     * wheels heard on the bus ([WheelWatch], CAN 11-bit, a make with `frames`), the rest of Mode 01 at a tenth of its
-     * pace, the voltage every [SAFETY_RV_MS]. A cycle with the wheels is ~0.9 s (the request ~0.15 s, the window
-     * [WHEEL_WINDOW_MS], the adapter's settings around it ~0.2 s); without them the set alone, ~6 times a second.
+     * One cycle of «Контроль безопасности движения»: [DRIVE_PIDS] in one request every cycle, the rest of Mode 01 at a
+     * tenth of its pace, the voltage every [SAFETY_RV_MS]; in a mode with [TripMode.wheels] a window of the wheels
+     * heard on the bus after the request ([WheelWatch], CAN 11-bit, a make with `frames`). A cycle with the wheels is
+     * ~0.9 s (the request ~0.15 s, the window [WHEEL_WINDOW_MS], the adapter's settings around it ~0.2 s); without them
+     * the set alone, ~6 times a second.
      */
     private suspend fun safetyCycle(o: Obd) {
         val v = _vehicle.value
@@ -1231,14 +1254,14 @@ class CarLink(
             silentCycles = 0
         }
         publishDerived()
-        val w = wheelWatch(o)
+        val w = if (_mode.value?.wheels == true) wheelWatch(o) else null
         if (w != null && w.state != WheelWatch.State.OFF) {
             val heard = w.listen(o, WHEEL_WINDOW_MS)
             val changed = w.check(heard, _readings.value.pick("01.0D"))
             if (changed && w.state == WheelWatch.State.OK) carKey()?.let { store.putInt(WHEELS_OK + it, 1) }
             if (changed && w.state == WheelWatch.State.OFF) {
                 carKey()?.let { store.remove(WHEELS_OK + it) }
-                _readings.update { m -> m.filterKeys { !it.contains(":" + WheelWatch.SOURCE) && it != Reading.key(0, "calc.axleSlip") } }
+                dropWheels()
             }
             // Not checked on this car yet: into the session only (the report can check it over the whole drive), not on screen.
             if (w.state == WheelWatch.State.OK) publish(heard + listOfNotNull(WheelWatch.axleSlip(heard)))
@@ -1256,6 +1279,10 @@ class CarLink(
             session?.flush()
         }
     }
+
+    /** The wheels and «Задние быстрее передних» off the screen. */
+    private fun dropWheels() =
+        _readings.update { m -> m.filterKeys { !it.contains(":" + WheelWatch.SOURCE) && it != Reading.key(0, "calc.axleSlip") } }
 
     /** The wheels to listen to: the make's `frames`, on 11-bit CAN; made once per car of the connection. */
     private fun wheelWatch(o: Obd): WheelWatch? {
@@ -2424,8 +2451,10 @@ class CarLink(
         /** Mode 01 PIDs per request, from the most (OBD's limit) down, see [shrinkBatch]. */
         private val BATCHES = listOf(6, 3)
         private const val EXT_PER_CYCLE = 5
-        private const val FUEL_WATCH = "fuel_watch"
-        private const val SAFETY_WATCH = "safety_watch"
+        /** [TripMode.id], "" — none. */
+        private const val TRIP_MODE = "trip_mode"
+        private const val OLD_FUEL_WATCH = "fuel_watch"
+        private const val OLD_SAFETY_WATCH = "safety_watch"
         /** + the car's key: its wheels heard on the bus agreed with the OBD speed on an earlier drive ([WheelWatch]). */
         private const val WHEELS_OK = "wheels_ok_"
         /** «Контроль безопасности движения»: rpm, speed, throttle, pedal — every cycle. */
