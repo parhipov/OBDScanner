@@ -415,6 +415,9 @@
         2011,
         2017
       ],
+      "vin": [
+        "^JM[3Z]KE"
+      ],
       "engines": [
         {
           "code": "SkyActiv-G 2.0 (PE)",
@@ -437,6 +440,10 @@
       ],
       "protocol": 6,
       "obd": "left_door",
+      "buses": {
+        "ru": "CAN 11/500: отвечают двигатель (7E0), АКПП (7E1) и блоки 720, 726, 730, 760, 761, 793.",
+        "en": "CAN 11/500: the engine (7E0), the gearbox (7E1) and the modules 720, 726, 730, 760, 761, 793 answer."
+      },
       "note": {
         "ru": "Разъём слева под рулём, возле рычага открывания капота. Автомат — SkyActiv-Drive FW6A-EL (полный привод — FW6AX-EL), датчик температуры масла в блоке клапанов.",
         "en": "Socket left under the steering wheel, by the hood release lever. The automatic is the SkyActiv-Drive FW6A-EL (AWD: FW6AX-EL), fluid temp sensor in the valve body."
@@ -445,9 +452,10 @@
         "https://en.wikipedia.org/wiki/Mazda_CX-5",
         "https://en.wikipedia.org/wiki/Mazda_Skyactiv",
         "https://carwiki.de/obd-stecker-mazda-cx-5",
-        "https://mazdas247.com/forum/goto/post?id=6608324"
+        "https://mazdas247.com/forum/goto/post?id=6608324",
+        "https://stat.vin/cars/JM3KE2CE3D0123804"
       ],
-      "verified": false
+      "verified": true
     },
     {
       "brand": "Mazda",
@@ -1159,13 +1167,16 @@
             "mul": 1373,
             "div": 1000,
             "add": 0,
-            "signed": false
+            "signed": false,
+            "na": [
+              255
+            ]
           },
           "conf": "?",
           "src": [
             "https://mazdas247.com/forum/goto/post?id=6819338"
           ],
-          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only. FF = no value: a CX-5 KE (2013, EU) answered FF on all four, shown as 350 kPa before (session 2026-10-19_08-02-30)."
         }
       ]
     },
@@ -1235,13 +1246,16 @@
             "mul": 1373,
             "div": 1000,
             "add": 0,
-            "signed": false
+            "signed": false,
+            "na": [
+              255
+            ]
           },
           "conf": "?",
           "src": [
             "https://mazdas247.com/forum/goto/post?id=6819338"
           ],
-          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only. FF = no value: a CX-5 KE (2013, EU) answered FF on all four, shown as 350 kPa before (session 2026-10-19_08-02-30)."
         }
       ]
     },
@@ -1311,13 +1325,16 @@
             "mul": 1373,
             "div": 1000,
             "add": 0,
-            "signed": false
+            "signed": false,
+            "na": [
+              255
+            ]
           },
           "conf": "?",
           "src": [
             "https://mazdas247.com/forum/goto/post?id=6819338"
           ],
-          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only. FF = no value: a CX-5 KE (2013, EU) answered FF on all four, shown as 350 kPa before (session 2026-10-19_08-02-30)."
         }
       ]
     },
@@ -1387,13 +1404,16 @@
             "mul": 1373,
             "div": 1000,
             "add": 0,
-            "signed": false
+            "signed": false,
+            "na": [
+              255
+            ]
           },
           "conf": "?",
           "src": [
             "https://mazdas247.com/forum/goto/post?id=6819338"
           ],
-          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only."
+          "note": "mazdas247 (CX-5 KF owners): header 720,222A05..08, psi = A*1.373*0.145 -> kPa = A*1.373. Wheel order for 1..4 not stated. Cars with direct TPMS only. FF = no value: a CX-5 KE (2013, EU) answered FF on all four, shown as 350 kPa before (session 2026-10-19_08-02-30)."
         }
       ]
     },

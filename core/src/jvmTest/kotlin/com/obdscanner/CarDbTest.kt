@@ -109,6 +109,9 @@ class CarDbTest {
         assertEquals("Outlander PHEV", CarDb.detect("JMBXDGG2WGZ000000")?.model)
         // A petrol Outlander III (GF2W) isn't the PHEV; the GF has no VIN pattern of its own yet.
         assertTrue(CarDb.detect("JMBXTGF2WFZ000000")?.model != "Outlander PHEV")
+        // Mazda CX-5 KE by its model code: a European VIN (no model year) connected with the app, a US one decoded by stat.vin.
+        assertEquals("KE", CarDb.detect("JMZKE897800247874")?.takeIf { it.model == "CX-5" }?.gen)
+        assertEquals("KE", CarDb.detect("JM3KE2CE3D0123804")?.takeIf { it.model == "CX-5" }?.gen)
         // Pontiac Vibe: a Toyota Matrix built by NUMMI under its own WMI, the generation by the model year.
         assertEquals(Make.TOYOTA, Make.fromVin("5Y2SP678X9Z410428"))
         assertEquals("Pontiac", CarDb.brandOf("5Y2SP678X9Z410428")?.name)
@@ -167,6 +170,10 @@ class CarDbTest {
         // VAG DSG 7E1 22 2104 → "7E9 62 21 04 34 00" = 52 °C, little-endian.
         assertEquals(52L, SignalFormat(0, 16, 1.0, 1.0, 0.0, true, null, le = true).raw(intArrayOf(0x34, 0x00)))
         assertEquals(-2L, SignalFormat(0, 16, 1.0, 1.0, 0.0, true, null, le = true).raw(intArrayOf(0xFE, 0xFF)))
+        // A module's filler (Mazda CX-5 KE TPMS without wheel sensors: FF) is no value, not 350 kPa.
+        val tp = SignalFormat(0, 8, 1373.0, 1000.0, 0.0, false, null, na = setOf(255L))
+        assertEquals(null to tr("нет данных", "no data"), tp.decode(intArrayOf(0xFF)))
+        assertEquals(240.3, tp.decode(intArrayOf(175))!!.first!!, 0.05)
     }
 
     /** A diesel-only DID (VAG 114F: soot on EDC17, misfires on a petrol ECU) is never sent to a car not known to be diesel. */

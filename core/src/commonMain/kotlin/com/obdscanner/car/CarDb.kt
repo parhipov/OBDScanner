@@ -413,6 +413,7 @@ object CarDb {
         val poly = f.optJSONArray("poly")?.let { a -> (0 until a.length()).map { a.getDouble(it) } }?.takeIf { it.isNotEmpty() }
         require(!le || (bix % 8 == 0 && len % 8 == 0)) { "le needs whole bytes" }
         val map = f.optJSONObject("map")?.let { mj -> mj.keys().asSequence().associate { k -> k.toLong() to text(mj.getJSONObject(k)) } }
+        val na = f.optJSONArray("na")?.let { a -> (0 until a.length()).map { a.getInt(it).toLong() }.toSet() }.orEmpty()
         val cyl = s.optJSONArray("cyl")?.let { a ->
             require(a.length() == 2 && a.getInt(0) in 1..a.getInt(1) && a.getInt(1) <= MAX_CYL) { "cyl ${a}: [from, to] within 1..$MAX_CYL" }
             a.getInt(0)..a.getInt(1)
@@ -426,7 +427,7 @@ object CarDb {
             confidence = if (s.optString("conf") == "OK") "OK" else "?",
             group = s.optString("group", "other"),
             role = s.optString("role").ifEmpty { null },
-            fmt = SignalFormat(bix, len, mul, div, add, signed, map, le, poly),
+            fmt = SignalFormat(bix, len, mul, div, add, signed, map, le, poly, na),
             src = s.optJSONArray("src").strings(),
             cyl = cyl,
             curated = curated,
@@ -634,6 +635,8 @@ data class SignalFormat(
     val le: Boolean = false,
     /** Polynomial instead of mul/div/add: value = poly[0] + poly[1]·raw + poly[2]·raw² … (Nissan CVT temp). */
     val poly: List<Double>? = null,
+    /** Raw values that mean "no value" (a module's filler, e.g. FF for a tyre without a sensor): shown as text, not scaled. */
+    val na: Set<Long> = emptySet(),
 ) {
     fun sameValue(o: SignalFormat) = bix == o.bix && len == o.len && mul == o.mul && div == o.div && add == o.add && signed == o.signed && le == o.le && poly == o.poly
 
@@ -653,6 +656,7 @@ data class SignalFormat(
     /** (number, text): a mapped value comes as text. */
     fun decode(data: IntArray): Pair<Double?, String?>? {
         val r = raw(data) ?: return null
+        if (r in na) return null to tr("нет данных", "no data")
         map?.let { m -> return null to (m[r] ?: r.toString()) }
         poly?.let { p -> return p.foldRight(0.0) { c, acc -> acc * r + c } to null }
         return r * mul / div + add to null

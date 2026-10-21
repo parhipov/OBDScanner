@@ -180,7 +180,7 @@ in git) through the connection and compares what the app sends and finds with `r
   - `console`        in the centre console / under the ashtray / behind a tunnel trim
   - `passenger`      passenger side / glovebox
 - `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris, Crown S180,
-  Sportage QL 2.0, Pontiac Vibe 2009).
+  Sportage QL 2.0, Pontiac Vibe 2009, Mazda CX-5 KE 2013).
 - `names` — modules by request id on this model (`{ "24F": { "ru": …, "en": … } }`): over the family's
   `modules.names`, under its `diagNames`. For an id GM gives different modules on different cars, named
   for the model a source checked it on.
@@ -257,7 +257,8 @@ ids, `ATMA` for a window between polls; nothing is sent to the car. CAN 11-bit o
   (after `62 DID DID` / `61 ID`), big-endian, bit 0 = MSB of the first data byte;
   raw → signed if `signed` → `raw * mul / div + add`. `le: true` — little-endian (whole bytes only).
   `poly: [c0, c1, c2, …]` — instead of mul/div/add: `c0 + c1·raw + c2·raw² + …` (Nissan JATCO CVT temp). `map` (optional): `{ "0": {"ru": "P", "en": "P"}, … }`
-  turns a raw value into text.
+  turns a raw value into text. `na` (optional): `[255]` — raw values that mean «no value» (a module's
+  filler: the Mazda CX-5 KE's TPMS answers FF without wheel sensors), shown as «нет данных», not scaled.
 - `role` (optional, set it whenever it fits) — what the value is, so the main screen shows it in the
   right card on any make: `oil_temp oil_pressure oil_life oil_level atf_temp cvt_temp clutch_temp
   cvt_wear gear tc_slip input_rpm output_rpm fuel_level_l odometer battery_soc battery_temp
