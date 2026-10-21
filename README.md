@@ -123,7 +123,7 @@ Limits worth knowing:
    - Bluetooth: the classic kind, not BLE. Pair it in Android's settings, the PIN is usually `1234` or `0000`;
    - USB: through an OTG adapter, the app finds it by itself;
    - Wi-Fi: join the adapter's network (`WiFi_OBDII`, `VLINK`…), no address to type.
-3. **Ignition on**, «Connect» → pick the adapter → «Start». The protocol and the port speed are found automatically; make and model come from the VIN (or pick them by hand). Where the connector is — «Help», for each make.
+3. **Ignition on**, «Connect» → pick the adapter → «Start». The protocol and the port speed are found automatically; make and model come from the VIN (or pick them by hand). The engine can be started after connecting too: modules that only answer then are picked up by themselves. Where the connector is — «Help», for each make.
 4. **Android Auto** (optional). The app has a car screen: the values you choose, six to a page, each a card in the level's colour with big digits, the unit and a bar showing where the value sits in this drive's range, the range itself under the title; two to four pages are tabs; refreshed every second. Android Auto runs only apps from Google Play, so once: in the Android Auto settings on the phone tap the version line ten times, then in the developer settings turn on «Unknown sources». Open the app on the head unit; the first time it runs, «All data» on the phone gets a car icon next to each value and a «Car screen» group at the top with «Up» / «Down». Nothing chosen — the car shows Main as the phone does. A Wi-Fi adapter doesn't work alongside wireless Android Auto, which takes the phone's Wi-Fi; Bluetooth and USB adapters do.
 
 ## Help the project

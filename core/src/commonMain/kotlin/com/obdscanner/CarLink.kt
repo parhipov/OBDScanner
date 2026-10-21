@@ -260,6 +260,9 @@ class CarLink(
         skippedNow.clear()
         prevLoaded = false
         partAsked.clear()
+        lateHeard.clear()
+        lateDone.clear()
+        extAlive = emptySet()
     }
 
     /** The session ended: nothing runs any more. */
@@ -468,6 +471,9 @@ class CarLink(
 
     private fun extKey(car: String?) = "ext_ok_${AppInfo.versionCode}_" + car.orEmpty()
 
+    /** Modules that answered something on the last [probeExt]; the others are asked again after a late ECU. */
+    private var extAlive: Set<Int> = emptySet()
+
     /** [VehicleInfo.memory] from the store, after anything about the car was saved or forgotten. */
     private fun refreshMemory() {
         val car = carKey()
@@ -603,7 +609,12 @@ class CarLink(
 
     // ---------------------------------------------------------------- discovery
 
-    suspend fun discover(o: Obd, full: Boolean = false) {
+    /** [late] — again mid-poll, for an ECU that answered only then ([pickUpLate]); else a new discovery of the connection. */
+    suspend fun discover(o: Obd, full: Boolean = false, late: Boolean = false) {
+        if (!late) {
+            lateHeard.clear()
+            lateDone.clear()
+        }
         _vehicle.update { it.copy(moduleAccess = o.canTarget) }
         step(tr("Поддерживаемые PID Mode 01…", "Supported PIDs (Mode 01)…"))
         val pids = mutableMapOf<Int, MutableSet<Int>>()
@@ -628,7 +639,8 @@ class CarLink(
             refused -> "refused"
             else -> null
         }
-        _vehicle.update { v -> v.copy(ecus = pids.mapValues { (h, p) -> EcuInfo(h, p) }) }
+        // Again for a late ECU: the ones known before stay, even if one of them missed this round.
+        _vehicle.update { v -> v.copy(ecus = (if (late) v.ecus.filterKeys { it !in pids } else emptyMap()) + pids.mapValues { (h, p) -> EcuInfo(h, p) }) }
         session?.report(tr("Поддерживаемые PID (Mode 01)", "Supported PIDs (Mode 01)"), pids.entries.joinToString("\n\n") { (h, p) ->
             tr("${ecuName(h)} [%03X] — ${p.count { !Pids.isBitmask(it) }} шт.\n", "${ecuName(h)} [%03X] — ${p.count { !Pids.isBitmask(it) }} PIDs\n").format(h) +
                 p.filter { !Pids.isBitmask(it) }.sorted().joinToString("\n") { "  01 %02X  %s".format(it, Pids.name(it)) }
@@ -671,7 +683,7 @@ class CarLink(
         })
         if (!o.kline && !o.can29) {
             step(tr("Параметры производителя…", "Manufacturer parameters…"))
-            probeExt(o, full)
+            probeExt(o, full, woke = late)
         } else {
             // The database's requests all go to 11-bit ids.
             session?.note("manufacturer parameters skipped: ${if (o.j1850) "J1850" else if (o.kline) "K-line" else "29-bit CAN"}")
@@ -942,14 +954,17 @@ class CarLink(
      * Asks every candidate request once; the ones that answer get polled. What answered is saved per VIN,
      * so the next connection asks only those ([full] — everything again, "Rescan"). A module that has
      * answered nothing after [SILENT_SKIP] requests is not asked the rest (no timeout per request).
+     * [woke] — again after a late ECU ([pickUpLate]): the modules that answered nothing last time may have been
+     * asleep, all of their requests are asked, and what answers now is added to the saved ones.
      */
-    private suspend fun probeExt(o: Obd, full: Boolean) {
+    private suspend fun probeExt(o: Obd, full: Boolean, woke: Boolean = false) {
         val all = extCandidates()
         val vin = carKey()
         // Per app version too: a new build may bring new requests in the database.
         val prefKey = extKey(vin)
         val saved = if (vin != null) store.getStringSet(prefKey) else null
-        val list = if (!full && saved != null) all.filter { it.key in saved } else all
+        val asleep = if (woke) all.filter { it.req !in extAlive } else emptyList()
+        val list = ((if (!full && saved != null) all.filter { it.key in saved } else all) + asleep).distinctBy { it.key }
         val sc = GmScanner(o) { session?.note(it) }
         val active = mutableListOf<ExtCommand>()
         val silent = mutableMapOf<Int, Int>()
@@ -979,6 +994,8 @@ class CarLink(
         }
         o.broadcast()
         if (vin != null && (full || saved == null)) store.putStringSet(prefKey, active.map { it.key }.toSet())
+        else if (vin != null && woke && saved != null) store.putStringSet(prefKey, saved + active.map { it.key })
+        extAlive = alive
         refreshMemory()
         _vehicle.update { it.copy(extActive = active) }
         val cyl = cylindersOf(_vehicle.value.car)?.let { (n, by) -> tr("Цилиндров: $n ($by)", "Cylinders: $n ($by)") }
@@ -1128,6 +1145,10 @@ class CarLink(
     /** The wheels heard in [TripMode.wheels] on this connection; made with the first such cycle of a car whose make has `frames`. */
     private var wheels: WheelWatch? = null
     private var wheelsFor: String? = null
+    /** ECUs not found at the discovery that answer the poll's Mode 01: the cycles each was heard in ([pickUpLate]). */
+    private val lateHeard = HashMap<Int, Int>()
+    /** Late ECUs already discovered again in this connection: once each. */
+    private val lateDone = HashSet<Int>()
 
     /** Polls until cancelled; one-off operations get the adapter between cycles. */
     suspend fun pollLoop(o: Obd) {
@@ -1192,6 +1213,7 @@ class CarLink(
             }
             if (due.isNotEmpty()) answers = maxOf(answers, 0) + pollMirror(o, e, due)
         }
+        pickUpLate(o)
         silentCycles = if (answers == 0) silentCycles + 1 else 0
         if (o.kline && silentCycles >= 3) {
             reinitKline(o)
@@ -1248,6 +1270,7 @@ class CarLink(
             maxOf(PollRate.of01(it) * 10, PollRate.FAST * 10)
         }
         val answers = pollPids(o, drive + rest)
+        pickUpLate(o)
         silentCycles = if (answers == 0) silentCycles + 1 else 0
         if (o.kline && silentCycles >= 3) {
             reinitKline(o)
@@ -1498,6 +1521,28 @@ class CarLink(
         return out
     }
 
+    /**
+     * An ECU that answered the poll's Mode 01 in [LATE_CYCLES] cycles but wasn't there at the discovery: the engine
+     * started after the connect. The Mazda CX-5 of 2026-10-20: at 07:12:51 only the gearbox (7E9) answered, the engine
+     * (7E8) 48 s later, after the start, and the 92-minute trip went on the gearbox's PIDs — no MAF, trims or fuel —
+     * with the engine's and the cluster's parameters «silent, skipped». Discovered again, as «Опросить заново» does,
+     * once per ECU and connection; the ECUs known before stay, and the modules that answered nothing on the first
+     * probe are asked for all of their parameters ([probeExt]).
+     */
+    private suspend fun pickUpLate(o: Obd) {
+        val heads = lateHeard.filterValues { it >= LATE_CYCLES }.keys.sorted()
+        if (heads.isEmpty()) return
+        lateDone += heads
+        heads.forEach { lateHeard.remove(it) }
+        val names = heads.joinToString(", ") { "${ecuName(it)} [%03X]".format(it) }
+        session?.note("late ECU: ${heads.joinToString(", ") { "%03X".format(it) }} answered Mode 01 after the discovery — discovering again")
+        session?.report(tr("Блок ответил позже", "A module answered later"),
+            tr("$names — ответил на Mode 01 только во время опроса (например, мотор завели после подключения). Поиск повторён, разделы ниже — его.",
+                "$names — answered Mode 01 only while polling (the engine started after the connect, say). The discovery was run again; the sections below are its."))
+        o.broadcast()
+        discover(o, late = true)
+    }
+
     /** Returns how many answers came, -1 if there was nothing to ask. */
     private suspend fun pollPids(o: Obd, pids: List<Int>): Int {
         if (pids.isEmpty()) {
@@ -1507,6 +1552,7 @@ class CarLink(
         val batchable = pids.filter { _vehicle.value.pidBatch > 1 && (Pids.byPid[it]?.len ?: -1) > 0 }
         val single = pids - batchable.toSet()
         val out = mutableListOf<Reading>()
+        val heard = HashSet<Int>()
         var rest = batchable
         while (rest.isNotEmpty()) {
             // The size may drop on the way (shrinkBatch): the rest of the cycle goes in the new size.
@@ -1517,6 +1563,7 @@ class CarLink(
             for (m in r.messages) {
                 if (m.service != 0x41) continue
                 answered = true
+                heard += m.header
                 for ((pid, d) in Pids.splitMulti(m.data, chunk)) out += o.stamped(Pids.decode(m.header, "01", pid, d))
             }
             // Only a request too big for the next smaller size tells about this one (not the PID or two left over at
@@ -1532,9 +1579,12 @@ class CarLink(
             val r = o.request("01%02X".format(pid), POLL_TIMEOUT)
             for (m in r.messages) {
                 if (m.service != 0x41 || m.data.size < 3 || m.data[1] != pid) continue
+                heard += m.header
                 out += o.stamped(Pids.decode(m.header, "01", pid, m.data.copyOfRange(2, m.data.size)))
             }
         }
+        val known = _vehicle.value.ecus.keys
+        for (h in heard) if (h !in known && h !in lateDone) lateHeard.addTo(h, 1)
         // A V6 has two banks: the "bank 3/4" halves of PIDs 55–58 are filler bytes.
         val twoBanks = 0x13 in _vehicle.value.supported01
         publish(if (twoBanks) out.filterNot { it.source.matches(Regex("""01\.5[5-8]\.B""")) } else out)
@@ -2448,6 +2498,8 @@ class CarLink(
             "Adapter disconnected and does not answer. Unplug it for 5 seconds, plug it back in and connect again.",
         )
         private const val POLL_TIMEOUT = 1000L
+        /** Poll cycles an ECU not found at the discovery answers in before it is discovered again ([pickUpLate]). */
+        private const val LATE_CYCLES = 2
         /** Mode 01 PIDs per request, from the most (OBD's limit) down, see [shrinkBatch]. */
         private val BATCHES = listOf(6, 3)
         private const val EXT_PER_CYCLE = 5
