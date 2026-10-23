@@ -339,6 +339,8 @@ class CarDbTest {
         assertTrue(d.diagName(0x62)!!.startsWith(tr("Проекция", "Head-up")))
         assertTrue(d.diagName(0x1B)!!.startsWith(tr("Задний привод", "Rear drive")))
         assertTrue(d.diagName(0x80)!!.startsWith(tr("Радио", "Radio")))
+        // A BOSE car's amplifier (issue #1, 2026-10-22: 254 → 654, address 81, part number 42712504).
+        assertTrue(d.diagName(0x81)!!.startsWith(tr("Усилитель звука", "Audio amplifier")))
         assertEquals(gm.modules!!.diagNames[0x40], d.diagName(0x40))
         assertEquals("24F", d.name(0x24F))
         assertNull(ObdModules.addressing(gm, "GM").diagName(0x62))
