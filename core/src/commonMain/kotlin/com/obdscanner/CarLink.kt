@@ -257,6 +257,7 @@ class CarLink(
         notedSafety = false
         notedMode = null
         wheels = null
+        notedNoWheels = false
         skippedNow.clear()
         prevLoaded = false
         partAsked.clear()
@@ -1056,9 +1057,11 @@ class CarLink(
         return if (r.timedOut) list.map { it.copy(time = r.atMs) } else list
     }
 
-    private fun extReadings(c: ExtCommand, data: IntArray): List<Reading> = knockChecked(c, c.signals.map { s ->
+    /** [wheels] — asked by the wheel watch: a wheel keeps its role (on Main) only then, once checked ([WheelWatch]). */
+    private fun extReadings(c: ExtCommand, data: IntArray, wheels: Boolean = false): List<Reading> = knockChecked(c, c.signals.map { s ->
         val (v, text) = s.fmt.decode(data) ?: (null to null)
-        Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = s.role, curated = s.curated)
+        val role = s.role.takeIf { wheels || it == null || !it.startsWith(WHEEL_ROLE) }
+        Reading(c.readingKey(s), c.req, s.name, v, text ?: if (v == null) Pids.hex(data) else null, s.unit, s.decimals, role = role, curated = s.curated)
     })
 
     /** Idle samples with a big retard, per request, see [knockChecked]. */
@@ -1145,6 +1148,8 @@ class CarLink(
     /** The wheels heard in [TripMode.wheels] on this connection; made with the first such cycle of a car whose make has `frames`. */
     private var wheels: WheelWatch? = null
     private var wheelsFor: String? = null
+    /** raw.log said once on this connection why the wheels aren't listened to. */
+    private var notedNoWheels = false
     /** ECUs not found at the discovery that answer the poll's Mode 01: the cycles each was heard in ([pickUpLate]). */
     private val lateHeard = HashMap<Int, Int>()
     /** Late ECUs already discovered again in this connection: once each. */
@@ -1256,9 +1261,10 @@ class CarLink(
     /**
      * One cycle of «Контроль безопасности движения»: [DRIVE_PIDS] in one request every cycle, the rest of Mode 01 at a
      * tenth of its pace, the voltage every [SAFETY_RV_MS]; in a mode with [TripMode.wheels] a window of the wheels
-     * heard on the bus after the request ([WheelWatch], CAN 11-bit, a make with `frames`). A cycle with the wheels is
-     * ~0.9 s (the request ~0.15 s, the window [WHEEL_WINDOW_MS], the adapter's settings around it ~0.2 s); without them
-     * the set alone, ~6 times a second.
+     * heard on the bus after the request ([WheelWatch], CAN 11-bit, a make with `frames`), or asked of the ABS on a
+     * make without them ([askWheels]). A cycle with the wheels heard is ~0.9 s (the request ~0.15 s, the window
+     * [WHEEL_WINDOW_MS], the adapter's settings around it ~0.2 s); asked — a request per wheel, ~0.1 s each; without
+     * them the set alone, ~6 times a second.
      */
     private suspend fun safetyCycle(o: Obd) {
         val v = _vehicle.value
@@ -1279,7 +1285,7 @@ class CarLink(
         publishDerived()
         val w = if (_mode.value?.wheels == true) wheelWatch(o) else null
         if (w != null && w.state != WheelWatch.State.OFF) {
-            val heard = w.listen(o, WHEEL_WINDOW_MS)
+            val heard = if (w.asked != null) w.polled(askWheels(o)) else w.listen(o, WHEEL_WINDOW_MS)
             val changed = w.check(heard, _readings.value.pick("01.0D"))
             if (changed && w.state == WheelWatch.State.OK) carKey()?.let { store.putInt(WHEELS_OK + it, 1) }
             if (changed && w.state == WheelWatch.State.OFF) {
@@ -1305,19 +1311,54 @@ class CarLink(
 
     /** The wheels and «Задние быстрее передних» off the screen. */
     private fun dropWheels() =
-        _readings.update { m -> m.filterKeys { !it.contains(":" + WheelWatch.SOURCE) && it != Reading.key(0, "calc.axleSlip") } }
+        _readings.update { m ->
+            m.filter { (k, r) -> !k.contains(":" + WheelWatch.SOURCE) && r.role?.startsWith(WHEEL_ROLE) != true && k != Reading.key(0, "calc.axleSlip") }
+        }
 
-    /** The wheels to listen to: the make's `frames`, on 11-bit CAN; made once per car of the connection. */
+    /** The car's manufacturer requests that give a wheel's speed (role wheel_*), answered at the connection. */
+    private fun wheelAsks(): List<ExtCommand> =
+        _vehicle.value.extActive.filter { c -> c.signals.any { it.role?.startsWith(WHEEL_ROLE) == true } }
+
+    /** One round of [wheelAsks]: the wheels that answered, with their roles. */
+    private suspend fun askWheels(o: Obd): List<Reading> {
+        val sc = GmScanner(o) { session?.note(it) }
+        val out = wheelAsks().flatMap { c ->
+            sc.readRaw(c.req, c.resp, c.service, c.did)
+                ?.let { d -> o.stamped(extReadings(c, d, wheels = true).filter { it.role?.startsWith(WHEEL_ROLE) == true }) }.orEmpty()
+        }
+        o.broadcast()
+        return out
+    }
+
+    /**
+     * The wheels to follow: the make's `frames` heard on 11-bit CAN, else the wheels its ABS answers by request (the
+     * car's requests with a wheel_* role); made once per car of the connection.
+     */
     private fun wheelWatch(o: Obd): WheelWatch? {
-        if (o.kline || o.can29 || o.j1850) return null
-        val frames = family()?.frames.orEmpty()
-        if (frames.isEmpty()) return null
+        // The Outback BT of 2026-10-23 drove in «Безопасность+» without a word why nothing was heard: said once.
+        fun none(why: String): WheelWatch? {
+            if (!notedNoWheels) session?.note("wheels: not listening — $why")
+            notedNoWheels = true
+            return null
+        }
+        val frames = if (o.kline || o.can29 || o.j1850) emptyList() else family()?.frames.orEmpty()
+        val asks = if (frames.isEmpty()) wheelAsks() else emptyList()
+        if (frames.isEmpty() && asks.isEmpty()) return none(
+            if (o.kline || o.can29 || o.j1850) "not 11-bit CAN, and no wheel request of this car answered"
+            else "the car database has no wheel frames for ${family()?.id ?: "this make"}, and no wheel request of this car answered")
         val car = carKey() ?: family()?.id
         if (wheels == null || wheelsFor != car) {
             wheelsFor = car
             val known = carKey()?.let { store.getInt(WHEELS_OK + it, 0) == 1 } ?: false
-            wheels = WheelWatch(frames, known) { session?.note(it) }
-            session?.note("wheels: listening to ${frames.joinToString("/") { "%03X".format(it.id) }}${if (known) ", agreed on an earlier drive" else ", to be checked against the OBD speed"}")
+            val checked = if (known) ", agreed on an earlier drive" else ", to be checked against the OBD speed"
+            if (frames.isNotEmpty()) {
+                wheels = WheelWatch(frames, known) { session?.note(it) }
+                session?.note("wheels: listening to ${frames.joinToString("/") { "%03X".format(it.id) }}$checked")
+            } else {
+                val label = "%03X %s %s".format(asks.first().req, asks.first().service, asks.joinToString("/") { "%04X".format(it.did) })
+                wheels = WheelWatch(emptyList(), known, label) { session?.note(it) }
+                session?.note("wheels: asking $label every cycle$checked")
+            }
         }
         return wheels
     }
@@ -2517,6 +2558,8 @@ class CarLink(
         val DRIVE_PIDS = listOf(0x0C, 0x0D, 0x11, 0x49)
         /** A window of the wheels heard between two requests of [DRIVE_PIDS]. */
         private const val WHEEL_WINDOW_MS = 600L
+        /** A wheel's role: wheel_fl, wheel_fr, wheel_rl, wheel_rr. */
+        private const val WHEEL_ROLE = "wheel_"
         private const val SAFETY_RV_MS = 15_000L
         private const val MAIN_PINS = "main_pins"
         private const val MAIN_HIDDEN = "main_hidden"

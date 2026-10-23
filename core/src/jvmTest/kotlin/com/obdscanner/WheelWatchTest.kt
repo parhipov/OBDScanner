@@ -136,6 +136,20 @@ class WheelWatchTest {
         assertTrue(notes.toString(), notes.single().contains("agree"))
     }
 
+    /** The wheels asked for (Subaru's 7B0 22 1024–1027): checked the same way; no wheel in the first rounds — off. */
+    @Test
+    fun askedWheels() {
+        val notes = mutableListOf<String>()
+        val w = WheelWatch(emptyList(), known = false, asked = "7B0 22 1024/1025/1026/1027") { notes += it }
+        assertEquals(listOf(wheel(5, 30.0)), w.polled(listOf(wheel(5, 30.0))))
+        assertTrue(run(w, 0.99))
+        assertEquals(WheelWatch.State.OK, w.state)
+        val silent = WheelWatch(emptyList(), known = false, asked = "7B0 22 1024") { notes += it }
+        repeat(WheelWatch.SILENT_WINDOWS) { silent.polled(emptyList()) }
+        assertEquals(WheelWatch.State.OFF, silent.state)
+        assertTrue(notes.toString(), notes.last().contains("no answer to 7B0 22 1024"))
+    }
+
     @Test
     fun anotherMakesFrameIsTurnedOff() {
         val w = WheelWatch(gm(), known = true) {}

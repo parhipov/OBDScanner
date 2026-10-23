@@ -22,7 +22,13 @@ import kotlin.math.abs
  * or the adapter can't listen, listening stops for the rest of the drive and the mode only polls. [known] — this car
  * agreed on an earlier drive: shown at once, still checked.
  */
-class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private val note: (String) -> Unit) {
+class WheelWatch(
+    private val frames: List<BusFrameSpec>,
+    known: Boolean,
+    /** The wheels asked for, not heard ([polled]): what raw.log calls them ("7B0 22 1024/1025/1026/1027"); null — frames. */
+    val asked: String? = null,
+    private val note: (String) -> Unit,
+) {
     enum class State { CHECKING, OK, OFF }
 
     var state = if (known) State.OK else State.CHECKING
@@ -31,8 +37,22 @@ class WheelWatch(private val frames: List<BusFrameSpec>, known: Boolean, private
     private val ids = frames.map { it.id }
     /** The bits every id shares, as the adapter's mask: 348 and 34A → 348 / 7FD, nothing else of the CTS passes. */
     private val mask = ids.fold(0x7FF) { m, id -> m and (id xor ids.first()).inv() } and 0x7FF
-    private val filter = ids.first() and mask
-    private val idsText = ids.joinToString("/") { "%03X".format(it) }
+    private val filter = (ids.firstOrNull() ?: 0) and mask
+    private val idsText = asked ?: ids.joinToString("/") { "%03X".format(it) }
+
+    /**
+     * One round of the wheels asked for ([asked]: a make whose ABS gives them by request — the Outback BT's 7B0 22
+     * 1024–1027, while its OBD socket carried nothing in two 10 s windows of «Шина», 2026-10-23): what answered, decoded;
+     * no wheel in [SILENT_WINDOWS] rounds from the start — off, as a silent bus.
+     */
+    fun polled(out: List<Reading>): List<Reading> {
+        if (state == State.OFF) return emptyList()
+        windows++
+        val wheels = out.filter { it.value != null }
+        if (wheels.isNotEmpty()) heardAny = true
+        else if (!heardAny && windows >= SILENT_WINDOWS) return off("no answer to $idsText in $windows rounds")
+        return wheels
+    }
 
     private var windows = 0
     private var heardAny = false

@@ -146,11 +146,13 @@ object MainScreen {
     val SAFETY_PLUS_LABEL = tr("Безопасность+: скорости колёс с шины", "Safety+: wheel speeds from the bus")
     val SAFETY_PLUS_HELP = tr(
         "Режим «Безопасность», и ещё между опросами приложение слушает скорости колёс, которые блок ABS сам передаёт по шине " +
-            "(GM, Toyota; машине ничего не отправляется), и сверяет их со скоростью по OBD. Совпали — они видны на главном экране, " +
+            "(GM, Toyota; машине ничего не отправляется), или спрашивает их у блока ABS (Subaru), и сверяет их со скоростью по OBD. " +
+            "Совпали — они видны на главном экране, " +
             "а по разнице передних и задних видна пробуксовка.\n\n" +
             "Дешёвые клоны ELM327 на этом зависают посреди поездки: связь возвращается, только если вынуть адаптер и вставить обратно.",
         "The «Safety» mode, and between the polls the app also listens to the wheel speeds the ABS module sends on the bus by " +
-            "itself (GM, Toyota; nothing is sent to the car) and checks them against the OBD speed. If they agree, they show on the " +
+            "itself (GM, Toyota; nothing is sent to the car), or asks the ABS module for them (Subaru), and checks them against the " +
+            "OBD speed. If they agree, they show on the " +
             "main screen, and the difference between front and rear shows wheelspin.\n\n" +
             "Cheap ELM327 clones hang on it in the middle of a drive: the link comes back only when the adapter is unplugged and plugged back in.",
     )
