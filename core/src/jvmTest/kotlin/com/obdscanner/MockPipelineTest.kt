@@ -151,6 +151,31 @@ class MockPipelineTest {
         assertEquals(listOf("C1422 00", "C1424 00"), reader.parseUds(mod, vdc, twoByte = true).codes.map { it.full })
     }
 
+    /** The Outback BT's VDC answering at once (2026-10-23): 59 and the records, no sub-function and mask. */
+    @Test
+    fun parsesUdsWithoutHeader() {
+        val reader = UdsDtcReader(open()) { }
+        val mod = Module(0x7B0, 0x7B8, "01", "")
+        val vdc = intArrayOf(0x59, 0x54, 0x22, 0x00, 0x0A, 0x54, 0x24, 0x00, 0x0A)
+        val r = reader.parseUds(mod, vdc)
+        assertEquals(listOf("C1422 00", "C1424 00"), r.codes.map { it.full })
+        assertTrue(r.complete)
+        // After the codes were cleared: 59 alone — no codes, not «−2 bytes over».
+        val empty = reader.parseUds(mod, intArrayOf(0x59))
+        assertTrue(empty.codes.isEmpty())
+        assertTrue(empty.complete)
+        // The header's reply of the same module after «wait» is still read with it.
+        assertTrue(reader.parseUds(mod, intArrayOf(0x59, 0x02, 0x0A)).complete)
+    }
+
+    /** PID 65 on the Outback BT's CVT (2026-10-23): only «automatic in gear / P/N» is there. */
+    @Test
+    fun decodesAuxInputs() {
+        fun text(b: Int) = Pids.decode(0x7E8, "01", 0x65, intArrayOf(0x02, b)).single().text
+        assertEquals(tr("АКПП в передаче", "automatic in gear"), text(0x02))
+        assertEquals(tr("АКПП P/N", "automatic in P/N"), text(0x00))
+    }
+
     /** ISO 9141-2 with headers on: header 48 6B <ECU>, data, checksum; the 5 VIN messages are glued back together. */
     @Test
     fun parsesKline() {
