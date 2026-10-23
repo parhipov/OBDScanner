@@ -126,6 +126,14 @@ class MockPipelineTest {
         assertTrue(!kwp.codes[1].current)
     }
 
+    /** PID 6D on the Outback BT's 2.4 turbo (2026-10-23): two rails, commanded and actual, no temperatures. */
+    @Test
+    fun decodesFuelRailPressure() {
+        val d = intArrayOf(0x1B, 0x03, 0x65, 0x03, 0x22, 0x00, 0x03, 0x65, 0x03, 0x2C, 0x00)
+        val r = Pids.decode(0x7E8, "01", 0x6D, d).associate { it.key to it.value }
+        assertEquals(mapOf("7E8:01.6D.AC" to 8.69, "7E8:01.6D.A" to 8.02, "7E8:01.6D.BC" to 8.69, "7E8:01.6D.B" to 8.12), r)
+    }
+
     /** The Outback BT's 2.4 turbo (2026-10-23): 00 + the SAE code + status, the codes its Mode 03 / 07 gave. */
     @Test
     fun parsesSubaruUds2() {

@@ -1729,7 +1729,7 @@ class CarLink(
     /** The scan screen's make-dependent parts: the \$22 ranges and which services a block is asked. */
     fun scanContext(): ScanContext {
         val gm = family()?.id == "gm"
-        return ScanContext(gm, ScanRanges.forMake(gm)) { m -> scanServices(m) }
+        return ScanContext(gm, ScanRanges.forMake(gm, family())) { m -> scanServices(m) }
     }
 
     /**

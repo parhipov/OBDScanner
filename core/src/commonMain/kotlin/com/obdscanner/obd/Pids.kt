@@ -196,6 +196,19 @@ object Pids {
             0x68, 7, tr("Температура воздуха (расширенная)", "Intake air temperature (extended)"),
             *Array(6) { k -> PidOut("$k", tr("Темп. воздуха, датчик ${k + 1}", "Intake air temp sensor ${k + 1}"), "°C", 0) { if (bit(it, 0, k)) it[k + 1] - 40.0 else null } },
         )
+        // SAE J1979: A — which of the six are there; B-C, D-E commanded and actual rail A (10 kPa), F its temperature (−40);
+        // G-H, I-J, K the same for rail B. The Outback BT 2.4 turbo (direct injection): 1B 03 65 03 22 00 03 65 03 2C 00 =
+        // both rails 8.69 commanded, 8.02 / 8.12 MPa actual, no temperatures (bits 2 and 5 clear, their bytes 00).
+        val mpa = tr("МПа", "MPa")
+        multi(
+            0x6D, 11, tr("Давление в топливной рампе", "Fuel rail pressure control"),
+            PidOut("AC", tr("Давление в рампе A, заданное", "Rail A pressure, commanded"), mpa, 2) { if (bit(it, 0, 0)) ab(it, 1) / 100.0 else null },
+            PidOut("A", tr("Давление в рампе A", "Rail A pressure"), mpa, 2) { if (bit(it, 0, 1)) ab(it, 3) / 100.0 else null },
+            PidOut("AT", tr("Температура топлива в рампе A", "Rail A fuel temperature"), "°C", 0) { if (bit(it, 0, 2)) it[5] - 40.0 else null },
+            PidOut("BC", tr("Давление в рампе B, заданное", "Rail B pressure, commanded"), mpa, 2) { if (bit(it, 0, 3)) ab(it, 6) / 100.0 else null },
+            PidOut("B", tr("Давление в рампе B", "Rail B pressure"), mpa, 2) { if (bit(it, 0, 4)) ab(it, 8) / 100.0 else null },
+            PidOut("BT", tr("Температура топлива в рампе B", "Rail B fuel temperature"), "°C", 0) { if (bit(it, 0, 5)) it[10] - 40.0 else null },
+        )
         multi(
             0x78, 9, tr("Температура выхлопа Б1", "Exhaust gas temperature B1"),
             *Array(4) { k -> PidOut("$k", tr("Темп. выхлопа Б1 Д${k + 1}", "Exhaust gas temp B1 S${k + 1}"), "°C", 0) { if (bit(it, 0, k)) ab(it, 1 + 2 * k) / 10.0 - 40 else null } },

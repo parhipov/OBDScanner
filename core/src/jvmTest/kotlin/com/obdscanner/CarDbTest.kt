@@ -131,6 +131,12 @@ class CarDbTest {
         val d = CarDb.dialect(xt?.knownBlocks?.get(0x7E0)?.dialect)
         assertEquals("uds2", d?.dtcFormat)
         assertTrue(d?.familyCommands == true)
+        // «Скан блоков» starts on where Subaru's known parameters are; the generic list follows.
+        val ranges = com.obdscanner.gm.ScanRanges.forMake(false, CarDb.family("subaru"))
+        assertEquals(0x1000..0x13FF, ranges.first().second)
+        assertTrue(ranges.toString(), ranges.any { it.second == 0x3000..0x30FF })
+        assertEquals(com.obdscanner.gm.ScanRanges.other, ranges.takeLast(com.obdscanner.gm.ScanRanges.other.size))
+        assertEquals(com.obdscanner.gm.ScanRanges.gm, com.obdscanner.gm.ScanRanges.forMake(true, CarDb.family("gm")))
         val na = CarDb.detect("4S4BTAFCXM3118676")
         assertEquals(listOf("FB25"), na?.engines?.map { it.code })
         assertNull(na?.knownBlocks?.get(0x7E0))

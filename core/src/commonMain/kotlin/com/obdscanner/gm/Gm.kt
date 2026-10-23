@@ -1,6 +1,8 @@
 package com.obdscanner.gm
 
 import com.obdscanner.util.format
+import com.obdscanner.car.CarFamily
+import com.obdscanner.car.ExtCommand
 import com.obdscanner.tr
 import com.obdscanner.vag.Tp20
 
@@ -71,10 +73,31 @@ object ScanRanges {
         block(0x2000), block(0x4000), block(0x8000), ident, all)
 
     /** Any other make: identification first (UDS F1xx answers on most blocks), then the blocks makers use. */
-    val other = listOf(ident, block(0x0000), block(0x1000), block(0x2000), block(0x4000), block(0xD000),
+    val other = listOf(ident, block(0x0000), block(0x1000), block(0x2000), block(0x3000), block(0x4000), block(0xD000),
         tr("Режим 01 через \$22 F400–F4FF", "Mode 01 over \$22 F400–F4FF") to (0xF400..0xF4FF), all)
 
-    fun forMake(gm: Boolean) = if (gm) this.gm else other
+    /**
+     * Where the make's known \$22 parameters ([commands], the car database) live, first in the list: the 256-ID pages
+     * holding one, merged over a gap of one page, the [MAKE_RUNS] fullest, fullest first. A block the database knows nothing in is
+     * likely to keep its own there too: the Outback BT's CVT refused all nine of its known ones, the make's CVTs sit in
+     * 10xx–11xx and 30xx — a range of a few hundred, not 4096.
+     */
+    fun ofMake(title: String, commands: List<ExtCommand>): List<Pair<String, IntRange>> {
+        val pages = commands.filter { it.service == "22" && it.did < 0xF100 }.groupingBy { it.did shr 8 }.eachCount().toSortedMap()
+        val runs = ArrayList<Triple<Int, Int, Int>>()
+        for ((p, n) in pages) {
+            val last = runs.lastOrNull()
+            if (last != null && p - last.second <= 2) runs[runs.size - 1] = Triple(last.first, p, last.third + n) else runs += Triple(p, p, n)
+        }
+        // The fullest first: the scan screen starts on the list's first range.
+        return runs.sortedByDescending { it.third }.take(MAKE_RUNS).map { (a, b, n) ->
+            tr("$title: %04X–%04X (известных $n)", "$title: %04X–%04X ($n known)").format(a shl 8, (b shl 8) + 0xFF) to ((a shl 8)..((b shl 8) + 0xFF))
+        }
+    }
+
+    private const val MAKE_RUNS = 4
+
+    fun forMake(gm: Boolean, family: CarFamily? = null) = if (gm) this.gm else family?.let { ofMake(it.title, it.commands) }.orEmpty() + other
 }
 
 /**
