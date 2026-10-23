@@ -62,11 +62,17 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
      * [cut] — the reply didn't arrive whole (BUFFER FULL, an incomplete ISO-TP message). [twoByte] — the dialect's
      * "uds2": a record is 00, the SAE code, the status (the Outback BT's 2.4 turbo: 00 01 71 45 and 00 21 95 6D, the
      * P0171 and P2195 its Mode 03 / 07 gave); a record that doesn't start with 00 is read the standard way.
+     *
+     * Some replies come without the sub-function and the mask, [59 (record)*]: the Outback BT's VDC (7B0), when it
+     * answers at once instead of «wait» first — 59 54 22 00 0A 54 24 00 0A (C1422, C1424; read as «P000A 54» and two
+     * bytes over), and 59 alone after the codes were cleared (2026-10-23). The length tells them apart: 4n + 3 bytes
+     * with the header, 4n + 1 without.
      */
     internal fun parseUds(module: GmModule, d: IntArray, cut: Boolean = false, twoByte: Boolean = false): GmDtcResult {
         val codes = mutableListOf<GmDtc>()
         val idle = mutableListOf<GmDtc>()
-        var i = 3
+        val start = if (!cut && d.size % 4 == 1) 1 else 3
+        var i = start
         while (i + 3 < d.size) {
             val c = if (twoByte && d[i] == 0) GmDtc(Dtc.decode(d[i + 1], d[i + 2]), -1, d[i + 3], DtcScheme.UDS)
                 else GmDtc(Dtc.decode(d[i], d[i + 1]), d[i + 2], d[i + 3], DtcScheme.UDS)
@@ -75,7 +81,7 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
             i += 4
         }
         if (idle.isNotEmpty()) note("DTC %s: no fault bit, not listed: %s".format(module.id, idle.joinToString(" ") { "%s/%02X".format(it.full, it.status) }))
-        val tail = (d.size - 3) % 4
+        val tail = (d.size - start) % 4
         return GmDtcResult(module, codes, (if (codes.isEmpty()) tr("нет кодов", "no codes") else tr("кодов: ${codes.size}", "codes: ${codes.size}")) + " (UDS)" +
             (if (idle.isNotEmpty()) tr(", ещё ${idle.size} без сбоя (тест не завершён)", ", ${idle.size} more without a fault (test not completed)") else "") +
             when {
