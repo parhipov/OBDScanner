@@ -595,6 +595,694 @@
           "note": "Forums post the Torque line 221017 / 7E1 / ((A*9)/5)-58 in °F, which is A-50 in °C; OBDb Outback has A-50 from MY2010. Lineartronic cars only; 4EAT/5AT cars (Forester SH, 3.6) will not answer. One 2014 Forester owner got 7F 22 31 with an OBDLink LX (torque-bhp) - may be adapter related."
         }
       ]
+    },
+    {
+      "hdr": "7B0",
+      "rsp": "7B8",
+      "svc": "22",
+      "did": "1024",
+      "rate": "fast",
+      "models": [
+        "Crosstrek",
+        "Forester",
+        "Impreza",
+        "Outback",
+        "WRX"
+      ],
+      "signals": [
+        {
+          "id": "SUB_FR_VSS",
+          "name": {
+            "ru": "Скорость колеса ПП",
+            "en": "Wheel speed FR"
+          },
+          "unit": {
+            "ru": "км/ч",
+            "en": "km/h"
+          },
+          "dec": 1,
+          "group": "other",
+          "role": "wheel_fr",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 562.5,
+            "div": 10000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb (Outback, Forester, Impreza, Crosstrek, WRX): 16 bits x 0.05625 km/h; its Outback tests have real 7B8 answers of 2019-2023 (0A7A = 150.9 km/h). Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: answered 0 standing in five sessions, not yet seen moving. «Безопасность+» asks them every cycle on this make (its OBD socket carried no broadcast frames) and shows them only once they agree with the OBD speed."
+    },
+    {
+      "hdr": "7B0",
+      "rsp": "7B8",
+      "svc": "22",
+      "did": "1025",
+      "rate": "fast",
+      "models": [
+        "Crosstrek",
+        "Forester",
+        "Impreza",
+        "Outback",
+        "WRX"
+      ],
+      "signals": [
+        {
+          "id": "SUB_FL_VSS",
+          "name": {
+            "ru": "Скорость колеса ПЛ",
+            "en": "Wheel speed FL"
+          },
+          "unit": {
+            "ru": "км/ч",
+            "en": "km/h"
+          },
+          "dec": 1,
+          "group": "other",
+          "role": "wheel_fl",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 562.5,
+            "div": 10000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb (Outback, Forester, Impreza, Crosstrek, WRX): 16 bits x 0.05625 km/h; its Outback tests have real 7B8 answers of 2019-2023 (0A7A = 150.9 km/h). Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: answered 0 standing in five sessions, not yet seen moving. «Безопасность+» asks them every cycle on this make (its OBD socket carried no broadcast frames) and shows them only once they agree with the OBD speed."
+    },
+    {
+      "hdr": "7B0",
+      "rsp": "7B8",
+      "svc": "22",
+      "did": "1026",
+      "rate": "fast",
+      "models": [
+        "Crosstrek",
+        "Forester",
+        "Impreza",
+        "Outback",
+        "WRX"
+      ],
+      "signals": [
+        {
+          "id": "SUB_RR_VSS",
+          "name": {
+            "ru": "Скорость колеса ЗП",
+            "en": "Wheel speed RR"
+          },
+          "unit": {
+            "ru": "км/ч",
+            "en": "km/h"
+          },
+          "dec": 1,
+          "group": "other",
+          "role": "wheel_rr",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 562.5,
+            "div": 10000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb (Outback, Forester, Impreza, Crosstrek, WRX): 16 bits x 0.05625 km/h; its Outback tests have real 7B8 answers of 2019-2023 (0A7A = 150.9 km/h). Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: answered 0 standing in five sessions, not yet seen moving. «Безопасность+» asks them every cycle on this make (its OBD socket carried no broadcast frames) and shows them only once they agree with the OBD speed."
+    },
+    {
+      "hdr": "7B0",
+      "rsp": "7B8",
+      "svc": "22",
+      "did": "1027",
+      "rate": "fast",
+      "models": [
+        "Crosstrek",
+        "Forester",
+        "Impreza",
+        "Outback",
+        "WRX"
+      ],
+      "signals": [
+        {
+          "id": "SUB_RL_VSS",
+          "name": {
+            "ru": "Скорость колеса ЗЛ",
+            "en": "Wheel speed RL"
+          },
+          "unit": {
+            "ru": "км/ч",
+            "en": "km/h"
+          },
+          "dec": 1,
+          "group": "other",
+          "role": "wheel_rl",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "mul": 562.5,
+            "div": 10000
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb (Outback, Forester, Impreza, Crosstrek, WRX): 16 bits x 0.05625 km/h; its Outback tests have real 7B8 answers of 2019-2023 (0A7A = 150.9 km/h). Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: answered 0 standing in five sessions, not yet seen moving. «Безопасность+» asks them every cycle on this make (its OBD socket carried no broadcast frames) and shows them only once they agree with the OBD speed."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "10D2",
+      "rate": "slow",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_T",
+          "name": {
+            "ru": "Температура масла вариатора",
+            "en": "CVT fluid temp"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "cvt_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "add": -50
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). A-50 °C (OBDb tests: 45 = 19, 8A = 88); the car: 77 -> 7A = 69 -> 72 °C at idle, engine oil 94-95 °C. Its 7E1 22 1017 (the older CVTs') is refused (7F 22 31), as in OBDb's 2021-2022 Outback tests."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "10CB",
+      "rate": "fast",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_TURBINE",
+          "name": {
+            "ru": "Обороты турбины",
+            "en": "Turbine speed"
+          },
+          "unit": {
+            "ru": "об/мин",
+            "en": "rpm"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "mul": 32
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). A x 32 rpm; the car: 15 -> 18 = 672 -> 768 at an engine idle of 705-738."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "10C8",
+      "rate": "fast",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_LOCKUP",
+          "name": {
+            "ru": "Скважность блокировки ГТД",
+            "en": "Lock-up duty"
+          },
+          "unit": "%",
+          "dec": 1,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "div": 2
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). A / 2 %."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "1146",
+      "rate": "fast",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_PRI_RPM",
+          "name": {
+            "ru": "Обороты первичного шкива",
+            "en": "Primary pulley speed"
+          },
+          "unit": {
+            "ru": "об/мин",
+            "en": "rpm"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, rpm; the car: 02CA = 714 at idle."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "1138",
+      "rate": "fast",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_SEC_RPM",
+          "name": {
+            "ru": "Обороты вторичного шкива",
+            "en": "Secondary pulley speed"
+          },
+          "unit": {
+            "ru": "об/мин",
+            "en": "rpm"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, rpm; the car: 0124 = 292 at the same moment as 714 of the primary — 2.45, the actual ratio 113E said 2.42."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "113E",
+      "rate": "fast",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_RATIO",
+          "name": {
+            "ru": "Передаточное число, факт.",
+            "en": "Gear ratio, actual"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "div": 256
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). raw / 256 (OBDb tests: 0200 = 2.00); the car: 026C = 2.42, the pulleys' 714 / 292 = 2.45."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "113D",
+      "rate": "fast",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_RATIO_TGT",
+          "name": {
+            "ru": "Передаточное число, заданное",
+            "en": "Gear ratio, target"
+          },
+          "unit": "",
+          "dec": 2,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16,
+            "div": 256
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). raw / 256 over 16 bits: OBDb reads one byte (its test turns 0078 into 0); the car's two bytes 0270 = 2.44 beside the actual 2.42."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "113B",
+      "rate": "slow",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_SEC_SET_MA",
+          "name": {
+            "ru": "Ток соленоида вторичного шкива, заданный",
+            "en": "Secondary solenoid current, set"
+          },
+          "unit": {
+            "ru": "мА",
+            "en": "mA"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, mA."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "113C",
+      "rate": "slow",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_SEC_MA",
+          "name": {
+            "ru": "Ток соленоида вторичного шкива",
+            "en": "Secondary solenoid current"
+          },
+          "unit": {
+            "ru": "мА",
+            "en": "mA"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, mA."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "12B2",
+      "rate": "slow",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_CVT_LIN_MA",
+          "name": {
+            "ru": "Ток линейного соленоида",
+            "en": "Linear solenoid current"
+          },
+          "unit": {
+            "ru": "мА",
+            "en": "mA"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, mA."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "12B4",
+      "rate": "slow",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_AWD_SET_MA",
+          "name": {
+            "ru": "Ток муфты полного привода, заданный",
+            "en": "AWD solenoid current, set"
+          },
+          "unit": {
+            "ru": "мА",
+            "en": "mA"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, mA (OBDb tests: 01F3 = 499)."
+    },
+    {
+      "hdr": "7E1",
+      "rsp": "7E9",
+      "svc": "22",
+      "did": "12B5",
+      "rate": "slow",
+      "models": [
+        "Outback"
+      ],
+      "years": [
+        2020,
+        2025
+      ],
+      "signals": [
+        {
+          "id": "SUB_AWD_MA",
+          "name": {
+            "ru": "Ток муфты полного привода",
+            "en": "AWD solenoid current"
+          },
+          "unit": {
+            "ru": "мА",
+            "en": "mA"
+          },
+          "dec": 0,
+          "group": "other",
+          "fmt": {
+            "bix": 0,
+            "len": 16
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Outback/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's TCM set, which it asks at 7A3; Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23: 7A3 silent, the CVT at 7E1 answers the same DIDs («Скан блоков» 1000-13FF, 2026-10-23_12-01-55, standing at idle). 16 bits, mA."
+    },
+    {
+      "hdr": "7E0",
+      "rsp": "7E8",
+      "svc": "22",
+      "did": "10E7",
+      "rate": "fast",
+      "models": [
+        "Forester",
+        "Impreza",
+        "Outback"
+      ],
+      "signals": [
+        {
+          "id": "FORESTER_EOT_V2",
+          "name": {
+            "en": "Engine oil temperature",
+            "ru": "Температура масла ДВС"
+          },
+          "unit": "°C",
+          "dec": 0,
+          "group": "main",
+          "role": "oil_temp",
+          "fmt": {
+            "bix": 0,
+            "len": 8,
+            "add": -40,
+            "na": [
+              0
+            ]
+          },
+          "conf": "?",
+          "src": [
+            "https://github.com/OBDb/Subaru-Forester",
+            "https://github.com/OBDb/Subaru-Impreza",
+            "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json",
+            "https://github.com/OBDb/Subaru-Ascent/tree/main/tests/test_cases"
+          ]
+        }
+      ],
+      "exclusive": true,
+      "note": "OBDb's value, A-40, with 00 as «no value»: Outback BT 2.4 turbo, VIN 4S4BTGND8M3164262, 2026-10-23 answered 62 10 E7 00 in 25 reads while 01 5C said 88-95 °C, and OBDb's own FA24 tests (Outback 2021-2022, Ascent) have the same 00, which its Ascent maps to null."
     }
   ],
   "features": [

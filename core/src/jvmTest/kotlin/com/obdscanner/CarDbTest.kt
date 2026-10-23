@@ -137,6 +137,19 @@ class CarDbTest {
         assertTrue(ranges.toString(), ranges.any { it.second == 0x3000..0x30FF })
         assertEquals(com.obdscanner.gm.ScanRanges.other, ranges.takeLast(com.obdscanner.gm.ScanRanges.other.size))
         assertEquals(com.obdscanner.gm.ScanRanges.gm, com.obdscanner.gm.ScanRanges.forMake(true, CarDb.family("gm")))
+        // Its CVT answers OBDb's TCM set at 7E1 (OBDb asks 7A3); the wheels at 7B0 carry the roles «Безопасность+» asks.
+        val cmds = CarDb.family("subaru")!!.commandsFor(xt)
+        val temp = cmds.single { it.req == 0x7E1 && it.did == 0x10D2 }.signals.single()
+        assertEquals("cvt_temp", temp.role)
+        assertEquals(69.0, temp.fmt.decode(intArrayOf(0x77))!!.first!!, 1e-9)
+        assertEquals(2.42, cmds.single { it.req == 0x7E1 && it.did == 0x113E }.signals.single().fmt.decode(intArrayOf(0x02, 0x6C))!!.first!!, 0.005)
+        val wheels = cmds.filter { it.req == 0x7B0 && it.did in 0x1024..0x1027 }
+        assertEquals(listOf("wheel_fr", "wheel_fl", "wheel_rr", "wheel_rl"), wheels.sortedBy { it.did }.map { it.signals.single().role })
+        assertEquals(150.9, wheels.first().signals.single().fmt.decode(intArrayOf(0x0A, 0x7A))!!.first!!, 0.05)
+        // The FA24's 10E7 answers 00 whatever the oil: no value, not −40 °C.
+        val oil = cmds.single { it.req == 0x7E0 && it.did == 0x10E7 }.signals.single()
+        assertNull(oil.fmt.decode(intArrayOf(0x00))?.first)
+        assertEquals(88.0, oil.fmt.decode(intArrayOf(0x80))!!.first!!, 1e-9)
         val na = CarDb.detect("4S4BTAFCXM3118676")
         assertEquals(listOf("FB25"), na?.engines?.map { it.code })
         assertNull(na?.knownBlocks?.get(0x7E0))
