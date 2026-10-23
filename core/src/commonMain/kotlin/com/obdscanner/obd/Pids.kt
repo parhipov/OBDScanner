@@ -182,6 +182,17 @@ object Pids {
             PidOut("3", tr("Момент, точка 3", "Torque, point 3"), "%", 0) { it[3] - 125.0 },
             PidOut("4", tr("Момент, точка 4", "Torque, point 4"), "%", 0) { it[4] - 125.0 },
         )
+        // SAE J1979 (Dashlogic's PID list): A — which statuses are there, B — the statuses, bit 0 PTO, 1 automatic in
+        // gear (0 — P/N), 2 manual in gear (0 — neutral), 3 glow plug lamp. The Outback BT's CVT: 02 02 while moving,
+        // 02 00 standing (2026-10-23) — it was raw hex.
+        txt(0x65, 2, tr("Доп. входы/выходы", "Auxiliary inputs/outputs")) { d ->
+            listOfNotNull(
+                (if (bit(d, 1, 0)) tr("PTO активен", "PTO active") else tr("PTO нет", "PTO off")).takeIf { bit(d, 0, 0) },
+                (if (bit(d, 1, 1)) tr("АКПП в передаче", "automatic in gear") else tr("АКПП P/N", "automatic in P/N")).takeIf { bit(d, 0, 1) },
+                (if (bit(d, 1, 2)) tr("МКПП в передаче", "manual in gear") else tr("МКПП нейтраль", "manual in neutral")).takeIf { bit(d, 0, 2) },
+                (if (bit(d, 1, 3)) tr("лампа свечей накала горит", "glow plug lamp on") else tr("лампа свечей накала не горит", "glow plug lamp off")).takeIf { bit(d, 0, 3) },
+            ).joinToString(", ").ifEmpty { tr("нет данных", "no data") }
+        }
         multi(
             0x66, 5, tr("MAF (расширенный)", "MAF (extended)"),
             PidOut("A", tr("MAF, датчик A", "MAF sensor A"), gs, 2) { if (bit(it, 0, 0)) ab(it, 1) / 32.0 else null },
