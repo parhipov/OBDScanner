@@ -83,7 +83,7 @@ object ScanRanges {
      * 10xx–11xx and 30xx — a range of a few hundred, not 4096.
      */
     fun ofMake(title: String, commands: List<ExtCommand>): List<Pair<String, IntRange>> {
-        val pages = commands.filter { it.service == "22" && it.did < 0xF100 }.groupingBy { it.did shr 8 }.eachCount().toSortedMap()
+        val pages = commands.filter { it.service == "22" && it.did < 0xF100 }.groupingBy { it.did shr 8 }.eachCount().toList().sortedBy { it.first }
         val runs = ArrayList<Triple<Int, Int, Int>>()
         for ((p, n) in pages) {
             val last = runs.lastOrNull()
