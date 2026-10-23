@@ -107,6 +107,7 @@ object CarDb {
                 ident = spec.ident ?: parent.ident,
                 match = spec.match,
                 commands = own,
+                familyCommands = spec.familyCommands,
             ).also { resolved[id] = it }
         }
         for (id in specs.keys) tryParse("dialect $id") { resolve(id) }
@@ -297,8 +298,10 @@ object CarDb {
         val format = d.optString("dtc_format").ifEmpty { null }?.also { require(it in Dialect.FORMATS) { "dtc_format $it: one of ${Dialect.FORMATS.joinToString()}" } }
         val ident = d.optString("ident").ifEmpty { null }?.also { require(it in Dialect.IDENT) { "ident $it: one of ${Dialect.IDENT.joinToString()}" } }
         val commands = d.optJSONArray("commands").objects().map { parseCommand(it, "db") }
+        val familyCommands = d.optBoolean("family_commands", false)
+        require(!familyCommands || commands.isEmpty()) { "family_commands: the family's parameters, no commands of its own" }
         return DialectSpec(id, family, d.optString("extends").ifEmpty { null }, d.optJSONObject("title")?.let { text(it) },
-            live, dtc, format, ident, d.optJSONArray("match").objects().map { parseMatch(it) }, commands)
+            live, dtc, format, ident, d.optJSONArray("match").objects().map { parseMatch(it) }, commands, familyCommands)
     }
 
     /** Where a make keeps its modules: `{ "tag": "GM", "replace": true, "addresses": [{ "req": "240-25F", "rsp": "+400" }], … }`. */
@@ -782,7 +785,10 @@ data class Dialect(
     val live: String,
     /** How to read the block's DTC memory, tried in order until one answers: [DTC]. */
     val dtc: List<String>,
-    /** How KWP codes are numbered: "sae" or "vag" (5-digit VAG numbers). */
+    /**
+     * How the codes are numbered: "sae"; "vag" (KWP codes as 5-digit VAG numbers); "uds2" (UDS \$19 records as 00, then
+     * the 2-byte SAE code, then the status — no failure type: the Subaru Outback BT's 2.4 turbo, 00 01 71 45 = P0171).
+     */
     val dtcFormat: String,
     /** How to read the block's identification: "gm_1a" (GMLAN \$1A) or "uds_kwp" (\$22 F1xx, then KWP \$1A). */
     val ident: String,
@@ -790,12 +796,14 @@ data class Dialect(
     val match: List<MatchRule>,
     /** Manufacturer parameters of this dialect (a family's default dialect: the family's own). */
     val commands: List<ExtCommand>,
+    /** The block keeps its family's parameters: a dialect that differs only in how it reads codes (else [commands] replace them). */
+    val familyCommands: Boolean = false,
 ) {
     companion object {
         val LIVE = setOf("01", "21")
         /** GM \$A9 81, UDS \$19 02, KWP \$18 02 FF00, KWP \$13 (readDiagnosticTroubleCodes). */
         val DTC = setOf("gm_a9", "uds19", "kwp18", "kwp13")
-        val FORMATS = setOf("sae", "vag")
+        val FORMATS = setOf("sae", "vag", "uds2")
         val IDENT = setOf("gm_1a", "uds_kwp")
 
         /** Whatever answers on the OBD port with no make known: standard OBD, UDS / KWP. */
@@ -815,6 +823,7 @@ internal data class DialectSpec(
     val ident: String? = null,
     val match: List<MatchRule> = emptyList(),
     val commands: List<ExtCommand> = emptyList(),
+    val familyCommands: Boolean = false,
 )
 
 /**

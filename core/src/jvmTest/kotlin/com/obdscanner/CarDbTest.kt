@@ -123,6 +123,17 @@ class CarDbTest {
         assertEquals("Pontiac", CarDb.brandOf("5Y2SP678X9Z410428")?.name)
         assertEquals("E140", CarDb.detect("5Y2SP678X9Z410428")?.gen)
         assertEquals("E130", CarDb.detect("5Y2SL62875Z000000")?.gen)
+        // Subaru Outback BT (NHTSA vPIC): the 6th character G — the 2.4 turbo, whose engine reads codes as "uds2" and
+        // keeps the family's parameters; A — the 2.5, the family's default dialect.
+        val xt = CarDb.detect("4S4BTGND8M3164262")
+        assertEquals("Outback BT", xt?.let { "${it.model} ${it.gen}" })
+        assertEquals(listOf("FA24 (turbo)"), xt?.engines?.map { it.code })
+        val d = CarDb.dialect(xt?.knownBlocks?.get(0x7E0)?.dialect)
+        assertEquals("uds2", d?.dtcFormat)
+        assertTrue(d?.familyCommands == true)
+        val na = CarDb.detect("4S4BTAFCXM3118676")
+        assertEquals(listOf("FB25"), na?.engines?.map { it.code })
+        assertNull(na?.knownBlocks?.get(0x7E0))
         // Book D of GM's standard is shared by the CTS, CT5 and CT4: the model year tells a 2021 CT5 from a 2008 CTS,
         // the 5th character a CT4 from a CT5, the 8th narrows the engine (owner's 2021 CT5: T = Premium Luxury AWD, W = LGY).
         val ct5 = CarDb.detect("1G6DT5RWXM0113735")

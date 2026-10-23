@@ -18,6 +18,18 @@
       "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3"
     ]
   },
+  "dialects": [
+    {
+      "id": "subaru_uds2",
+      "title": {
+        "ru": "Subaru: коды UDS как 00 + код SAE",
+        "en": "Subaru: UDS codes as 00 + the SAE code"
+      },
+      "dtc_format": "uds2",
+      "family_commands": true,
+      "note": "Outback BT 2.4 turbo (FA24), VIN 4S4BTGND8M3164262, 2026-10-23: 19 02 AF to 7E0 -> 59 02 7F 00 01 71 45 00 21 95 6D, while Mode 03 gave P2195 and Mode 07 P0171, P2195 (status 45 pending, 6D confirmed). The same car's VDC (7B0), climate (7C4), cockpit (7D0) and EyeSight (787) answer standard 3-byte records (54 22 00 = C1422)."
+    }
+  ],
   "brands": [
     {
       "name": "Subaru",
@@ -265,6 +277,89 @@
         "https://github.com/OBDb/Subaru-Outback/blob/main/signalsets/v3/default.json"
       ],
       "verified": false
+    },
+    {
+      "brand": "Subaru",
+      "model": "Outback",
+      "gen": "BT",
+      "years": [
+        2019,
+        2025
+      ],
+      "vin": [
+        "^4S4BT"
+      ],
+      "engines": [
+        {
+          "code": "FB25",
+          "liters": 2.5,
+          "cyl": 4,
+          "fuel": "petrol",
+          "vin": [
+            "^4S4BTA"
+          ]
+        },
+        {
+          "code": "FA24 (turbo)",
+          "liters": 2.4,
+          "cyl": 4,
+          "fuel": "petrol",
+          "maf": true,
+          "vin": [
+            "^4S4BTG"
+          ],
+          "blocks": [
+            {
+              "role": "engine",
+              "addr": "7E0",
+              "dialect": "subaru_uds2"
+            }
+          ]
+        }
+      ],
+      "protocol": 6,
+      "buses": {
+        "ru": "CAN 11/500: отвечают двигатель (7E0), вариатор (7E1) и блоки 746, 753, 787, 7B0, 7C4, 7D0.",
+        "en": "CAN 11/500: the engine (7E0), the CVT (7E1) and the modules 746, 753, 787, 7B0, 7C4, 7D0 answer."
+      },
+      "note": {
+        "ru": "Блоки названы так, как они сами себя называют (22 F197). Двигатель 2.4 turbo (FA24) отдаёт коды по UDS $19 как 00 + код SAE.",
+        "en": "The modules are named as they call themselves (22 F197). The 2.4 turbo (FA24) gives its UDS $19 codes as 00 + the SAE code."
+      },
+      "names": {
+        "746": {
+          "ru": "Электроусилитель руля",
+          "en": "Power steering"
+        },
+        "753": {
+          "ru": "Давление в шинах",
+          "en": "Tire pressure monitor"
+        },
+        "787": {
+          "ru": "EyeSight",
+          "en": "EyeSight"
+        },
+        "7B0": {
+          "ru": "VDC и стояночный тормоз",
+          "en": "VDC / parking brake"
+        },
+        "7C4": {
+          "ru": "Климат",
+          "en": "Air conditioning"
+        },
+        "7D0": {
+          "ru": "Cockpit Control",
+          "en": "Cockpit Control"
+        }
+      },
+      "src": [
+        "https://en.wikipedia.org/wiki/Subaru_Outback",
+        "https://en.wikipedia.org/wiki/Subaru_FA_engine",
+        "https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/4S4BTGND8M3164262?format=json",
+        "https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/4S4BTGPD9M3139271?format=json",
+        "https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/4S4BTAFCXM3118676?format=json"
+      ],
+      "verified": true
     },
     {
       "brand": "Subaru",

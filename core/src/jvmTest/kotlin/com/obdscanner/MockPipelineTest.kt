@@ -126,6 +126,23 @@ class MockPipelineTest {
         assertTrue(!kwp.codes[1].current)
     }
 
+    /** The Outback BT's 2.4 turbo (2026-10-23): 00 + the SAE code + status, the codes its Mode 03 / 07 gave. */
+    @Test
+    fun parsesSubaruUds2() {
+        val reader = UdsDtcReader(open()) { }
+        val mod = Module(0x7E0, 0x7E8, "01", "")
+        val engine = intArrayOf(0x59, 0x02, 0x7F, 0x00, 0x01, 0x71, 0x45, 0x00, 0x21, 0x95, 0x6D)
+        val r = reader.parseUds(mod, engine, twoByte = true)
+        assertEquals(listOf("P0171", "P2195"), r.codes.map { it.full })
+        assertEquals(listOf(0x45, 0x6D), r.codes.map { it.status })
+        assertTrue(r.complete)
+        // The standard way reads the same bytes as P0001 FTB 71 and P0021 FTB 95 — what 4.20 showed.
+        assertEquals(listOf("P0001 71", "P0021 95"), reader.parseUds(mod, engine).codes.map { it.full })
+        // A record that doesn't start with 00 is a standard one: the same car's VDC, C1422 and C1424.
+        val vdc = intArrayOf(0x59, 0x02, 0x0A, 0x54, 0x22, 0x00, 0x08, 0x54, 0x24, 0x00, 0x0A)
+        assertEquals(listOf("C1422 00", "C1424 00"), reader.parseUds(mod, vdc, twoByte = true).codes.map { it.full })
+    }
+
     /** ISO 9141-2 with headers on: header 48 6B <ECU>, data, checksum; the 5 VIN messages are glued back together. */
     @Test
     fun parsesKline() {

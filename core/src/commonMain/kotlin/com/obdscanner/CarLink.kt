@@ -918,7 +918,7 @@ class CarLink(
         val car = v.car?.takeIf { it.family == fam?.id }
         // A gas-converted car still has a petrol ECU.
         val db = fam?.probeOrder(car, fuelOf(car)?.let { if (it == "lpg") "petrol" else it }).orEmpty()
-        val own = namedBlocks().keys.map { it to dialectOf(it) }.filter { (_, d) -> d.id != fam?.id }
+        val own = namedBlocks().keys.map { it to dialectOf(it) }.filter { (_, d) -> d.id != fam?.id && !d.familyCommands }
         val mine = db.filter { c -> own.none { it.first == c.req } } + own.flatMap { it.second.commands }
         val cyl = cylindersOf(car)?.first
         // Capped: a big family would mean hundreds of requests on the first connection.
@@ -1371,7 +1371,11 @@ class CarLink(
         val ident = if (d.ident == "gm_1a" && !kline) "GMLAN \$1A" else "UDS \$22 / KWP \$1A"
         return tr("данные %s, ошибки %s, идентификация %s", "data %s, codes %s, identification %s")
             .format(if (d.live == "21" && !kline) "\$21" else "Mode 01", dtc, ident) +
-            if (d.dtcFormat == "vag") tr(", номера VAG", ", VAG numbers") else ""
+            when (d.dtcFormat) {
+                "vag" -> tr(", номера VAG", ", VAG numbers")
+                "uds2" -> tr(", коды UDS: 00 + код SAE", ", UDS codes: 00 + the SAE code")
+                else -> ""
+            }
     }
 
     /**
@@ -2349,7 +2353,7 @@ class CarLink(
             session?.note("DTC %s: dialect %s (%s), %s%s".format(mod.key, d.id, dialectSource(mod.req), chain.joinToString(" → "),
                 if (guess) ", then the standard ways if refused" else ""))
             used += chain.first().takeIf { it == "gm_a9" }?.let { listOf(it) } ?: chain
-            var r = if (chain.first() == "gm_a9") gmReader.read(mod) else udsReader.read(mod, chain, vagNumbers = tp || d.dtcFormat == "vag")
+            var r = if (chain.first() == "gm_a9") gmReader.read(mod) else udsReader.read(mod, chain, vagNumbers = tp || d.dtcFormat == "vag", udsTwoByte = d.dtcFormat == "uds2")
             val rest = Dialect.GENERIC.dtc.filter { it !in chain }
             // Nothing read (refused or silent, no end-of-list): the block may talk another make's way.
             if (guess && r.codes.isEmpty() && !r.complete && rest.isNotEmpty()) {

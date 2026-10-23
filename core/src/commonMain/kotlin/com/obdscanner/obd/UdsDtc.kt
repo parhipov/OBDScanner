@@ -22,7 +22,7 @@ import kotlinx.coroutines.withContext
  */
 class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
 
-    suspend fun read(module: GmModule, chain: List<String> = DEFAULT, vagNumbers: Boolean = false): GmDtcResult {
+    suspend fun read(module: GmModule, chain: List<String> = DEFAULT, vagNumbers: Boolean = false, udsTwoByte: Boolean = false): GmDtcResult {
         obd.target(module.req, module.resp)
         val tried = mutableListOf<Pair<String, Int?>>()
         var result: GmDtcResult? = null
@@ -40,7 +40,7 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
             tried += way to nrc
             if (data == null) continue
             result = when (way) {
-                "uds19" -> parseUds(module, data, cut)
+                "uds19" -> parseUds(module, data, cut, udsTwoByte)
                 "kwp18" -> parseKwp(module, data, vagNumbers)
                 else -> parseKwp13(module, data)
             }
@@ -59,14 +59,17 @@ class UdsDtcReader(private val obd: Obd, private val note: (String) -> Unit) {
     /**
      * [59 02 availMask (DTC_hi DTC_mid FTB status)*]. An entry without a fault bit (an ECU that ignores the
      * mask: status 40/50 = only "test not completed") is not a code: counted and logged, not listed.
-     * [cut] — the reply didn't arrive whole (BUFFER FULL, an incomplete ISO-TP message).
+     * [cut] — the reply didn't arrive whole (BUFFER FULL, an incomplete ISO-TP message). [twoByte] — the dialect's
+     * "uds2": a record is 00, the SAE code, the status (the Outback BT's 2.4 turbo: 00 01 71 45 and 00 21 95 6D, the
+     * P0171 and P2195 its Mode 03 / 07 gave); a record that doesn't start with 00 is read the standard way.
      */
-    internal fun parseUds(module: GmModule, d: IntArray, cut: Boolean = false): GmDtcResult {
+    internal fun parseUds(module: GmModule, d: IntArray, cut: Boolean = false, twoByte: Boolean = false): GmDtcResult {
         val codes = mutableListOf<GmDtc>()
         val idle = mutableListOf<GmDtc>()
         var i = 3
         while (i + 3 < d.size) {
-            val c = GmDtc(Dtc.decode(d[i], d[i + 1]), d[i + 2], d[i + 3], DtcScheme.UDS)
+            val c = if (twoByte && d[i] == 0) GmDtc(Dtc.decode(d[i + 1], d[i + 2]), -1, d[i + 3], DtcScheme.UDS)
+                else GmDtc(Dtc.decode(d[i], d[i + 1]), d[i + 2], d[i + 3], DtcScheme.UDS)
             val into = if (c.status and FAULT != 0) codes else idle
             if (c !in into) into += c
             i += 4

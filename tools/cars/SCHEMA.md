@@ -120,7 +120,11 @@ in git) through the connection and compares what the app sends and finds with `r
   answer has the PID's length; the bitmap must be 4 bytes.
 - `dtc` — the block's full code memory, tried in order until one answers: `gm_a9` (GMLAN $A9, CAN only),
   `uds19` ($19 02 FF), `kwp18` ($18 02 FF00), `kwp13` ($13, codes without status; refused — `13 81`, as Techstream asks a Toyota on CAN). Default `uds19 kwp18`.
-- `dtc_format` — `sae` (default) or `vag` (KWP codes as 5-digit VAG numbers).
+- `dtc_format` — `sae` (default), `vag` (KWP codes as 5-digit VAG numbers) or `uds2` (UDS $19 records as `00`, the
+  2-byte SAE code, the status — no failure type; the Outback BT's 2.4 turbo: `00 01 71 45` = P0171).
+- `family_commands` — `true`: the block keeps its family's parameters (a dialect that differs only in how it reads
+  codes); no `commands` of its own then. Without it a block that talks a named dialect gets only that dialect's
+  `commands` (Toyota JDM's blocks don't answer the family's $22).
 - `ident` — the identification: `uds_kwp` ($22 F1xx, then KWP $1A; default) or `gm_1a` (GMLAN $1A).
 - `commands` — this dialect's own parameters (Command format, `hdr` required).
 
@@ -180,7 +184,7 @@ in git) through the connection and compares what the app sends and finds with `r
   - `console`        in the centre console / under the ashtray / behind a tunnel trim
   - `passenger`      passenger side / glovebox
 - `verified: true` only for cars actually connected with this app (CTS 2.8, Polo, RAV4 2005, Vesta, Solaris, Crown S180,
-  Sportage QL 2.0, Pontiac Vibe 2009, Mazda CX-5 KE 2013).
+  Sportage QL 2.0, Pontiac Vibe 2009, Mazda CX-5 KE 2013, Subaru Outback BT 2021 2.4 turbo).
 - `names` — modules by request id on this model (`{ "24F": { "ru": …, "en": … } }`): over the family's
   `modules.names`, under its `diagNames`. For an id GM gives different modules on different cars, named
   for the model a source checked it on.
