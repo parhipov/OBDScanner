@@ -177,12 +177,15 @@ object CarDb {
 
     /**
      * The model with its engines narrowed by the VIN: the engines whose `vin` pattern fits are the car's (its size and
-     * cylinders then count); none fits — all of them, the car's is unknown.
+     * cylinders then count); none fits — all of them, the car's is unknown. The gearboxes the same way.
      */
     fun forVin(model: CarModel, vin: String?): CarModel {
         val v = vin?.trim()?.uppercase()?.ifEmpty { null } ?: return model
-        val fit = model.engines.filter { e -> e.vin.any { it.containsMatchIn(v) } }
-        return if (fit.isEmpty() || fit.size == model.engines.size) model else model.copy(engines = fit)
+        fun <T> narrow(all: List<T>, vin: (T) -> List<Regex>): List<T> =
+            all.filter { x -> vin(x).any { it.containsMatchIn(v) } }.takeIf { it.isNotEmpty() && it.size < all.size } ?: all
+        val engines = narrow(model.engines) { it.vin }
+        val gearboxes = narrow(model.gearboxes) { it.vin }
+        return if (engines === model.engines && gearboxes === model.gearboxes) model else model.copy(engines = engines, gearboxes = gearboxes)
     }
 
     private fun m(model: CarModel, year: Int) = model.years?.let { year in it } ?: true
@@ -240,6 +243,15 @@ object CarDb {
             years = years,
             vin = m.optJSONArray("vin").strings().mapNotNull { runCatching { Regex(it, RegexOption.IGNORE_CASE) }.getOrNull() },
             engines = engines,
+            gearboxes = m.optJSONArray("gearboxes").objects().map { g ->
+                Gearbox(
+                    g.getString("code"),
+                    g.optJSONArray("ratios")?.let { r -> (0 until r.length()).map { r.getDouble(it) } }.orEmpty(),
+                    g.optBoolean("cvt", false),
+                    vin = g.optJSONArray("vin").strings().mapNotNull { runCatching { Regex(it, RegexOption.IGNORE_CASE) }.getOrNull() },
+                )
+            },
+            layout = m.optString("layout").ifEmpty { null }?.also { require(it in CarModel.LAYOUTS) { "layout $it: one of ${CarModel.LAYOUTS.joinToString()}" } },
             protocol = m.optInt("protocol", 0).takeIf { it in 1..9 },
             obd = m.optString("obd").ifEmpty { null },
             buses = m.optJSONObject("buses")?.let { text(it) },
@@ -585,6 +597,16 @@ data class Engine(
     }
 }
 
+/** An automatic gearbox: its forward gears' ratios, 1st first (empty — not known), or a CVT. */
+data class Gearbox(
+    val code: String, val ratios: List<Double>, val cvt: Boolean,
+    /** Regexes over the full VIN that say it's this gearbox (only where a source gives the VIN's code for it). */
+    val vin: List<Regex> = emptyList(),
+) {
+    val title: String get() = listOfNotNull(code, if (cvt) tr("вариатор", "CVT") else ratios.size.takeIf { it > 0 }?.let { tr("$it ступ.", "$it-speed") })
+        .joinToString(" · ")
+}
+
 data class CarModel(
     val family: String,
     val brand: String,
@@ -593,6 +615,10 @@ data class CarModel(
     val years: IntRange?,
     val vin: List<Regex>,
     val engines: List<Engine>,
+    /** The automatic gearboxes the model comes with, narrowed by the VIN like [engines]. */
+    val gearboxes: List<Gearbox> = emptyList(),
+    /** How the engine sits: [LAYOUTS] — longitudinal has a driveshaft from the gearbox to the rear axle. */
+    val layout: String? = null,
     /** ELM327 ATSP number of the engine ECU. */
     val protocol: Int?,
     /** Socket location id: picture obd_loc_<id>. */
@@ -636,6 +662,10 @@ data class CarModel(
     val title get() = listOfNotNull(brand, model, gen).joinToString(" ") + if (years != null) " ($yearsText)" else ""
     /** "RAV4 XA20 · 2000–2005". */
     val shortTitle get() = listOfNotNull(model, gen).joinToString(" ") + if (years != null) " · $yearsText" else ""
+
+    companion object {
+        val LAYOUTS = setOf("longitudinal", "transverse")
+    }
 }
 
 /** Where a value sits in the answer and how to scale it (SCHEMA.md `fmt`). */

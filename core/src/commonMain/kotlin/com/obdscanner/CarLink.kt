@@ -782,6 +782,7 @@ class CarLink(
                 }
             } ?: tr("не определена", "unknown")),
             tr("Двигатель: ", "Engine: ") + (car?.engines?.joinToString("; ") { it.title }?.ifEmpty { null } ?: "—"),
+            car?.gearboxes?.ifEmpty { null }?.let { tr("Коробка-автомат: ", "Automatic gearbox: ") + it.joinToString("; ") { g -> g.title } },
         ).joinToString("\n"))
         session?.report("Mode 09", info.entries.joinToString("\n\n") { (h, i) ->
             "${ecuName(h)} [%03X]\n".format(h) + i.entries.joinToString("\n") { (t, s) -> "  ${Mode09.name(t)}: ${s.replace("\n", "\n    ")}" }

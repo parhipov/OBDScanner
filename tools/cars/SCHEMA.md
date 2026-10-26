@@ -173,6 +173,11 @@ in git) through the connection and compares what the app sends and finds with `r
   engine's VIN code). A VIN that fits narrows the car to those engines (their size and cylinders then count);
   one that fits none keeps them all.
 - `fuel`: `petrol | diesel | hybrid | electric | lpg`. `maf`: true/false, leave out if unknown.
+- `gearboxes` — optional automatic gearboxes: `{ "code": "9T45", "ratios": [4.689, …], "vin": ["^KL79M[NRSU]"] }`,
+  `ratios` the forward gears from 1st (only from the maker's table or the car's own log), `"cvt": true` for a CVT
+  (no ratios). `vin` narrows them as `engines[].vin` does. The report compares the measured gear ratios with these.
+- `layout` — `longitudinal` (a driveshaft from the gearbox to the rear axle: the report's driveshaft check) or
+  `transverse` (the gearbox drives the front axle; on AWD the rear shaft turns at another speed, or not at all).
 - `protocol` — ELM327 ATSP number of the engine ECU for this generation:
   1 J1850 PWM, 2 J1850 VPW, 3 ISO 9141-2, 4 ISO 14230 5-baud, 5 ISO 14230 fast, 6 CAN 11/500,
   7 CAN 29/500, 8 CAN 11/250, 9 CAN 29/250. If years split between protocols — two entries, or leave out.

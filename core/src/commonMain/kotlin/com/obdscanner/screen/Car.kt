@@ -122,6 +122,7 @@ object CarCard {
         val details = mutableListOf<Pair<String, String>>()
         if (car != null) {
             if (car.engines.isNotEmpty()) details += tr("Двигатель", "Engine") to car.engines.joinToString("\n") { it.title }
+            if (car.gearboxes.isNotEmpty()) details += tr("Коробка-автомат", "Automatic gearbox") to car.gearboxes.joinToString("\n") { it.title }
             CarText.protocolName(car.protocol)?.let {
                 details += tr("Протокол", "Protocol") to it + if (car.protocol in 1..2) tr(", многие клоны ELM327 его не поддерживают", ", many ELM327 clones don't support it") else ""
             }

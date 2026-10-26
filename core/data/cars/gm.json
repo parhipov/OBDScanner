@@ -235,6 +235,7 @@
       "brand": "Cadillac",
       "model": "CTS",
       "gen": "GMX320 (1st gen)",
+      "layout": "longitudinal",
       "years": [
         2003,
         2007
@@ -295,6 +296,7 @@
       "brand": "Cadillac",
       "model": "CTS",
       "gen": "2nd gen",
+      "layout": "longitudinal",
       "years": [
         2008,
         2014
@@ -342,6 +344,9 @@
           "fuel": "petrol"
         }
       ],
+      "gearboxes": [
+        { "code": "6L50", "ratios": [4.065, 2.371, 1.551, 1.157, 0.853, 0.674] }
+      ],
       "protocol": 6,
       "buses": {
         "ru": "HS-CAN 500 кбит/с (контакты 6/14): двигатель, АКПП, ABS и часть блоков. GMLAN SW-CAN 33,3 кбит/с (контакт 1): кузов, щиток, климат, магнитола — нужен адаптер с SW-CAN.",
@@ -366,6 +371,7 @@
       "brand": "Cadillac",
       "model": "CTS",
       "gen": "3rd gen",
+      "layout": "longitudinal",
       "years": [
         2014,
         2019
@@ -423,6 +429,7 @@
       "brand": "Cadillac",
       "model": "STS",
       "gen": "Sigma",
+      "layout": "longitudinal",
       "years": [
         2005,
         2011
@@ -468,6 +475,7 @@
       "brand": "Cadillac",
       "model": "SRX",
       "gen": "1st gen",
+      "layout": "longitudinal",
       "years": [
         2004,
         2009
@@ -506,6 +514,7 @@
       "brand": "Cadillac",
       "model": "SRX",
       "gen": "2nd gen",
+      "layout": "transverse",
       "years": [
         2010,
         2016
@@ -551,6 +560,7 @@
       "brand": "Cadillac",
       "model": "Escalade",
       "gen": "GMT800",
+      "layout": "longitudinal",
       "years": [
         2002,
         2006
@@ -592,6 +602,7 @@
       "brand": "Cadillac",
       "model": "Escalade",
       "gen": "GMT900",
+      "layout": "longitudinal",
       "years": [
         2007,
         2014
@@ -637,6 +648,7 @@
       "brand": "Cadillac",
       "model": "Escalade",
       "gen": "K2XL",
+      "layout": "longitudinal",
       "years": [
         2015,
         2020
@@ -664,6 +676,7 @@
       "brand": "Cadillac",
       "model": "ATS",
       "gen": "Alpha",
+      "layout": "longitudinal",
       "years": [
         2013,
         2019
@@ -720,6 +733,7 @@
       "brand": "Cadillac",
       "model": "XT5",
       "gen": "C1XX",
+      "layout": "transverse",
       "years": [
         2017,
         2025
@@ -767,6 +781,7 @@
       "brand": "Cadillac",
       "model": "CT6",
       "gen": "Omega",
+      "layout": "longitudinal",
       "years": [
         2016,
         2020
@@ -816,6 +831,7 @@
       "brand": "Cadillac",
       "model": "CT5",
       "gen": "Alpha",
+      "layout": "longitudinal",
       "years": [
         2020,
         2026
@@ -874,6 +890,7 @@
       "brand": "Cadillac",
       "model": "CT4",
       "gen": "Alpha",
+      "layout": "longitudinal",
       "years": [
         2020,
         2026
@@ -925,6 +942,7 @@
       "brand": "Cadillac",
       "model": "DTS",
       "gen": "G-body",
+      "layout": "transverse",
       "years": [
         2006,
         2011
@@ -956,6 +974,7 @@
       "brand": "Cadillac",
       "model": "DeVille",
       "gen": "8th gen",
+      "layout": "transverse",
       "years": [
         2000,
         2005
@@ -995,6 +1014,7 @@
       "brand": "Cadillac",
       "model": "Seville",
       "gen": "5th gen",
+      "layout": "transverse",
       "years": [
         1998,
         2004
@@ -1034,6 +1054,7 @@
       "brand": "Chevrolet",
       "model": "Cruze",
       "gen": "J300",
+      "layout": "transverse",
       "years": [
         2009,
         2016
@@ -1091,6 +1112,7 @@
       "brand": "Chevrolet",
       "model": "Lacetti",
       "gen": "J200",
+      "layout": "transverse",
       "years": [
         2004,
         2013
@@ -1134,6 +1156,7 @@
       "brand": "Chevrolet",
       "model": "Aveo",
       "gen": "T250",
+      "layout": "transverse",
       "years": [
         2006,
         2011
@@ -1191,6 +1214,7 @@
       "brand": "Chevrolet",
       "model": "Aveo",
       "gen": "T300",
+      "layout": "transverse",
       "years": [
         2011,
         2020
@@ -1246,6 +1270,7 @@
       "brand": "Chevrolet",
       "model": "Captiva",
       "gen": "C100",
+      "layout": "transverse",
       "years": [
         2006,
         2011
@@ -1291,6 +1316,7 @@
       "brand": "Chevrolet",
       "model": "Captiva",
       "gen": "C140",
+      "layout": "transverse",
       "years": [
         2011,
         2018
@@ -1331,6 +1357,7 @@
       "brand": "Chevrolet",
       "model": "Niva",
       "gen": "VAZ-2123",
+      "layout": "longitudinal",
       "years": [
         2002,
         2020
@@ -1366,6 +1393,7 @@
       "brand": "Chevrolet",
       "model": "Tahoe",
       "gen": "GMT800",
+      "layout": "longitudinal",
       "years": [
         2000,
         2006
@@ -1414,6 +1442,7 @@
       "brand": "Chevrolet",
       "model": "Tahoe",
       "gen": "GMT900",
+      "layout": "longitudinal",
       "years": [
         2007,
         2014
@@ -1473,6 +1502,7 @@
       "brand": "Chevrolet",
       "model": "Tahoe",
       "gen": "K2XX",
+      "layout": "longitudinal",
       "years": [
         2015,
         2020
@@ -1506,6 +1536,7 @@
       "brand": "Opel/Vauxhall",
       "model": "Astra",
       "gen": "H",
+      "layout": "transverse",
       "years": [
         2004,
         2014
@@ -1575,6 +1606,7 @@
       "brand": "Opel/Vauxhall",
       "model": "Astra",
       "gen": "J",
+      "layout": "transverse",
       "years": [
         2009,
         2015
@@ -1644,6 +1676,7 @@
       "brand": "Opel/Vauxhall",
       "model": "Insignia",
       "gen": "A",
+      "layout": "transverse",
       "years": [
         2008,
         2017
@@ -1701,6 +1734,7 @@
       "brand": "Opel/Vauxhall",
       "model": "Corsa",
       "gen": "D",
+      "layout": "transverse",
       "years": [
         2006,
         2014
@@ -1758,6 +1792,7 @@
       "brand": "Holden",
       "model": "Commodore",
       "gen": "VE",
+      "layout": "longitudinal",
       "years": [
         2006,
         2013
@@ -1832,6 +1867,7 @@
       "brand": "Holden",
       "model": "Commodore",
       "gen": "VF",
+      "layout": "longitudinal",
       "years": [
         2013,
         2017
@@ -1884,6 +1920,7 @@
       "brand": "Buick",
       "model": "Enclave",
       "gen": "C1XX (2nd gen)",
+      "layout": "transverse",
       "years": [
         2018,
         2025
@@ -1915,6 +1952,7 @@
       "brand": "Buick",
       "model": "Enclave",
       "gen": "3rd gen",
+      "layout": "transverse",
       "years": [
         2025,
         2026
@@ -1944,6 +1982,7 @@
       "brand": "Chevrolet",
       "model": "Trailblazer",
       "gen": "VSS-F (3rd gen)",
+      "layout": "transverse",
       "years": [
         2020,
         2026
@@ -1986,6 +2025,10 @@
           "code": "L3Z",
           "liters": 1.3
         }
+      ],
+      "gearboxes": [
+        { "code": "9T45", "ratios": [4.689, 3.306, 3.012, 2.446, 1.923, 1.446, 1.0, 0.747, 0.617], "vin": ["^KL79M[NRSU]"] },
+        { "code": "VT40", "cvt": true, "vin": ["^KL79M[LMPTV]"] }
       ],
       "protocol": 6,
       "diagNames": {
@@ -2069,7 +2112,9 @@
       "src": [
         "https://github.com/parhipov/OBDScanner/issues/1",
         "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
-        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf"
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf",
+        "https://github.com/parhipov/OBDScanner/issues/5",
+        "https://vpic.nhtsa.dot.gov/api/"
       ],
       "verified": false
     },
@@ -2077,6 +2122,7 @@
       "brand": "Buick",
       "model": "Encore GX",
       "gen": "VSS-F",
+      "layout": "transverse",
       "years": [
         2020,
         2026
@@ -2118,6 +2164,10 @@
           "liters": 1.3
         }
       ],
+      "gearboxes": [
+        { "code": "9T45", "ratios": [4.689, 3.306, 3.012, 2.446, 1.923, 1.446, 1.0, 0.747, 0.617], "vin": ["^KL4MM[CEG]"] },
+        { "code": "VT40", "cvt": true, "vin": ["^KL4MM[BDF]"] }
+      ],
       "note": {
         "ru": "Тот же Chevrolet Trailblazer VSS-F.",
         "en": "Same as the Chevrolet Trailblazer VSS-F."
@@ -2125,7 +2175,9 @@
       "src": [
         "https://github.com/parhipov/OBDScanner/issues/1",
         "https://github.com/user-attachments/files/33476324/MY25.GMNA.VIN.Standards.Revision.9.0.pdf",
-        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf"
+        "https://github.com/user-attachments/files/33477388/26MY.GMNA.VIN.Standards.-.Rev.3.0.pdf",
+        "https://github.com/parhipov/OBDScanner/issues/5",
+        "https://vpic.nhtsa.dot.gov/api/"
       ],
       "verified": false
     }

@@ -316,6 +316,30 @@ class CarDbTest {
     }
 
     /**
+     * The VSS-F's gearbox by the VIN (issue #5: AWD — 9T45, FWD — VT40 CVT): NHTSA vPIC decodes the US Trailblazer's
+     * 5th character N R S U as AWD «Automatic 9», L M P T V as FWD CVT (2021–2022; the drive the same through 2026),
+     * the Encore GX's C E G as AWD, B D F as FWD. A Korean VIN isn't decoded there: both gearboxes stay.
+     */
+    @Test
+    fun gearboxesByVin() {
+        assertEquals(listOf("9T45"), CarDb.detect("KL79MRSL8NB123456")!!.gearboxes.map { it.code })
+        assertEquals(listOf("VT40"), CarDb.detect("KL79MPS28NB123456")!!.gearboxes.map { it.code })
+        assertEquals(listOf("9T45"), CarDb.detect("KL4MMESL8MB123456")!!.gearboxes.map { it.code })
+        assertEquals(listOf("9T45", "VT40"), CarDb.detect("KLAPD56LDMB029075")!!.gearboxes.map { it.code })
+        CarDb.detect("KL79MRSL8NB123456")!!.gearboxes.single().let {
+            assertEquals(9, it.ratios.size)
+            assertEquals(1.446, it.ratios[5], 0.0)
+        }
+        assertTrue(CarDb.detect("KL79MPS28NB123456")!!.gearboxes.single().cvt)
+        // GM's layouts: every model says how its engine sits; the CTS has the 6L50 our car's log shows.
+        assertTrue(CarDb.families.getValue("gm").models.all { it.layout != null })
+        val cts = CarDb.models.single { it.model == "CTS" && it.gen == "2nd gen" }
+        assertEquals("longitudinal", cts.layout)
+        assertEquals(listOf(4.065, 2.371, 1.551, 1.157, 0.853, 0.674), cts.gearboxes.single().ratios)
+        assertEquals("transverse", CarDb.detect("KLAPD56LDMB029075")!!.layout)
+    }
+
+    /**
      * GM Korea's KLA is Daewoo in the WMI table, yet a model's own VIN pattern finds the Chevrolet built under it
      * (issue #1); the model's module names go over the family's, and only on that model.
      */
